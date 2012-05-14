@@ -189,6 +189,18 @@ extern void list_init_copy(list_t* plist_dest, const list_t* cplist_src);
 extern void list_init_copy_range(list_t* plist_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize list container with specific array.
+ * @param plist_dest   destination list container.
+ * @param cpv_array    array.
+ * @param t_count      element count of array.
+ * @return void.
+ * @remarks if plist_dest == NULL, then the behavior is undefined. plist_dest must be created by create_list(), otherwise
+ *          the behavior is undefined. cpv_array must be not NULL, otherwist the behavior is undefined. the
+ *          element type of array and plist_dest must be the same, otherwise the behavior is undefined.
+ */
+extern void list_init_copy_array(list_t* plist_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Return the number of elements in a list.
  * @param cplist_list  list container.
  * @return the number of elements in the list.

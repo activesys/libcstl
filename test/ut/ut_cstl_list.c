@@ -612,6 +612,159 @@ void test_list_init_copy_range__other_container_range1(void** state)
 }
 
 /*
+ * test list_init_copy_array
+ */
+UT_CASE_DEFINATION(list_init_copy_array)
+void test_list_init_copy_array__null_list_container(void** state)
+{
+    int an_array[10] = {0};
+
+    expect_assert_failure(list_init_copy_array(NULL, an_array, 10));
+}
+
+void test_list_init_copy_array__non_created_list_container(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    int an_array[10] = {0};
+
+    plist_dest->_pt_node = (_listnode_t*)0x8383;
+    expect_assert_failure(list_init_copy_array(plist_dest, an_array, 10));
+
+    plist_dest->_pt_node = NULL;
+    list_destroy(plist_dest);
+}
+
+void test_list_init_copy_array__invalid_array(void** state)
+{
+    list_t* plist_dest = create_list(int);
+
+    expect_assert_failure(list_init_copy_array(plist_dest, NULL, 5));
+
+    list_destroy(plist_dest);
+}
+
+void test_list_init_copy_array__init_copy_array_empty(void** state)
+{
+    list_t* plist_dest = create_list(int);
+    int an_array[10] = {0};
+
+    list_init_copy_array(plist_dest, an_array, 0);
+    assert_true(_list_is_inited(plist_dest));
+    assert_true(list_size(plist_dest) == 0);
+
+    list_destroy(plist_dest);
+}
+
+void test_list_init_copy_array__c_builtin(void** state)
+{
+    int an_array[10] = {0};
+    int i = 0;
+    list_t* plist_dest = create_list(int);
+    list_iterator_t it_dest;
+
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i * 100;
+    }
+    list_init_copy_array(plist_dest, an_array, 10);
+    assert_true(_list_is_inited(plist_dest));
+    assert_true(list_size(plist_dest) == 10);
+    for(it_dest = list_begin(plist_dest), i = 0;
+        !iterator_equal(it_dest, list_end(plist_dest)) && i < 10;
+        it_dest = iterator_next(it_dest), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_dest) == an_array[i]);
+    }
+
+    list_destroy(plist_dest);
+}
+
+void test_list_init_copy_array__cstr(void** state)
+{
+    list_iterator_t it_dest;
+    list_t* plist_dest = create_list(char*);
+    int i = 0;
+    const char* as_array[] = {
+        "abc", "nba", "nbc", "bbc", "ddd"
+    };
+
+    list_init_copy_array(plist_dest, as_array, 5);
+    assert_true(_list_is_inited(plist_dest));
+    assert_true(list_size(plist_dest) == 5);
+    for(it_dest = list_begin(plist_dest), i = 0;
+        !iterator_equal(it_dest, list_end(plist_dest)) && i < 5;
+        it_dest = iterator_next(it_dest), ++i)
+    {
+        assert_true(strcmp((char*)iterator_get_pointer(it_dest), as_array[i]) == 0);
+    }
+
+    list_destroy(plist_dest);
+}
+
+void test_list_init_copy_array__libcstl_builtin(void** state)
+{
+    list_iterator_t it_dest;
+    list_t* plist_dest = create_list(list_t<int>);
+    list_t* aplist_array[10] = {NULL};
+    int i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        aplist_array[i] = create_list(int);
+        list_init_elem(aplist_array[i], i, i);
+    }
+    list_init_copy_array(plist_dest, aplist_array, 10);
+    assert_true(_list_is_inited(plist_dest));
+    assert_true(list_size(plist_dest) == 10);
+    for(it_dest = list_begin(plist_dest), i = 0;
+        !iterator_equal(it_dest, list_end(plist_dest)) && i < 10;
+        it_dest = iterator_next(it_dest), ++i)
+    {
+        assert_true(list_equal((list_t*)iterator_get_pointer(it_dest), aplist_array[i]));
+    }
+
+    list_destroy(plist_dest);
+    for (i = 0; i < 10; ++i) {
+        list_destroy(aplist_array[i]);
+    }
+}
+
+typedef struct _tag_test_list_init_copy_array__user_define
+{
+    int n_elem;
+}_test_list_init_copy_array__user_define_t;
+void test_list_init_copy_array__user_define(void** state)
+{
+    list_iterator_t it_dest;
+    list_t* plist_dest = NULL;
+    _test_list_init_copy_array__user_define_t* apt_array[10] = {NULL};
+    int i = 0;
+
+    type_register(_test_list_init_copy_array__user_define_t, NULL, NULL, NULL, NULL);
+    type_duplicate(_test_list_init_copy_array__user_define_t, struct _tag_test_list_init_copy_array__user_define);
+    plist_dest = create_list(_test_list_init_copy_array__user_define_t);
+
+    for (i = 0; i < 10; ++i) {
+        apt_array[i] = malloc(sizeof(_test_list_init_copy_array__user_define_t));
+        apt_array[i]->n_elem = i;
+    }
+    list_init_copy_array(plist_dest, apt_array, 10);
+    assert_true(_list_is_inited(plist_dest));
+    assert_true(list_size(plist_dest) == 10);
+    for(it_dest = list_begin(plist_dest), i = 0;
+        !iterator_equal(it_dest, list_end(plist_dest)) && i < 10;
+        it_dest = iterator_next(it_dest), ++i)
+    {
+        assert_true(((_test_list_init_copy_array__user_define_t*)iterator_get_pointer(it_dest))->n_elem ==
+            apt_array[i]->n_elem);
+    }
+
+    list_destroy(plist_dest);
+    for (i = 0; i < 10; ++i) {
+        free(apt_array[i]);
+    }
+}
+
+/*
  * test list_size
  */
 UT_CASE_DEFINATION(list_size)
