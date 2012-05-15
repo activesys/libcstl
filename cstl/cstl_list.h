@@ -317,6 +317,18 @@ extern void list_assign(list_t* plist_dest, const list_t* cplist_src);
 extern void list_assign_range(list_t* plist_list, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Assign list element with an exist list container array.
+ * @param plist_dest    destination list container.
+ * @param cpv_array     array.
+ * @param t_count       element count of array.
+ * @return void.
+ * @remarks if plist_dest == NULL, then the behavior is undefined. plist_dest must be initialized, otherwise the behavior
+ *          is undefined. the element type of list and array must be same, otherwise the behavior is
+ *          undefined. cpv_array must be not NULL, otherwise the behavior is undefined.
+ */
+extern void list_assign_array(list_t* plist_list, const void* cpv_array, size_t t_count);
+
+/**
  * Swap list datas.
  * @param plist_first    first list.
  * @param plist_second   second list.

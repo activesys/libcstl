@@ -430,6 +430,72 @@ void list_assign_range(list_t* plist_list, iterator_t it_begin, iterator_t it_en
 }
 
 /**
+ * Assign list element with an exist list container array.
+ */
+void list_assign_array(list_t* plist_list, const void* cpv_array, size_t t_count)
+{
+    iterator_t it_dest;
+    bool_t     b_result = false;
+    size_t     i = 0;
+
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(cpv_array != NULL);
+
+    /* 
+     * initialize the new list with the list size, compare function,
+     * destroy element function of list that it_begin and it_end iterator
+     * point to.
+     */
+    list_resize(plist_list, t_count);
+
+    /*
+     * Copy the elements from src array to dest deque.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_LIST_TYPE_BASENAME(plist_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (it_dest = list_begin(plist_list), i = 0;
+             !iterator_equal(it_dest, list_end(plist_list)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            b_result = _GET_LIST_TYPE_SIZE(plist_list);
+            _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
+                _iterator_get_pointer_ignore_cstr(it_dest), pstr_elem, &b_result);
+            assert(b_result);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_LIST_TYPE_STYLE(plist_list) == _TYPE_C_BUILTIN) {
+        for (it_dest = list_begin(plist_list), i = 0;
+             !iterator_equal(it_dest, list_end(plist_list)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_LIST_TYPE_SIZE(plist_list);
+            _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
+                _iterator_get_pointer_ignore_cstr(it_dest),
+                (unsigned char*)cpv_array + i * _GET_LIST_TYPE_SIZE(plist_list), &b_result);
+            assert(b_result);
+        }
+    } else {
+        for (it_dest = list_begin(plist_list), i = 0;
+             !iterator_equal(it_dest, list_end(plist_list)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_LIST_TYPE_SIZE(plist_list);
+            _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
+                _iterator_get_pointer_ignore_cstr(it_dest), *((void**)cpv_array + i), &b_result);
+            assert(b_result);
+        }
+    }
+    assert(iterator_equal(it_dest, list_end(plist_list)) && i == t_count);
+}
+
+/**
  * Swap list datas.
  */
 void list_swap(list_t* plist_first, list_t* plist_second)
