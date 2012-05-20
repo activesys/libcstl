@@ -12,3 +12,10 @@ ut
 cscope.*
 *.swp
 *.log
+*.obj
+*.dll
+*.lib
+bin/*
+*.user
+*.ncb
+*.suo
