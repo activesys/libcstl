@@ -1,0 +1,4 @@
+env = Environment(CPPPATH = ['.'])
+env.Library('cstl',[Glob('src/*.c')])
+env.Program('it',[Glob('test/it/*.c')],
+			LIBS='cstl',LIBPATH=['.'])
