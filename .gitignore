@@ -17,3 +17,7 @@ ut.exe
 *.obj
 .sconsign.dblite
 *.lib
+bin/
+*.user
+*.ncb
+*.suo
