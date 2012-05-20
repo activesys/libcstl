@@ -12,3 +12,12 @@ ut
 cscope.*
 *.swp
 *.log
+it.exe
+ut.exe
+*.obj
+.sconsign.dblite
+*.lib
+bin/
+*.user
+*.ncb
+*.suo
