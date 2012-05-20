@@ -736,6 +736,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_iterator_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_list.c"
 				>
 			</File>
