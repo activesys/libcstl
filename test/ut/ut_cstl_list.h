@@ -309,6 +309,25 @@ void test_list_insert_range__end_insert_0(void** state);
 void test_list_insert_range__end_insert_10(void** state);
 void test_list_insert_range__other_container_range(void** state);
 /*
+ * test list_insert_array
+ */
+UT_CASE_DECLARATION(list_insert_array)
+void test_list_insert_array__null_list_container(void** state);
+void test_list_insert_array__non_inited(void** state);
+void test_list_insert_array__invalid_position(void** state);
+void test_list_insert_array__invalid_array(void** state);
+void test_list_insert_array__empty_insert_0(void** state);
+void test_list_insert_array__empty_insert_10(void** state);
+void test_list_insert_array__begin_insert_0(void** state);
+void test_list_insert_array__begin_insert_10(void** state);
+void test_list_insert_array__middle_insert_0(void** state);
+void test_list_insert_array__middle_insert_10(void** state);
+void test_list_insert_array__end_insert_0(void** state);
+void test_list_insert_array__end_insert_10(void** state);
+void test_list_insert_array__cstr(void** state);
+void test_list_insert_array__cstl(void** state);
+void test_list_insert_array__user_define(void** state);
+/*
  * test list_pop_back
  */
 UT_CASE_DECLARATION(list_pop_back)
@@ -795,6 +814,21 @@ void test_list_reverse__not_same(void** state);
     UT_CASE(test_list_insert_range__end_insert_0),\
     UT_CASE(test_list_insert_range__end_insert_10),\
     UT_CASE(test_list_insert_range__other_container_range),\
+    UT_CASE_BEGIN(list_insert_array, test_list_insert_array__null_list_container),\
+    UT_CASE(test_list_insert_array__non_inited),\
+    UT_CASE(test_list_insert_array__invalid_position),\
+    UT_CASE(test_list_insert_array__invalid_array),\
+    UT_CASE(test_list_insert_array__empty_insert_0),\
+    UT_CASE(test_list_insert_array__empty_insert_10),\
+    UT_CASE(test_list_insert_array__begin_insert_0),\
+    UT_CASE(test_list_insert_array__begin_insert_10),\
+    UT_CASE(test_list_insert_array__middle_insert_0),\
+    UT_CASE(test_list_insert_array__middle_insert_10),\
+    UT_CASE(test_list_insert_array__end_insert_0),\
+    UT_CASE(test_list_insert_array__end_insert_10),\
+    UT_CASE(test_list_insert_array__cstr),\
+    UT_CASE(test_list_insert_array__cstl),\
+    UT_CASE(test_list_insert_array__user_define),\
     UT_CASE_BEGIN(list_pop_back, test_list_pop_back__null_list_container),\
     UT_CASE(test_list_pop_back__non_inited_list_container),\
     UT_CASE(test_list_pop_back__empty),\

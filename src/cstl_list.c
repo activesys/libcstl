@@ -181,7 +181,7 @@ void list_init_copy_array(list_t* plist_list, const void* cpv_array, size_t t_co
     list_init_n(plist_list, t_count);
 
     /*
-     * Copy the elements from src array to dest deque.
+     * Copy the elements from src array to dest list.
      * The array of c builtin and user define or cstl builtin are different,
      * the elements of c builtin array are element itself, but the elements of 
      * c string, user define or cstl are pointer of element.
@@ -450,7 +450,7 @@ void list_assign_array(list_t* plist_list, const void* cpv_array, size_t t_count
     list_resize(plist_list, t_count);
 
     /*
-     * Copy the elements from src array to dest deque.
+     * Copy the elements from src array to dest list.
      * The array of c builtin and user define or cstl builtin are different,
      * the elements of c builtin array are element itself, but the elements of 
      * c string, user define or cstl are pointer of element.
@@ -645,6 +645,114 @@ void list_insert_range(list_t* plist_list, list_iterator_t it_pos, iterator_t it
         }
         pt_node = NULL;
     }
+    /* insert the list into the list */
+    if (plist_begin != NULL && plist_end != NULL) {
+        plist_begin->_pt_prev = ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev;
+        plist_end->_pt_next = (_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos);
+        ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev->_pt_next = plist_begin;
+        ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev = plist_end;
+    }
+}
+
+/**
+ * Insert a array of elements into list at a specificed position.
+ */
+void list_insert_array(list_t* plist_list, list_iterator_t it_pos, const void* cpv_array, size_t t_count)
+{
+    _listnode_t* plist_begin = NULL;    /* the begin pointer of copy list */
+    _listnode_t* plist_end = NULL;      /* the end pointer of copy list */
+    _listnode_t* pt_node = NULL;         /* the new allocate node */
+    bool_t       b_result = false;
+    size_t       i = 0;
+
+    assert(plist_list != NULL);
+    assert(_list_is_inited(plist_list));
+    assert(_list_iterator_belong_to_list(plist_list, it_pos));
+    assert(cpv_array != NULL);
+
+    /*
+     * Copy the elements from src array to dest list.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_LIST_TYPE_BASENAME(plist_list), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (i = 0; i < t_count; ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+            assert(pt_node != NULL);
+
+            pt_node->_pt_next = pt_node->_pt_prev = NULL;
+            _list_init_node_auxiliary(plist_list, pt_node);
+            b_result = _GET_LIST_TYPE_SIZE(plist_list);
+            _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(pt_node->_pby_data, pstr_elem, &b_result);
+            assert(b_result);
+
+            if (plist_begin == NULL) {
+                assert(plist_end == NULL);
+                plist_begin = plist_end = pt_node;
+            } else {
+                assert(plist_end != NULL);
+                plist_end->_pt_next = pt_node;
+                pt_node->_pt_prev = plist_end;
+                plist_end = plist_end->_pt_next;
+            }
+            pt_node = NULL;
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_LIST_TYPE_STYLE(plist_list) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_count; ++i) {
+            pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+            assert(pt_node != NULL);
+
+            pt_node->_pt_next = pt_node->_pt_prev = NULL;
+            _list_init_node_auxiliary(plist_list, pt_node);
+            b_result = _GET_LIST_TYPE_SIZE(plist_list);
+            _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(
+                pt_node->_pby_data, (unsigned char*)cpv_array + i * _GET_LIST_TYPE_SIZE(plist_list), &b_result);
+            assert(b_result);
+
+            if (plist_begin == NULL) {
+                assert(plist_end == NULL);
+                plist_begin = plist_end = pt_node;
+            } else {
+                assert(plist_end != NULL);
+                plist_end->_pt_next = pt_node;
+                pt_node->_pt_prev = plist_end;
+                plist_end = plist_end->_pt_next;
+            }
+            pt_node = NULL;
+        }
+    } else {
+        for (i = 0; i < t_count; ++i) {
+            pt_node = _alloc_allocate(&plist_list->_t_allocator, _LIST_NODE_SIZE(_GET_LIST_TYPE_SIZE(plist_list)), 1);
+            assert(pt_node != NULL);
+
+            pt_node->_pt_next = pt_node->_pt_prev = NULL;
+            _list_init_node_auxiliary(plist_list, pt_node);
+            b_result = _GET_LIST_TYPE_SIZE(plist_list);
+            _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(pt_node->_pby_data, *((void**)cpv_array + i), &b_result);
+            assert(b_result);
+
+            if (plist_begin == NULL) {
+                assert(plist_end == NULL);
+                plist_begin = plist_end = pt_node;
+            } else {
+                assert(plist_end != NULL);
+                plist_end->_pt_next = pt_node;
+                pt_node->_pt_prev = plist_end;
+                plist_end = plist_end->_pt_next;
+            }
+            pt_node = NULL;
+        }
+    }
+
     /* insert the list into the list */
     if (plist_begin != NULL && plist_end != NULL) {
         plist_begin->_pt_prev = ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pt_prev;

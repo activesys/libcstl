@@ -394,6 +394,20 @@ extern list_reverse_iterator_t list_rend(const list_t* cplist_list);
 extern void list_insert_range(list_t* plist_list, list_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Insert a array of elements into list at a specificed position.
+ * @param plist_list    list container.
+ * @param it_pos        specificed position.
+ * @param cpv_array     array.
+ * @param t_count       element count of array.
+ * @return void.
+ * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for list container, otherwise
+ *          the behavior is undefined. cpv_array must not be NULL, otherwise the behavior is undefined. the type 
+ *          of specificed array and list element must be the same, otherwise the behavior is undefined.
+ */
+extern void list_insert_array(list_t* plist_list, list_iterator_t it_pos, const void* cpv_array, size_t t_count);
+
+/**
  * Delete the element at the end of list.
  * @param plist_list    list container.
  * @return void.

@@ -201,6 +201,18 @@ extern void slist_init_copy(slist_t* pslist_dest, const slist_t* cpslist_src);
 extern void slist_init_copy_range(slist_t* pslist_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize slist container with specific array.
+ * @param pslist_slist destination slist container.
+ * @param cpv_array    array.
+ * @param t_count      element count of array.
+ * @return void.
+ * @remarks if pslist_dest == NULL, then the behavior is undefined. pslist_dest must be created by create_slist(), 
+ *          otherwise the behavior is undefined. cpv_array must be valid array, otherwise the behavior is undefined. 
+ *          the element type of array and pslist_dest must be the same, otherwise the behavior is undefined.
+ */
+extern void slist_init_copy_array(slist_t* pslist_slist, const void* cpv_array, size_t t_count);
+
+/**
  * Destroy slist container.
  * @param pslist_slist   slist container.
  * @return void.
@@ -288,6 +300,17 @@ extern void slist_assign(slist_t* pslist_dest, const slist_t* cpslist_src);
 extern void slist_assign_range(slist_t* pslist_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Assign slist element with specificed array.
+ * @param pslist_dest   destination slist container.
+ * @param cpv_array     array.
+ * @param t_count       element count of array.
+ * @return void.
+ * @remarks if pslist_dest == NULL, then the behavior is undefined. pslist_dest must be initialized, otherwise the behavior
+ *          is undefined. the element type of slist and array must be same, otherwise the behavior is undefined.
+ */
+extern void slist_assign_array(slist_t* pslist_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Swap slist datas.
  * @param pslist_first    first slist.
  * @param pslist_second   second slist.
@@ -333,6 +356,21 @@ extern void slist_insert_range(
     slist_t* pslist_slist, slist_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Insert a array of elements into slist at a specificed position.
+ * @param pslist_slist    slist container.
+ * @param it_pos          specificed position.
+ * @param cpv_array       array.
+ * @param t_count         element count of array.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for slist container, otherwise
+ *          the behavior is undefined. cpv_array must be valid array, otherwise the behavior is undefined. the type 
+ *          of specificed array and slist element must be the same, otherwise the behavior is undefined.
+ */
+extern void slist_insert_array(
+    slist_t* pslist_slist, slist_iterator_t it_pos, const void* cpv_array, size_t t_count);
+
+/**
  * Insert a range of elements into slist at position following specific position.
  * @param pslist_slist    slist container.
  * @param it_pos          specificed position.
@@ -347,6 +385,22 @@ extern void slist_insert_range(
  */
 extern void slist_insert_after_range(
     slist_t* pslist_slist, slist_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Insert a array of elements into slist at position following specific position.
+ * @param pslist_slist    slist container.
+ * @param it_pos          specificed position.
+ * @param cpv_array       array.
+ * @param t_count         element count of array.
+ * @return void.
+ * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for slist container and must not be
+ *          slist_end(), otherwise the behavior is undefined. cpv_array must be valid array, otherwise the
+ *          behavior is undefined. the type of specificed array and slist element must be the same, otherwise the 
+ *          behavior is undefined.
+ */
+extern void slist_insert_after_array(
+    slist_t* pslist_slist, slist_iterator_t it_pos, const void* cpv_array, size_t t_count);
 
 /**
  * Removes an element in slist from specificed position.

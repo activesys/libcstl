@@ -3189,6 +3189,351 @@ void test_list_insert_range__other_container_range(void** state)
 }
 
 /*
+ * test list_insert_array
+ */
+UT_CASE_DEFINATION(list_insert_array)
+void test_list_insert_array__null_list_container(void** state)
+{
+    int an_array[10] = {0};
+    list_t* plist = create_list(int);
+    list_init(plist);
+
+    expect_assert_failure(list_insert_array(NULL, list_begin(plist), an_array, 10));
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    list_t* plist = create_list(int);
+
+    expect_assert_failure(list_insert_array(plist, list_begin(plist), an_array, 10));
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__invalid_position(void** state)
+{
+    int an_array[10] = {0};
+    list_iterator_t it_pos = _create_list_iterator();
+    list_t* plist = create_list(int);
+    list_init_n(plist, 10);
+    it_pos = list_begin(plist);
+    it_pos._t_pos._pby_corepos = NULL;
+
+    expect_assert_failure(list_insert_array(plist, it_pos, an_array, 10));
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__invalid_array(void** state)
+{
+    list_iterator_t it_pos = _create_list_iterator();
+    list_t* plist = create_list(int);
+    list_init_n(plist, 10);
+    it_pos = list_begin(plist);
+
+    expect_assert_failure(list_insert_array(plist, it_pos, NULL, 10));
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__empty_insert_0(void** state)
+{
+    int an_array[10] = {0};
+    list_iterator_t it_pos;
+    list_t* plist = create_list(int);
+    list_init(plist);
+
+    assert_true(list_size(plist) == 0);
+    it_pos = list_begin(plist);
+    list_insert_array(plist, it_pos, an_array, 0);
+    assert_true(list_size(plist) == 0);
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__empty_insert_10(void** state)
+{
+    int an_array[10];
+    int i = 0;
+    list_iterator_t it_pos;
+    list_iterator_t it_iter;
+    list_t* plist = create_list(int);
+    list_init(plist);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(list_size(plist) == 0);
+    it_pos = list_begin(plist);
+    list_insert_array(plist, it_pos, an_array, 10);
+    assert_true(list_size(plist) == 10);
+    for(it_iter = list_begin(plist);
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__begin_insert_0(void** state)
+{
+    int an_array[10] = {0};
+    list_iterator_t it_pos;
+    list_iterator_t it_iter;
+    list_t* plist = create_list(int);
+    list_init_n(plist, 1000);
+
+    assert_true(list_size(plist) == 1000);
+    it_pos = list_begin(plist);
+    list_insert_array(plist, it_pos, an_array, 0);
+    assert_true(list_size(plist) == 1000);
+    for(it_iter = list_begin(plist);
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__begin_insert_10(void** state)
+{
+    int an_array[10] = {0};
+    list_iterator_t it_pos;
+    list_iterator_t it_iter;
+    size_t i = 0;
+    list_t* plist = create_list(int);
+    list_init_n(plist, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(list_size(plist) == 1000);
+    it_pos = list_begin(plist);
+    list_insert_array(plist, it_pos, an_array, 10);
+    assert_true(list_size(plist) == 1010);
+    for(it_iter = list_begin(plist), i = 0;
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i < 10)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__middle_insert_0(void** state)
+{
+    int an_array[10] = {0};
+    list_iterator_t it_pos;
+    list_iterator_t it_iter;
+    size_t i = 0;
+    list_t* plist = create_list(int);
+    list_init_n(plist, 1000);
+
+    assert_true(list_size(plist) == 1000);
+    it_pos = iterator_advance(list_begin(plist), 300);
+    list_insert_array(plist, it_pos, an_array, 0);
+    assert_true(list_size(plist) == 1000);
+    for(it_iter = list_begin(plist), i = 0;
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__middle_insert_10(void** state)
+{
+    int an_array[10] = {0};
+    list_iterator_t it_pos;
+    list_iterator_t it_iter;
+    size_t i = 0;
+    list_t* plist = create_list(int);
+    list_init_n(plist, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(list_size(plist) == 1000);
+    it_pos = iterator_advance(list_begin(plist), 300);
+    list_insert_array(plist, it_pos, an_array, 10);
+    assert_true(list_size(plist) == 1010);
+    for(it_iter = list_begin(plist), i = 0;
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i >= 300 && i < 310)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__end_insert_0(void** state)
+{
+    int an_array[10] = {0};
+    list_iterator_t it_pos;
+    list_iterator_t it_iter;
+    size_t i = 0;
+    list_t* plist = create_list(int);
+    list_init_n(plist, 1000);
+
+    assert_true(list_size(plist) == 1000);
+    it_pos = list_end(plist);
+    list_insert_array(plist, it_pos, an_array, 0);
+    assert_true(list_size(plist) == 1000);
+    for(it_iter = list_begin(plist), i = 0;
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__end_insert_10(void** state)
+{
+    int an_array[10] = {0};
+    list_iterator_t it_pos;
+    list_iterator_t it_iter;
+    size_t i = 0;
+    list_t* plist = create_list(int);
+    list_init_n(plist, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(list_size(plist) == 1000);
+    it_pos = list_end(plist);
+    list_insert_array(plist, it_pos, an_array, 10);
+    assert_true(list_size(plist) == 1010);
+    for(it_iter = list_begin(plist), i = 0;
+        !iterator_equal(it_iter, list_end(plist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i >= 1000)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__cstr(void** state)
+{
+    const char* as_array[] = {
+        "linux", "windows", "mac", "unix", "solaris", "freebsd"
+    };
+    size_t i = 0;
+    list_t* plist = create_list(char*);
+    list_iterator_t it;
+    list_init_elem(plist, 10, "xxxx");
+
+    list_insert_array(plist, list_begin(plist), as_array, 6);
+    assert_true(list_size(plist) == 16);
+    for (it = list_begin(plist), i = 0;
+         !iterator_equal(it, list_end(plist));
+         it = iterator_next(it), ++i) {
+        if (i < 6) {
+            assert_true(strcmp((char*)iterator_get_pointer(it), as_array[i]) == 0);
+        } else {
+            assert_true(strcmp((char*)iterator_get_pointer(it), "xxxx") == 0);
+        }
+    }
+
+    list_destroy(plist);
+}
+
+void test_list_insert_array__cstl(void** state)
+{
+    list_iterator_t it;
+    list_t* plist = create_list(deque_t<int>);
+    deque_t* apdeq_array[10] = {NULL};
+    size_t i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        apdeq_array[i] = create_deque(int);
+        deque_init_elem(apdeq_array[i], i, i);
+    }
+    list_init_n(plist, 10);
+    list_insert_array(plist, list_end(plist), apdeq_array, 10);
+    assert_true(list_size(plist) == 20);
+    for (it = list_begin(plist), i = 0;
+         !iterator_equal(it, list_end(plist));
+         it = iterator_next(it), ++i) {
+        if (i < 10) {
+            assert_true(deque_empty(iterator_get_pointer(it)));
+        } else {
+            assert_true(deque_equal(iterator_get_pointer(it), apdeq_array[i - 10]));
+        }
+    }
+    list_destroy(plist);
+    for (i = 0; i < 10; ++i) {
+        deque_destroy(apdeq_array[i]);
+    }
+}
+
+typedef struct _test_list_insert_array {
+    int n_elem;
+}_test_list_insert_array_t;
+void test_list_insert_array__user_define(void** state)
+{
+    _test_list_insert_array_t* apt_array[10] = {NULL};
+    size_t i = 0;
+    list_t* plist = NULL;
+    list_iterator_t it;
+
+    type_register(_test_list_insert_array_t, NULL, NULL, NULL, NULL);
+    plist = create_list(_test_list_insert_array_t);
+    list_init(plist);
+    for (i = 0; i < 10; ++i) {
+        apt_array[i] = malloc(sizeof(_test_list_insert_array_t));
+        apt_array[i]->n_elem = 100;
+    }
+
+    list_insert_array(plist, list_begin(plist), apt_array, 10);
+    assert_true(list_size(plist) == 10);
+    for (it = list_begin(plist), i = 0;
+         !iterator_equal(it, list_end(plist));
+         it = iterator_next(it), ++i) {
+        assert_true(((_test_list_insert_array_t*)iterator_get_pointer(it))->n_elem == apt_array[i]->n_elem);
+    }
+
+    list_destroy(plist);
+    for (i = 0; i < 10; ++i) {
+        free(apt_array[i]);
+    }
+}
+
+/*
  * test list_pop_back
  */
 UT_CASE_DEFINATION(list_pop_back)

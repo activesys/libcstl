@@ -130,6 +130,80 @@ void slist_init_copy_range(slist_t* pslist_dest, iterator_t it_begin, iterator_t
 }
 
 /**
+ * Initialize slist container with specific array.
+ */
+void slist_init_copy_array(slist_t* pslist_slist, const void* cpv_array, size_t t_count)
+{
+    iterator_t it_dest;
+    bool_t     b_result = false;
+    size_t     i = 0;
+
+    assert(pslist_slist != NULL);
+    assert(_slist_is_created(pslist_slist));
+    assert(cpv_array != NULL);
+
+    /* initialize the dest slist use the iterator slist */
+    slist_init_n(pslist_slist, t_count);
+
+    /*
+     * Copy the elements from src array to dest slist.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_SLIST_TYPE_BASENAME(pslist_slist), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (it_dest = slist_begin(pslist_slist), i = 0;
+             !iterator_equal(it_dest, slist_end(pslist_slist)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
+                _iterator_get_pointer_ignore_cstr(it_dest), pstr_elem, &b_result);
+            assert(b_result);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_SLIST_TYPE_STYLE(pslist_slist) == _TYPE_C_BUILTIN) {
+        for (it_dest = slist_begin(pslist_slist), i = 0;
+             !iterator_equal(it_dest, slist_end(pslist_slist)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
+                _iterator_get_pointer_ignore_cstr(it_dest),
+                (unsigned char*)cpv_array + i * _GET_SLIST_TYPE_SIZE(pslist_slist), &b_result);
+            assert(b_result);
+        }
+    } else {
+        for (it_dest = slist_begin(pslist_slist), i = 0;
+             !iterator_equal(it_dest, slist_end(pslist_slist)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
+                _iterator_get_pointer_ignore_cstr(it_dest), *((void**)cpv_array + i), &b_result);
+            assert(b_result);
+        }
+    }
+    assert(iterator_equal(it_dest, slist_end(pslist_slist)) && i == t_count);
+    /*
+    for (it_dest = slist_begin(pslist_dest), it_src = it_begin;
+         !iterator_equal(it_dest, slist_end(pslist_dest)) && !iterator_equal(it_src, it_end);
+         it_dest = iterator_next(it_dest), it_src = iterator_next(it_src)) {
+        b_result = _GET_SLIST_TYPE_SIZE(pslist_dest);
+        _GET_SLIST_TYPE_COPY_FUNCTION(pslist_dest)(
+            _iterator_get_pointer_ignore_cstr(it_dest),
+            _iterator_get_pointer_ignore_cstr(it_src), &b_result);
+        assert(b_result);
+    } 
+    assert(iterator_equal(it_dest, slist_end(pslist_dest)) && iterator_equal(it_src, it_end));
+    */
+}
+
+/**
  * Destroy slist container.
  */
 void slist_destroy(slist_t* pslist_slist)
@@ -265,6 +339,67 @@ void slist_assign_range(slist_t* pslist_slist, iterator_t it_begin, iterator_t i
         assert(b_result);
     }
     assert(iterator_equal(it_dest, slist_end(pslist_slist)) && iterator_equal(it_src, it_end));
+}
+
+/**
+ * Assign slist element with specificed array.
+ */
+void slist_assign_array(slist_t* pslist_slist, const void* cpv_array, size_t t_count)
+{
+    slist_iterator_t it_dest;
+    bool_t           b_result = false;
+    size_t           i = 0;
+
+    assert(pslist_slist != NULL);
+    assert(_slist_is_inited(pslist_slist));
+    assert(cpv_array != NULL);
+
+    slist_resize(pslist_slist, t_count);
+
+    /*
+     * Copy the elements from src array to dest slist.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_SLIST_TYPE_BASENAME(pslist_slist), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (it_dest = slist_begin(pslist_slist), i = 0;
+             !iterator_equal(it_dest, slist_end(pslist_slist)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
+                _iterator_get_pointer_ignore_cstr(it_dest), pstr_elem, &b_result);
+            assert(b_result);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_SLIST_TYPE_STYLE(pslist_slist) == _TYPE_C_BUILTIN) {
+        for (it_dest = slist_begin(pslist_slist), i = 0;
+             !iterator_equal(it_dest, slist_end(pslist_slist)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
+                _iterator_get_pointer_ignore_cstr(it_dest),
+                (unsigned char*)cpv_array + i * _GET_SLIST_TYPE_SIZE(pslist_slist), &b_result);
+            assert(b_result);
+        }
+    } else {
+        for (it_dest = slist_begin(pslist_slist), i = 0;
+             !iterator_equal(it_dest, slist_end(pslist_slist)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
+            _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
+                _iterator_get_pointer_ignore_cstr(it_dest), *((void**)cpv_array + i), &b_result);
+            assert(b_result);
+        }
+    }
+    assert(iterator_equal(it_dest, slist_end(pslist_slist)) && i == t_count);
 }
 
 /**
@@ -410,13 +545,20 @@ void slist_insert_range(slist_t* pslist_slist, slist_iterator_t it_pos, iterator
 }
 
 /**
+ * Insert a array of elements into slist at a specificed position.
+ */
+void slist_insert_array(slist_t* pslist_slist, slist_iterator_t it_pos, const void* cpv_array, size_t t_count)
+{
+}
+
+/**
  * Insert a range of elements into slist at position following specific position.
  */
 void slist_insert_after_range(
     slist_t* pslist_slist, slist_iterator_t it_pos, iterator_t it_begin, iterator_t it_end)
 {
-    _slistnode_t* pt_begin = NULL;    /* the first node of duplicate list */
-    _slistnode_t* pt_end = NULL;      /* the last node of duplicate list */
+    _slistnode_t* pt_begin = NULL;    /* the first node of duplicate slist */
+    _slistnode_t* pt_end = NULL;      /* the last node of duplicate slist */
     _slistnode_t* pt_node = NULL;
     iterator_t    it_iter;
     bool_t        b_result = false;
@@ -460,6 +602,14 @@ void slist_insert_after_range(
         pt_end->_pt_next = ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next;
         ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_pos))->_pt_next = pt_begin;
     }
+}
+
+/**
+ * Insert a array of elements into slist at position following specific position.
+ */
+void slist_insert_after_array(
+    slist_t* pslist_slist, slist_iterator_t it_pos, const void* cpv_array, size_t t_count)
+{
 }
 
 /**
