@@ -3918,6 +3918,319 @@ void test_slist_insert_after_range__other_container_range(void** state)
 }
 
 /*
+ * test slist_insert_after_array
+ */
+UT_CASE_DEFINATION(slist_insert_after_array)
+void test_slist_insert_after_array__null_slist_container(void** state)
+{
+    int an_array[10] = {0};
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 10);
+
+    expect_assert_failure(slist_insert_after_array(NULL, slist_begin(pslist), an_array, 10));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 10);
+
+    pslist->_t_typeinfo._t_style = 2323;
+    expect_assert_failure(slist_insert_after_array(pslist, slist_begin(pslist), an_array, 10));
+
+    pslist->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__invalid_position(void** state)
+{
+    int an_array[10] = {0};
+    slist_iterator_t it_pos = _create_slist_iterator();
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 10);
+    it_pos = slist_begin(pslist);
+    it_pos._t_pos._pby_corepos = (_byte_t*)0x8888;
+
+    expect_assert_failure(slist_insert_after_array(pslist, it_pos, an_array, 10));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__invalid_array(void** state)
+{
+    slist_iterator_t it_pos = _create_slist_iterator();
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 10);
+    it_pos = slist_begin(pslist);
+
+    expect_assert_failure(slist_insert_after_array(pslist, it_pos, NULL, 10));
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__begin_insert_0(void** state)
+{
+    int an_array[10] = {0};
+    slist_iterator_t it_pos;
+    slist_iterator_t it_iter;
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 1000);
+
+    assert_true(slist_size(pslist) == 1000);
+    it_pos = slist_begin(pslist);
+    slist_insert_after_array(pslist, it_pos, an_array, 0);
+    assert_true(slist_size(pslist) == 1000);
+    for(it_iter = slist_begin(pslist);
+        !iterator_equal(it_iter, slist_end(pslist));
+        it_iter = iterator_next(it_iter))
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__begin_insert_10(void** state)
+{
+    int an_array[10] = {0};
+    slist_iterator_t it_pos;
+    slist_iterator_t it_iter;
+    size_t i = 0;
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(slist_size(pslist) == 1000);
+    it_pos = slist_begin(pslist);
+    slist_insert_after_array(pslist, it_pos, an_array, 10);
+    assert_true(slist_size(pslist) == 1010);
+    for(it_iter = slist_begin(pslist), i = 0;
+        !iterator_equal(it_iter, slist_end(pslist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i > 0 && i < 11)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__middle_insert_0(void** state)
+{
+    int an_array[10] = {0};
+    slist_iterator_t it_pos;
+    slist_iterator_t it_iter;
+    size_t i = 0;
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 1000);
+
+    assert_true(slist_size(pslist) == 1000);
+    it_pos = iterator_advance(slist_begin(pslist), 300);
+    slist_insert_after_array(pslist, it_pos, an_array, 0);
+    assert_true(slist_size(pslist) == 1000);
+    for(it_iter = slist_begin(pslist), i = 0;
+        !iterator_equal(it_iter, slist_end(pslist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__middle_insert_10(void** state)
+{
+    int an_array[10] = {0};
+    slist_iterator_t it_pos;
+    slist_iterator_t it_iter;
+    size_t i = 0;
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(slist_size(pslist) == 1000);
+    it_pos = iterator_advance(slist_begin(pslist), 300);
+    slist_insert_after_array(pslist, it_pos, an_array, 10);
+    assert_true(slist_size(pslist) == 1010);
+    for(it_iter = slist_begin(pslist), i = 0;
+        !iterator_equal(it_iter, slist_end(pslist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i >= 301 && i < 311)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__end_insert_0(void** state)
+{
+    int an_array[10] = {0};
+    slist_iterator_t it_pos;
+    slist_iterator_t it_iter;
+    size_t i = 0;
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 1000);
+
+    assert_true(slist_size(pslist) == 1000);
+    it_pos = slist_previous(pslist, slist_end(pslist));
+    slist_insert_after_array(pslist, it_pos, an_array, 0);
+    assert_true(slist_size(pslist) == 1000);
+    for(it_iter = slist_begin(pslist), i = 0;
+        !iterator_equal(it_iter, slist_end(pslist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+    }
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__end_insert_10(void** state)
+{
+    int an_array[10] = {0};
+    slist_iterator_t it_pos;
+    slist_iterator_t it_iter;
+    size_t i = 0;
+    slist_t* pslist = create_slist(int);
+    slist_init_n(pslist, 1000);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = 100;
+    }
+    assert_true(slist_size(pslist) == 1000);
+    it_pos = slist_previous(pslist, slist_end(pslist));
+    slist_insert_after_array(pslist, it_pos, an_array, 10);
+    assert_true(slist_size(pslist) == 1010);
+    for(it_iter = slist_begin(pslist), i = 0;
+        !iterator_equal(it_iter, slist_end(pslist));
+        it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i >= 1000)
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 100);
+        }
+        else
+        {
+            assert_true(*(int*)iterator_get_pointer(it_iter) == 0);
+        }
+    }
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__cstr(void** state)
+{
+    const char* as_array[] = {
+        "Linux", "abc", "Windows", "aaaaa", "qq", "xxxxx"
+    };
+    slist_t* pslist = create_slist(char*);
+    iterator_t it_iter;
+    int i = 0;
+
+    slist_init_n(pslist, 10);
+    assert_true(slist_size(pslist) == 10);
+    slist_insert_after_array(pslist, slist_begin(pslist), as_array, 6);
+    assert_true(slist_size(pslist) == 16);
+    for(it_iter = slist_begin(pslist), i = 0; !iterator_equal(it_iter, slist_end(pslist)); it_iter = iterator_next(it_iter), ++i)
+    {
+        if(i > 0 && i <= 6)
+        {
+            assert_true(strcmp((char*)iterator_get_pointer(it_iter), as_array[i-1]) == 0);
+        }
+        else
+        {
+            assert_true(strcmp((char*)iterator_get_pointer(it_iter), "") == 0);
+        }
+    }
+
+    slist_destroy(pslist);
+}
+
+void test_slist_insert_after_array__cstl(void** state)
+{
+    vector_t* apvec_array[10] = {NULL};
+    slist_t* pslist = create_slist(vector_t<int>);
+    slist_iterator_t it;
+    size_t i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        apvec_array[i] = create_vector(int);
+        vector_init_elem(apvec_array[i], i, i);
+    }
+    slist_init_n(pslist, 10);
+    slist_insert_after_array(pslist, slist_begin(pslist), apvec_array, 10);
+    assert_true(slist_size(pslist) == 20);
+    for (it = slist_begin(pslist), i = 0;
+        !iterator_equal(it, slist_end(pslist));
+        it = iterator_next(it), ++i) {
+            if (i > 0 && i <= 10) {
+                assert_true(vector_equal(iterator_get_pointer(it), apvec_array[i-1]));
+            } else {
+                assert_true(vector_empty(iterator_get_pointer(it)));
+            }
+    }
+
+    slist_destroy(pslist);
+    for (i = 0; i < 10; ++i) {
+        vector_destroy(apvec_array[i]);
+    }
+}
+
+typedef struct _test_slist_insert_after_array__user_define {
+    int n_elem;
+}_test_slist_insert_after_array__user_define_t;
+void test_slist_insert_after_array__user_define(void** state)
+{
+    _test_slist_insert_after_array__user_define_t* apt_array[10] = {NULL};
+    slist_t* pslist = NULL;
+    slist_iterator_t it;
+    size_t i = 0;
+
+    type_register(_test_slist_insert_after_array__user_define_t, NULL, NULL, NULL, NULL);
+    pslist = create_slist(_test_slist_insert_after_array__user_define_t);
+    slist_init_n(pslist, 10);
+    for (i = 0; i < 10; ++i) {
+        apt_array[i] = malloc(sizeof(_test_slist_insert_after_array__user_define_t));
+        apt_array[i]->n_elem = 100;
+    }
+    slist_insert_after_array(pslist, slist_begin(pslist), apt_array, 10);
+    assert_true(slist_size(pslist) == 20);
+    for (it = slist_begin(pslist), i = 0;
+         !iterator_equal(it, slist_end(pslist));
+         it = iterator_next(it), ++i) {
+             if (i > 0 && i <= 10) {
+                assert_true(((_test_slist_insert_after_array__user_define_t*)iterator_get_pointer(it))->n_elem == apt_array[i-1]->n_elem);
+             } else {
+                 assert_true(((_test_slist_insert_after_array__user_define_t*)iterator_get_pointer(it))->n_elem == 0);
+             }
+    }
+
+    for (i = 0; i < 10; ++i) {
+        free(apt_array[i]);
+    }
+}
+
+/*
  * test slist_pop_front
  */
 UT_CASE_DEFINATION(slist_pop_front)

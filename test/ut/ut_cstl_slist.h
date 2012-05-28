@@ -345,6 +345,23 @@ void test_slist_insert_after_range__end_insert_0(void** state);
 void test_slist_insert_after_range__end_insert_10(void** state);
 void test_slist_insert_after_range__other_container_range(void** state);
 /*
+ * test slist_insert_after_array
+ */
+UT_CASE_DECLARATION(slist_insert_after_array)
+void test_slist_insert_after_array__null_slist_container(void** state);
+void test_slist_insert_after_array__non_inited(void** state);
+void test_slist_insert_after_array__invalid_position(void** state);
+void test_slist_insert_after_array__invalid_array(void** state);
+void test_slist_insert_after_array__begin_insert_0(void** state);
+void test_slist_insert_after_array__begin_insert_10(void** state);
+void test_slist_insert_after_array__middle_insert_0(void** state);
+void test_slist_insert_after_array__middle_insert_10(void** state);
+void test_slist_insert_after_array__end_insert_0(void** state);
+void test_slist_insert_after_array__end_insert_10(void** state);
+void test_slist_insert_after_array__cstr(void** state);
+void test_slist_insert_after_array__cstl(void** state);
+void test_slist_insert_after_array__user_define(void** state);
+/*
  * test slist_pop_front
  */
 UT_CASE_DECLARATION(slist_pop_front)
@@ -920,6 +937,19 @@ void test_slist_reverse__not_same(void** state);
     UT_CASE(test_slist_insert_after_range__end_insert_0),\
     UT_CASE(test_slist_insert_after_range__end_insert_10),\
     UT_CASE(test_slist_insert_after_range__other_container_range),\
+    UT_CASE_BEGIN(slist_insert_after_array, test_slist_insert_after_array__null_slist_container),\
+    UT_CASE(test_slist_insert_after_array__non_inited),\
+    UT_CASE(test_slist_insert_after_array__invalid_position),\
+    UT_CASE(test_slist_insert_after_array__invalid_array),\
+    UT_CASE(test_slist_insert_after_array__begin_insert_0),\
+    UT_CASE(test_slist_insert_after_array__begin_insert_10),\
+    UT_CASE(test_slist_insert_after_array__middle_insert_0),\
+    UT_CASE(test_slist_insert_after_array__middle_insert_10),\
+    UT_CASE(test_slist_insert_after_array__end_insert_0),\
+    UT_CASE(test_slist_insert_after_array__end_insert_10),\
+    UT_CASE(test_slist_insert_after_array__cstr),\
+    UT_CASE(test_slist_insert_after_array__cstl),\
+    UT_CASE(test_slist_insert_after_array__user_define),\
     UT_CASE_BEGIN(slist_pop_front, test_slist_pop_front__null_slist_container),\
     UT_CASE(test_slist_pop_front__non_inited_slist_container),\
     UT_CASE(test_slist_pop_front__empty),\

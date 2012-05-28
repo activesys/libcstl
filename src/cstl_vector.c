@@ -584,7 +584,7 @@ void vector_insert_range(vector_t* pvec_vector, vector_iterator_t it_pos, iterat
                 _iterator_get_pointer_ignore_cstr(it_second), &b_result);
             assert(b_result);
         }
-        assert(iterator_distance(it_pos, it_first) == t_count);
+        assert((size_t)iterator_distance(it_pos, it_first) == t_count);
     }
 }
 

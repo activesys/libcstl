@@ -366,6 +366,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_iterator_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_list.c"
 				>
 			</File>
@@ -563,6 +567,30 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_types.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_builtin.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_builtin.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_parse.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_parse.h"
 				>
 			</File>
 			<File
@@ -1088,6 +1116,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\test\ut\ut_cstl_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_iterator_private.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\test\ut\ut_cstl_list.h"
 				>
 			</File>
@@ -1233,6 +1269,22 @@
 			</File>
 			<File
 				RelativePath="..\..\test\ut\ut_cstl_string_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_builtin.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_parse.h"
 				>
 			</File>
 			<File
@@ -1396,6 +1448,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\test\ut\ut_cstl_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_iterator_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\test\ut\ut_cstl_list.c"
 				>
 			</File>
@@ -1541,6 +1601,22 @@
 			</File>
 			<File
 				RelativePath="..\..\test\ut\ut_cstl_string_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_builtin.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_parse.c"
 				>
 			</File>
 			<File
