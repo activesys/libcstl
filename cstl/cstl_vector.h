@@ -305,6 +305,18 @@ extern void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src);
 extern void vector_assign_range(vector_t* pvec_vector, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Assign vector element with an exist container array.
+ * @param pvec_vector     destination vector container.
+ * @param cpv_array       special array.
+ * @param t_count         element count of array.
+ * @return void.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. pvec_vector must be initialized, otherwise the behavior
+ *          is undefined. the element type of vector and array must be same, otherwise the behavior is undefined. if
+ *          cpv_array == NULL, the behavior is undefined.
+ */
+extern void vector_assign_array(vector_t* pvec_vector, const void* cpv_array, size_t t_count);
+
+/**
  * Swap vector datas.
  * @param pvec_first    first vector.
  * @param pvec_second   second vector.

@@ -442,11 +442,6 @@ void list_assign_array(list_t* plist_list, const void* cpv_array, size_t t_count
     assert(_list_is_inited(plist_list));
     assert(cpv_array != NULL);
 
-    /* 
-     * initialize the new list with the list size, compare function,
-     * destroy element function of list that it_begin and it_end iterator
-     * point to.
-     */
     list_resize(plist_list, t_count);
 
     /*

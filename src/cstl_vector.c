@@ -404,6 +404,69 @@ void vector_assign_range(vector_t* pvec_vector, iterator_t it_begin, iterator_t 
 }
 
 /**
+ * Assign vector element with an exist container array.
+ */
+void vector_assign_array(vector_t* pvec_vector, const void* cpv_array, size_t t_count)
+{
+    iterator_t it_dest;
+    bool_t     b_result = false;
+    size_t     i = 0;
+
+    /* assign the two iterator is as the same type as pvec_vector */
+    assert(pvec_vector != NULL);
+    assert(_vector_is_inited(pvec_vector));
+    assert(cpv_array != NULL);
+
+    /* copy value from array for each element */
+    vector_resize(pvec_vector, t_count);
+
+    /*
+     * Copy the elements from src array to dest vector.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_VECTOR_TYPE_BASENAME(pvec_vector), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (it_dest = vector_begin(pvec_vector), i = 0;
+             !iterator_equal(it_dest, vector_end(pvec_vector)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
+                _iterator_get_pointer_ignore_cstr(it_dest), pstr_elem, &b_result);
+            assert(b_result);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_VECTOR_TYPE_STYLE(pvec_vector) == _TYPE_C_BUILTIN) {
+        for (it_dest = vector_begin(pvec_vector), i = 0;
+             !iterator_equal(it_dest, vector_end(pvec_vector)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
+                _iterator_get_pointer_ignore_cstr(it_dest),
+                (unsigned char*)cpv_array + i * _GET_VECTOR_TYPE_SIZE(pvec_vector), &b_result);
+            assert(b_result);
+        }
+    } else {
+        for (it_dest = vector_begin(pvec_vector), i = 0;
+             !iterator_equal(it_dest, vector_end(pvec_vector)) && i < t_count;
+             it_dest = iterator_next(it_dest), ++i) {
+            b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
+            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
+                _iterator_get_pointer_ignore_cstr(it_dest), *((void**)cpv_array + i), &b_result);
+            assert(b_result);
+        }
+    }
+    assert(iterator_equal(it_dest, vector_end(pvec_vector)) && i == t_count);
+}
+
+/**
  * Swap vector datas.
  */
 void vector_swap(vector_t* pvec_first, vector_t* pvec_second)
