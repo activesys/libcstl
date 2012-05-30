@@ -160,6 +160,19 @@ extern void vector_init_copy(vector_t* pvec_dest, const vector_t* cpvec_src);
 extern void vector_init_copy_range(vector_t* pvec_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize vector container with an exist array.
+ * @param pvec_dest     destination vector container.
+ * @param cpv_array     array.
+ * @param t_count       element count of array.
+ * @return void.
+ * @remarks if pvec_dest == NULL, then the behavior is undefined. pvec_dest must be created by create_vector(), otherwise
+ *          the behavior is undefined. after initialization the size of pvec_dest is equal to the size of array, and the
+ *          capacity of pvec_dest is satisfied capacity assignment algorithm. cpv_array must not be NULL, otherwise the
+ *          behavior is undefined.
+ */
+extern void vector_init_copy_array(vector_t* pvec_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Destroy vector container.
  * @param pvec_vector   vector container.
  * @return void.
@@ -391,6 +404,21 @@ extern vector_reverse_iterator_t vector_rend(const vector_t* cpvec_vector);
  */
 extern void vector_insert_range(
     vector_t* pvec_vector, vector_iterator_t it_pos, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Insert an array of elements into vector at a specificed position.
+ * @param pvec_vector   vector container.
+ * @param it_pos        specificed position.
+ * @param cpv_array     array.
+ * @param t_count       element count of array.
+ * @return void.
+ * @remarks if pvec_vector == NULL, then the behavior is undefined. the vector must be initialized, otherwise the
+ *          behavior is undefined. the specificed position muse be valid iterator for vector container, otherwise
+ *          the behavior is undefined. cpv_array must be valid range, otherwise the behavior is undefine. the type
+ *          of specificed array and vector element must be the same, otherwise the behavior is undefined.
+ */
+extern void vector_insert_array(
+    vector_t* pvec_vector, vector_iterator_t it_pos, const void* cpv_array, size_t t_count);
 
 /**
  * Delete the element at the end of vector.

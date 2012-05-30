@@ -61,6 +61,17 @@ void test_vector_init_copy_range__successfully_cstl_builtin(void** state);
 void test_vector_init_copy_range__successfully_user_define(void** state);
 void test_vector_init_copy_range__other_container_range(void** state);
 /*
+ * test vector_init_copy_array
+ */
+UT_CASE_DECLARATION(vector_init_copy_array)
+void test_vector_init_copy_array__null_dest(void** state);
+void test_vector_init_copy_array__invalid_array(void** state);
+void test_vector_init_copy_array__successfully_empty_array(void** state);
+void test_vector_init_copy_array__successfully_c_builtin(void** state);
+void test_vector_init_copy_array__successfully_cstr(void** state);
+void test_vector_init_copy_array__successfully_cstl_builtin(void** state);
+void test_vector_init_copy_array__successfully_user_define(void** state);
+/*
  * test vector_destroy
  */
 UT_CASE_DECLARATION(vector_destroy)
@@ -356,6 +367,29 @@ void test_vector_insert_range__end_insert_10(void** state);
 void test_vector_insert_range__end_insert_1000(void** state);
 void test_vector_insert_range__other_container_range(void** state);
 /*
+ * test vector_insert_array
+ */
+UT_CASE_DECLARATION(vector_insert_array)
+void test_vector_insert_array__null_vector_container(void** state);
+void test_vector_insert_array__non_inited(void** state);
+void test_vector_insert_array__invalid_position(void** state);
+void test_vector_insert_array__invalid_array(void** state);
+void test_vector_insert_array__empty_insert_0(void** state);
+void test_vector_insert_array__empty_insert_10(void** state);
+void test_vector_insert_array__empty_insert_1000(void** state);
+void test_vector_insert_array__begin_insert_0(void** state);
+void test_vector_insert_array__begin_insert_10(void** state);
+void test_vector_insert_array__begin_insert_1000(void** state);
+void test_vector_insert_array__middle_insert_0(void** state);
+void test_vector_insert_array__middle_insert_10(void** state);
+void test_vector_insert_array__middle_insert_1000(void** state);
+void test_vector_insert_array__end_insert_0(void** state);
+void test_vector_insert_array__end_insert_10(void** state);
+void test_vector_insert_array__end_insert_1000(void** state);
+void test_vector_insert_array__cstr(void** state);
+void test_vector_insert_array__cstl(void** state);
+void test_vector_insert_array__user_define(void** state);
+/*
  * test vector_pop_back
  */
 UT_CASE_DECLARATION(vector_pop_back)
@@ -455,6 +489,13 @@ void test_vector_resize__successfully_1000_resize_2000(void** state);
     UT_CASE(test_vector_init_copy_range__successfully_cstl_builtin),\
     UT_CASE(test_vector_init_copy_range__successfully_user_define),\
     UT_CASE(test_vector_init_copy_range__other_container_range),\
+    UT_CASE_BEGIN(vector_init_copy_array, test_vector_init_copy_array__null_dest),\
+    UT_CASE(test_vector_init_copy_array__invalid_array),\
+    UT_CASE(test_vector_init_copy_array__successfully_empty_array),\
+    UT_CASE(test_vector_init_copy_array__successfully_c_builtin),\
+    UT_CASE(test_vector_init_copy_array__successfully_cstr),\
+    UT_CASE(test_vector_init_copy_array__successfully_cstl_builtin),\
+    UT_CASE(test_vector_init_copy_array__successfully_user_define),\
     UT_CASE_BEGIN(vector_destroy, test_vector_destroy__null_vector_container),\
     UT_CASE(test_vector_destroy__non_created),\
     UT_CASE(test_vector_destroy__created_non_inited),\
@@ -662,6 +703,25 @@ void test_vector_resize__successfully_1000_resize_2000(void** state);
     UT_CASE(test_vector_insert_range__end_insert_10),\
     UT_CASE(test_vector_insert_range__end_insert_1000),\
     UT_CASE(test_vector_insert_range__other_container_range),\
+    UT_CASE_BEGIN(vector_insert_array, test_vector_insert_array__null_vector_container),\
+    UT_CASE(test_vector_insert_array__non_inited),\
+    UT_CASE(test_vector_insert_array__invalid_position),\
+    UT_CASE(test_vector_insert_array__invalid_array),\
+    UT_CASE(test_vector_insert_array__empty_insert_0),\
+    UT_CASE(test_vector_insert_array__empty_insert_10),\
+    UT_CASE(test_vector_insert_array__empty_insert_1000),\
+    UT_CASE(test_vector_insert_array__begin_insert_0),\
+    UT_CASE(test_vector_insert_array__begin_insert_10),\
+    UT_CASE(test_vector_insert_array__begin_insert_1000),\
+    UT_CASE(test_vector_insert_array__middle_insert_0),\
+    UT_CASE(test_vector_insert_array__middle_insert_10),\
+    UT_CASE(test_vector_insert_array__middle_insert_1000),\
+    UT_CASE(test_vector_insert_array__end_insert_0),\
+    UT_CASE(test_vector_insert_array__end_insert_10),\
+    UT_CASE(test_vector_insert_array__end_insert_1000),\
+    UT_CASE(test_vector_insert_array__cstr),\
+    UT_CASE(test_vector_insert_array__cstl),\
+    UT_CASE(test_vector_insert_array__user_define),\
     UT_CASE_BEGIN(vector_pop_back, test_vector_pop_back__null_vector_container),\
     UT_CASE(test_vector_pop_back__non_inited_vector_container),\
     UT_CASE(test_vector_pop_back__empty),\
