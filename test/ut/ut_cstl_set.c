@@ -431,6 +431,29 @@ void test_set_init_copy_range__other_container_range(void** state)
     vector_destroy(pvec);
 }
 
+void test_set_init_copy_range__other_container_range_dup(void** state)
+{
+    set_t* pset = create_set(int);
+    vector_t* pvec = create_vector(int);
+    int i = 0;
+
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        vector_push_back(pvec, i);
+        vector_push_back(pvec, i);
+    }
+    set_init_copy_range(pset, vector_begin(pvec), vector_end(pvec));
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pset->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pset->_t_tree));
+#endif
+    assert_true(set_size(pset) == 10);
+
+    set_destroy(pset);
+    vector_destroy(pvec);
+}
+
 /*
  * test set_init_copy_range_ex
  */
@@ -617,6 +640,29 @@ void test_set_init_copy_range_ex__other_container_range(void** state)
 
     list_init(plist);
     for (i = 0; i < 10; ++i) {
+        list_push_front(plist, i);
+    }
+    set_init_copy_range_ex(pset, list_begin(plist), list_end(plist), NULL);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pset->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pset->_t_tree));
+#endif
+    assert_true(set_size(pset) == 10);
+
+    set_destroy(pset);
+    list_destroy(plist);
+}
+
+void test_set_init_copy_range_ex__other_container_range_dup(void** state)
+{
+    set_t* pset = create_set(int);
+    list_t* plist = create_list(int);
+    int i = 0;
+
+    list_init(plist);
+    for (i = 0; i < 10; ++i) {
+        list_push_front(plist, i);
         list_push_front(plist, i);
     }
     set_init_copy_range_ex(pset, list_begin(plist), list_end(plist), NULL);

@@ -439,6 +439,29 @@ void test_multiset_init_copy_range__other_container_range(void** state)
     deque_destroy(pdeq);
 }
 
+void test_multiset_init_copy_range__other_container_range_dup(void** state)
+{
+    multiset_t* pmset = create_multiset(int);
+    deque_t* pdeq = create_deque(int);
+    int i = 0;
+
+    deque_init(pdeq);
+    for (i = 0; i < 10; ++i) {
+        deque_push_back(pdeq, i);
+        deque_push_back(pdeq, i);
+    }
+    multiset_init_copy_range(pmset, deque_begin(pdeq), deque_end(pdeq));
+#ifdef CSTL_MULTISET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pmset->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pmset->_t_tree));
+#endif
+    assert_true(multiset_size(pmset) == 20);
+
+    multiset_destroy(pmset);
+    deque_destroy(pdeq);
+}
+
 /*
  * test multiset_init_copy_range_ex
  */
@@ -635,6 +658,29 @@ void test_multiset_init_copy_range_ex__other_container_range(void** state)
     assert_true(_rb_tree_is_inited(&pmset->_t_tree));
 #endif
     assert_true(multiset_size(pmset) == 10);
+
+    multiset_destroy(pmset);
+    list_destroy(plist);
+}
+
+void test_multiset_init_copy_range_ex__other_container_range_dup(void** state)
+{
+    multiset_t* pmset = create_multiset(int);
+    list_t* plist = create_list(int);
+    int i = 0;
+
+    list_init(plist);
+    for (i = 0; i < 10; ++i) {
+        list_push_back(plist, i);
+        list_push_back(plist, i);
+    }
+    multiset_init_copy_range_ex(pmset, list_begin(plist), list_end(plist), NULL);
+#ifdef CSTL_MULTISET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pmset->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pmset->_t_tree));
+#endif
+    assert_true(multiset_size(pmset) == 20);
 
     multiset_destroy(pmset);
     list_destroy(plist);

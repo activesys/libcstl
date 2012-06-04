@@ -376,6 +376,62 @@ void test__rb_tree_init_copy_range__non_empty(void** state)
 }
 
 /*
+ * test _rb_tree_init_copy_array
+ */
+UT_CASE_DEFINATION(_rb_tree_init_copy_array)
+void test__rb_tree_init_copy_array__null_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+
+    expect_assert_failure(_rb_tree_init_copy_array(NULL, an_array, 10));
+}
+
+void test__rb_tree_init_copy_array__non_created_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    pt_dest->_t_rbroot._t_color = BLACK;
+    expect_assert_failure(_rb_tree_init_copy_array(pt_dest, an_array, 10));
+    pt_dest->_t_rbroot._t_color = RED;
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_array__invalid_array(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    expect_assert_failure(_rb_tree_init_copy_array(pt_dest, NULL, 10));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init_copy_array(pt_dest, an_array, 0);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_empty(pt_dest));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_array__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init_copy_array(pt_dest, an_array, 10);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 1);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+/*
  * test _rb_tree_init_copy_range_ex
  */
 UT_CASE_DEFINATION(_rb_tree_init_copy_range_ex)
@@ -4634,6 +4690,200 @@ void test__rb_tree_insert_unique_range__compare(void** state)
 }
 
 /*
+ * test _rb_tree_insert_unique_array
+ */
+UT_CASE_DEFINATION(_rb_tree_insert_unique_array)
+void test__rb_tree_insert_unique_array__null_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_rb_tree_insert_unique_array(NULL, an_array, 10));
+}
+
+void test__rb_tree_insert_unique_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init(pt_dest, NULL);
+
+    pt_dest->_t_rbroot._t_color = BLACK;
+    expect_assert_failure(_rb_tree_insert_unique_array(pt_dest, an_array, 10));
+    pt_dest->_t_rbroot._t_color = RED;
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_unique_array__invalid_array(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init(pt_dest, NULL);
+
+    expect_assert_failure(_rb_tree_insert_unique_array(pt_dest, NULL, 10));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_unique_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init(pt_dest, NULL);
+
+    _rb_tree_insert_unique_array(pt_dest, an_array, 0);
+    assert_true(_rb_tree_empty(pt_dest));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_unique_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    _rb_tree_insert_unique_array(pt_dest, an_array, 10);
+    assert_true(_rb_tree_size(pt_dest) == 20);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_unique_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    _rb_tree_insert_unique_array(pt_dest, an_array, 10);
+    assert_true(_rb_tree_size(pt_dest) == 15);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_unique_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_equal(pt_dest, &i);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 15;
+        an_array[i + 1] = i + 15;
+    }
+
+    _rb_tree_insert_unique_array(pt_dest, an_array, 20);
+    assert_true(_rb_tree_size(pt_dest) == 20);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_unique_array__cstr(void** state)
+{
+    const char* as_array[] = {
+        "Linux", "Windows", "Mac", "FreeBSD", "UNIX"
+    };
+    _rb_tree_t* pt_dest = _create_rb_tree("char*");
+
+    _rb_tree_init(pt_dest, NULL);
+
+    _rb_tree_insert_unique_array(pt_dest, as_array, 5);
+    assert_true(_rb_tree_size(pt_dest) == 5);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_unique_array__cstl(void** state)
+{
+    size_t i = 0;
+    vector_t* apvec_array[10] = {NULL};
+    _rb_tree_t* pt_dest = _create_rb_tree("vector_t<int>");
+    _rb_tree_iterator_t it;
+
+    _rb_tree_init(pt_dest, NULL);
+    for (i = 0; i < 10; ++i) {
+        apvec_array[i] = create_vector(int);
+        vector_init_elem(apvec_array[i], i, i);
+    }
+    _rb_tree_insert_unique_array(pt_dest, apvec_array, 10);
+    assert_true(_rb_tree_size(pt_dest) == 10);
+    for (it = _rb_tree_begin(pt_dest), i = 0; 
+         !_rb_tree_iterator_equal(it, _rb_tree_end(pt_dest)); 
+         it = _rb_tree_iterator_next(it), ++i) {
+        assert_true(vector_equal(_rb_tree_iterator_get_pointer(it), apvec_array[i]));
+    }
+
+    _rb_tree_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        vector_destroy(apvec_array[i]);
+    }
+}
+
+typedef struct _test__rb_tree_insert_unique_array__user_define {
+    int n_elem;
+}_test__rb_tree_insert_unique_array__user_define_t;
+void _test__rb_tree_insert_unique_array__user_define_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = ((_test__rb_tree_insert_unique_array__user_define_t*)cpv_first)->n_elem <
+           ((_test__rb_tree_insert_unique_array__user_define_t*)cpv_second)->n_elem ? true : false;
+}
+void test__rb_tree_insert_unique_array__user_define(void** state)
+{
+    size_t i = 0;
+    _test__rb_tree_insert_unique_array__user_define_t* apt_array[10] = {NULL};
+    _rb_tree_t* pt_dest = NULL;
+    _rb_tree_iterator_t it;
+
+    type_register(_test__rb_tree_insert_unique_array__user_define_t,
+        NULL, NULL, _test__rb_tree_insert_unique_array__user_define_less, NULL);
+    pt_dest = _create_rb_tree("_test__rb_tree_insert_unique_array__user_define_t");
+    _rb_tree_init(pt_dest, NULL);
+    for (i = 0; i < 10; ++i) {
+        apt_array[i] = malloc(sizeof(_test__rb_tree_insert_unique_array__user_define_t));
+        apt_array[i]->n_elem = i;
+    }
+    _rb_tree_insert_unique_array(pt_dest, apt_array, 10);
+    assert_true(_rb_tree_size(pt_dest) == 10);
+    for (it = _rb_tree_begin(pt_dest), i = 0;
+         !_rb_tree_iterator_equal(it, _rb_tree_end(pt_dest));
+         it = _rb_tree_iterator_next(it), ++i) {
+        assert_true(((_test__rb_tree_insert_unique_array__user_define_t*)_rb_tree_iterator_get_pointer(it))->n_elem ==
+            apt_array[i]->n_elem);
+    }
+
+    _rb_tree_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        free(apt_array[i]);
+    }
+}
+
+/*
  * test _rb_tree_insert_equal_range
  */
 UT_CASE_DEFINATION(_rb_tree_insert_equal_range)
@@ -4867,6 +5117,200 @@ void test__rb_tree_insert_equal_range__compare(void** state)
 
     _rb_tree_destroy(pt_dest);
     set_destroy(pset);
+}
+
+/*
+ * test _rb_tree_insert_equal_array
+ */
+UT_CASE_DEFINATION(_rb_tree_insert_equal_array)
+void test__rb_tree_insert_equal_array__null_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_rb_tree_insert_equal_array(NULL, an_array, 10));
+}
+
+void test__rb_tree_insert_equal_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init(pt_dest, NULL);
+
+    pt_dest->_t_rbroot._t_color = BLACK;
+    expect_assert_failure(_rb_tree_insert_equal_array(pt_dest, an_array, 10));
+    pt_dest->_t_rbroot._t_color = RED;
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_equal_array__invalid_array(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init(pt_dest, NULL);
+
+    expect_assert_failure(_rb_tree_insert_equal_array(pt_dest, NULL, 10));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_equal_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init(pt_dest, NULL);
+
+    _rb_tree_insert_equal_array(pt_dest, an_array, 0);
+    assert_true(_rb_tree_empty(pt_dest));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_equal_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    _rb_tree_insert_equal_array(pt_dest, an_array, 10);
+    assert_true(_rb_tree_size(pt_dest) == 20);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_equal_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    _rb_tree_insert_equal_array(pt_dest, an_array, 10);
+    assert_true(_rb_tree_size(pt_dest) == 20);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_equal_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    int i = 0;
+
+    _rb_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _rb_tree_insert_equal(pt_dest, &i);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 5;
+        an_array[i + 1] = i + 5;
+    }
+
+    _rb_tree_insert_equal_array(pt_dest, an_array, 20);
+    assert_true(_rb_tree_size(pt_dest) == 30);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_equal_array__cstr(void** state)
+{
+    const char* as_array[] = {
+        "Linux", "Windows", "Mac", "FreeBSD", "UNIX"
+    };
+    _rb_tree_t* pt_dest = _create_rb_tree("char*");
+
+    _rb_tree_init(pt_dest, NULL);
+
+    _rb_tree_insert_equal_array(pt_dest, as_array, 5);
+    assert_true(_rb_tree_size(pt_dest) == 5);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_insert_equal_array__cstl(void** state)
+{
+    size_t i = 0;
+    vector_t* apvec_array[10] = {NULL};
+    _rb_tree_t* pt_dest = _create_rb_tree("vector_t<int>");
+    _rb_tree_iterator_t it;
+
+    _rb_tree_init(pt_dest, NULL);
+    for (i = 0; i < 10; ++i) {
+        apvec_array[i] = create_vector(int);
+        vector_init_elem(apvec_array[i], i, i);
+    }
+    _rb_tree_insert_equal_array(pt_dest, apvec_array, 10);
+    assert_true(_rb_tree_size(pt_dest) == 10);
+    for (it = _rb_tree_begin(pt_dest), i = 0; 
+         !_rb_tree_iterator_equal(it, _rb_tree_end(pt_dest)); 
+         it = _rb_tree_iterator_next(it), ++i) {
+        assert_true(vector_equal(_rb_tree_iterator_get_pointer(it), apvec_array[i]));
+    }
+
+    _rb_tree_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        vector_destroy(apvec_array[i]);
+    }
+}
+
+typedef struct _test__rb_tree_insert_equal_array__user_define {
+    int n_elem;
+}_test__rb_tree_insert_equal_array__user_define_t;
+void _test__rb_tree_insert_equal_array__user_define_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = ((_test__rb_tree_insert_equal_array__user_define_t*)cpv_first)->n_elem <
+           ((_test__rb_tree_insert_equal_array__user_define_t*)cpv_second)->n_elem ? true : false;
+}
+void test__rb_tree_insert_equal_array__user_define(void** state)
+{
+    size_t i = 0;
+    _test__rb_tree_insert_equal_array__user_define_t* apt_array[10] = {NULL};
+    _rb_tree_t* pt_dest = NULL;
+    _rb_tree_iterator_t it;
+
+    type_register(_test__rb_tree_insert_equal_array__user_define_t,
+        NULL, NULL, _test__rb_tree_insert_equal_array__user_define_less, NULL);
+    pt_dest = _create_rb_tree("_test__rb_tree_insert_equal_array__user_define_t");
+    _rb_tree_init(pt_dest, NULL);
+    for (i = 0; i < 10; ++i) {
+        apt_array[i] = malloc(sizeof(_test__rb_tree_insert_equal_array__user_define_t));
+        apt_array[i]->n_elem = i;
+    }
+    _rb_tree_insert_equal_array(pt_dest, apt_array, 10);
+    assert_true(_rb_tree_size(pt_dest) == 10);
+    for (it = _rb_tree_begin(pt_dest), i = 0;
+         !_rb_tree_iterator_equal(it, _rb_tree_end(pt_dest));
+         it = _rb_tree_iterator_next(it), ++i) {
+        assert_true(((_test__rb_tree_insert_equal_array__user_define_t*)_rb_tree_iterator_get_pointer(it))->n_elem ==
+            apt_array[i]->n_elem);
+    }
+
+    _rb_tree_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        free(apt_array[i]);
+    }
 }
 
 /*

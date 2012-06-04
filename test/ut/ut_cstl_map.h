@@ -47,6 +47,7 @@ void test_map_init_copy_range__invalid_range_not_same_type(void** state);
 void test_map_init_copy_range__empty(void** state);
 void test_map_init_copy_range__non_empty(void** state);
 void test_map_init_copy_range__other_container_range(void** state);
+void test_map_init_copy_range__other_container_range_dup(void** state);
 void test_map_init_copy_range__other_container_range_not_same_type(void** state);
 void test_map_init_copy_range__other_container_range_not_pair(void** state);
 /*
@@ -64,6 +65,7 @@ void test_map_init_copy_range_ex__empty(void** state);
 void test_map_init_copy_range_ex__non_empty(void** state);
 void test_map_init_copy_range_ex__compare(void** state);
 void test_map_init_copy_range_ex__other_container_range(void** state);
+void test_map_init_copy_range_ex__other_container_range_dup(void** state);
 void test_map_init_copy_range_ex__other_container_range_not_same_type(void** state);
 void test_map_init_copy_range_ex__other_container_range_not_pair(void** state);
 /*
@@ -410,6 +412,7 @@ void test_map_erase_range__all(void** state);
     UT_CASE(test_map_init_copy_range__empty),\
     UT_CASE(test_map_init_copy_range__non_empty),\
     UT_CASE(test_map_init_copy_range__other_container_range),\
+    UT_CASE(test_map_init_copy_range__other_container_range_dup),\
     UT_CASE(test_map_init_copy_range__other_container_range_not_same_type),\
     UT_CASE(test_map_init_copy_range__other_container_range_not_pair),\
     UT_CASE_BEGIN(map_init_copy_range_ex, test_map_init_copy_range_ex__null_map),\
@@ -423,6 +426,7 @@ void test_map_erase_range__all(void** state);
     UT_CASE(test_map_init_copy_range_ex__non_empty),\
     UT_CASE(test_map_init_copy_range_ex__compare),\
     UT_CASE(test_map_init_copy_range_ex__other_container_range),\
+    UT_CASE(test_map_init_copy_range_ex__other_container_range_dup),\
     UT_CASE(test_map_init_copy_range_ex__other_container_range_not_same_type),\
     UT_CASE(test_map_init_copy_range_ex__other_container_range_not_pair),\
     UT_CASE_BEGIN(map_destroy, test_map_destroy__null_map),\

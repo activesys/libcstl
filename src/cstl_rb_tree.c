@@ -128,6 +128,13 @@ void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator
 }
 
 /**
+ * Initialize rb tree container with specific array.
+ */
+void _rb_tree_init_copy_array(_rb_tree_t* pt_dest, const void* cpv_array, size_t t_count)
+{
+}
+
+/**
  * Initialize rb tree container with specific range and compare function.
  */
 void _rb_tree_init_copy_range_ex(
@@ -661,6 +668,46 @@ void _rb_tree_insert_equal_range(_rb_tree_t* pt_rb_tree, iterator_t it_begin, it
 }
 
 /**
+ * Inserts an array into a rb tree.
+ */
+void _rb_tree_insert_equal_array(_rb_tree_t* pt_rb_tree, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(pt_rb_tree != NULL);
+    assert(_rb_tree_is_inited(pt_rb_tree));
+    assert(cpv_array != NULL);
+
+    /*
+     * Copy the elements from src array to dest rb tree.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_RB_TREE_TYPE_BASENAME(pt_rb_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (i = 0; i < t_count; ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            _rb_tree_insert_equal(pt_rb_tree, pstr_elem);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_RB_TREE_TYPE_STYLE(pt_rb_tree) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_count; ++i) {
+            _rb_tree_insert_equal(pt_rb_tree, (unsigned char*)cpv_array + i * _GET_RB_TREE_TYPE_SIZE(pt_rb_tree));
+        }
+    } else {
+        for (i = 0; i < t_count; ++i) {
+            _rb_tree_insert_equal(pt_rb_tree, *((void**)cpv_array + i));
+        }
+    }
+}
+
+/**
  * Inserts an range of unique element into a rb tree.
  */
 void _rb_tree_insert_unique_range(_rb_tree_t* pt_rb_tree, iterator_t it_begin, iterator_t it_end)
@@ -675,6 +722,46 @@ void _rb_tree_insert_unique_range(_rb_tree_t* pt_rb_tree, iterator_t it_begin, i
 
     for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         _rb_tree_insert_unique(pt_rb_tree, _iterator_get_pointer_ignore_cstr(it_iter));
+    }
+}
+
+/**
+ * Inserts an array of unique element into a rb tree.
+ */
+void _rb_tree_insert_unique_array(_rb_tree_t* pt_rb_tree, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(pt_rb_tree != NULL);
+    assert(_rb_tree_is_inited(pt_rb_tree));
+    assert(cpv_array != NULL);
+
+    /*
+     * Copy the elements from src array to dest rb tree.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_RB_TREE_TYPE_BASENAME(pt_rb_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (i = 0; i < t_count; ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            _rb_tree_insert_unique(pt_rb_tree, pstr_elem);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_RB_TREE_TYPE_STYLE(pt_rb_tree) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_count; ++i) {
+            _rb_tree_insert_unique(pt_rb_tree, (unsigned char*)cpv_array + i * _GET_RB_TREE_TYPE_SIZE(pt_rb_tree));
+        }
+    } else {
+        for (i = 0; i < t_count; ++i) {
+            _rb_tree_insert_unique(pt_rb_tree, *((void**)cpv_array + i));
+        }
     }
 }
 

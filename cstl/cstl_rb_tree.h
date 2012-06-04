@@ -79,6 +79,18 @@ extern void _rb_tree_init_copy(_rb_tree_t* pt_dest, const _rb_tree_t* cpt_src);
 extern void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize rb tree container with specific array.
+ * @param pt_dest           destination rb tree.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior
+ *          is undefined.
+ */
+extern void _rb_tree_init_copy_array(_rb_tree_t* pt_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Initialize rb tree container with specific range and compare function.
  * @param pt_dest           destination rb tree.
  * @param it_begin          begin of range.
@@ -343,6 +355,18 @@ extern _rb_tree_iterator_t _rb_tree_insert_equal(_rb_tree_t* pt_rb_tree, const v
 extern void _rb_tree_insert_unique_range(_rb_tree_t* pt_rb_tree, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Inserts an array of unique element into a rb tree.
+ * @param pt_rb_tree       rb tree container.
+ * @param cpv_array        array.
+ * @param t_count          element count of array.
+ * @return void.
+ * @remarks if pt_rb_tree == NULL then the behavior is undefined. pt_rb_tree must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpt_rb_tree must be same, otherwise the behavior is undefined.
+ *          array must be valid range, otherwise the behavior is undefine.
+ */
+extern void _rb_tree_insert_unique_array(_rb_tree_t* pt_rb_tree, const void* cpv_array, size_t t_count);
+
+/**
  * Inserts an range into a rb tree.
  * @param pt_rb_tree       rb tree container.
  * @param it_begin         begin of specific range.
@@ -353,6 +377,18 @@ extern void _rb_tree_insert_unique_range(_rb_tree_t* pt_rb_tree, iterator_t it_b
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
 extern void _rb_tree_insert_equal_range(_rb_tree_t* pt_rb_tree, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Inserts an array into a rb tree.
+ * @param pt_rb_tree       rb tree container.
+ * @param cpv_array        array.
+ * @param t_count          element count of array.
+ * @return void.
+ * @remarks if pt_rb_tree == NULL then the behavior is undefined. pt_rb_tree must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpt_rb_tree must be same, otherwise the behavior is undefined.
+ *          array must be valid range, otherwise the behavior is undefine.
+ */
+extern void _rb_tree_insert_equal_array(_rb_tree_t* pt_rb_tree, const void* cpv_array, size_t t_count);
 
 /*
  * Erase an element in an rb tree from specificed position.

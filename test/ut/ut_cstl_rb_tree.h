@@ -45,6 +45,15 @@ void test__rb_tree_init_copy_range__invalid_range_not_same_type(void** state);
 void test__rb_tree_init_copy_range__empty(void** state);
 void test__rb_tree_init_copy_range__non_empty(void** state);
 /*
+ * test _rb_tree_init_copy_array
+ */
+UT_CASE_DECLARATION(_rb_tree_init_copy_array)
+void test__rb_tree_init_copy_array__null_rb_tree(void** stat);
+void test__rb_tree_init_copy_array__non_created_rb_tree(void** state);
+void test__rb_tree_init_copy_array__invalid_array(void** state);
+void test__rb_tree_init_copy_array__empty(void** state);
+void test__rb_tree_init_copy_array__non_empty(void** state);
+/*
  * test _rb_tree_init_copy_range_ex
  */
 UT_CASE_DECLARATION(_rb_tree_init_copy_range_ex)
@@ -378,6 +387,20 @@ void test__rb_tree_insert_unique_range__non_empty_dest_src_dup(void** state);
 void test__rb_tree_insert_unique_range__non_empty_src_dup(void** state);
 void test__rb_tree_insert_unique_range__compare(void** state);
 /*
+ * test _rb_tree_insert_unique_array
+ */
+UT_CASE_DECLARATION(_rb_tree_insert_unique_array)
+void test__rb_tree_insert_unique_array__null_rb_tree(void** state);
+void test__rb_tree_insert_unique_array__non_inited(void** state);
+void test__rb_tree_insert_unique_array__invalid_array(void** state);
+void test__rb_tree_insert_unique_array__empty(void** state);
+void test__rb_tree_insert_unique_array__non_empty_equal(void** state);
+void test__rb_tree_insert_unique_array__non_empty_dest_src_dup(void** state);
+void test__rb_tree_insert_unique_array__non_empty_src_dup(void** state);
+void test__rb_tree_insert_unique_array__cstr(void** state);
+void test__rb_tree_insert_unique_array__cstl(void** state);
+void test__rb_tree_insert_unique_array__user_define(void** state);
+/*
  * test _rb_tree_insert_equal_range
  */
 UT_CASE_DECLARATION(_rb_tree_insert_equal_range)
@@ -392,6 +415,20 @@ void test__rb_tree_insert_equal_range__non_empty_equal(void** state);
 void test__rb_tree_insert_equal_range__non_empty_dest_src_dup(void** state);
 void test__rb_tree_insert_equal_range__non_empty_src_dup(void** state);
 void test__rb_tree_insert_equal_range__compare(void** state);
+/*
+ * test _rb_tree_insert_equal_array
+ */
+UT_CASE_DECLARATION(_rb_tree_insert_equal_array)
+void test__rb_tree_insert_equal_array__null_rb_tree(void** state);
+void test__rb_tree_insert_equal_array__non_inited(void** state);
+void test__rb_tree_insert_equal_array__invalid_array(void** state);
+void test__rb_tree_insert_equal_array__empty(void** state);
+void test__rb_tree_insert_equal_array__non_empty_equal(void** state);
+void test__rb_tree_insert_equal_array__non_empty_dest_src_dup(void** state);
+void test__rb_tree_insert_equal_array__non_empty_src_dup(void** state);
+void test__rb_tree_insert_equal_array__cstr(void** state);
+void test__rb_tree_insert_equal_array__cstl(void** state);
+void test__rb_tree_insert_equal_array__user_define(void** state);
 /*
  * test _rb_tree_erase_pos
  */
@@ -465,6 +502,11 @@ void test__rb_tree_erase__user_define_n(void** state);
     UT_CASE(test__rb_tree_init_copy_range__invalid_range_not_same_type),\
     UT_CASE(test__rb_tree_init_copy_range__empty),\
     UT_CASE(test__rb_tree_init_copy_range__non_empty),\
+    UT_CASE_BEGIN(_rb_tree_init_copy_array, test__rb_tree_init_copy_array__null_rb_tree),\
+    UT_CASE(test__rb_tree_init_copy_array__non_created_rb_tree),\
+    UT_CASE(test__rb_tree_init_copy_array__invalid_array),\
+    UT_CASE(test__rb_tree_init_copy_array__empty),\
+    UT_CASE(test__rb_tree_init_copy_array__non_empty),\
     UT_CASE_BEGIN(_rb_tree_init_copy_range_ex, test__rb_tree_init_copy_range_ex__null_rb_tree),\
     UT_CASE(test__rb_tree_init_copy_range_ex__non_created_rb_tree),\
     UT_CASE(test__rb_tree_init_copy_range_ex__invalid_begin),\
@@ -698,6 +740,16 @@ void test__rb_tree_erase__user_define_n(void** state);
     UT_CASE(test__rb_tree_insert_unique_range__non_empty_dest_src_dup),\
     UT_CASE(test__rb_tree_insert_unique_range__non_empty_src_dup),\
     UT_CASE(test__rb_tree_insert_unique_range__compare),\
+    UT_CASE_BEGIN(_rb_tree_insert_unique_array, test__rb_tree_insert_unique_array__null_rb_tree),\
+    UT_CASE(test__rb_tree_insert_unique_array__non_inited),\
+    UT_CASE(test__rb_tree_insert_unique_array__invalid_array),\
+    UT_CASE(test__rb_tree_insert_unique_array__empty),\
+    UT_CASE(test__rb_tree_insert_unique_array__non_empty_equal),\
+    UT_CASE(test__rb_tree_insert_unique_array__non_empty_dest_src_dup),\
+    UT_CASE(test__rb_tree_insert_unique_array__non_empty_src_dup),\
+    UT_CASE(test__rb_tree_insert_unique_array__cstr),\
+    UT_CASE(test__rb_tree_insert_unique_array__cstl),\
+    UT_CASE(test__rb_tree_insert_unique_array__user_define),\
     UT_CASE_BEGIN(_rb_tree_insert_equal_range, test__rb_tree_insert_equal_range__null_rb_tree),\
     UT_CASE(test__rb_tree_insert_equal_range__non_inited),\
     UT_CASE(test__rb_tree_insert_equal_range__invalid_begin),\
@@ -709,6 +761,16 @@ void test__rb_tree_erase__user_define_n(void** state);
     UT_CASE(test__rb_tree_insert_equal_range__non_empty_dest_src_dup),\
     UT_CASE(test__rb_tree_insert_equal_range__non_empty_src_dup),\
     UT_CASE(test__rb_tree_insert_equal_range__compare),\
+    UT_CASE_BEGIN(_rb_tree_insert_equal_array, test__rb_tree_insert_equal_array__null_rb_tree),\
+    UT_CASE(test__rb_tree_insert_equal_array__non_inited),\
+    UT_CASE(test__rb_tree_insert_equal_array__invalid_array),\
+    UT_CASE(test__rb_tree_insert_equal_array__empty),\
+    UT_CASE(test__rb_tree_insert_equal_array__non_empty_equal),\
+    UT_CASE(test__rb_tree_insert_equal_array__non_empty_dest_src_dup),\
+    UT_CASE(test__rb_tree_insert_equal_array__non_empty_src_dup),\
+    UT_CASE(test__rb_tree_insert_equal_array__cstr),\
+    UT_CASE(test__rb_tree_insert_equal_array__cstl),\
+    UT_CASE(test__rb_tree_insert_equal_array__user_define),\
     UT_CASE_BEGIN(_rb_tree_erase_pos, test__rb_tree_erase_pos__null_rb_tree),\
     UT_CASE(test__rb_tree_erase_pos__non_inited),\
     UT_CASE(test__rb_tree_erase_pos__invalid_pos),\

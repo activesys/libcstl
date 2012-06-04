@@ -527,6 +527,34 @@ void test_map_init_copy_range__other_container_range(void** state)
     pair_destroy(ppair);
 }
 
+void test_map_init_copy_range__other_container_range_dup(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+        vector_push_back(pvec, ppair);
+    }
+    map_init_copy_range(pmap, vector_begin(pvec), vector_end(pvec));
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pmap->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pmap->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pmap->_pair_temp));
+    assert_true(map_size(pmap) == 10);
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
 void test_map_init_copy_range__other_container_range_not_same_type(void** state)
 {
     map_t* pmap = create_map(int, double);
@@ -783,6 +811,34 @@ void test_map_init_copy_range_ex__other_container_range(void** state)
     vector_init(pvec);
     for (i = 0; i < 10; ++i) {
         pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
+    }
+    map_init_copy_range_ex(pmap, vector_begin(pvec), vector_end(pvec), NULL);
+#ifdef CSTL_MAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pmap->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pmap->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pmap->_pair_temp));
+    assert_true(map_size(pmap) == 10);
+
+    map_destroy(pmap);
+    vector_destroy(pvec);
+    pair_destroy(ppair);
+}
+
+void test_map_init_copy_range_ex__other_container_range_dup(void** state)
+{
+    map_t* pmap = create_map(int, int);
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    pair_t* ppair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(ppair);
+    vector_init(pvec);
+    for (i = 0; i < 10; ++i) {
+        pair_make(ppair, i, i);
+        vector_push_back(pvec, ppair);
         vector_push_back(pvec, ppair);
     }
     map_init_copy_range_ex(pmap, vector_begin(pvec), vector_end(pvec), NULL);

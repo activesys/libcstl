@@ -757,18 +757,6 @@ void vector_insert_array(vector_t* pvec_vector, vector_iterator_t it_pos, const 
             assert(b_result);
         }
 
-        /* insert element counts copys to the pos */
-        /*
-        for (it_first = it_pos, it_second = it_begin;
-             !iterator_equal(it_second, it_end);
-             it_first = iterator_next(it_first), it_second = iterator_next(it_second)) {
-            b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
-            _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
-                _iterator_get_pointer_ignore_cstr(it_first),
-                _iterator_get_pointer_ignore_cstr(it_second), &b_result);
-            assert(b_result);
-        }
-        */
         /*
          * Copy the elements from src array to dest vector.
          * The array of c builtin and user define or cstl builtin are different,
