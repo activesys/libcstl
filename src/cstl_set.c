@@ -126,6 +126,21 @@ void set_init_copy_range(set_t* pset_dest, iterator_t it_begin, iterator_t it_en
 }
 
 /**
+ * Initialize set container with specific array.
+ */
+void set_init_copy_array(set_t* pset_dest, const void* cpv_array, size_t t_count)
+{
+    assert(pset_dest != NULL);
+    assert(cpv_array != NULL);
+
+#ifdef CSTL_SET_AVL_TREE
+    _avl_tree_init_copy_range(&pset_dest->_t_tree, it_begin, it_end);
+#else
+    _rb_tree_init_copy_unique_array(&pset_dest->_t_tree, cpv_array, t_count);
+#endif
+}
+
+/**
  * Initialize set container with specific range and compare function.
  */
 void set_init_copy_range_ex(
@@ -138,6 +153,22 @@ void set_init_copy_range_ex(
     _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #else
     _rb_tree_init_copy_unique_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
+#endif
+}
+
+/**
+ * Initialize set container with specific array and compare function.
+ */
+void set_init_copy_array_ex(
+    set_t* pset_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_compare)
+{
+    assert(pset_dest != NULL);
+    assert(cpv_array != NULL);
+
+#ifdef CSTL_SET_AVL_TREE
+    _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
+#else
+    _rb_tree_init_copy_unique_array_ex(&pset_dest->_t_tree, cpv_array, t_count, bfun_compare);
 #endif
 }
 
@@ -433,6 +464,21 @@ void set_insert_range(set_t* pset_set, iterator_t it_begin, iterator_t it_end)
     _avl_tree_insert_unique_range(&pset_set->_t_tree, it_begin, it_end);
 #else
     _rb_tree_insert_unique_range(&pset_set->_t_tree, it_begin, it_end);
+#endif
+}
+
+/**
+ * Inserts an array of unique element into a set.
+ */
+void set_insert_array(set_t* pset_set, const void* cpv_array, size_t t_count)
+{
+    assert(pset_set != NULL);
+    assert(cpv_array != NULL);
+
+#ifdef CSTL_SET_AVL_TREE
+    _avl_tree_insert_unique_range(&pset_set->_t_tree, it_begin, it_end);
+#else
+    _rb_tree_insert_unique_array(&pset_set->_t_tree, cpv_array, t_count);
 #endif
 }
 

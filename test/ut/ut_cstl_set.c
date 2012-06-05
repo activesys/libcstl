@@ -455,6 +455,95 @@ void test_set_init_copy_range__other_container_range_dup(void** state)
 }
 
 /*
+ * test set_init_copy_array
+ */
+UT_CASE_DEFINATION(set_init_copy_array)
+void test_set_init_copy_array__null_set(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(set_init_copy_array(NULL, an_array, 10));
+}
+
+void test_set_init_copy_array__non_created_set(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+#ifdef CSTL_SET_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 50;
+    expect_assert_failure(set_init_copy_array(pt_dest, set_begin(pt_set), set_end(pt_set)));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
+    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    expect_assert_failure(set_init_copy_array(pt_dest, an_array, 10));
+    pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
+
+    set_destroy(pt_dest);
+}
+
+void test_set_init_copy_array__invalid_array(void** state)
+{
+    set_t* pt_dest = create_set(int);
+
+    expect_assert_failure(set_init_copy_array(pt_dest, NULL, 10));
+
+    set_destroy(pt_dest);
+}
+
+void test_set_init_copy_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    set_init_copy_array(pt_dest, an_array, 0);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(set_empty(pt_dest));
+
+    set_destroy(pt_dest);
+}
+
+void test_set_init_copy_array__non_empty(void** state)
+{
+    int i = 0;
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    set_init_copy_array(pt_dest, an_array, 10);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(set_size(pt_dest) == 10);
+
+    set_destroy(pt_dest);
+}
+
+void test_set_init_copy_array__non_empty_dup(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    set_init_copy_array(pt_dest, an_array, 10);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(set_size(pt_dest) == 1);
+
+    set_destroy(pt_dest);
+}
+
+/*
  * test set_init_copy_range_ex
  */
 UT_CASE_DEFINATION(set_init_copy_range_ex)
@@ -675,6 +764,116 @@ void test_set_init_copy_range_ex__other_container_range_dup(void** state)
 
     set_destroy(pset);
     list_destroy(plist);
+}
+
+/*
+ * test set_init_copy_array_ex
+ */
+UT_CASE_DEFINATION(set_init_copy_array_ex)
+void test_set_init_copy_array_ex__null_set(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(set_init_copy_array_ex(NULL, an_array, 10, NULL));
+}
+
+void test_set_init_copy_array_ex__non_created_set(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+#ifdef CSTL_SET_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 50;
+    expect_assert_failure(set_init_copy_array_ex(pt_dest, set_begin(pt_set), set_end(pt_set), NULL));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
+    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    expect_assert_failure(set_init_copy_array_ex(pt_dest, an_array, 10, NULL));
+    pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
+
+    set_destroy(pt_dest);
+}
+
+void test_set_init_copy_array_ex__invalid_array(void** state)
+{
+    set_t* pt_dest = create_set(int);
+
+    expect_assert_failure(set_init_copy_array_ex(pt_dest, NULL, 10, NULL));
+
+    set_destroy(pt_dest);
+}
+
+void test_set_init_copy_array_ex__empty(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    set_init_copy_array_ex(pt_dest, an_array, 0, NULL);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(set_empty(pt_dest));
+
+    set_destroy(pt_dest);
+}
+
+void test_set_init_copy_array_ex__non_empty(void** state)
+{
+    int i = 0;
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    set_init_copy_array_ex(pt_dest, an_array, 10, NULL);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(set_size(pt_dest) == 10);
+
+    set_destroy(pt_dest);
+}
+
+void test_set_init_copy_array_ex__non_empty_dup(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    set_init_copy_array_ex(pt_dest, an_array, 10, NULL);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(set_size(pt_dest) == 1);
+
+    set_destroy(pt_dest);
+}
+
+static void _test__set_init_compare_array_ex__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test_set_init_copy_array_ex__compare(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    set_init_copy_array_ex(pt_dest, an_array, 10, _test__set_init_compare_array_ex__compare);
+#ifdef CSTL_SET_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(set_size(pt_dest) == 1);
+    assert_true(pt_dest->_t_tree._t_compare == _test__set_init_compare_array_ex__compare);
+
+    set_destroy(pt_dest);
 }
 
 /*
@@ -3224,6 +3423,129 @@ void test_set_insert_range__other_container_range(void** state)
 
     set_destroy(pset);
     slist_destroy(pslist);
+}
+
+/*
+ * test set_insert_array
+ */
+UT_CASE_DEFINATION(set_insert_array)
+void test_set_insert_array__null_set(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(set_insert_array(NULL, an_array, 10));
+}
+
+void test_set_insert_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    set_init_ex(pt_dest, NULL);
+
+#ifdef CSTL_SET_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 8;
+    it_begin = set_begin(pt_src);
+    it_end = set_end(pt_src);
+    expect_assert_failure(set_insert_array(pt_dest, it_begin, it_end));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
+    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    expect_assert_failure(set_insert_array(pt_dest, an_array, 10));
+    pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
+
+    set_destroy(pt_dest);
+}
+
+void test_set_insert_array__invalid_array(void** state)
+{
+    set_t* pt_dest = create_set(int);
+
+    set_init_ex(pt_dest, NULL);
+
+    expect_assert_failure(set_insert_array(pt_dest, NULL, 10));
+
+    set_destroy(pt_dest);
+}
+
+void test_set_insert_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+
+    set_init_ex(pt_dest, NULL);
+
+    set_insert_array(pt_dest, an_array, 0);
+    assert_true(set_empty(pt_dest));
+
+    set_destroy(pt_dest);
+}
+
+void test_set_insert_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+    int i = 0;
+
+    set_init_ex(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        set_insert(pt_dest, i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    set_insert_array(pt_dest, an_array, 10);
+    assert_true(set_size(pt_dest) == 20);
+
+    set_destroy(pt_dest);
+}
+
+void test_set_insert_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    set_t* pt_dest = create_set(int);
+    int i = 0;
+
+    set_init_ex(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        set_insert(pt_dest, i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    set_insert_array(pt_dest, an_array, 10);
+    assert_true(set_size(pt_dest) == 15);
+
+    set_destroy(pt_dest);
+}
+
+void test_set_insert_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    set_t* pt_dest = create_set(int);
+    int i = 0;
+
+    set_init_ex(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        set_insert(pt_dest, i);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 15;
+        an_array[i + 1] = i + 15;
+    }
+
+    set_insert_array(pt_dest, an_array, 20);
+    assert_true(set_size(pt_dest) == 20);
+
+    set_destroy(pt_dest);
 }
 
 /*
