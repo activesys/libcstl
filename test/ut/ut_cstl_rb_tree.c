@@ -242,33 +242,33 @@ void test__rb_tree_init_copy__non_null_compare(void** state)
 }
 
 /*
- * test _rb_tree_init_copy_range
+ * test _rb_tree_init_copy_equal_range
  */
-UT_CASE_DEFINATION(_rb_tree_init_copy_range)
-void test__rb_tree_init_copy_range__null_rb_tree(void** state)
+UT_CASE_DEFINATION(_rb_tree_init_copy_equal_range)
+void test__rb_tree_init_copy_equal_range__null_rb_tree(void** state)
 {
     vector_t* pvec = create_vector(int);
 
-    expect_assert_failure(_rb_tree_init_copy_range(NULL, vector_begin(pvec), vector_end(pvec)));
+    expect_assert_failure(_rb_tree_init_copy_equal_range(NULL, vector_begin(pvec), vector_end(pvec)));
 
     vector_destroy(pvec);
 }
 
-void test__rb_tree_init_copy_range__non_created_rb_tree(void** state)
+void test__rb_tree_init_copy_equal_range__non_created_rb_tree(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     list_t* plist = create_list(int);
     list_init(plist);
 
     pt_dest->_t_rbroot._t_color = BLACK;
-    expect_assert_failure(_rb_tree_init_copy_range(pt_dest, list_begin(plist), list_end(plist)));
+    expect_assert_failure(_rb_tree_init_copy_equal_range(pt_dest, list_begin(plist), list_end(plist)));
     pt_dest->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_dest);
     list_destroy(plist);
 }
 
-void test__rb_tree_init_copy_range__invalid_begin(void** state)
+void test__rb_tree_init_copy_equal_range__invalid_begin(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     slist_t* pslist = create_slist(int);
@@ -279,13 +279,13 @@ void test__rb_tree_init_copy_range__invalid_begin(void** state)
     it_begin = slist_begin(pslist);
     it_end = slist_end(pslist);
     it_begin._t_iteratortype = 333;
-    expect_assert_failure(_rb_tree_init_copy_range(pt_dest, it_begin, it_end));
+    expect_assert_failure(_rb_tree_init_copy_equal_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
     slist_destroy(pslist);
 }
 
-void test__rb_tree_init_copy_range__invalid_end(void** state)
+void test__rb_tree_init_copy_equal_range__invalid_end(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     deque_t* pdeq = create_deque(int);
@@ -296,13 +296,13 @@ void test__rb_tree_init_copy_range__invalid_end(void** state)
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
     it_end._t_containertype = 3333;
-    expect_assert_failure(_rb_tree_init_copy_range(pt_dest, it_begin, it_end));
+    expect_assert_failure(_rb_tree_init_copy_equal_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
     deque_destroy(pdeq);
 }
 
-void test__rb_tree_init_copy_range__invalid_range(void** state)
+void test__rb_tree_init_copy_equal_range__invalid_range(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     set_t* pset = create_set(int);
@@ -315,13 +315,13 @@ void test__rb_tree_init_copy_range__invalid_range(void** state)
     assert_true(set_size(pset) == 1);
     it_begin = set_begin(pset);
     it_end = set_end(pset);
-    expect_assert_failure(_rb_tree_init_copy_range(pt_dest, it_end, it_begin));
+    expect_assert_failure(_rb_tree_init_copy_equal_range(pt_dest, it_end, it_begin));
 
     _rb_tree_destroy(pt_dest);
     set_destroy(pset);
 }
 
-void test__rb_tree_init_copy_range__invalid_range_not_same_type(void** state)
+void test__rb_tree_init_copy_equal_range__invalid_range_not_same_type(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     multiset_t* pmset = create_multiset(double);
@@ -331,13 +331,13 @@ void test__rb_tree_init_copy_range__invalid_range_not_same_type(void** state)
     multiset_init(pmset);
     it_begin = multiset_begin(pmset);
     it_end = multiset_end(pmset);
-    expect_assert_failure(_rb_tree_init_copy_range(pt_dest, it_begin, it_end));
+    expect_assert_failure(_rb_tree_init_copy_equal_range(pt_dest, it_begin, it_end));
 
     _rb_tree_destroy(pt_dest);
     multiset_destroy(pmset);
 }
 
-void test__rb_tree_init_copy_range__empty(void** state)
+void test__rb_tree_init_copy_equal_range__empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     hash_set_t* phset = create_hash_set(int);
@@ -347,7 +347,7 @@ void test__rb_tree_init_copy_range__empty(void** state)
     hash_set_init(phset);
     it_begin = hash_set_begin(phset);
     it_end = hash_set_end(phset);
-    _rb_tree_init_copy_range(pt_dest, it_begin, it_end);
+    _rb_tree_init_copy_equal_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_empty(pt_dest));
 
@@ -355,7 +355,7 @@ void test__rb_tree_init_copy_range__empty(void** state)
     hash_set_destroy(phset);
 }
 
-void test__rb_tree_init_copy_range__non_empty(void** state)
+void test__rb_tree_init_copy_equal_range__non_empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     hash_multiset_t* phmset = create_hash_multiset(int);
@@ -367,7 +367,183 @@ void test__rb_tree_init_copy_range__non_empty(void** state)
     hash_multiset_insert(phmset, elem);
     it_begin = hash_multiset_begin(phmset);
     it_end = hash_multiset_end(phmset);
-    _rb_tree_init_copy_range(pt_dest, it_begin, it_end);
+    _rb_tree_init_copy_equal_range(pt_dest, it_begin, it_end);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 1);
+
+    _rb_tree_destroy(pt_dest);
+    hash_multiset_destroy(phmset);
+}
+
+void test__rb_tree_init_copy_equal_range__non_empty_dup(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, elem);
+    hash_multiset_insert(phmset, elem);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
+    _rb_tree_init_copy_equal_range(pt_dest, it_begin, it_end);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 2);
+
+    _rb_tree_destroy(pt_dest);
+    hash_multiset_destroy(phmset);
+}
+
+/*
+ * test _rb_tree_init_copy_unique_range
+ */
+UT_CASE_DEFINATION(_rb_tree_init_copy_unique_range)
+void test__rb_tree_init_copy_unique_range__null_rb_tree(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    expect_assert_failure(_rb_tree_init_copy_unique_range(NULL, vector_begin(pvec), vector_end(pvec)));
+
+    vector_destroy(pvec);
+}
+
+void test__rb_tree_init_copy_unique_range__non_created_rb_tree(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    list_t* plist = create_list(int);
+    list_init(plist);
+
+    pt_dest->_t_rbroot._t_color = BLACK;
+    expect_assert_failure(_rb_tree_init_copy_unique_range(pt_dest, list_begin(plist), list_end(plist)));
+    pt_dest->_t_rbroot._t_color = RED;
+
+    _rb_tree_destroy(pt_dest);
+    list_destroy(plist);
+}
+
+void test__rb_tree_init_copy_unique_range__invalid_begin(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    slist_init(pslist);
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_begin._t_iteratortype = 333;
+    expect_assert_failure(_rb_tree_init_copy_unique_range(pt_dest, it_begin, it_end));
+
+    _rb_tree_destroy(pt_dest);
+    slist_destroy(pslist);
+}
+
+void test__rb_tree_init_copy_unique_range__invalid_end(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    deque_t* pdeq = create_deque(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    deque_init(pdeq);
+    it_begin = deque_begin(pdeq);
+    it_end = deque_end(pdeq);
+    it_end._t_containertype = 3333;
+    expect_assert_failure(_rb_tree_init_copy_unique_range(pt_dest, it_begin, it_end));
+
+    _rb_tree_destroy(pt_dest);
+    deque_destroy(pdeq);
+}
+
+void test__rb_tree_init_copy_unique_range__invalid_range(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    set_init(pset);
+    set_insert(pset, elem);
+    assert_true(set_size(pset) == 1);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
+    expect_assert_failure(_rb_tree_init_copy_unique_range(pt_dest, it_end, it_begin));
+
+    _rb_tree_destroy(pt_dest);
+    set_destroy(pset);
+}
+
+void test__rb_tree_init_copy_unique_range__invalid_range_not_same_type(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    multiset_t* pmset = create_multiset(double);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    multiset_init(pmset);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
+    expect_assert_failure(_rb_tree_init_copy_unique_range(pt_dest, it_begin, it_end));
+
+    _rb_tree_destroy(pt_dest);
+    multiset_destroy(pmset);
+}
+
+void test__rb_tree_init_copy_unique_range__empty(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    hash_set_t* phset = create_hash_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    hash_set_init(phset);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
+    _rb_tree_init_copy_unique_range(pt_dest, it_begin, it_end);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_empty(pt_dest));
+
+    _rb_tree_destroy(pt_dest);
+    hash_set_destroy(phset);
+}
+
+void test__rb_tree_init_copy_unique_range__non_empty(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, elem);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
+    _rb_tree_init_copy_unique_range(pt_dest, it_begin, it_end);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 1);
+
+    _rb_tree_destroy(pt_dest);
+    hash_multiset_destroy(phmset);
+}
+
+void test__rb_tree_init_copy_unique_range__non_empty_dup(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, elem);
+    hash_multiset_insert(phmset, elem);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
+    _rb_tree_init_copy_unique_range(pt_dest, it_begin, it_end);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_size(pt_dest) == 1);
 
@@ -376,55 +552,143 @@ void test__rb_tree_init_copy_range__non_empty(void** state)
 }
 
 /*
- * test _rb_tree_init_copy_array
+ * test _rb_tree_init_copy_equal_array
  */
-UT_CASE_DEFINATION(_rb_tree_init_copy_array)
-void test__rb_tree_init_copy_array__null_rb_tree(void** state)
+UT_CASE_DEFINATION(_rb_tree_init_copy_equal_array)
+void test__rb_tree_init_copy_equal_array__null_rb_tree(void** state)
 {
     int an_array[10] = {0};
 
-    expect_assert_failure(_rb_tree_init_copy_array(NULL, an_array, 10));
+    expect_assert_failure(_rb_tree_init_copy_equal_array(NULL, an_array, 10));
 }
 
-void test__rb_tree_init_copy_array__non_created_rb_tree(void** state)
+void test__rb_tree_init_copy_equal_array__non_created_rb_tree(void** state)
 {
     int an_array[10] = {0};
     _rb_tree_t* pt_dest = _create_rb_tree("int");
 
     pt_dest->_t_rbroot._t_color = BLACK;
-    expect_assert_failure(_rb_tree_init_copy_array(pt_dest, an_array, 10));
+    expect_assert_failure(_rb_tree_init_copy_equal_array(pt_dest, an_array, 10));
     pt_dest->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_dest);
 }
 
-void test__rb_tree_init_copy_array__invalid_array(void** state)
+void test__rb_tree_init_copy_equal_array__invalid_array(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
 
-    expect_assert_failure(_rb_tree_init_copy_array(pt_dest, NULL, 10));
+    expect_assert_failure(_rb_tree_init_copy_equal_array(pt_dest, NULL, 10));
 
     _rb_tree_destroy(pt_dest);
 }
 
-void test__rb_tree_init_copy_array__empty(void** state)
+void test__rb_tree_init_copy_equal_array__empty(void** state)
 {
     int an_array[10] = {0};
     _rb_tree_t* pt_dest = _create_rb_tree("int");
 
-    _rb_tree_init_copy_array(pt_dest, an_array, 0);
+    _rb_tree_init_copy_equal_array(pt_dest, an_array, 0);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_empty(pt_dest));
 
     _rb_tree_destroy(pt_dest);
 }
 
-void test__rb_tree_init_copy_array__non_empty(void** state)
+void test__rb_tree_init_copy_equal_array__non_empty(void** state)
+{
+    int i = 0;
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    _rb_tree_init_copy_equal_array(pt_dest, an_array, 10);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_equal_array__non_empty_dup(void** state)
 {
     int an_array[10] = {0};
     _rb_tree_t* pt_dest = _create_rb_tree("int");
 
-    _rb_tree_init_copy_array(pt_dest, an_array, 10);
+    _rb_tree_init_copy_equal_array(pt_dest, an_array, 10);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+/*
+ * test _rb_tree_init_copy_unique_array
+ */
+UT_CASE_DEFINATION(_rb_tree_init_copy_unique_array)
+void test__rb_tree_init_copy_unique_array__null_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+
+    expect_assert_failure(_rb_tree_init_copy_unique_array(NULL, an_array, 10));
+}
+
+void test__rb_tree_init_copy_unique_array__non_created_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    pt_dest->_t_rbroot._t_color = BLACK;
+    expect_assert_failure(_rb_tree_init_copy_unique_array(pt_dest, an_array, 10));
+    pt_dest->_t_rbroot._t_color = RED;
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_unique_array__invalid_array(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    expect_assert_failure(_rb_tree_init_copy_unique_array(pt_dest, NULL, 10));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_unique_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init_copy_unique_array(pt_dest, an_array, 0);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_empty(pt_dest));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_unique_array__non_empty(void** state)
+{
+    int i = 0;
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    _rb_tree_init_copy_unique_array(pt_dest, an_array, 10);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_unique_array__non_empty_dup(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init_copy_unique_array(pt_dest, an_array, 10);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_size(pt_dest) == 1);
 
@@ -432,34 +696,34 @@ void test__rb_tree_init_copy_array__non_empty(void** state)
 }
 
 /*
- * test _rb_tree_init_copy_range_ex
+ * test _rb_tree_init_copy_equal_range_ex
  */
-UT_CASE_DEFINATION(_rb_tree_init_copy_range_ex)
-void test__rb_tree_init_copy_range_ex__null_rb_tree(void** state)
+UT_CASE_DEFINATION(_rb_tree_init_copy_equal_range_ex)
+void test__rb_tree_init_copy_equal_range_ex__null_rb_tree(void** state)
 {
     vector_t* pvec = create_vector(int);
     vector_init(pvec);
 
-    expect_assert_failure(_rb_tree_init_copy_range_ex(NULL, vector_begin(pvec), vector_end(pvec), NULL));
+    expect_assert_failure(_rb_tree_init_copy_equal_range_ex(NULL, vector_begin(pvec), vector_end(pvec), NULL));
 
     vector_destroy(pvec);
 }
 
-void test__rb_tree_init_copy_range_ex__non_created_rb_tree(void** state)
+void test__rb_tree_init_copy_equal_range_ex__non_created_rb_tree(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     list_t* plist = create_list(int);
     list_init(plist);
 
     pt_dest->_t_rbroot._t_color = BLACK;
-    expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, list_begin(plist), list_end(plist), NULL));
+    expect_assert_failure(_rb_tree_init_copy_equal_range_ex(pt_dest, list_begin(plist), list_end(plist), NULL));
     pt_dest->_t_rbroot._t_color = RED;
 
     _rb_tree_destroy(pt_dest);
     list_destroy(plist);
 }
 
-void test__rb_tree_init_copy_range_ex__invalid_begin(void** state)
+void test__rb_tree_init_copy_equal_range_ex__invalid_begin(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     slist_t* pslist = create_slist(int);
@@ -470,13 +734,13 @@ void test__rb_tree_init_copy_range_ex__invalid_begin(void** state)
     it_begin = slist_begin(pslist);
     it_end = slist_end(pslist);
     it_begin._t_containertype = 444;
-    expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
+    expect_assert_failure(_rb_tree_init_copy_equal_range_ex(pt_dest, it_begin, it_end, NULL));
 
     _rb_tree_destroy(pt_dest);
     slist_destroy(pslist);
 }
 
-void test__rb_tree_init_copy_range_ex__invalid_end(void** state)
+void test__rb_tree_init_copy_equal_range_ex__invalid_end(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     deque_t* pdeq = create_deque(int);
@@ -487,13 +751,13 @@ void test__rb_tree_init_copy_range_ex__invalid_end(void** state)
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
     it_end._t_iteratortype = 4444;
-    expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
+    expect_assert_failure(_rb_tree_init_copy_equal_range_ex(pt_dest, it_begin, it_end, NULL));
 
     _rb_tree_destroy(pt_dest);
     deque_destroy(pdeq);
 }
 
-void test__rb_tree_init_copy_range_ex__invalid_range(void** state)
+void test__rb_tree_init_copy_equal_range_ex__invalid_range(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     set_t* pset = create_set(int);
@@ -505,13 +769,13 @@ void test__rb_tree_init_copy_range_ex__invalid_range(void** state)
     set_insert(pset, elem);
     it_begin = set_begin(pset);
     it_end = set_end(pset);
-    expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, it_end, it_begin, NULL));
+    expect_assert_failure(_rb_tree_init_copy_equal_range_ex(pt_dest, it_end, it_begin, NULL));
 
     _rb_tree_destroy(pt_dest);
     set_destroy(pset);
 }
 
-void test__rb_tree_init_copy_range_ex__invalid_range_not_same_type(void** state)
+void test__rb_tree_init_copy_equal_range_ex__invalid_range_not_same_type(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     multiset_t* pmset = create_multiset(double);
@@ -521,13 +785,13 @@ void test__rb_tree_init_copy_range_ex__invalid_range_not_same_type(void** state)
     multiset_init(pmset);
     it_begin = multiset_begin(pmset);
     it_end = multiset_end(pmset);
-    expect_assert_failure(_rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL));
+    expect_assert_failure(_rb_tree_init_copy_equal_range_ex(pt_dest, it_begin, it_end, NULL));
 
     _rb_tree_destroy(pt_dest);
     multiset_destroy(pmset);
 }
 
-void test__rb_tree_init_copy_range_ex__empty(void** state)
+void test__rb_tree_init_copy_equal_range_ex__empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     hash_set_t* phset = create_hash_set(int);
@@ -537,7 +801,7 @@ void test__rb_tree_init_copy_range_ex__empty(void** state)
     hash_set_init(phset);
     it_begin = hash_set_begin(phset);
     it_end = hash_set_end(phset);
-    _rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
+    _rb_tree_init_copy_equal_range_ex(pt_dest, it_begin, it_end, NULL);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_empty(pt_dest));
 
@@ -545,7 +809,7 @@ void test__rb_tree_init_copy_range_ex__empty(void** state)
     hash_set_destroy(phset);
 }
 
-void test__rb_tree_init_copy_range_ex__non_empty(void** state)
+void test__rb_tree_init_copy_equal_range_ex__non_empty(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     hash_multiset_t* phmset = create_hash_multiset(int);
@@ -554,22 +818,47 @@ void test__rb_tree_init_copy_range_ex__non_empty(void** state)
     int elem = 9;
 
     hash_multiset_init(phmset);
-    hash_multiset_insert(phmset, elem);
+    for (elem = 0; elem < 10; ++elem) {
+        hash_multiset_insert(phmset, elem);
+    }
     it_begin = hash_multiset_begin(phmset);
     it_end = hash_multiset_end(phmset);
-    _rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, NULL);
+    _rb_tree_init_copy_equal_range_ex(pt_dest, it_begin, it_end, NULL);
     assert_true(_rb_tree_is_inited(pt_dest));
-    assert_true(_rb_tree_size(pt_dest) == 1);
+    assert_true(_rb_tree_size(pt_dest) == 10);
 
     _rb_tree_destroy(pt_dest);
     hash_multiset_destroy(phmset);
 }
 
-static void _test__rb_tree_init_compare_range_ex__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+void test__rb_tree_init_copy_equal_range_ex__non_empty_dup(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    hash_multiset_init(phmset);
+    for (elem = 0; elem < 10; ++elem) {
+        hash_multiset_insert(phmset, 0);
+    }
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
+    _rb_tree_init_copy_equal_range_ex(pt_dest, it_begin, it_end, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+
+    _rb_tree_destroy(pt_dest);
+    hash_multiset_destroy(phmset);
+}
+
+static void _test__rb_tree_init_compare_equal_range_ex__compare(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
 }
-void test__rb_tree_init_copy_range_ex__compare(void** state)
+void test__rb_tree_init_copy_equal_range_ex__compare(void** state)
 {
     _rb_tree_t* pt_dest = _create_rb_tree("int");
     set_t* pset = create_set(int);
@@ -581,13 +870,371 @@ void test__rb_tree_init_copy_range_ex__compare(void** state)
     set_insert(pset, elem);
     it_begin = set_begin(pset);
     it_end = set_end(pset);
-    _rb_tree_init_copy_range_ex(pt_dest, it_begin, it_end, _test__rb_tree_init_compare_range_ex__compare);
+    _rb_tree_init_copy_equal_range_ex(pt_dest, it_begin, it_end, _test__rb_tree_init_compare_equal_range_ex__compare);
     assert_true(_rb_tree_is_inited(pt_dest));
     assert_true(_rb_tree_size(pt_dest) == 1);
-    assert_true(pt_dest->_t_compare == _test__rb_tree_init_compare_range_ex__compare);
+    assert_true(pt_dest->_t_compare == _test__rb_tree_init_compare_equal_range_ex__compare);
 
     _rb_tree_destroy(pt_dest);
     set_destroy(pset);
+}
+
+/*
+ * test _rb_tree_init_copy_unique_range_ex
+ */
+UT_CASE_DEFINATION(_rb_tree_init_copy_unique_range_ex)
+void test__rb_tree_init_copy_unique_range_ex__null_rb_tree(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_init(pvec);
+
+    expect_assert_failure(_rb_tree_init_copy_unique_range_ex(NULL, vector_begin(pvec), vector_end(pvec), NULL));
+
+    vector_destroy(pvec);
+}
+
+void test__rb_tree_init_copy_unique_range_ex__non_created_rb_tree(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    list_t* plist = create_list(int);
+    list_init(plist);
+
+    pt_dest->_t_rbroot._t_color = BLACK;
+    expect_assert_failure(_rb_tree_init_copy_unique_range_ex(pt_dest, list_begin(plist), list_end(plist), NULL));
+    pt_dest->_t_rbroot._t_color = RED;
+
+    _rb_tree_destroy(pt_dest);
+    list_destroy(plist);
+}
+
+void test__rb_tree_init_copy_unique_range_ex__invalid_begin(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    slist_init(pslist);
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_begin._t_containertype = 444;
+    expect_assert_failure(_rb_tree_init_copy_unique_range_ex(pt_dest, it_begin, it_end, NULL));
+
+    _rb_tree_destroy(pt_dest);
+    slist_destroy(pslist);
+}
+
+void test__rb_tree_init_copy_unique_range_ex__invalid_end(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    deque_t* pdeq = create_deque(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    deque_init(pdeq);
+    it_begin = deque_begin(pdeq);
+    it_end = deque_end(pdeq);
+    it_end._t_iteratortype = 4444;
+    expect_assert_failure(_rb_tree_init_copy_unique_range_ex(pt_dest, it_begin, it_end, NULL));
+
+    _rb_tree_destroy(pt_dest);
+    deque_destroy(pdeq);
+}
+
+void test__rb_tree_init_copy_unique_range_ex__invalid_range(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    set_init(pset);
+    set_insert(pset, elem);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
+    expect_assert_failure(_rb_tree_init_copy_unique_range_ex(pt_dest, it_end, it_begin, NULL));
+
+    _rb_tree_destroy(pt_dest);
+    set_destroy(pset);
+}
+
+void test__rb_tree_init_copy_unique_range_ex__invalid_range_not_same_type(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    multiset_t* pmset = create_multiset(double);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    multiset_init(pmset);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
+    expect_assert_failure(_rb_tree_init_copy_unique_range_ex(pt_dest, it_begin, it_end, NULL));
+
+    _rb_tree_destroy(pt_dest);
+    multiset_destroy(pmset);
+}
+
+void test__rb_tree_init_copy_unique_range_ex__empty(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    hash_set_t* phset = create_hash_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    hash_set_init(phset);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
+    _rb_tree_init_copy_unique_range_ex(pt_dest, it_begin, it_end, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_empty(pt_dest));
+
+    _rb_tree_destroy(pt_dest);
+    hash_set_destroy(phset);
+}
+
+void test__rb_tree_init_copy_unique_range_ex__non_empty(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    hash_multiset_init(phmset);
+    for (elem = 0; elem < 10; ++elem) {
+        hash_multiset_insert(phmset, elem);
+    }
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
+    _rb_tree_init_copy_unique_range_ex(pt_dest, it_begin, it_end, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+
+    _rb_tree_destroy(pt_dest);
+    hash_multiset_destroy(phmset);
+}
+
+void test__rb_tree_init_copy_unique_range_ex__non_empty_dup(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    hash_multiset_init(phmset);
+    for (elem = 0; elem < 10; ++elem) {
+        hash_multiset_insert(phmset, 0);
+    }
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
+    _rb_tree_init_copy_unique_range_ex(pt_dest, it_begin, it_end, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 1);
+
+    _rb_tree_destroy(pt_dest);
+    hash_multiset_destroy(phmset);
+}
+
+static void _test__rb_tree_init_compare_unique_range_ex__compare(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test__rb_tree_init_copy_unique_range_ex__compare(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    set_init(pset);
+    set_insert(pset, elem);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
+    _rb_tree_init_copy_unique_range_ex(pt_dest, it_begin, it_end, _test__rb_tree_init_compare_unique_range_ex__compare);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 1);
+    assert_true(pt_dest->_t_compare == _test__rb_tree_init_compare_unique_range_ex__compare);
+
+    _rb_tree_destroy(pt_dest);
+    set_destroy(pset);
+}
+
+/*
+ * test _rb_tree_init_copy_equal_array_ex
+ */
+UT_CASE_DEFINATION(_rb_tree_init_copy_equal_array_ex)
+void test__rb_tree_init_copy_equal_array_ex__null_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_rb_tree_init_copy_equal_array_ex(NULL, an_array, 10, NULL));
+}
+
+void test__rb_tree_init_copy_equal_array_ex__non_created_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    pt_dest->_t_rbroot._t_color = BLACK;
+    expect_assert_failure(_rb_tree_init_copy_equal_array_ex(pt_dest, an_array, 10, NULL));
+    pt_dest->_t_rbroot._t_color = RED;
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_equal_array_ex__invalid_array(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    expect_assert_failure(_rb_tree_init_copy_equal_array_ex(pt_dest, NULL, 10, NULL));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_equal_array_ex__empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init_copy_equal_array_ex(pt_dest, an_array, 0, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_empty(pt_dest));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_equal_array_ex__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    int elem = 9;
+
+    for (elem = 0; elem < 10; ++elem) {
+        an_array[elem] = elem;
+    }
+    _rb_tree_init_copy_equal_array_ex(pt_dest, an_array, 10, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_equal_array_ex__non_empty_dup(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init_copy_equal_array_ex(pt_dest, an_array, 10, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+static void _test__rb_tree_init_compare_equal_array_ex__compare(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test__rb_tree_init_copy_equal_array_ex__compare(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    _rb_tree_init_copy_equal_array_ex(pt_dest, an_array, 10, _test__rb_tree_init_compare_equal_array_ex__compare);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+    assert_true(pt_dest->_t_compare == _test__rb_tree_init_compare_equal_array_ex__compare);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+/*
+ * test _rb_tree_init_copy_unique_array_ex
+ */
+UT_CASE_DEFINATION(_rb_tree_init_copy_unique_array_ex)
+void test__rb_tree_init_copy_unique_array_ex__null_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_rb_tree_init_copy_unique_array_ex(NULL, an_array, 10, NULL));
+}
+
+void test__rb_tree_init_copy_unique_array_ex__non_created_rb_tree(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+
+    pt_dest->_t_rbroot._t_color = BLACK;
+    expect_assert_failure(_rb_tree_init_copy_unique_array_ex(pt_dest, an_array, 10, NULL));
+    pt_dest->_t_rbroot._t_color = RED;
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_unique_array_ex__invalid_array(void** state)
+{
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    expect_assert_failure(_rb_tree_init_copy_unique_array_ex(pt_dest, NULL, 10, NULL));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_unique_array_ex__empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    _rb_tree_init_copy_unique_array_ex(pt_dest, an_array, 0, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_empty(pt_dest));
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_unique_array_ex__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    int elem = 9;
+
+    for (elem = 0; elem < 10; ++elem) {
+        an_array[elem] = elem;
+    }
+    _rb_tree_init_copy_unique_array_ex(pt_dest, an_array, 10, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 10);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+void test__rb_tree_init_copy_unique_array_ex__non_empty_dup(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    _rb_tree_init_copy_unique_array_ex(pt_dest, an_array, 10, NULL);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 1);
+
+    _rb_tree_destroy(pt_dest);
+}
+
+static void _test__rb_tree_init_compare_unique_array_ex__compare(
+    const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test__rb_tree_init_copy_unique_array_ex__compare(void** state)
+{
+    int an_array[10] = {0};
+    _rb_tree_t* pt_dest = _create_rb_tree("int");
+    _rb_tree_init_copy_unique_array_ex(pt_dest, an_array, 10, _test__rb_tree_init_compare_unique_array_ex__compare);
+    assert_true(_rb_tree_is_inited(pt_dest));
+    assert_true(_rb_tree_size(pt_dest) == 1);
+    assert_true(pt_dest->_t_compare == _test__rb_tree_init_compare_unique_array_ex__compare);
+
+    _rb_tree_destroy(pt_dest);
 }
 
 /*

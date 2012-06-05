@@ -76,7 +76,31 @@ extern void _rb_tree_init_copy(_rb_tree_t* pt_dest, const _rb_tree_t* cpt_src);
  *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
  *          is undefined.
  */
-extern void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
+extern void _rb_tree_init_copy_equal_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Initialize rb tree container with specific range.
+ * @param pt_dest           destination rb tree.
+ * @param it_begin          begin of range.
+ * @param it_end            end of range.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
+ *          is undefined.
+ */
+extern void _rb_tree_init_copy_unique_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Initialize rb tree container with specific range.
+ * @param pt_dest           destination rb tree.
+ * @param it_begin          begin of range.
+ * @param it_end            end of range.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
+ *          is undefined.
+ */
+extern void _rb_tree_init_copy_unique_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
  * Initialize rb tree container with specific array.
@@ -88,7 +112,19 @@ extern void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, iterator_t it_begin, i
  *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior
  *          is undefined.
  */
-extern void _rb_tree_init_copy_array(_rb_tree_t* pt_dest, const void* cpv_array, size_t t_count);
+extern void _rb_tree_init_copy_equal_array(_rb_tree_t* pt_dest, const void* cpv_array, size_t t_count);
+
+/**
+ * Initialize rb tree container with specific array.
+ * @param pt_dest           destination rb tree.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior
+ *          is undefined.
+ */
+extern void _rb_tree_init_copy_unique_array(_rb_tree_t* pt_dest, const void* cpv_array, size_t t_count);
 
 /**
  * Initialize rb tree container with specific range and compare function.
@@ -101,8 +137,50 @@ extern void _rb_tree_init_copy_array(_rb_tree_t* pt_dest, const void* cpv_array,
  *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
-extern void _rb_tree_init_copy_range_ex(
+extern void _rb_tree_init_copy_equal_range_ex(
     _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
+
+/**
+ * Initialize rb tree container with specific range and compare function.
+ * @param pt_dest           destination rb tree.
+ * @param it_begin          begin of range.
+ * @param it_end            end of range.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
+ *          is undefined. if t_compare == NULL, then use default compare function.
+ */
+extern void _rb_tree_init_copy_unique_range_ex(
+    _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
+
+/**
+ * Initialize rb tree container with specific array and compare function.
+ * @param pt_dest           destination rb tree.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior
+ *          is undefined. if t_compare == NULL, then use default compare function.
+ */
+extern void _rb_tree_init_copy_equal_array_ex(
+    _rb_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare);
+
+/**
+ * Initialize rb tree container with specific array and compare function.
+ * @param pt_dest           destination rb tree.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_rb_tree(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior
+ *          is undefined. if t_compare == NULL, then use default compare function.
+ */
+extern void _rb_tree_init_copy_unique_array_ex(
+    _rb_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare);
 
 /**
  * Destroy rb tree.

@@ -115,7 +115,7 @@ void _rb_tree_init_copy(_rb_tree_t* pt_dest, const _rb_tree_t* cpt_src)
 /**
  * Initialize rb tree container with specific range.
  */
-void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end)
+void _rb_tree_init_copy_equal_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end)
 {
     assert(pt_dest != NULL);
     assert(_rb_tree_is_created(pt_dest));
@@ -128,16 +128,50 @@ void _rb_tree_init_copy_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator
 }
 
 /**
+ * Initialize rb tree container with specific range.
+ */
+void _rb_tree_init_copy_unique_range(_rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end)
+{
+    assert(pt_dest != NULL);
+    assert(_rb_tree_is_created(pt_dest));
+    assert(_rb_tree_same_iterator_type(pt_dest, it_begin));
+    assert(_rb_tree_same_iterator_type(pt_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+
+    _rb_tree_init(pt_dest, NULL);
+    _rb_tree_insert_unique_range(pt_dest, it_begin, it_end);
+}
+
+/**
  * Initialize rb tree container with specific array.
  */
-void _rb_tree_init_copy_array(_rb_tree_t* pt_dest, const void* cpv_array, size_t t_count)
+void _rb_tree_init_copy_equal_array(_rb_tree_t* pt_dest, const void* cpv_array, size_t t_count)
 {
+    assert(pt_dest != NULL);
+    assert(_rb_tree_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _rb_tree_init(pt_dest, NULL);
+    _rb_tree_insert_equal_array(pt_dest, cpv_array, t_count);
+}
+
+/**
+ * Initialize rb tree container with specific array.
+ */
+void _rb_tree_init_copy_unique_array(_rb_tree_t* pt_dest, const void* cpv_array, size_t t_count)
+{
+    assert(pt_dest != NULL);
+    assert(_rb_tree_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _rb_tree_init(pt_dest, NULL);
+    _rb_tree_insert_unique_array(pt_dest, cpv_array, t_count);
 }
 
 /**
  * Initialize rb tree container with specific range and compare function.
  */
-void _rb_tree_init_copy_range_ex(
+void _rb_tree_init_copy_equal_range_ex(
     _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare)
 {
     assert(pt_dest != NULL);
@@ -148,6 +182,50 @@ void _rb_tree_init_copy_range_ex(
 
     _rb_tree_init(pt_dest, t_compare);
     _rb_tree_insert_equal_range(pt_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize rb tree container with specific range and compare function.
+ */
+void _rb_tree_init_copy_unique_range_ex(
+    _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_rb_tree_is_created(pt_dest));
+    assert(_rb_tree_same_iterator_type(pt_dest, it_begin));
+    assert(_rb_tree_same_iterator_type(pt_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+
+    _rb_tree_init(pt_dest, t_compare);
+    _rb_tree_insert_unique_range(pt_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize rb tree container with specific array and compare function.
+ */
+void _rb_tree_init_copy_equal_array_ex(
+    _rb_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_rb_tree_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _rb_tree_init(pt_dest, t_compare);
+    _rb_tree_insert_equal_array(pt_dest, cpv_array, t_count);
+}
+
+/**
+ * Initialize rb tree container with specific array and compare function.
+ */
+void _rb_tree_init_copy_unique_array_ex(
+    _rb_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_rb_tree_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _rb_tree_init(pt_dest, t_compare);
+    _rb_tree_insert_unique_array(pt_dest, cpv_array, t_count);
 }
 
 /**

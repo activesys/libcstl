@@ -121,7 +121,7 @@ void set_init_copy_range(set_t* pset_dest, iterator_t it_begin, iterator_t it_en
 #ifdef CSTL_SET_AVL_TREE
     _avl_tree_init_copy_range(&pset_dest->_t_tree, it_begin, it_end);
 #else
-    _rb_tree_init_copy_range(&pset_dest->_t_tree, it_begin, it_end);
+    _rb_tree_init_copy_unique_range(&pset_dest->_t_tree, it_begin, it_end);
 #endif
 }
 
@@ -137,7 +137,7 @@ void set_init_copy_range_ex(
 #ifdef CSTL_SET_AVL_TREE
     _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #else
-    _rb_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
+    _rb_tree_init_copy_unique_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #endif
 }
 

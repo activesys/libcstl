@@ -121,7 +121,7 @@ void multiset_init_copy_range(multiset_t* pmset_dest, iterator_t it_begin, itera
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_init_copy_range(&pmset_dest->_t_tree, it_begin, it_end);
 #else
-    _rb_tree_init_copy_range(&pmset_dest->_t_tree, it_begin, it_end);
+    _rb_tree_init_copy_equal_range(&pmset_dest->_t_tree, it_begin, it_end);
 #endif
 }
 
@@ -137,7 +137,7 @@ void multiset_init_copy_range_ex(
 #ifdef CSTL_MULTISET_AVL_TREE
     _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #else
-    _rb_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
+    _rb_tree_init_copy_equal_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #endif
 }
 
