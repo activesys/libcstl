@@ -139,6 +139,19 @@ void map_init_copy_range(map_t* pmap_dest, iterator_t it_begin, iterator_t it_en
 }
 
 /**
+ * Initialize map container with specific array.
+ */
+void map_init_copy_array(map_t* pmap_dest, const void* cpv_array, size_t t_count)
+{
+    assert(pmap_dest != NULL);
+    assert(_pair_is_created(&pmap_dest->_pair_temp));
+    assert(cpv_array != NULL);
+
+    map_init(pmap_dest);
+    map_insert_array(pmap_dest, cpv_array, t_count);
+}
+
+/**
  * Initialize map container with specific range and compare function.
  */
 void map_init_copy_range_ex(map_t* pmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare)
@@ -149,6 +162,20 @@ void map_init_copy_range_ex(map_t* pmap_dest, iterator_t it_begin, iterator_t it
 
     map_init_ex(pmap_dest, bfun_keycompare);
     map_insert_range(pmap_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize map container with specific array and compare function.
+ */
+void map_init_copy_array_ex(
+    map_t* pmap_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_keycompare)
+{
+    assert(pmap_dest != NULL);
+    assert(_pair_is_created(&pmap_dest->_pair_temp));
+    assert(cpv_array != NULL);
+
+    map_init_ex(pmap_dest, bfun_keycompare);
+    map_insert_array(pmap_dest, cpv_array, t_count);
 }
 
 /**
@@ -554,6 +581,23 @@ void map_insert_range(map_t* pmap_map, iterator_t it_begin, iterator_t it_end)
     for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         assert(_map_same_pair_type(&pmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         map_insert(pmap_map, (pair_t*)iterator_get_pointer(it_iter));
+    }
+}
+
+/**
+ * Inserts an array of unique element into a map.
+ */
+void map_insert_array(map_t* pmap_map, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(pmap_map != NULL);
+    assert(_pair_is_inited(&pmap_map->_pair_temp));
+    assert(cpv_array != NULL);
+
+    for (i = 0; i < t_count; ++i) {
+        assert(_map_same_pair_type(&pmap_map->_pair_temp, ((pair_t**)cpv_array)[i]));
+        map_insert(pmap_map, ((pair_t**)cpv_array)[i]);
     }
 }
 

@@ -156,6 +156,18 @@ extern void map_init_copy(map_t* pmap_dest, const map_t* cpmap_src);
 extern void map_init_copy_range(map_t* pmap_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize map container with specific array.
+ * @param pmap_dest         destination map.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by create_map(), otherwise
+ *          the behavior is undefined. the type of array and pmap_dest must be same, otherwise the behavior
+ *          is undefined.
+ */
+extern void map_init_copy_array(map_t* pmap_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Initialize map container with specific range and compare function.
  * @param pmap_dest         destination map.
  * @param it_begin          begin of range.
@@ -168,6 +180,20 @@ extern void map_init_copy_range(map_t* pmap_dest, iterator_t it_begin, iterator_
  */
 extern void map_init_copy_range_ex(
     map_t* pmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare);
+
+/**
+ * Initialize map container with specific array and compare function.
+ * @param pmap_dest         destination map.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by _create_map(), otherwise
+ *          the behavior is undefined. the type of array and pmap_dest must be same, otherwise the behavior
+ *          is undefined. if t_compare == NULL, then use default compare function.
+ */
+extern void map_init_copy_array_ex(
+    map_t* pmap_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_keycompare);
 
 /**
  * Destroy map.
@@ -294,6 +320,18 @@ extern map_iterator_t map_insert_hint(map_t* pmap_map, map_iterator_t it_hint, c
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
 extern void map_insert_range(map_t* pmap_map, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Inserts an array of unique element into a map.
+ * @param pmap_map          map container.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pmap_map == NULL then the behavior is undefined. pmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpmap_map must be same, otherwise the behavior is undefined.
+ *          array must be valid range, otherwise the behavior is undefine.
+ */
+extern void map_insert_array(map_t* pmap_map, const void* cpv_array, size_t t_count);
 
 /*
  * Erase an element in an map from specificed position.

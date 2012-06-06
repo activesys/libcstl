@@ -51,6 +51,19 @@ void test_map_init_copy_range__other_container_range_dup(void** state);
 void test_map_init_copy_range__other_container_range_not_same_type(void** state);
 void test_map_init_copy_range__other_container_range_not_pair(void** state);
 /*
+ * test map_init_copy_array
+ */
+UT_CASE_DECLARATION(map_init_copy_array)
+void test_map_init_copy_array__null_map(void** state);
+void test_map_init_copy_array__non_created_map(void** state);
+void test_map_init_copy_array__non_created_map_pair(void** state);
+void test_map_init_copy_array__invalid_array(void** state);
+void test_map_init_copy_array__invalid_array_not_same_type(void** state);
+void test_map_init_copy_array__empty(void** state);
+void test_map_init_copy_array__non_empty(void** state);
+void test_map_init_copy_array__non_empty_dup(void** state);
+void test_map_init_copy_array__array_not_pair(void** state);
+/*
  * test map_init_copy_range_ex
  */
 UT_CASE_DECLARATION(map_init_copy_range_ex)
@@ -68,6 +81,20 @@ void test_map_init_copy_range_ex__other_container_range(void** state);
 void test_map_init_copy_range_ex__other_container_range_dup(void** state);
 void test_map_init_copy_range_ex__other_container_range_not_same_type(void** state);
 void test_map_init_copy_range_ex__other_container_range_not_pair(void** state);
+/*
+ * test map_init_copy_array_ex
+ */
+UT_CASE_DECLARATION(map_init_copy_array_ex)
+void test_map_init_copy_array_ex__null_map(void** state);
+void test_map_init_copy_array_ex__non_created_map(void** state);
+void test_map_init_copy_array_ex__non_created_map_pair(void** state);
+void test_map_init_copy_array_ex__invalid_array(void** state);
+void test_map_init_copy_array_ex__invalid_array_not_same_type(void** state);
+void test_map_init_copy_array_ex__empty(void** state);
+void test_map_init_copy_array_ex__non_empty(void** state);
+void test_map_init_copy_array_ex__non_empty_dup(void** state);
+void test_map_init_copy_array_ex__compare(void** state);
+void test_map_init_copy_array_ex__array_not_pair(void** state);
 /*
  * test map_destroy
  */
@@ -354,6 +381,20 @@ void test_map_insert_range__other_container_range(void** state);
 void test_map_insert_range__other_container_range_not_same_type(void** state);
 void test_map_insert_range__other_container_range_not_pair(void** state);
 /*
+ * test map_insert_array
+ */
+UT_CASE_DECLARATION(map_insert_array)
+void test_map_insert_array__null_map(void** state);
+void test_map_insert_array__non_inited(void** state);
+void test_map_insert_array__non_inited_pair(void** state);
+void test_map_insert_array__invalid_array(void** state);
+void test_map_insert_array__not_same_type(void** state);
+void test_map_insert_array__empty(void** state);
+void test_map_insert_array__non_empty_equal(void** state);
+void test_map_insert_array__non_empty_dest_src_dup(void** state);
+void test_map_insert_array__non_empty_src_dup(void** state);
+void test_map_insert_array__array_not_pair(void** state);
+/*
  * test map_erase_pos
  */
 UT_CASE_DECLARATION(map_erase_pos)
@@ -415,6 +456,15 @@ void test_map_erase_range__all(void** state);
     UT_CASE(test_map_init_copy_range__other_container_range_dup),\
     UT_CASE(test_map_init_copy_range__other_container_range_not_same_type),\
     UT_CASE(test_map_init_copy_range__other_container_range_not_pair),\
+    UT_CASE_BEGIN(map_init_copy_array, test_map_init_copy_array__null_map),\
+    UT_CASE(test_map_init_copy_array__non_created_map),\
+    UT_CASE(test_map_init_copy_array__non_created_map_pair),\
+    UT_CASE(test_map_init_copy_array__invalid_array),\
+    UT_CASE(test_map_init_copy_array__invalid_array_not_same_type),\
+    UT_CASE(test_map_init_copy_array__empty),\
+    UT_CASE(test_map_init_copy_array__non_empty),\
+    UT_CASE(test_map_init_copy_array__non_empty_dup),\
+    UT_CASE(test_map_init_copy_array__array_not_pair),\
     UT_CASE_BEGIN(map_init_copy_range_ex, test_map_init_copy_range_ex__null_map),\
     UT_CASE(test_map_init_copy_range_ex__non_created_map),\
     UT_CASE(test_map_init_copy_range_ex__non_created_map_pair),\
@@ -429,6 +479,16 @@ void test_map_erase_range__all(void** state);
     UT_CASE(test_map_init_copy_range_ex__other_container_range_dup),\
     UT_CASE(test_map_init_copy_range_ex__other_container_range_not_same_type),\
     UT_CASE(test_map_init_copy_range_ex__other_container_range_not_pair),\
+    UT_CASE_BEGIN(map_init_copy_array_ex, test_map_init_copy_array_ex__null_map),\
+    UT_CASE(test_map_init_copy_array_ex__non_created_map),\
+    UT_CASE(test_map_init_copy_array_ex__non_created_map_pair),\
+    UT_CASE(test_map_init_copy_array_ex__invalid_array),\
+    UT_CASE(test_map_init_copy_array_ex__invalid_array_not_same_type),\
+    UT_CASE(test_map_init_copy_array_ex__empty),\
+    UT_CASE(test_map_init_copy_array_ex__non_empty),\
+    UT_CASE(test_map_init_copy_array_ex__non_empty_dup),\
+    UT_CASE(test_map_init_copy_array_ex__compare),\
+    UT_CASE(test_map_init_copy_array_ex__array_not_pair),\
     UT_CASE_BEGIN(map_destroy, test_map_destroy__null_map),\
     UT_CASE(test_map_destroy__non_created),\
     UT_CASE(test_map_destroy__created),\
@@ -634,6 +694,16 @@ void test_map_erase_range__all(void** state);
     UT_CASE(test_map_insert_range__other_container_range),\
     UT_CASE(test_map_insert_range__other_container_range_not_same_type),\
     UT_CASE(test_map_insert_range__other_container_range_not_pair),\
+    UT_CASE_BEGIN(map_insert_array, test_map_insert_array__null_map),\
+    UT_CASE(test_map_insert_array__non_inited),\
+    UT_CASE(test_map_insert_array__non_inited_pair),\
+    UT_CASE(test_map_insert_array__invalid_array),\
+    UT_CASE(test_map_insert_array__not_same_type),\
+    UT_CASE(test_map_insert_array__empty),\
+    UT_CASE(test_map_insert_array__non_empty_equal),\
+    UT_CASE(test_map_insert_array__non_empty_dest_src_dup),\
+    UT_CASE(test_map_insert_array__non_empty_src_dup),\
+    UT_CASE(test_map_insert_array__array_not_pair),\
     UT_CASE_BEGIN(map_erase_pos, test_map_erase_pos__null_map),\
     UT_CASE(test_map_erase_pos__non_inited),\
     UT_CASE(test_map_erase_pos__non_inited_pair),\
