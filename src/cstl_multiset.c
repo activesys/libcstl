@@ -126,6 +126,21 @@ void multiset_init_copy_range(multiset_t* pmset_dest, iterator_t it_begin, itera
 }
 
 /**
+ * Initialize multiset container with specific array.
+ */
+void multiset_init_copy_array(multiset_t* pmset_dest, const void* cpv_array, size_t t_count)
+{
+    assert(pmset_dest != NULL);
+    assert(cpv_array != NULL);
+
+#ifdef CSTL_MULTISET_AVL_TREE
+    _avl_tree_init_copy_range(&pmset_dest->_t_tree, it_begin, it_end);
+#else
+    _rb_tree_init_copy_equal_array(&pmset_dest->_t_tree, cpv_array, t_count);
+#endif
+}
+
+/**
  * Initialize multiset container with specific range and compare function.
  */
 void multiset_init_copy_range_ex(
@@ -138,6 +153,22 @@ void multiset_init_copy_range_ex(
     _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #else
     _rb_tree_init_copy_equal_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
+#endif
+}
+
+/**
+ * Initialize multiset container with specific array and compare function.
+ */
+void multiset_init_copy_array_ex(
+    multiset_t* pmset_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_compare)
+{
+    assert(pmset_dest != NULL);
+    assert(cpv_array != NULL);
+
+#ifdef CSTL_MULTISET_AVL_TREE
+    _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
+#else
+    _rb_tree_init_copy_equal_array_ex(&pmset_dest->_t_tree, cpv_array, t_count, bfun_compare);
 #endif
 }
 
@@ -433,6 +464,21 @@ void multiset_insert_range(multiset_t* pmset_mset, iterator_t it_begin, iterator
     _avl_tree_insert_equal_range(&pmset_mset->_t_tree, it_begin, it_end);
 #else
     _rb_tree_insert_equal_range(&pmset_mset->_t_tree, it_begin, it_end);
+#endif
+}
+
+/**
+ * Inserts an array of element into a multiset.
+ */
+void multiset_insert_array(multiset_t* pmset_mset, const void* cpv_array, size_t t_count)
+{
+    assert(pmset_mset != NULL);
+    assert(cpv_array != NULL);
+
+#ifdef CSTL_MULTISET_AVL_TREE
+    _avl_tree_insert_equal_range(&pmset_mset->_t_tree, it_begin, it_end);
+#else
+    _rb_tree_insert_equal_array(&pmset_mset->_t_tree, cpv_array, t_count);
 #endif
 }
 

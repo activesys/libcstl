@@ -167,6 +167,17 @@ extern void multiset_init_copy(multiset_t* pmset_dest, const multiset_t* cpmset_
 extern void multiset_init_copy_range(multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize multiset container with specific array.
+ * @param pmset_dest        destination multiset.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pmset_dest == NULL, then the behavior is undefined, pmset_dest must be created by create_set(), otherwise
+ *          the behavior is undefined. the type of array and pmset_dest must be same, otherwise the behavior is undefined.
+ */
+extern void multiset_init_copy_array(multiset_t* pmset_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Initialize multiset container with specific range and compare function.
  * @param pmset_dest        destination multiset.
  * @param it_begin          begin of range.
@@ -179,6 +190,20 @@ extern void multiset_init_copy_range(multiset_t* pmset_dest, iterator_t it_begin
  */
 extern void multiset_init_copy_range_ex(
     multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_compare);
+
+/**
+ * Initialize multiset container with specific array and compare function.
+ * @param pmset_dest        destination multiset.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param bfun_compare      compare function.
+ * @return void.
+ * @remarks if pmset_dest == NULL, then the behavior is undefined, pmset_dest must be created by _create_set(), otherwise
+ *          the behavior is undefined. the type of array and pmset_dest must be same, otherwise the behavior
+ *          is undefined. if bfun_compare == NULL, then use default compare function.
+ */
+extern void multiset_init_copy_array_ex(
+    multiset_t* pmset_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_compare);
 
 /**
  * Destroy multiset.
@@ -358,6 +383,18 @@ extern void multiset_swap(multiset_t* pmset_first, multiset_t* pmset_second);
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
 extern void multiset_insert_range(multiset_t* pmset_mset, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Inserts an array of element into a multiset.
+ * @param pmset_mset          multiset container.
+ * @param cpv_array           array.
+ * @param t_count             element count of array.
+ * @return void.
+ * @remarks if pmset_mset == NULL then the behavior is undefined. pmset_mset must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpmset_mset must be same, otherwise the behavior is undefined.
+ *          array must be valid range, otherwise the behavior is undefine.
+ */
+extern void multiset_insert_array(multiset_t* pmset_mset, const void* cpv_array, size_t t_count);
 
 /*
  * Erase an element in an multiset from specificed position.
