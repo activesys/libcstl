@@ -139,6 +139,19 @@ void multimap_init_copy_range(multimap_t* pmmap_dest, iterator_t it_begin, itera
 }
 
 /**
+ * Initialize multimap container with specific array.
+ */
+void multimap_init_copy_array(multimap_t* pmmap_dest, const void* cpv_array, size_t t_count)
+{
+    assert(pmmap_dest != NULL);
+    assert(_pair_is_created(&pmmap_dest->_pair_temp));
+    assert(cpv_array != NULL);
+
+    multimap_init(pmmap_dest);
+    multimap_insert_array(pmmap_dest, cpv_array, t_count);
+}
+
+/**
  * Initialize multimap container with specific range and compare function.
  */
 void multimap_init_copy_range_ex(
@@ -150,6 +163,20 @@ void multimap_init_copy_range_ex(
 
     multimap_init_ex(pmmap_dest, bfun_keycompare);
     multimap_insert_range(pmmap_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize multimap container with specific array and compare function.
+ */
+void multimap_init_copy_array_ex(
+    multimap_t* pmmap_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_keycompare)
+{
+    assert(pmmap_dest != NULL);
+    assert(_pair_is_created(&pmmap_dest->_pair_temp));
+    assert(cpv_array != NULL);
+
+    multimap_init_ex(pmmap_dest, bfun_keycompare);
+    multimap_insert_array(pmmap_dest, cpv_array, t_count);
 }
 
 /**
@@ -551,6 +578,23 @@ void multimap_insert_range(multimap_t* pmmap_map, iterator_t it_begin, iterator_
     for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         assert(_multimap_same_pair_type(&pmmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         multimap_insert(pmmap_map, (pair_t*)iterator_get_pointer(it_iter));
+    }
+}
+
+/**
+ * Inserts an array of element into a multimap.
+ */
+void multimap_insert_array(multimap_t* pmmap_map, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(pmmap_map != NULL);
+    assert(_pair_is_inited(&pmmap_map->_pair_temp));
+    assert(cpv_array != NULL);
+
+    for (i = 0; i < t_count; ++i) {
+        assert(_multimap_same_pair_type(&pmmap_map->_pair_temp, ((pair_t**)cpv_array)[i]));
+        multimap_insert(pmmap_map, ((pair_t**)cpv_array)[i]);
     }
 }
 

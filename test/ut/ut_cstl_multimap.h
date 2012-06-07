@@ -50,6 +50,19 @@ void test_multimap_init_copy_range__other_container_range(void** state);
 void test_multimap_init_copy_range__other_container_range_not_same_type(void** state);
 void test_multimap_init_copy_range__other_container_range_not_pair(void** state);
 /*
+ * test multimap_init_copy_array
+ */
+UT_CASE_DECLARATION(multimap_init_copy_array)
+void test_multimap_init_copy_array__null_multimap(void** state);
+void test_multimap_init_copy_array__non_created_multimap(void** state);
+void test_multimap_init_copy_array__non_created_multimap_pair(void** state);
+void test_multimap_init_copy_array__invalid_array(void** state);
+void test_multimap_init_copy_array__invalid_array_not_same_type(void** state);
+void test_multimap_init_copy_array__empty(void** state);
+void test_multimap_init_copy_array__non_empty(void** state);
+void test_multimap_init_copy_array__non_empty_dup(void** state);
+void test_multimap_init_copy_array__array_not_pair(void** state);
+/*
  * test multimap_init_copy_range_ex
  */
 UT_CASE_DECLARATION(multimap_init_copy_range_ex)
@@ -66,6 +79,20 @@ void test_multimap_init_copy_range_ex__compare(void** state);
 void test_multimap_init_copy_range_ex__other_container_range(void** state);
 void test_multimap_init_copy_range_ex__other_container_range_not_same_type(void** state);
 void test_multimap_init_copy_range_ex__other_container_range_not_pair(void** state);
+/*
+ * test multimap_init_copy_array_ex
+ */
+UT_CASE_DECLARATION(multimap_init_copy_array_ex)
+void test_multimap_init_copy_array_ex__null_multimap(void** state);
+void test_multimap_init_copy_array_ex__non_created_multimap(void** state);
+void test_multimap_init_copy_array_ex__non_created_multimap_pair(void** state);
+void test_multimap_init_copy_array_ex__invalid_array(void** state);
+void test_multimap_init_copy_array_ex__invalid_array_not_same_type(void** state);
+void test_multimap_init_copy_array_ex__empty(void** state);
+void test_multimap_init_copy_array_ex__non_empty(void** state);
+void test_multimap_init_copy_array_ex__non_empty_dup(void** state);
+void test_multimap_init_copy_array_ex__compare(void** state);
+void test_multimap_init_copy_array_ex__array_not_pair(void** state);
 /*
  * test multimap_destroy
  */
@@ -352,6 +379,20 @@ void test_multimap_insert_range__other_container_range(void** state);
 void test_multimap_insert_range__other_container_range_not_same_type(void** state);
 void test_multimap_insert_range__other_container_range_not_pair(void** state);
 /*
+ * test multimap_insert_array
+ */
+UT_CASE_DECLARATION(multimap_insert_array)
+void test_multimap_insert_array__null_multimap(void** state);
+void test_multimap_insert_array__non_inited(void** state);
+void test_multimap_insert_array__non_inited_pair(void** state);
+void test_multimap_insert_array__invalid_array(void** state);
+void test_multimap_insert_array__not_same_type(void** state);
+void test_multimap_insert_array__empty(void** state);
+void test_multimap_insert_array__non_empty_equal(void** state);
+void test_multimap_insert_array__non_empty_dest_src_dup(void** state);
+void test_multimap_insert_array__non_empty_src_dup(void** state);
+void test_multimap_insert_array__array_not_pair(void** state);
+/*
  * test multimap_erase_pos
  */
 UT_CASE_DECLARATION(multimap_erase_pos)
@@ -412,6 +453,15 @@ void test_multimap_erase_range__all(void** state);
     UT_CASE(test_multimap_init_copy_range__other_container_range),\
     UT_CASE(test_multimap_init_copy_range__other_container_range_not_same_type),\
     UT_CASE(test_multimap_init_copy_range__other_container_range_not_pair),\
+    UT_CASE_BEGIN(multimap_init_copy_array, test_multimap_init_copy_array__null_multimap),\
+    UT_CASE(test_multimap_init_copy_array__non_created_multimap),\
+    UT_CASE(test_multimap_init_copy_array__non_created_multimap_pair),\
+    UT_CASE(test_multimap_init_copy_array__invalid_array),\
+    UT_CASE(test_multimap_init_copy_array__invalid_array_not_same_type),\
+    UT_CASE(test_multimap_init_copy_array__empty),\
+    UT_CASE(test_multimap_init_copy_array__non_empty),\
+    UT_CASE(test_multimap_init_copy_array__non_empty_dup),\
+    UT_CASE(test_multimap_init_copy_array__array_not_pair),\
     UT_CASE_BEGIN(multimap_init_copy_range_ex, test_multimap_init_copy_range_ex__null_multimap),\
     UT_CASE(test_multimap_init_copy_range_ex__non_created_multimap),\
     UT_CASE(test_multimap_init_copy_range_ex__non_created_multimap_pair),\
@@ -425,6 +475,16 @@ void test_multimap_erase_range__all(void** state);
     UT_CASE(test_multimap_init_copy_range_ex__other_container_range),\
     UT_CASE(test_multimap_init_copy_range_ex__other_container_range_not_same_type),\
     UT_CASE(test_multimap_init_copy_range_ex__other_container_range_not_pair),\
+    UT_CASE_BEGIN(multimap_init_copy_array_ex, test_multimap_init_copy_array_ex__null_multimap),\
+    UT_CASE(test_multimap_init_copy_array_ex__non_created_multimap),\
+    UT_CASE(test_multimap_init_copy_array_ex__non_created_multimap_pair),\
+    UT_CASE(test_multimap_init_copy_array_ex__invalid_array),\
+    UT_CASE(test_multimap_init_copy_array_ex__invalid_array_not_same_type),\
+    UT_CASE(test_multimap_init_copy_array_ex__empty),\
+    UT_CASE(test_multimap_init_copy_array_ex__non_empty),\
+    UT_CASE(test_multimap_init_copy_array_ex__non_empty_dup),\
+    UT_CASE(test_multimap_init_copy_array_ex__compare),\
+    UT_CASE(test_multimap_init_copy_array_ex__array_not_pair),\
     UT_CASE_BEGIN(multimap_destroy, test_multimap_destroy__null_multimap),\
     UT_CASE(test_multimap_destroy__non_created),\
     UT_CASE(test_multimap_destroy__created),\
@@ -630,6 +690,16 @@ void test_multimap_erase_range__all(void** state);
     UT_CASE(test_multimap_insert_range__other_container_range),\
     UT_CASE(test_multimap_insert_range__other_container_range_not_same_type),\
     UT_CASE(test_multimap_insert_range__other_container_range_not_pair),\
+    UT_CASE_BEGIN(multimap_insert_array, test_multimap_insert_array__null_multimap),\
+    UT_CASE(test_multimap_insert_array__non_inited),\
+    UT_CASE(test_multimap_insert_array__non_inited_pair),\
+    UT_CASE(test_multimap_insert_array__invalid_array),\
+    UT_CASE(test_multimap_insert_array__not_same_type),\
+    UT_CASE(test_multimap_insert_array__empty),\
+    UT_CASE(test_multimap_insert_array__non_empty_equal),\
+    UT_CASE(test_multimap_insert_array__non_empty_dest_src_dup),\
+    UT_CASE(test_multimap_insert_array__non_empty_src_dup),\
+    UT_CASE(test_multimap_insert_array__array_not_pair),\
     UT_CASE_BEGIN(multimap_erase_pos, test_multimap_erase_pos__null_multimap),\
     UT_CASE(test_multimap_erase_pos__non_inited),\
     UT_CASE(test_multimap_erase_pos__non_inited_pair),\

@@ -558,6 +558,162 @@ void test_multimap_init_copy_range__other_container_range_not_pair(void** state)
 }
 
 /*
+ * test multimap_init_copy_array
+ */
+UT_CASE_DEFINATION(multimap_init_copy_array)
+void test_multimap_init_copy_array__null_multimap(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    expect_assert_failure(multimap_init_copy_array(NULL, appair, 10));
+}
+
+void test_multimap_init_copy_array__non_created_multimap(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(multimap_init_copy_array(pt_dest, multimap_begin(pt_multimap), multimap_end(pt_multimap)));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
+    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    expect_assert_failure(multimap_init_copy_array(pt_dest, appair, 10));
+    pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
+
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_init_copy_array__non_created_multimap_pair(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    pt_dest->_pair_temp._pv_first = (void*)0x8989;
+    expect_assert_failure(multimap_init_copy_array(pt_dest, appair, 10));
+    pt_dest->_pair_temp._pv_first = NULL;
+
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_init_copy_array__invalid_array(void** state)
+{
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    expect_assert_failure(multimap_init_copy_array(pt_dest, NULL, 10));
+
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_init_copy_array__invalid_array_not_same_type(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, double);
+        pair_init_elem(appair[i], i, i);
+    }
+    expect_assert_failure(multimap_init_copy_array(pt_dest, appair, 10));
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_init_copy_array__empty(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], i, i);
+    }
+    multimap_init_copy_array(pt_dest, appair, 0);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pt_dest->_pair_temp));
+    assert_true(multimap_empty(pt_dest));
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_init_copy_array__non_empty(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], i, i);
+    }
+    multimap_init_copy_array(pt_dest, appair, 10);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pt_dest->_pair_temp));
+    assert_true(multimap_size(pt_dest) == 10);
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_init_copy_array__non_empty_dup(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], 1, 1);
+    }
+    multimap_init_copy_array(pt_dest, appair, 10);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pt_dest->_pair_temp));
+    assert_true(multimap_size(pt_dest) == 10);
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_init_copy_array__array_not_pair(void** state)
+{
+    int i = 0;
+    int an_array[10] = {0};
+    multimap_t* pmmap = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    expect_assert_failure(multimap_init_copy_array(pmmap, an_array, 10));
+
+    multimap_destroy(pmmap);
+}
+
+/*
  * test multimap_init_copy_range_ex
  */
 UT_CASE_DEFINATION(multimap_init_copy_range_ex)
@@ -821,6 +977,191 @@ void test_multimap_init_copy_range_ex__other_container_range_not_pair(void** sta
 
     multimap_destroy(pmmap);
     vector_destroy(pvec);
+}
+
+/*
+ * test multimap_init_copy_array_ex
+ */
+UT_CASE_DEFINATION(multimap_init_copy_array_ex)
+void test_multimap_init_copy_array_ex__null_multimap(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    expect_assert_failure(multimap_init_copy_array_ex(NULL, appair, 10, NULL));
+}
+
+void test_multimap_init_copy_array_ex__non_created_multimap(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    expect_assert_failure(multimap_init_copy_array_ex(pt_dest, multimap_begin(pt_multimap), multimap_end(pt_multimap), NULL));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
+    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    expect_assert_failure(multimap_init_copy_array_ex(pt_dest, appair, 10, NULL));
+    pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
+
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_init_copy_array_ex__non_created_multimap_pair(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    pt_dest->_pair_temp._pv_second = (void*)0x7383;
+    expect_assert_failure(multimap_init_copy_array_ex(pt_dest, appair, 10, NULL));
+    pt_dest->_pair_temp._pv_second = NULL;
+
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_init_copy_array_ex__invalid_array(void** state)
+{
+    multimap_t* pt_dest = create_multimap(int, int);
+    expect_assert_failure(multimap_init_copy_array_ex(pt_dest, NULL, 10, NULL));
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_init_copy_array_ex__invalid_array_not_same_type(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, double);
+        pair_init_elem(appair[i], i, i);
+    }
+    expect_assert_failure(multimap_init_copy_array_ex(pt_dest, appair, 10, NULL));
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_init_copy_array_ex__empty(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], i, i);
+    }
+    multimap_init_copy_array_ex(pt_dest, appair, 0, NULL);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pt_dest->_pair_temp));
+    assert_true(multimap_empty(pt_dest));
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_init_copy_array_ex__non_empty(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], i, i);
+    }
+    multimap_init_copy_array_ex(pt_dest, appair, 10, NULL);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pt_dest->_pair_temp));
+    assert_true(multimap_size(pt_dest) == 10);
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_init_copy_array_ex__non_empty_dup(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], 1, 1);
+    }
+    multimap_init_copy_array_ex(pt_dest, appair, 10, NULL);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pt_dest->_pair_temp));
+    assert_true(multimap_size(pt_dest) == 10);
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+static void _test__multimap_init_compare_array_ex__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test_multimap_init_copy_array_ex__compare(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], i, 1);
+    }
+    multimap_init_copy_array_ex(pt_dest, appair, 10, _test__multimap_init_compare_array_ex__compare);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    assert_true(_avl_tree_is_inited(&pt_dest->_t_tree));
+#else
+    assert_true(_rb_tree_is_inited(&pt_dest->_t_tree));
+#endif
+    assert_true(_pair_is_inited(&pt_dest->_pair_temp));
+    assert_true(multimap_size(pt_dest) == 10);
+    assert_true(pt_dest->_bfun_keycompare == _test__multimap_init_compare_array_ex__compare);
+    assert_true(pt_dest->_pair_temp._bfun_mapkeycompare == _test__multimap_init_compare_array_ex__compare);
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_init_copy_array_ex__array_not_pair(void** state)
+{
+    int an_array[10] = {0};
+    multimap_t* pmmap = create_multimap(int, int);
+    int i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    expect_assert_failure(multimap_init_copy_array_ex(pmmap, an_array, 10, NULL));
+
+    multimap_destroy(pmmap);
 }
 
 /*
@@ -4847,6 +5188,212 @@ void test_multimap_insert_range__other_container_range_not_pair(void** state)
 
     multimap_destroy(pmmap);
     vector_destroy(pvec);
+}
+
+/*
+ * test multimap_insert_array
+ */
+UT_CASE_DEFINATION(multimap_insert_array)
+void test_multimap_insert_array__null_multimap(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    expect_assert_failure(multimap_insert_array(NULL, appair, 10));
+}
+
+void test_multimap_insert_array__non_inited(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    multimap_init_ex(pt_dest, NULL);
+#ifdef CSTL_MULTIMAP_AVL_TREE
+    pt_dest->_t_tree._t_avlroot._un_height = 9;
+    it_begin = multimap_begin(pt_src);
+    it_end = multimap_end(pt_src);
+    expect_assert_failure(multimap_insert_array(pt_dest, it_begin, it_end));
+    pt_dest->_t_tree._t_avlroot._un_height = 0;
+#else
+    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    expect_assert_failure(multimap_insert_array(pt_dest, appair, 10));
+    pt_dest->_t_tree._t_rbroot._t_color = RED;
+#endif
+
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_insert_array__non_inited_pair(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+    void* pv_tmp = NULL;
+
+    multimap_init_ex(pt_dest, NULL);
+
+    pv_tmp = pt_dest->_pair_temp._pv_first;
+    pt_dest->_pair_temp._pv_first = NULL;
+    expect_assert_failure(multimap_insert_array(pt_dest, appair, 10));
+    pt_dest->_pair_temp._pv_first = pv_tmp;
+
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_insert_array__invalid_array(void** state)
+{
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    multimap_init_ex(pt_dest, NULL);
+
+    expect_assert_failure(multimap_insert_array(pt_dest, NULL, 10));
+
+    multimap_destroy(pt_dest);
+}
+
+void test_multimap_insert_array__not_same_type(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    multimap_init_ex(pt_dest, NULL);
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, double);
+        pair_init_elem(appair[i], i, i);
+    }
+
+    expect_assert_failure(multimap_insert_array(pt_dest, appair, 10));
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_insert_array__empty(void** state)
+{
+    int i = 0;
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+
+    multimap_init_ex(pt_dest, NULL);
+    for (i = 0; i < 10; ++i) {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], i, i);
+    }
+
+    multimap_insert_array(pt_dest, appair, 0);
+    assert_true(multimap_empty(pt_dest));
+
+    multimap_destroy(pt_dest);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_insert_array__non_empty_equal(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+    int i = 0;
+
+    multimap_init_ex(pt_dest, NULL);
+    pair_init(pt_pair);
+    for(i = 0; i < 10; ++i)
+    {
+        pair_make(pt_pair, i, i);
+        multimap_insert(pt_dest, pt_pair);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        appair[i - 10] = create_pair(int, int);
+        pair_init_elem(appair[i - 10], i, i);
+    }
+
+    multimap_insert_array(pt_dest, appair, 10);
+    assert_true(multimap_size(pt_dest) == 20);
+
+    multimap_destroy(pt_dest);
+    pair_destroy(pt_pair);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_insert_array__non_empty_dest_src_dup(void** state)
+{
+    pair_t* appair[10] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(pt_pair);
+    multimap_init_ex(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        pair_make(pt_pair, i, i);
+        multimap_insert(pt_dest, pt_pair);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        appair[i - 5] = create_pair(int, int);
+        pair_init_elem(appair[i - 5], i, i);
+    }
+
+    multimap_insert_array(pt_dest, appair, 10);
+    assert_true(multimap_size(pt_dest) == 20);
+
+    multimap_destroy(pt_dest);
+    pair_destroy(pt_pair);
+    for (i = 0; i < 10; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_insert_array__non_empty_src_dup(void** state)
+{
+    pair_t* appair[20] = {NULL};
+    multimap_t* pt_dest = create_multimap(int, int);
+    pair_t* pt_pair = create_pair(int, int);
+    int i = 0;
+
+    pair_init(pt_pair);
+    multimap_init_ex(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        pair_make(pt_pair, i, i);
+        multimap_insert(pt_dest, pt_pair);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        appair[i] = create_pair(int, int);
+        pair_init_elem(appair[i], i + 15, i + 15);
+        appair[i + 1] = create_pair(int, int);
+        pair_init_elem(appair[i + 1], i + 15, i + 15);
+    }
+
+    multimap_insert_array(pt_dest, appair, 20);
+    assert_true(multimap_size(pt_dest) == 30);
+
+    multimap_destroy(pt_dest);
+    pair_destroy(pt_pair);
+    for (i = 0; i < 20; ++i) {
+        pair_destroy(appair[i]);
+    }
+}
+
+void test_multimap_insert_array__array_not_pair(void** state)
+{
+    int an_array[10] = {0};
+    multimap_t* pmmap = create_multimap(int, int);
+    int i = 0;
+
+    multimap_init(pmmap);
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    expect_assert_failure(multimap_insert_array(pmmap, an_array, 10));
+
+    multimap_destroy(pmmap);
 }
 
 /*

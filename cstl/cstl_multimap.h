@@ -146,6 +146,18 @@ extern void multimap_init_copy(multimap_t* pmmap_dest, const multimap_t* cpmmap_
 extern void multimap_init_copy_range(multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize multimap container with specific array.
+ * @param pmap_dest         destination multimap.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by create_map(), otherwise
+ *          the behavior is undefined. the type of array and pmap_dest must be same, otherwise the behavior
+ *          is undefined.
+ */
+extern void multimap_init_copy_array(multimap_t* pmmap_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Initialize multimap container with specific range and compare function.
  * @param pmap_dest         destination multimap.
  * @param it_begin          begin of range.
@@ -158,6 +170,20 @@ extern void multimap_init_copy_range(multimap_t* pmmap_dest, iterator_t it_begin
  */
 extern void multimap_init_copy_range_ex(
     multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare);
+
+/**
+ * Initialize multimap container with specific array and compare function.
+ * @param pmap_dest         destination multimap.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by _create_map(), otherwise
+ *          the behavior is undefined. the type of array and pmap_dest must be same, otherwise the behavior
+ *          is undefined. if t_compare == NULL, then use default compare function.
+ */
+extern void multimap_init_copy_array_ex(
+    multimap_t* pmmap_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_keycompare);
 
 /**
  * Destroy multimap.
@@ -348,7 +374,7 @@ extern multimap_iterator_t multimap_insert(multimap_t* pmmap_map, const pair_t* 
 extern multimap_iterator_t multimap_insert_hint(multimap_t* pmmap_map, multimap_iterator_t it_hint, const pair_t* cppair_pair);
 
 /**
- * Inserts an range of unique element into a multimap.
+ * Inserts an range of element into a multimap.
  * @param pmap_map          multimap container.
  * @param it_begin          begin of specific range.
  * @param it_end            end of specific range.
@@ -358,6 +384,18 @@ extern multimap_iterator_t multimap_insert_hint(multimap_t* pmmap_map, multimap_
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
 extern void multimap_insert_range(multimap_t* pmmap_map, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Inserts an array of element into a multimap.
+ * @param pmap_map          multimap container.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pmap_map == NULL then the behavior is undefined. pmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpmap_map must be same, otherwise the behavior is undefined.
+ *          array must be valid range, otherwise the behavior is undefine.
+ */
+extern void multimap_insert_array(multimap_t* pmmap_map, const void* cpv_array, size_t t_count);
 
 /*
  * Erase an element in an multimap from specificed position.
