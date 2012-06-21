@@ -1222,7 +1222,7 @@ void test_map_init_copy_array_ex__compare(void** state)
 
 void test_map_init_copy_array_ex__array_not_pair(void** state)
 {
-    int an_array[10] = {NULL};
+    int an_array[10] = {0};
     map_t* pmap = create_map(int, int);
     int i = 0;
 

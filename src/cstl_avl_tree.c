@@ -119,7 +119,7 @@ void _avl_tree_init_copy(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src)
 /**
  * Initialize avl tree container with specific range.
  */
-void _avl_tree_init_copy_range(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end)
+void _avl_tree_init_copy_equal_range(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end)
 {
     assert(pt_dest != NULL);
     assert(_avl_tree_is_created(pt_dest));
@@ -132,9 +132,24 @@ void _avl_tree_init_copy_range(_avl_tree_t* pt_dest, iterator_t it_begin, iterat
 }
 
 /**
+ * Initialize avl tree container with specific range.
+ */
+void _avl_tree_init_copy_unique_range(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end)
+{
+    assert(pt_dest != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(_avl_tree_same_iterator_type(pt_dest, it_begin));
+    assert(_avl_tree_same_iterator_type(pt_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+
+    _avl_tree_init(pt_dest, NULL);
+    _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
+}
+
+/**
  * Initialize avl tree container with specific range and compare function.
  */
-void _avl_tree_init_copy_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare)
+void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare)
 {
     assert(pt_dest != NULL);
     assert(_avl_tree_is_created(pt_dest));
@@ -144,6 +159,21 @@ void _avl_tree_init_copy_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, ite
 
     _avl_tree_init(pt_dest, t_compare);
     _avl_tree_insert_equal_range(pt_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize avl tree container with specific range and compare function.
+ */
+void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(_avl_tree_same_iterator_type(pt_dest, it_begin));
+    assert(_avl_tree_same_iterator_type(pt_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+
+    _avl_tree_init(pt_dest, t_compare);
+    _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
 }
 
 /**
