@@ -79,6 +79,17 @@ extern void _avl_tree_init_copy(_avl_tree_t* pt_dest, const _avl_tree_t* cpt_src
 extern void _avl_tree_init_copy_equal_range(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Initialize avl tree container with specific array.
+ * @param pt_dest           destination avl tree.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_avl_tree(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior is undefined.
+ */
+extern void _avl_tree_init_copy_equal_array(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Initialize avl tree container with specific range.
  * @param pt_dest           destination avl tree.
  * @param it_begin          begin of range.
@@ -89,6 +100,17 @@ extern void _avl_tree_init_copy_equal_range(_avl_tree_t* pt_dest, iterator_t it_
  *          undefined.
  */
 extern void _avl_tree_init_copy_unique_range(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Initialize avl tree container with specific array.
+ * @param pt_dest           destination avl tree.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_avl_tree(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior is undefined.
+ */
+extern void _avl_tree_init_copy_unique_array(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count);
 
 /**
  * Initialize avl tree container with specific range and compare function.
@@ -104,6 +126,19 @@ extern void _avl_tree_init_copy_unique_range(_avl_tree_t* pt_dest, iterator_t it
 extern void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
 
 /**
+ * Initialize avl tree container with specific array and compare function.
+ * @param pt_dest           destination avl tree.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_avl_tree(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior is undefined. 
+ *          if t_compare == NULL, then use default compare function.
+ */
+extern void _avl_tree_init_copy_equal_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare);
+
+/**
  * Initialize avl tree container with specific range and compare function.
  * @param pt_dest           destination avl tree.
  * @param it_begin          begin of range.
@@ -115,6 +150,19 @@ extern void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t 
  *          undefined. if t_compare == NULL, then use default compare function.
  */
 extern void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
+
+/**
+ * Initialize avl tree container with specific array and compare function.
+ * @param pt_dest           destination avl tree.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param t_compare         compare function.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_avl_tree(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior is undefined. 
+ *          if t_compare == NULL, then use default compare function.
+ */
+extern void _avl_tree_init_copy_unique_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare);
 
 /**
  * Destroy avl tree.
@@ -368,6 +416,18 @@ extern _avl_tree_iterator_t _avl_tree_insert_equal(_avl_tree_t* pt_avl_tree, con
 extern void _avl_tree_insert_unique_range(_avl_tree_t* pt_avl_tree, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Inserts an array of unique element into a avl tree.
+ * @param pt_avl_tree       avl tree container.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL then the behavior is undefined. pt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpt_avl_tree must be same, otherwise the behavior is undefined.
+ *          array must be valid array, otherwise the behavior is undefine.
+ */
+extern void _avl_tree_insert_unique_array(_avl_tree_t* pt_avl_tree, const void* cpv_array, size_t t_count);
+
+/**
  * Inserts an range into a avl tree.
  * @param pt_avl_tree       avl tree container.
  * @param it_begin          begin of specific range.
@@ -378,6 +438,18 @@ extern void _avl_tree_insert_unique_range(_avl_tree_t* pt_avl_tree, iterator_t i
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
 extern void _avl_tree_insert_equal_range(_avl_tree_t* pt_avl_tree, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Inserts an array into a avl tree.
+ * @param pt_avl_tree       avl tree container.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pt_avl_tree == NULL then the behavior is undefined. pt_avl_tree must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpt_avl_tree must be same, otherwise the behavior is undefined.
+ *          array must be valid array, otherwise the behavior is undefine.
+ */
+extern void _avl_tree_insert_equal_array(_avl_tree_t* pt_avl_tree, const void* cpv_array, size_t t_count);
 
 /*
  * Erase an element in an avl tree from specificed position.

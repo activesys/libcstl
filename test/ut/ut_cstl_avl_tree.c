@@ -401,6 +401,84 @@ void test__avl_tree_init_copy_equal_range__non_empty_dup(void** state)
 }
 
 /*
+ * test _avl_tree_init_copy_equal_array
+ */
+UT_CASE_DEFINATION(_avl_tree_init_copy_equal_array)
+void test__avl_tree_init_copy_equal_array__null_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_avl_tree_init_copy_equal_array(NULL, an_array, 10));
+}
+
+void test__avl_tree_init_copy_equal_array__non_created_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    pt_dest->_t_avlroot._un_height = 9;
+    expect_assert_failure(_avl_tree_init_copy_equal_array(pt_dest, an_array, 10));
+    pt_dest->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_equal_array__invalid_array(void** state)
+{
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    expect_assert_failure(_avl_tree_init_copy_equal_array(pt_dest, NULL, 10));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_equal_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init_copy_equal_array(pt_dest, an_array, 0);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_empty(pt_dest));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_equal_array__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    for(i = 0; i < 10; ++i)
+    {
+        an_array[i] = i;
+    }
+    _avl_tree_init_copy_equal_array(pt_dest, an_array, 10);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 10);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_equal_array__non_empty_dup(void** state)
+{
+    int an_array[20] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    for(i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i;
+        an_array[i + 1] = i;
+    }
+    _avl_tree_init_copy_equal_array(pt_dest, an_array, 20);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 20);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+/*
  * test _avl_tree_init_copy_unique_range
  */
 UT_CASE_DEFINATION(_avl_tree_init_copy_unique_range)
@@ -558,6 +636,84 @@ void test__avl_tree_init_copy_unique_range__non_empty_dup(void** state)
 
     _avl_tree_destroy(pt_dest);
     vector_destroy(pvec);
+}
+
+/*
+ * test _avl_tree_init_copy_unique_array
+ */
+UT_CASE_DEFINATION(_avl_tree_init_copy_unique_array)
+void test__avl_tree_init_copy_unique_array__null_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_avl_tree_init_copy_unique_array(NULL, an_array, 10));
+}
+
+void test__avl_tree_init_copy_unique_array__non_created_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    pt_dest->_t_avlroot._un_height = 9;
+    expect_assert_failure(_avl_tree_init_copy_unique_array(pt_dest, an_array, 10));
+    pt_dest->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array__invalid_array(void** state)
+{
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    expect_assert_failure(_avl_tree_init_copy_unique_array(pt_dest, NULL, 10));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init_copy_unique_array(pt_dest, an_array, 0);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_empty(pt_dest));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    for(i = 0; i < 10; ++i)
+    {
+        an_array[i] = i;
+    }
+    _avl_tree_init_copy_unique_array(pt_dest, an_array, 10);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 10);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array__non_empty_dup(void** state)
+{
+    int an_array[20] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    for(i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i;
+        an_array[i + 1] = i;
+    }
+    _avl_tree_init_copy_unique_array(pt_dest, an_array, 20);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 10);
+
+    _avl_tree_destroy(pt_dest);
 }
 
 /*
@@ -742,6 +898,99 @@ void test__avl_tree_init_copy_equal_range_ex__compare(void** state)
 }
 
 /*
+ * test _avl_tree_init_copy_equal_array_ex
+ */
+UT_CASE_DEFINATION(_avl_tree_init_copy_equal_array_ex)
+void test__avl_tree_init_copy_equal_array_ex__null_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_avl_tree_init_copy_equal_array_ex(NULL, an_array, 10, NULL));
+}
+
+void test__avl_tree_init_copy_equal_array_ex__non_created_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    pt_dest->_t_avlroot._un_height = 9;
+    expect_assert_failure(_avl_tree_init_copy_equal_array_ex(pt_dest, an_array, 10, NULL));
+    pt_dest->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_equal_array_ex__invalid_array(void** state)
+{
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    expect_assert_failure(_avl_tree_init_copy_equal_array_ex(pt_dest, NULL, 10, NULL));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_equal_array_ex__empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init_copy_equal_array_ex(pt_dest, an_array, 0, NULL);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_empty(pt_dest));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_equal_array_ex__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    _avl_tree_init_copy_equal_array_ex(pt_dest, an_array, 10, NULL);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 10);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_equal_array_ex__non_empty_dup(void** state)
+{
+    int an_array[20] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    for (i = 0; i < 20; i += 2) {
+        an_array[i] = i;
+        an_array[i + 1] = i;
+    }
+    _avl_tree_init_copy_equal_array_ex(pt_dest, an_array, 20, NULL);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 20);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+static void _test__avl_tree_init_compare_array_ex__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test__avl_tree_init_copy_equal_array_ex__compare(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init_copy_equal_array_ex(pt_dest, an_array, 10, _test__avl_tree_init_compare_array_ex__compare);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 10);
+    assert_true(pt_dest->_t_compare == _test__avl_tree_init_compare_array_ex__compare);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+/*
  * test _avl_tree_init_copy_unique_range_ex
  */
 UT_CASE_DEFINATION(_avl_tree_init_copy_unique_range_ex)
@@ -916,6 +1165,95 @@ void test__avl_tree_init_copy_unique_range_ex__compare(void** state)
 
     _avl_tree_destroy(pt_dest);
     set_destroy(pset);
+}
+
+/*
+ * test _avl_tree_init_copy_unique_array_ex
+ */
+UT_CASE_DEFINATION(_avl_tree_init_copy_unique_array_ex)
+void test__avl_tree_init_copy_unique_array_ex__null_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_avl_tree_init_copy_unique_array_ex(NULL, an_array, 10, NULL));
+}
+
+void test__avl_tree_init_copy_unique_array_ex__non_created_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    pt_dest->_t_avlroot._un_height = 9;
+    expect_assert_failure(_avl_tree_init_copy_unique_array_ex(pt_dest, an_array, 10, NULL));
+    pt_dest->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array_ex__invalid_array(void** state)
+{
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    expect_assert_failure(_avl_tree_init_copy_unique_array_ex(pt_dest, NULL, 10, NULL));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array_ex__empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init_copy_unique_array_ex(pt_dest, an_array, 0, NULL);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_empty(pt_dest));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array_ex__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    _avl_tree_init_copy_unique_array_ex(pt_dest, an_array, 10, NULL);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 10);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array_ex__non_empty_dup(void** state)
+{
+    int an_array[20] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    for (i = 0; i < 20; i += 2) {
+        an_array[i] = i;
+        an_array[i + 1] = i;
+    }
+    _avl_tree_init_copy_unique_array_ex(pt_dest, an_array, 20, NULL);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 10);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_init_copy_unique_array_ex__compare(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init_copy_unique_array_ex(pt_dest, an_array, 10, _test__avl_tree_init_compare_array_ex__compare);
+    assert_true(_avl_tree_is_inited(pt_dest));
+    assert_true(_avl_tree_size(pt_dest) == 1);
+    assert_true(pt_dest->_t_compare == _test__avl_tree_init_compare_array_ex__compare);
+
+    _avl_tree_destroy(pt_dest);
 }
 
 /*
@@ -5017,6 +5355,121 @@ void test__avl_tree_insert_unique_range__other_container_range(void** state)
 }
 
 /*
+ * test _avl_tree_insert_unique_array
+ */
+UT_CASE_DEFINATION(_avl_tree_insert_unique_array)
+void test__avl_tree_insert_unique_array__null_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_avl_tree_insert_unique_array(NULL, an_array, 10));
+}
+
+void test__avl_tree_insert_unique_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init(pt_dest, NULL);
+
+    pt_dest->_t_avlroot._un_height = 4;
+    expect_assert_failure(_avl_tree_insert_unique_array(pt_dest, an_array, 10));
+    pt_dest->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_unique_array__invalid_array(void** state)
+{
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init(pt_dest, NULL);
+
+    expect_assert_failure(_avl_tree_insert_unique_array(pt_dest, NULL, 10));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_unique_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init(pt_dest, NULL);
+
+    _avl_tree_insert_unique_array(pt_dest, an_array, 0);
+    assert_true(_avl_tree_empty(pt_dest));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_unique_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    _avl_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    _avl_tree_insert_unique_array(pt_dest, an_array, 10);
+    assert_true(_avl_tree_size(pt_dest) == 20);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_unique_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    _avl_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    _avl_tree_insert_unique_array(pt_dest, an_array, 10);
+    assert_true(_avl_tree_size(pt_dest) == 15);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_unique_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    _avl_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_equal(pt_dest, &i);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 15;
+        an_array[i + 1] = i + 15;
+    }
+
+    _avl_tree_insert_unique_array(pt_dest, an_array, 20);
+    assert_true(_avl_tree_size(pt_dest) == 20);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+/*
  * test _avl_tree_insert_equal_range
  */
 UT_CASE_DEFINATION(_avl_tree_insert_equal_range)
@@ -5226,6 +5679,121 @@ void test__avl_tree_insert_equal_range__non_empty_src_dup(void** state)
 
     _avl_tree_destroy(pt_dest);
     vector_destroy(pvec);
+}
+
+/*
+ * test _avl_tree_insert_equal_array
+ */
+UT_CASE_DEFINATION(_avl_tree_insert_equal_array)
+void test__avl_tree_insert_equal_array__null_avl_tree(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_avl_tree_insert_equal_array(NULL, an_array, 10));
+}
+
+void test__avl_tree_insert_equal_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init(pt_dest, NULL);
+
+    pt_dest->_t_avlroot._un_height = 4;
+    expect_assert_failure(_avl_tree_insert_equal_array(pt_dest, an_array, 10));
+    pt_dest->_t_avlroot._un_height = 0;
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_equal_array__invalid_array(void** state)
+{
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init(pt_dest, NULL);
+
+    expect_assert_failure(_avl_tree_insert_equal_array(pt_dest, NULL, 10));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_equal_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+
+    _avl_tree_init(pt_dest, NULL);
+
+    _avl_tree_insert_equal_array(pt_dest, an_array, 0);
+    assert_true(_avl_tree_empty(pt_dest));
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_equal_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    _avl_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    _avl_tree_insert_equal_array(pt_dest, an_array, 10);
+    assert_true(_avl_tree_size(pt_dest) == 20);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_equal_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    _avl_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    _avl_tree_insert_equal_array(pt_dest, an_array, 10);
+    assert_true(_avl_tree_size(pt_dest) == 20);
+
+    _avl_tree_destroy(pt_dest);
+}
+
+void test__avl_tree_insert_equal_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    _avl_tree_t* pt_dest = _create_avl_tree("int");
+    int i = 0;
+
+    _avl_tree_init(pt_dest, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _avl_tree_insert_equal(pt_dest, &i);
+    }
+    for(i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 15;
+        an_array[i + 1] = i + 15;
+    }
+
+    _avl_tree_insert_equal_array(pt_dest, an_array, 20);
+    assert_true(_avl_tree_size(pt_dest) == 30);
+
+    _avl_tree_destroy(pt_dest);
 }
 
 /*

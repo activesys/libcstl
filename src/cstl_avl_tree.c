@@ -132,6 +132,19 @@ void _avl_tree_init_copy_equal_range(_avl_tree_t* pt_dest, iterator_t it_begin, 
 }
 
 /**
+ * Initialize avl tree container with specific array.
+ */
+void _avl_tree_init_copy_equal_array(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count)
+{
+    assert(pt_dest != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _avl_tree_init(pt_dest, NULL);
+    _avl_tree_insert_equal_array(pt_dest, cpv_array, t_count);
+}
+
+/**
  * Initialize avl tree container with specific range.
  */
 void _avl_tree_init_copy_unique_range(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end)
@@ -144,6 +157,19 @@ void _avl_tree_init_copy_unique_range(_avl_tree_t* pt_dest, iterator_t it_begin,
 
     _avl_tree_init(pt_dest, NULL);
     _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize avl tree container with specific array.
+ */
+void _avl_tree_init_copy_unique_array(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count)
+{
+    assert(pt_dest != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _avl_tree_init(pt_dest, NULL);
+    _avl_tree_insert_unique_array(pt_dest, cpv_array, t_count);
 }
 
 /**
@@ -162,6 +188,19 @@ void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t it_begi
 }
 
 /**
+ * Initialize avl tree container with specific array and compare function.
+ */
+void _avl_tree_init_copy_equal_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _avl_tree_init(pt_dest, t_compare);
+    _avl_tree_insert_equal_array(pt_dest, cpv_array, t_count);
+}
+
+/**
  * Initialize avl tree container with specific range and compare function.
  */
 void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare)
@@ -174,6 +213,19 @@ void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_beg
 
     _avl_tree_init(pt_dest, t_compare);
     _avl_tree_insert_unique_range(pt_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize avl tree container with specific array and compare function.
+ */
+void _avl_tree_init_copy_unique_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_avl_tree_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _avl_tree_init(pt_dest, t_compare);
+    _avl_tree_insert_unique_array(pt_dest, cpv_array, t_count);
 }
 
 /**
@@ -699,6 +751,46 @@ void _avl_tree_insert_equal_range(_avl_tree_t* pt_avl_tree, iterator_t it_begin,
 }
 
 /**
+ * Inserts an array into a avl tree.
+ */
+void _avl_tree_insert_equal_array(_avl_tree_t* pt_avl_tree, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(pt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree));
+    assert(cpv_array != NULL);
+
+    /*
+     * Copy the elements from src array to dest avl tree.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_AVL_TREE_TYPE_BASENAME(pt_avl_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (i = 0; i < t_count; ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            _avl_tree_insert_equal(pt_avl_tree, pstr_elem);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_AVL_TREE_TYPE_STYLE(pt_avl_tree) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_count; ++i) {
+            _avl_tree_insert_equal(pt_avl_tree, (unsigned char*)cpv_array + i * _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree));
+        }
+    } else {
+        for (i = 0; i < t_count; ++i) {
+            _avl_tree_insert_equal(pt_avl_tree, *((void**)cpv_array + i));
+        }
+    }
+}
+
+/**
  * Inserts an range of unique element into a avl tree.
  */
 void _avl_tree_insert_unique_range(_avl_tree_t* pt_avl_tree, iterator_t it_begin, iterator_t it_end)
@@ -713,6 +805,46 @@ void _avl_tree_insert_unique_range(_avl_tree_t* pt_avl_tree, iterator_t it_begin
 
     for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         _avl_tree_insert_unique(pt_avl_tree, _iterator_get_pointer_ignore_cstr(it_iter));
+    }
+}
+
+/**
+ * Inserts an array of unique element into a avl tree.
+ */
+void _avl_tree_insert_unique_array(_avl_tree_t* pt_avl_tree, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(pt_avl_tree != NULL);
+    assert(_avl_tree_is_inited(pt_avl_tree));
+    assert(cpv_array != NULL);
+
+    /*
+     * Copy the elements from src array to dest avl tree.
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_AVL_TREE_TYPE_BASENAME(pt_avl_tree), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (i = 0; i < t_count; ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            _avl_tree_insert_unique(pt_avl_tree, pstr_elem);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_AVL_TREE_TYPE_STYLE(pt_avl_tree) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_count; ++i) {
+            _avl_tree_insert_unique(pt_avl_tree, (unsigned char*)cpv_array + i * _GET_AVL_TREE_TYPE_SIZE(pt_avl_tree));
+        }
+    } else {
+        for (i = 0; i < t_count; ++i) {
+            _avl_tree_insert_unique(pt_avl_tree, *((void**)cpv_array + i));
+        }
     }
 }
 
