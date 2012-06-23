@@ -471,7 +471,7 @@ void test_set_init_copy_array__non_created_set(void** state)
 
 #ifdef CSTL_SET_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 50;
-    expect_assert_failure(set_init_copy_array(pt_dest, set_begin(pt_set), set_end(pt_set)));
+    expect_assert_failure(set_init_copy_array(pt_dest, an_array, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -783,7 +783,7 @@ void test_set_init_copy_array_ex__non_created_set(void** state)
 
 #ifdef CSTL_SET_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 50;
-    expect_assert_failure(set_init_copy_array_ex(pt_dest, set_begin(pt_set), set_end(pt_set), NULL));
+    expect_assert_failure(set_init_copy_array_ex(pt_dest, an_array, 10, NULL));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -3444,9 +3444,7 @@ void test_set_insert_array__non_inited(void** state)
 
 #ifdef CSTL_SET_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 8;
-    it_begin = set_begin(pt_src);
-    it_end = set_end(pt_src);
-    expect_assert_failure(set_insert_array(pt_dest, it_begin, it_end));
+    expect_assert_failure(set_insert_array(pt_dest, an_array, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;

@@ -119,7 +119,7 @@ void multiset_init_copy_range(multiset_t* pmset_dest, iterator_t it_begin, itera
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_init_copy_range(&pmset_dest->_t_tree, it_begin, it_end);
+    _avl_tree_init_copy_equal_range(&pmset_dest->_t_tree, it_begin, it_end);
 #else
     _rb_tree_init_copy_equal_range(&pmset_dest->_t_tree, it_begin, it_end);
 #endif
@@ -134,7 +134,7 @@ void multiset_init_copy_array(multiset_t* pmset_dest, const void* cpv_array, siz
     assert(cpv_array != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_init_copy_range(&pmset_dest->_t_tree, it_begin, it_end);
+    _avl_tree_init_copy_equal_array(&pmset_dest->_t_tree, cpv_array, t_count);
 #else
     _rb_tree_init_copy_equal_array(&pmset_dest->_t_tree, cpv_array, t_count);
 #endif
@@ -150,7 +150,7 @@ void multiset_init_copy_range_ex(
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
+    _avl_tree_init_copy_equal_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #else
     _rb_tree_init_copy_equal_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #endif
@@ -166,7 +166,7 @@ void multiset_init_copy_array_ex(
     assert(cpv_array != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pmset_dest->_t_tree, it_begin, it_end, bfun_compare);
+    _avl_tree_init_copy_equal_array_ex(&pmset_dest->_t_tree, cpv_array, t_count, bfun_compare);
 #else
     _rb_tree_init_copy_equal_array_ex(&pmset_dest->_t_tree, cpv_array, t_count, bfun_compare);
 #endif
@@ -476,7 +476,7 @@ void multiset_insert_array(multiset_t* pmset_mset, const void* cpv_array, size_t
     assert(cpv_array != NULL);
 
 #ifdef CSTL_MULTISET_AVL_TREE
-    _avl_tree_insert_equal_range(&pmset_mset->_t_tree, it_begin, it_end);
+    _avl_tree_insert_equal_array(&pmset_mset->_t_tree, cpv_array, t_count);
 #else
     _rb_tree_insert_equal_array(&pmset_mset->_t_tree, cpv_array, t_count);
 #endif

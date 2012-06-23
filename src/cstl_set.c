@@ -119,7 +119,7 @@ void set_init_copy_range(set_t* pset_dest, iterator_t it_begin, iterator_t it_en
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range(&pset_dest->_t_tree, it_begin, it_end);
+    _avl_tree_init_copy_unique_range(&pset_dest->_t_tree, it_begin, it_end);
 #else
     _rb_tree_init_copy_unique_range(&pset_dest->_t_tree, it_begin, it_end);
 #endif
@@ -134,7 +134,7 @@ void set_init_copy_array(set_t* pset_dest, const void* cpv_array, size_t t_count
     assert(cpv_array != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range(&pset_dest->_t_tree, it_begin, it_end);
+    _avl_tree_init_copy_unique_array(&pset_dest->_t_tree, cpv_array, t_count);
 #else
     _rb_tree_init_copy_unique_array(&pset_dest->_t_tree, cpv_array, t_count);
 #endif
@@ -150,7 +150,7 @@ void set_init_copy_range_ex(
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
+    _avl_tree_init_copy_unique_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #else
     _rb_tree_init_copy_unique_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
 #endif
@@ -166,7 +166,7 @@ void set_init_copy_array_ex(
     assert(cpv_array != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_init_copy_range_ex(&pset_dest->_t_tree, it_begin, it_end, bfun_compare);
+    _avl_tree_init_copy_unique_array_ex(&pset_dest->_t_tree, cpv_array, t_count, bfun_compare);
 #else
     _rb_tree_init_copy_unique_array_ex(&pset_dest->_t_tree, cpv_array, t_count, bfun_compare);
 #endif
@@ -476,7 +476,7 @@ void set_insert_array(set_t* pset_set, const void* cpv_array, size_t t_count)
     assert(cpv_array != NULL);
 
 #ifdef CSTL_SET_AVL_TREE
-    _avl_tree_insert_unique_range(&pset_set->_t_tree, it_begin, it_end);
+    _avl_tree_insert_unique_array(&pset_set->_t_tree, cpv_array, t_count);
 #else
     _rb_tree_insert_unique_array(&pset_set->_t_tree, cpv_array, t_count);
 #endif

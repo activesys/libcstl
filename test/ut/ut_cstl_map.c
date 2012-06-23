@@ -608,7 +608,7 @@ void test_map_init_copy_array__non_created_map(void** state)
 
 #ifdef CSTL_MAP_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 9;
-    expect_assert_failure(map_init_copy_array(pt_dest, map_begin(pt_map), map_end(pt_map)));
+    expect_assert_failure(map_init_copy_array(pt_dest, appair, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -1064,7 +1064,7 @@ void test_map_init_copy_array_ex__non_created_map(void** state)
 
 #ifdef CSTL_MAP_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 9;
-    expect_assert_failure(map_init_copy_array_ex(pt_dest, map_begin(pt_map), map_end(pt_map), NULL));
+    expect_assert_failure(map_init_copy_array_ex(pt_dest, appair, 10, NULL));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -5278,9 +5278,7 @@ void test_map_insert_array__non_inited(void** state)
     map_init_ex(pt_dest, NULL);
 #ifdef CSTL_MAP_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 9;
-    it_begin = map_begin(pt_src);
-    it_end = map_end(pt_src);
-    expect_assert_failure(map_insert_array(pt_dest, it_begin, it_end));
+    expect_assert_failure(map_insert_array(pt_dest, appair, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;

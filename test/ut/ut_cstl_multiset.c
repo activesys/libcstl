@@ -479,7 +479,7 @@ void test_multiset_init_copy_array__non_created_multiset(void** state)
 
 #ifdef CSTL_MULTISET_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 9;
-    expect_assert_failure(multiset_init_copy_array(pt_dest, multiset_begin(pt_multiset), multiset_end(pt_multiset)));
+    expect_assert_failure(multiset_init_copy_array(pt_dest, an_array, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -794,7 +794,7 @@ void test_multiset_init_copy_array_ex__non_created_multiset(void** state)
 
 #ifdef CSTL_MULTISET_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 9;
-    expect_assert_failure(multiset_init_copy_array_ex(pt_dest, multiset_begin(pt_multiset), multiset_end(pt_multiset), NULL));
+    expect_assert_failure(multiset_init_copy_array_ex(pt_dest, an_array, 10, NULL));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
@@ -3453,9 +3453,7 @@ void test_multiset_insert_array__non_inited(void** state)
     multiset_init_ex(pt_dest, NULL);
 #ifdef CSTL_MULTISET_AVL_TREE
     pt_dest->_t_tree._t_avlroot._un_height = 9;
-    it_begin = multiset_begin(pt_src);
-    it_end = multiset_end(pt_src);
-    expect_assert_failure(multiset_insert_array(pt_dest, it_begin, it_end));
+    expect_assert_failure(multiset_insert_array(pt_dest, an_array, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
     pt_dest->_t_tree._t_rbroot._t_color = BLACK;
