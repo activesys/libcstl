@@ -436,6 +436,20 @@ void test_hash_multiset_init_copy_range__non_empty(void** state)
     hash_multiset_destroy(pt_src);
 }
 
+void test_hash_multiset_init_copy_range__non_empty_dup(void** state)
+{
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 100);
+    hash_multiset_init_copy_range(phmset, vector_begin(pvec), vector_end(pvec));
+    assert_true(_hashtable_is_inited(&phmset->_t_hashtable));
+    assert_true(hash_multiset_size(phmset) == 10);
+
+    hash_multiset_destroy(phmset);
+    vector_destroy(pvec);
+}
+
 void test_hash_multiset_init_copy_range__non_0_bucket(void** state)
 {
     hash_multiset_t* pt_dest = create_hash_multiset(int);

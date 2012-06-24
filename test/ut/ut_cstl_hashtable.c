@@ -311,34 +311,34 @@ void test__hashtable_init_copy__non_null_compare(void** state)
 }
 
 /*
- * test _hashtable_init_copy_range
+ * test _hashtable_init_copy_equal_range
  */
-UT_CASE_DEFINATION(_hashtable_init_copy_range)
-void test__hashtable_init_copy_range__null_hashtable(void** state)
+UT_CASE_DEFINATION(_hashtable_init_copy_equal_range)
+void test__hashtable_init_copy_equal_range__null_hashtable(void** state)
 {
     vector_t* pvec = create_vector(int);
 
     vector_init(pvec);
-    expect_assert_failure(_hashtable_init_copy_range(NULL, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL));
+    expect_assert_failure(_hashtable_init_copy_equal_range(NULL, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL));
 
     vector_destroy(pvec);
 }
 
-void test__hashtable_init_copy_range__non_created_hashtable(void** state)
+void test__hashtable_init_copy_equal_range__non_created_hashtable(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     list_t* plist = create_list(int);
 
     list_init(plist);
     pt_dest->_t_typeinfo._t_style = 999;
-    expect_assert_failure(_hashtable_init_copy_range(pt_dest, list_begin(plist), list_end(plist), 0, NULL, NULL));
+    expect_assert_failure(_hashtable_init_copy_equal_range(pt_dest, list_begin(plist), list_end(plist), 0, NULL, NULL));
     pt_dest->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     _hashtable_destroy(pt_dest);
     list_destroy(plist);
 }
 
-void test__hashtable_init_copy_range__invalid_begin(void** state)
+void test__hashtable_init_copy_equal_range__invalid_begin(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     slist_t* pslist = create_slist(int);
@@ -349,13 +349,13 @@ void test__hashtable_init_copy_range__invalid_begin(void** state)
     it_begin = slist_begin(pslist);
     it_end = slist_end(pslist);
     it_begin._t_containertype = 3333;
-    expect_assert_failure(_hashtable_init_copy_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
+    expect_assert_failure(_hashtable_init_copy_equal_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
 
     _hashtable_destroy(pt_dest);
     slist_destroy(pslist);
 }
 
-void test__hashtable_init_copy_range__invalid_end(void** state)
+void test__hashtable_init_copy_equal_range__invalid_end(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     deque_t* pdeq = create_deque(int);
@@ -366,13 +366,13 @@ void test__hashtable_init_copy_range__invalid_end(void** state)
     it_begin = deque_begin(pdeq);
     it_end = deque_end(pdeq);
     it_end._t_iteratortype = 3333;
-    expect_assert_failure(_hashtable_init_copy_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
+    expect_assert_failure(_hashtable_init_copy_equal_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
 
     _hashtable_destroy(pt_dest);
     deque_destroy(pdeq);
 }
 
-void test__hashtable_init_copy_range__invalid_range(void** state)
+void test__hashtable_init_copy_equal_range__invalid_range(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     set_t* pset = create_set(int);
@@ -384,13 +384,13 @@ void test__hashtable_init_copy_range__invalid_range(void** state)
     set_insert(pset, elem);
     it_begin = set_begin(pset);
     it_end = set_end(pset);
-    expect_assert_failure(_hashtable_init_copy_range(pt_dest, it_end, it_begin, 0, NULL, NULL));
+    expect_assert_failure(_hashtable_init_copy_equal_range(pt_dest, it_end, it_begin, 0, NULL, NULL));
 
     _hashtable_destroy(pt_dest);
     set_destroy(pset);
 }
 
-void test__hashtable_init_copy_range__invalid_range_not_same_type(void** state)
+void test__hashtable_init_copy_equal_range__invalid_range_not_same_type(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     multiset_t* pmset = create_multiset(double);
@@ -400,13 +400,13 @@ void test__hashtable_init_copy_range__invalid_range_not_same_type(void** state)
     multiset_init(pmset);
     it_begin = multiset_begin(pmset);
     it_end = multiset_end(pmset);
-    expect_assert_failure(_hashtable_init_copy_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
+    expect_assert_failure(_hashtable_init_copy_equal_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
 
     _hashtable_destroy(pt_dest);
     multiset_destroy(pmset);
 }
 
-void test__hashtable_init_copy_range__empty(void** state)
+void test__hashtable_init_copy_equal_range__empty(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     hash_set_t* phset = create_hash_set(int);
@@ -416,7 +416,7 @@ void test__hashtable_init_copy_range__empty(void** state)
     hash_set_init(phset);
     it_begin = hash_set_begin(phset);
     it_end = hash_set_end(phset);
-    _hashtable_init_copy_range(pt_dest, it_begin, it_end, 0, NULL, NULL);
+    _hashtable_init_copy_equal_range(pt_dest, it_begin, it_end, 0, NULL, NULL);
     assert_true(_hashtable_is_inited(pt_dest));
     assert_true(_hashtable_empty(pt_dest));
 
@@ -424,7 +424,7 @@ void test__hashtable_init_copy_range__empty(void** state)
     hash_set_destroy(phset);
 }
 
-void test__hashtable_init_copy_range__non_empty(void** state)
+void test__hashtable_init_copy_equal_range__non_empty(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     hash_multiset_t* phmset = create_hash_multiset(int);
@@ -436,7 +436,7 @@ void test__hashtable_init_copy_range__non_empty(void** state)
     hash_multiset_insert(phmset, elem);
     it_begin = hash_multiset_begin(phmset);
     it_end = hash_multiset_end(phmset);
-    _hashtable_init_copy_range(pt_dest, it_begin, it_end, 0, NULL, NULL);
+    _hashtable_init_copy_equal_range(pt_dest, it_begin, it_end, 0, NULL, NULL);
     assert_true(_hashtable_is_inited(pt_dest));
     assert_true(_hashtable_size(pt_dest) == 1);
 
@@ -444,7 +444,21 @@ void test__hashtable_init_copy_range__non_empty(void** state)
     hash_multiset_destroy(phmset);
 }
 
-void test__hashtable_init_copy_range__bucketcount(void** state)
+void test__hashtable_init_copy_equal_range__non_empty_dup(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 100);
+    _hashtable_init_copy_equal_range(pt_dest, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 10);
+
+    _hashtable_destroy(pt_dest);
+    vector_destroy(pvec);
+}
+
+void test__hashtable_init_copy_equal_range__bucketcount(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     vector_t* pvec = create_vector(int);
@@ -456,7 +470,7 @@ void test__hashtable_init_copy_range__bucketcount(void** state)
     vector_push_back(pvec, elem);
     it_begin = vector_begin(pvec);
     it_end = vector_end(pvec);
-    _hashtable_init_copy_range(pt_dest, it_begin, it_end, 100, NULL, NULL);
+    _hashtable_init_copy_equal_range(pt_dest, it_begin, it_end, 100, NULL, NULL);
     assert_true(_hashtable_is_inited(pt_dest));
     assert_true(_hashtable_size(pt_dest) == 1);
     assert_true(_hashtable_bucket_count(pt_dest) == 193);
@@ -465,11 +479,11 @@ void test__hashtable_init_copy_range__bucketcount(void** state)
     vector_destroy(pvec);
 }
 
-static void _test__hashtable_init_copy_range__non_null_hash(const void* cpv_input, void* pv_output)
+static void _test__hashtable_init_copy_equal_range__non_null_hash(const void* cpv_input, void* pv_output)
 {
     *(size_t*)pv_output = *(int*)cpv_input;
 }
-void test__hashtable_init_copy_range__non_null_hash(void** state)
+void test__hashtable_init_copy_equal_range__non_null_hash(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     list_t* plist = create_list(int);
@@ -481,21 +495,21 @@ void test__hashtable_init_copy_range__non_null_hash(void** state)
     list_push_back(plist, elem);
     it_begin = list_begin(plist);
     it_end = list_end(plist);
-    _hashtable_init_copy_range(pt_dest, it_begin, it_end, 0, _test__hashtable_init_copy_range__non_null_hash, NULL);
+    _hashtable_init_copy_equal_range(pt_dest, it_begin, it_end, 0, _test__hashtable_init_copy_equal_range__non_null_hash, NULL);
     assert_true(_hashtable_is_inited(pt_dest));
     assert_true(_hashtable_size(pt_dest) == 1);
     assert_true(_hashtable_bucket_count(pt_dest) == 53);
-    assert_true(_hashtable_hash(pt_dest) == _test__hashtable_init_copy_range__non_null_hash);
+    assert_true(_hashtable_hash(pt_dest) == _test__hashtable_init_copy_equal_range__non_null_hash);
 
     _hashtable_destroy(pt_dest);
     list_destroy(plist);
 }
 
-static void _test__hashtable_init_copy_range__non_null_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+static void _test__hashtable_init_copy_equal_range__non_null_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
 }
-void test__hashtable_init_copy_range__non_null_compare(void** state)
+void test__hashtable_init_copy_equal_range__non_null_compare(void** state)
 {
     _hashtable_t* pt_dest = _create_hashtable("int");
     slist_t* pslist = create_slist(int);
@@ -507,11 +521,232 @@ void test__hashtable_init_copy_range__non_null_compare(void** state)
     slist_push_front(pslist, elem);
     it_begin = slist_begin(pslist);
     it_end = slist_end(pslist);
-    _hashtable_init_copy_range(pt_dest, it_begin, it_end, 0, NULL, _test__hashtable_init_copy_range__non_null_compare);
+    _hashtable_init_copy_equal_range(pt_dest, it_begin, it_end, 0, NULL, _test__hashtable_init_copy_equal_range__non_null_compare);
     assert_true(_hashtable_is_inited(pt_dest));
     assert_true(_hashtable_size(pt_dest) == 1);
     assert_true(_hashtable_bucket_count(pt_dest) == 53);
-    assert_true(pt_dest->_bfun_compare == _test__hashtable_init_copy_range__non_null_compare);
+    assert_true(pt_dest->_bfun_compare == _test__hashtable_init_copy_equal_range__non_null_compare);
+
+    _hashtable_destroy(pt_dest);
+    slist_destroy(pslist);
+}
+
+/*
+ * test _hashtable_init_copy_unique_range
+ */
+UT_CASE_DEFINATION(_hashtable_init_copy_unique_range)
+void test__hashtable_init_copy_unique_range__null_hashtable(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init(pvec);
+    expect_assert_failure(_hashtable_init_copy_unique_range(NULL, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL));
+
+    vector_destroy(pvec);
+}
+
+void test__hashtable_init_copy_unique_range__non_created_hashtable(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    pt_dest->_t_typeinfo._t_style = 999;
+    expect_assert_failure(_hashtable_init_copy_unique_range(pt_dest, list_begin(plist), list_end(plist), 0, NULL, NULL));
+    pt_dest->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_dest);
+    list_destroy(plist);
+}
+
+void test__hashtable_init_copy_unique_range__invalid_begin(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    slist_init(pslist);
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    it_begin._t_containertype = 3333;
+    expect_assert_failure(_hashtable_init_copy_unique_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
+
+    _hashtable_destroy(pt_dest);
+    slist_destroy(pslist);
+}
+
+void test__hashtable_init_copy_unique_range__invalid_end(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    deque_t* pdeq = create_deque(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    deque_init(pdeq);
+    it_begin = deque_begin(pdeq);
+    it_end = deque_end(pdeq);
+    it_end._t_iteratortype = 3333;
+    expect_assert_failure(_hashtable_init_copy_unique_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
+
+    _hashtable_destroy(pt_dest);
+    deque_destroy(pdeq);
+}
+
+void test__hashtable_init_copy_unique_range__invalid_range(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    set_t* pset = create_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    set_init(pset);
+    set_insert(pset, elem);
+    it_begin = set_begin(pset);
+    it_end = set_end(pset);
+    expect_assert_failure(_hashtable_init_copy_unique_range(pt_dest, it_end, it_begin, 0, NULL, NULL));
+
+    _hashtable_destroy(pt_dest);
+    set_destroy(pset);
+}
+
+void test__hashtable_init_copy_unique_range__invalid_range_not_same_type(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    multiset_t* pmset = create_multiset(double);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    multiset_init(pmset);
+    it_begin = multiset_begin(pmset);
+    it_end = multiset_end(pmset);
+    expect_assert_failure(_hashtable_init_copy_unique_range(pt_dest, it_begin, it_end, 0, NULL, NULL));
+
+    _hashtable_destroy(pt_dest);
+    multiset_destroy(pmset);
+}
+
+void test__hashtable_init_copy_unique_range__empty(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    hash_set_t* phset = create_hash_set(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+
+    hash_set_init(phset);
+    it_begin = hash_set_begin(phset);
+    it_end = hash_set_end(phset);
+    _hashtable_init_copy_unique_range(pt_dest, it_begin, it_end, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_empty(pt_dest));
+
+    _hashtable_destroy(pt_dest);
+    hash_set_destroy(phset);
+}
+
+void test__hashtable_init_copy_unique_range__non_empty(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    hash_multiset_t* phmset = create_hash_multiset(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    hash_multiset_init(phmset);
+    hash_multiset_insert(phmset, elem);
+    it_begin = hash_multiset_begin(phmset);
+    it_end = hash_multiset_end(phmset);
+    _hashtable_init_copy_unique_range(pt_dest, it_begin, it_end, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+
+    _hashtable_destroy(pt_dest);
+    hash_multiset_destroy(phmset);
+}
+
+void test__hashtable_init_copy_unique_range__non_empty_dup(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 100);
+    _hashtable_init_copy_unique_range(pt_dest, vector_begin(pvec), vector_end(pvec), 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+
+    _hashtable_destroy(pt_dest);
+    vector_destroy(pvec);
+}
+
+void test__hashtable_init_copy_unique_range__bucketcount(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    vector_t* pvec = create_vector(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    vector_init(pvec);
+    vector_push_back(pvec, elem);
+    it_begin = vector_begin(pvec);
+    it_end = vector_end(pvec);
+    _hashtable_init_copy_unique_range(pt_dest, it_begin, it_end, 100, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+    assert_true(_hashtable_bucket_count(pt_dest) == 193);
+
+    _hashtable_destroy(pt_dest);
+    vector_destroy(pvec);
+}
+
+static void _test__hashtable_init_copy_unique_range__non_null_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test__hashtable_init_copy_unique_range__non_null_hash(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    list_t* plist = create_list(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    list_init(plist);
+    list_push_back(plist, elem);
+    it_begin = list_begin(plist);
+    it_end = list_end(plist);
+    _hashtable_init_copy_unique_range(pt_dest, it_begin, it_end, 0, _test__hashtable_init_copy_unique_range__non_null_hash, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+    assert_true(_hashtable_bucket_count(pt_dest) == 53);
+    assert_true(_hashtable_hash(pt_dest) == _test__hashtable_init_copy_unique_range__non_null_hash);
+
+    _hashtable_destroy(pt_dest);
+    list_destroy(plist);
+}
+
+static void _test__hashtable_init_copy_unique_range__non_null_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test__hashtable_init_copy_unique_range__non_null_compare(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    slist_t* pslist = create_slist(int);
+    iterator_t it_begin;
+    iterator_t it_end;
+    int elem = 9;
+
+    slist_init(pslist);
+    slist_push_front(pslist, elem);
+    it_begin = slist_begin(pslist);
+    it_end = slist_end(pslist);
+    _hashtable_init_copy_unique_range(pt_dest, it_begin, it_end, 0, NULL, _test__hashtable_init_copy_unique_range__non_null_compare);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+    assert_true(_hashtable_bucket_count(pt_dest) == 53);
+    assert_true(pt_dest->_bfun_compare == _test__hashtable_init_copy_unique_range__non_null_compare);
 
     _hashtable_destroy(pt_dest);
     slist_destroy(pslist);
@@ -4294,6 +4529,117 @@ void test__hashtable_insert_unique_range__compare(void** state)
 }
 
 /*
+ * test _hashtable_insert_unique_array
+ */
+UT_CASE_DEFINATION(_hashtable_insert_unique_array)
+void test__hashtable_insert_unique_array__null_hashtable(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_hashtable_insert_unique_array(NULL, an_array, 10));
+}
+
+void test__hashtable_insert_unique_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    expect_assert_failure(_hashtable_insert_unique_array(pt_dest, an_array, 10));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_unique_array__invalid_array(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+
+    expect_assert_failure(_hashtable_insert_unique_array(pt_dest, NULL, 10));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_unique_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+
+    _hashtable_insert_unique_array(pt_dest, an_array, 0);
+    assert_true(_hashtable_empty(pt_dest));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_unique_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    int i = 0;
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_dest, &i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    _hashtable_insert_unique_array(pt_dest, an_array, 10);
+    assert_true(_hashtable_size(pt_dest) == 20);
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_unique_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    int i = 0;
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_dest, &i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    _hashtable_insert_unique_array(pt_dest, an_array, 10);
+    assert_true(_hashtable_size(pt_dest) == 15);
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_unique_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    int i = 0;
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_dest, &i);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 15;
+        an_array[i + 1] = i + 15;
+    }
+
+    _hashtable_insert_unique_array(pt_dest, an_array, 20);
+    assert_true(_hashtable_size(pt_dest) == 20);
+
+    _hashtable_destroy(pt_dest);
+}
+
+/*
  * test _hashtable_insert_equal_range
  */
 UT_CASE_DEFINATION(_hashtable_insert_equal_range)
@@ -4522,6 +4868,116 @@ void test__hashtable_insert_equal_range__compare(void** state)
 
     _hashtable_destroy(pt_dest);
     set_destroy(pset);
+}
+
+/*
+ * test _hashtable_insert_equal_array
+ */
+UT_CASE_DEFINATION(_hashtable_insert_equal_array)
+void test__hashtable_insert_equal_array__null_hashtable(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_hashtable_insert_equal_array(NULL, an_array, 10));
+}
+
+void test__hashtable_insert_equal_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    expect_assert_failure(_hashtable_insert_equal_array(pt_dest, an_array, 10));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_equal_array__invalid_array(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    expect_assert_failure(_hashtable_insert_equal_array(pt_dest, NULL, 10));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_equal_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+
+    _hashtable_insert_equal_array(pt_dest, an_array, 0);
+    assert_true(_hashtable_empty(pt_dest));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_equal_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    int i = 0;
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_dest, &i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    _hashtable_insert_equal_array(pt_dest, an_array, 10);
+    assert_true(_hashtable_size(pt_dest) == 20);
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_equal_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    int i = 0;
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_dest, &i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    _hashtable_insert_equal_array(pt_dest, an_array, 10);
+    assert_true(_hashtable_size(pt_dest) == 20);
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_insert_equal_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    int i = 0;
+
+    _hashtable_init(pt_dest, 0, NULL, NULL);
+    for(i = 0; i < 10; ++i)
+    {
+        _hashtable_insert_equal(pt_dest, &i);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 15;
+        an_array[i + 1] = i + 15;
+    }
+
+    _hashtable_insert_equal_array(pt_dest, an_array, 20);
+    assert_true(_hashtable_size(pt_dest) == 30);
+
+    _hashtable_destroy(pt_dest);
 }
 
 /*

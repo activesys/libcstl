@@ -106,7 +106,7 @@ void hash_multiset_init_copy_range_ex(hash_multiset_t* phmset_dest, iterator_t i
     assert(phmset_dest != NULL);
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    _hashtable_init_copy_range(&phmset_dest->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
+    _hashtable_init_copy_equal_range(&phmset_dest->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
 }
 
 /**

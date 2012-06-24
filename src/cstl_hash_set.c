@@ -105,7 +105,7 @@ void hash_set_init_copy_range_ex(hash_set_t* phset_dest, iterator_t it_begin, it
     assert(phset_dest != NULL);
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    _hashtable_init_copy_range(&phset_dest->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
+    _hashtable_init_copy_unique_range(&phset_dest->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
 }
 
 /**

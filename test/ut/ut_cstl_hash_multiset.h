@@ -47,6 +47,7 @@ void test_hash_multiset_init_copy_range__invalid_range(void** state);
 void test_hash_multiset_init_copy_range__invalid_range_not_same_type(void** state);
 void test_hash_multiset_init_copy_range__empty(void** state);
 void test_hash_multiset_init_copy_range__non_empty(void** state);
+void test_hash_multiset_init_copy_range__non_empty_dup(void** state);
 void test_hash_multiset_init_copy_range__non_0_bucket(void** state);
 void test_hash_multiset_init_copy_range__non_null_hash(void** state);
 void test_hash_multiset_init_copy_range__non_null_compare(void** state);
@@ -380,6 +381,7 @@ void test_hash_multiset_resize__less(void** state);
     UT_CASE(test_hash_multiset_init_copy_range__invalid_range_not_same_type),\
     UT_CASE(test_hash_multiset_init_copy_range__empty),\
     UT_CASE(test_hash_multiset_init_copy_range__non_empty),\
+    UT_CASE(test_hash_multiset_init_copy_range__non_empty_dup),\
     UT_CASE(test_hash_multiset_init_copy_range__non_0_bucket),\
     UT_CASE(test_hash_multiset_init_copy_range__non_null_hash),\
     UT_CASE(test_hash_multiset_init_copy_range__non_null_compare),\

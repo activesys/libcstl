@@ -85,7 +85,25 @@ extern void _hashtable_init_copy(_hashtable_t* pt_dest, const _hashtable_t* cpt_
  *          is undefined. if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used and the 
  *          default compare function is used.
  */
-extern void _hashtable_init_copy_range(
+extern void _hashtable_init_copy_equal_range(
+    _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
+    unary_function_t ufun_hash, binary_function_t bfun_compare);
+
+/**
+ * Initialize hashtable container with specific range.
+ * @param pt_dest           destination hashtable.
+ * @param it_begin          begin of range.
+ * @param it_end            end of range.
+ * @param t_bucketcount     bucket count.
+ * @param ufun_hash         hash function.
+ * @param bfun_compare      compare function.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_hashtable(), otherwise
+ *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior
+ *          is undefined. if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used and the 
+ *          default compare function is used.
+ */
+extern void _hashtable_init_copy_unique_range(
     _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
     unary_function_t ufun_hash, binary_function_t bfun_compare);
 
@@ -333,6 +351,18 @@ extern _hashtable_iterator_t _hashtable_insert_equal(_hashtable_t* pt_hashtable,
 extern void _hashtable_insert_unique_range(_hashtable_t* pt_hashtable, iterator_t it_begin, iterator_t it_end);
 
 /**
+ * Inserts an array of unique element into a hashtable.
+ * @param pt_hashtable      hashtable container.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pt_hashtable == NULL then the behavior is undefined. pt_hashtable must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpt_hashtable must be same, otherwise the behavior is undefined. array must 
+ *          be valid array, otherwise the behavior is undefine.
+ */
+extern void _hashtable_insert_unique_array(_hashtable_t* pt_hashtable, const void* cpv_array, size_t t_count);
+
+/**
  * Inserts an range into a hashtable.
  * @param pt_hashtable      hashtable container.
  * @param it_begin          begin of specific range.
@@ -343,6 +373,18 @@ extern void _hashtable_insert_unique_range(_hashtable_t* pt_hashtable, iterator_
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
 extern void _hashtable_insert_equal_range(_hashtable_t* pt_hashtable, iterator_t it_begin, iterator_t it_end);
+
+/**
+ * Inserts an array into a hashtable.
+ * @param pt_hashtable      hashtable container.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pt_hashtable == NULL then the behavior is undefined. pt_hashtable must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cpt_hashtable must be same, otherwise the behavior is undefined. array must 
+ *          be valid range, otherwise the behavior is undefine.
+ */
+extern void _hashtable_insert_equal_array(_hashtable_t* pt_hashtable, const void* cpv_array, size_t t_count);
 
 /*
  * Erase an element in an hashtable from specificed position.

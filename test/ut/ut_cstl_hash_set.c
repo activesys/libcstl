@@ -436,6 +436,20 @@ void test_hash_set_init_copy_range__non_empty(void** state)
     hash_set_destroy(pt_src);
 }
 
+void test_hash_set_init_copy_range__non_empty_dup(void** state)
+{
+    hash_set_t* phset = create_hash_set(int);
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 100);
+    hash_set_init_copy_range(phset, vector_begin(pvec), vector_end(pvec));
+    assert_true(_hashtable_is_inited(&phset->_t_hashtable));
+    assert_true(hash_set_size(phset) == 1);
+
+    hash_set_destroy(phset);
+    vector_destroy(pvec);
+}
+
 void test_hash_set_init_copy_range__non_0_bucket(void** state)
 {
     hash_set_t* pt_dest = create_hash_set(int);
@@ -514,7 +528,7 @@ void test_hash_set_init_copy_range__other_container_range(void** state)
 
     vector_init_elem(pvec, 10, 100);
     hash_set_init_copy_range(phset, vector_begin(pvec), vector_end(pvec));
-    assert_true(hash_set_size(phset) == 10);
+    assert_true(hash_set_size(phset) == 1);
 
     vector_destroy(pvec);
     hash_set_destroy(phset);
@@ -745,7 +759,7 @@ void test_hash_set_init_copy_range_ex__other_container_range(void** state)
 
     deque_init_elem(pdeq, 10, 100);
     hash_set_init_copy_range_ex(phset, deque_begin(pdeq), deque_end(pdeq), 0, NULL, NULL);
-    assert_true(hash_set_size(phset) == 10);
+    assert_true(hash_set_size(phset) == 1);
 
     deque_destroy(pdeq);
     hash_set_destroy(phset);

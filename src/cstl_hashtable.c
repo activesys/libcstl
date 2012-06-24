@@ -116,8 +116,9 @@ void _hashtable_init_copy(_hashtable_t* pt_dest, const _hashtable_t* cpt_src)
 /**
  * Initialize hashtable container with specific range.
  */
-void _hashtable_init_copy_range(_hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+void _hashtable_init_copy_equal_range(
+    _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
+    unary_function_t ufun_hash, binary_function_t bfun_compare)
 {
     assert(pt_dest != NULL);
     assert(_hashtable_is_created(pt_dest));
@@ -127,6 +128,23 @@ void _hashtable_init_copy_range(_hashtable_t* pt_dest, iterator_t it_begin, iter
 
     _hashtable_init(pt_dest, t_bucketcount, ufun_hash, bfun_compare);
     _hashtable_insert_equal_range(pt_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize hashtable container with specific range.
+ */
+void _hashtable_init_copy_unique_range(
+    _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
+    unary_function_t ufun_hash, binary_function_t bfun_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_hashtable_is_created(pt_dest));
+    assert(_hashtable_same_iterator_type(pt_dest, it_begin));
+    assert(_hashtable_same_iterator_type(pt_dest, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+
+    _hashtable_init(pt_dest, t_bucketcount, ufun_hash, bfun_compare);
+    _hashtable_insert_unique_range(pt_dest, it_begin, it_end);
 }
 
 /**
@@ -854,6 +872,46 @@ void _hashtable_insert_equal_range(_hashtable_t* pt_hashtable, iterator_t it_beg
 }
 
 /**
+ * Inserts an array into a hashtable.
+ */
+void _hashtable_insert_equal_array(_hashtable_t* pt_hashtable, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(pt_hashtable != NULL);
+    assert(_hashtable_is_inited(pt_hashtable));
+    assert(cpv_array != NULL);
+
+    /*
+     * Copy the elements from src array to dest hashtable
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_HASHTABLE_TYPE_BASENAME(pt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (i = 0; i < t_count; ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            _hashtable_insert_equal(pt_hashtable, pstr_elem);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_HASHTABLE_TYPE_STYLE(pt_hashtable) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_count; ++i) {
+            _hashtable_insert_equal(pt_hashtable, (unsigned char*)cpv_array + i * _GET_HASHTABLE_TYPE_SIZE(pt_hashtable));
+        }
+    } else {
+        for (i = 0; i < t_count; ++i) {
+            _hashtable_insert_equal(pt_hashtable, *((void**)cpv_array + i));
+        }
+    }
+}
+
+/**
  * Inserts an range of unique element into a hashtable.
  */
 void _hashtable_insert_unique_range(_hashtable_t* pt_hashtable, iterator_t it_begin, iterator_t it_end)
@@ -868,6 +926,46 @@ void _hashtable_insert_unique_range(_hashtable_t* pt_hashtable, iterator_t it_be
 
     for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         _hashtable_insert_unique(pt_hashtable, _iterator_get_pointer_ignore_cstr(it_iter));
+    }
+}
+
+/**
+ * Inserts an array of unique element into a hashtable.
+ */
+void _hashtable_insert_unique_array(_hashtable_t* pt_hashtable, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(pt_hashtable != NULL);
+    assert(_hashtable_is_inited(pt_hashtable));
+    assert(cpv_array != NULL);
+
+    /*
+     * Copy the elements from src array to dest hashtable
+     * The array of c builtin and user define or cstl builtin are different,
+     * the elements of c builtin array are element itself, but the elements of 
+     * c string, user define or cstl are pointer of element.
+     */
+    if (strncmp(_GET_HASHTABLE_TYPE_BASENAME(pt_hashtable), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /*
+         * We need built a string_t for c string element.
+         */
+        string_t* pstr_elem = create_string();
+        assert(pstr_elem != NULL);
+        string_init(pstr_elem);
+        for (i = 0; i < t_count; ++i) {
+            string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
+            _hashtable_insert_unique(pt_hashtable, pstr_elem);
+        }
+        string_destroy(pstr_elem);
+    } else if (_GET_HASHTABLE_TYPE_STYLE(pt_hashtable) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_count; ++i) {
+            _hashtable_insert_unique(pt_hashtable, (unsigned char*)cpv_array + i * _GET_HASHTABLE_TYPE_SIZE(pt_hashtable));
+        }
+    } else {
+        for (i = 0; i < t_count; ++i) {
+            _hashtable_insert_unique(pt_hashtable, *((void**)cpv_array + i));
+        }
     }
 }
 

@@ -38,20 +38,37 @@ void test__hashtable_init_copy__non_empty(void** state);
 void test__hashtable_init_copy__non_null_hash(void** state);
 void test__hashtable_init_copy__non_null_compare(void** state);
 /*
- * test _hashtable_init_copy_range
+ * test _hashtable_init_copy_equal_range
  */
-UT_CASE_DECLARATION(_hashtable_init_copy_range)
-void test__hashtable_init_copy_range__null_hashtable(void** state);
-void test__hashtable_init_copy_range__non_created_hashtable(void** state);
-void test__hashtable_init_copy_range__invalid_begin(void** state);
-void test__hashtable_init_copy_range__invalid_end(void** state);
-void test__hashtable_init_copy_range__invalid_range(void** state);
-void test__hashtable_init_copy_range__invalid_range_not_same_type(void** state);
-void test__hashtable_init_copy_range__empty(void** state);
-void test__hashtable_init_copy_range__non_empty(void** state);
-void test__hashtable_init_copy_range__bucketcount(void** state);
-void test__hashtable_init_copy_range__non_null_hash(void** state);
-void test__hashtable_init_copy_range__non_null_compare(void** state);
+UT_CASE_DECLARATION(_hashtable_init_copy_equal_range)
+void test__hashtable_init_copy_equal_range__null_hashtable(void** state);
+void test__hashtable_init_copy_equal_range__non_created_hashtable(void** state);
+void test__hashtable_init_copy_equal_range__invalid_begin(void** state);
+void test__hashtable_init_copy_equal_range__invalid_end(void** state);
+void test__hashtable_init_copy_equal_range__invalid_range(void** state);
+void test__hashtable_init_copy_equal_range__invalid_range_not_same_type(void** state);
+void test__hashtable_init_copy_equal_range__empty(void** state);
+void test__hashtable_init_copy_equal_range__non_empty(void** state);
+void test__hashtable_init_copy_equal_range__non_empty_dup(void** state);
+void test__hashtable_init_copy_equal_range__bucketcount(void** state);
+void test__hashtable_init_copy_equal_range__non_null_hash(void** state);
+void test__hashtable_init_copy_equal_range__non_null_compare(void** state);
+/*
+ * test _hashtable_init_copy_unique_range
+ */
+UT_CASE_DECLARATION(_hashtable_init_copy_unique_range)
+void test__hashtable_init_copy_unique_range__null_hashtable(void** state);
+void test__hashtable_init_copy_unique_range__non_created_hashtable(void** state);
+void test__hashtable_init_copy_unique_range__invalid_begin(void** state);
+void test__hashtable_init_copy_unique_range__invalid_end(void** state);
+void test__hashtable_init_copy_unique_range__invalid_range(void** state);
+void test__hashtable_init_copy_unique_range__invalid_range_not_same_type(void** state);
+void test__hashtable_init_copy_unique_range__empty(void** state);
+void test__hashtable_init_copy_unique_range__non_empty(void** state);
+void test__hashtable_init_copy_unique_range__non_empty_dup(void** state);
+void test__hashtable_init_copy_unique_range__bucketcount(void** state);
+void test__hashtable_init_copy_unique_range__non_null_hash(void** state);
+void test__hashtable_init_copy_unique_range__non_null_compare(void** state);
 /*
  * test _hashtable_destroy
  */
@@ -365,6 +382,17 @@ void test__hashtable_insert_unique_range__non_empty_dest_src_dup(void** state);
 void test__hashtable_insert_unique_range__non_empty_src_dup(void** state);
 void test__hashtable_insert_unique_range__compare(void** state);
 /*
+ * test _hashtable_insert_unique_array
+ */
+UT_CASE_DECLARATION(_hashtable_insert_unique_array)
+void test__hashtable_insert_unique_array__null_hashtable(void** state);
+void test__hashtable_insert_unique_array__non_inited(void** state);
+void test__hashtable_insert_unique_array__invalid_array(void** state);
+void test__hashtable_insert_unique_array__empty(void** state);
+void test__hashtable_insert_unique_array__non_empty_equal(void** state);
+void test__hashtable_insert_unique_array__non_empty_dest_src_dup(void** state);
+void test__hashtable_insert_unique_array__non_empty_src_dup(void** state);
+/*
  * test _hashtable_insert_equal_range
  */
 UT_CASE_DECLARATION(_hashtable_insert_equal_range)
@@ -379,6 +407,17 @@ void test__hashtable_insert_equal_range__non_empty_equal(void** state);
 void test__hashtable_insert_equal_range__non_empty_dest_src_dup(void** state);
 void test__hashtable_insert_equal_range__non_empty_src_dup(void** state);
 void test__hashtable_insert_equal_range__compare(void** state);
+/*
+ * test _hashtable_insert_equal_array
+ */
+UT_CASE_DECLARATION(_hashtable_insert_equal_array)
+void test__hashtable_insert_equal_array__null_hashtable(void** state);
+void test__hashtable_insert_equal_array__non_inited(void** state);
+void test__hashtable_insert_equal_array__invalid_array(void** state);
+void test__hashtable_insert_equal_array__empty(void** state);
+void test__hashtable_insert_equal_array__non_empty_equal(void** state);
+void test__hashtable_insert_equal_array__non_empty_dest_src_dup(void** state);
+void test__hashtable_insert_equal_array__non_empty_src_dup(void** state);
 /*
  * test _hashtable_erase_pos
  */
@@ -458,17 +497,30 @@ void test__hashtable_resize__greater_bucketcount(void** state);
     UT_CASE(test__hashtable_init_copy__non_empty),\
     UT_CASE(test__hashtable_init_copy__non_null_hash),\
     UT_CASE(test__hashtable_init_copy__non_null_compare),\
-    UT_CASE_BEGIN(_hashtable_init_copy_range, test__hashtable_init_copy_range__null_hashtable),\
-    UT_CASE(test__hashtable_init_copy_range__non_created_hashtable),\
-    UT_CASE(test__hashtable_init_copy_range__invalid_begin),\
-    UT_CASE(test__hashtable_init_copy_range__invalid_end),\
-    UT_CASE(test__hashtable_init_copy_range__invalid_range),\
-    UT_CASE(test__hashtable_init_copy_range__invalid_range_not_same_type),\
-    UT_CASE(test__hashtable_init_copy_range__empty),\
-    UT_CASE(test__hashtable_init_copy_range__non_empty),\
-    UT_CASE(test__hashtable_init_copy_range__bucketcount),\
-    UT_CASE(test__hashtable_init_copy_range__non_null_hash),\
-    UT_CASE(test__hashtable_init_copy_range__non_null_compare),\
+    UT_CASE_BEGIN(_hashtable_init_copy_equal_range, test__hashtable_init_copy_equal_range__null_hashtable),\
+    UT_CASE(test__hashtable_init_copy_equal_range__non_created_hashtable),\
+    UT_CASE(test__hashtable_init_copy_equal_range__invalid_begin),\
+    UT_CASE(test__hashtable_init_copy_equal_range__invalid_end),\
+    UT_CASE(test__hashtable_init_copy_equal_range__invalid_range),\
+    UT_CASE(test__hashtable_init_copy_equal_range__invalid_range_not_same_type),\
+    UT_CASE(test__hashtable_init_copy_equal_range__empty),\
+    UT_CASE(test__hashtable_init_copy_equal_range__non_empty),\
+    UT_CASE(test__hashtable_init_copy_equal_range__non_empty_dup),\
+    UT_CASE(test__hashtable_init_copy_equal_range__bucketcount),\
+    UT_CASE(test__hashtable_init_copy_equal_range__non_null_hash),\
+    UT_CASE(test__hashtable_init_copy_equal_range__non_null_compare),\
+    UT_CASE_BEGIN(_hashtable_init_copy_unique_range, test__hashtable_init_copy_unique_range__null_hashtable),\
+    UT_CASE(test__hashtable_init_copy_unique_range__non_created_hashtable),\
+    UT_CASE(test__hashtable_init_copy_unique_range__invalid_begin),\
+    UT_CASE(test__hashtable_init_copy_unique_range__invalid_end),\
+    UT_CASE(test__hashtable_init_copy_unique_range__invalid_range),\
+    UT_CASE(test__hashtable_init_copy_unique_range__invalid_range_not_same_type),\
+    UT_CASE(test__hashtable_init_copy_unique_range__empty),\
+    UT_CASE(test__hashtable_init_copy_unique_range__non_empty),\
+    UT_CASE(test__hashtable_init_copy_unique_range__non_empty_dup),\
+    UT_CASE(test__hashtable_init_copy_unique_range__bucketcount),\
+    UT_CASE(test__hashtable_init_copy_unique_range__non_null_hash),\
+    UT_CASE(test__hashtable_init_copy_unique_range__non_null_compare),\
     UT_CASE_BEGIN(_hashtable_destroy, test__hashtable_destroy__null_hashtable),\
     UT_CASE(test__hashtable_destroy__non_created),\
     UT_CASE(test__hashtable_destroy__created),\
@@ -674,6 +726,13 @@ void test__hashtable_resize__greater_bucketcount(void** state);
     UT_CASE(test__hashtable_insert_equal__libcstl_builtin_not_equal),\
     UT_CASE(test__hashtable_insert_equal__user_define_equal),\
     UT_CASE(test__hashtable_insert_equal__user_define_not_equal),\
+    UT_CASE_BEGIN(_hashtable_insert_equal_array, test__hashtable_insert_equal_array__null_hashtable),\
+    UT_CASE(test__hashtable_insert_equal_array__non_inited),\
+    UT_CASE(test__hashtable_insert_equal_array__invalid_array),\
+    UT_CASE(test__hashtable_insert_equal_array__empty),\
+    UT_CASE(test__hashtable_insert_equal_array__non_empty_equal),\
+    UT_CASE(test__hashtable_insert_equal_array__non_empty_dest_src_dup),\
+    UT_CASE(test__hashtable_insert_equal_array__non_empty_src_dup),\
     UT_CASE_BEGIN(_hashtable_insert_unique_range, test__hashtable_insert_unique_range__null_hashtable),\
     UT_CASE(test__hashtable_insert_unique_range__non_inited),\
     UT_CASE(test__hashtable_insert_unique_range__invalid_begin),\
@@ -685,6 +744,13 @@ void test__hashtable_resize__greater_bucketcount(void** state);
     UT_CASE(test__hashtable_insert_unique_range__non_empty_dest_src_dup),\
     UT_CASE(test__hashtable_insert_unique_range__non_empty_src_dup),\
     UT_CASE(test__hashtable_insert_unique_range__compare),\
+    UT_CASE_BEGIN(_hashtable_insert_unique_array, test__hashtable_insert_unique_array__null_hashtable),\
+    UT_CASE(test__hashtable_insert_unique_array__non_inited),\
+    UT_CASE(test__hashtable_insert_unique_array__invalid_array),\
+    UT_CASE(test__hashtable_insert_unique_array__empty),\
+    UT_CASE(test__hashtable_insert_unique_array__non_empty_equal),\
+    UT_CASE(test__hashtable_insert_unique_array__non_empty_dest_src_dup),\
+    UT_CASE(test__hashtable_insert_unique_array__non_empty_src_dup),\
     UT_CASE_BEGIN(_hashtable_insert_equal_range, test__hashtable_insert_equal_range__null_hashtable),\
     UT_CASE(test__hashtable_insert_equal_range__non_inited),\
     UT_CASE(test__hashtable_insert_equal_range__invalid_begin),\
