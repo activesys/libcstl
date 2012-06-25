@@ -90,6 +90,24 @@ extern void _hashtable_init_copy_equal_range(
     unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
+ * Initialize hashtable container with specific array.
+ * @param pt_dest           destination hashtable.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param t_bucketcount     bucket count.
+ * @param ufun_hash         hash function.
+ * @param bfun_compare      compare function.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_hashtable(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior is undefined. 
+ *          if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used and the default compare 
+ *          function is used.
+ */
+extern void _hashtable_init_copy_equal_array(
+    _hashtable_t* pt_dest, const void* cpv_array, size_t t_count, size_t t_bucketcount,
+    unary_function_t ufun_hash, binary_function_t bfun_compare);
+
+/**
  * Initialize hashtable container with specific range.
  * @param pt_dest           destination hashtable.
  * @param it_begin          begin of range.
@@ -105,6 +123,24 @@ extern void _hashtable_init_copy_equal_range(
  */
 extern void _hashtable_init_copy_unique_range(
     _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
+    unary_function_t ufun_hash, binary_function_t bfun_compare);
+
+/**
+ * Initialize hashtable container with specific array.
+ * @param pt_dest           destination hashtable.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param t_bucketcount     bucket count.
+ * @param ufun_hash         hash function.
+ * @param bfun_compare      compare function.
+ * @return void.
+ * @remarks if pt_dest == NULL, then the behavior is undefined, pt_dest must be created by _create_hashtable(), otherwise
+ *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior is undefined. 
+ *          if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used and the default compare 
+ *          function is used.
+ */
+extern void _hashtable_init_copy_unique_array(
+    _hashtable_t* pt_dest, const void* cpv_array, size_t t_count, size_t t_bucketcount,
     unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**

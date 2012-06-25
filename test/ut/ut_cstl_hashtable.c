@@ -532,6 +532,126 @@ void test__hashtable_init_copy_equal_range__non_null_compare(void** state)
 }
 
 /*
+ * test _hashtable_init_copy_equal_array
+ */
+UT_CASE_DEFINATION(_hashtable_init_copy_equal_array)
+void test__hashtable_init_copy_equal_array__null_hashtable(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_hashtable_init_copy_equal_array(NULL, an_array, 10, 0, NULL, NULL));
+}
+
+void test__hashtable_init_copy_equal_array__non_created_hashtable(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    pt_dest->_t_typeinfo._t_style = 999;
+    expect_assert_failure(_hashtable_init_copy_equal_array(pt_dest, an_array, 10, 0, NULL, NULL));
+    pt_dest->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_equal_array__invalid_array(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    expect_assert_failure(_hashtable_init_copy_equal_array(pt_dest, NULL, 10, 0, NULL, NULL));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_equal_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_equal_array(pt_dest, an_array, 0, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_empty(pt_dest));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_equal_array__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    int i = 0;
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    _hashtable_init_copy_equal_array(pt_dest, an_array, 10, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 10);
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_equal_array__non_empty_dup(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_equal_array(pt_dest, an_array, 10, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 10);
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_equal_array__bucketcount(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_equal_array(pt_dest, an_array, 10, 100, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 10);
+    assert_true(_hashtable_bucket_count(pt_dest) == 193);
+
+    _hashtable_destroy(pt_dest);
+}
+
+static void _test__hashtable_init_copy_equal_array__non_null_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test__hashtable_init_copy_equal_array__non_null_hash(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_equal_array(pt_dest, an_array, 10, 0, _test__hashtable_init_copy_equal_array__non_null_hash, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 10);
+    assert_true(_hashtable_bucket_count(pt_dest) == 53);
+    assert_true(_hashtable_hash(pt_dest) == _test__hashtable_init_copy_equal_array__non_null_hash);
+
+    _hashtable_destroy(pt_dest);
+}
+
+static void _test__hashtable_init_copy_equal_array__non_null_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test__hashtable_init_copy_equal_array__non_null_compare(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_equal_array(pt_dest, an_array, 10, 0, NULL, _test__hashtable_init_copy_equal_array__non_null_compare);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 10);
+    assert_true(_hashtable_bucket_count(pt_dest) == 53);
+    assert_true(pt_dest->_bfun_compare == _test__hashtable_init_copy_equal_array__non_null_compare);
+
+    _hashtable_destroy(pt_dest);
+}
+
+/*
  * test _hashtable_init_copy_unique_range
  */
 UT_CASE_DEFINATION(_hashtable_init_copy_unique_range)
@@ -750,6 +870,126 @@ void test__hashtable_init_copy_unique_range__non_null_compare(void** state)
 
     _hashtable_destroy(pt_dest);
     slist_destroy(pslist);
+}
+
+/*
+ * test _hashtable_init_copy_unique_array
+ */
+UT_CASE_DEFINATION(_hashtable_init_copy_unique_array)
+void test__hashtable_init_copy_unique_array__null_hashtable(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(_hashtable_init_copy_unique_array(NULL, an_array, 10, 0, NULL, NULL));
+}
+
+void test__hashtable_init_copy_unique_array__non_created_hashtable(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    pt_dest->_t_typeinfo._t_style = 999;
+    expect_assert_failure(_hashtable_init_copy_unique_array(pt_dest, an_array, 10, 0, NULL, NULL));
+    pt_dest->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_unique_array__invalid_array(void** state)
+{
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    expect_assert_failure(_hashtable_init_copy_unique_array(pt_dest, NULL, 10, 0, NULL, NULL));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_unique_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_unique_array(pt_dest, an_array, 0, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_empty(pt_dest));
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_unique_array__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+    int i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    _hashtable_init_copy_unique_array(pt_dest, an_array, 10, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 10);
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_unique_array__non_empty_dup(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_unique_array(pt_dest, an_array, 10, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+
+    _hashtable_destroy(pt_dest);
+}
+
+void test__hashtable_init_copy_unique_array__bucketcount(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_unique_array(pt_dest, an_array, 10, 100, NULL, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+    assert_true(_hashtable_bucket_count(pt_dest) == 193);
+
+    _hashtable_destroy(pt_dest);
+}
+
+static void _test__hashtable_init_copy_unique_array__non_null_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test__hashtable_init_copy_unique_array__non_null_hash(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_unique_array(pt_dest, an_array, 10, 0, _test__hashtable_init_copy_unique_array__non_null_hash, NULL);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+    assert_true(_hashtable_bucket_count(pt_dest) == 53);
+    assert_true(_hashtable_hash(pt_dest) == _test__hashtable_init_copy_unique_array__non_null_hash);
+
+    _hashtable_destroy(pt_dest);
+}
+
+static void _test__hashtable_init_copy_unique_array__non_null_compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test__hashtable_init_copy_unique_array__non_null_compare(void** state)
+{
+    int an_array[10] = {0};
+    _hashtable_t* pt_dest = _create_hashtable("int");
+
+    _hashtable_init_copy_unique_array(pt_dest, an_array, 10, 0, NULL, _test__hashtable_init_copy_unique_array__non_null_compare);
+    assert_true(_hashtable_is_inited(pt_dest));
+    assert_true(_hashtable_size(pt_dest) == 1);
+    assert_true(_hashtable_bucket_count(pt_dest) == 53);
+    assert_true(pt_dest->_bfun_compare == _test__hashtable_init_copy_unique_array__non_null_compare);
+
+    _hashtable_destroy(pt_dest);
 }
 
 /*

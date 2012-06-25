@@ -54,6 +54,19 @@ void test__hashtable_init_copy_equal_range__bucketcount(void** state);
 void test__hashtable_init_copy_equal_range__non_null_hash(void** state);
 void test__hashtable_init_copy_equal_range__non_null_compare(void** state);
 /*
+ * test _hashtable_init_copy_equal_array
+ */
+UT_CASE_DECLARATION(_hashtable_init_copy_equal_array)
+void test__hashtable_init_copy_equal_array__null_hashtable(void** state);
+void test__hashtable_init_copy_equal_array__non_created_hashtable(void** state);
+void test__hashtable_init_copy_equal_array__invalid_array(void** state);
+void test__hashtable_init_copy_equal_array__empty(void** state);
+void test__hashtable_init_copy_equal_array__non_empty(void** state);
+void test__hashtable_init_copy_equal_array__non_empty_dup(void** state);
+void test__hashtable_init_copy_equal_array__bucketcount(void** state);
+void test__hashtable_init_copy_equal_array__non_null_hash(void** state);
+void test__hashtable_init_copy_equal_array__non_null_compare(void** state);
+/*
  * test _hashtable_init_copy_unique_range
  */
 UT_CASE_DECLARATION(_hashtable_init_copy_unique_range)
@@ -69,6 +82,19 @@ void test__hashtable_init_copy_unique_range__non_empty_dup(void** state);
 void test__hashtable_init_copy_unique_range__bucketcount(void** state);
 void test__hashtable_init_copy_unique_range__non_null_hash(void** state);
 void test__hashtable_init_copy_unique_range__non_null_compare(void** state);
+/*
+ * test _hashtable_init_copy_unique_array
+ */
+UT_CASE_DECLARATION(_hashtable_init_copy_unique_array)
+void test__hashtable_init_copy_unique_array__null_hashtable(void** state);
+void test__hashtable_init_copy_unique_array__non_created_hashtable(void** state);
+void test__hashtable_init_copy_unique_array__invalid_array(void** state);
+void test__hashtable_init_copy_unique_array__empty(void** state);
+void test__hashtable_init_copy_unique_array__non_empty(void** state);
+void test__hashtable_init_copy_unique_array__non_empty_dup(void** state);
+void test__hashtable_init_copy_unique_array__bucketcount(void** state);
+void test__hashtable_init_copy_unique_array__non_null_hash(void** state);
+void test__hashtable_init_copy_unique_array__non_null_compare(void** state);
 /*
  * test _hashtable_destroy
  */
@@ -509,6 +535,15 @@ void test__hashtable_resize__greater_bucketcount(void** state);
     UT_CASE(test__hashtable_init_copy_equal_range__bucketcount),\
     UT_CASE(test__hashtable_init_copy_equal_range__non_null_hash),\
     UT_CASE(test__hashtable_init_copy_equal_range__non_null_compare),\
+    UT_CASE_BEGIN(_hashtable_init_copy_equal_array, test__hashtable_init_copy_equal_array__null_hashtable),\
+    UT_CASE(test__hashtable_init_copy_equal_array__non_created_hashtable),\
+    UT_CASE(test__hashtable_init_copy_equal_array__invalid_array),\
+    UT_CASE(test__hashtable_init_copy_equal_array__empty),\
+    UT_CASE(test__hashtable_init_copy_equal_array__non_empty),\
+    UT_CASE(test__hashtable_init_copy_equal_array__non_empty_dup),\
+    UT_CASE(test__hashtable_init_copy_equal_array__bucketcount),\
+    UT_CASE(test__hashtable_init_copy_equal_array__non_null_hash),\
+    UT_CASE(test__hashtable_init_copy_equal_array__non_null_compare),\
     UT_CASE_BEGIN(_hashtable_init_copy_unique_range, test__hashtable_init_copy_unique_range__null_hashtable),\
     UT_CASE(test__hashtable_init_copy_unique_range__non_created_hashtable),\
     UT_CASE(test__hashtable_init_copy_unique_range__invalid_begin),\
@@ -521,6 +556,15 @@ void test__hashtable_resize__greater_bucketcount(void** state);
     UT_CASE(test__hashtable_init_copy_unique_range__bucketcount),\
     UT_CASE(test__hashtable_init_copy_unique_range__non_null_hash),\
     UT_CASE(test__hashtable_init_copy_unique_range__non_null_compare),\
+    UT_CASE_BEGIN(_hashtable_init_copy_unique_array, test__hashtable_init_copy_unique_array__null_hashtable),\
+    UT_CASE(test__hashtable_init_copy_unique_array__non_created_hashtable),\
+    UT_CASE(test__hashtable_init_copy_unique_array__invalid_array),\
+    UT_CASE(test__hashtable_init_copy_unique_array__empty),\
+    UT_CASE(test__hashtable_init_copy_unique_array__non_empty),\
+    UT_CASE(test__hashtable_init_copy_unique_array__non_empty_dup),\
+    UT_CASE(test__hashtable_init_copy_unique_array__bucketcount),\
+    UT_CASE(test__hashtable_init_copy_unique_array__non_null_hash),\
+    UT_CASE(test__hashtable_init_copy_unique_array__non_null_compare),\
     UT_CASE_BEGIN(_hashtable_destroy, test__hashtable_destroy__null_hashtable),\
     UT_CASE(test__hashtable_destroy__non_created),\
     UT_CASE(test__hashtable_destroy__created),\

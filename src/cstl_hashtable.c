@@ -131,6 +131,21 @@ void _hashtable_init_copy_equal_range(
 }
 
 /**
+ * Initialize hashtable container with specific array.
+ */
+void _hashtable_init_copy_equal_array(
+    _hashtable_t* pt_dest, const void* cpv_array, size_t t_count, size_t t_bucketcount,
+    unary_function_t ufun_hash, binary_function_t bfun_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_hashtable_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _hashtable_init(pt_dest, t_bucketcount, ufun_hash, bfun_compare);
+    _hashtable_insert_equal_array(pt_dest, cpv_array, t_count);
+}
+
+/**
  * Initialize hashtable container with specific range.
  */
 void _hashtable_init_copy_unique_range(
@@ -145,6 +160,21 @@ void _hashtable_init_copy_unique_range(
 
     _hashtable_init(pt_dest, t_bucketcount, ufun_hash, bfun_compare);
     _hashtable_insert_unique_range(pt_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize hashtable container with specific array.
+ */
+void _hashtable_init_copy_unique_array(
+    _hashtable_t* pt_dest, const void* cpv_array, size_t t_count, size_t t_bucketcount,
+    unary_function_t ufun_hash, binary_function_t bfun_compare)
+{
+    assert(pt_dest != NULL);
+    assert(_hashtable_is_created(pt_dest));
+    assert(cpv_array != NULL);
+
+    _hashtable_init(pt_dest, t_bucketcount, ufun_hash, bfun_compare);
+    _hashtable_insert_unique_array(pt_dest, cpv_array, t_count);
 }
 
 /**

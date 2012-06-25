@@ -323,6 +323,17 @@ void hash_set_insert_range(hash_set_t* phset_set, iterator_t it_begin, iterator_
     _hashtable_insert_unique_range(&phset_set->_t_hashtable, it_begin, it_end);
 }
 
+/**
+ * inserts an array of unique element into a hash_set.
+ */
+void hash_set_insert_array(hash_set_t* phset_set, const void* cpv_array, size_t t_count)
+{
+    assert(phset_set != NULL);
+    assert(cpv_array != NULL);
+
+    _hashtable_insert_unique_array(&phset_set->_t_hashtable, cpv_array, t_count);
+}
+
 /*
  * Erase an element in an hash_set from specificed position.
  */

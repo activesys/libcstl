@@ -3660,6 +3660,121 @@ void test_hash_set_insert_range__other_not_same(void** state)
 }
 
 /*
+ * test hash_set_insert_array
+ */
+UT_CASE_DEFINATION(hash_set_insert_array)
+void test_hash_set_insert_array__null_hash_set(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(hash_set_insert_array(NULL, an_array, 10));
+}
+
+void test_hash_set_insert_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    hash_set_t* pt_dest = create_hash_set(int);
+
+    hash_set_init(pt_dest);
+
+    pt_dest->_t_hashtable._t_typeinfo._t_style = 999;
+    expect_assert_failure(hash_set_insert_array(pt_dest, an_array, 10));
+    pt_dest->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    hash_set_destroy(pt_dest);
+}
+
+void test_hash_set_insert_array__invalid_array(void** state)
+{
+    hash_set_t* pt_dest = create_hash_set(int);
+
+    hash_set_init(pt_dest);
+
+    expect_assert_failure(hash_set_insert_array(pt_dest, NULL, 10));
+
+    hash_set_destroy(pt_dest);
+}
+
+void test_hash_set_insert_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    hash_set_t* pt_dest = create_hash_set(int);
+
+    hash_set_init(pt_dest);
+
+    hash_set_insert_array(pt_dest, an_array, 0);
+    assert_true(hash_set_empty(pt_dest));
+
+    hash_set_destroy(pt_dest);
+}
+
+void test_hash_set_insert_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    hash_set_t* pt_dest = create_hash_set(int);
+    int i = 0;
+
+    hash_set_init(pt_dest);
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_dest, i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    hash_set_insert_array(pt_dest, an_array, 10);
+    assert_true(hash_set_size(pt_dest) == 20);
+
+    hash_set_destroy(pt_dest);
+}
+
+void test_hash_set_insert_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    hash_set_t* pt_dest = create_hash_set(int);
+    int i = 0;
+
+    hash_set_init(pt_dest);
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_dest, i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    hash_set_insert_array(pt_dest, an_array, 10);
+    assert_true(hash_set_size(pt_dest) == 15);
+
+    hash_set_destroy(pt_dest);
+}
+
+void test_hash_set_insert_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    hash_set_t* pt_dest = create_hash_set(int);
+    int i = 0;
+
+    hash_set_init(pt_dest);
+    for(i = 0; i < 10; ++i)
+    {
+        hash_set_insert(pt_dest, i);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 15;
+        an_array[i + 1] = i + 15;
+    }
+
+    hash_set_insert_array(pt_dest, an_array, 20);
+    assert_true(hash_set_size(pt_dest) == 20);
+
+    hash_set_destroy(pt_dest);
+}
+
+/*
  * test hash_set_erase_pos
  */
 UT_CASE_DEFINATION(hash_set_erase_pos)

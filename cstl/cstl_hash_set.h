@@ -344,6 +344,18 @@ extern hash_set_iterator_t hash_set_end(const hash_set_t* cphset_set);
  */
 extern void hash_set_insert_range(hash_set_t* phset_set, iterator_t it_begin, iterator_t it_end);
 
+/**
+ * inserts an array of unique element into a hash_set.
+ * @param phset_set          hash_set container.
+ * @param cpv_array          array.
+ * @param t_count            element count of array.
+ * @return void.
+ * @remarks if phset_set == null then the behavior is undefined. phset_set must be initialized, otherwise the behavior
+ *          is undefined. the type of array and cphset_set must be same, otherwise the behavior is undefined. array 
+ *          must be valid range, otherwise the behavior is undefine.
+ */
+extern void hash_set_insert_array(hash_set_t* phset_set, const void* cpv_array, size_t t_count);
+
 /*
  * Erase an element in an hash_set from specificed position.
  * @param phset_set          hash_set container.
