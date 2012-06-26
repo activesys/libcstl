@@ -97,15 +97,35 @@ void hash_set_init_copy_range(hash_set_t* phset_dest, iterator_t it_begin, itera
 }
 
 /**
+ * Initialize hash_set container with specific array.
+ */
+void hash_set_init_copy_array(hash_set_t* phset_dest, const void* cpv_array, size_t t_count)
+{
+    hash_set_init_copy_array_ex(phset_dest, cpv_array, t_count, 0, NULL, NULL);
+}
+
+/**
  * Initialize hash_set container with specific range and compare function.
  */
-void hash_set_init_copy_range_ex(hash_set_t* phset_dest, iterator_t it_begin, iterator_t it_end,
+void hash_set_init_copy_range_ex(hash_set_t* phset_set, iterator_t it_begin, iterator_t it_end,
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
 {
-    assert(phset_dest != NULL);
+    assert(phset_set != NULL);
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    _hashtable_init_copy_unique_range(&phset_dest->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
+    _hashtable_init_copy_unique_range(&phset_set->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
+}
+
+/**
+ * Initialize hash_set container with specific array and compare function.
+ */
+void hash_set_init_copy_array_ex(hash_set_t* phset_set, const void* cpv_array, size_t t_count,
+    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+{
+    assert(phset_set != NULL);
+    assert(cpv_array != NULL);
+
+    _hashtable_init_copy_unique_array(&phset_set->_t_hashtable, cpv_array, t_count, t_bucketcount, ufun_hash, bfun_compare);
 }
 
 /**
