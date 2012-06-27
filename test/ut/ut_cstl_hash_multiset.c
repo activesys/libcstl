@@ -547,6 +547,77 @@ void test_hash_multiset_init_copy_range__other_not_same(void** state)
 }
 
 /*
+ * test hash_multiset_init_copy_array
+ */
+UT_CASE_DEFINATION(hash_multiset_init_copy_array)
+void test_hash_multiset_init_copy_array__null_hash_multiset(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(hash_multiset_init_copy_array(NULL, an_array, 10));
+}
+
+void test_hash_multiset_init_copy_array__non_created_hash_multiset(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    pt_dest->_t_hashtable._t_typeinfo._t_style = 99;
+    expect_assert_failure(hash_multiset_init_copy_array(pt_dest, an_array, 10));
+    pt_dest->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_init_copy_array__invalid_array(void** state)
+{
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    expect_assert_failure(hash_multiset_init_copy_array(pt_dest, NULL, 10));
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_init_copy_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    hash_multiset_init_copy_array(pt_dest, an_array, 0);
+    assert_true(_hashtable_is_inited(&pt_dest->_t_hashtable));
+    assert_true(hash_multiset_empty(pt_dest));
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_init_copy_array__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+    int i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    hash_multiset_init_copy_array(pt_dest, an_array, 10);
+    assert_true(_hashtable_is_inited(&pt_dest->_t_hashtable));
+    assert_true(hash_multiset_size(pt_dest) == 10);
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_init_copy_array__non_empty_dup(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* phmset = create_hash_multiset(int);
+
+    hash_multiset_init_copy_array(phmset, an_array, 10);
+    assert_true(_hashtable_is_inited(&phmset->_t_hashtable));
+    assert_true(hash_multiset_size(phmset) == 10);
+
+    hash_multiset_destroy(phmset);
+}
+
+/*
  * test hash_multiset_init_copy_range_ex
  */
 UT_CASE_DEFINATION(hash_multiset_init_copy_range_ex)
@@ -775,6 +846,112 @@ void test_hash_multiset_init_copy_range_ex__other_not_same(void** state)
 
     deque_destroy(pdeq);
     hash_multiset_destroy(phmset);
+}
+
+/*
+ * test hash_multiset_init_copy_array_ex
+ */
+UT_CASE_DEFINATION(hash_multiset_init_copy_array_ex)
+void test_hash_multiset_init_copy_array_ex__null_hash_multiset(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(hash_multiset_init_copy_array_ex(NULL, an_array, 10, 0, NULL, NULL));
+}
+
+void test_hash_multiset_init_copy_array_ex__non_created_hash_multiset(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    pt_dest->_t_hashtable._t_typeinfo._t_style = 999;
+    expect_assert_failure(hash_multiset_init_copy_array_ex(pt_dest, an_array, 10, 0, NULL, NULL));
+    pt_dest->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_init_copy_array_ex__invalid_array(void** state)
+{
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    expect_assert_failure(hash_multiset_init_copy_array_ex(pt_dest, NULL, 10, 0, NULL, NULL));
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_init_copy_array_ex__empty(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    hash_multiset_init_copy_array_ex(pt_dest, an_array, 0, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(&pt_dest->_t_hashtable));
+    assert_true(hash_multiset_empty(pt_dest));
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_init_copy_array_ex__non_empty(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+    int i = 0;
+
+    for (i = 0; i < 10; ++i) {
+        an_array[i] = i;
+    }
+    hash_multiset_init_copy_array_ex(pt_dest, an_array, 10, 0, NULL, NULL);
+    assert_true(_hashtable_is_inited(&pt_dest->_t_hashtable));
+    assert_true(hash_multiset_size(pt_dest) == 10);
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_init_copy_array_ex__non_0_bucket(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    hash_multiset_init_copy_array_ex(pt_dest, an_array, 10, 100, NULL, NULL);
+    assert_true(_hashtable_is_inited(&pt_dest->_t_hashtable));
+    assert_true(hash_multiset_size(pt_dest) == 10);
+    assert_true(hash_multiset_bucket_count(pt_dest) == 193);
+
+    hash_multiset_destroy(pt_dest);
+}
+
+static void _test_hash_multiset_init_copy_array_ex__non_null_hash(const void* cpv_input, void* pv_output)
+{
+    *(size_t*)pv_output = *(int*)cpv_input;
+}
+void test_hash_multiset_init_copy_array_ex__hash(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    hash_multiset_init_copy_array_ex(pt_dest, an_array, 10, 0, _test_hash_multiset_init_copy_array_ex__non_null_hash, NULL);
+    assert_true(_hashtable_is_inited(&pt_dest->_t_hashtable));
+    assert_true(hash_multiset_size(pt_dest) == 10);
+    assert_true(hash_multiset_hash(pt_dest) == _test_hash_multiset_init_copy_array_ex__non_null_hash);
+
+    hash_multiset_destroy(pt_dest);
+}
+
+static void _test__hash_multiset_init_compare_array_ex__compare(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test_hash_multiset_init_copy_array_ex__compare(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    hash_multiset_init_copy_array_ex(pt_dest, an_array, 10, 0, NULL, _test__hash_multiset_init_compare_array_ex__compare);
+    assert_true(_hashtable_is_inited(&pt_dest->_t_hashtable));
+    assert_true(hash_multiset_size(pt_dest) == 10);
+    assert_true(hash_multiset_key_comp(pt_dest) == _test__hash_multiset_init_compare_array_ex__compare);
+
+    hash_multiset_destroy(pt_dest);
 }
 
 /*
@@ -3653,6 +3830,121 @@ void test_hash_multiset_insert_range__other_not_same(void** state)
 
     hash_multiset_destroy(phmset);
     set_destroy(pset);
+}
+
+/*
+ * test hash_multiset_insert_array
+ */
+UT_CASE_DEFINATION(hash_multiset_insert_array)
+void test_hash_multiset_insert_array__null_hash_multiset(void** state)
+{
+    int an_array[10] = {0};
+    expect_assert_failure(hash_multiset_insert_array(NULL, an_array, 10));
+}
+
+void test_hash_multiset_insert_array__non_inited(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    hash_multiset_init(pt_dest);
+
+    pt_dest->_t_hashtable._t_typeinfo._t_style = 999;
+    expect_assert_failure(hash_multiset_insert_array(pt_dest, an_array, 10));
+    pt_dest->_t_hashtable._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_insert_array__invalid_array(void** state)
+{
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    hash_multiset_init(pt_dest);
+
+    expect_assert_failure(hash_multiset_insert_array(pt_dest, NULL, 10));
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_insert_array__empty(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+
+    hash_multiset_init(pt_dest);
+
+    hash_multiset_insert_array(pt_dest, an_array, 0);
+    assert_true(hash_multiset_empty(pt_dest));
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_insert_array__non_empty_equal(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+    int i = 0;
+
+    hash_multiset_init(pt_dest);
+    for(i = 0; i < 10; ++i)
+    {
+        hash_multiset_insert(pt_dest, i);
+    }
+    for(i = 10; i < 20; ++i)
+    {
+        an_array[i - 10] = i;
+    }
+
+    hash_multiset_insert_array(pt_dest, an_array, 10);
+    assert_true(hash_multiset_size(pt_dest) == 20);
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_insert_array__non_empty_dest_src_dup(void** state)
+{
+    int an_array[10] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+    int i = 0;
+
+    hash_multiset_init(pt_dest);
+    for(i = 0; i < 10; ++i)
+    {
+        hash_multiset_insert(pt_dest, i);
+    }
+    for(i = 5; i < 15; ++i)
+    {
+        an_array[i - 5] = i;
+    }
+
+    hash_multiset_insert_array(pt_dest, an_array, 10);
+    assert_true(hash_multiset_size(pt_dest) == 20);
+
+    hash_multiset_destroy(pt_dest);
+}
+
+void test_hash_multiset_insert_array__non_empty_src_dup(void** state)
+{
+    int an_array[20] = {0};
+    hash_multiset_t* pt_dest = create_hash_multiset(int);
+    int i = 0;
+
+    hash_multiset_init(pt_dest);
+    for(i = 0; i < 10; ++i)
+    {
+        hash_multiset_insert(pt_dest, i);
+    }
+    for (i = 0; i < 20; i += 2)
+    {
+        an_array[i] = i + 15;
+        an_array[i + 1] = i + 15;
+    }
+
+    hash_multiset_insert_array(pt_dest, an_array, 20);
+    assert_true(hash_multiset_size(pt_dest) == 30);
+
+    hash_multiset_destroy(pt_dest);
 }
 
 /*

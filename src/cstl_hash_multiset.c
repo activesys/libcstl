@@ -98,6 +98,14 @@ void hash_multiset_init_copy_range(hash_multiset_t* phmset_dest, iterator_t it_b
 }
 
 /**
+ * Initialize hash_multiset container with specific array.
+ */
+void hash_multiset_init_copy_array(hash_multiset_t* phmset_dest, const void* cpv_array, size_t t_count)
+{
+    hash_multiset_init_copy_array_ex(phmset_dest, cpv_array, t_count, 0, NULL, NULL);
+}
+
+/**
  * Initialize hash_multiset container with specific range and compare function.
  */
 void hash_multiset_init_copy_range_ex(hash_multiset_t* phmset_dest, iterator_t it_begin, iterator_t it_end,
@@ -107,6 +115,18 @@ void hash_multiset_init_copy_range_ex(hash_multiset_t* phmset_dest, iterator_t i
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     _hashtable_init_copy_equal_range(&phmset_dest->_t_hashtable, it_begin, it_end, t_bucketcount, ufun_hash, bfun_compare);
+}
+
+/**
+ * Initialize hash_multiset container with specific array and compare function.
+ */
+void hash_multiset_init_copy_array_ex(hash_multiset_t* phmset_dest, const void* cpv_array, size_t t_count,
+    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+{
+    assert(phmset_dest != NULL);
+    assert(cpv_array != NULL);
+
+    _hashtable_init_copy_equal_array(&phmset_dest->_t_hashtable, cpv_array, t_count, t_bucketcount, ufun_hash, bfun_compare);
 }
 
 /**
@@ -322,6 +342,17 @@ void hash_multiset_insert_range(hash_multiset_t* phmset_set, iterator_t it_begin
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     _hashtable_insert_equal_range(&phmset_set->_t_hashtable, it_begin, it_end);
+}
+
+/**
+ * Inserts an array of unique element into a hash_multiset.
+ */
+void hash_multiset_insert_array(hash_multiset_t* phmset_set, const void* cpv_array, size_t t_count)
+{
+    assert(phmset_set != NULL);
+    assert(cpv_array != NULL);
+
+    _hashtable_insert_equal_array(&phmset_set->_t_hashtable, cpv_array, t_count);
 }
 
 /*
