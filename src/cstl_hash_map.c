@@ -119,6 +119,14 @@ void hash_map_init_copy_range(hash_map_t* phmap_dest, iterator_t it_begin, itera
 }
 
 /**
+ * Initialize hash_map container with specific array.
+ */
+void hash_map_init_copy_array(hash_map_t* phmap_dest, const void* cpv_array, size_t t_count)
+{
+    hash_map_init_copy_array_ex(phmap_dest, cpv_array, t_count, 0, NULL, NULL);
+}
+
+/**
  * Initialize hash_map container with specific range and compare function.
  */
 void hash_map_init_copy_range_ex(hash_map_t* phmap_dest, iterator_t it_begin, iterator_t it_end,
@@ -133,6 +141,23 @@ void hash_map_init_copy_range_ex(hash_map_t* phmap_dest, iterator_t it_begin, it
     ufun_default_hash = ufun_hash != NULL ? ufun_hash : _hash_map_default_hash;
     hash_map_init_ex(phmap_dest, t_bucketcount, ufun_default_hash, bfun_compare);
     hash_map_insert_range(phmap_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize hash_map container with specific array and compare function.
+ */
+void hash_map_init_copy_array_ex(hash_map_t* phmap_dest, const void* cpv_array, size_t t_count,
+    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+{
+    unary_function_t ufun_default_hash = NULL;
+
+    assert(phmap_dest != NULL);
+    assert(_pair_is_created(&phmap_dest->_pair_temp));
+    assert(cpv_array != NULL);
+
+    ufun_default_hash = ufun_hash != NULL ? ufun_hash : _hash_map_default_hash;
+    hash_map_init_ex(phmap_dest, t_bucketcount, ufun_default_hash, bfun_compare);
+    hash_map_insert_array(phmap_dest, cpv_array, t_count);
 }
 
 /**
@@ -431,6 +456,23 @@ void hash_map_insert_range(hash_map_t* phmap_map, iterator_t it_begin, iterator_
     for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         assert(_hash_map_same_pair_type(&phmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         hash_map_insert(phmap_map, (pair_t*)iterator_get_pointer(it_iter));
+    }
+}
+
+/**
+ * Inserts an array of unique element into a hash_map.
+ */
+void hash_map_insert_array(hash_map_t* phmap_map, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(phmap_map != NULL);
+    assert(_pair_is_inited(&phmap_map->_pair_temp));
+    assert(cpv_array != NULL);
+
+    for (i = 0; i < t_count; ++i) {
+        assert(_hash_map_same_pair_type(&phmap_map->_pair_temp, ((pair_t**)cpv_array)[i]));
+        hash_map_insert(phmap_map, ((pair_t**)cpv_array)[i]);
     }
 }
 

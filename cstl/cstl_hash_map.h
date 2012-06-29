@@ -136,6 +136,17 @@ extern void hash_map_init_copy(hash_map_t* phmap_dest, const hash_map_t* cphmap_
 extern void hash_map_init_copy_range(hash_map_t* phmap_dest, iterator_t t_begin, iterator_t t_end);
 
 /**
+ * Initialize hash_map container with specific array.
+ * @param pmap_dest         destination hash_map.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @return void.
+ * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by create_map(), otherwise
+ *          the behavior is undefined. the type of array and pmap_dest must be same, otherwise the behavior is undefined.
+ */
+extern void hash_map_init_copy_array(hash_map_t* phmap_dest, const void* cpv_array, size_t t_count);
+
+/**
  * Initialize hash_map container with specific range and compare function.
  * @param pmap_dest         destination hash_map.
  * @param it_begin          begin of range.
@@ -147,6 +158,20 @@ extern void hash_map_init_copy_range(hash_map_t* phmap_dest, iterator_t t_begin,
  *          the behavior is undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void hash_map_init_copy_range_ex(hash_map_t* phmap_dest, iterator_t t_begin, iterator_t t_end,
+    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+
+/**
+ * Initialize hash_map container with specific array and compare function.
+ * @param pmap_dest         destination hash_map.
+ * @param cpv_array         array.
+ * @param t_count           element count of array.
+ * @param bfun_compare      compare function.
+ * @return void.
+ * @remarks if pmap_dest == NULL, then the behavior is undefined, pmap_dest must be created by _create_map(), otherwise
+ *          the behavior is undefined. is undefined. the type of array and pmap_dest must be same, otherwise the behavior
+ *          is undefined. if bfun_compare == NULL, then use default compare function.
+ */
+extern void hash_map_init_copy_array_ex(hash_map_t* phmap_dest, const void* cpv_array, size_t t_count,
     size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
 
 /**
@@ -351,6 +376,18 @@ extern hash_map_iterator_t hash_map_insert(hash_map_t* phmap_map, const pair_t* 
  *          [it_begin, it_end) must be valid range, otherwise the behavior is undefine.
  */
 extern void hash_map_insert_range(hash_map_t* phmap_map, iterator_t t_begin, iterator_t t_end);
+
+/**
+ * Inserts an array of unique element into a hash_map.
+ * @param phmap_map          hash_map container.
+ * @param cpv_array          array.
+ * @param t_count            element count of array.
+ * @return void.
+ * @remarks if phmap_map == NULL then the behavior is undefined. phmap_map must be initialized, otherwise the behavior
+ *          is undefined. the type of [it_begin, it_end) and cphmap_map must be same, otherwise the behavior is undefined.
+ *          array must be valid, otherwise the behavior is undefine.
+ */
+extern void hash_map_insert_array(hash_map_t* phmap_map, const void* cpv_array, size_t t_count);
 
 /*
  * Erase an element in an hash_map from specificed position.
