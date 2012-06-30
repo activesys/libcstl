@@ -118,6 +118,14 @@ void hash_multimap_init_copy_range(hash_multimap_t* phmmap_dest, iterator_t it_b
 }
 
 /**
+ * Initialize hash_multimap container with specific array.
+ */
+void hash_multimap_init_copy_array(hash_multimap_t* phmmap_dest, const void* cpv_array, size_t t_count)
+{
+    hash_multimap_init_copy_array_ex(phmmap_dest, cpv_array, t_count, 0, NULL, NULL);
+}
+
+/**
  * Initialize hash_multimap container with specific range and compare function.
  */
 void hash_multimap_init_copy_range_ex(hash_multimap_t* phmmap_dest, iterator_t it_begin, iterator_t it_end,
@@ -132,6 +140,23 @@ void hash_multimap_init_copy_range_ex(hash_multimap_t* phmmap_dest, iterator_t i
     ufun_default_hash = ufun_hash != NULL ? ufun_hash : _hash_multimap_default_hash;
     hash_multimap_init_ex(phmmap_dest, t_bucketcount, ufun_default_hash, bfun_compare);
     hash_multimap_insert_range(phmmap_dest, it_begin, it_end);
+}
+
+/**
+ * Initialize hash_multimap container with specific array and compare function.
+ */
+void hash_multimap_init_copy_array_ex(hash_multimap_t* phmmap_dest, const void* cpv_array, size_t t_count,
+    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+{
+    unary_function_t ufun_default_hash = NULL;
+
+    assert(phmmap_dest != NULL);
+    assert(_pair_is_created(&phmmap_dest->_pair_temp));
+    assert(cpv_array != NULL);
+
+    ufun_default_hash = ufun_hash != NULL ? ufun_hash : _hash_multimap_default_hash;
+    hash_multimap_init_ex(phmmap_dest, t_bucketcount, ufun_default_hash, bfun_compare);
+    hash_multimap_insert_array(phmmap_dest, cpv_array, t_count);
 }
 
 /**
@@ -430,6 +455,23 @@ void hash_multimap_insert_range(hash_multimap_t* phmmap_map, iterator_t it_begin
     for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         assert(_hash_multimap_same_pair_type(&phmmap_map->_pair_temp, (pair_t*)iterator_get_pointer(it_iter)));
         hash_multimap_insert(phmmap_map, (pair_t*)iterator_get_pointer(it_iter));
+    }
+}
+
+/**
+ * Inserts an array of unique element into a hash_multimap.
+ */
+void hash_multimap_insert_array(hash_multimap_t* phmmap_map, const void* cpv_array, size_t t_count)
+{
+    size_t i = 0;
+
+    assert(phmmap_map != NULL);
+    assert(_pair_is_inited(&phmmap_map->_pair_temp));
+    assert(cpv_array != NULL);
+
+    for (i = 0; i < t_count; ++i) {
+        assert(_hash_multimap_same_pair_type(&phmmap_map->_pair_temp, ((pair_t**)cpv_array)[i]));
+        hash_multimap_insert(phmmap_map, ((pair_t**)cpv_array)[i]);
     }
 }
 
