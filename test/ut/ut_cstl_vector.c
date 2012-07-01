@@ -703,7 +703,7 @@ void test_vector_init_copy_range__other_container_range(void** state)
 {
     vector_t* pvec = create_vector(int);
     list_t* plist = create_list(int);
-    int i = 0;
+    size_t i = 0;
 
     list_init_elem(plist, 10, 100);
     vector_init_copy_range(pvec, list_begin(plist), list_end(plist));
@@ -2617,7 +2617,7 @@ void test_vector_assign_range__other_container_range(void** state)
 {
     vector_t* pvec = create_vector(int);
     list_t* plist = create_list(int);
-    int i = 0;
+    size_t i = 0;
 
     vector_init_n(pvec, 10);
     list_init_elem(plist, 100, 100);
@@ -2877,7 +2877,7 @@ void test_vector_assign_array__cstr(void** state)
         "Linux", "abc", "xxxx", "damahou", "99999999", "maoxingren", "x", "yz"
     };
     vector_t* pvec = create_vector(char*);
-    int i = 0;
+    size_t i = 0;
 
     vector_init_n(pvec, 10);
     assert_true(vector_size(pvec) == 10);
@@ -4042,7 +4042,7 @@ void test_vector_insert_range__other_container_range(void** state)
 {
     vector_t* pvec = create_vector(int);
     list_t* plist = create_list(int);
-    int i = 0;
+    size_t i = 0;
 
     vector_init_n(pvec, 10);
     list_init_elem(plist, 100, 100);
@@ -4449,7 +4449,7 @@ void test_vector_insert_array__cstr(void** state)
         "linux", "windows", "mac", "freebsd", "solaris"
     };
     vector_t* pvec = create_vector(char*);
-    int i = 0;
+    size_t i = 0;
 
     vector_init_n(pvec, 10);
     assert_true(vector_size(pvec) == 10);

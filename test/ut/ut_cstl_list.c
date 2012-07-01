@@ -2270,7 +2270,6 @@ void test_list_assign_array__0_assign_array_10(void** state)
 void test_list_assign_array__10_assign_array_0(void** state)
 {
     int an_array[10] = {0};
-    list_iterator_t it_iter;
     list_t* plist_dest = create_list(int);
     list_init_elem(plist_dest, 10, 700);
 

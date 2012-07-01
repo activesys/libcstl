@@ -66,6 +66,9 @@ EXPORTS
     vector_clear                            @3033
     vector_resize                           @3034
     _vector_resize_elem                     @3035
+    vector_init_copy_array                  @3036
+    vector_assign_array                     @3037
+    vector_insert_array                     @3038
 
 ; deque_t interfaces
     _create_deque                           @4000
@@ -104,6 +107,9 @@ EXPORTS
     deque_clear                             @4033
     deque_resize                            @4034
     _deque_resize_elem                      @4035
+    deque_init_copy_array                   @4036
+    deque_assign_array                      @4037
+    deque_insert_array                      @4038
 
 ; list_t interfaces
     _create_list                            @5000
@@ -153,6 +159,9 @@ EXPORTS
     list_merge                              @5044
     list_merge_if                           @5045
     list_reverse                            @5046
+    list_init_copy_array                    @5047
+    list_assign_array                       @5048
+    list_insert_array                       @5049
 
 ; slist_t interfaces
     _create_slist                           @6000
@@ -208,6 +217,10 @@ EXPORTS
     slist_resize                            @6050
     _slist_resize_elem                      @6051
     slist_clear                             @6052
+    slist_init_copy_array                   @6053
+    slist_assign_array                      @6054
+    slist_insert_array                      @6055
+    slist_insert_after_array                @6056
 
 ; stack_t interfaces
     _create_stack                           @7000
@@ -424,6 +437,9 @@ EXPORTS
     _set_erase                              @12031
     set_erase_pos                           @12032
     set_erase_range                         @12033
+    set_init_copy_array                     @12034
+    set_init_copy_array_ex                  @12035
+    set_insert_array                        @12036
 
 ; multiset_t interfaces
     _create_multiset                        @13000
@@ -460,6 +476,9 @@ EXPORTS
     _multiset_erase                         @13031
     multiset_erase_pos                      @13032
     multiset_erase_range                    @13033
+    multiset_init_copy_array                @13034
+    multiset_init_copy_array_ex             @13035
+    multiset_insert_array                   @13036
 
 ; map_t interfaces
     _create_map                             @14000
@@ -497,6 +516,9 @@ EXPORTS
     _map_erase                              @14032
     map_erase_pos                           @14033
     map_erase_range                         @14034
+    map_init_copy_array                     @14035
+    map_init_copy_array_ex                  @14036
+    map_insert_array                        @14037
 
 ; multimap_t interfaces
     _create_multimap                        @15000
@@ -533,6 +555,9 @@ EXPORTS
     _multimap_erase                         @15031
     multimap_erase_pos                      @15032
     multimap_erase_range                    @15033
+    multimap_init_copy_array                @15034
+    multimap_init_copy_array_ex             @15035
+    multimap_insert_array                   @15036
 
 ; hash_set_t interfaces
     _create_hash_set                        @16000
@@ -569,6 +594,9 @@ EXPORTS
     hash_set_erase_range                    @16031
     hash_set_clear                          @16032
     hash_set_value_comp                     @16033
+    hash_set_init_copy_array                @16034
+    hash_set_init_copy_array_ex             @16035
+    hash_set_insert_array                   @16037
 
 ; hash_multiset_t interfaces
     _create_hash_multiset                   @17000
@@ -605,6 +633,9 @@ EXPORTS
     hash_multiset_erase_range               @17031
     hash_multiset_clear                     @17032
     hash_multiset_value_comp                @17033
+    hash_multiset_init_copy_array           @17034
+    hash_multiset_init_copy_array_ex        @17035
+    hash_multiset_insert_array              @17036
 
 ; hash_map_t interfaces
     _create_hash_map                        @18000
@@ -642,6 +673,9 @@ EXPORTS
     hash_map_erase_range                    @18032
     hash_map_clear                          @18033
     hash_map_value_comp                     @18034
+    hash_map_init_copy_array                @18035
+    hash_map_init_copy_array_ex             @18036
+    hash_map_insert_array                   @18037
 
 ; hash_multimap_t interfaces
     _create_hash_multimap                   @19000
@@ -678,6 +712,9 @@ EXPORTS
     hash_multimap_erase_range               @19031
     hash_multimap_clear                     @19032
     hash_multimap_value_comp                @19033
+    hash_multimap_init_copy_array           @19034
+    hash_multimap_init_copy_array_ex        @19035
+    hash_multimap_insert_array              @19036
 
 ; numberic algorithm interfaces
     _algo_iota                              @20000
