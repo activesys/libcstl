@@ -119,11 +119,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../include"
+				AdditionalIncludeDirectories="../../"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_USRDLL;LIBCSTL_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4267;4996;4244"
@@ -375,6 +375,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_iterator_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_list.c"
 				>
 			</File>
@@ -572,6 +576,30 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_types.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_builtin.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_builtin.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_parse.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_parse.h"
 				>
 			</File>
 			<File

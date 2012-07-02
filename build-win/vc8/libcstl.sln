@@ -5,8 +5,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstl", "libcstl.vcproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstl_ut", "libcstl_ut.vcproj", "{A649F6A0-4441-4372-97C4-D5FBAE74479D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstl_it", "libcstl_it.vcproj", "{E941D795-1C39-4FFE-B5E0-F746290D8A94}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,10 +19,6 @@ Global
 		{A649F6A0-4441-4372-97C4-D5FBAE74479D}.Debug|Win32.Build.0 = Debug|Win32
 		{A649F6A0-4441-4372-97C4-D5FBAE74479D}.Release|Win32.ActiveCfg = Release|Win32
 		{A649F6A0-4441-4372-97C4-D5FBAE74479D}.Release|Win32.Build.0 = Release|Win32
-		{E941D795-1C39-4FFE-B5E0-F746290D8A94}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E941D795-1C39-4FFE-B5E0-F746290D8A94}.Debug|Win32.Build.0 = Debug|Win32
-		{E941D795-1C39-4FFE-B5E0-F746290D8A94}.Release|Win32.ActiveCfg = Release|Win32
-		{E941D795-1C39-4FFE-B5E0-F746290D8A94}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

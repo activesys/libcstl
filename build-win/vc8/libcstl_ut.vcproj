@@ -94,8 +94,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../../bin"
+			IntermediateDirectory="../../bin"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -117,7 +117,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="./;../../;../../src"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CSTL_UNIT_TESTING"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -135,6 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="cmockery.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -172,7 +174,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Test  Source Files"
+			Name="Test Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
@@ -310,6 +312,14 @@
 			</File>
 			<File
 				RelativePath="..\..\test\ut\ut_cstl_hashtable_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_iterator.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_iterator_private.c"
 				>
 			</File>
 			<File
@@ -458,6 +468,22 @@
 			</File>
 			<File
 				RelativePath="..\..\test\ut\ut_cstl_string_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_builtin.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_parse.c"
 				>
 			</File>
 			<File
@@ -627,6 +653,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\test\ut\ut_cstl_iterator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_iterator_private.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\test\ut\ut_cstl_list.h"
 				>
 			</File>
@@ -772,6 +806,22 @@
 			</File>
 			<File
 				RelativePath="..\..\test\ut\ut_cstl_string_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_builtin.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\ut\ut_cstl_types_parse.h"
 				>
 			</File>
 			<File
@@ -991,6 +1041,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_iterator_private.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_list.c"
 				>
 			</File>
@@ -1188,6 +1242,30 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_types.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_builtin.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_builtin.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_parse.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_types_parse.h"
 				>
 			</File>
 			<File
