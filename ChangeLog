@@ -1,3 +1,6 @@
+2012-07-03    Bo Wang <activesys.wb@gmail.com>
+    * Support array interface for all container.
+
 2012-01-14    Bo Wang <activesys.wb@gmail.com>
     * Support extended iterator range for all container.
 
@@ -19,13 +22,11 @@
     * Add version macro.
 
 2010-10-01    Bo Wang <activesys.wb@gmail.com>
-
     Version 2.0.1
     * Release libcstl-2.0.1.
     * Fixup bug on 64-bit OS.
 
 2010-06-09    Bo Wang <activesys.wb@gmail.com>
-
     Version 2.0.0
     * Release libcstl-2.0.0.
     * Add range_t type.
@@ -37,14 +38,12 @@
     * Add type mechanism support.
 
 2009-04-25    Bo Wang <activesys.wb@gmail.com>
-
     Version 1.0.1
     * Release libcstl-1.0.1.
     * Fixup bugs in initialization operation of all containers.
     * Fixup bugs in Makefile.
 
 2009-04-20    Bo Wang <activesys.wb@gmail.com>
-
     Version 1.0.0
     * Release libcstl-1.0.0.
 

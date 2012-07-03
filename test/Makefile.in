@@ -198,7 +198,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # for unit testing and integration testing
-SUBDIRS = it ut
+SUBDIRS = ut
 all: all-recursive
 
 .SUFFIXES:

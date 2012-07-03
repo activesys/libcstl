@@ -13,7 +13,7 @@ feature requests may also be submitted on the GitHub sit for libcstl at
 https://github.com/activesys/libcstl or GoogleCode site for 
 libcstl at http://code.google.com/p/libcstl/issues/list
 
-The source file os libcstl are:
+The source file of libcstl are:
 
 ChangLog        - description of differences between releases
 AUTHORS         - people that have helped libcstl along
@@ -37,6 +37,5 @@ build-win/*     - MSVS project
 cstl/*          - libcstl header files
 src/*           - libcstl source files
 doc/*           - libcstl documents
-test/it/*       - interface testing files
 test/ut/*       - unit testing files
 
