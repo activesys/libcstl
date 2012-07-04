@@ -222,11 +222,7 @@ _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
         case _TOKEN_KEY_UNION:
         case _TOKEN_IDENTIFIER:
             if (_type_parse_user_define(s_userdefine)) {
-                if (_type_is_registered(s_userdefine) != NULL) {
-                    t_style = _TYPE_USER_DEFINE;
-                } else {
-                    t_style = _TYPE_INVALID;
-                }
+                t_style = _TYPE_USER_DEFINE;
                 strncat(s_formalname, s_userdefine, _TYPE_NAME_SIZE);
             } else {
                 t_style = _TYPE_INVALID;

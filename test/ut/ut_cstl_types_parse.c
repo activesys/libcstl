@@ -2060,7 +2060,7 @@ void test__type_get_style__user_define_not_register(void** state)
     const char* s_typename = "xtype_abc_t";
     char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
 
-    assert_true(_type_get_style(s_typename, s_formalname) == _TYPE_INVALID);
+    assert_true(_type_get_style(s_typename, s_formalname) == _TYPE_USER_DEFINE);
     assert_true(strncmp(s_formalname, "xtype_abc_t", _TYPE_NAME_SIZE) == 0);
 }
 

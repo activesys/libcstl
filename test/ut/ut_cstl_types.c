@@ -349,7 +349,7 @@ void test__type_get_varg_value__ldouble(void** state)
     _test__get_type(&t_info, "long double");
     t_info._t_style = _TYPE_C_BUILTIN;
     _test__type_get_varg_value__stub(&ld_result, &t_info, 3333.3333);
-    assert_true(ld_result - 3333.3333 < LDBL_EPSILON);
+    assert_true(ld_result - 3333.3333 >= -LDBL_EPSILON && ld_result - 3333.3333 <= LDBL_EPSILON);
 }
 
 void test__type_get_varg_value__bool(void** state)
@@ -1011,6 +1011,7 @@ void test__type_register__register_default(void** state)
     assert_true(pt_type != NULL);
     assert_true(pt_type->_t_typesize == sizeof(_test__type_register1_t));
     assert_true(strncmp(pt_type->_s_typename, "_test__type_register1_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(pt_type->_t_style == _TYPE_USER_DEFINE);
     assert_true(pt_type->_t_typeinit == _type_init_default);
     assert_true(pt_type->_t_typeless == _type_less_default);
     assert_true(pt_type->_t_typecopy == _type_copy_default);
@@ -1026,6 +1027,7 @@ void test__type_register__register(void** state)
     assert_true(pt_type != NULL);
     assert_true(pt_type->_t_typesize == sizeof(_test__type_register2_t));
     assert_true(strncmp(pt_type->_s_typename, "_test__type_register2_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(pt_type->_t_style == _TYPE_USER_DEFINE);
     assert_true(pt_type->_t_typeinit == _test__type_register2_init);
     assert_true(pt_type->_t_typeless == _test__type_register2_less);
     assert_true(pt_type->_t_typecopy == _test__type_register2_copy);

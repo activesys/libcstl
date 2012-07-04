@@ -99,14 +99,15 @@ bool_t _type_register(
     unary_function_t t_typeinit, binary_function_t t_typecopy,
     binary_function_t t_typeless, unary_function_t t_typedestroy)
 {
-    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    char         s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    _typestyle_t t_style = _TYPE_INVALID;
 
     if (!_gt_typeregister._t_isinit) {
         _type_init();
     }
 
     /* the main aim is getting formal name */
-    _type_get_style(s_typename, s_formalname);
+    t_style = _type_get_style(s_typename, s_formalname);
     if (_type_is_registered(s_formalname) != NULL || strlen(s_typename) > _TYPE_NAME_SIZE) {
          return false;
     } else {
@@ -121,6 +122,7 @@ bool_t _type_register(
         strncpy(pt_node->_s_typename, s_formalname, _TYPE_NAME_SIZE);
         strncpy(pt_type->_s_typename, s_formalname, _TYPE_NAME_SIZE);
         pt_type->_t_typesize = t_typesize;
+        pt_type->_t_style = t_style; /* save type style for type duplication between different type style */
         pt_type->_t_typeinit = t_typeinit != NULL ? t_typeinit : _type_init_default;
         pt_type->_t_typecopy = t_typecopy != NULL ? t_typecopy : _type_copy_default;
         pt_type->_t_typeless = t_typeless != NULL ? t_typeless : _type_less_default;
@@ -345,7 +347,14 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
         }
     }
 
-    pt_typeinfo->_pt_type = _type_is_registered(s_registeredname);
+    if ((pt_typeinfo->_pt_type = _type_is_registered(s_registeredname)) == NULL) {
+        pt_typeinfo->_t_style = _TYPE_INVALID;
+    } else {
+        /*
+         * types that duplicate between different type style has same type style that saved by type struct.
+         */
+        pt_typeinfo->_t_style = pt_typeinfo->_pt_type->_t_style;
+    }
 }
 
 bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
@@ -530,6 +539,7 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
     /*
      * Note: the va_arg align at byte doundary for char, short and float type,
      * so those type, which are char, short and float, can't be used in va_arg function.
+     * Note: instead "long double" type with "double" in var_arg function.
      */
     if (pt_typeinfo->_t_style == _TYPE_C_BUILTIN) {
         if (strncmp(pt_typeinfo->_pt_type->_s_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0) {
@@ -575,7 +585,7 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
         } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _LONG_DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0) {
             /* long double */
             assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long double));
-            *(long double*)pv_output = va_arg(val_elemlist, long double);
+            *(long double*)pv_output = va_arg(val_elemlist, double);
         } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0) {
             /* bool_t */
             assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(bool_t));

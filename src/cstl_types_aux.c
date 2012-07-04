@@ -47,13 +47,15 @@
     _typenode_t* pt_node = NULL;\
     _type_t*     pt_type = NULL;\
     size_t       t_pos = 0
-#define _TYPE_REGISTER_TYPE(type, type_text, type_suffix)\
+#define _TYPE_REGISTER_TYPE(type, type_text, type_suffix, type_style)\
     do{\
         pt_type = (_type_t*)_alloc_allocate(&_gt_typeregister._t_allocator, sizeof(_type_t), 1);\
         assert(pt_type != NULL);\
         pt_type->_t_typesize = sizeof(type);\
         memset(pt_type->_s_typename, '\0', _TYPE_NAME_SIZE+1);\
         strncpy(pt_type->_s_typename, type_text, _TYPE_NAME_SIZE);\
+        assert(type_style != _TYPE_INVALID);\
+        pt_type->_t_style = type_style;\
         pt_type->_t_typeinit = _type_init_##type_suffix;\
         pt_type->_t_typecopy = _type_copy_##type_suffix;\
         pt_type->_t_typeless = _type_less_##type_suffix;\
@@ -192,55 +194,55 @@ void _type_register_c_builtin(void)
     _TYPE_REGISTER_BEGIN();
 
     /* register char type */
-    _TYPE_REGISTER_TYPE(char, _CHAR_TYPE, char);
+    _TYPE_REGISTER_TYPE(char, _CHAR_TYPE, char, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(char, _CHAR_TYPE);
     _TYPE_REGISTER_TYPE_NODE(signed char, _SIGNED_CHAR_TYPE);
     /* register unsigned char */
-    _TYPE_REGISTER_TYPE(unsigned char, _UNSIGNED_CHAR_TYPE, uchar);
+    _TYPE_REGISTER_TYPE(unsigned char, _UNSIGNED_CHAR_TYPE, uchar, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(unsigned char, _UNSIGNED_CHAR_TYPE);
     /* register short */
-    _TYPE_REGISTER_TYPE(short, _SHORT_TYPE, short);
+    _TYPE_REGISTER_TYPE(short, _SHORT_TYPE, short, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(short, _SHORT_TYPE);
     _TYPE_REGISTER_TYPE_NODE(short int, _SHORT_INT_TYPE);
     _TYPE_REGISTER_TYPE_NODE(signed short, _SIGNED_SHORT_TYPE);
     _TYPE_REGISTER_TYPE_NODE(signed short int, _SIGNED_SHORT_INT_TYPE);
     /* register unsigned short */
-    _TYPE_REGISTER_TYPE(unsigned short, _UNSIGNED_SHORT_TYPE, ushort);
+    _TYPE_REGISTER_TYPE(unsigned short, _UNSIGNED_SHORT_TYPE, ushort, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(unsigned short, _UNSIGNED_SHORT_TYPE);
     _TYPE_REGISTER_TYPE_NODE(unsigned short int, _UNSIGNED_SHORT_INT_TYPE);
     /* register int */
-    _TYPE_REGISTER_TYPE(int, _INT_TYPE, int);
+    _TYPE_REGISTER_TYPE(int, _INT_TYPE, int, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(int, _INT_TYPE);
     _TYPE_REGISTER_TYPE_NODE(signed, _SIGNED_TYPE);
     _TYPE_REGISTER_TYPE_NODE(signed int, _SIGNED_INT_TYPE);
     /* register unsigned int */
-    _TYPE_REGISTER_TYPE(unsigned int, _UNSIGNED_INT_TYPE, uint);
+    _TYPE_REGISTER_TYPE(unsigned int, _UNSIGNED_INT_TYPE, uint, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(unsigned int, _UNSIGNED_INT_TYPE);
     _TYPE_REGISTER_TYPE_NODE(signed, _UNSIGNED_TYPE);
     /* register long */
-    _TYPE_REGISTER_TYPE(long, _LONG_TYPE, long);
+    _TYPE_REGISTER_TYPE(long, _LONG_TYPE, long, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(long, _LONG_TYPE);
     _TYPE_REGISTER_TYPE_NODE(long int, _LONG_INT_TYPE);
     _TYPE_REGISTER_TYPE_NODE(signed long, _SIGNED_LONG_TYPE);
     _TYPE_REGISTER_TYPE_NODE(signed long int, _SIGNED_LONG_INT_TYPE);
     /* register unsigned long */
-    _TYPE_REGISTER_TYPE(unsigned long, _UNSIGNED_LONG_TYPE, ulong);
+    _TYPE_REGISTER_TYPE(unsigned long, _UNSIGNED_LONG_TYPE, ulong, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(unsigned long, _UNSIGNED_LONG_TYPE);
     _TYPE_REGISTER_TYPE_NODE(unsigned long int, _UNSIGNED_LONG_INT_TYPE);
     /* register float */
-    _TYPE_REGISTER_TYPE(float, _FLOAT_TYPE, float);
+    _TYPE_REGISTER_TYPE(float, _FLOAT_TYPE, float, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(float, _FLOAT_TYPE);
     /* register double */
-    _TYPE_REGISTER_TYPE(double, _DOUBLE_TYPE, double);
+    _TYPE_REGISTER_TYPE(double, _DOUBLE_TYPE, double, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(double, _DOUBLE_TYPE);
     /* register long double */
-    _TYPE_REGISTER_TYPE(long double, _LONG_DOUBLE_TYPE, long_double);
+    _TYPE_REGISTER_TYPE(long double, _LONG_DOUBLE_TYPE, long_double, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(long double, _LONG_DOUBLE_TYPE);
     /* register bool_t */
-    _TYPE_REGISTER_TYPE(bool_t, _BOOL_TYPE, bool);
+    _TYPE_REGISTER_TYPE(bool_t, _BOOL_TYPE, bool, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(bool_t, _BOOL_TYPE);
     /* register char* */
-    _TYPE_REGISTER_TYPE(string_t, _C_STRING_TYPE, cstr);
+    _TYPE_REGISTER_TYPE(string_t, _C_STRING_TYPE, cstr, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(string_t, _C_STRING_TYPE);
 
     _TYPE_REGISTER_END();
@@ -251,59 +253,59 @@ void _type_register_cstl_builtin(void)
     _TYPE_REGISTER_BEGIN();
 
     /* register vector_t */
-    _TYPE_REGISTER_TYPE(vector_t, _VECTOR_TYPE, vector);
+    _TYPE_REGISTER_TYPE(vector_t, _VECTOR_TYPE, vector, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(vector_t, _VECTOR_TYPE);
     /* register list_t */
-    _TYPE_REGISTER_TYPE(list_t, _LIST_TYPE, list);
+    _TYPE_REGISTER_TYPE(list_t, _LIST_TYPE, list, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(list_t, _LIST_TYPE);
     /* register slist_t */
-    _TYPE_REGISTER_TYPE(slist_t, _SLIST_TYPE, slist);
+    _TYPE_REGISTER_TYPE(slist_t, _SLIST_TYPE, slist, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(slist_t, _SLIST_TYPE);
     /* register deque_t */
-    _TYPE_REGISTER_TYPE(deque_t, _DEQUE_TYPE, deque);
+    _TYPE_REGISTER_TYPE(deque_t, _DEQUE_TYPE, deque, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(deque_t, _DEQUE_TYPE);
     /* register stack_t */
-    _TYPE_REGISTER_TYPE(stack_t, _STACK_TYPE, stack);
+    _TYPE_REGISTER_TYPE(stack_t, _STACK_TYPE, stack, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(stack_t, _STACK_TYPE);
     /* register queue_t */
-    _TYPE_REGISTER_TYPE(queue_t, _QUEUE_TYPE, queue);
+    _TYPE_REGISTER_TYPE(queue_t, _QUEUE_TYPE, queue, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(queue_t, _QUEUE_TYPE);
     /* register priority_queue_t */
-    _TYPE_REGISTER_TYPE(priority_queue_t, _PRIORITY_QUEUE_TYPE, priority_queue);
+    _TYPE_REGISTER_TYPE(priority_queue_t, _PRIORITY_QUEUE_TYPE, priority_queue, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(priority_queue_t, _PRIORITY_QUEUE_TYPE);
     /* register set_t */
-    _TYPE_REGISTER_TYPE(set_t, _SET_TYPE, set);
+    _TYPE_REGISTER_TYPE(set_t, _SET_TYPE, set, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(set_t, _SET_TYPE);
     /* register map_t */
-    _TYPE_REGISTER_TYPE(map_t, _MAP_TYPE, map);
+    _TYPE_REGISTER_TYPE(map_t, _MAP_TYPE, map, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(map_t, _MAP_TYPE);
     /* register multiset_t */
-    _TYPE_REGISTER_TYPE(multiset_t, _MULTISET_TYPE, multiset);
+    _TYPE_REGISTER_TYPE(multiset_t, _MULTISET_TYPE, multiset, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(multiset_t, _MULTISET_TYPE);
     /* register multimap_t */
-    _TYPE_REGISTER_TYPE(multimap_t, _MULTIMAP_TYPE, multimap);
+    _TYPE_REGISTER_TYPE(multimap_t, _MULTIMAP_TYPE, multimap, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(multimap_t, _MULTIMAP_TYPE);
     /* register hash_set_t */
-    _TYPE_REGISTER_TYPE(hash_set_t, _HASH_SET_TYPE, hash_set);
+    _TYPE_REGISTER_TYPE(hash_set_t, _HASH_SET_TYPE, hash_set, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(hash_set_t, _HASH_SET_TYPE);
     /* register hash_map_t */
-    _TYPE_REGISTER_TYPE(hash_map_t, _HASH_MAP_TYPE, hash_map);
+    _TYPE_REGISTER_TYPE(hash_map_t, _HASH_MAP_TYPE, hash_map, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(hash_map_t, _HASH_MAP_TYPE);
     /* register hash_multiset_t */
-    _TYPE_REGISTER_TYPE(hash_multiset_t, _HASH_MULTISET_TYPE, hash_multiset);
+    _TYPE_REGISTER_TYPE(hash_multiset_t, _HASH_MULTISET_TYPE, hash_multiset, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(hash_multiset_t, _HASH_MULTISET_TYPE);
     /* register hash_multimap_t */
-    _TYPE_REGISTER_TYPE(hash_multimap_t, _HASH_MULTIMAP_TYPE, hash_multimap);
+    _TYPE_REGISTER_TYPE(hash_multimap_t, _HASH_MULTIMAP_TYPE, hash_multimap, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(hash_multimap_t, _HASH_MULTIMAP_TYPE);
     /* register pair_t */
-    _TYPE_REGISTER_TYPE(pair_t, _PAIR_TYPE, pair);
+    _TYPE_REGISTER_TYPE(pair_t, _PAIR_TYPE, pair, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(pair_t, _PAIR_TYPE);
     /* register string_t */
-    _TYPE_REGISTER_TYPE(string_t, _STRING_TYPE, string);
+    _TYPE_REGISTER_TYPE(string_t, _STRING_TYPE, string, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(string_t, _STRING_TYPE);
 
     /* register iterator_t */
-    _TYPE_REGISTER_TYPE(iterator_t, _ITERATOR_TYPE, iterator);
+    _TYPE_REGISTER_TYPE(iterator_t, _ITERATOR_TYPE, iterator, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(iterator_t, _ITERATOR_TYPE);
     _TYPE_REGISTER_TYPE_NODE(vector_iterator_t, _VECTOR_ITERATOR_TYPE);
     _TYPE_REGISTER_TYPE_NODE(list_iterator_t, _LIST_ITERATOR_TYPE);

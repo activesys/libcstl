@@ -180,10 +180,17 @@ typedef void (*binary_function_t)(const void*, const void*, void*);
  */
 /* type structure for all container. */
 #define _TYPE_NAME_SIZE              255
+/* type style */
+typedef enum _tagtypestley
+{
+    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN
+}_typestyle_t;
+
 typedef struct _tagtype
 {
     size_t               _t_typesize;                        /* type size */
     char                 _s_typename[_TYPE_NAME_SIZE + 1];   /* type name */
+    _typestyle_t         _t_style;                           /* type style */
     binary_function_t    _t_typecopy;                        /* type copy function */
     binary_function_t    _t_typeless;                        /* type less function */
     unary_function_t     _t_typeinit;                        /* type initialize function */
@@ -206,12 +213,6 @@ typedef struct _tagtyperegister
     _typenode_t*         _apt_bucket[_TYPE_REGISTER_BUCKET_COUNT]; /* hash table */
     _alloc_t             _t_allocator;
 }_typeregister_t;
-
-/* type style */
-typedef enum _tagtypestley
-{
-    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN
-}_typestyle_t;
 
 typedef struct _tagtypeinfo
 {

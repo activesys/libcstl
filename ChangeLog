@@ -1,3 +1,6 @@
+2012-07-04    Bo Wang <activesys.wb@gmail.com>
+    * Fixup bug 1.
+
 2012-07-03    Bo Wang <activesys.wb@gmail.com>
     * Support array interface for all container.
 
