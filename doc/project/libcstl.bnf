@@ -26,6 +26,7 @@ sign
 space : ' ' | '\t' | '\v' | '\f' | '\r' | '\n'
 
 keyword:
+void
 char, int, short, long, float, double, signed, unsigned, char*, bool_t,
 struct, enum, union,
 vector_t, list_t, slist_t, deque_t, stack_t, queue_t, priority_queue_t,
@@ -48,7 +49,7 @@ input_iterator_t, output_iterator_t, forward_iterator_t, bidirectional_iterator_
         +---+
          space
 =============================================================================
-TYPE_DESCRIPT -> C_BUILTIN | USER_DEFINE | CSTL_BUILTIN
+TYPE_DESCRIPT -> C_BUILTIN | USER_DEFINE | CSTL_BUILTIN | POINTER_TYPE
 C_BUILTIN -> char | signed char |
              unsigned char |
              short | signed short | short int | signed short int |
@@ -75,6 +76,12 @@ SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | queue_t | stack_t | pri
                  set_t | multiset_t | hash_set_t | hash_multiset_t
 RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >
 RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
+POINTER_TYPE = VOID_POINTER | TYPE_POINTER
+VOID_POINTER = void POINTER
+TYPE_POINTER = _TYPE_POINTER POINTER
+_TYPE_POINTER = USER_DEFINE | C_BUILTIN
+POINTER = * _POINTER
+_POINTER = * _POINTER | $
 ========================================================================
 C_BUILTIN -> SIMPLE_BUILTIN | SIGNED_BUILTIN | UNSIGNED_BUILTIN
 SIMPLE_BUILTIN -> char | short | short int | int | long | long int |
@@ -89,7 +96,7 @@ UNSIGNED_BUILTIN -> unsigned char |
                     unsigned long | unaigned long int
 
 --------------------------------------------------------------------------------
-TYPE_DESCRIPT -> C_BUILTIN | USER_DEFINE | CSTL_BUILTIN
+TYPE_DESCRIPT -> C_BUILTIN | USER_DEFINE | CSTL_BUILTIN | POINTER_TYPE
 
 C_BUILTIN -> SIMPLE_BUILTIN | SIGNED_BUILTIN | UNSIGNED_BUILTIN
 SIMPLE_BUILTIN -> char | short COMMON_SUFFIX | int | long SIMPLE_LONG_SUFFIX | float | double | char* | bool_t
@@ -113,28 +120,45 @@ SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | queue_t | stack_t | pri
                  set_t | multiset_t | hash_set_t | hash_multiset_t
 RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >
 RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
----------------------------------------------------------------------------
-follow(TYPE_DESCRIPT) = {#, >, ,}
+POINTER_TYPE = VOID_POINTER | TYPE_POINTER
+VOID_POINTER = void POINTER
+TYPE_POINTER = _TYPE_POINTER POINTER
+_TYPE_POINTER = USER_DEFINE | C_BUILTIN
+POINTER = * _POINTER
+_POINTER = * _POINTER | $
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+TYPE_DESCRIPT -> CSTL_BUILTIN | NON_CSTL_BUILTIN
+NON_CSTL_BUILTIN -> VOID_POINTER | GENERAL_TYPE
+GENERAL_TYPE -> USER_DEFINE POINTER_SYMBOL | C_BUILTIN POINTER_SYMBOL
+POINTER_SYMBOL = POINTER | $
 
-follow(C_BUILTIN) = {#, >, ,}
-follow(USER_DEFINE) = {#, >, ,}
-follow(CSTL_BUILTIN) = {#, >, ,}
+C_BUILTIN -> SIMPLE_BUILTIN | SIGNED_BUILTIN | UNSIGNED_BUILTIN
+SIMPLE_BUILTIN -> char | short COMMON_SUFFIX | int | long SIMPLE_LONG_SUFFIX | float | double | char* | bool_t
+SIGNED_BUILTIN -> signed COMPLEX_SUFFIX
+UNSIGNED_BUILTIN -> unsigned COMPLEX_SUFFIX
+COMPLEX_SUFFIX -> {+' '}char | {+' '}short COMMON_SUFFIX | {+' '}int | {+' '}long COMMON_SUFFIX | $
+COMMON_SUFFIX -> {+' '}int | $
+SIMPLE_LONG_SUFFIX -> {+' '}double | COMMON_SUFFIX
 
-follow(SIMPLE_BUILTIN) = {#, >, ,}
-follow(SIGNED_BUILTIN) = {#, >, ,}
-follow(UNSIGNED_BUILTIN) = {#, >, ,}
+USER_DEFINE -> USER_DEFINE_TYPE {+' '}identifier | identifier
+USER_DEFINE_TYPE -> struct | enum | union
 
-follow(COMPLEX_SUFFIX) = {#, >, ,}
-follow(COMMON_SUFFIX) = {#, >, ,}
-follow(SIMPLE_LONG_SUFFIX) = {#, >, ,}
+CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | ITERATOR
+ITERATOR -> iterator_t | vector_iterator_t | list_iterator_t | slist_iterator_t | deque_iterator_t |
+            set_iterator_t | map_iterator_t | multiset_iterator_t | multimap_iterator_t |
+            hash_set_iterator_t | hash_map_iterator_t | hash_multiset_iterator_t | hash_multimap_iterator_t |
+            string_iterator_t |
+            input_iterator_t | output_iterator_t | forward_iterator_t | bidirectional_iterator_t | random_access_iterator_t
+SEQUENCE -> SEQUENCE_NAME < TYPE_DESCRIPT >
+SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | queue_t | stack_t | priority_queue_t |
+                 set_t | multiset_t | hash_set_t | hash_multiset_t
+RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >
+RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
 
-follow(USER_DEFINE_TYPE) = {identifier}
-
-follow(SEQUENCE) = {#, >, ,}
-follow(SEQUENCE_NAME) = {<}
-follow(RELATION) = {#, >, ,}
-follow(RELATION_NAME) = {<}
-follow(ITERATOR) = {#, >, ,}
+VOID_POINTER = void POINTER
+POINTER = * POINTER_EX
+POINTER_EX = * POINTER_EX | $
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ---------------------------------------------------------------------------
 first(TYPE_DESCRIPT) = {char, short, int, long, float, double, char*, bool_t, signed, unsigned,
                         struct, enum, union, identifier,
@@ -180,6 +204,28 @@ first(ITERATOR) = {iterator_t, vector_iterator_t, list_iterator_t, slist_iterato
                    input_iterator_t, output_iterator_t, forward_iterator_t, bidirectional_iterator_t,
                    random_access_iterator_t}
 ---------------------------------------------------------------------------
+follow(TYPE_DESCRIPT) = {#, >, ,}
+
+follow(C_BUILTIN) = {#, >, ,}
+follow(USER_DEFINE) = {#, >, ,}
+follow(CSTL_BUILTIN) = {#, >, ,}
+
+follow(SIMPLE_BUILTIN) = {#, >, ,}
+follow(SIGNED_BUILTIN) = {#, >, ,}
+follow(UNSIGNED_BUILTIN) = {#, >, ,}
+
+follow(COMPLEX_SUFFIX) = {#, >, ,}
+follow(COMMON_SUFFIX) = {#, >, ,}
+follow(SIMPLE_LONG_SUFFIX) = {#, >, ,}
+
+follow(USER_DEFINE_TYPE) = {identifier}
+
+follow(SEQUENCE) = {#, >, ,}
+follow(SEQUENCE_NAME) = {<}
+follow(RELATION) = {#, >, ,}
+follow(RELATION_NAME) = {<}
+follow(ITERATOR) = {#, >, ,}
+---------------------------------------------------------------------------
 select(TYPE_DESCRIPT -> C_BUILTIN) = {char, short, int, long, float, double, char*, bool_t, signed, unsigned}
 select(TYPE_DESCRIPT -> USER_DEFINE) = {struct, enum, union, identifier}
 select(TYPE_DESCRIPT -> CSTL_BUILTIN) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
@@ -203,7 +249,7 @@ select(SIMPLE_BUILTIN -> long SIMPLE_LONG_SUFFIX) = {long}
 select(SIMPLE_BUILTIN -> float) = {float}
 select(SIMPLE_BUILTIN -> double) = {double}
 select(SIMPLE_BUILTIN -> char*) = {char*}
-select(SIMPLE_BUTLIIN -> bool_t) = {bool_t}
+select(SIMPLE_BUILTIN -> bool_t) = {bool_t}
 
 selcet(SIGNED_BUILTIN -> signed COMPLEX_SUFFIX) = {signed}
 select(UNSIGNED_BUILTIN -> unsigned COMPLEX_SUFFIX) = {unsigned}
@@ -535,4 +581,12 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
 }
 
 map_t<set_t<int,double>,deque_t<struct _tagabc>>        map_t<set_t<myint,double>,deque_t<abc_t>>
+
+=================================================================
+POINTER_TYPE = VOID_POINTER | TYPE_POINTER
+VOID_POINTER = void POINTER
+TYPE_POINTER = _TYPE_POINTER POINTER
+_TYPE_POINTER = USER_DEFINE | C_BUILTIN
+POINTER = * _POINTER
+_POINTER = * _POINTER | $
 
