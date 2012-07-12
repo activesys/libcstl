@@ -107,8 +107,6 @@ AC_CONFIG_FILES([
     build-win/Makefile
     build-win/vc8/Makefile
     build-win/vc9/Makefile
-    doc/Makefile
-    doc/user/Makefile
     test/Makefile
     test/ut/Makefile
 ])

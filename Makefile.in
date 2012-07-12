@@ -214,7 +214,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # Makefile.am for top build directory.
-SUBDIRS = cstl src build-win doc test
+SUBDIRS = cstl src build-win test
 EXTRA_DIST = VERSION README.Win32
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

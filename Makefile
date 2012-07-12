@@ -111,7 +111,7 @@ AUTOMAKE = ${SHELL} /home/wb/project/git/libcstl/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g
+CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
@@ -214,7 +214,7 @@ top_builddir = .
 top_srcdir = .
 
 # Makefile.am for top build directory.
-SUBDIRS = cstl src build-win doc test
+SUBDIRS = cstl src build-win test
 EXTRA_DIST = VERSION README.Win32
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
