@@ -108,7 +108,7 @@ bool_t _type_register(
 
     /* the main aim is getting formal name */
     t_style = _type_get_style(s_typename, s_formalname);
-    if (_type_is_registered(s_formalname) != NULL || strlen(s_typename) > _TYPE_NAME_SIZE) {
+    if (t_style == _TYPE_INVALID || _type_is_registered(s_formalname) != NULL || strlen(s_typename) > _TYPE_NAME_SIZE) {
          return false;
     } else {
         size_t       t_pos = 0;
