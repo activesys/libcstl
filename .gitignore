@@ -14,3 +14,12 @@ cscope.*
 *.log
 tags
 core.*
+it.exe
+ut.exe
+*.obj
+.sconsign.dblite
+*.lib
+bin/
+*.user
+*.ncb
+*.suo

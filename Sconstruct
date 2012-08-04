@@ -1,0 +1,32 @@
+env = Environment(CPPPATH = ['.'])
+
+
+
+
+env.Library('cstl',[Glob('src/*.c')])
+
+
+
+# build test.
+test=0
+it=0
+ut=0
+# Get test flag
+test = int(ARGUMENTS.get('test',0))
+if test == 1:
+	it = 1
+	ut = 1
+# Get it flag.
+if it == 1 or int(ARGUMENTS.get('it',0))==1:
+	env.Program('it',[Glob('test/it/*.c')],
+			LIBS='cstl',LIBPATH=['.'])
+	print 'Running interface testing'
+	import os
+	os.system('it')
+# Get ut flag
+if ut == 1 or int(ARGUMENTS.get('ut',0))==1:
+	env.Program('it',[Glob('test/it/*.c')],
+			LIBS='cstl',LIBPATH=['.'])
+	print 'Running unit testing'
+	import os
+	os.system('ut')
