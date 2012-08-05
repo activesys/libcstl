@@ -32,8 +32,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = i686-pc-linux-gnu
-host_triplet = i686-pc-linux-gnu
+build_triplet = x86_64-unknown-linux-gnu
+host_triplet = x86_64-unknown-linux-gnu
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -69,6 +69,8 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcstl_la_LIBADD =
 am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
+	libcstl_la-cstl_algo_nonmutating.lo \
+	libcstl_la-cstl_algo_nonmutating_private.lo \
 	libcstl_la-cstl_algobase.lo libcstl_la-cstl_alloc.lo \
 	libcstl_la-cstl_alloc_aux.lo libcstl_la-cstl_avl_tree.lo \
 	libcstl_la-cstl_avl_tree_iterator.lo \
@@ -152,12 +154,12 @@ DIST_SOURCES = $(libcstl_la_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/wb/project/git/libcstl/missing --run aclocal-1.11
-AMTAR = ${SHELL} /home/wb/project/git/libcstl/missing --run tar
+ACLOCAL = ${SHELL} /home/wb/Projects/git/libcstl/missing --run aclocal-1.11
+AMTAR = ${SHELL} /home/wb/Projects/git/libcstl/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/wb/project/git/libcstl/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/wb/project/git/libcstl/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/wb/project/git/libcstl/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/wb/Projects/git/libcstl/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/wb/Projects/git/libcstl/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/wb/Projects/git/libcstl/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
@@ -181,7 +183,7 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld
+LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
@@ -189,7 +191,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/wb/project/git/libcstl/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/wb/Projects/git/libcstl/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
@@ -200,21 +202,20 @@ OTOOL64 =
 PACKAGE = libcstl
 PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
-PACKAGE_STRING = libcstl 2.1.0
+PACKAGE_STRING = libcstl 2.2.0
 PACKAGE_TARNAME = libcstl
-PACKAGE_URL = 
-PACKAGE_VERSION = 2.1.0
+PACKAGE_VERSION = 2.2.0
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 2.1.0
-abs_builddir = /home/wb/project/git/libcstl/src
-abs_srcdir = /home/wb/project/git/libcstl/src
-abs_top_builddir = /home/wb/project/git/libcstl
-abs_top_srcdir = /home/wb/project/git/libcstl
+VERSION = 2.2.0
+abs_builddir = /home/wb/Projects/git/libcstl/src
+abs_srcdir = /home/wb/Projects/git/libcstl/src
+abs_top_builddir = /home/wb/Projects/git/libcstl
+abs_top_srcdir = /home/wb/Projects/git/libcstl
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
 am__include = include
@@ -223,30 +224,31 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = i686-pc-linux-gnu
+build = x86_64-unknown-linux-gnu
 build_alias = 
-build_cpu = i686
+build_cpu = x86_64
 build_os = linux-gnu
-build_vendor = pc
+build_vendor = unknown
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = i686-pc-linux-gnu
+host = x86_64-unknown-linux-gnu
 host_alias = 
-host_cpu = i686
+host_cpu = x86_64
 host_os = linux-gnu
-host_vendor = pc
+host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/wb/project/git/libcstl/install-sh
+install_sh = ${SHELL} /home/wb/Projects/git/libcstl/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
+lt_ECHO = echo
 mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
@@ -266,6 +268,7 @@ top_srcdir = ..
 # for build libcstl.la
 lib_LTLIBRARIES = libcstl.la
 libcstl_la_SOURCES = cstl_algo.c \
+		     cstl_algo_nonmutating.c cstl_algo_nonmutating_private.c \
 		     cstl_algobase.c \
 		     cstl_alloc.c cstl_alloc_aux.c cstl_alloc_aux.h \
 		     cstl_avl_tree.c cstl_avl_tree_iterator.c cstl_avl_tree_private.c cstl_avl_tree_aux.c cstl_avl_tree_aux.h \
@@ -298,7 +301,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
 libcstl_la_CFLAGS = -Wall -Wextra
-libcstl_la_LDFLAGS = -version-info 3:0:1
+libcstl_la_LDFLAGS = -version-info 4:0:2
 all: all-am
 
 .SUFFIXES:
@@ -374,6 +377,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/libcstl_la-cstl_algo.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_algo_nonmutating.Plo
+include ./$(DEPDIR)/libcstl_la-cstl_algo_nonmutating_private.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_algobase.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_alloc.Plo
 include ./$(DEPDIR)/libcstl_la-cstl_alloc_aux.Plo
@@ -489,6 +494,20 @@ libcstl_la-cstl_algo.lo: cstl_algo.c
 #	source='cstl_algo.c' object='libcstl_la-cstl_algo.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algo.lo `test -f 'cstl_algo.c' || echo '$(srcdir)/'`cstl_algo.c
+
+libcstl_la-cstl_algo_nonmutating.lo: cstl_algo_nonmutating.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algo_nonmutating.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algo_nonmutating.Tpo -c -o libcstl_la-cstl_algo_nonmutating.lo `test -f 'cstl_algo_nonmutating.c' || echo '$(srcdir)/'`cstl_algo_nonmutating.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_la-cstl_algo_nonmutating.Plo
+#	source='cstl_algo_nonmutating.c' object='libcstl_la-cstl_algo_nonmutating.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algo_nonmutating.lo `test -f 'cstl_algo_nonmutating.c' || echo '$(srcdir)/'`cstl_algo_nonmutating.c
+
+libcstl_la-cstl_algo_nonmutating_private.lo: cstl_algo_nonmutating_private.c
+	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algo_nonmutating_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algo_nonmutating_private.Tpo -c -o libcstl_la-cstl_algo_nonmutating_private.lo `test -f 'cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`cstl_algo_nonmutating_private.c
+	$(am__mv) $(DEPDIR)/libcstl_la-cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_la-cstl_algo_nonmutating_private.Plo
+#	source='cstl_algo_nonmutating_private.c' object='libcstl_la-cstl_algo_nonmutating_private.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algo_nonmutating_private.lo `test -f 'cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`cstl_algo_nonmutating_private.c
 
 libcstl_la-cstl_algobase.lo: cstl_algobase.c
 	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algobase.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algobase.Tpo -c -o libcstl_la-cstl_algobase.lo `test -f 'cstl_algobase.c' || echo '$(srcdir)/'`cstl_algobase.c

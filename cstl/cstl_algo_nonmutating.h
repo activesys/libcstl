@@ -1,5 +1,5 @@
 /*
- *  The user interface of algorithm
+ *  The interface of non-mutating algorithm.
  *  Copyright (C)  2008 - 2012  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
@@ -20,27 +20,14 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CALGORITHM_H_
-#define _CALGORITHM_H_
+#ifndef _CSTL_ALGO_NONMUTATING_H_
+#define _CSTL_ALGO_NONMUTATING_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** include section **/
-#include <cstl/cstl_def.h>
-#include <cstl/cstl_alloc.h>
-#include <cstl/cstl_types.h>
-#include <cstl/citerator.h>
-#include <cstl/cutility.h>
-
-#include <cstl/cstl_algobase.h>
-#include <cstl/cstl_algobase_private.h>
-#include <cstl/cstl_algo_nonmutating_private.h>
-#include <cstl/cstl_algo_nonmutating.h>
-#include <cstl/cstl_algo.h>
-#include <cstl/cstl_algo_private.h>
-#include <cstl/cstl_heap.h>
 
 /** constant declaration and macro section **/
 
@@ -54,6 +41,6 @@ extern "C" {
 }
 #endif
 
-#endif /* _CALGORITHM_H_ */
+#endif /* _CSTL_ALGO_NONMUTATING_H_ */
 /** eof **/
 

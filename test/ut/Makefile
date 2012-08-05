@@ -31,8 +31,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = i686-pc-linux-gnu
-host_triplet = i686-pc-linux-gnu
+build_triplet = x86_64-unknown-linux-gnu
+host_triplet = x86_64-unknown-linux-gnu
 check_PROGRAMS = libcstl_ut$(EXEEXT)
 subdir = test/ut
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -132,6 +132,8 @@ am_libcstl_ut_OBJECTS = libcstl_ut-ut_main.$(OBJEXT) \
 	libcstl_ut-cstl_vector_iterator.$(OBJEXT) \
 	libcstl_ut-cstl_vector_private.$(OBJEXT) \
 	libcstl_ut-cstl_vector_aux.$(OBJEXT) \
+	libcstl_ut-cstl_algo_nonmutating.$(OBJEXT) \
+	libcstl_ut-cstl_algo_nonmutating_private.$(OBJEXT) \
 	libcstl_ut-ut_cstl_alloc_aux.$(OBJEXT) \
 	libcstl_ut-ut_cstl_alloc.$(OBJEXT) \
 	libcstl_ut-ut_cstl_vector_iterator.$(OBJEXT) \
@@ -212,7 +214,9 @@ am_libcstl_ut_OBJECTS = libcstl_ut-ut_main.$(OBJEXT) \
 	libcstl_ut-ut_cstl_types_builtin.$(OBJEXT) \
 	libcstl_ut-ut_cstl_types_parse.$(OBJEXT) \
 	libcstl_ut-ut_cstl_types_aux.$(OBJEXT) \
-	libcstl_ut-ut_cstl_types.$(OBJEXT)
+	libcstl_ut-ut_cstl_types.$(OBJEXT) \
+	libcstl_ut-ut_cstl_algo_nonmutating_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_algo_nonmutating.$(OBJEXT)
 libcstl_ut_OBJECTS = $(am_libcstl_ut_OBJECTS)
 libcstl_ut_LDADD = $(LDADD)
 libcstl_ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -238,12 +242,12 @@ CTAGS = ctags
 am__tty_colors = \
 red=; grn=; lgn=; blu=; std=
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/wb/project/git/libcstl/missing --run aclocal-1.11
-AMTAR = ${SHELL} /home/wb/project/git/libcstl/missing --run tar
+ACLOCAL = ${SHELL} /home/wb/Projects/git/libcstl/missing --run aclocal-1.11
+AMTAR = ${SHELL} /home/wb/Projects/git/libcstl/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/wb/project/git/libcstl/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/wb/project/git/libcstl/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/wb/project/git/libcstl/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/wb/Projects/git/libcstl/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/wb/Projects/git/libcstl/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/wb/Projects/git/libcstl/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
@@ -267,7 +271,7 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld
+LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
 LIBS = 
@@ -275,7 +279,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/wb/project/git/libcstl/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/wb/Projects/git/libcstl/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
@@ -286,21 +290,20 @@ OTOOL64 =
 PACKAGE = libcstl
 PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
-PACKAGE_STRING = libcstl 2.1.0
+PACKAGE_STRING = libcstl 2.2.0
 PACKAGE_TARNAME = libcstl
-PACKAGE_URL = 
-PACKAGE_VERSION = 2.1.0
+PACKAGE_VERSION = 2.2.0
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 2.1.0
-abs_builddir = /home/wb/project/git/libcstl/test/ut
-abs_srcdir = /home/wb/project/git/libcstl/test/ut
-abs_top_builddir = /home/wb/project/git/libcstl
-abs_top_srcdir = /home/wb/project/git/libcstl
+VERSION = 2.2.0
+abs_builddir = /home/wb/Projects/git/libcstl/test/ut
+abs_srcdir = /home/wb/Projects/git/libcstl/test/ut
+abs_top_builddir = /home/wb/Projects/git/libcstl
+abs_top_srcdir = /home/wb/Projects/git/libcstl
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
 am__include = include
@@ -309,30 +312,31 @@ am__quote =
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = i686-pc-linux-gnu
+build = x86_64-unknown-linux-gnu
 build_alias = 
-build_cpu = i686
+build_cpu = x86_64
 build_os = linux-gnu
-build_vendor = pc
+build_vendor = unknown
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = i686-pc-linux-gnu
+host = x86_64-unknown-linux-gnu
 host_alias = 
-host_cpu = i686
+host_cpu = x86_64
 host_os = linux-gnu
-host_vendor = pc
+host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/wb/project/git/libcstl/install-sh
+install_sh = ${SHELL} /home/wb/Projects/git/libcstl/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
+lt_ECHO = echo
 mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
@@ -395,6 +399,7 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
 	     $(srcdir)/../../src/cstl_vector_private.c $(srcdir)/../../src/cstl_vector_aux.c \
+	     $(srcdir)/../../src/cstl_algo_nonmutating.c $(srcdir)/../../src/cstl_algo_nonmutating_private.c \
              ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
              ut_cstl_alloc.c ut_cstl_alloc.h \
              ut_cstl_vector_iterator.c ut_cstl_vector_iterator.h \
@@ -475,7 +480,9 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h \
 	     ut_cstl_types_parse.c ut_cstl_types_parse.h \
 	     ut_cstl_types_aux.c ut_cstl_types_aux.h \
-	     ut_cstl_types.c ut_cstl_types.h
+	     ut_cstl_types.c ut_cstl_types.h \
+	     ut_cstl_algo_nonmutating_private.c ut_cstl_algo_nonmutating_private.h \
+	     ut_cstl_algo_nonmutating.c ut_cstl_algo_nonmutating.h
 
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -DCSTL_SET_AVL_TREE -DCSTL_MULTISET_AVL_TREE -DCSTL_MAP_AVL_TREE -DCSTL_MULTIMAP_AVL_TREE -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
@@ -535,6 +542,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/libcstl_ut-cstl_algo.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Po
+include ./$(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Po
 include ./$(DEPDIR)/libcstl_ut-cstl_algobase.Po
 include ./$(DEPDIR)/libcstl_ut-cstl_alloc.Po
 include ./$(DEPDIR)/libcstl_ut-cstl_alloc_aux.Po
@@ -622,6 +631,8 @@ include ./$(DEPDIR)/libcstl_ut-cstl_vector.Po
 include ./$(DEPDIR)/libcstl_ut-cstl_vector_aux.Po
 include ./$(DEPDIR)/libcstl_ut-cstl_vector_iterator.Po
 include ./$(DEPDIR)/libcstl_ut-cstl_vector_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_alloc.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Po
@@ -1987,6 +1998,34 @@ libcstl_ut-cstl_vector_aux.obj: $(srcdir)/../../src/cstl_vector_aux.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector_aux.obj `if test -f '$(srcdir)/../../src/cstl_vector_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_aux.c'; fi`
 
+libcstl_ut-cstl_algo_nonmutating.o: $(srcdir)/../../src/cstl_algo_nonmutating.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo_nonmutating.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Tpo -c -o libcstl_ut-cstl_algo_nonmutating.o `test -f '$(srcdir)/../../src/cstl_algo_nonmutating.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo_nonmutating.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Po
+#	source='$(srcdir)/../../src/cstl_algo_nonmutating.c' object='libcstl_ut-cstl_algo_nonmutating.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo_nonmutating.o `test -f '$(srcdir)/../../src/cstl_algo_nonmutating.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo_nonmutating.c
+
+libcstl_ut-cstl_algo_nonmutating.obj: $(srcdir)/../../src/cstl_algo_nonmutating.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo_nonmutating.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Tpo -c -o libcstl_ut-cstl_algo_nonmutating.obj `if test -f '$(srcdir)/../../src/cstl_algo_nonmutating.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo_nonmutating.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo_nonmutating.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Po
+#	source='$(srcdir)/../../src/cstl_algo_nonmutating.c' object='libcstl_ut-cstl_algo_nonmutating.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo_nonmutating.obj `if test -f '$(srcdir)/../../src/cstl_algo_nonmutating.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo_nonmutating.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo_nonmutating.c'; fi`
+
+libcstl_ut-cstl_algo_nonmutating_private.o: $(srcdir)/../../src/cstl_algo_nonmutating_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo_nonmutating_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Tpo -c -o libcstl_ut-cstl_algo_nonmutating_private.o `test -f '$(srcdir)/../../src/cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo_nonmutating_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Po
+#	source='$(srcdir)/../../src/cstl_algo_nonmutating_private.c' object='libcstl_ut-cstl_algo_nonmutating_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo_nonmutating_private.o `test -f '$(srcdir)/../../src/cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo_nonmutating_private.c
+
+libcstl_ut-cstl_algo_nonmutating_private.obj: $(srcdir)/../../src/cstl_algo_nonmutating_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo_nonmutating_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Tpo -c -o libcstl_ut-cstl_algo_nonmutating_private.obj `if test -f '$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Po
+#	source='$(srcdir)/../../src/cstl_algo_nonmutating_private.c' object='libcstl_ut-cstl_algo_nonmutating_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo_nonmutating_private.obj `if test -f '$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; fi`
+
 libcstl_ut-ut_cstl_alloc_aux.o: ut_cstl_alloc_aux.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Tpo -c -o libcstl_ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
 	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Po
@@ -3120,6 +3159,34 @@ libcstl_ut-ut_cstl_types.obj: ut_cstl_types.c
 #	source='ut_cstl_types.c' object='libcstl_ut-ut_cstl_types.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_types.obj `if test -f 'ut_cstl_types.c'; then $(CYGPATH_W) 'ut_cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types.c'; fi`
+
+libcstl_ut-ut_cstl_algo_nonmutating_private.o: ut_cstl_algo_nonmutating_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_algo_nonmutating_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Tpo -c -o libcstl_ut-ut_cstl_algo_nonmutating_private.o `test -f 'ut_cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`ut_cstl_algo_nonmutating_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Po
+#	source='ut_cstl_algo_nonmutating_private.c' object='libcstl_ut-ut_cstl_algo_nonmutating_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_algo_nonmutating_private.o `test -f 'ut_cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`ut_cstl_algo_nonmutating_private.c
+
+libcstl_ut-ut_cstl_algo_nonmutating_private.obj: ut_cstl_algo_nonmutating_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_algo_nonmutating_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Tpo -c -o libcstl_ut-ut_cstl_algo_nonmutating_private.obj `if test -f 'ut_cstl_algo_nonmutating_private.c'; then $(CYGPATH_W) 'ut_cstl_algo_nonmutating_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_algo_nonmutating_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Po
+#	source='ut_cstl_algo_nonmutating_private.c' object='libcstl_ut-ut_cstl_algo_nonmutating_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_algo_nonmutating_private.obj `if test -f 'ut_cstl_algo_nonmutating_private.c'; then $(CYGPATH_W) 'ut_cstl_algo_nonmutating_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_algo_nonmutating_private.c'; fi`
+
+libcstl_ut-ut_cstl_algo_nonmutating.o: ut_cstl_algo_nonmutating.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_algo_nonmutating.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Tpo -c -o libcstl_ut-ut_cstl_algo_nonmutating.o `test -f 'ut_cstl_algo_nonmutating.c' || echo '$(srcdir)/'`ut_cstl_algo_nonmutating.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Po
+#	source='ut_cstl_algo_nonmutating.c' object='libcstl_ut-ut_cstl_algo_nonmutating.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_algo_nonmutating.o `test -f 'ut_cstl_algo_nonmutating.c' || echo '$(srcdir)/'`ut_cstl_algo_nonmutating.c
+
+libcstl_ut-ut_cstl_algo_nonmutating.obj: ut_cstl_algo_nonmutating.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_algo_nonmutating.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Tpo -c -o libcstl_ut-ut_cstl_algo_nonmutating.obj `if test -f 'ut_cstl_algo_nonmutating.c'; then $(CYGPATH_W) 'ut_cstl_algo_nonmutating.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_algo_nonmutating.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Po
+#	source='ut_cstl_algo_nonmutating.c' object='libcstl_ut-ut_cstl_algo_nonmutating.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_algo_nonmutating.obj `if test -f 'ut_cstl_algo_nonmutating.c'; then $(CYGPATH_W) 'ut_cstl_algo_nonmutating.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_algo_nonmutating.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

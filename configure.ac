@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([libcstl],[2.1.0],[activesys.wb@gmail.com])
+AC_INIT([libcstl],[2.2.0],[activesys.wb@gmail.com])
 AC_COPYRIGHT([Copyright (C) 2008 - 2012 Wangbo.])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 #LT_INIT
@@ -31,8 +31,8 @@ AC_FUNC_MALLOC
 AC_ARG_WITH(
     [memory-management],
     [AS_HELP_STRING([--with-memory-management],[use libcstl memory management(default is no).])],
-    [AC_DEFINE([CSTL_MEMORY_MANAGEMENT], [1], [Define to 1 if you use libcstl memory management.])],
-    []
+    [AC_DEFINE([CSTL_MEMORY_MANAGEMENT], [1], [Define to 1 if you use libcstl memory management.])]#,
+#    []
 )
 # CSTL_STACK_VECTOR_SEQUENCE : implement stack using vector.
 # CSTL_STACK_LIST_SEQUENCE   : implement stack using list.

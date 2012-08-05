@@ -88,6 +88,8 @@
 #include "ut_cstl_types_parse.h"
 #include "ut_cstl_types_aux.h"
 #include "ut_cstl_types.h"
+#include "ut_cstl_algo_nonmutating_private.h"
+#include "ut_cstl_algo_nonmutating.h"
 
 int main(int argc, char* argv[])
 {
@@ -172,7 +174,10 @@ int main(int argc, char* argv[])
         UT_CSTL_TYPES_BUILTIN_CASE,
         UT_CSTL_TYPES_PARSE_CASE,
         UT_CSTL_TYPES_AUX_CASE,
-        UT_CSTL_TYPES_CASE
+        UT_CSTL_TYPES_CASE/*,
+        UT_CSTL_ALGO_NONMUTATING_PRIVATE_CASE/*,
+        UT_CSTL_ALGO_NONMUTATING_CASE
+        */
     };
 
     return run_tests(tests);

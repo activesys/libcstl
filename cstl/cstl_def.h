@@ -68,9 +68,9 @@ extern "C" {
 /**
  * libcstl version macro.
  */
-#define CSTL_VERSION             20100 /* libcstl version 2.1.0 */
+#define CSTL_VERSION             20200 /* libcstl version 2.2.0 */
 #define CSTL_MAJOR_VERSION       2
-#define CSTL_MINOR_VERSION       1
+#define CSTL_MINOR_VERSION       2
 #define CSTL_REVISION_VERSION    0
 
 /**

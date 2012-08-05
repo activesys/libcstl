@@ -69,6 +69,8 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcstl_la_LIBADD =
 am_libcstl_la_OBJECTS = libcstl_la-cstl_algo.lo \
+	libcstl_la-cstl_algo_nonmutating.lo \
+	libcstl_la-cstl_algo_nonmutating_private.lo \
 	libcstl_la-cstl_algobase.lo libcstl_la-cstl_alloc.lo \
 	libcstl_la-cstl_alloc_aux.lo libcstl_la-cstl_avl_tree.lo \
 	libcstl_la-cstl_avl_tree_iterator.lo \
@@ -202,7 +204,6 @@ PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
-PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 RANLIB = @RANLIB@
@@ -247,6 +248,7 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
+lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -266,6 +268,7 @@ top_srcdir = @top_srcdir@
 # for build libcstl.la
 lib_LTLIBRARIES = libcstl.la
 libcstl_la_SOURCES = cstl_algo.c \
+		     cstl_algo_nonmutating.c cstl_algo_nonmutating_private.c \
 		     cstl_algobase.c \
 		     cstl_alloc.c cstl_alloc_aux.c cstl_alloc_aux.h \
 		     cstl_avl_tree.c cstl_avl_tree_iterator.c cstl_avl_tree_private.c cstl_avl_tree_aux.c cstl_avl_tree_aux.h \
@@ -298,7 +301,7 @@ libcstl_la_SOURCES = cstl_algo.c \
 
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
 libcstl_la_CFLAGS = -Wall -Wextra
-libcstl_la_LDFLAGS = -version-info 3:0:1
+libcstl_la_LDFLAGS = -version-info 4:0:2
 all: all-am
 
 .SUFFIXES:
@@ -374,6 +377,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_algo.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_algo_nonmutating.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_algo_nonmutating_private.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_algobase.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_alloc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_la-cstl_alloc_aux.Plo@am__quote@
@@ -489,6 +494,20 @@ libcstl_la-cstl_algo.lo: cstl_algo.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_algo.c' object='libcstl_la-cstl_algo.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algo.lo `test -f 'cstl_algo.c' || echo '$(srcdir)/'`cstl_algo.c
+
+libcstl_la-cstl_algo_nonmutating.lo: cstl_algo_nonmutating.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algo_nonmutating.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algo_nonmutating.Tpo -c -o libcstl_la-cstl_algo_nonmutating.lo `test -f 'cstl_algo_nonmutating.c' || echo '$(srcdir)/'`cstl_algo_nonmutating.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_la-cstl_algo_nonmutating.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_algo_nonmutating.c' object='libcstl_la-cstl_algo_nonmutating.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algo_nonmutating.lo `test -f 'cstl_algo_nonmutating.c' || echo '$(srcdir)/'`cstl_algo_nonmutating.c
+
+libcstl_la-cstl_algo_nonmutating_private.lo: cstl_algo_nonmutating_private.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algo_nonmutating_private.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algo_nonmutating_private.Tpo -c -o libcstl_la-cstl_algo_nonmutating_private.lo `test -f 'cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`cstl_algo_nonmutating_private.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_la-cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_la-cstl_algo_nonmutating_private.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='cstl_algo_nonmutating_private.c' object='libcstl_la-cstl_algo_nonmutating_private.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -c -o libcstl_la-cstl_algo_nonmutating_private.lo `test -f 'cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`cstl_algo_nonmutating_private.c
 
 libcstl_la-cstl_algobase.lo: cstl_algobase.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_la_CPPFLAGS) $(CPPFLAGS) $(libcstl_la_CFLAGS) $(CFLAGS) -MT libcstl_la-cstl_algobase.lo -MD -MP -MF $(DEPDIR)/libcstl_la-cstl_algobase.Tpo -c -o libcstl_la-cstl_algobase.lo `test -f 'cstl_algobase.c' || echo '$(srcdir)/'`cstl_algobase.c

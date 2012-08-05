@@ -123,7 +123,6 @@ PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
-PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 RANLIB = @RANLIB@
@@ -168,6 +167,7 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
+lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -201,6 +201,8 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstack.h \
 			cstl_algo.h \
 			cstl_algo_private.h \
+			cstl_algo_nonmutating.h \
+			cstl_algo_nonmutating_private.h \
 			cstl_algobase.h \
 			cstl_algobase_private.h \
 			cstl_alloc.h \

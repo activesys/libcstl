@@ -47,6 +47,7 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
 	     $(srcdir)/../../src/cstl_vector_private.c $(srcdir)/../../src/cstl_vector_aux.c \
+	     $(srcdir)/../../src/cstl_algo_nonmutating.c $(srcdir)/../../src/cstl_algo_nonmutating_private.c \
              ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
              ut_cstl_alloc.c ut_cstl_alloc.h \
              ut_cstl_vector_iterator.c ut_cstl_vector_iterator.h \
@@ -127,7 +128,9 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h \
 	     ut_cstl_types_parse.c ut_cstl_types_parse.h \
 	     ut_cstl_types_aux.c ut_cstl_types_aux.h \
-	     ut_cstl_types.c ut_cstl_types.h
+	     ut_cstl_types.c ut_cstl_types.h \
+	     ut_cstl_algo_nonmutating_private.c ut_cstl_algo_nonmutating_private.h \
+	     ut_cstl_algo_nonmutating.c ut_cstl_algo_nonmutating.h
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -DCSTL_SET_AVL_TREE -DCSTL_MULTISET_AVL_TREE -DCSTL_MAP_AVL_TREE -DCSTL_MULTIMAP_AVL_TREE -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

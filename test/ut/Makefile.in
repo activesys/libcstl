@@ -132,6 +132,8 @@ am_libcstl_ut_OBJECTS = libcstl_ut-ut_main.$(OBJEXT) \
 	libcstl_ut-cstl_vector_iterator.$(OBJEXT) \
 	libcstl_ut-cstl_vector_private.$(OBJEXT) \
 	libcstl_ut-cstl_vector_aux.$(OBJEXT) \
+	libcstl_ut-cstl_algo_nonmutating.$(OBJEXT) \
+	libcstl_ut-cstl_algo_nonmutating_private.$(OBJEXT) \
 	libcstl_ut-ut_cstl_alloc_aux.$(OBJEXT) \
 	libcstl_ut-ut_cstl_alloc.$(OBJEXT) \
 	libcstl_ut-ut_cstl_vector_iterator.$(OBJEXT) \
@@ -212,7 +214,9 @@ am_libcstl_ut_OBJECTS = libcstl_ut-ut_main.$(OBJEXT) \
 	libcstl_ut-ut_cstl_types_builtin.$(OBJEXT) \
 	libcstl_ut-ut_cstl_types_parse.$(OBJEXT) \
 	libcstl_ut-ut_cstl_types_aux.$(OBJEXT) \
-	libcstl_ut-ut_cstl_types.$(OBJEXT)
+	libcstl_ut-ut_cstl_types.$(OBJEXT) \
+	libcstl_ut-ut_cstl_algo_nonmutating_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_algo_nonmutating.$(OBJEXT)
 libcstl_ut_OBJECTS = $(am_libcstl_ut_OBJECTS)
 libcstl_ut_LDADD = $(LDADD)
 libcstl_ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -288,7 +292,6 @@ PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
-PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 RANLIB = @RANLIB@
@@ -333,6 +336,7 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
+lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -395,6 +399,7 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_stack.c $(srcdir)/../../src/cstl_stack_private.c \
              $(srcdir)/../../src/cstl_vector.c $(srcdir)/../../src/cstl_vector_iterator.c \
 	     $(srcdir)/../../src/cstl_vector_private.c $(srcdir)/../../src/cstl_vector_aux.c \
+	     $(srcdir)/../../src/cstl_algo_nonmutating.c $(srcdir)/../../src/cstl_algo_nonmutating_private.c \
              ut_cstl_alloc_aux.c ut_cstl_alloc_aux.h \
              ut_cstl_alloc.c ut_cstl_alloc.h \
              ut_cstl_vector_iterator.c ut_cstl_vector_iterator.h \
@@ -475,7 +480,9 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_types_builtin.c ut_cstl_types_builtin.h \
 	     ut_cstl_types_parse.c ut_cstl_types_parse.h \
 	     ut_cstl_types_aux.c ut_cstl_types_aux.h \
-	     ut_cstl_types.c ut_cstl_types.h
+	     ut_cstl_types.c ut_cstl_types.h \
+	     ut_cstl_algo_nonmutating_private.c ut_cstl_algo_nonmutating_private.h \
+	     ut_cstl_algo_nonmutating.c ut_cstl_algo_nonmutating.h
 
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -DCSTL_SET_AVL_TREE -DCSTL_MULTISET_AVL_TREE -DCSTL_MAP_AVL_TREE -DCSTL_MULTIMAP_AVL_TREE -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
@@ -535,6 +542,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algobase.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_alloc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_alloc_aux.Po@am__quote@
@@ -622,6 +631,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_vector_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_vector_iterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_vector_private.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-ut_cstl_alloc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-ut_cstl_avl_tree.Po@am__quote@
@@ -1987,6 +1998,34 @@ libcstl_ut-cstl_vector_aux.obj: $(srcdir)/../../src/cstl_vector_aux.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_vector_aux.obj `if test -f '$(srcdir)/../../src/cstl_vector_aux.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_vector_aux.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_vector_aux.c'; fi`
 
+libcstl_ut-cstl_algo_nonmutating.o: $(srcdir)/../../src/cstl_algo_nonmutating.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo_nonmutating.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Tpo -c -o libcstl_ut-cstl_algo_nonmutating.o `test -f '$(srcdir)/../../src/cstl_algo_nonmutating.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo_nonmutating.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_algo_nonmutating.c' object='libcstl_ut-cstl_algo_nonmutating.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo_nonmutating.o `test -f '$(srcdir)/../../src/cstl_algo_nonmutating.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo_nonmutating.c
+
+libcstl_ut-cstl_algo_nonmutating.obj: $(srcdir)/../../src/cstl_algo_nonmutating.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo_nonmutating.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Tpo -c -o libcstl_ut-cstl_algo_nonmutating.obj `if test -f '$(srcdir)/../../src/cstl_algo_nonmutating.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo_nonmutating.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo_nonmutating.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_algo_nonmutating.c' object='libcstl_ut-cstl_algo_nonmutating.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo_nonmutating.obj `if test -f '$(srcdir)/../../src/cstl_algo_nonmutating.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo_nonmutating.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo_nonmutating.c'; fi`
+
+libcstl_ut-cstl_algo_nonmutating_private.o: $(srcdir)/../../src/cstl_algo_nonmutating_private.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo_nonmutating_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Tpo -c -o libcstl_ut-cstl_algo_nonmutating_private.o `test -f '$(srcdir)/../../src/cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo_nonmutating_private.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_algo_nonmutating_private.c' object='libcstl_ut-cstl_algo_nonmutating_private.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo_nonmutating_private.o `test -f '$(srcdir)/../../src/cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo_nonmutating_private.c
+
+libcstl_ut-cstl_algo_nonmutating_private.obj: $(srcdir)/../../src/cstl_algo_nonmutating_private.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo_nonmutating_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Tpo -c -o libcstl_ut-cstl_algo_nonmutating_private.obj `if test -f '$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_ut-cstl_algo_nonmutating_private.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_algo_nonmutating_private.c' object='libcstl_ut-cstl_algo_nonmutating_private.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo_nonmutating_private.obj `if test -f '$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo_nonmutating_private.c'; fi`
+
 libcstl_ut-ut_cstl_alloc_aux.o: ut_cstl_alloc_aux.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_alloc_aux.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Tpo -c -o libcstl_ut-ut_cstl_alloc_aux.o `test -f 'ut_cstl_alloc_aux.c' || echo '$(srcdir)/'`ut_cstl_alloc_aux.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_alloc_aux.Po
@@ -3120,6 +3159,34 @@ libcstl_ut-ut_cstl_types.obj: ut_cstl_types.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_types.c' object='libcstl_ut-ut_cstl_types.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_types.obj `if test -f 'ut_cstl_types.c'; then $(CYGPATH_W) 'ut_cstl_types.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_types.c'; fi`
+
+libcstl_ut-ut_cstl_algo_nonmutating_private.o: ut_cstl_algo_nonmutating_private.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_algo_nonmutating_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Tpo -c -o libcstl_ut-ut_cstl_algo_nonmutating_private.o `test -f 'ut_cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`ut_cstl_algo_nonmutating_private.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_algo_nonmutating_private.c' object='libcstl_ut-ut_cstl_algo_nonmutating_private.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_algo_nonmutating_private.o `test -f 'ut_cstl_algo_nonmutating_private.c' || echo '$(srcdir)/'`ut_cstl_algo_nonmutating_private.c
+
+libcstl_ut-ut_cstl_algo_nonmutating_private.obj: ut_cstl_algo_nonmutating_private.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_algo_nonmutating_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Tpo -c -o libcstl_ut-ut_cstl_algo_nonmutating_private.obj `if test -f 'ut_cstl_algo_nonmutating_private.c'; then $(CYGPATH_W) 'ut_cstl_algo_nonmutating_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_algo_nonmutating_private.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating_private.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_algo_nonmutating_private.c' object='libcstl_ut-ut_cstl_algo_nonmutating_private.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_algo_nonmutating_private.obj `if test -f 'ut_cstl_algo_nonmutating_private.c'; then $(CYGPATH_W) 'ut_cstl_algo_nonmutating_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_algo_nonmutating_private.c'; fi`
+
+libcstl_ut-ut_cstl_algo_nonmutating.o: ut_cstl_algo_nonmutating.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_algo_nonmutating.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Tpo -c -o libcstl_ut-ut_cstl_algo_nonmutating.o `test -f 'ut_cstl_algo_nonmutating.c' || echo '$(srcdir)/'`ut_cstl_algo_nonmutating.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_algo_nonmutating.c' object='libcstl_ut-ut_cstl_algo_nonmutating.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_algo_nonmutating.o `test -f 'ut_cstl_algo_nonmutating.c' || echo '$(srcdir)/'`ut_cstl_algo_nonmutating.c
+
+libcstl_ut-ut_cstl_algo_nonmutating.obj: ut_cstl_algo_nonmutating.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_algo_nonmutating.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Tpo -c -o libcstl_ut-ut_cstl_algo_nonmutating.obj `if test -f 'ut_cstl_algo_nonmutating.c'; then $(CYGPATH_W) 'ut_cstl_algo_nonmutating.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_algo_nonmutating.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_algo_nonmutating.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ut_cstl_algo_nonmutating.c' object='libcstl_ut-ut_cstl_algo_nonmutating.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_algo_nonmutating.obj `if test -f 'ut_cstl_algo_nonmutating.c'; then $(CYGPATH_W) 'ut_cstl_algo_nonmutating.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_algo_nonmutating.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
