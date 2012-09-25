@@ -33,9 +33,10 @@ extern "C" {
 /* count */
 #define algo_count(t_first, t_last, elem)\
     _algo_count((t_first), (t_last), (elem))
-/* find */
+    /*
 #define algo_find(t_first, t_last, elem)\
     _algo_find((t_first), (t_last), (elem))
+    */
 /* search */
 #define algo_search_n(t_first, t_last, t_count, elem)\
     _algo_search_n((t_first), (t_last), (t_count), (elem))
@@ -188,9 +189,11 @@ extern input_iterator_t algo_find_first_of_if(
 /*
  * for each algorithm.
  */
+/*
 extern void algo_for_each(
     input_iterator_t t_first, input_iterator_t t_last,
     unary_function_t t_unary_op);
+	*/
 
 /*
  * search algorithm.

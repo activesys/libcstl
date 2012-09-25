@@ -47,10 +47,12 @@ extern size_t _algo_count_varg(
 /*
  * Find algorithm.
  */
+/*
 extern input_iterator_t _algo_find(
     input_iterator_t t_first, input_iterator_t t_last, ...);
 extern input_iterator_t _algo_find_varg(
     input_iterator_t t_first, input_iterator_t t_last, va_list val_elemlist);
+    */
 
 /*
  * Search n algorithm.

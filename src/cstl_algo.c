@@ -28,6 +28,9 @@
 #include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
 
+#include <cstl/cstl_algo_nonmutating_private.h>
+#include <cstl/cstl_algo_nonmutating.h>
+
 #include <cstl/cstl_algobase.h>
 #include <cstl/cstl_algobase_private.h>
 #include <cstl/cstl_heap.h>
@@ -501,6 +504,7 @@ size_t algo_count_if(
     return t_count;
 }
 
+/*
 input_iterator_t _algo_find(
     input_iterator_t t_first, input_iterator_t t_last, ...)
 {
@@ -580,6 +584,7 @@ input_iterator_t _algo_find_varg(
 
     return t_first;
 }
+*/
 
 input_iterator_t algo_find_if(
     input_iterator_t t_first, input_iterator_t t_last, unary_function_t t_unary_op)
@@ -679,6 +684,7 @@ input_iterator_t algo_find_first_of_if(
     return t_last1;
 }
 
+/*
 void algo_for_each(
     input_iterator_t t_first, input_iterator_t t_last, unary_function_t t_unary_op)
 {
@@ -693,6 +699,7 @@ void algo_for_each(
         (*t_unary_op)(iterator_get_pointer(t_first), NULL);
     }
 }
+*/
 
 forward_iterator_t algo_search(
     forward_iterator_t t_first1, forward_iterator_t t_last1,

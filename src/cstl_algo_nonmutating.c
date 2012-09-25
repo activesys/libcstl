@@ -28,6 +28,9 @@
 #include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
 
+#include <cstl/cstl_algo_nonmutating_private.h>
+#include <cstl/cstl_algo_nonmutating.h>
+
 /** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
@@ -39,6 +42,21 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
+/**
+ * Applies a unary function to each element in a range.
+ */
+void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op)
+{
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+
+    if(ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+
+    for(; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+        (*ufun_op)(iterator_get_pointer(it_first), NULL);
+    }
+}
 
 /** eof **/
 
