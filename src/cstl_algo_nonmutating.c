@@ -58,5 +58,27 @@ void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, unary_fu
     }
 }
 
+/**
+ * Locates the position of the first occurrence of an element in a range that satisfies a specified condition.
+ */
+input_iterator_t algo_find_if(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op)
+{
+    bool_t b_result = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+    for (; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+        (*ufun_op)(iterator_get_pointer(it_first), &b_result);
+        if (b_result) {
+            break;
+        }
+    }
+
+    return it_first;
+}
+
 /** eof **/
 

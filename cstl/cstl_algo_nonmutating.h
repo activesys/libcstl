@@ -58,8 +58,19 @@ extern "C" {
  *          that do nothing will be used. the range must be not belong to relation container, when the unary function
  *          that modify element in the range is used in this alogrithm function.
  */
-extern void algo_for_each(
-	input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op);
+extern void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op);
+
+/**
+ * Locates the position of the first occurrence of an element in a range that satisfies a specified condition.
+ * @param it_first      An input iterator addressing the position of the first element in the range to be searched.
+ * @param it_second     An input iterator addressing the position one past the final element in the range to be searched.
+ * @param ufun_op       User-defined predicate function that defines the condition to be satisfied by the element being searched for.
+ * @return An input iterator that addresses the first element in the range that satisfies the condition specified by the predicate.
+ * @remarks The range must be valid, otherwise the behavior is undefined. if ufun_op == NULL, then default unary function that
+ *          do nothing will be used. The predicate function must be not modify element of the range, otherwise the behavior is
+ *          undefined.
+ */
+extern input_iterator_t algo_find_if(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op);
 
 #ifdef __cplusplus
 }

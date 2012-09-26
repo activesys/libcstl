@@ -175,9 +175,11 @@ extern size_t algo_count_if(
 /*
  * find and find first of algorithm.
  */
+/*
 extern input_iterator_t algo_find_if(
     input_iterator_t t_first, input_iterator_t t_last,
     unary_function_t t_unary_op);
+    */
 extern input_iterator_t algo_find_first_of(
     input_iterator_t t_first1, input_iterator_t t_last1,
     forward_iterator_t t_first2, forward_iterator_t t_last2);

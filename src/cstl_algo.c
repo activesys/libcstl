@@ -586,6 +586,7 @@ input_iterator_t _algo_find_varg(
 }
 */
 
+/*
 input_iterator_t algo_find_if(
     input_iterator_t t_first, input_iterator_t t_last, unary_function_t t_unary_op)
 {
@@ -608,6 +609,7 @@ input_iterator_t algo_find_if(
 
     return t_first;
 }
+*/
 
 input_iterator_t algo_find_first_of(
     input_iterator_t t_first1, input_iterator_t t_last1,
