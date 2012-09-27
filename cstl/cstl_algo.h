@@ -33,10 +33,6 @@ extern "C" {
 /* count */
 #define algo_count(t_first, t_last, elem)\
     _algo_count((t_first), (t_last), (elem))
-    /*
-#define algo_find(t_first, t_last, elem)\
-    _algo_find((t_first), (t_last), (elem))
-    */
 /* search */
 #define algo_search_n(t_first, t_last, t_count, elem)\
     _algo_search_n((t_first), (t_last), (t_count), (elem))
@@ -157,15 +153,6 @@ extern output_iterator_t algo_set_symmetric_difference_if(
     binary_function_t t_binary_op);
 
 /*
- * adjacent find algorithm.
- */
-extern forward_iterator_t algo_adjacent_find(
-    forward_iterator_t t_first, forward_iterator_t t_last);
-extern forward_iterator_t algo_adjacent_find_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op);
-
-/*
  * count algorithm.
  */
 extern size_t algo_count_if(
@@ -176,10 +163,6 @@ extern size_t algo_count_if(
  * find and find first of algorithm.
  */
 /*
-extern input_iterator_t algo_find_if(
-    input_iterator_t t_first, input_iterator_t t_last,
-    unary_function_t t_unary_op);
-    */
 extern input_iterator_t algo_find_first_of(
     input_iterator_t t_first1, input_iterator_t t_last1,
     forward_iterator_t t_first2, forward_iterator_t t_last2);
@@ -187,15 +170,7 @@ extern input_iterator_t algo_find_first_of_if(
     input_iterator_t t_first1, input_iterator_t t_last1,
     forward_iterator_t t_first2, forward_iterator_t t_last2,
     binary_function_t t_binary_op);
-
-/*
- * for each algorithm.
- */
-/*
-extern void algo_for_each(
-    input_iterator_t t_first, input_iterator_t t_last,
-    unary_function_t t_unary_op);
-	*/
+    */
 
 /*
  * search algorithm.

@@ -65,12 +65,63 @@ extern void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, u
  * @param it_first      An input iterator addressing the position of the first element in the range to be searched.
  * @param it_second     An input iterator addressing the position one past the final element in the range to be searched.
  * @param ufun_op       User-defined predicate function that defines the condition to be satisfied by the element being searched for.
- * @return An input iterator that addresses the first element in the range that satisfies the condition specified by the predicate.
+ * @return  An input iterator that addresses the first element in the range that satisfies the condition specified by the predicate.
  * @remarks The range must be valid, otherwise the behavior is undefined. if ufun_op == NULL, then default unary function that
  *          do nothing will be used. The predicate function must be not modify element of the range, otherwise the behavior is
  *          undefined.
  */
 extern input_iterator_t algo_find_if(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op);
+
+/**
+ * Searches for two adjacent elements that are equal.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched.
+ * @return  A forward iterator to the first element of the adjacent pair that are equal to each other. Otherwise, an iterator
+ *          pointing to it_last is returned.
+ * @remarks The range must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_adjacent_find(forward_iterator_t it_first, forward_iterator_t it_last);
+
+/**
+ * Searches for two adjacent elements that satisfy a specificed condition.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param bfun_op       The binary predicate giving the condition to be satisfied by the values of the adjacent elements
+ *                      in the range being searched.
+ * @return  A forward iterator to the first element of the adjacent pair that satisfy the condition that given by the binary
+ *          predicate. Otherwise, an iterator pointing to it_last is returned.
+ * @remarks The range must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_adjacent_find_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op);
+
+/**
+ * Searches for the first occurrence of any of several values within a target range.
+ * @param it_first1     A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last1      A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param it_first2     A forward iterator addressing the position of the first element in the range to be matched.
+ * @param it_last2      A forward iterator addressing the position one past the final element in the range to be matched.
+ * @return  A forward iterator addressing the position of the first element of the first subsequence that matches the specified sequence.
+ * @remakrs The range to be searched and the range to be matched must be valid, otherwise the behavior is undefined. 
+ */
+extern input_iterator_t algo_find_first_of(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    forward_iterator_t it_first2, forward_iterator_t it_last2);
+
+/**
+ * Searches for the first occurrence of any of several elements that are equivalent in a sense specified by
+ * a binary predicate to a specified set of the elements.
+ * @param it_first1     A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last1      A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param it_first2     A forward iterator addressing the position of the first element in the range to be matched.
+ * @param it_last2      A forward iterator addressing the position one past the final element in the range to be matched.
+ * @param bfun_op       User-defined predicate function that defines the condition to be satisfied if two elements are to be taken as equivalent.
+ * @return  A forward iterator addressing the position of the first element of the first subsequence that matches the specified sequence.
+ * @remakrs The range to be searched and the range to be matched must be valid, otherwise the behavior is undefined. 
+ */
+extern input_iterator_t algo_find_first_of_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    forward_iterator_t it_first2, forward_iterator_t it_last2,
+    binary_function_t bfun_op);
 
 #ifdef __cplusplus
 }

@@ -31,6 +31,49 @@ void test_algo_find_if__cstl_builtin_found(void** state);
 void test_algo_find_if__cstl_builtin_not_found(void** state);
 void test_algo_find_if__user_define_found(void** state);
 void test_algo_find_if__user_define_not_found(void** state);
+/*
+ * test algo_adjacent_find
+ */
+UT_CASE_DECLARATION(algo_adjacent_find)
+void test_algo_adjacent_find__invalid_range_invalid_iter(void** state);
+void test_algo_adjacent_find__invalid_range_not_belong_to_same_container(void** state);
+void test_algo_adjacent_find__invalid_range_reverse(void** state);
+void test_algo_adjacent_find__c_builtin_found(void** state);
+void test_algo_adjacent_find__c_builtin_not_found(void** state);
+void test_algo_adjacent_find__cstr_found(void** state);
+void test_algo_adjacent_find__cstr_not_found(void** state);
+void test_algo_adjacent_find__cstl_builtin_found(void** state);
+void test_algo_adjacent_find__cstl_builtin_not_found(void** state);
+void test_algo_adjacent_find__user_define_found(void** state);
+void test_algo_adjacent_find__user_define_not_found(void** state);
+void test_algo_adjacent_find__empty(void** state);
+/*
+ * test algo_adjacent_find_if
+ */
+UT_CASE_DECLARATION(algo_adjacent_find_if)
+void test_algo_adjacent_find_if__invalid_range_invalid_iter(void** state);
+void test_algo_adjacent_find_if__invalid_range_not_belong_to_same_container(void** state);
+void test_algo_adjacent_find_if__invalid_range_reverse(void** state);
+void test_algo_adjacent_find_if__empty(void** state);
+void test_algo_adjacent_find_if__bfun_NULL_found(void** state);
+void test_algo_adjacent_find_if__bfun_NULL_not_found(void** state);
+void test_algo_adjacent_find_if__c_builtin_found(void** state);
+void test_algo_adjacent_find_if__c_builtin_not_found(void** state);
+void test_algo_adjacent_find_if__cstr_found(void** state);
+void test_algo_adjacent_find_if__cstr_not_found(void** state);
+void test_algo_adjacent_find_if__cstl_builtin_found(void** state);
+void test_algo_adjacent_find_if__cstl_builtin_not_found(void** state);
+void test_algo_adjacent_find_if__user_define_found(void** state);
+void test_algo_adjacent_find_if__user_define_not_found(void** state);
+/*
+ * test algo_find_first_of
+ */
+UT_CASE_DECLARATION(algo_find_first_of)
+void test_algo_find_first_of__invalid_first_range_not_belong_to_same(void** state);
+void test_algo_find_first_of__invalid_first_range_reverse(void** state);
+void test_algo_find_first_of__invalid_second_range_invalid_iter(void** state);
+void test_algo_find_first_of__invalid_second_range_not_belong_to_same(void** state);
+void test_algo_find_first_of__invalid_second_range_reverse(void** state);
 
 #define UT_CSTL_ALGO_NONMUTATING_CASE\
 	UT_SUIT_BEGIN(cstl_algo_nonmutating, test_algo_for_each__invalid_range),\
@@ -54,5 +97,36 @@ void test_algo_find_if__user_define_not_found(void** state);
     UT_CASE(test_algo_find_if__cstl_builtin_not_found),\
     UT_CASE(test_algo_find_if__user_define_found),\
     UT_CASE(test_algo_find_if__user_define_not_found),\
+    UT_CASE_BEGIN(algo_adjacent_find, test_algo_adjacent_find__invalid_range_invalid_iter),\
+    UT_CASE(test_algo_adjacent_find__invalid_range_not_belong_to_same_container),\
+    UT_CASE(test_algo_adjacent_find__invalid_range_reverse),\
+    UT_CASE(test_algo_adjacent_find__c_builtin_found),\
+    UT_CASE(test_algo_adjacent_find__c_builtin_not_found),\
+    UT_CASE(test_algo_adjacent_find__cstr_found),\
+    UT_CASE(test_algo_adjacent_find__cstr_not_found),\
+    UT_CASE(test_algo_adjacent_find__cstl_builtin_found),\
+    UT_CASE(test_algo_adjacent_find__cstl_builtin_not_found),\
+    UT_CASE(test_algo_adjacent_find__user_define_found),\
+    UT_CASE(test_algo_adjacent_find__user_define_not_found),\
+    UT_CASE(test_algo_adjacent_find__empty),\
+    UT_CASE_BEGIN(algo_adjacent_find_if, test_algo_adjacent_find_if__invalid_range_invalid_iter),\
+    UT_CASE(test_algo_adjacent_find_if__invalid_range_not_belong_to_same_container),\
+    UT_CASE(test_algo_adjacent_find_if__invalid_range_reverse),\
+    UT_CASE(test_algo_adjacent_find_if__empty),\
+    UT_CASE(test_algo_adjacent_find_if__bfun_NULL_found),\
+    UT_CASE(test_algo_adjacent_find_if__bfun_NULL_not_found),\
+    UT_CASE(test_algo_adjacent_find_if__c_builtin_found),\
+    UT_CASE(test_algo_adjacent_find_if__c_builtin_not_found),\
+    UT_CASE(test_algo_adjacent_find_if__cstr_found),\
+    UT_CASE(test_algo_adjacent_find_if__cstr_not_found),\
+    UT_CASE(test_algo_adjacent_find_if__cstl_builtin_found),\
+    UT_CASE(test_algo_adjacent_find_if__cstl_builtin_not_found),\
+    UT_CASE(test_algo_adjacent_find_if__user_define_found),\
+    UT_CASE(test_algo_adjacent_find_if__user_define_not_found),\
+    UT_CASE_BEGIN(algo_find_first_of, test_algo_find_first_of__invalid_first_range_not_belong_to_same),\
+    UT_CASE(test_algo_find_first_of__invalid_first_range_reverse),\
+    UT_CASE(test_algo_find_first_of__invalid_second_range_invalid_iter),\
+    UT_CASE(test_algo_find_first_of__invalid_second_range_not_belong_to_same),\
+    UT_CASE(test_algo_find_first_of__invalid_second_range_reverse),\
 
 #endif /* _UT_CSTL_ALGO_NONMUTATING_H_ */
