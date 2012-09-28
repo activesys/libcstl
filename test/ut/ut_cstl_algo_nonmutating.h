@@ -74,6 +74,38 @@ void test_algo_find_first_of__invalid_first_range_reverse(void** state);
 void test_algo_find_first_of__invalid_second_range_invalid_iter(void** state);
 void test_algo_find_first_of__invalid_second_range_not_belong_to_same(void** state);
 void test_algo_find_first_of__invalid_second_range_reverse(void** state);
+void test_algo_find_first_of__first_range_empty(void** state);
+void test_algo_find_first_of__second_range_empty(void** state);
+void test_algo_find_first_of__c_builtin_found(void** state);
+void test_algo_find_first_of__c_builtin_not_found(void** state);
+void test_algo_find_first_of__cstr_found(void** state);
+void test_algo_find_first_of__cstr_not_found(void** state);
+void test_algo_find_first_of__cstl_builtin_found(void** state);
+void test_algo_find_first_of__cstl_builtin_not_found(void** state);
+void test_algo_find_first_of__user_define_found(void** state);
+void test_algo_find_first_of__user_define_not_found(void** state);
+/*
+ * test algo_find_first_of_if
+ */
+UT_CASE_DECLARATION(algo_find_first_of_if)
+void test_algo_find_first_of_if__invalid_first_range_not_belong_to_same(void** state);
+void test_algo_find_first_of_if__invalid_first_range_reverse(void** state);
+void test_algo_find_first_of_if__invalid_second_range_invalid_iter(void** state);
+void test_algo_find_first_of_if__invalid_second_range_not_belong_to_same(void** state);
+void test_algo_find_first_of_if__invalid_second_range_reverse(void** state);
+void test_algo_find_first_of_if__first_range_empty(void** state);
+void test_algo_find_first_of_if__second_range_empty(void** state);
+void test_algo_find_first_of_if__bfun_NULL_found(void** state);
+void test_algo_find_first_of_if__bfun_NULL_not_found(void** state);
+void test_algo_find_first_of_if__c_builtin_found(void** state);
+void test_algo_find_first_of_if__c_builtin_not_found(void** state);
+void test_algo_find_first_of_if__cstr_found(void** state);
+void test_algo_find_first_of_if__cstr_not_found(void** state);
+void test_algo_find_first_of_if__cstl_builtin_found(void** state);
+void test_algo_find_first_of_if__cstl_builtin_not_found(void** state);
+void test_algo_find_first_of_if__user_define_found(void** state);
+void test_algo_find_first_of_if__user_define_not_found(void** state);
+void test_algo_find_first_of_if__not_same_type(void** state);
 
 #define UT_CSTL_ALGO_NONMUTATING_CASE\
 	UT_SUIT_BEGIN(cstl_algo_nonmutating, test_algo_for_each__invalid_range),\
@@ -128,5 +160,33 @@ void test_algo_find_first_of__invalid_second_range_reverse(void** state);
     UT_CASE(test_algo_find_first_of__invalid_second_range_invalid_iter),\
     UT_CASE(test_algo_find_first_of__invalid_second_range_not_belong_to_same),\
     UT_CASE(test_algo_find_first_of__invalid_second_range_reverse),\
+    UT_CASE(test_algo_find_first_of__first_range_empty),\
+    UT_CASE(test_algo_find_first_of__second_range_empty),\
+    UT_CASE(test_algo_find_first_of__c_builtin_found),\
+    UT_CASE(test_algo_find_first_of__c_builtin_not_found),\
+    UT_CASE(test_algo_find_first_of__cstr_found),\
+    UT_CASE(test_algo_find_first_of__cstr_not_found),\
+    UT_CASE(test_algo_find_first_of__cstl_builtin_found),\
+    UT_CASE(test_algo_find_first_of__cstl_builtin_not_found),\
+    UT_CASE(test_algo_find_first_of__user_define_found),\
+    UT_CASE(test_algo_find_first_of__user_define_not_found),\
+    UT_CASE_BEGIN(algo_find_first_of_if, test_algo_find_first_of_if__invalid_first_range_not_belong_to_same),\
+    UT_CASE(test_algo_find_first_of_if__invalid_first_range_reverse),\
+    UT_CASE(test_algo_find_first_of_if__invalid_second_range_invalid_iter),\
+    UT_CASE(test_algo_find_first_of_if__invalid_second_range_not_belong_to_same),\
+    UT_CASE(test_algo_find_first_of_if__invalid_second_range_reverse),\
+    UT_CASE(test_algo_find_first_of_if__first_range_empty),\
+    UT_CASE(test_algo_find_first_of_if__second_range_empty),\
+    UT_CASE(test_algo_find_first_of_if__bfun_NULL_found),\
+    UT_CASE(test_algo_find_first_of_if__bfun_NULL_not_found),\
+    UT_CASE(test_algo_find_first_of_if__c_builtin_found),\
+    UT_CASE(test_algo_find_first_of_if__c_builtin_not_found),\
+    UT_CASE(test_algo_find_first_of_if__cstr_found),\
+    UT_CASE(test_algo_find_first_of_if__cstr_not_found),\
+    UT_CASE(test_algo_find_first_of_if__cstl_builtin_found),\
+    UT_CASE(test_algo_find_first_of_if__cstl_builtin_not_found),\
+    UT_CASE(test_algo_find_first_of_if__user_define_found),\
+    UT_CASE(test_algo_find_first_of_if__user_define_not_found),\
+    UT_CASE(test_algo_find_first_of_if__not_same_type),\
 
 #endif /* _UT_CSTL_ALGO_NONMUTATING_H_ */

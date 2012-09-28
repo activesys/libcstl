@@ -144,81 +144,62 @@ forward_iterator_t algo_adjacent_find_if(forward_iterator_t it_first, forward_it
  * Searches for the first occurrence of any of several values within a target range.
  */
 input_iterator_t algo_find_first_of(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2)
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    forward_iterator_t it_first2, forward_iterator_t it_last2)
 {
-    return algo_find_first_of_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(t_first1, _EQUAL_FUN));
+    return algo_find_first_of_if(it_first1, it_last1, it_first2, it_last2, _fun_get_binary(it_first1, _EQUAL_FUN));
 }
 
 /**
  * Searches for the first occurrence of any of several elements that are equivalent in a sense specified by
  */
 input_iterator_t algo_find_first_of_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2,
-    binary_function_t t_binary_op)
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    forward_iterator_t it_first2, forward_iterator_t it_last2,
+    binary_function_t bfun_op)
 {
-    iterator_t t_index;
-    bool_t     t_result = false;
-    bool_t     t_less = false;
-    bool_t     t_greater = false;
+    iterator_t it_index;
+    bool_t     b_result = false;
+    bool_t     b_less = false;
+    bool_t     b_greater = false;
 
-    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_iterator_valid_range(t_first2, t_last2, _FORWARD_ITERATOR));
-    assert(_iterator_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _FORWARD_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
 
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _EQUAL_FUN);
     }
 
-    if(t_binary_op == fun_default_binary)
-    {
-        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
+    if (bfun_op == fun_default_binary) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
 
-        for(; !iterator_equal(t_first1, t_last1); t_first1 = iterator_next(t_first1))
-        {
-            for(t_index = t_first2;
-                !iterator_equal(t_index, t_last2);
-                t_index = iterator_next(t_index))
-            {
-                (*t_binary_op)(
-                    iterator_get_pointer(t_first1), iterator_get_pointer(t_index), &t_less);
-                if(t_less)
-                {
+        for (; !iterator_equal(it_first1, it_last1); it_first1 = iterator_next(it_first1)) {
+            for (it_index = it_first2; !iterator_equal(it_index, it_last2); it_index = iterator_next(it_index)) {
+                (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_index), &b_less);
+                if (b_less) {
                     continue;
                 }
-                (*t_binary_op)(
-                    iterator_get_pointer(t_index), iterator_get_pointer(t_first1), &t_greater);
-                if(t_greater)
-                {
+                (*bfun_op)(iterator_get_pointer(it_index), iterator_get_pointer(it_first1), &b_greater);
+                if (b_greater) {
                     continue;
                 }
 
-                return t_first1;
+                return it_first1;
             }
         }
-    }
-    else
-    {
-        for(; !iterator_equal(t_first1, t_last1); t_first1 = iterator_next(t_first1))
-        {
-            for(t_index = t_first2;
-                !iterator_equal(t_index, t_last2);
-                t_index = iterator_next(t_index))
-            {
-                (*t_binary_op)(
-                    iterator_get_pointer(t_first1), iterator_get_pointer(t_index), &t_result);
-                if(t_result)
-                {
-                    return t_first1;
+    } else {
+        for (; !iterator_equal(it_first1, it_last1); it_first1 = iterator_next(it_first1)) {
+            for (it_index = it_first2; !iterator_equal(it_index, it_last2); it_index = iterator_next(it_index)) {
+                (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_index), &b_result);
+                if (b_result) {
+                    return it_first1;
                 }
             }
         }
     }
 
-    return t_last1;
+    return it_last1;
 }
 
 /** eof **/
