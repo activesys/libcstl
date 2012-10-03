@@ -30,9 +30,6 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* count */
-#define algo_count(t_first, t_last, elem)\
-    _algo_count((t_first), (t_last), (elem))
 /* search */
 #define algo_search_n(t_first, t_last, t_count, elem)\
     _algo_search_n((t_first), (t_last), (t_count), (elem))
@@ -151,26 +148,6 @@ extern output_iterator_t algo_set_symmetric_difference_if(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result,
     binary_function_t t_binary_op);
-
-/*
- * count algorithm.
- */
-extern size_t algo_count_if(
-    input_iterator_t t_first, input_iterator_t t_last,
-    unary_function_t t_unary_op);
-
-/*
- * find and find first of algorithm.
- */
-/*
-extern input_iterator_t algo_find_first_of(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2);
-extern input_iterator_t algo_find_first_of_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2,
-    binary_function_t t_binary_op);
-    */
 
 /*
  * search algorithm.

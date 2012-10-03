@@ -202,5 +202,97 @@ input_iterator_t algo_find_first_of_if(
     return it_last1;
 }
 
+/**
+ * Returns the number of elements in a range whose values satisfy a specified condition.
+ */
+size_t algo_count_if(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op)
+{
+    bool_t b_result = false;
+    size_t t_count = 0;
+
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+    for (; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+        (*ufun_op)(iterator_get_pointer(it_first), &b_result);
+        if (b_result) {
+            t_count++;
+        }
+    }
+
+    return t_count;
+}
+
+/**
+ * Compares two ranges element by element either for equality and locates the first position where a difference occurs.
+ */
+range_t algo_mismatch(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2)
+{
+    return algo_mismatch_if(it_first1, it_last1, it_first2, _fun_get_binary(it_first1, _EQUAL_FUN));
+}
+
+/**
+ * Compares two ranges element by element either for equivalent in a sense specified by a binary predicate and locates
+ * the first position where a difference occurs.
+ */
+range_t algo_mismatch_if(
+    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
+    binary_function_t t_binary_op)
+{
+    bool_t  t_result = false;
+    bool_t  t_less = false;
+    bool_t  t_greater = false;
+    range_t t_range;
+
+    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(t_first1, t_first1));
+
+    if(t_binary_op == NULL)
+    {
+        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
+    }
+
+    if(t_binary_op == fun_default_binary)
+    {
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
+        for(; !iterator_equal(t_first1, t_last1);
+            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_less);
+            if(t_less)
+            {
+                break;
+            }
+            (*t_binary_op)(
+                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_greater);
+            if(t_greater)
+            {
+                break;
+            }
+        }
+    }
+    else
+    {
+        for(; !iterator_equal(t_first1, t_last1);
+            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
+            if(!t_result)
+            {
+                break;
+            }
+        }
+    }
+
+    t_range.it_begin = t_first1;
+    t_range.it_end = t_first2;
+    return t_range;
+}
+
 /** eof **/
 

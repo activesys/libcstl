@@ -84,15 +84,6 @@ extern input_iterator_t algo_min_if(
     input_iterator_t t_first, input_iterator_t t_last, binary_function_t t_binary_op);
 
 /*
- * mismatch algorithm.
- */
-extern range_t algo_mismatch(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2);
-extern range_t algo_mismatch_if(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
-    binary_function_t t_binary_op);
-
-/*
  * Copy and copy backwark algorithm.
  */
 extern output_iterator_t algo_copy(

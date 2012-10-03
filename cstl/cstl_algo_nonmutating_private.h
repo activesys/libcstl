@@ -50,6 +50,17 @@ extern "C" {
 extern input_iterator_t _algo_find(input_iterator_t it_first, input_iterator_t it_last, ...);
 extern input_iterator_t _algo_find_varg(input_iterator_t it_first, input_iterator_t it_last, va_list val_elemlist);
 
+/**
+ * Returns the number of elements in a range whose values match a specified value.
+ * @param it_first      An input iterator addressing the position of the first element in the range to be traversed.
+ * @param it_last       An input iterator addressing the position one past the final element in the range to be traversed.
+ * @param ...           The value of the elements to be counted.
+ * @return  The number of elements in the range whose values match a specified value.
+ * @remarks This algorithm use equal operation for type of specificed value.
+ */
+extern size_t _algo_count(input_iterator_t it_first, input_iterator_t it_last, ...);
+extern size_t _algo_count_varg(input_iterator_t it_first, input_iterator_t it_last, va_list val_elemlist);
+
 #ifdef __cplusplus
 }
 #endif

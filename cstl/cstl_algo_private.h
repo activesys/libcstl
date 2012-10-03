@@ -37,14 +37,6 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * Count algorithm.
- */
-extern size_t _algo_count(
-    input_iterator_t t_first, input_iterator_t t_last, ...);
-extern size_t _algo_count_varg(
-    input_iterator_t t_first, input_iterator_t t_last, va_list val_elemlist);
-
-/*
  * Search n algorithm.
  */
 extern forward_iterator_t _algo_search_n(
