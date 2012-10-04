@@ -238,17 +238,73 @@ range_t algo_mismatch(input_iterator_t it_first1, input_iterator_t it_last1, inp
  * the first position where a difference occurs.
  */
 range_t algo_mismatch_if(
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op)
+{
+    bool_t  b_result = false;
+    bool_t  b_less = false;
+    bool_t  b_greater = false;
+    range_t r_range;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_first2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _EQUAL_FUN);
+    }
+
+    if (bfun_op == fun_default_binary) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
+        for (;
+             !iterator_equal(it_first1, it_last1);
+             it_first1 = iterator_next(it_first1), it_first2 = iterator_next(it_first2)) {
+            (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_less);
+            if (b_less) {
+                break;
+            }
+            (*bfun_op)(iterator_get_pointer(it_first2), iterator_get_pointer(it_first1), &b_greater);
+            if (b_greater) {
+                break;
+            }
+        }
+    } else {
+        for (;
+             !iterator_equal(it_first1, it_last1);
+             it_first1 = iterator_next(it_first1), it_first2 = iterator_next(it_first2)) {
+            (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_result);
+            if (!b_result) {
+                break;
+            }
+        }
+    }
+
+    r_range.it_begin = it_first1;
+    r_range.it_end = it_first2;
+    return r_range;
+}
+
+/**
+ * Compares two ranges element by element either for equality.
+ */
+bool_t algo_equal(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2)
+{
+    return algo_equal_if(it_first1, it_last1, it_first2, _fun_get_binary(it_first1, _EQUAL_FUN));
+}
+
+/**
+ * Compares two ranges element by element either for equivalence in a sense specified by a binary predicate.
+ */
+bool_t algo_equal_if(
     input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
     binary_function_t t_binary_op)
 {
-    bool_t  t_result = false;
-    bool_t  t_less = false;
-    bool_t  t_greater = false;
-    range_t t_range;
+    bool_t t_result = false;
+    bool_t t_less = false;
+    bool_t t_greater = false;
 
     assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
     assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first1, t_first1));
+    assert(_iterator_same_elem_type(t_first1, t_first2));
 
     if(t_binary_op == NULL)
     {
@@ -265,13 +321,13 @@ range_t algo_mismatch_if(
                 iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_less);
             if(t_less)
             {
-                break;
+                return false;
             }
             (*t_binary_op)(
                 iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_greater);
             if(t_greater)
             {
-                break;
+                return false;
             }
         }
     }
@@ -284,14 +340,12 @@ range_t algo_mismatch_if(
                 iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
             if(!t_result)
             {
-                break;
+                return false;
             }
         }
     }
 
-    t_range.it_begin = t_first1;
-    t_range.it_end = t_first2;
-    return t_range;
+    return true;
 }
 
 /** eof **/

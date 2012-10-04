@@ -174,6 +174,30 @@ extern range_t algo_mismatch(input_iterator_t it_first1, input_iterator_t it_las
 extern range_t algo_mismatch_if(
     input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op);
 
+/**
+ * Compares two ranges element by element either for equality.
+ * @param it_first1     An input iterator addressing the position of the first element in the first range to be tested.
+ * @param it_last1      An input iterator addressing the position one past the final element in the first range to be tested.
+ * @param it_first1     An input iterator addressing the position of the first element in the second range to be tested.
+ * @return  true if and only if the ranges are identical; otherwise, false.
+ * @remarks Two input range must be valid, and must be contain same element type, otherwise the behavior is undefined. The second
+ *          input range must be large enough, if its length is less then the first, the behavior is undefined.
+ */
+extern bool_t algo_equal(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2);
+
+/**
+ * Compares two ranges element by element either for equivalence in a sense specified by a binary predicate.
+ * @param it_first1     An input iterator addressing the position of the first element in the first range to be tested.
+ * @param it_last1      An input iterator addressing the position one past the final element in the first range to be tested.
+ * @param it_first1     An input iterator addressing the position of the first element in the second range to be tested.
+ * @param bfun_op       User-defined predicate function that defines the condition to be satisfied if two elements are to be taken as equivalent.
+ * @return  true if and only if the ranges are equivalent under the binary predicate when compared element by element; otherwise, false.
+ * @remarks Two input range must be valid, and must be contain same element type, otherwise the behavior is undefined. The second
+ *          input range must be large enough, if its length is less then the first, the behavior is undefined.
+ */
+extern bool_t algo_equal_if(
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op);
+
 #ifdef __cplusplus
 }
 #endif

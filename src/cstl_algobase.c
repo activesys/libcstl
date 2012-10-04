@@ -42,66 +42,6 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-bool_t algo_equal(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2)
-{
-    return algo_equal_if(t_first1, t_last1, t_first2, _fun_get_binary(t_first1, _EQUAL_FUN));
-}
-
-bool_t algo_equal_if(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
-    binary_function_t t_binary_op)
-{
-    bool_t t_result = false;
-    bool_t t_less = false;
-    bool_t t_greater = false;
-
-    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first1, t_first2));
-
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
-    }
-
-    if(t_binary_op == fun_default_binary)
-    {
-        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
-        for(; !iterator_equal(t_first1, t_last1);
-            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
-        {
-            (*t_binary_op)(
-                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_less);
-            if(t_less)
-            {
-                return false;
-            }
-            (*t_binary_op)(
-                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_greater);
-            if(t_greater)
-            {
-                return false;
-            }
-        }
-    }
-    else
-    {
-        for(; !iterator_equal(t_first1, t_last1);
-            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
-        {
-            (*t_binary_op)(
-                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
-            if(!t_result)
-            {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
 void _algo_fill(
     forward_iterator_t t_first, forward_iterator_t t_last, ...)
 {

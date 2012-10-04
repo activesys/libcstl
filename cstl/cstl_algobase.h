@@ -41,15 +41,6 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * equal algorithm.
- */
-extern bool_t algo_equal(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2);
-extern bool_t algo_equal_if(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
-    binary_function_t t_binary_op);
-
-/*
  * swap and iterator swap algorithm.
  */
 extern void algo_swap(forward_iterator_t t_first, forward_iterator_t t_second);
