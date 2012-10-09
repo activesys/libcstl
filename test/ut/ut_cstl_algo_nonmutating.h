@@ -176,9 +176,40 @@ void test_algo_equal__cstl_builtin_equal(void** state);
 void test_algo_equal__cstl_builtin_unequal(void** state);
 void test_algo_equal__user_define_equal(void** state);
 void test_algo_equal__user_define_unequal(void** state);
+/*
+ * test algo_equal_if
+ */
+UT_CASE_DECLARATION(algo_equal_if)
+void test_algo_equal_if__invalid_first_range(void** state);
+void test_algo_equal_if__invalid_first_range2(void** state);
+void test_algo_equal_if__invalid_range_not_same_type(void** state);
+void test_algo_equal_if__first_range_empty(void** state);
+void test_algo_equal_if__bfun_NULL_equal(void** state);
+void test_algo_equal_if__bfun_NULL_unequal(void** state);
+void test_algo_equal_if__c_builtin_equal(void** state);
+void test_algo_equal_if__c_builtin_unequal(void** state);
+void test_algo_equal_if__cstr_equal(void** state);
+void test_algo_equal_if__cstr_unequal(void** state);
+void test_algo_equal_if__cstl_builtin_equal(void** state);
+void test_algo_equal_if__cstl_builtin_unequal(void** state);
+void test_algo_equal_if__user_define_equal(void** state);
+void test_algo_equal_if__user_define_unequal(void** state);
+/*
+ * test algo_search
+ */
+UT_CASE_DECLARATION(algo_search)
+void test_algo_search__invalid_first_range(void** state);
+void test_algo_search__invalid_first_range2(void** state);
+void test_algo_search__invalid_first_range3(void** state);
+void test_algo_search__invalid_second_range(void** state);
+void test_algo_search__invalid_second_range2(void** state);
+void test_algo_search__invalid_second_range3(void** state);
+void test_algo_search__invalid_range_not_same_type(void** state);
+void test_algo_search__first_range_empty(void** state);
+void test_algo_search__second_range_empty(void** state);
 
 #define UT_CSTL_ALGO_NONMUTATING_CASE\
-	UT_SUIT_BEGIN(cstl_algo_nonmutating, test_algo_for_each__invalid_range),\
+    UT_SUIT_BEGIN(cstl_algo_nonmutating, test_algo_for_each__invalid_range),\
     UT_CASE(test_algo_for_each__invalid_range_2),\
     UT_CASE(test_algo_for_each__empty_range),\
     UT_CASE(test_algo_for_each__ufun_NULL),\
@@ -311,6 +342,29 @@ void test_algo_equal__user_define_unequal(void** state);
     UT_CASE(test_algo_equal__cstl_builtin_equal),\
     UT_CASE(test_algo_equal__cstl_builtin_unequal),\
     UT_CASE(test_algo_equal__user_define_equal),\
-    UT_CASE(test_algo_equal__user_define_unequal)
+    UT_CASE(test_algo_equal__user_define_unequal),\
+    UT_CASE_BEGIN(algo_equal_if, test_algo_equal_if__invalid_first_range),\
+    UT_CASE(test_algo_equal_if__invalid_first_range2),\
+    UT_CASE(test_algo_equal_if__invalid_range_not_same_type),\
+    UT_CASE(test_algo_equal_if__first_range_empty),\
+    UT_CASE(test_algo_equal_if__bfun_NULL_equal),\
+    UT_CASE(test_algo_equal_if__bfun_NULL_unequal),\
+    UT_CASE(test_algo_equal_if__c_builtin_equal),\
+    UT_CASE(test_algo_equal_if__c_builtin_unequal),\
+    UT_CASE(test_algo_equal_if__cstr_equal),\
+    UT_CASE(test_algo_equal_if__cstr_unequal),\
+    UT_CASE(test_algo_equal_if__cstl_builtin_equal),\
+    UT_CASE(test_algo_equal_if__cstl_builtin_unequal),\
+    UT_CASE(test_algo_equal_if__user_define_equal),\
+    UT_CASE(test_algo_equal_if__user_define_unequal),\
+    UT_CASE_BEGIN(algo_search, test_algo_search__invalid_first_range),\
+    UT_CASE(test_algo_search__invalid_first_range2),\
+    UT_CASE(test_algo_search__invalid_first_range3),\
+    UT_CASE(test_algo_search__invalid_second_range),\
+    UT_CASE(test_algo_search__invalid_second_range2),\
+    UT_CASE(test_algo_search__invalid_second_range3),\
+    UT_CASE(test_algo_search__invalid_range_not_same_type),\
+    UT_CASE(test_algo_search__first_range_empty),\
+    UT_CASE(test_algo_search__second_range_empty)
 
 #endif /* _UT_CSTL_ALGO_NONMUTATING_H_ */

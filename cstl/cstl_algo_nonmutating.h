@@ -198,6 +198,34 @@ extern bool_t algo_equal(input_iterator_t it_first1, input_iterator_t it_last1, 
 extern bool_t algo_equal_if(
     input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op);
 
+/**
+ * Searches for the first occurrence of a sequence within a target range whose elements are equal to those in a given sequence.
+ * @param it_first1     A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last1      A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param it_first2     A forward iterator addressing the position of the first element in the range to be matched.
+ * @param it_last2      A forward iterator addressing the position one past the final element in the range to be matched.
+ * @return  A forward iterator addressing the position of the first element of the first subsequence that matches the specified sequence.  
+ * @remarks Two input range must be valid, and must be contain same element type, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_search(
+    forward_iterator_t it_first1, forward_iterator_t it_last1, forward_iterator_t it_first2, forward_iterator_t it_last2);
+
+/**
+ * Searches for the first occurrence of a sequence within a target range whose elements or whose elements are equivalent in a sense specified
+ * by a binary predicate to the elements in the given sequence.
+ * @param it_first1     A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last1      A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param it_first2     A forward iterator addressing the position of the first element in the range to be matched.
+ * @param it_last2      A forward iterator addressing the position one past the final element in the range to be matched.
+ * @param bfun_op       User-defined predicate function object that defines the condition to be satisfied if two elements are to be taken as equivalent.
+ * @return  A forward iterator addressing the position of the first element of the first subsequence that is equivalent in a sense specified
+ *          by a binary predicate.
+ * @remarks Two input range must be valid, and must be contain same element type, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_search_if(
+    forward_iterator_t it_first1, forward_iterator_t it_last1, forward_iterator_t it_first2, forward_iterator_t it_last2,
+    binary_function_t bfun_op);
+
 #ifdef __cplusplus
 }
 #endif

@@ -295,57 +295,170 @@ bool_t algo_equal(input_iterator_t it_first1, input_iterator_t it_last1, input_i
  * Compares two ranges element by element either for equivalence in a sense specified by a binary predicate.
  */
 bool_t algo_equal_if(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
-    binary_function_t t_binary_op)
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op)
 {
-    bool_t t_result = false;
-    bool_t t_less = false;
-    bool_t t_greater = false;
+    bool_t b_result = false;
+    bool_t b_less = false;
+    bool_t b_greater = false;
 
-    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first1, t_first2));
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_first2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
 
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _EQUAL_FUN);
     }
 
-    if(t_binary_op == fun_default_binary)
-    {
-        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
-        for(; !iterator_equal(t_first1, t_last1);
-            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
-        {
-            (*t_binary_op)(
-                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_less);
-            if(t_less)
-            {
+    if (bfun_op == fun_default_binary) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
+        for (; !iterator_equal(it_first1, it_last1); it_first1 = iterator_next(it_first1), it_first2 = iterator_next(it_first2)) {
+            (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_less);
+            if (b_less) {
                 return false;
             }
-            (*t_binary_op)(
-                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_greater);
-            if(t_greater)
-            {
+            (*bfun_op)(iterator_get_pointer(it_first2), iterator_get_pointer(it_first1), &b_greater);
+            if (b_greater) {
                 return false;
             }
         }
-    }
-    else
-    {
-        for(; !iterator_equal(t_first1, t_last1);
-            t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
-        {
-            (*t_binary_op)(
-                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
-            if(!t_result)
-            {
+    } else {
+        for (; !iterator_equal(it_first1, it_last1); it_first1 = iterator_next(it_first1), it_first2 = iterator_next(it_first2)) {
+            (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_result);
+            if (!b_result) {
                 return false;
             }
         }
     }
 
     return true;
+}
+
+/**
+ * Searches for the first occurrence of a sequence within a target range whose elements are equal to those in a given sequence.
+ */
+forward_iterator_t algo_search(
+    forward_iterator_t t_first1, forward_iterator_t t_last1,
+    forward_iterator_t t_first2, forward_iterator_t t_last2)
+{
+    return algo_search_if(t_first1, t_last1, t_first2, t_last2,
+        _fun_get_binary(t_first1, _EQUAL_FUN));
+}
+
+/**
+ * Searches for the first occurrence of a sequence within a target range whose elements or whose elements are equivalent in a sense specified
+ */
+forward_iterator_t algo_search_if(
+    forward_iterator_t t_first1, forward_iterator_t t_last1,
+    forward_iterator_t t_first2, forward_iterator_t t_last2,
+    binary_function_t t_binary_op)
+{
+    bool_t     t_result = false;
+    bool_t     t_less = false;
+    bool_t     t_greater = false;
+    iterator_t t_index1;
+    iterator_t t_index2;
+    size_t     t_len1 = 0;
+    size_t     t_len2 = 0;
+
+    assert(_iterator_valid_range(t_first1, t_last1, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(t_first2, t_last2, _FORWARD_ITERATOR));
+
+    if(t_binary_op == NULL)
+    {
+        t_binary_op = _fun_get_binary(t_first1, _EQUAL_FUN);
+    }
+
+    t_len1 = iterator_distance(t_first1, t_last1);
+    t_len2 = iterator_distance(t_first2, t_last2);
+    if(t_len1 == 0 || t_len2 == 0 || t_len1 < t_len2)
+    {
+        return t_last1;
+    }
+
+    if(t_binary_op == fun_default_binary)
+    {
+        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
+
+        for(; !iterator_equal(t_first1, t_last1); t_first1 = iterator_next(t_first1))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_less);
+            if(t_less)
+            {
+                continue;
+            }
+            (*t_binary_op)(
+                iterator_get_pointer(t_first2), iterator_get_pointer(t_first1), &t_greater);
+            if(t_greater)
+            {
+                continue;
+            }
+
+            for(t_index1 = t_first1, t_index1 = iterator_next(t_index1),
+                t_index2 = t_first2, t_index2 = iterator_next(t_index2);
+                !iterator_equal(t_index1, t_last1) && 
+                !iterator_equal(t_index2, t_last2);
+                t_index1 = iterator_next(t_index1), 
+                t_index2 = iterator_next(t_index2))
+            {
+                (*t_binary_op)(
+                    iterator_get_pointer(t_index1),
+                    iterator_get_pointer(t_index2),
+                    &t_less);
+                if(t_less)
+                {
+                    break;
+                }
+                (*t_binary_op)(
+                    iterator_get_pointer(t_index2),
+                    iterator_get_pointer(t_index1),
+                    &t_greater);
+                if(t_greater)
+                {
+                    break;
+                }
+            }
+
+            if(iterator_equal(t_index2, t_last2))
+            {
+                return t_first1;
+            }
+        }
+    }
+    else
+    {
+        for(; !iterator_equal(t_first1, t_last1); t_first1 = iterator_next(t_first1))
+        {
+            (*t_binary_op)(
+                iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
+            if(t_result)
+            {
+                for(t_index1 = t_first1, t_index1 = iterator_next(t_index1),
+                    t_index2 = t_first2, t_index2 = iterator_next(t_index2);
+                    !iterator_equal(t_index1, t_last1) && 
+                    !iterator_equal(t_index2, t_last2);
+                    t_index1 = iterator_next(t_index1), 
+                    t_index2 = iterator_next(t_index2))
+                {
+                    (*t_binary_op)(
+                        iterator_get_pointer(t_index1),
+                        iterator_get_pointer(t_index2),
+                        &t_result);
+                    if(!t_result)
+                    {
+                        break;
+                    }
+                }
+
+                if(iterator_equal(t_index2, t_last2))
+                {
+                    return t_first1;
+                }
+            }
+        }
+    }
+
+    return t_last1;
 }
 
 /** eof **/

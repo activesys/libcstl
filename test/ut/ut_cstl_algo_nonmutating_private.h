@@ -38,7 +38,7 @@ void test__algo_count__algo_count_varg__user_define_1(void** state);
 void test__algo_count__algo_count_varg__user_define_n(void** state);
 
 #define UT_CSTL_ALGO_NONMUTATING_PRIVATE_CASE\
-	UT_SUIT_BEGIN(cstl_algo_nonmutating_private, test__algo_find__algo_find_varg__invalid_range),\
+    UT_SUIT_BEGIN(cstl_algo_nonmutating_private, test__algo_find__algo_find_varg__invalid_range),\
     UT_CASE(test__algo_find__algo_find_varg__invalid_range_2),\
     UT_CASE(test__algo_find__algo_find_varg__empty),\
     UT_CASE(test__algo_find__algo_find_varg__c_builtin_not_found),\

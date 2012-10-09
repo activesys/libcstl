@@ -2606,3 +2606,409 @@ void test_algo_equal__user_define_unequal(void** state)
     list_destroy(plist);
 }
 
+/*
+ * test algo_equal_if
+ */
+UT_CASE_DEFINATION(algo_equal_if)
+void test_algo_equal_if__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    slist_t* pslist = create_slist(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_equal_if(vector_begin(pvec), list_end(plist), slist_begin(pslist), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    slist_destroy(pslist);
+}
+
+void test_algo_equal_if__invalid_first_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_equal_if(deque_end(pdeq), deque_begin(pdeq), list_begin(plist), NULL));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_equal_if__invalid_range_not_same_type(void** state)
+{
+    set_t* pset = create_set(int);
+    hash_set_t* phset = create_hash_set(double);
+
+    set_init(pset);
+    hash_set_init(phset);
+    expect_assert_failure(algo_equal_if(set_begin(pset), set_end(pset), hash_set_begin(phset), NULL));
+    set_destroy(pset);
+    hash_set_destroy(phset);
+}
+
+void test_algo_equal_if__first_range_empty(void** state)
+{
+    multiset_t* pmset = create_multiset(int);
+    hash_set_t* phset = create_hash_set(int);
+
+    multiset_init(pmset);
+    hash_set_init(phset);
+    assert_true(algo_equal_if(multiset_begin(pmset), multiset_end(pmset), hash_set_begin(phset), NULL));
+    multiset_destroy(pmset);
+    hash_set_destroy(phset);
+}
+
+void test_algo_equal_if__bfun_NULL_equal(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    int an_array1[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_array2[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    vector_init_copy_array(pvec, an_array1, sizeof(an_array1)/sizeof(an_array1[0]));
+    list_init_copy_array(plist, an_array2, sizeof(an_array2)/sizeof(an_array2[0]));
+    assert_true(algo_equal_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+void test_algo_equal_if__bfun_NULL_unequal(void** state)
+{
+    list_t* plist = create_list(int);
+    slist_t* pslist = create_slist(int);
+    int an_array1[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_array2[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    list_init_copy_array(plist, an_array1, sizeof(an_array1)/sizeof(an_array1[0]));
+    slist_init_copy_array(pslist, an_array2, sizeof(an_array2)/sizeof(an_array2[0]));
+    assert_false(algo_equal_if(list_begin(plist), list_end(plist), slist_begin(pslist), NULL));
+    list_destroy(plist);
+    slist_destroy(pslist);
+}
+
+static void _test_algo_equal_if__c_builtin(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = abs(*(int*)cpv_first) == abs(*(int*)cpv_second) ? true : false;
+}
+void test_algo_equal_if__c_builtin_equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_array1[] = {99, 20, -4, 1, 0, -324, -8};
+    int an_array2[] = {-99, -20, -4, -1, 0, 324, 8};
+
+    deque_init_copy_array(pdeq, an_array1, sizeof(an_array1)/sizeof(an_array1[0]));
+    list_init_copy_array(plist, an_array2, sizeof(an_array2)/sizeof(an_array2[0]));
+    assert_true(algo_equal_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), _test_algo_equal_if__c_builtin));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_equal_if__c_builtin_unequal(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    slist_t* pslist = create_slist(int);
+    int an_array1[] = {99, 20, -4, 1, 1, -324, -8};
+    int an_array2[] = {-99, -20, -4, -1, 0, 324, 8};
+
+    vector_init_copy_array(pvec, an_array1, sizeof(an_array1)/sizeof(an_array1[0]));
+    slist_init_copy_array(pslist, an_array2, sizeof(an_array2)/sizeof(an_array2[0]));
+    assert_false(algo_equal_if(vector_begin(pvec), vector_end(pvec), slist_begin(pslist), _test_algo_equal_if__c_builtin));
+    vector_destroy(pvec);
+    slist_destroy(pslist);
+}
+
+static void _test_algo_equal_if__cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = false;
+    if ((strcmp((char*)cpv_first, "Linux") == 0 &&
+         (strcmp((char*)cpv_second, "Fedora") == 0 ||
+          strcmp((char*)cpv_second, "Redhat") == 0 ||
+          strcmp((char*)cpv_second, "Ubuntu") == 0 ||
+          strcmp((char*)cpv_second, "CentOS") == 0)) ||
+        (strcmp((char*)cpv_second, "Linux") == 0 &&
+         (strcmp((char*)cpv_first, "Fedora") == 0 ||
+          strcmp((char*)cpv_first, "Redhat") == 0 ||
+          strcmp((char*)cpv_first, "Ubuntu") == 0 ||
+          strcmp((char*)cpv_first, "CentOS") == 0))) {
+        *(bool_t*)pv_output = true;
+    }
+}
+void test_algo_equal_if__cstr_equal(void** state)
+{
+    multiset_t* pmset = create_multiset(char*);
+    set_t* pset = create_set(char*);
+    const char* as_array1[] = {"Linux", "Linux", "Linux", "Linux"};
+    const char* as_array2[] = {"Fedora", "CentOS", "Ubuntu", "Redhat"};
+
+    multiset_init_copy_array(pmset, as_array1, sizeof(as_array1)/sizeof(as_array1[0]));
+    set_init_copy_array(pset, as_array2, sizeof(as_array2)/sizeof(as_array2[0]));
+    assert_true(algo_equal_if(multiset_begin(pmset), multiset_end(pmset), set_begin(pset), _test_algo_equal_if__cstr));
+    multiset_destroy(pmset);
+    set_destroy(pset);
+}
+
+void test_algo_equal_if__cstr_unequal(void** state)
+{
+    hash_set_t* phset = create_hash_set(char*);
+    hash_multiset_t* phmset = create_hash_multiset(char*);
+    const char* as_array1[] = {"Fedora", "CentOS", "Ubuntu", "Redhat"};
+    const char* as_array2[] = {"Linux", "Linux", "FreeBSD", "Linux"};
+
+    hash_set_init_copy_array(phset, as_array1, sizeof(as_array1)/sizeof(as_array1[0]));
+    hash_multiset_init_copy_array(phmset, as_array2, sizeof(as_array2)/sizeof(as_array2[0]));
+    assert_false(algo_equal_if(hash_set_begin(phset), hash_set_end(phset), hash_multiset_begin(phmset), _test_algo_equal_if__cstr));
+    hash_set_destroy(phset);
+    hash_multiset_destroy(phmset);
+}
+
+static void _test_algo_equal_if__cstl_builtin(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = set_size((set_t*)cpv_first) == set_size((set_t*)cpv_second) ? true : false;
+}
+void test_algo_equal_if__cstl_builtin_equal(void** state)
+{
+    vector_t* pvec = create_vector(set_t<int>);
+    list_t* plist = create_list(set_t<int>);
+    set_t* pset = create_set(int);
+    int aan_array1[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 2, 3}, {1, 2, 3}};
+    int aan_array2[][3] = {{2, 4, 5}, {0, 4, 6}, {3, 1, 8}, {1, 4, 2}, {5, 0, 8}};
+    int i = 0;
+
+    vector_init(pvec);
+    list_init(plist);
+    set_init(pset);
+    for (i = 0; i < sizeof(aan_array1)/sizeof(aan_array1[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_array1[i], sizeof(aan_array1[i])/sizeof(aan_array1[i][0]));
+        vector_push_back(pvec, pset);
+    }
+    for (i = 0; i < sizeof(aan_array2)/sizeof(aan_array2[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_array2[i], sizeof(aan_array2[i])/sizeof(aan_array2[i][0]));
+        list_push_back(plist, pset);
+    }
+    assert_true(algo_equal_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), _test_algo_equal_if__cstl_builtin));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    set_destroy(pset);
+}
+
+void test_algo_equal_if__cstl_builtin_unequal(void** state)
+{
+    set_t* pset = create_set(set_t<int>);
+    multiset_t* pmset = create_multiset(set_t<int>);
+    set_t* pset_elem = create_set(int);
+    int aan_array1[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {0, 1, 5}};
+    int aan_array2[][2] = {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}};
+    int i = 0;
+
+    set_init(pset);
+    multiset_init(pmset);
+    set_init(pset_elem);
+    for (i = 0; i < sizeof(aan_array1)/sizeof(aan_array1[0]); ++i) {
+        set_clear(pset_elem);
+        set_insert_array(pset_elem, aan_array1[i], sizeof(aan_array1[i])/sizeof(aan_array1[i][0]));
+        set_insert(pset, pset_elem);
+    }
+    for (i = 0; i < sizeof(aan_array2)/sizeof(aan_array2[0]); ++i) {
+        set_clear(pset_elem);
+        set_insert_array(pset_elem, aan_array2[i], sizeof(aan_array2[i])/sizeof(aan_array2[i][0]));
+        multiset_insert(pmset, pset_elem);
+    }
+    assert_false(algo_equal_if(set_begin(pset), set_end(pset), multiset_begin(pmset), _test_algo_equal_if__cstl_builtin));
+    set_destroy(pset);
+    multiset_destroy(pmset);
+    set_destroy(pset_elem);
+}
+
+typedef struct _tag_test_algo_equal_if__user_define {
+    int a;
+    int b;
+} _test_algo_equal_if__user_define_t;
+static void _test_algo_equal_if__user_define(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    _test_algo_equal_if__user_define_t* pt_first = (_test_algo_equal_if__user_define_t*)cpv_first;
+    _test_algo_equal_if__user_define_t* pt_second = (_test_algo_equal_if__user_define_t*)cpv_second;
+
+    *(bool_t*)pv_output = pt_first->a == pt_second->b && pt_first->b == pt_second->a ? true : false;
+}
+void test_algo_equal_if__user_define_equal(void** state)
+{
+    list_t* plist = NULL;
+    deque_t* pdeq = NULL;
+    _test_algo_equal_if__user_define_t at_array1[] = {{1, 2}, {3, 4}, {4, 5}};
+    _test_algo_equal_if__user_define_t at_array2[] = {{2, 1}, {4, 3}, {5, 4}, {6, 6}};
+    int i = 0;
+
+    type_register(_test_algo_equal_if__user_define_t, NULL, NULL, NULL, NULL);
+    plist = create_list(_test_algo_equal_if__user_define_t);
+    pdeq = create_deque(_test_algo_equal_if__user_define_t);
+    list_init(plist);
+    deque_init(pdeq);
+    for (i = 0; i < sizeof(at_array1)/sizeof(at_array1[0]); ++i) {
+        list_push_back(plist, &at_array1[i]);
+    }
+    for (i = 0; i < sizeof(at_array2)/sizeof(at_array2[0]); ++i) {
+        deque_push_back(pdeq, &at_array2[i]);
+    }
+    assert_true(algo_equal_if(list_begin(plist), list_end(plist), deque_begin(pdeq), _test_algo_equal_if__user_define));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_equal_if__user_define_unequal(void** state)
+{
+    vector_t* pvec = create_vector(_test_algo_equal_if__user_define_t);
+    deque_t* pdeq = create_deque(_test_algo_equal_if__user_define_t);
+    _test_algo_equal_if__user_define_t at_array1[] = {{1, 2}, {3, 4}, {4, 5}};
+    _test_algo_equal_if__user_define_t at_array2[] = {{2, 1}, {4, 4}, {5, 4}, {6, 6}};
+    int i = 0;
+
+    vector_init(pvec);
+    deque_init(pdeq);
+    for (i = 0; i < sizeof(at_array1)/sizeof(at_array1[0]); ++i) {
+        vector_push_back(pvec, &at_array1[i]);
+    }
+    for (i = 0; i < sizeof(at_array2)/sizeof(at_array2[0]); ++i) {
+        deque_push_back(pdeq, &at_array2[i]);
+    }
+    assert_false(algo_equal_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), _test_algo_equal_if__user_define));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_search
+ */
+UT_CASE_DEFINATION(algo_search)
+void test_algo_search__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_search(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_search__invalid_first_range2(void** state)
+{
+    list_t* plist = create_list(int);
+    slist_t* pslist = create_slist(int);
+
+    list_init_n(plist, 10);
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_search(list_end(plist), list_begin(plist), slist_begin(pslist), slist_end(pslist)));
+    list_destroy(plist);
+    slist_destroy(pslist);
+}
+
+void test_algo_search__invalid_first_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    iterator_t it_first1;
+    iterator_t it_last1;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    it_first1 = deque_begin(pdeq);
+    it_last1 = deque_end(pdeq);
+    it_first1._t_iteratortype = _INPUT_ITERATOR;
+    it_last1._t_iteratortype = _OUTPUT_ITERATOR;
+    expect_assert_failure(algo_search(it_first1, it_last1, list_begin(plist), list_end(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_search__invalid_second_range(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    vector_t* pvec = create_vector(int);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_search(list_begin(plist), list_end(plist), deque_begin(pdeq), vector_end(pvec)));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    vector_destroy(pvec);
+}
+
+void test_algo_search__invalid_second_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_search(deque_begin(pdeq), deque_end(pdeq), list_end(plist), list_begin(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_search__invalid_second_range3(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    list_t* plist = create_list(int);
+    iterator_t it_first2;
+    iterator_t it_last2;
+
+    slist_init_n(pslist, 10);
+    list_init_n(plist, 10);
+    it_first2 = list_begin(plist);
+    it_last2 = list_end(plist);
+    it_first2._t_iteratortype = _INPUT_ITERATOR;
+    it_last2._t_iteratortype = _OUTPUT_ITERATOR;
+    expect_assert_failure(algo_search(slist_begin(pslist), slist_end(pslist), it_first2, it_last2));
+    slist_destroy(pslist);
+    list_destroy(plist);
+}
+
+void test_algo_search__invalid_range_not_same_type(void** state)
+{
+    set_t* pset = create_set(int);
+    hash_set_t* phset = create_hash_set(char*);
+
+    set_init(pset);
+    hash_set_init(phset);
+    expect_assert_failure(algo_search(set_begin(pset), set_end(pset), hash_set_begin(phset), hash_set_end(phset)));
+    set_destroy(pset);
+    hash_set_destroy(phset);
+}
+
+void test_algo_search__first_range_empty(void** state)
+{
+    set_t* pset = create_set(int);
+    list_t* plist = create_list(int);
+
+    set_init(pset);
+    list_init_n(plist, 10);
+    assert_true(iterator_equal(algo_search(set_begin(pset), set_end(pset), list_begin(plist), list_end(plist)), set_end(pset)));
+    set_destroy(pset);
+    list_destroy(plist);
+}
+
+void test_algo_search__second_range_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5};
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init(plist);
+    assert_true(iterator_equal(algo_search(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist)), vector_begin(pvec)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
