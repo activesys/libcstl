@@ -61,6 +61,32 @@ extern input_iterator_t _algo_find_varg(input_iterator_t it_first, input_iterato
 extern size_t _algo_count(input_iterator_t it_first, input_iterator_t it_last, ...);
 extern size_t _algo_count_varg(input_iterator_t it_first, input_iterator_t it_last, va_list val_elemlist);
 
+/**
+ * Searches for the first subsequence in a range that of a specified number of elements having a particular value.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param t_count       The size of the subsequence being searched for.
+ * @param ...           The value of the elements in the sequence being searched for.
+ * @return  A forward iterator addressing the position of the first element of the first subsequence that matches the specified sequence.
+ * @remarks The range must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t _algo_search_n(forward_iterator_t it_first, forward_iterator_t it_last, size_t t_count, ...);
+
+/**
+ * Searches for the first subsequence in a range that of a specified number of elements having a relation to that value as specified by a binary predicate.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param t_count       The size of the subsequence being searched for.
+ * @param bfun_op       User-defined predicate function object that defines the condition to be satisfied if two elements are to be taken as equivalent. 
+ * @param ...           The value of the elements in the sequence being searched for.
+ * @return  A forward iterator addressing the position of the first element of the first subsequence that is equivalent in a sense specified by a binary predicate.
+ * @remarks The range must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t _algo_search_n_if(
+    forward_iterator_t it_first, forward_iterator_t it_last, size_t t_count, binary_function_t bfun_op, ...);
+extern forward_iterator_t _algo_search_n_if_varg(
+    forward_iterator_t it_first, forward_iterator_t it_last, size_t t_count, binary_function_t bfun_op, va_list val_elemlist);
+
 #ifdef __cplusplus
 }
 #endif

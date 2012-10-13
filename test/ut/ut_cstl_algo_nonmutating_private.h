@@ -36,6 +36,19 @@ void test__algo_count__algo_count_varg__cstl_builtin_n(void** state);
 void test__algo_count__algo_count_varg__user_define_0(void** state);
 void test__algo_count__algo_count_varg__user_define_1(void** state);
 void test__algo_count__algo_count_varg__user_define_n(void** state);
+/*
+ * test _algo_search_n
+ */
+UT_CASE_DECLARATION(_algo_search_n)
+void test__algo_search_n__invalid_range(void** state);
+void test__algo_search_n__invalid_range2(void** state);
+void test__algo_search_n__invalid_range3(void** state);
+void test__algo_search_n__range_empty(void** state);
+void test__algo_search_n__count_0(void** state);
+void test__algo_search_n__c_builtin_match(void** state);
+void test__algo_search_n__c_builtin_mismatch(void** state);
+void test__algo_search_n__cstr_match(void** state);
+void test__algo_search_n__cstr_mismatch(void** state);
 
 #define UT_CSTL_ALGO_NONMUTATING_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_algo_nonmutating_private, test__algo_find__algo_find_varg__invalid_range),\
@@ -63,7 +76,16 @@ void test__algo_count__algo_count_varg__user_define_n(void** state);
     UT_CASE(test__algo_count__algo_count_varg__cstl_builtin_n),\
     UT_CASE(test__algo_count__algo_count_varg__user_define_0),\
     UT_CASE(test__algo_count__algo_count_varg__user_define_1),\
-    UT_CASE(test__algo_count__algo_count_varg__user_define_n)
+    UT_CASE(test__algo_count__algo_count_varg__user_define_n),\
+    UT_CASE_BEGIN(_algo_search_n, test__algo_search_n__invalid_range),\
+    UT_CASE(test__algo_search_n__invalid_range2),\
+    UT_CASE(test__algo_search_n__invalid_range3),\
+    UT_CASE(test__algo_search_n__range_empty),\
+    UT_CASE(test__algo_search_n__count_0),\
+    UT_CASE(test__algo_search_n__c_builtin_match),\
+    UT_CASE(test__algo_search_n__c_builtin_mismatch),\
+    UT_CASE(test__algo_search_n__cstr_match),\
+    UT_CASE(test__algo_search_n__cstr_mismatch)
 
 #endif /* _UT_CSTL_ALGO_NONMUTATING_PRIVATE_H_ */
 

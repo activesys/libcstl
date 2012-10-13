@@ -37,19 +37,6 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * Search n algorithm.
- */
-extern forward_iterator_t _algo_search_n(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    size_t t_count, ...);
-extern forward_iterator_t _algo_search_n_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    size_t t_count, binary_function_t t_binary_op, ...);
-extern forward_iterator_t _algo_search_n_if_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    size_t t_count, binary_function_t t_binary_op, va_list val_elemlist);
-
-/*
  * Remove algorithm.
  */
 extern output_iterator_t _algo_remove_copy(

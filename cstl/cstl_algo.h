@@ -30,11 +30,6 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* search */
-#define algo_search_n(t_first, t_last, t_count, elem)\
-    _algo_search_n((t_first), (t_last), (t_count), (elem))
-#define algo_search_n_if(t_first, t_last, t_count, elem, t_binary_op)\
-    _algo_search_n_if((t_first), (t_last), (t_count), (t_binary_op), (elem))
 /* remove */
 #define algo_remove_copy(t_first, t_last, t_result, elem)\
     _algo_remove_copy((t_first), (t_last), (t_result), (elem))
@@ -148,19 +143,6 @@ extern output_iterator_t algo_set_symmetric_difference_if(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result,
     binary_function_t t_binary_op);
-
-/*
- * search algorithm.
- */
-/*
-extern forward_iterator_t algo_search(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2);
-extern forward_iterator_t algo_search_if(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2,
-    binary_function_t t_binary_op);
-    */
 
 /*
  * search end and find end algorithm.

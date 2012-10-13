@@ -53,6 +53,29 @@ extern "C" {
  */
 #define algo_count(it_first, it_last, elem) _algo_count((it_first), (it_last), (elem))
 
+/**
+ * Searches for the first subsequence in a range that of a specified number of elements having a particular value.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param t_count       The size of the subsequence being searched for.
+ * @param elem          The value of the elements in the sequence being searched for.
+ * @return  A forward iterator addressing the position of the first element of the first subsequence that matches the specified sequence.
+ * @remarks The range must be valid, otherwise the behavior is undefined.
+ */
+#define algo_search_n(it_first, it_last, t_count, elem) _algo_search_n((it_first), (it_last), (t_count), (elem))
+
+/**
+ * Searches for the first subsequence in a range that of a specified number of elements having a relation to that value as specified by a binary predicate.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched.
+ * @param t_count       The size of the subsequence being searched for.
+ * @param bfun_op       User-defined predicate function object that defines the condition to be satisfied if two elements are to be taken as equivalent. 
+ * @param elem          The value of the elements in the sequence being searched for.
+ * @return  A forward iterator addressing the position of the first element of the first subsequence that is equivalent in a sense specified by a binary predicate.
+ * @remarks The range must be valid, otherwise the behavior is undefined.
+ */
+#define algo_search_n_if(it_first, it_last, t_count, elem, bfun_op) _algo_search_n_if((it_first), (it_last), (t_count), (bfun_op), (elem))
+
 /** data type declaration and struct, union, enum section **/
 
 /** exported global variable declaration section **/
