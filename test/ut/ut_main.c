@@ -176,8 +176,8 @@ int main(int argc, char* argv[])
         UT_CSTL_TYPES_PARSE_CASE,
         UT_CSTL_TYPES_AUX_CASE,
         UT_CSTL_TYPES_CASE,*/
-        UT_CSTL_ALGO_NONMUTATING_PRIVATE_CASE,
-        UT_CSTL_ALGO_NONMUTATING_CASE
+        UT_CSTL_ALGO_NONMUTATING_PRIVATE_CASE/*,
+        UT_CSTL_ALGO_NONMUTATING_CASE*/
     };
 
     return run_tests(tests);

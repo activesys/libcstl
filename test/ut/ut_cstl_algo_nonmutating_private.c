@@ -519,3 +519,308 @@ void test__algo_search_n__cstr_mismatch(void** state)
     list_destroy(plist);
 }
 
+void test__algo_search_n__cstl_builtin_match(void** state)
+{
+    deque_t* pdeq = create_deque(vector_t<int>);
+    vector_t* pvec = create_vector(int);
+    int aan_array[][2] = {{1, 1}, {2, 2}, {2, 2}, {3, 3}, {4, 4}};
+    int an_array[] = {2, 2};
+    int i = 0;
+
+    deque_init(pdeq);
+    vector_init(pvec);
+    for (i = 0; i < sizeof(aan_array)/sizeof(aan_array[0]); ++i) {
+        vector_assign_array(pvec, aan_array[i], sizeof(aan_array[i])/sizeof(aan_array[i][0]));
+        deque_push_back(pdeq, pvec);
+    }
+    vector_assign_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(iterator_equal(_algo_search_n(deque_begin(pdeq), deque_end(pdeq), 2, pvec), iterator_next(deque_begin(pdeq))));
+    deque_destroy(pdeq);
+    vector_destroy(pvec);
+}
+
+void test__algo_search_n__cstl_builtin_mismatch(void** state)
+{
+    deque_t* pdeq = create_deque(vector_t<int>);
+    vector_t* pvec = create_vector(int);
+    int aan_array[][2] = {{1, 1}, {2, 2}, {2, 2}, {3, 3}, {4, 4}};
+    int an_array[] = {2, 2};
+    int i = 0;
+
+    deque_init(pdeq);
+    vector_init(pvec);
+    for (i = 0; i < sizeof(aan_array)/sizeof(aan_array[0]); ++i) {
+        vector_assign_array(pvec, aan_array[i], sizeof(aan_array[i])/sizeof(aan_array[i][0]));
+        deque_push_back(pdeq, pvec);
+    }
+    vector_assign_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(iterator_equal(_algo_search_n(deque_begin(pdeq), deque_end(pdeq), 9, pvec), deque_end(pdeq)));
+    deque_destroy(pdeq);
+    vector_destroy(pvec);
+}
+
+typedef struct _tag_test__algo_search_n__user_define {
+    int a;
+    int b;
+} _test__algo_search_n__user_define_t;
+static void _test__algo_search_n__user_define(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = memcmp(cpv_first, cpv_second, sizeof(_test__algo_search_n__user_define_t)) < 0 ? true : false;
+}
+void test__algo_search_n__user_define_match(void** state)
+{
+    list_t* plist = NULL;
+    _test__algo_search_n__user_define_t at_array[] = {{8, 8}, {8, 8}, {9, 9}, {9, 9}, {9, 9}, {9, 9}};
+    _test__algo_search_n__user_define_t t_elem = {9, 9};
+    int i = 0;
+
+    type_register(_test__algo_search_n__user_define_t, NULL, NULL, _test__algo_search_n__user_define, NULL);
+    plist = create_list(_test__algo_search_n__user_define_t);
+    list_init(plist);
+    for (i = 0; i < sizeof(at_array)/sizeof(at_array[0]); ++i) {
+        list_push_back(plist, &at_array[i]);
+    }
+    assert_true(iterator_equal(_algo_search_n(list_begin(plist), list_end(plist), 4, &t_elem), iterator_advance(list_begin(plist), 2)));
+    list_destroy(plist);
+}
+
+void test__algo_search_n__user_define_mismatch(void** state)
+{
+    list_t* plist = create_list(_test__algo_search_n__user_define_t);
+    _test__algo_search_n__user_define_t at_array[] = {{8, 8}, {8, 8}, {9, 9}, {9, 9}, {9, 9}, {9, 9}};
+    _test__algo_search_n__user_define_t t_elem = {19, 19};
+    int i = 0;
+
+    list_init(plist);
+    for (i = 0; i < sizeof(at_array)/sizeof(at_array[0]); ++i) {
+        list_push_back(plist, &at_array[i]);
+    }
+    assert_true(iterator_equal(_algo_search_n(list_begin(plist), list_end(plist), 4, &t_elem), list_end(plist)));
+    list_destroy(plist);
+}
+
+/*
+ * test _algo_search_n_if and _algo_search_n_if_varg
+ */
+UT_CASE_DEFINATION(_algo_search_n_if__algo_search_n_if_varg)
+void test__algo_search_n_if__algo_search_n_if_varg__invalid_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(_algo_search_n_if(vector_begin(pvec), list_end(plist), 10, NULL, 1));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__invalid_range2(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(_algo_search_n_if(slist_end(pslist), slist_begin(pslist), 10, NULL, 1));
+    slist_destroy(pslist);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__invalid_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it_last;
+
+    deque_init_n(pdeq, 10);
+    it_last = deque_end(pdeq);
+    it_last._t_iteratortype = _INPUT_ITERATOR;
+    expect_assert_failure(_algo_search_n_if(deque_begin(pdeq), it_last, 10, NULL, 1));
+    deque_destroy(pdeq);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__range_empty(void** state)
+{
+    set_t* pset = create_set(int);
+
+    set_init(pset);
+    assert_true(iterator_equal(_algo_search_n_if(set_begin(pset), set_end(pset), 10, NULL, 0), set_end(pset)));
+    set_destroy(pset);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__count_0(void** state)
+{
+    hash_set_t* phset = create_hash_set(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8};
+
+    hash_set_init_copy_array(phset, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(iterator_equal(_algo_search_n_if(hash_set_begin(phset), hash_set_end(phset), 0, NULL, 10), hash_set_begin(phset)));
+    hash_set_destroy(phset);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__bfun_NULL_match(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 123);
+    assert_true(iterator_equal(_algo_search_n_if(vector_begin(pvec), vector_end(pvec), 10, NULL, 123), vector_begin(pvec)));
+    vector_destroy(pvec);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__bfun_NULL_mismatch(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_elem(pvec, 10, 123);
+    assert_true(iterator_equal(_algo_search_n_if(vector_begin(pvec), vector_end(pvec), 10, NULL, 111), vector_end(pvec)));
+    vector_destroy(pvec);
+}
+
+static void _test__algo_search_n_if__algo_search_n_if_varg__c_builtin(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
+}
+void test__algo_search_n_if__algo_search_n_if_varg__c_builtin_match(void** state)
+{
+    list_t* plist = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    list_init_copy_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(iterator_equal(
+        _algo_search_n_if(list_begin(plist), list_end(plist), 3, _test__algo_search_n_if__algo_search_n_if_varg__c_builtin, 5),
+        list_begin(plist)));
+    list_destroy(plist);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__c_builtin_mismatch(void** state)
+{
+    list_t* plist = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    list_init_copy_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(iterator_equal(
+        _algo_search_n_if(list_begin(plist), list_end(plist), 3, _test__algo_search_n_if__algo_search_n_if_varg__c_builtin, 0),
+        list_end(plist)));
+    list_destroy(plist);
+}
+
+static void _test__algo_search_n_if__algo_search_n_if_varg__cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = strlen((char*)cpv_first) == strlen((char*)cpv_second) ? true : false;
+}
+void test__algo_search_n_if__algo_search_n_if_varg__cstr_match(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+    const char* as_array[] = {"a", "bb", "xxx", "ooo", "mm", "haha"};
+
+    deque_init_copy_array(pdeq, as_array, sizeof(as_array)/sizeof(as_array[0]));
+    assert_true(iterator_equal(
+        _algo_search_n_if(deque_begin(pdeq), deque_end(pdeq), 2, _test__algo_search_n_if__algo_search_n_if_varg__cstr, "abc"),
+        iterator_next_n(deque_begin(pdeq), 2)));
+    deque_destroy(pdeq);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__cstr_mismatch(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+    const char* as_array[] = {"a", "bb", "xxx", "ooo", "mm", "haha"};
+
+    deque_init_copy_array(pdeq, as_array, sizeof(as_array)/sizeof(as_array[0]));
+    assert_true(iterator_equal(
+        _algo_search_n_if(deque_begin(pdeq), deque_end(pdeq), 2, _test__algo_search_n_if__algo_search_n_if_varg__cstr, "abcdef"),
+        deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+static void _test__algo_search_n_if__algo_search_n_if_varg__cstl_builtin(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = list_size((list_t*)cpv_first) == list_size((list_t*)cpv_second) ? true : false;
+}
+void test__algo_search_n_if__algo_search_n_if_varg__cstl_builtin_match(void** state)
+{
+    deque_t* pdeq = create_deque(list_t<int>);
+    list_t* plist = create_list(int);
+    int aan_array[][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 0, 0, 0}, {1, 1, 1, 1}, {2, 2, 2, 2}};
+    int an_array[] = {8, 8, 8, 8};
+    int i = 0;
+
+    deque_init(pdeq);
+    list_init(plist);
+    for (i = 0; i < sizeof(aan_array)/sizeof(aan_array[0]); ++i) {
+        list_assign_array(plist, aan_array[i], sizeof(aan_array[i])/sizeof(aan_array[i][0]));
+        deque_push_back(pdeq, plist);
+    }
+    list_assign_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(iterator_equal(
+        _algo_search_n_if(deque_begin(pdeq), deque_end(pdeq), 3, _test__algo_search_n_if__algo_search_n_if_varg__cstl_builtin, plist),
+        deque_begin(pdeq)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__cstl_builtin_mismatch(void** state)
+{
+    deque_t* pdeq = create_deque(list_t<int>);
+    list_t* plist = create_list(int);
+    int aan_array[][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 0, 0, 0}, {1, 1, 1, 1}, {2, 2, 2, 2}};
+    int an_array[] = {8, 8, 8, 8, 8};
+    int i = 0;
+
+    deque_init(pdeq);
+    list_init(plist);
+    for (i = 0; i < sizeof(aan_array)/sizeof(aan_array[0]); ++i) {
+        list_assign_array(plist, aan_array[i], sizeof(aan_array[i])/sizeof(aan_array[i][0]));
+        deque_push_back(pdeq, plist);
+    }
+    list_assign_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(iterator_equal(
+        _algo_search_n_if(deque_begin(pdeq), deque_end(pdeq), 1, _test__algo_search_n_if__algo_search_n_if_varg__cstl_builtin, plist),
+        deque_end(pdeq)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+typedef struct _tag_test__algo_search_n_if__algo_search_n_if_varg__user_define {
+    int a;
+    int b;
+} _test__algo_search_n_if__algo_search_n_if_varg__user_define_t;
+static void _test__algo_search_n_if__algo_search_n_if_varg__user_define(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = 
+        ((_test__algo_search_n_if__algo_search_n_if_varg__user_define_t*)cpv_first)->a < ((_test__algo_search_n_if__algo_search_n_if_varg__user_define_t*)cpv_second)->a &&
+        ((_test__algo_search_n_if__algo_search_n_if_varg__user_define_t*)cpv_first)->b < ((_test__algo_search_n_if__algo_search_n_if_varg__user_define_t*)cpv_second)->b ?
+        true : false;
+}
+void test__algo_search_n_if__algo_search_n_if_varg__user_define_match(void** state)
+{
+    slist_t* pslist = NULL;
+    _test__algo_search_n_if__algo_search_n_if_varg__user_define_t at_array[] = {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 0}};
+    _test__algo_search_n_if__algo_search_n_if_varg__user_define_t t_elem = {4, 5};
+    int i = 0;
+
+    type_register(_test__algo_search_n_if__algo_search_n_if_varg__user_define_t, NULL, NULL, NULL, NULL);
+    pslist = create_slist(_test__algo_search_n_if__algo_search_n_if_varg__user_define_t);
+    slist_init(pslist);
+    for (i = 0; i < sizeof(at_array)/sizeof(at_array[0]); ++i) {
+        slist_push_front(pslist, &at_array[i]);
+    }
+    assert_true(iterator_equal(
+        _algo_search_n_if(slist_begin(pslist), slist_end(pslist), 2, _test__algo_search_n_if__algo_search_n_if_varg__user_define, &t_elem),
+        iterator_advance(slist_begin(pslist), 3)));
+    slist_destroy(pslist);
+}
+
+void test__algo_search_n_if__algo_search_n_if_varg__user_define_mismatch(void** state)
+{
+    slist_t* pslist = create_slist(_test__algo_search_n_if__algo_search_n_if_varg__user_define_t);
+    _test__algo_search_n_if__algo_search_n_if_varg__user_define_t at_array[] = {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 0}};
+    _test__algo_search_n_if__algo_search_n_if_varg__user_define_t t_elem = {4, 5};
+    int i = 0;
+
+    slist_init(pslist);
+    for (i = 0; i < sizeof(at_array)/sizeof(at_array[0]); ++i) {
+        slist_push_front(pslist, &at_array[i]);
+    }
+    assert_true(iterator_equal(
+        _algo_search_n_if(slist_begin(pslist), slist_end(pslist), 2, _test__algo_search_n_if__algo_search_n_if_varg__user_define, &t_elem),
+        iterator_advance(slist_begin(pslist), 3)));
+    slist_destroy(pslist);
+}
+
