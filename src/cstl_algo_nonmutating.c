@@ -434,5 +434,72 @@ forward_iterator_t algo_search_if(
     return it_last1;
 }
 
+/**
+ * Looks in a range for the last subsequence that is identical to a specified sequence.
+ */
+forward_iterator_t algo_search_end(
+    forward_iterator_t it_first1, forward_iterator_t it_last1,
+    forward_iterator_t it_first2, forward_iterator_t it_last2)
+{
+    return algo_search_end_if(it_first1, it_last1, it_first2, it_last2, _fun_get_binary(it_first1, _EQUAL_FUN));
+}
+
+/**
+ * Looks in a range for the last subsequence that is equivalent in a sense specified by a binary predicate.
+ */
+forward_iterator_t algo_search_end_if(
+    forward_iterator_t it_first1, forward_iterator_t it_last1,
+    forward_iterator_t it_first2, forward_iterator_t it_last2,
+    binary_function_t bfun_op)
+{
+    forward_iterator_t t_tmp;
+    forward_iterator_t t_result;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _FORWARD_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+
+    if (iterator_equal(it_first2, it_last2)) {
+        return it_last1;
+    }
+
+    t_result = t_tmp = it_last1;
+    for(;;)
+    {
+        t_tmp = algo_search_if(it_first1, it_last1, it_first2, it_last2, bfun_op);
+        if(iterator_equal(t_tmp, it_last1))
+        {
+            return t_result;
+        }
+        else
+        {
+            t_result = t_tmp;
+            it_first1 = t_tmp;
+            it_first1 = iterator_next(it_first1);
+        }
+    }
+}
+
+/**
+ * Looks in a range for the last subsequence that is identical to a specified sequence.
+ */
+forward_iterator_t algo_find_end(
+    forward_iterator_t it_first1, forward_iterator_t it_last1,
+    forward_iterator_t it_first2, forward_iterator_t it_last2)
+{
+    return algo_search_end(it_first1, it_last1, it_first2, it_last2);
+}
+
+/**
+ * Looks in a range for the last subsequence that is equivalent in a sense specified by a binary predicate.
+ */
+forward_iterator_t algo_find_end_if(
+    forward_iterator_t it_first1, forward_iterator_t it_last1,
+    forward_iterator_t it_first2, forward_iterator_t it_last2,
+    binary_function_t bfun_op)
+{
+    return algo_search_end_if(it_first1, it_last1, it_first2, it_last2, bfun_op);
+}
+
 /** eof **/
 

@@ -332,6 +332,7 @@ output_iterator_t algo_set_symmetric_difference_if(
     return algo_copy(t_first2, t_last2, algo_copy(t_first1, t_last1, t_result));
 }
 
+/*
 forward_iterator_t algo_search_end(
     forward_iterator_t t_first1, forward_iterator_t t_last1,
     forward_iterator_t t_first2, forward_iterator_t t_last2)
@@ -382,6 +383,7 @@ forward_iterator_t algo_find_end_if(
 {
     return algo_search_end_if(t_first1, t_last1, t_first2, t_last2, t_binary_op);
 }
+*/
 
 void algo_generate(
     forward_iterator_t t_first, forward_iterator_t t_last,
