@@ -145,26 +145,6 @@ extern output_iterator_t algo_set_symmetric_difference_if(
     binary_function_t t_binary_op);
 
 /*
- * search end and find end algorithm.
- */
-/*
-extern forward_iterator_t algo_search_end(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2);
-extern forward_iterator_t algo_search_end_if(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2,
-    binary_function_t t_binary_op);
-extern forward_iterator_t algo_find_end(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2);
-extern forward_iterator_t algo_find_end_if(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2,
-    binary_function_t t_binary_op);
-    */
-
-/*
  * generate algorithm.
  */
 extern void algo_generate(

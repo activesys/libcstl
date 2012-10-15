@@ -332,58 +332,6 @@ output_iterator_t algo_set_symmetric_difference_if(
     return algo_copy(t_first2, t_last2, algo_copy(t_first1, t_last1, t_result));
 }
 
-/*
-forward_iterator_t algo_search_end(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2)
-{
-    return algo_search_end_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(t_first1, _EQUAL_FUN));
-}
-
-forward_iterator_t algo_search_end_if(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2,
-    binary_function_t t_binary_op)
-{
-    forward_iterator_t t_tmp;
-    forward_iterator_t t_result;
-
-    assert(_iterator_valid_range(t_first1, t_last1, _FORWARD_ITERATOR));
-    assert(_iterator_valid_range(t_first2, t_last2, _FORWARD_ITERATOR));
-
-    t_result = t_tmp = t_last1;
-    for(;;)
-    {
-        t_tmp = algo_search_if(t_first1, t_last1, t_first2, t_last2, t_binary_op);
-        if(iterator_equal(t_tmp, t_last1))
-        {
-            return t_result;
-        }
-        else
-        {
-            t_result = t_tmp;
-            t_first1 = t_tmp;
-            t_first1 = iterator_next(t_first1);
-        }
-    }
-}
-
-forward_iterator_t algo_find_end(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2)
-{
-    return algo_search_end(t_first1, t_last1, t_first2, t_last2);
-}
-
-forward_iterator_t algo_find_end_if(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2, forward_iterator_t t_last2,
-    binary_function_t t_binary_op)
-{
-    return algo_search_end_if(t_first1, t_last1, t_first2, t_last2, t_binary_op);
-}
-*/
 
 void algo_generate(
     forward_iterator_t t_first, forward_iterator_t t_last,

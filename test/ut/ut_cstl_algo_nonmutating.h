@@ -259,6 +259,25 @@ void test_algo_search_end_algo_find_end__cstl_builtin_match(void** state);
 void test_algo_search_end_algo_find_end__cstl_builtin_mismatch(void** state);
 void test_algo_search_end_algo_find_end__user_define_match(void** state);
 void test_algo_search_end_algo_find_end__user_define_mismatch(void** state);
+/*
+ * test algo_search_end_if and algo_find_end_if
+ */
+UT_CASE_DECLARATION(algo_search_end_if_algo_find_end_if)
+void test_algo_search_end_if_algo_find_end_if__invalid_first_range(void** state);
+void test_algo_search_end_if_algo_find_end_if__invalid_first_range2(void** state);
+void test_algo_search_end_if_algo_find_end_if__invalid_first_range3(void** state);
+void test_algo_search_end_if_algo_find_end_if__invalid_second_range(void** state);
+void test_algo_search_end_if_algo_find_end_if__invalid_second_range2(void** state);
+void test_algo_search_end_if_algo_find_end_if__invalid_second_range3(void** state);
+void test_algo_search_end_if_algo_find_end_if__invalid_range_not_same_type(void** state);
+void test_algo_search_end_if_algo_find_end_if__first_range_empty(void** state);
+void test_algo_search_end_if_algo_find_end_if__second_range_empty(void** state);
+void test_algo_search_end_if_algo_find_end_if__bfun_NULL_match(void** state);
+void test_algo_search_end_if_algo_find_end_if__bfun_NULL_mismatch(void** state);
+void test_algo_search_end_if_algo_find_end_if__c_builtin_match(void** state);
+void test_algo_search_end_if_algo_find_end_if__c_builtin_mismatch(void** state);
+void test_algo_search_end_if_algo_find_end_if__cstr_match(void** state);
+void test_algo_search_end_if_algo_find_end_if__cstr_mismatch(void** state);
 
 #define UT_CSTL_ALGO_NONMUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_nonmutating, test_algo_for_each__invalid_range),\
@@ -461,6 +480,21 @@ void test_algo_search_end_algo_find_end__user_define_mismatch(void** state);
     UT_CASE(test_algo_search_end_algo_find_end__cstl_builtin_match),\
     UT_CASE(test_algo_search_end_algo_find_end__cstl_builtin_mismatch),\
     UT_CASE(test_algo_search_end_algo_find_end__user_define_match),\
-    UT_CASE(test_algo_search_end_algo_find_end__user_define_mismatch)
+    UT_CASE(test_algo_search_end_algo_find_end__user_define_mismatch),\
+    UT_CASE_BEGIN(algo_search_end_if_algo_find_end_if, test_algo_search_end_if_algo_find_end_if__invalid_first_range),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__invalid_first_range2),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__invalid_first_range3),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__invalid_second_range),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__invalid_second_range2),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__invalid_second_range3),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__invalid_range_not_same_type),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__first_range_empty),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__second_range_empty),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__bfun_NULL_match),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__bfun_NULL_mismatch),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__c_builtin_match),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__c_builtin_mismatch),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__cstr_match),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__cstr_mismatch)
 
 #endif /* _UT_CSTL_ALGO_NONMUTATING_H_ */
