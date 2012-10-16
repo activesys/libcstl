@@ -263,7 +263,7 @@ void test__type_register__register(void** state);
     UT_CASE_BEGIN(_type_register, test__type_register__null_typename),\
     UT_CASE(test__type_register__registered),\
     UT_CASE(test__type_register__register_default),\
-    UT_CASE(test__type_register__register),\
+    UT_CASE(test__type_register__register)
 
 #endif /* _UT_CSTL_TYPES_H_ */
 

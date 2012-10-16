@@ -452,8 +452,8 @@ forward_iterator_t algo_search_end_if(
     forward_iterator_t it_first2, forward_iterator_t it_last2,
     binary_function_t bfun_op)
 {
-    forward_iterator_t t_tmp;
-    forward_iterator_t t_result;
+    forward_iterator_t it_tmp;
+    forward_iterator_t it_result;
 
     assert(_iterator_valid_range(it_first1, it_last1, _FORWARD_ITERATOR));
     assert(_iterator_valid_range(it_first2, it_last2, _FORWARD_ITERATOR));
@@ -463,19 +463,14 @@ forward_iterator_t algo_search_end_if(
         return it_last1;
     }
 
-    t_result = t_tmp = it_last1;
-    for(;;)
-    {
-        t_tmp = algo_search_if(it_first1, it_last1, it_first2, it_last2, bfun_op);
-        if(iterator_equal(t_tmp, it_last1))
-        {
-            return t_result;
-        }
-        else
-        {
-            t_result = t_tmp;
-            it_first1 = t_tmp;
-            it_first1 = iterator_next(it_first1);
+    it_result = it_tmp = it_last1;
+    for (;;) {
+        it_tmp = algo_search_if(it_first1, it_last1, it_first2, it_last2, bfun_op);
+        if (iterator_equal(it_tmp, it_last1)) {
+            return it_result;
+        } else {
+            it_result = it_tmp;
+            it_first1 = iterator_next(it_tmp);
         }
     }
 }

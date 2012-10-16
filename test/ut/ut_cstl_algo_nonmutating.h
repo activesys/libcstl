@@ -278,6 +278,10 @@ void test_algo_search_end_if_algo_find_end_if__c_builtin_match(void** state);
 void test_algo_search_end_if_algo_find_end_if__c_builtin_mismatch(void** state);
 void test_algo_search_end_if_algo_find_end_if__cstr_match(void** state);
 void test_algo_search_end_if_algo_find_end_if__cstr_mismatch(void** state);
+void test_algo_search_end_if_algo_find_end_if__cstl_builtin_match(void** state);
+void test_algo_search_end_if_algo_find_end_if__cstl_builtin_mismatch(void** state);
+void test_algo_search_end_if_algo_find_end_if__user_define_match(void** state);
+void test_algo_search_end_if_algo_find_end_if__user_define_mismatch(void** state);
 
 #define UT_CSTL_ALGO_NONMUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_nonmutating, test_algo_for_each__invalid_range),\
@@ -495,6 +499,10 @@ void test_algo_search_end_if_algo_find_end_if__cstr_mismatch(void** state);
     UT_CASE(test_algo_search_end_if_algo_find_end_if__c_builtin_match),\
     UT_CASE(test_algo_search_end_if_algo_find_end_if__c_builtin_mismatch),\
     UT_CASE(test_algo_search_end_if_algo_find_end_if__cstr_match),\
-    UT_CASE(test_algo_search_end_if_algo_find_end_if__cstr_mismatch)
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__cstr_mismatch),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__cstl_builtin_match),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__cstl_builtin_mismatch),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__user_define_match),\
+    UT_CASE(test_algo_search_end_if_algo_find_end_if__user_define_mismatch)
 
 #endif /* _UT_CSTL_ALGO_NONMUTATING_H_ */

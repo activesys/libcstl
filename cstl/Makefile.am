@@ -1,6 +1,6 @@
 # for build libcstl.a
 cstlincludedir = $(includedir)/cstl
-cstlinclude_HEADERS =	calgorithm.h \
+cstlinclude_HEADERS = calgorithm.h \
 			cdeque.h \
 			cfunctional.h \
 			chash_map.h \
@@ -17,6 +17,8 @@ cstlinclude_HEADERS =	calgorithm.h \
 			cstl_algo_private.h \
 			cstl_algo_nonmutating.h \
 			cstl_algo_nonmutating_private.h \
+			cstl_algo_mutating.h \
+			cstl_algo_mutating_private.h \
 			cstl_algobase.h \
 			cstl_algobase_private.h \
 			cstl_alloc.h \

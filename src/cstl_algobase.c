@@ -30,6 +30,8 @@
 
 #include <cstl/cstl_algobase.h>
 #include <cstl/cstl_algobase_private.h>
+#include <cstl/cstl_algo_mutating_private.h>
+#include <cstl/cstl_algo_mutating.h>
 
 /** local constant declaration and local macro section **/
 
@@ -326,23 +328,7 @@ input_iterator_t algo_min_if(
     }
 }
 
-output_iterator_t algo_copy(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
-{
-    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
-    assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first, t_result));
-
-    for(;
-        !iterator_equal(t_first, t_last);
-        t_first = iterator_next(t_first), t_result = iterator_next(t_result))
-    {
-        iterator_set_value(t_result, iterator_get_pointer(t_first));
-    }
-
-    return t_result;
-}
-
+/*
 output_iterator_t algo_copy_n(
     input_iterator_t t_first, size_t t_count, output_iterator_t t_result)
 {
@@ -369,6 +355,7 @@ bidirectional_iterator_t algo_copy_backward(
 
     return t_result;
 }
+*/
 
 /** local function implementation section **/
 

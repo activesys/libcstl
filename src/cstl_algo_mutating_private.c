@@ -1,5 +1,5 @@
 /*
- *  The user interface of algorithm
+ *  The implementation of private mutating algorithm.
  *  Copyright (C)  2008 - 2012  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
@@ -20,42 +20,28 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CALGORITHM_H_
-#define _CALGORITHM_H_
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /** include section **/
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-#include <cstl/cutility.h>
+#include <cstl/cstring.h>
+#include <cstl/cfunctional.h>
 
-#include <cstl/cstl_algobase.h>
-#include <cstl/cstl_algobase_private.h>
-#include <cstl/cstl_algo_nonmutating_private.h>
-#include <cstl/cstl_algo_nonmutating.h>
 #include <cstl/cstl_algo_mutating_private.h>
 #include <cstl/cstl_algo_mutating.h>
-#include <cstl/cstl_algo.h>
-#include <cstl/cstl_algo_private.h>
-#include <cstl/cstl_heap.h>
 
-/** constant declaration and macro section **/
+/** local constant declaration and local macro section **/
 
-/** data type declaration and struct, union, enum section **/
+/** local data type declaration and local struct, union, enum section **/
 
-/** exported global variable declaration section **/
+/** local function prototype section **/
 
-/** exported function prototype section **/
+/** exported global variable definition section **/
 
-#ifdef __cplusplus
-}
-#endif
+/** local global variable definition section **/
 
-#endif /* _CALGORITHM_H_ */
+/** exported function implementation section **/
+
 /** eof **/
 
