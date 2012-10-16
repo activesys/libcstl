@@ -576,3 +576,54 @@ void test_algo_copy_backward__cstr(void** state)
     deque_destroy(pdeq);
 }
 
+void test_algo_copy_backward__cstl_builtin(void** state)
+{
+    hash_set_t* phset = create_hash_set(vector_t<int>);
+    list_t* plist = create_list(vector_t<int>);
+    vector_t* pvec = create_vector(int);
+    int aan_array[][3] = {{1, 2, 3, 4, 5}, {2, 3, 4, 5, 6}, {3, 4, 5, 6, 7}, {4, 5, 6, 7, 8}, {5, 6, 7, 8, 9}};
+    iterator_t it;
+    int i = 0;
+
+    hash_set_init(phset);
+    list_init_n(plist, 10);
+    vector_init(pvec);
+    for (i = 0; i < sizeof(aan_array)/sizeof(aan_array[0]); ++i) {
+        vector_assign_array(pvec, aan_array[i], sizeof(aan_array[i])/sizeof(aan_array[i][0]));
+        hash_set_insert(phset, pvec);
+    }
+    it = algo_copy_backward(hash_set_begin(phset), hash_set_end(phset), list_end(plist));
+    assert_true(iterator_distance(it, list_end(plist)) == hash_set_size(phset));
+    assert_true(algo_equal(hash_set_begin(phset), hash_set_end(phset), it));
+    hash_set_destroy(phset);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+typedef struct _tag_test_algo_copy_backward__user_define {
+    int a;
+    int b;
+} _test_algo_copy_backward__user_define_t;
+void test_algo_copy_backward__user_define(void** state)
+{
+    multiset_t* pmset = NULL;
+    deque_t* pdeq = NULL;
+    _test_algo_copy_backward__user_define_t at_array[] = {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 0}};
+    iterator_t it;
+    int i = 0;
+
+    type_register(_test_algo_copy_backward__user_define_t, NULL, NULL, NULL, NULL);
+    pmset = create_multiset(_test_algo_copy_backward__user_define_t);
+    pdeq = create_deque(_test_algo_copy_backward__user_define_t);
+    multiset_init(pmset);
+    deque_init_n(pdeq, 10);
+    for (i = 0; i < sizeof(at_array)/sizeof(at_array[0]); ++i) {
+        multiset_insert(pmset, &at_array[i]);
+    }
+    it = algo_copy_backward(multiset_begin(pmset), multiset_end(pmset), deque_end(pdeq));
+    assert_true(iterator_distance(it, deque_end(pdeq)) == multiset_size(pmset));
+    assert_true(algo_equal(multiset_begin(pmset), multiset_end(pmset), it));
+    multiset_destroy(pmset);
+    deque_destroy(pdeq);
+}
+

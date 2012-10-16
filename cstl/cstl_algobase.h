@@ -74,17 +74,6 @@ extern input_iterator_t algo_min(input_iterator_t t_first, input_iterator_t t_se
 extern input_iterator_t algo_min_if(
     input_iterator_t t_first, input_iterator_t t_last, binary_function_t t_binary_op);
 
-/*
- * Copy and copy backwark algorithm.
- */
-/*
-extern output_iterator_t algo_copy_n(
-    input_iterator_t t_first, size_t t_count, output_iterator_t t_result);
-extern bidirectional_iterator_t algo_copy_backward(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
-    bidirectional_iterator_t t_result);
-    */
-
 #ifdef __cplusplus
 }
 #endif

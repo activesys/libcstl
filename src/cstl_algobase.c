@@ -328,35 +328,6 @@ input_iterator_t algo_min_if(
     }
 }
 
-/*
-output_iterator_t algo_copy_n(
-    input_iterator_t t_first, size_t t_count, output_iterator_t t_result)
-{
-    input_iterator_t t_last = t_first;
-    t_last = iterator_advance(t_last, t_count);
-
-    return algo_copy(t_first, t_last, t_result);
-}
-
-bidirectional_iterator_t algo_copy_backward(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
-    bidirectional_iterator_t t_result)
-{
-    assert(_iterator_valid_range(t_first, t_last, _BIDIRECTIONAL_ITERATOR));
-    assert(_iterator_limit_type(t_result, _BIDIRECTIONAL_ITERATOR));
-    assert(_iterator_same_elem_type(t_first, t_result));
-
-    while(!iterator_equal(t_first, t_last))
-    {
-        t_last = iterator_prev(t_last);
-        t_result = iterator_prev(t_result);
-        iterator_set_value(t_result, iterator_get_pointer(t_last));
-    }
-
-    return t_result;
-}
-*/
-
 /** local function implementation section **/
 
 /** eof **/
