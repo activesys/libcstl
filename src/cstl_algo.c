@@ -1138,24 +1138,7 @@ output_iterator_t algo_rotate_copy(
     return algo_copy(t_first, t_middle, algo_copy(t_middle, t_last, t_result));
 }
 
-forward_iterator_t algo_swap_ranges(
-    forward_iterator_t t_first1, forward_iterator_t t_last1,
-    forward_iterator_t t_first2)
-{
-    assert(_iterator_valid_range(t_first1, t_last1, _FORWARD_ITERATOR));
-    assert(_iterator_same_elem_type(t_first1, t_first2));
-    assert(_iterator_limit_type(t_first2, _FORWARD_ITERATOR));
-
-    for(;
-        !iterator_equal(t_first1, t_last1);
-        t_first1 = iterator_next(t_first1), t_first2 = iterator_next(t_first2))
-    {
-        algo_iter_swap(t_first1, t_first2);
-    }
-
-    return t_first2;
-}
-
+/*
 output_iterator_t algo_transform(
     input_iterator_t t_first, input_iterator_t t_last,
     output_iterator_t t_result, unary_function_t t_unary_op)
@@ -1254,6 +1237,7 @@ output_iterator_t algo_transform_binary(
 
     return t_result;
 }
+*/
 
 forward_iterator_t algo_unique(
     forward_iterator_t t_first, forward_iterator_t t_last)

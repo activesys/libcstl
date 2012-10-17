@@ -126,40 +126,6 @@ output_iterator_t _algo_fill_n_varg(
     return t_first;
 }
 
-void algo_swap(forward_iterator_t t_first, forward_iterator_t t_second)
-{
-    algo_iter_swap(t_first, t_second);
-}
-
-void algo_iter_swap(forward_iterator_t t_first, forward_iterator_t t_second)
-{
-    void* pv_value = NULL;
-
-    assert(_iterator_same_elem_type(t_first, t_second));
-
-    if(!iterator_equal(t_first, t_second))
-    {
-        pv_value = _iterator_allocate_init_elem(t_first);
-
-        /* c string */
-        if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-        {
-            string_assign_cstr((string_t*)pv_value, iterator_get_pointer(t_first));
-            iterator_set_value(t_first, iterator_get_pointer(t_second));
-            iterator_set_value(t_second, string_c_str((string_t*)pv_value));
-        }
-        else
-        {
-            iterator_get_value(t_first, pv_value);
-            iterator_set_value(t_first, iterator_get_pointer(t_second));
-            iterator_set_value(t_second, pv_value);
-        }
-
-        _iterator_deallocate_destroy_elem(t_first, pv_value);
-        pv_value = NULL;
-    }
-}
-
 bool_t algo_lexicographical_compare(
     input_iterator_t t_first1, input_iterator_t t_last1,
     input_iterator_t t_first2, input_iterator_t t_last2)

@@ -76,6 +76,56 @@ extern output_iterator_t algo_copy_n(input_iterator_t it_first, size_t t_count, 
 extern bidirectional_iterator_t algo_copy_backward(
     bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, bidirectional_iterator_t it_result);
 
+/**
+ * Exchanges two values referred to by a pair of specified iterators.
+ * @param it_first      One of the forward iterators whose value is to be exchanged.
+ * @param it_second     The second of the forward iterators whose value is to be exchanged.
+ * @return  void.
+ * @remarks Two iterator must be same element type, otherwise the behavior is undefine.
+ */
+extern void algo_swap(forward_iterator_t it_first, forward_iterator_t it_second);
+extern void algo_iter_swap(forward_iterator_t it_first, forward_iterator_t it_second);
+
+/**
+ * Exchanges the elements of one range with the elements of another, equal sized range.
+ * @param it_first1     A forward iterator pointing to the first position of the first range whose elements are to be exchanged.
+ * @param it_second     A forward iterator pointing to one past the final position of the first range whose elements are to be exchanged.
+ * @param it_first2     A forward iterator pointing to the first position of the second range whose elements are to be exchanged.
+ * @return  A forward iterator pointing to one past the final position of the second range whose elements are to be exchanged.
+ * @remarks The ranges referenced must be valid; The second range has to be as large as the first range. The two ranges must be contain
+ *          same element type, otherwise the behavior of the algorithm is undefined.
+ */
+extern forward_iterator_t algo_swap_ranges(forward_iterator_t it_first1, forward_iterator_t it_last1, forward_iterator_t it_first2);
+
+/**
+ * Applies a specified function object to each element in a source range and copies the return values of the function object into a destination range.
+ * @param it_first      An input iterator addressing the position of the first element in the first source range to be operated on.
+ * @param it_last       An input iterator addressing the position one past the final element in the first source range operated on.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range.
+ * @param ufun_op       User-defined unary function that is applied to each element in the first source range.
+ * @return  An output iterator addressing the position one past the final element in the destination range
+ *          that is receiving the output elements transformed by the function object.
+ * @remarks The ranges referenced must be valid. The destination range must be large enough to contain the transformed source range.
+ *          The two ranges must be contain same element type, otherwise the behavior of algorithm is undefined.
+ */
+extern output_iterator_t algo_transform(
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t t_result, unary_function_t ufun_op);
+
+/**
+ * Applies a specified function object to a pair of elements from two source ranges and copies the return values of the function into a destination range.
+ * @param it_first1     An input iterator addressing the position of the first element in the first source range to be operated on.
+ * @param it_last1      An input iterator addressing the position one past the final element in the first source range operated on.
+ * @param it_first2     An input iterator addressing the position of the first element in the second source range to be operated on.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range.
+ * @param bfun_op       A user-defined (UD) binary function that is applied pairwise, in a forward order, to the two source ranges.
+ * @return  An output iterator addressing the position one past the final element in the destination range
+ *          that is receiving the output elements transformed by the function object.
+ * @remarks The ranges referenced must be valid. The destination range must be large enough to contain the transformed source range.
+ *          The two ranges must be contain same element type, otherwise the behavior of algorithm is undefined.
+ */
+extern output_iterator_t algo_transform_binary(
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, output_iterator_t t_result, binary_function_t bfun_op);
+
 #ifdef __cplusplus
 }
 #endif

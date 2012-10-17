@@ -30,6 +30,8 @@
 
 #include <cstl/cstl_algobase.h>
 #include <cstl/cstl_algobase_private.h>
+#include <cstl/cstl_algo_mutating_private.h>
+#include <cstl/cstl_algo_mutating.h>
 
 #include <cstl/cstl_heap.h>
 

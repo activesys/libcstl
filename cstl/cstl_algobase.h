@@ -41,12 +41,6 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * swap and iterator swap algorithm.
- */
-extern void algo_swap(forward_iterator_t t_first, forward_iterator_t t_second);
-extern void algo_iter_swap(forward_iterator_t t_first, forward_iterator_t t_second);
-
-/*
  * compare and compare 3way algorithm.
  */
 extern bool_t algo_lexicographical_compare(
