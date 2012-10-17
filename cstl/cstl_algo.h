@@ -232,19 +232,6 @@ extern output_iterator_t algo_rotate_copy(
     output_iterator_t t_result);
 
 /*
- * transform algorithm.
- */
-/*
-extern output_iterator_t algo_transform(
-    input_iterator_t t_first, input_iterator_t t_last,
-    output_iterator_t t_result, unary_function_t t_unary_op);
-extern output_iterator_t algo_transform_binary(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, output_iterator_t t_result,
-    binary_function_t t_binary_op);
-*/
-
-/*
  * unique algorithm.
  */
 extern forward_iterator_t algo_unique(

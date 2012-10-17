@@ -1066,3 +1066,124 @@ void test_algo_transform__ufun_NULL(void** state)
     vector_destroy(pvec_result);
 }
 
+static void _test_algo_transform__c_builtin(const void* cpv_input, void* pv_output)
+{
+    *(int*)pv_output = abs(*(int*)cpv_input);
+}
+void test_algo_transform__c_builtin(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_t* pvec_result = create_vector(int);
+    int an_array[] = {-1, -2, -3, -4, -5, -6, -7, -8, -9, 0};
+    int an_result[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    vector_init_copy_array(pvec_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_transform(vector_begin(pvec), vector_end(pvec), vector_begin(pvec), _test_algo_transform__c_builtin);
+    assert_true(iterator_equal(it, vector_end(pvec)));
+    assert_true(vector_equal(pvec, pvec_result));
+    vector_destroy(pvec);
+    vector_destroy(pvec_result);
+}
+
+static void _test_algo_transform__cstr(const void* cpv_input, void* pv_output)
+{
+    size_t i = 0;
+
+    for (i = 0; i < strlen((char*)cpv_input); ++i) {
+        ((char*)pv_output)[i] = toupper(((char*)cpv_input)[i]);
+    }
+}
+void test_algo_transform__cstr(void** state)
+{
+    list_t* plist = create_list(char*);
+    list_t* plist_result = create_list(char*);
+    const char* as_array[] = {"abc", "def", "aaa", "mmm", "xyz"};
+    const char* as_result[] = {"ABC", "DEF", "AAA", "MMM", "XYZ"};
+    iterator_t it;
+
+    list_init_copy_array(plist, as_array, sizeof(as_array)/sizeof(as_array[0]));
+    list_init_copy_array(plist_result, as_result, sizeof(as_result)/sizeof(as_result[0]));
+    it = algo_transform(list_begin(plist), list_end(plist), list_begin(plist), _test_algo_transform__cstr);
+    assert_true(iterator_equal(it, list_end(plist)));
+    assert_true(list_equal(plist, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_result);
+}
+
+static void _test_algo_transform__cstl_builtin(const void* cpv_input, void* pv_output)
+{
+    size_t i = 0;
+    vector_clear((vector_t*)pv_output);
+    for (i = 0; i < vector_size((vector_t*)cpv_input); ++i) {
+        vector_push_back((vector_t*)pv_output, *(int*)vector_at((vector_t*)cpv_input, i) + 100);
+    }
+}
+void test_algo_transform__cstl_builtin(void** state)
+{
+    deque_t* pdeq = create_deque(vector_t<int>);
+    deque_t* pdeq_result = create_deque(vector_t<int>);
+    vector_t* pvec = create_vector(int);
+    int aan_array[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {0, 1, 2}, {3, 4, 5}};
+    int aan_result[][3] = {{101, 102, 103}, {104, 105, 106}, {107, 108, 109}, {100, 101, 102}, {103, 104, 105}};
+    iterator_t it;
+    int i = 0;
+
+    deque_init(pdeq);
+    deque_init(pdeq_result);
+    vector_init(pvec);
+    for (i = 0; i < sizeof(aan_array)/sizeof(aan_array[0]); ++i) {
+        vector_assign_array(pvec, aan_array[i], sizeof(aan_array[i])/sizeof(aan_array[i][0]));
+        deque_push_back(pdeq, pvec);
+    }
+    for (i = 0; i < sizeof(aan_result)/sizeof(aan_result[0]); ++i) {
+        vector_assign_array(pvec, aan_result[i], sizeof(aan_result[i])/sizeof(aan_result[i][0]));
+        deque_push_back(pdeq_result, pvec);
+    }
+    it = algo_transform(deque_begin(pdeq), deque_end(pdeq), deque_begin(pdeq), _test_algo_transform__cstl_builtin);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+    vector_destroy(pvec);
+}
+
+typedef struct _tag_test_algo_transform__user_define {
+    int a;
+    int b;
+} _test_algo_transform__user_define_t;
+static void _test_algo_transform__user_define(const void* cpv_input, void* pv_output)
+{
+    _test_algo_transform__user_define_t t_elem;
+    memcpy(&t_elem, cpv_input, sizeof(_test_algo_transform__user_define_t));
+    ((_test_algo_transform__user_define_t*)pv_output)->a = t_elem.b;
+    ((_test_algo_transform__user_define_t*)pv_output)->b = t_elem.a;
+}
+void test_algo_transform__user_define(void** state)
+{
+    slist_t* pslist = NULL;
+    slist_t* pslist_result = NULL;
+    _test_algo_transform__user_define_t at_array[] = {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 0}};
+    _test_algo_transform__user_define_t at_result[] = {{2, 1}, {4, 3}, {6, 5}, {8, 7}, {0, 9}};
+    iterator_t it;
+    int i = 0;
+
+    type_register(_test_algo_transform__user_define_t, NULL, NULL, NULL, NULL);
+    pslist = create_slist(_test_algo_transform__user_define_t);
+    pslist_result = create_slist(_test_algo_transform__user_define_t);
+    slist_init(pslist);
+    slist_init(pslist_result);
+    for (i = 0; i < sizeof(at_array)/sizeof(at_array[0]); ++i) {
+        slist_push_front(pslist, &at_array[i]);
+    }
+    for (i = 0; i < sizeof(at_result)/sizeof(at_result[0]); ++i) {
+        slist_push_front(pslist_result, &at_result[i]);
+    }
+    it = algo_transform(slist_begin(pslist), slist_end(pslist), slist_begin(pslist), _test_algo_transform__user_define);
+    assert_true(iterator_equal(it, slist_end(pslist)));
+    assert_true(slist_equal(pslist, pslist_result));
+    slist_destroy(pslist);
+    slist_destroy(pslist_result);
+}
+

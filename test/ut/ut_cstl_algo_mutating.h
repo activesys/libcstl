@@ -85,6 +85,10 @@ void test_algo_transform__invalid_dest_range(void** state);
 void test_algo_transform__invalid_range_not_same_type(void** state);
 void test_algo_transform__source_range_empty(void** state);
 void test_algo_transform__ufun_NULL(void** state);
+void test_algo_transform__c_builtin(void** state);
+void test_algo_transform__cstr(void** state);
+void test_algo_transform__cstl_builtin(void** state);
+void test_algo_transform__user_define(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating, test_algo_copy__invalid_source_range),\
@@ -144,7 +148,11 @@ void test_algo_transform__ufun_NULL(void** state);
     UT_CASE(test_algo_transform__invalid_dest_range),\
     UT_CASE(test_algo_transform__invalid_range_not_same_type),\
     UT_CASE(test_algo_transform__source_range_empty),\
-    UT_CASE(test_algo_transform__ufun_NULL)
+    UT_CASE(test_algo_transform__ufun_NULL),\
+    UT_CASE(test_algo_transform__c_builtin),\
+    UT_CASE(test_algo_transform__cstr),\
+    UT_CASE(test_algo_transform__cstl_builtin),\
+    UT_CASE(test_algo_transform__user_define)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_H_ */
 
