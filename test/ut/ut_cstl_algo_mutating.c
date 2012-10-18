@@ -1187,3 +1187,310 @@ void test_algo_transform__user_define(void** state)
     slist_destroy(pslist_result);
 }
 
+/*
+ * test algo_transform_binary
+ */
+UT_CASE_DEFINATION(algo_transform_binary)
+void test_algo_transform_binary__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_transform_binary(vector_begin(pvec), list_begin(plist), list_begin(plist), deque_begin(pdeq), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_transform_binary__invalid_first_range2(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_transform_binary(vector_end(pvec), vector_begin(pvec), list_begin(plist), deque_begin(pdeq), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_transform_binary__invalid_first_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    it = vector_end(pvec);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_transform_binary(vector_begin(pvec), it, list_begin(plist), deque_begin(pdeq), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_transform_binary__invalid_second_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    it = list_begin(plist);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_transform_binary(vector_begin(pvec), vector_end(pvec), it, deque_begin(pdeq), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_transform_binary__invalid_dest_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_transform_binary(vector_begin(pvec), vector_end(pvec), list_begin(plist), it, NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_transform_binary__invalid_range_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(char*);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_transform_binary(vector_begin(pvec), vector_end(pvec), list_begin(plist), deque_begin(pdeq), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_transform_binary__invalid_range_not_same_type2(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_transform_binary(vector_begin(pvec), vector_end(pvec), list_begin(plist), deque_begin(pdeq), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_transform_binary__first_range_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    it = algo_transform_binary(vector_begin(pvec), vector_begin(pvec), list_begin(plist), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_transform_binary__bfun_NULL(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array1[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_array2[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array1, sizeof(an_array1)/sizeof(an_array1[0]));
+    list_init_copy_array(plist, an_array2, sizeof(an_array2)/sizeof(an_array2[0]));
+    deque_init_n(pdeq, 10);
+    it = algo_transform_binary(vector_begin(pvec), vector_end(pvec), vector_begin(pvec), list_begin(plist), NULL);
+    assert_true(iterator_equal(it, list_end(plist)));
+    assert_true(algo_equal(list_begin(plist), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+static void _test_algo_transform_binary__c_builtin(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(int*)pv_output = *(int*)cpv_first + *(int*)cpv_second;
+}
+void test_algo_transform_binary__c_builtin(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    slist_t* pslist = create_slist(int);
+    int an_array1[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_array2[] = {-1, -2, -3, -4, -5, -6, -7, -8, -9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array1, sizeof(an_array1)/sizeof(an_array1[0]));
+    list_init_copy_array(plist, an_array2, sizeof(an_array2)/sizeof(an_array2[0]));
+    deque_init_n(pdeq, 10);
+    slist_init_n(pslist, 10);
+    it = algo_transform_binary(vector_begin(pvec), vector_end(pvec), list_begin(plist), deque_begin(pdeq), _test_algo_transform_binary__c_builtin);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(algo_equal(deque_begin(pdeq), deque_end(pdeq), slist_begin(pslist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+}
+
+static void _test_algo_transform_binary__cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+}
+
+void test_algo_transform_binary__cstr(void** state)
+{
+    vector_t* pvec = create_vector(char*);
+    list_t* plist = create_list(char*);
+    deque_t* pdeq = create_deque(char*);
+    slist_t* pslist = create_slist(char*);
+    const char* as_array1[] = {"abc", "def", "hij", "opq", "mno"};
+    const char* as_array2[] = {"ABC", "DEF", "HIJ", "OPQ", "MNO"};
+    const char* as_array3[] = {"xxxx", "xxxx", "xxxx", "xxxx", "xxxx"};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, as_array1, sizeof(as_array1)/sizeof(as_array1[0]));
+    list_init_copy_array(plist, as_array2, sizeof(as_array2)/sizeof(as_array2[0]));
+    deque_init_copy_array(pdeq, as_array3, sizeof(as_array3)/sizeof(as_array3[0]));
+    slist_init_n(pslist, 5);
+    it = algo_transform_binary(vector_begin(pvec), vector_end(pvec), list_begin(plist), deque_begin(pdeq), _test_algo_transform_binary__cstr);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(algo_equal(deque_begin(pdeq), deque_end(pdeq), slist_begin(pslist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+}
+
+static void _test_algo_transform_binary__cstl_builtin(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    set_clear((set_t*)pv_output);
+    set_insert_range((set_t*)pv_output, set_begin((set_t*)cpv_first), set_end((set_t*)cpv_first));
+    set_insert_range((set_t*)pv_output, set_begin((set_t*)cpv_second), set_end((set_t*)cpv_second));
+}
+void test_algo_transform_binary__cstl_builtin(void** state)
+{
+    vector_t* pvec = create_vector(set_t<int>);
+    list_t* plist = create_list(set_t<int>);
+    deque_t* pdeq = create_deque(set_t<int>);
+    slist_t* pslist = create_slist(set_t<int>);
+    set_t* pset = create_set(int);
+    int aan_array1[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}, {13, 14, 15}};
+    int aan_array2[][2] = {{100, 101}, {102, 103}, {104, 105}, {106, 107}, {108, 109}};
+    int aan_result[][5] = {{13, 14, 15, 108, 109}, {10, 11, 12, 106, 107}, {7, 8, 9, 104, 105}, {4, 5, 6, 102, 103}, {1, 2, 3, 100, 101}};
+    iterator_t it;
+    int i = 0;
+
+    vector_init(pvec);
+    list_init(plist);
+    deque_init_n(pdeq, 5);
+    slist_init(pslist);
+    set_init(pset);
+    for (i = 0; i < sizeof(aan_array1)/sizeof(aan_array1[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_array1[i], sizeof(aan_array1[i])/sizeof(aan_array1[i][0]));
+        vector_push_back(pvec, pset);
+    }
+    for (i = 0; i < sizeof(aan_array2)/sizeof(aan_array2[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_array2[i], sizeof(aan_array2[i])/sizeof(aan_array2[i][0]));
+        list_push_back(plist, pset);
+    }
+    for (i = 0; i < sizeof(aan_result)/sizeof(aan_result[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_result[i], sizeof(aan_result[i])/sizeof(aan_result[i][0]));
+        slist_push_front(pslist, pset);
+    }
+    it = algo_transform_binary(vector_begin(pvec), vector_end(pvec), list_begin(plist), deque_begin(pdeq), _test_algo_transform_binary__cstl_builtin);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(algo_equal(deque_begin(pdeq), deque_end(pdeq), slist_begin(pslist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+    set_destroy(pset);
+}
+
+typedef struct _tag_test_algo_transform_binary__user_define {
+    int a;
+    int b;
+} _test_algo_transform_binary__user_define_t;
+static void _test_algo_transform_binary__user_define(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    _test_algo_transform_binary__user_define_t* pt_first = ((_test_algo_transform_binary__user_define_t*)cpv_first);
+    _test_algo_transform_binary__user_define_t* pt_second = ((_test_algo_transform_binary__user_define_t*)cpv_second);
+    _test_algo_transform_binary__user_define_t* pt_output = ((_test_algo_transform_binary__user_define_t*)pv_output);
+
+    pt_output->a = pt_first->a + pt_second->a;
+    pt_output->b = pt_first->b + pt_second->b;
+}
+void test_algo_transform_binary__user_define(void** state)
+{
+    vector_t* pvec = NULL;
+    list_t* plist = NULL;
+    deque_t* pdeq = NULL;
+    slist_t* pslist = NULL;
+    _test_algo_transform_binary__user_define_t at_array1[] = {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 0}};
+    _test_algo_transform_binary__user_define_t at_array2[] = {{-1, -2}, {-3, -4}, {-5, -6}, {-7, -8}, {-9, 0}};
+    iterator_t it;
+    int i = 0;
+
+    type_register(_test_algo_transform_binary__user_define_t, NULL, NULL, NULL, NULL);
+    pvec = create_vector(_test_algo_transform_binary__user_define_t);
+    plist = create_list(_test_algo_transform_binary__user_define_t);
+    pdeq = create_deque(_test_algo_transform_binary__user_define_t);
+    pslist = create_slist(_test_algo_transform_binary__user_define_t);
+    vector_init(pvec);
+    list_init(plist);
+    deque_init_n(pdeq, 5);
+    slist_init_n(pslist, 5);
+    for (i = 0; i < sizeof(at_array1)/sizeof(at_array1[0]); ++i) {
+        vector_push_back(pvec, &at_array1[i]);
+    }
+    for (i = 0; i < sizeof(at_array2)/sizeof(at_array2[0]); ++i) {
+        list_push_back(plist, &at_array2[i]);
+    }
+    it = algo_transform_binary(vector_begin(pvec), vector_end(pvec), list_begin(plist), deque_begin(pdeq), _test_algo_transform_binary__user_define);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(algo_equal(deque_begin(pdeq), deque_end(pdeq), slist_begin(pslist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+}
+

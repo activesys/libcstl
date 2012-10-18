@@ -89,6 +89,23 @@ void test_algo_transform__c_builtin(void** state);
 void test_algo_transform__cstr(void** state);
 void test_algo_transform__cstl_builtin(void** state);
 void test_algo_transform__user_define(void** state);
+/*
+ * test algo_transform_binary
+ */
+UT_CASE_DECLARATION(algo_transform_binary)
+void test_algo_transform_binary__invalid_first_range(void** state);
+void test_algo_transform_binary__invalid_first_range2(void** state);
+void test_algo_transform_binary__invalid_first_range3(void** state);
+void test_algo_transform_binary__invalid_second_range(void** state);
+void test_algo_transform_binary__invalid_dest_range(void** state);
+void test_algo_transform_binary__invalid_range_not_same_type(void** state);
+void test_algo_transform_binary__invalid_range_not_same_type2(void** state);
+void test_algo_transform_binary__first_range_empty(void** state);
+void test_algo_transform_binary__bfun_NULL(void** state);
+void test_algo_transform_binary__c_builtin(void** state);
+void test_algo_transform_binary__cstr(void** state);
+void test_algo_transform_binary__cstl_builtin(void** state);
+void test_algo_transform_binary__user_define(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating, test_algo_copy__invalid_source_range),\
@@ -152,7 +169,20 @@ void test_algo_transform__user_define(void** state);
     UT_CASE(test_algo_transform__c_builtin),\
     UT_CASE(test_algo_transform__cstr),\
     UT_CASE(test_algo_transform__cstl_builtin),\
-    UT_CASE(test_algo_transform__user_define)
+    UT_CASE(test_algo_transform__user_define),\
+    UT_CASE_BEGIN(algo_transform_binary, test_algo_transform_binary__invalid_first_range),\
+    UT_CASE(test_algo_transform_binary__invalid_first_range2),\
+    UT_CASE(test_algo_transform_binary__invalid_first_range3),\
+    UT_CASE(test_algo_transform_binary__invalid_second_range),\
+    UT_CASE(test_algo_transform_binary__invalid_dest_range),\
+    UT_CASE(test_algo_transform_binary__invalid_range_not_same_type),\
+    UT_CASE(test_algo_transform_binary__invalid_range_not_same_type2),\
+    UT_CASE(test_algo_transform_binary__first_range_empty),\
+    UT_CASE(test_algo_transform_binary__bfun_NULL),\
+    UT_CASE(test_algo_transform_binary__c_builtin),\
+    UT_CASE(test_algo_transform_binary__cstr),\
+    UT_CASE(test_algo_transform_binary__cstl_builtin),\
+    UT_CASE(test_algo_transform_binary__user_define)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_H_ */
 

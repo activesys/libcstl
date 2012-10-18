@@ -109,7 +109,7 @@ extern forward_iterator_t algo_swap_ranges(forward_iterator_t it_first1, forward
  *          The two ranges must be contain same element type, otherwise the behavior of algorithm is undefined.
  */
 extern output_iterator_t algo_transform(
-    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t t_result, unary_function_t ufun_op);
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, unary_function_t ufun_op);
 
 /**
  * Applies a specified function object to a pair of elements from two source ranges and copies the return values of the function into a destination range.
@@ -124,7 +124,7 @@ extern output_iterator_t algo_transform(
  *          The two ranges must be contain same element type, otherwise the behavior of algorithm is undefined.
  */
 extern output_iterator_t algo_transform_binary(
-    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, output_iterator_t t_result, binary_function_t bfun_op);
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, output_iterator_t it_result, binary_function_t bfun_op);
 
 #ifdef __cplusplus
 }

@@ -194,37 +194,28 @@ output_iterator_t algo_transform_binary(
     assert(_iterator_same_elem_type(it_first1, it_result));
     assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         bfun_op = fun_default_binary;
     }
 
     pv_value = _iterator_allocate_init_elem(it_first1);
 
-    if(strncmp(_iterator_get_typebasename(it_first1), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        for(;
-            !iterator_equal(it_first1, it_last1);
-            it_first1 = iterator_next(it_first1),
-            it_first2 = iterator_next(it_first2),
-            it_result = iterator_next(it_result))
-        {
-            (*bfun_op)(
-                iterator_get_pointer(it_first1), iterator_get_pointer(it_first2),
-                (char*)string_c_str((string_t*)pv_value));
+    if (strncmp(_iterator_get_typebasename(it_first1), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        for (;
+             !iterator_equal(it_first1, it_last1);
+             it_first1 = iterator_next(it_first1),
+             it_first2 = iterator_next(it_first2),
+             it_result = iterator_next(it_result)) {
+            (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), (char*)string_c_str((string_t*)pv_value));
             iterator_set_value(it_result, string_c_str((string_t*)pv_value));
         }
-    }
-    else
-    {
-        for(;
-            !iterator_equal(it_first1, it_last1);
-            it_first1 = iterator_next(it_first1),
-            it_first2 = iterator_next(it_first2),
-            it_result = iterator_next(it_result))
-        {
-            (*bfun_op)(
-                iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), pv_value);
+    } else {
+        for (;
+             !iterator_equal(it_first1, it_last1);
+             it_first1 = iterator_next(it_first1),
+             it_first2 = iterator_next(it_first2),
+             it_result = iterator_next(it_result)) {
+            (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), pv_value);
             iterator_set_value(it_result, pv_value);
         }
     }
