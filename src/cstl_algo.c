@@ -890,61 +890,6 @@ output_iterator_t algo_remove_copy_if(
     return t_result;
 }
 
-void _algo_replace_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    unary_function_t t_unary_op, ...)
-{
-    va_list val_elemlist;
-
-    va_start(val_elemlist, t_unary_op);
-    _algo_replace_if_varg(t_first, t_last, t_unary_op, val_elemlist);
-    va_end(val_elemlist);
-}
-
-void _algo_replace_if_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    unary_function_t t_unary_op, va_list val_elemlist)
-{
-    void*  pv_value = NULL;
-    bool_t t_result = false;
-
-    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
-
-    if(t_unary_op == NULL)
-    {
-        t_unary_op = fun_default_unary;
-    }
-
-    pv_value = _iterator_allocate_init_elem(t_first);
-    _type_get_varg_value(_iterator_get_typeinfo(t_first), val_elemlist, pv_value);
-
-    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
-        {
-            (*t_unary_op)(iterator_get_pointer(t_first), &t_result);
-            if(t_result)
-            {
-                iterator_set_value(t_first, string_c_str((string_t*)pv_value));
-            }
-        }
-    }
-    else
-    {
-        for(; !iterator_equal(t_first, t_last); t_first = iterator_next(t_first))
-        {
-            (*t_unary_op)(iterator_get_pointer(t_first), &t_result);
-            if(t_result)
-            {
-                iterator_set_value(t_first, pv_value);
-            }
-        }
-    }
-
-    _iterator_deallocate_destroy_elem(t_first, pv_value);
-    pv_value = NULL;
-}
-
 output_iterator_t _algo_replace_copy_if(
     input_iterator_t t_first, input_iterator_t t_last,
     output_iterator_t t_result, unary_function_t t_unary_op, ...)

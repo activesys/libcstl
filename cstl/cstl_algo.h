@@ -60,8 +60,6 @@ extern "C" {
             t_copy = iterator_next(t_copy);\
         }\
     }while(false)
-#define algo_replace_if(t_first, t_last, t_unary_op, elem)\
-    _algo_replace_if((t_first), (t_last), (t_unary_op), (elem))
 #define algo_replace_copy_if(t_first, t_last, t_result, t_unary_op, elem)\
     _algo_replace_copy_if((t_first), (t_last), (t_result), (t_unary_op), (elem))
 /* lower bound */

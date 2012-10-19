@@ -53,12 +53,6 @@ extern forward_iterator_t _algo_remove_varg(
 /*
  * Replace algorithm.
  */
-extern void _algo_replace_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    unary_function_t t_unary_op, ...);
-extern void _algo_replace_if_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    unary_function_t t_unary_op, va_list val_elemlist);
 extern output_iterator_t _algo_replace_copy_if(
     input_iterator_t t_first, input_iterator_t t_last,
     output_iterator_t t_result, unary_function_t t_unary_op, ...);

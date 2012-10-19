@@ -53,6 +53,17 @@ extern "C" {
         }\
     }while(false)
 
+/**
+ * Examines each element in a range and replaces it if it satisfies a specified predicate.
+ * @param it_first      A forward iterator pointing to the position of the first element in the range from which elements are being replaced.
+ * @param it_last       An iterator pointing to the position one past the final element in the range from which elements are being replaced.
+ * @param ufun_op       The unary predicate that must be satisfied is the value of an element is to be replaced.
+ * @param elem          The new value being assigned to the elements whose old value satisfies the predicate.
+ * @return  void.
+ * @remarks The range referenced must be valid, otherwise the behavior is undefined.
+ */
+#define algo_replace_if(it_first, it_last, ufun_op, elem) _algo_replace_if((it_first), (it_last), (ufun_op), (elem))
+
 /** data type declaration and struct, union, enum section **/
 
 /** exported global variable declaration section **/

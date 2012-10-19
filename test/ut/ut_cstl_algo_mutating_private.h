@@ -12,13 +12,35 @@ void test__algo_replace_once__algo_replace_once_varg__c_builtin(void** state);
 void test__algo_replace_once__algo_replace_once_varg__cstr(void** state);
 void test__algo_replace_once__algo_replace_once_varg__cstl_builtin(void** state);
 void test__algo_replace_once__algo_replace_once_varg__user_define(void** state);
+/*
+ * test _algo_replace_if and _algo_replace_if_varg
+ */
+UT_CASE_DECLARATION(_algo_replace_if__algo_replace_if_varg)
+void test__algo_replace_if__algo_replace_if_varg__invalid_range(void** state);
+void test__algo_replace_if__algo_replace_if_varg__invalid_range2(void** state);
+void test__algo_replace_if__algo_replace_if_varg__invalid_range3(void** state);
+void test__algo_replace_if__algo_replace_if_varg__range_empty(void** state);
+void test__algo_replace_if__algo_replace_if_varg__ufun_NULL(void** state);
+void test__algo_replace_if__algo_replace_if_varg__c_builtin(void** state);
+void test__algo_replace_if__algo_replace_if_varg__cstr(void** state);
+void test__algo_replace_if__algo_replace_if_varg__cstl_builtin(void** state);
+void test__algo_replace_if__algo_replace_if_varg__user_define(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating_private, test__algo_replace_once__algo_replace_once_varg__invalid_iter),\
     UT_CASE(test__algo_replace_once__algo_replace_once_varg__c_builtin),\
     UT_CASE(test__algo_replace_once__algo_replace_once_varg__cstr),\
     UT_CASE(test__algo_replace_once__algo_replace_once_varg__cstl_builtin),\
-    UT_CASE(test__algo_replace_once__algo_replace_once_varg__user_define)
+    UT_CASE(test__algo_replace_once__algo_replace_once_varg__user_define),\
+    UT_CASE_BEGIN(_algo_replace_if__algo_replace_if_varg, test__algo_replace_if__algo_replace_if_varg__invalid_range),\
+    UT_CASE(test__algo_replace_if__algo_replace_if_varg__invalid_range2),\
+    UT_CASE(test__algo_replace_if__algo_replace_if_varg__invalid_range3),\
+    UT_CASE(test__algo_replace_if__algo_replace_if_varg__range_empty),\
+    UT_CASE(test__algo_replace_if__algo_replace_if_varg__ufun_NULL),\
+    UT_CASE(test__algo_replace_if__algo_replace_if_varg__c_builtin),\
+    UT_CASE(test__algo_replace_if__algo_replace_if_varg__cstr),\
+    UT_CASE(test__algo_replace_if__algo_replace_if_varg__cstl_builtin),\
+    UT_CASE(test__algo_replace_if__algo_replace_if_varg__user_define)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_PRIVATE_H_ */
 
