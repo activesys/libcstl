@@ -36,6 +36,23 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
+/**
+ * Replace element that pointed by iterator with specific value.
+ * @param it_iter       A forward iterator pointing to the element are being replaced.
+ * @param ...           The new value being assigned to the elements with the old value.
+ * @return  void.
+ * @remarks The iterator must be valid, otherwise the behavior is undefined.
+ */
+extern void _algo_replace_once(forward_iterator_t it_iter, ...);
+
+/**
+ * Replace element that pointed by iterator with specific value.
+ * @param it_iter       A forward iterator pointing to the element are being replaced.
+ * @param ...           The new value being assigned to the elements with the old value.
+ * @return  void.
+ * @remarks The iterator must be valid, otherwise the behavior is undefined.
+ */
+extern void _algo_replace_once_varg(forward_iterator_t it_iter, va_list val_elemlist);
 
 #ifdef __cplusplus
 }

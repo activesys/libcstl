@@ -36,20 +36,6 @@ extern "C" {
 #define algo_remove(t_first, t_last, elem)\
     _algo_remove((t_first), (t_last), (elem))
 /* replace */
-#define algo_replace(t_first, t_last, old_elem, new_elem)\
-    do\
-    {\
-        iterator_t t_begin = (t_first);\
-        iterator_t t_end = (t_last);\
-        assert(_iterator_valid_range(t_begin, t_end, _FORWARD_ITERATOR));\
-        t_begin = algo_find(t_begin, t_end, (old_elem));\
-        while(!iterator_equal(t_begin, t_end))\
-        {\
-            _algo_replace_once(t_begin, (new_elem));\
-            t_begin = iterator_next(t_begin);\
-            t_begin = algo_find(t_begin, t_end, (old_elem));\
-        }\
-    }while(false)
 #define algo_replace_copy(t_first, t_last, t_result, old_elem, new_elem)\
     do\
     {\

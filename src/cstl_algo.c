@@ -890,34 +890,6 @@ output_iterator_t algo_remove_copy_if(
     return t_result;
 }
 
-void _algo_replace_once(forward_iterator_t t_iterator, ...)
-{
-    va_list val_elemlist;
-
-    va_start(val_elemlist, t_iterator);
-    _algo_replace_once_varg(t_iterator, val_elemlist);
-    va_end(val_elemlist);
-}
-
-void _algo_replace_once_varg(
-    forward_iterator_t t_iterator, va_list val_elemlist)
-{
-    void* pv_value = _iterator_allocate_init_elem(t_iterator);
-    _type_get_varg_value(_iterator_get_typeinfo(t_iterator), val_elemlist, pv_value);
-
-    if(strncmp(_iterator_get_typebasename(t_iterator), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        iterator_set_value(t_iterator, string_c_str((string_t*)pv_value));
-    }
-    else
-    {
-        iterator_set_value(t_iterator, pv_value);
-    }
-
-    _iterator_deallocate_destroy_elem(t_iterator, pv_value);
-    pv_value = NULL;
-}
-
 void _algo_replace_if(
     forward_iterator_t t_first, forward_iterator_t t_last,
     unary_function_t t_unary_op, ...)

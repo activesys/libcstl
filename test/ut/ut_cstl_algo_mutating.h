@@ -106,6 +106,18 @@ void test_algo_transform_binary__c_builtin(void** state);
 void test_algo_transform_binary__cstr(void** state);
 void test_algo_transform_binary__cstl_builtin(void** state);
 void test_algo_transform_binary__user_define(void** state);
+/*
+ * test algo_replace
+ */
+UT_CASE_DECLARATION(algo_replace)
+void test_algo_replace__invalid_range(void** state);
+void test_algo_replace__invalid_range2(void** state);
+void test_algo_replace__invalid_range3(void** state);
+void test_algo_replace__c_builtin(void** state);
+void test_algo_replace__cstr(void** state);
+void test_algo_replace__cstl_builtin(void** state);
+void test_algo_replace__user_define(void** state);
+
 
 #define UT_CSTL_ALGO_MUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating, test_algo_copy__invalid_source_range),\
@@ -182,7 +194,14 @@ void test_algo_transform_binary__user_define(void** state);
     UT_CASE(test_algo_transform_binary__c_builtin),\
     UT_CASE(test_algo_transform_binary__cstr),\
     UT_CASE(test_algo_transform_binary__cstl_builtin),\
-    UT_CASE(test_algo_transform_binary__user_define)
+    UT_CASE(test_algo_transform_binary__user_define),\
+    UT_CASE_BEGIN(algo_replace, test_algo_replace__invalid_range),\
+    UT_CASE(test_algo_replace__invalid_range2),\
+    UT_CASE(test_algo_replace__invalid_range3),\
+    UT_CASE(test_algo_replace__c_builtin),\
+    UT_CASE(test_algo_replace__cstr),\
+    UT_CASE(test_algo_replace__cstl_builtin),\
+    UT_CASE(test_algo_replace__user_define)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_H_ */
 

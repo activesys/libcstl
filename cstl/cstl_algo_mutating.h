@@ -30,6 +30,28 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
+/**
+ * Examines each element in a range and replaces it if it matches a specified value.
+ * @param it_first      A forward iterator pointing to the position of the first element in the range from which elements are being replaced.
+ * @param it_last       A forward iterator pointing to the position one past the final element in the range from which elements are being replaced.
+ * @param old_elem      The old value of the elements being replaced.
+ * @param new_elem      The new value being assigned to the elements with the old value.
+ * @return  void.
+ * @remarks The range recerenced must be valid, otherwise the behavior is undefined.
+ */
+#define algo_replace(it_first, it_last, old_elem, new_elem)\
+    do\
+    {\
+        iterator_t it_begin = (it_first);\
+        iterator_t it_end = (it_last);\
+        assert(_iterator_valid_range(it_begin, it_end, _FORWARD_ITERATOR));\
+        it_begin = algo_find(it_begin, it_end, (old_elem));\
+        while (!iterator_equal(it_begin, it_end)) {\
+            _algo_replace_once(it_begin, (new_elem));\
+            it_begin = iterator_next(it_begin);\
+            it_begin = algo_find(it_begin, it_end, (old_elem));\
+        }\
+    }while(false)
 
 /** data type declaration and struct, union, enum section **/
 
