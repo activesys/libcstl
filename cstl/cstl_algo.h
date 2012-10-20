@@ -36,6 +36,7 @@ extern "C" {
 #define algo_remove(t_first, t_last, elem)\
     _algo_remove((t_first), (t_last), (elem))
 /* replace */
+    /*
 #define algo_replace_copy(t_first, t_last, t_result, old_elem, new_elem)\
     do\
     {\
@@ -54,12 +55,12 @@ extern "C" {
             }\
             else\
             {\
-                /* delete element */\
                 iterator_set_value(t_copy, iterator_get_pointer(t_begin));\
             }\
             t_copy = iterator_next(t_copy);\
         }\
     }while(false)
+    */
 #define algo_replace_copy_if(t_first, t_last, t_result, t_unary_op, elem)\
     _algo_replace_copy_if((t_first), (t_last), (t_result), (t_unary_op), (elem))
 /* lower bound */

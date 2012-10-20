@@ -1628,3 +1628,196 @@ void test_algo_replace__user_define(void** state)
     slist_destroy(pslist_result);
 }
 
+/*
+ * test algo_replace_copy
+ */
+UT_CASE_DEFINATION(algo_replace_copy)
+void test_algo_replace_copy__invalid_source_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_replace_copy(vector_begin(pvec), list_begin(plist), deque_begin(pdeq), 0, 10));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_replace_copy__invalid_source_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    slist_t* pslist = create_slist(int);
+
+    deque_init_n(pdeq, 10);
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_replace_copy(deque_end(pdeq), deque_begin(pdeq), slist_begin(pslist), 0, 10));
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+}
+
+void test_algo_replace_copy__invalid_source_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    it = vector_begin(pvec);
+    it._t_iteratortype = _INPUT_ITERATOR;
+    expect_assert_failure(algo_replace_copy(it, vector_end(pvec), deque_begin(pdeq), 0, 10));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_replace_copy__invalid_dest_range(void** state)
+{
+    list_t* plist = create_list(int);
+    slist_t* pslist = create_slist(int);
+    iterator_t it;
+
+    list_init_n(plist, 10);
+    slist_init_n(pslist, 10);
+    it = slist_begin(pslist);
+    it._t_iteratortype = _OUTPUT_ITERATOR;
+    expect_assert_failure(algo_replace_copy(list_begin(plist), list_end(plist), it, 0, 10));
+    list_destroy(plist);
+    slist_destroy(pslist);
+}
+
+void test_algo_replace_copy__invalid_range_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(char*);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_replace_copy(vector_begin(pvec), vector_end(pvec), list_begin(plist), 0, 0));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+void test_algo_replace_copy__source_range_empty(void** state)
+{
+    set_t* pset = create_set(int);
+    multiset_t* pmset = create_multiset(int);
+
+    set_init(pset);
+    multiset_init(pmset);
+    algo_replace_copy(set_begin(pset), set_end(pset), multiset_begin(pmset), 0, 100);
+    set_destroy(pset);
+    multiset_destroy(pmset);
+}
+
+void test_algo_replace_copy__c_builtin(void** state)
+{
+    vector_t* pvec_src = create_vector(int);
+    vector_t* pvec_dest = create_vector(int);
+    vector_t* pvec_result = create_vector(int);
+    int an_array[] = {1, 3, 5, 0, 29, 1, 6, 72, 1, 1};
+    int an_result[] = {0, 3, 5, 0, 29, 0, 6, 72, 0, 0};
+
+    vector_init_copy_array(pvec_src, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    vector_init_n(pvec_dest, 10);
+    vector_init_copy_array(pvec_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    algo_replace_copy(vector_begin(pvec_src), vector_end(pvec_src), vector_begin(pvec_dest), 1, 0);
+    assert_true(vector_equal(pvec_dest, pvec_result));
+    vector_destroy(pvec_src);
+    vector_destroy(pvec_dest);
+    vector_destroy(pvec_result);
+}
+
+void test_algo_replace_copy__cstr(void** state)
+{
+    list_t* plist_src = create_list(char*);
+    list_t* plist_dest = create_list(char*);
+    list_t* plist_result = create_list(char*);
+    const char* as_array[] = {"Windows", "Linux", "Linux", "Windows", "Windows"};
+    const char* as_result[] = {"XXOO", "Linux", "Linux", "XXOO", "XXOO"};
+
+    list_init_copy_array(plist_src, as_array, sizeof(as_array)/sizeof(as_array[0]));
+    list_init_n(plist_dest, 5);
+    list_init_copy_array(plist_result, as_result, sizeof(as_result)/sizeof(as_result[0]));
+    algo_replace_copy(list_begin(plist_src), list_end(plist_src), list_begin(plist_dest), "Windows", "XXOO");
+    assert_true(list_equal(plist_result, plist_dest));
+    list_destroy(plist_src);
+    list_destroy(plist_dest);
+    list_destroy(plist_result);
+}
+
+void test_algo_replace_copy__cstl_builtin(void** state)
+{
+    deque_t* pdeq_src = create_deque(set_t<int>);
+    deque_t* pdeq_dest = create_deque(set_t<int>);
+    deque_t* pdeq_result = create_deque(set_t<int>);
+    set_t* pset = create_set(int);
+    set_t* pset_new = create_set(int);
+    int aan_array[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 2, 3}, {4, 5, 6}};
+    int aan_result[][3] = {{100, 200, 300}, {4, 5, 6}, {7, 8, 9}, {100, 200, 300}, {4, 5, 6}};
+    int i = 0;
+
+    deque_init(pdeq_src);
+    deque_init_n(pdeq_dest, 5);
+    deque_init(pdeq_result);
+    set_init(pset);
+    set_init(pset_new);
+    for (i = 0; i < sizeof(aan_array)/sizeof(aan_array[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_array[i], sizeof(aan_array[i])/sizeof(aan_array[i][0]));
+        deque_push_back(pdeq_src, pset);
+    }
+    for (i = 0; i < sizeof(aan_result)/sizeof(aan_result[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_result[i], sizeof(aan_result[i])/sizeof(aan_result[i][0]));
+        deque_push_back(pdeq_result, pset);
+    }
+    set_clear(pset);
+    set_insert_array(pset, aan_array[0], sizeof(aan_array[0])/sizeof(aan_array[0][0]));
+    set_clear(pset_new);
+    set_insert_array(pset_new, aan_result[0], sizeof(aan_result[0])/sizeof(aan_result[0][0]));
+    algo_replace_copy(deque_begin(pdeq_src), deque_end(pdeq_src), deque_begin(pdeq_dest), pset, pset_new);
+    assert_true(deque_equal(pdeq_dest, pdeq_result));
+    deque_destroy(pdeq_src);
+    deque_destroy(pdeq_dest);
+    deque_destroy(pdeq_result);
+    set_destroy(pset);
+    set_destroy(pset_new);
+}
+
+typedef struct _tag_test_algo_replace_copy__user_define {
+    int a;
+    int b;
+} _test_algo_replace_copy__user_define_t;
+void test_algo_replace_copy__user_define(void** state)
+{
+    slist_t* pslist_src = NULL;
+    slist_t* pslist_dest = NULL;
+    slist_t* pslist_result = NULL;
+    _test_algo_replace_copy__user_define_t at_array[] = {{1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}};
+    _test_algo_replace_copy__user_define_t at_result[] = {{100, 100}, {100, 100}, {100, 100}, {100, 100}, {100, 100}};
+    int i = 0;
+
+    type_register(_test_algo_replace_copy__user_define_t, NULL, NULL, NULL, NULL);
+    pslist_src = create_slist(_test_algo_replace_copy__user_define_t);
+    pslist_dest = create_slist(_test_algo_replace_copy__user_define_t);
+    pslist_result = create_slist(_test_algo_replace_copy__user_define_t);
+    slist_init(pslist_src);
+    slist_init_n(pslist_dest, 5);
+    slist_init(pslist_result);
+    for (i = 0; i < sizeof(at_array)/sizeof(at_array[0]); ++i) {
+        slist_push_front(pslist_src, &at_array[i]);
+    }
+    for (i = 0; i < sizeof(at_result)/sizeof(at_result[0]); ++i) {
+        slist_push_front(pslist_result, &at_result[i]);
+    }
+    algo_replace_copy(slist_begin(pslist_src), slist_end(pslist_src), slist_begin(pslist_dest), &at_array[0], &at_result[0]);
+    assert_true(slist_equal(pslist_dest, pslist_result));
+    slist_destroy(pslist_src);
+    slist_destroy(pslist_dest);
+    slist_destroy(pslist_result);
+}
+
