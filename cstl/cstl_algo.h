@@ -35,34 +35,6 @@ extern "C" {
     _algo_remove_copy((t_first), (t_last), (t_result), (elem))
 #define algo_remove(t_first, t_last, elem)\
     _algo_remove((t_first), (t_last), (elem))
-/* replace */
-    /*
-#define algo_replace_copy(t_first, t_last, t_result, old_elem, new_elem)\
-    do\
-    {\
-        iterator_t t_begin = (t_first);\
-        iterator_t t_end = (t_last);\
-        iterator_t t_copy = (t_result);\
-        iterator_t t_tmp;\
-        assert(_iterator_valid_range(t_begin, t_end, _INPUT_ITERATOR));\
-        assert(_iterator_limit_type(t_copy, _OUTPUT_ITERATOR));\
-        for(; !iterator_equal(t_begin, t_end); t_begin = iterator_next(t_begin))\
-        {\
-            t_tmp = algo_find(t_begin, t_end, (old_elem));\
-            if(iterator_equal(t_tmp, t_begin))\
-            {\
-                _algo_replace_once(t_copy, (new_elem));\
-            }\
-            else\
-            {\
-                iterator_set_value(t_copy, iterator_get_pointer(t_begin));\
-            }\
-            t_copy = iterator_next(t_copy);\
-        }\
-    }while(false)
-    */
-#define algo_replace_copy_if(t_first, t_last, t_result, t_unary_op, elem)\
-    _algo_replace_copy_if((t_first), (t_last), (t_result), (t_unary_op), (elem))
 /* lower bound */
 #define algo_lower_bound(t_first, t_last, elem)\
     _algo_lower_bound((t_first), (t_last), (elem))

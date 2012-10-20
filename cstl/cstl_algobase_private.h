@@ -36,17 +36,6 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Fill algorithm.
- */
-extern void _algo_fill(
-    forward_iterator_t t_first, forward_iterator_t t_last, ...);
-extern void _algo_fill_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last, va_list val_elemlist);
-extern output_iterator_t _algo_fill_n(
-    forward_iterator_t t_first, size_t t_fillsize, ...);
-extern output_iterator_t _algo_fill_n_varg(
-    forward_iterator_t t_first, size_t t_fillsize, va_list val_elemlist);
 
 #ifdef __cplusplus
 }

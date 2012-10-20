@@ -30,10 +30,6 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-#define algo_fill(t_first, t_last, elem)\
-    _algo_fill((t_first), (t_last), (elem))
-#define algo_fill_n(t_first, t_fillsize, elem)\
-    _algo_fill_n((t_first), (t_fillsize), (elem))
 
 /** data type declaration and struct, union, enum section **/
 

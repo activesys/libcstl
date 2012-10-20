@@ -92,6 +92,38 @@ extern "C" {
         }\
     } while (false)
 
+/**
+ * Examines each element in a source range and replaces it if it satisfies a specified predicate while copying the result into a new destination range.
+ * @param it_first      An input iterator pointing to the position of the first element in the range from which elements are being replaced.
+ * @param it_last       An input iterator pointing to the position one past the final element in the range from which elements are being replaced.
+ * @param it_result     An output iterator pointing to the position of the first element in the destination range to which elements are being copied.
+ * @param ufun_op       The unary predicate that must be satisfied is the value of an element is to be replaced.
+ * @param elem          The new value being assigned to the elements whose old value satisfies the predicate.
+ * @return  An output iterator pointing to the position one past the final element in the destination range to where the altered sequence of elements is being copied.
+ * @remarks The source and destination ranges referenced must not overlap and must both be valid, otherwise the behavior is undefined.
+ */
+#define algo_replace_copy_if(it_first, it_last, it_result, ufun_op, elem) _algo_replace_copy_if((it_first), (it_last), (it_result), (ufun_op), (elem))
+
+/**
+ * Assigns the same new value to every element in a specified range.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be traversed.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be traversed.
+ * @param elem          The value to be assigned to elements in the range [it_first, it_last).
+ * @return  void.
+ * @remarks The destination range must be valid, otherwise the behavior is undefined.
+ */
+#define algo_fill(it_first, it_last, elem) _algo_fill((it_first), (it_last), (elem))
+
+/**
+ * Assigns a new value to a specified number of elements in a range beginning with a particular element.
+ * @param it_first      An output iterator addressing the position of the first element in the range to be assigned the value elem.
+ * @param t_fillsize    The number of elements to be assigned the value.
+ * @param elem          The value to be assigned to elements in the range [it_first, it_first + t_fillsize).
+ * @return  An output iterator pointing to the position one past the final element in the destination range to where the altered sequence of elements is being filled.
+ * @remarks The destination range must be valid, otherwise the behavior is undefined.
+ */
+#define algo_fill_n(it_first, t_fillsize, elem) _algo_fill_n((it_first), (t_fillsize), (elem))
+
 /** data type declaration and struct, union, enum section **/
 
 /** exported global variable declaration section **/
