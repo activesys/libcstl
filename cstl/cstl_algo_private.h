@@ -37,20 +37,6 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * Remove algorithm.
- */
-extern output_iterator_t _algo_remove_copy(
-    input_iterator_t t_first, input_iterator_t t_last,
-    output_iterator_t t_result, ...);
-extern output_iterator_t _algo_remove_copy_varg(
-    input_iterator_t t_first, input_iterator_t t_last,
-    output_iterator_t t_result, va_list val_elemlist);
-extern forward_iterator_t _algo_remove(
-    forward_iterator_t t_first, forward_iterator_t t_last, ...);
-extern forward_iterator_t _algo_remove_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last, va_list val_elemlist);
-
-/*
  * Lower bound, upper bound and equal range algorithm.
  */
 extern forward_iterator_t _algo_lower_bound(

@@ -28,6 +28,8 @@
 #include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
 
+#include <cstl/cstl_algo_nonmutating_private.h>
+#include <cstl/cstl_algo_nonmutating.h>
 #include <cstl/cstl_algo_mutating_private.h>
 #include <cstl/cstl_algo_mutating.h>
 
@@ -263,6 +265,124 @@ output_iterator_t _algo_fill_n_varg(output_iterator_t it_first, size_t t_fillsiz
     pv_value = NULL;
 
     return it_first;
+}
+
+/**
+ * Eliminates a specified value from a given range without disturbing the order of the remaining elements and returning the end of a new range free of the specified value.
+ */
+forward_iterator_t _algo_remove(forward_iterator_t it_first, forward_iterator_t it_last, ...)
+{
+    forward_iterator_t it_iter;
+    va_list val_elemlist;
+
+    va_start(val_elemlist, it_last);
+    it_iter = _algo_remove_varg(it_first, it_last, val_elemlist);
+    va_end(val_elemlist);
+
+    return it_iter;
+}
+
+/**
+ * Eliminates a specified value from a given range without disturbing the order of the remaining elements and returning the end of a new range free of the specified value.
+ */
+forward_iterator_t _algo_remove_varg(forward_iterator_t it_first, forward_iterator_t it_last, va_list val_elemlist)
+{
+    iterator_t it_next;
+    iterator_t it_result;
+    va_list    val_elemlist_copy;
+
+    assert(_iterator_valid_range(it_first, it_last, _FORWARD_ITERATOR));
+
+    va_copy(val_elemlist_copy, val_elemlist);
+    it_first = _algo_find_varg(it_first, it_last, val_elemlist);
+
+    if (iterator_equal(it_first, it_last)) {
+        it_result = it_first;
+    } else {
+        it_next = iterator_next(it_first);
+        it_result = _algo_remove_copy_varg(it_next, it_last, it_first, val_elemlist_copy);
+    }
+    va_end(val_elemlist_copy);
+
+    return it_result;
+}
+
+/**
+ * Copies elements from a source range to a destination range, except that elements of a specified value are not copied,
+ * without disturbing the order of the remaining elements and returning the end of a new destination range.
+ */
+output_iterator_t _algo_remove_copy(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, ...)
+{
+    output_iterator_t it_iter;
+    va_list val_elemlist;
+
+    va_start(val_elemlist, it_result);
+    it_iter = _algo_remove_copy_varg(it_first, it_last, it_result, val_elemlist);
+    va_end(val_elemlist);
+
+    return it_iter;
+}
+
+/**
+ * Copies elements from a source range to a destination range, except that elements of a specified value are not copied,
+ * without disturbing the order of the remaining elements and returning the end of a new destination range.
+ */
+output_iterator_t _algo_remove_copy_varg(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, va_list val_elemlist)
+{
+    void*             pv_value = NULL;
+    bool_t            b_cmp = false;
+    bool_t            b_less = false;
+    bool_t            b_greater = false;
+    binary_function_t bfun_op = NULL;
+
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first, it_result));
+
+    pv_value = _iterator_allocate_init_elem(it_first);
+    _type_get_varg_value(_iterator_get_typeinfo(it_first), val_elemlist, pv_value);
+
+    bfun_op = _fun_get_binary(it_first, _EQUAL_FUN);
+    assert(bfun_op != NULL);
+    if (bfun_op == fun_default_binary) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+        for (; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+            (*bfun_op)(iterator_get_pointer(it_first), pv_value, &b_less);
+            if (b_less) {
+                iterator_set_value(it_result, iterator_get_pointer(it_first));
+                it_result = iterator_next(it_result);
+                continue;
+            }
+            (*bfun_op)(pv_value, iterator_get_pointer(it_first), &b_greater);
+            if (b_greater) {
+                iterator_set_value(it_result, iterator_get_pointer(it_first));
+                it_result = iterator_next(it_result);
+                continue;
+            }
+        }
+    } else {
+        if (strncmp(_iterator_get_typebasename(it_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+            for (; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+                (*bfun_op)(iterator_get_pointer(it_first), string_c_str((string_t*)pv_value), &b_cmp);
+                if (!b_cmp) {
+                    iterator_set_value(it_result, iterator_get_pointer(it_first));
+                    it_result = iterator_next(it_result);
+                }
+            }
+        } else {
+            for (; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+                (*bfun_op)(iterator_get_pointer(it_first), pv_value, &b_cmp);
+                if (!b_cmp) {
+                    iterator_set_value(it_result, iterator_get_pointer(it_first));
+                    it_result = iterator_next(it_result);
+                }
+            }
+        }
+    }
+
+    _iterator_deallocate_destroy_elem(it_first, pv_value);
+    pv_value = NULL;
+
+    return it_result;
 }
 
 /** eof **/

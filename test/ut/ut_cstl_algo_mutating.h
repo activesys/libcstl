@@ -131,7 +131,30 @@ void test_algo_replace_copy__c_builtin(void** state);
 void test_algo_replace_copy__cstr(void** state);
 void test_algo_replace_copy__cstl_builtin(void** state);
 void test_algo_replace_copy__user_define(void** state);
-
+/*
+ * test algo_generate
+ */
+UT_CASE_DECLARATION(algo_generate)
+void test_algo_generate__invalid_range(void** state);
+void test_algo_generate__invalid_range2(void** state);
+void test_algo_generate__invalid_range3(void** state);
+void test_algo_generate__range_empty(void** state);
+void test_algo_generate__ufun_NULL(void** state);
+void test_algo_generate__c_builtin(void** state);
+void test_algo_generate__cstr(void** state);
+void test_algo_generate__cstl_builtin(void** state);
+void test_algo_generate__user_define(void** state);
+/*
+ * test algo_generate_n
+ */
+UT_CASE_DECLARATION(algo_generate_n)
+void test_algo_generate_n__invalid_range(void** state);
+void test_algo_generate_n__empty(void** state);
+void test_algo_generate_n__ufun_NULL(void** state);
+void test_algo_generate_n__c_builtin(void** state);
+void test_algo_generate_n__cstr(void** state);
+void test_algo_generate_n__cstl_builtin(void** state);
+void test_algo_generate_n__user_define(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating, test_algo_copy__invalid_source_range),\
@@ -225,7 +248,23 @@ void test_algo_replace_copy__user_define(void** state);
     UT_CASE(test_algo_replace_copy__c_builtin),\
     UT_CASE(test_algo_replace_copy__cstr),\
     UT_CASE(test_algo_replace_copy__cstl_builtin),\
-    UT_CASE(test_algo_replace_copy__user_define)
+    UT_CASE(test_algo_replace_copy__user_define),\
+    UT_CASE_BEGIN(algo_generate, test_algo_generate__invalid_range),\
+    UT_CASE(test_algo_generate__invalid_range2),\
+    UT_CASE(test_algo_generate__invalid_range3),\
+    UT_CASE(test_algo_generate__range_empty),\
+    UT_CASE(test_algo_generate__ufun_NULL),\
+    UT_CASE(test_algo_generate__c_builtin),\
+    UT_CASE(test_algo_generate__cstr),\
+    UT_CASE(test_algo_generate__cstl_builtin),\
+    UT_CASE(test_algo_generate__user_define),\
+    UT_CASE_BEGIN(algo_generate_n, test_algo_generate_n__invalid_range),\
+    UT_CASE(test_algo_generate_n__empty),\
+    UT_CASE(test_algo_generate_n__ufun_NULL),\
+    UT_CASE(test_algo_generate_n__c_builtin),\
+    UT_CASE(test_algo_generate_n__cstr),\
+    UT_CASE(test_algo_generate_n__cstl_builtin),\
+    UT_CASE(test_algo_generate_n__user_define)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_H_ */
 

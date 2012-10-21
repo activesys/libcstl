@@ -1821,3 +1821,300 @@ void test_algo_replace_copy__user_define(void** state)
     slist_destroy(pslist_result);
 }
 
+/*
+ * test algo_generate
+ */
+UT_CASE_DEFINATION(algo_generate)
+void test_algo_generate__invalid_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_generate(vector_begin(pvec), list_begin(plist), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+void test_algo_generate__invalid_range2(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_generate(list_end(plist), list_begin(plist), NULL));
+    list_destroy(plist);
+}
+
+void test_algo_generate__invalid_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_generate(it, deque_end(pdeq), NULL));
+    deque_destroy(pdeq);
+}
+
+void test_algo_generate__range_empty(void** state)
+{
+    set_t* pset = create_set(int);
+
+    set_init(pset);
+    algo_generate(set_begin(pset), set_end(pset), NULL);
+    assert_true(set_empty(pset));
+    set_destroy(pset);
+}
+
+void test_algo_generate__ufun_NULL(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_t* pvec_result = create_vector(int);
+
+    vector_init_n(pvec, 10);
+    vector_init_n(pvec_result, 10);
+    algo_generate(vector_begin(pvec), vector_end(pvec), NULL);
+    assert_true(vector_equal(pvec, pvec_result));
+    vector_destroy(pvec);
+    vector_destroy(pvec_result);
+}
+
+static void _test_algo_generate__c_builtin(const void* cpv_input, void* pv_output)
+{
+    static int n_elem = 0;
+    *(int*)pv_output = n_elem++ * 100;
+}
+void test_algo_generate__c_builtin(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_t* pvec_result = create_vector(int);
+    int an_result[] = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900};
+
+    vector_init_n(pvec, 10);
+    vector_init_copy_array(pvec_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    algo_generate(vector_begin(pvec), vector_end(pvec), _test_algo_generate__c_builtin);
+    assert_true(vector_equal(pvec, pvec_result));
+    vector_destroy(pvec);
+    vector_destroy(pvec_result);
+}
+
+static void _test_algo_generate__cstr(const void* cpv_input, void* pv_output)
+{
+}
+void test_algo_generate__cstr(void** state)
+{
+    list_t* plist = create_list(char*);
+    list_t* plist_result = create_list(char*);
+
+    list_init_elem(plist, 10, "abc");
+    list_init_elem(plist_result, 10, "abc");
+    algo_generate(list_begin(plist), list_end(plist), _test_algo_generate__cstr);
+    assert_true(list_equal(plist, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_result);
+}
+
+static void _test_algo_generate__cstl_builtin(const void* cpv_input, void* pv_output)
+{
+    static int n_elem = 0;
+    set_insert((set_t*)pv_output, n_elem++);
+}
+void test_algo_generate__cstl_builtin(void** state)
+{
+    deque_t* pdeq = create_deque(set_t<int>);
+    deque_t* pdeq_result = create_deque(set_t<int>);
+    set_t* pset = create_set(int);
+    int aan_result[][1] = {{0}, {1}, {2}, {3}, {4}};
+    int i = 0;
+
+    deque_init_n(pdeq, 5);
+    deque_init(pdeq_result);
+    set_init(pset);
+    for (i = 0; i < sizeof(aan_result)/sizeof(aan_result[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_result[i], sizeof(aan_result[i])/sizeof(aan_result[i][0]));
+        deque_push_back(pdeq_result, pset);
+    }
+    algo_generate(deque_begin(pdeq), deque_end(pdeq), _test_algo_generate__cstl_builtin);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+    set_destroy(pset);
+}
+
+typedef struct _tag_test_algo_generate__user_define {
+    int a;
+    int b;
+} _test_algo_generate__user_define_t;
+static void _test_algo_generate__user_define(const void* cpv_input, void* pv_output)
+{
+    static int n_elem = 4;
+    ((_test_algo_generate__user_define_t*)pv_output)->a = ((_test_algo_generate__user_define_t*)pv_output)->b = n_elem--;
+}
+void test_algo_generate__user_define(void** state)
+{
+    slist_t* pslist = NULL;
+    slist_t* pslist_result = NULL;
+    _test_algo_generate__user_define_t at_result[] = {{0, 0}, {1, 1}, {2, 2}, {3, 3}, {4, 4}};
+    int i = 0;
+
+    type_register(_test_algo_generate__user_define_t, NULL, NULL, NULL, NULL);
+    pslist = create_slist(_test_algo_generate__user_define_t);
+    pslist_result = create_slist(_test_algo_generate__user_define_t);
+    slist_init_n(pslist, 5);
+    slist_init(pslist_result);
+    for (i = 0; i < sizeof(at_result)/sizeof(at_result[0]); ++i) {
+        slist_push_front(pslist_result, &at_result[i]);
+    }
+    algo_generate(slist_begin(pslist), slist_end(pslist), _test_algo_generate__user_define);
+    assert_true(slist_equal(pslist, pslist_result));
+    slist_destroy(pslist);
+    slist_destroy(pslist_result);
+}
+
+/*
+ * test algo_generate_n
+ */
+UT_CASE_DEFINATION(algo_generate_n)
+void test_algo_generate_n__invalid_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    it = vector_begin(pvec);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_generate_n(it, 10, NULL));
+    vector_destroy(pvec);
+}
+
+void test_algo_generate_n__empty(void** state)
+{
+    list_t* plist = create_list(int);
+    iterator_t it;
+
+    list_init(plist);
+    it = algo_generate_n(list_begin(plist), 0, NULL);
+    assert_true(iterator_equal(it, list_end(plist)));
+    assert_true(list_empty(plist));
+    list_destroy(plist);
+}
+
+void test_algo_generate_n__ufun_NULL(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    iterator_t it;
+
+    deque_init_elem(pdeq, 10, 100);
+    deque_init_copy(pdeq_result, pdeq);
+    it = algo_generate_n(deque_begin(pdeq), 10, NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+static void _test_algo_generate_n__c_builtin(const void* cpv_input, void* pv_output)
+{
+    static int n_elem = 0;
+    *(int*)pv_output = n_elem++ * 100;
+}
+void test_algo_generate_n__c_builtin(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_t* pvec_result = create_vector(int);
+    int an_result[] = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900};
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    vector_init_copy_array(pvec_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_generate_n(vector_begin(pvec), 10, _test_algo_generate_n__c_builtin);
+    assert_true(iterator_equal(it, vector_end(pvec)));
+    assert_true(vector_equal(pvec, pvec_result));
+    vector_destroy(pvec);
+    vector_destroy(pvec_result);
+}
+
+static void _test_algo_generate_n__cstr(const void* cpv_input, void* pv_output)
+{
+}
+void test_algo_generate_n__cstr(void** state)
+{
+    list_t* plist = create_list(char*);
+    list_t* plist_result = create_list(char*);
+    iterator_t it;
+
+    list_init_elem(plist, 10, "abc");
+    list_init_elem(plist_result, 10, "abc");
+    it = algo_generate_n(list_begin(plist), 10, _test_algo_generate_n__cstr);
+    assert_true(iterator_equal(it, list_end(plist)));
+    assert_true(list_equal(plist, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_result);
+}
+
+static void _test_algo_generate_n__cstl_builtin(const void* cpv_input, void* pv_output)
+{
+    static int n_elem = 0;
+    set_insert((set_t*)pv_output, n_elem++);
+}
+void test_algo_generate_n__cstl_builtin(void** state)
+{
+    deque_t* pdeq = create_deque(set_t<int>);
+    deque_t* pdeq_result = create_deque(set_t<int>);
+    set_t* pset = create_set(int);
+    int aan_result[][1] = {{0}, {1}, {2}, {3}, {4}};
+    iterator_t it;
+    int i = 0;
+
+    deque_init_n(pdeq, 5);
+    deque_init(pdeq_result);
+    set_init(pset);
+    for (i = 0; i < sizeof(aan_result)/sizeof(aan_result[0]); ++i) {
+        set_clear(pset);
+        set_insert_array(pset, aan_result[i], sizeof(aan_result[i])/sizeof(aan_result[i][0]));
+        deque_push_back(pdeq_result, pset);
+    }
+    it = algo_generate_n(deque_begin(pdeq), 5, _test_algo_generate_n__cstl_builtin);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+    set_destroy(pset);
+}
+
+typedef struct _tag_test_algo_generate_n__user_define {
+    int a;
+    int b;
+} _test_algo_generate_n__user_define_t;
+static void _test_algo_generate_n__user_define(const void* cpv_input, void* pv_output)
+{
+    static int n_elem = 4;
+    ((_test_algo_generate_n__user_define_t*)pv_output)->a = ((_test_algo_generate_n__user_define_t*)pv_output)->b = n_elem--;
+}
+void test_algo_generate_n__user_define(void** state)
+{
+    slist_t* pslist = NULL;
+    slist_t* pslist_result = NULL;
+    _test_algo_generate_n__user_define_t at_result[] = {{0, 0}, {1, 1}, {2, 2}, {3, 3}, {4, 4}};
+    iterator_t it;
+    int i = 0;
+
+    type_register(_test_algo_generate_n__user_define_t, NULL, NULL, NULL, NULL);
+    pslist = create_slist(_test_algo_generate_n__user_define_t);
+    pslist_result = create_slist(_test_algo_generate_n__user_define_t);
+    slist_init_n(pslist, 5);
+    slist_init(pslist_result);
+    for (i = 0; i < sizeof(at_result)/sizeof(at_result[0]); ++i) {
+        slist_push_front(pslist_result, &at_result[i]);
+    }
+    it = algo_generate_n(slist_begin(pslist), 5, _test_algo_generate_n__user_define);
+    assert_true(iterator_equal(it, slist_end(pslist)));
+    assert_true(slist_equal(pslist, pslist_result));
+    slist_destroy(pslist);
+    slist_destroy(pslist_result);
+}
+

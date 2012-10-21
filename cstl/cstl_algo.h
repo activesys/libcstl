@@ -30,11 +30,6 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* remove */
-#define algo_remove_copy(t_first, t_last, t_result, elem)\
-    _algo_remove_copy((t_first), (t_last), (t_result), (elem))
-#define algo_remove(t_first, t_last, elem)\
-    _algo_remove((t_first), (t_last), (elem))
 /* lower bound */
 #define algo_lower_bound(t_first, t_last, elem)\
     _algo_lower_bound((t_first), (t_last), (elem))
@@ -100,15 +95,6 @@ extern output_iterator_t algo_set_symmetric_difference_if(
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result,
     binary_function_t t_binary_op);
-
-/*
- * generate algorithm.
- */
-extern void algo_generate(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    unary_function_t t_unary_op);
-extern output_iterator_t algo_generate_n(
-    output_iterator_t t_first, size_t t_count, unary_function_t t_unary_op);
 
 /*
  * includes algorithm.

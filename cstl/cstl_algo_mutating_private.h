@@ -95,6 +95,31 @@ extern void _algo_fill_varg(forward_iterator_t it_first, forward_iterator_t it_l
 extern output_iterator_t _algo_fill_n(forward_iterator_t it_first, size_t t_fillsize, ...);
 extern output_iterator_t _algo_fill_n_varg(forward_iterator_t it_first, size_t t_fillsize, va_list val_elemlist);
 
+/**
+ * Eliminates a specified value from a given range without disturbing the order of the remaining elements and returning the end of a new range free of the specified value.
+ * @param it_first      A forward iterator addressing the position of the first element in the range from which elements are being removed.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range from which elements are being removed.
+ * @param ...           The value that is to be removed from the range.
+ * @return  A forward iterator addressing the new end position of the modified range, one past the final element of the remnant sequence free of the specified value.
+ * @remarks The destination range must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t _algo_remove(forward_iterator_t it_first, forward_iterator_t it_last, ...);
+extern forward_iterator_t _algo_remove_varg(forward_iterator_t it_first, forward_iterator_t it_last, va_list val_elemlist);
+
+/**
+ * Copies elements from a source range to a destination range, except that elements of a specified value are not copied,
+ * without disturbing the order of the remaining elements and returning the end of a new destination range.
+ * @param it_first      An input iterator addressing the position of the first element in the range from which elements are being removed.
+ * @param it_last       An input iterator addressing the position one past the final element in the range from which elements are being removed.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range to which elements are being removed.
+ * @param ...           The value that is to be removed from the range.
+ * @return  A forward iterator addressing the new end position of the destination range, one past the final element of the copy of the remnant 
+ *          sequence free of the specified value.
+ * @remarks The source and destination ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern output_iterator_t _algo_remove_copy(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, ...);
+extern output_iterator_t _algo_remove_copy_varg(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, va_list val_elemlist);
+
 #ifdef __cplusplus
 }
 #endif
