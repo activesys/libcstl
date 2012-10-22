@@ -144,15 +144,6 @@ extern forward_iterator_t algo_stable_partition(
     unary_function_t t_unary_op);
 
 /*
- * remove algorithm.
- */
-extern forward_iterator_t algo_remove_if(
-    forward_iterator_t t_first, forward_iterator_t t_last, unary_function_t t_unary_op);
-extern output_iterator_t algo_remove_copy_if(
-    input_iterator_t t_first, input_iterator_t t_last,
-    output_iterator_t t_result, unary_function_t t_unary_op);
-
-/*
  * reverse algorithm.
  */
 extern void algo_reverse(

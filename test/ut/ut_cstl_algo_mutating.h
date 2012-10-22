@@ -155,6 +155,34 @@ void test_algo_generate_n__c_builtin(void** state);
 void test_algo_generate_n__cstr(void** state);
 void test_algo_generate_n__cstl_builtin(void** state);
 void test_algo_generate_n__user_define(void** state);
+/*
+ * test algo_remove_if
+ */
+UT_CASE_DECLARATION(algo_remove_if)
+void test_algo_remove_if__invalid_range(void** state);
+void test_algo_remove_if__invalid_range2(void** state);
+void test_algo_remove_if__invalid_range3(void** state);
+void test_algo_remove_if__empty(void** state);
+void test_algo_remove_if__ufun_NULL(void** state);
+void test_algo_remove_if__c_builtin(void** state);
+void test_algo_remove_if__cstr(void** state);
+void test_algo_remove_if__cstl_builtin(void** state);
+void test_algo_remove_if__user_define(void** state);
+/*
+ * test algo_remove_copy_if
+ */
+UT_CASE_DECLARATION(algo_remove_copy_if)
+void test_algo_remove_copy_if__invalid_source_range(void** state);
+void test_algo_remove_copy_if__invalid_source_range2(void** state);
+void test_algo_remove_copy_if__invalid_source_range3(void** state);
+void test_algo_remove_copy_if__invalid_dest_range(void** state);
+void test_algo_remove_copy_if__invalid_range_not_same_type(void** state);
+void test_algo_remove_copy_if__source_range_empty(void** state);
+void test_algo_remove_copy_if__ufun_NULL(void** state);
+void test_algo_remove_copy_if__c_builtin(void** state);
+void test_algo_remove_copy_if__cstr(void** state);
+void test_algo_remove_copy_if__cstl_builtin(void** state);
+void test_algo_remove_copy_if__user_define(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating, test_algo_copy__invalid_source_range),\
@@ -264,7 +292,27 @@ void test_algo_generate_n__user_define(void** state);
     UT_CASE(test_algo_generate_n__c_builtin),\
     UT_CASE(test_algo_generate_n__cstr),\
     UT_CASE(test_algo_generate_n__cstl_builtin),\
-    UT_CASE(test_algo_generate_n__user_define)
+    UT_CASE(test_algo_generate_n__user_define),\
+    UT_CASE_BEGIN(algo_remove_if, test_algo_remove_if__invalid_range),\
+    UT_CASE(test_algo_remove_if__invalid_range2),\
+    UT_CASE(test_algo_remove_if__invalid_range3),\
+    UT_CASE(test_algo_remove_if__empty),\
+    UT_CASE(test_algo_remove_if__ufun_NULL),\
+    UT_CASE(test_algo_remove_if__c_builtin),\
+    UT_CASE(test_algo_remove_if__cstr),\
+    UT_CASE(test_algo_remove_if__cstl_builtin),\
+    UT_CASE(test_algo_remove_if__user_define),\
+    UT_CASE_BEGIN(algo_remove_copy_if, test_algo_remove_copy_if__invalid_source_range),\
+    UT_CASE(test_algo_remove_copy_if__invalid_source_range2),\
+    UT_CASE(test_algo_remove_copy_if__invalid_source_range3),\
+    UT_CASE(test_algo_remove_copy_if__invalid_dest_range),\
+    UT_CASE(test_algo_remove_copy_if__invalid_range_not_same_type),\
+    UT_CASE(test_algo_remove_copy_if__source_range_empty),\
+    UT_CASE(test_algo_remove_copy_if__ufun_NULL),\
+    UT_CASE(test_algo_remove_copy_if__c_builtin),\
+    UT_CASE(test_algo_remove_copy_if__cstr),\
+    UT_CASE(test_algo_remove_copy_if__cstl_builtin),\
+    UT_CASE(test_algo_remove_copy_if__user_define)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_H_ */
 

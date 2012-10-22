@@ -262,6 +262,31 @@ extern void algo_generate(forward_iterator_t it_first, forward_iterator_t it_las
  */
 extern output_iterator_t algo_generate_n(output_iterator_t it_first, size_t t_count, unary_function_t ufun_op);
 
+/**
+ * Eliminates elements that satisfy a predicate from a given range without disturbing the order of the remaining elements and
+ * returning the end of a new range free of the specified value.
+ * @param it_first      A forward iterator pointing to the position of the first element in the range from which elements are being removed.
+ * @param it_last       A forward iterator pointing to the position one past the final element in the range from which elements are being removed.
+ * @param ufun_op       The unary predicate that must be satisfied is the value of an element is to be replaced.
+ * @return  A forward iterator addressing the new end position of the modified range, one past the final element of the remnant sequence free of the specified value.
+ * @remarks The ranges referenced must be valid, otherwise the behavior of algorithm is undefined.
+ */
+extern forward_iterator_t algo_remove_if(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op);
+
+/**
+ * Copies elements from a source range to a destination range, except that satisfying a predicate are not copied, without disturbing the order of the remaining
+ * elements and returning the end of a new destination range.
+ * @param it_first      An input iterator addressing the position of the first element in the range from which elements are being removed.
+ * @param it_last       An input iterator addressing the position one past the final element in the range from which elements are being removed.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range to which elements are being removed.
+ * @param ufun_op       The unary predicate that must be satisfied is the value of an element is to be replaced.
+ * @return  A forward iterator addressing the new end position of the destination range, one past the final element of the remnant sequence free of
+ *          the elements satisfying the predicate.
+ * @remarks The ranges referenced must be valid. The destination range must be large enough to contain the transformed source range.
+ *          The two ranges must be contain same element type, otherwise the behavior of algorithm is undefined.
+ */
+extern output_iterator_t algo_remove_copy_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, unary_function_t ufun_op);
+
 #ifdef __cplusplus
 }
 #endif

@@ -28,6 +28,8 @@
 #include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
 
+#include <cstl/cstl_algo_nonmutating_private.h>
+#include <cstl/cstl_algo_nonmutating.h>
 #include <cstl/cstl_algo_mutating_private.h>
 #include <cstl/cstl_algo_mutating.h>
 
@@ -293,6 +295,51 @@ output_iterator_t algo_generate_n(output_iterator_t it_first, size_t t_count, un
     pv_value = NULL;
 
     return it_first;
+}
+
+/**
+ * Eliminates elements that satisfy a predicate from a given range without disturbing the order of the remaining elements and
+ * returning the end of a new range free of the specified value.
+ */
+forward_iterator_t algo_remove_if(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op)
+{
+    iterator_t it_next;
+
+    assert(_iterator_valid_range(it_first, it_last, _FORWARD_ITERATOR));
+
+    it_first = algo_find_if(it_first, it_last, ufun_op);
+    if (iterator_equal(it_first, it_last)) {
+        return it_first;
+    } else {
+        it_next = iterator_next(it_first);
+        return algo_remove_copy_if(it_next, it_last, it_first, ufun_op);
+    }
+}
+
+/**
+ * Copies elements from a source range to a destination range, except that satisfying a predicate are not copied, without disturbing the order of the remaining
+ * elements and returning the end of a new destination range.
+ */
+output_iterator_t algo_remove_copy_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, unary_function_t ufun_op)
+{
+    bool_t b_cmp = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first, it_result));
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+
+    for (; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+        (*ufun_op)(iterator_get_pointer(it_first), &b_cmp);
+        if (!b_cmp) {
+            iterator_set_value(it_result, iterator_get_pointer(it_first));
+            it_result = iterator_next(it_result);
+        }
+    }
+
+    return it_result;
 }
 
 /** eof **/
