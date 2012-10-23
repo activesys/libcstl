@@ -144,15 +144,6 @@ extern forward_iterator_t algo_stable_partition(
     unary_function_t t_unary_op);
 
 /*
- * reverse algorithm.
- */
-extern void algo_reverse(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last);
-extern output_iterator_t algo_reverse_copy(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
-    output_iterator_t t_result);
-
-/*
  * rotate algorithm.
  */
 extern forward_iterator_t algo_rotate(
@@ -164,21 +155,6 @@ extern output_iterator_t algo_rotate_copy(
     forward_iterator_t t_middle,
     forward_iterator_t t_last,
     output_iterator_t t_result);
-
-/*
- * unique algorithm.
- */
-extern forward_iterator_t algo_unique(
-    forward_iterator_t t_first, forward_iterator_t t_last);
-extern forward_iterator_t algo_unique_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op);
-extern output_iterator_t algo_unique_copy(
-    input_iterator_t t_first, input_iterator_t t_last,
-    output_iterator_t t_result);
-extern output_iterator_t algo_unique_copy_if(
-    input_iterator_t t_first, input_iterator_t t_last,
-    output_iterator_t t_result, binary_function_t t_binary_op);
 
 /*
  * permutation algorithm.

@@ -342,5 +342,127 @@ output_iterator_t algo_remove_copy_if(input_iterator_t it_first, input_iterator_
     return it_result;
 }
 
+/**
+ * Removes duplicate elements that are adjacent to each other in a specified range.
+ */
+forward_iterator_t algo_unique(forward_iterator_t it_first, forward_iterator_t it_last)
+{
+    return algo_unique_if(it_first, it_last, _fun_get_binary(it_first, _EQUAL_FUN));
+}
+
+/**
+ * Removes duplicate elements that are adjacent to each other in a specified range.
+ */
+forward_iterator_t algo_unique_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op)
+{
+    assert(_iterator_valid_range(it_first, it_last, _FORWARD_ITERATOR));
+
+    it_first = algo_adjacent_find_if(it_first, it_last, bfun_op);
+    return algo_unique_copy_if(it_first, it_last, it_first, bfun_op);
+}
+
+/**
+ * Copies elements from a source range into a destination range except for the duplicate elements that are adjacent to each other.
+ */
+output_iterator_t algo_unique_copy(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result)
+{
+    return algo_unique_copy_if(it_first, it_last, it_result, _fun_get_binary(it_first, _EQUAL_FUN));
+}
+
+/**
+ * Copies elements from a source range into a destination range except for the duplicate elements that are adjacent to each other.
+ */
+output_iterator_t algo_unique_copy_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, binary_function_t bfun_op)
+{
+    bool_t b_cmp = false;
+    bool_t b_less = false;
+    bool_t b_greater = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first, it_result));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _EQUAL_FUN);
+    }
+
+    if (iterator_equal(it_first, it_last)) {
+        return it_result;
+    }
+
+    if (bfun_op == fun_default_binary) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+
+        iterator_set_value(it_result, iterator_get_pointer(it_first));
+        it_first = iterator_next(it_first);
+        for (; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+            (*bfun_op)(iterator_get_pointer(it_result), iterator_get_pointer(it_first), &b_less);
+            if (b_less) {
+                it_result = iterator_next(it_result);
+                iterator_set_value(it_result, iterator_get_pointer(it_first));
+                continue;
+            }
+            (*bfun_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_result), &b_greater);
+            if (b_greater) {
+                it_result = iterator_next(it_result);
+                iterator_set_value(it_result, iterator_get_pointer(it_first));
+                continue;
+            }
+        }
+    } else {
+        iterator_set_value(it_result, iterator_get_pointer(it_first));
+        it_first = iterator_next(it_first);
+        for (; !iterator_equal(it_first, it_last); it_first = iterator_next(it_first)) {
+            (*bfun_op)(iterator_get_pointer(it_result), iterator_get_pointer(it_first), &b_cmp);
+            if (!b_cmp) {
+                it_result = iterator_next(it_result);
+                iterator_set_value(it_result, iterator_get_pointer(it_first));
+            }
+        }
+    }
+
+    it_result = iterator_next(it_result);
+    return it_result;
+}
+
+/**
+ * Reverses the order of the elements within a range.
+ */
+void algo_reverse(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last)
+{
+    assert(_iterator_valid_range(it_first, it_last, _BIDIRECTIONAL_ITERATOR));
+
+    for (;;) {
+        if (iterator_equal(it_first, it_last)) {
+            return;
+        }
+        it_last = iterator_prev(it_last);
+        if (iterator_equal(it_first, it_last)) {
+            return;
+        }
+
+        algo_iter_swap(it_first, it_last);
+        it_first = iterator_next(it_first);
+    }
+}
+
+/**
+ * Reverses the order of the elements within a source range while copying them into a destination range
+ */
+output_iterator_t algo_reverse_copy(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, output_iterator_t it_result)
+{
+    assert(_iterator_valid_range(it_first, it_last, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first, it_result));
+
+    while (!iterator_equal(it_first, it_last)) {
+        it_last = iterator_prev(it_last);
+        iterator_set_value(it_result, iterator_get_pointer(it_last));
+        it_result = iterator_next(it_result);
+    }
+
+    return it_result;
+}
+
 /** eof **/
 

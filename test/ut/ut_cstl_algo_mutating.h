@@ -183,6 +183,84 @@ void test_algo_remove_copy_if__c_builtin(void** state);
 void test_algo_remove_copy_if__cstr(void** state);
 void test_algo_remove_copy_if__cstl_builtin(void** state);
 void test_algo_remove_copy_if__user_define(void** state);
+/*
+ * test algo_unique
+ */
+UT_CASE_DECLARATION(algo_unique)
+void test_algo_unique__invalid_range(void** state);
+void test_algo_unique__invalid_range2(void** state);
+void test_algo_unique__invalid_range3(void** state);
+void test_algo_unique__empty(void** state);
+void test_algo_unique__no_duplication(void** state);
+void test_algo_unique__c_builtin(void** state);
+void test_algo_unique__cstr(void** state);
+void test_algo_unique__cstl_builtin(void** state);
+void test_algo_unique__user_define(void** state);
+/*
+ * test algo_unique_if
+ */
+UT_CASE_DECLARATION(algo_unique_if)
+void test_algo_unique_if__invalid_range(void** state);
+void test_algo_unique_if__invalid_range2(void** state);
+void test_algo_unique_if__invalid_range3(void** state);
+void test_algo_unique_if__empty(void** state);
+void test_algo_unique_if__bfun_NULL(void** state);
+void test_algo_unique_if__c_builtin(void** state);
+void test_algo_unique_if__cstr(void** state);
+void test_algo_unique_if__cstl_builtin(void** state);
+void test_algo_unique_if__user_define(void** state);
+/*
+ * test algo_unique_copy
+ */
+UT_CASE_DECLARATION(algo_unique_copy)
+void test_algo_unique_copy__invalid_range(void** state);
+void test_algo_unique_copy__invalid_range2(void** state);
+void test_algo_unique_copy__invalid_range3(void** state);
+void test_algo_unique_copy__invalid_dest_range(void** state);
+void test_algo_unique_copy__not_same_type(void** state);
+void test_algo_unique_copy__empty(void** state);
+void test_algo_unique_copy__no_duplication(void** state);
+void test_algo_unique_copy__c_builtin(void** state);
+void test_algo_unique_copy__cstr(void** state);
+void test_algo_unique_copy__cstl_builtin(void** state);
+void test_algo_unique_copy__user_define(void** state);
+/*
+ * test algo_unique_copy_if
+ */
+UT_CASE_DECLARATION(algo_unique_copy_if)
+void test_algo_unique_copy_if__invalid_range(void** state);
+void test_algo_unique_copy_if__invalid_range2(void** state);
+void test_algo_unique_copy_if__invalid_range3(void** state);
+void test_algo_unique_copy_if__invalid_dest_range(void** state);
+void test_algo_unique_copy_if__not_same_type(void** state);
+void test_algo_unique_copy_if__empty(void** state);
+void test_algo_unique_copy_if__bfun_NULL(void** state);
+void test_algo_unique_copy_if__c_builtin(void** state);
+void test_algo_unique_copy_if__cstr(void** state);
+void test_algo_unique_copy_if__cstl_builtin(void** state);
+void test_algo_unique_copy_if__user_define(void** state);
+/*
+ * test algo_reverse
+ */
+UT_CASE_DECLARATION(algo_reverse)
+void test_algo_reverse__invalid_range(void** state);
+void test_algo_reverse__invalid_range2(void** state);
+void test_algo_reverse__invalid_range3(void** state);
+void test_algo_reverse__empty(void** state);
+void test_algo_reverse__one(void** state);
+void test_algo_reverse__reverse(void** state);
+/*
+ * test algo_reverse_copy
+ */
+UT_CASE_DECLARATION(algo_reverse_copy)
+void test_algo_reverse_copy__invalid_range(void** state);
+void test_algo_reverse_copy__invalid_range2(void** state);
+void test_algo_reverse_copy__invalid_range3(void** state);
+void test_algo_reverse_copy__invalid_dest_range(void** state);
+void test_algo_reverse_copy__not_same_type(void** state);
+void test_algo_reverse_copy__empty(void** state);
+void test_algo_reverse_copy__one(void** state);
+void test_algo_reverse_copy__reverse_copy(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating, test_algo_copy__invalid_source_range),\
@@ -312,7 +390,61 @@ void test_algo_remove_copy_if__user_define(void** state);
     UT_CASE(test_algo_remove_copy_if__c_builtin),\
     UT_CASE(test_algo_remove_copy_if__cstr),\
     UT_CASE(test_algo_remove_copy_if__cstl_builtin),\
-    UT_CASE(test_algo_remove_copy_if__user_define)
+    UT_CASE(test_algo_remove_copy_if__user_define),\
+    UT_CASE_BEGIN(algo_unique, test_algo_unique__invalid_range),\
+    UT_CASE(test_algo_unique__invalid_range2),\
+    UT_CASE(test_algo_unique__invalid_range3),\
+    UT_CASE(test_algo_unique__empty),\
+    UT_CASE(test_algo_unique__no_duplication),\
+    UT_CASE(test_algo_unique__c_builtin),\
+    UT_CASE(test_algo_unique__cstr),\
+    UT_CASE(test_algo_unique__cstl_builtin),\
+    UT_CASE(test_algo_unique__user_define),\
+    UT_CASE_BEGIN(algo_unique_if, test_algo_unique_if__invalid_range),\
+    UT_CASE(test_algo_unique_if__invalid_range2),\
+    UT_CASE(test_algo_unique_if__invalid_range3),\
+    UT_CASE(test_algo_unique_if__empty),\
+    UT_CASE(test_algo_unique_if__bfun_NULL),\
+    UT_CASE(test_algo_unique_if__c_builtin),\
+    UT_CASE(test_algo_unique_if__cstr),\
+    UT_CASE(test_algo_unique_if__cstl_builtin),\
+    UT_CASE(test_algo_unique_if__user_define),\
+    UT_CASE_BEGIN(algo_unique_copy, test_algo_unique_copy__invalid_range),\
+    UT_CASE(test_algo_unique_copy__invalid_range2),\
+    UT_CASE(test_algo_unique_copy__invalid_range3),\
+    UT_CASE(test_algo_unique_copy__invalid_dest_range),\
+    UT_CASE(test_algo_unique_copy__not_same_type),\
+    UT_CASE(test_algo_unique_copy__empty),\
+    UT_CASE(test_algo_unique_copy__no_duplication),\
+    UT_CASE(test_algo_unique_copy__c_builtin),\
+    UT_CASE(test_algo_unique_copy__cstr),\
+    UT_CASE(test_algo_unique_copy__cstl_builtin),\
+    UT_CASE(test_algo_unique_copy__user_define),\
+    UT_CASE_BEGIN(algo_unique_copy_if, test_algo_unique_copy_if__invalid_range),\
+    UT_CASE(test_algo_unique_copy_if__invalid_range2),\
+    UT_CASE(test_algo_unique_copy_if__invalid_range3),\
+    UT_CASE(test_algo_unique_copy_if__invalid_dest_range),\
+    UT_CASE(test_algo_unique_copy_if__not_same_type),\
+    UT_CASE(test_algo_unique_copy_if__empty),\
+    UT_CASE(test_algo_unique_copy_if__bfun_NULL),\
+    UT_CASE(test_algo_unique_copy_if__c_builtin),\
+    UT_CASE(test_algo_unique_copy_if__cstr),\
+    UT_CASE(test_algo_unique_copy_if__cstl_builtin),\
+    UT_CASE(test_algo_unique_copy_if__user_define),\
+    UT_CASE_BEGIN(algo_reverse, test_algo_reverse__invalid_range),\
+    UT_CASE(test_algo_reverse__invalid_range2),\
+    UT_CASE(test_algo_reverse__invalid_range3),\
+    UT_CASE(test_algo_reverse__empty),\
+    UT_CASE(test_algo_reverse__one),\
+    UT_CASE(test_algo_reverse__reverse),\
+    UT_CASE_BEGIN(algo_reverse_copy, test_algo_reverse_copy__invalid_range),\
+    UT_CASE(test_algo_reverse_copy__invalid_range2),\
+    UT_CASE(test_algo_reverse_copy__invalid_range3),\
+    UT_CASE(test_algo_reverse_copy__invalid_dest_range),\
+    UT_CASE(test_algo_reverse_copy__not_same_type),\
+    UT_CASE(test_algo_reverse_copy__empty),\
+    UT_CASE(test_algo_reverse_copy__one),\
+    UT_CASE(test_algo_reverse_copy__reverse_copy)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_H_ */
 

@@ -287,6 +287,68 @@ extern forward_iterator_t algo_remove_if(forward_iterator_t it_first, forward_it
  */
 extern output_iterator_t algo_remove_copy_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, unary_function_t ufun_op);
 
+/**
+ * Removes duplicate elements that are adjacent to each other in a specified range.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be scanned for duplicate removal.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be scanned for duplicate removal.
+ * @return  A forward iterator to the new end of the modified sequence that contains no consecutive duplicates, addressing the position one past the last element not removed.
+ * @remarks The ranges referenced must be valid, otherwise the behavior of algorithm is undefined.
+ */
+extern forward_iterator_t algo_unique(forward_iterator_t it_first, forward_iterator_t it_last);
+
+/**
+ * Removes duplicate elements that are adjacent to each other in a specified range.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be scanned for duplicate removal.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be scanned for duplicate removal.
+ * @param bfun_op       User-defined predicate function that defines the condition to be satisfied if two elements are to be taken as equivalent.
+ * @return  A forward iterator to the new end of the modified sequence that contains no consecutive duplicates, addressing the position one past the last element not removed.
+ * @remarks The ranges referenced must be valid, otherwise the behavior of algorithm is undefined.
+ */
+extern forward_iterator_t algo_unique_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op);
+
+/**
+ * Copies elements from a source range into a destination range except for the duplicate elements that are adjacent to each other.
+ * @param it_first      A forward iterator addressing the position of the first element in the source range to be copied.
+ * @param it_last       A forward iterator addressing the position one past the final element in the source range to be copied.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range that is receiving the copy with consecutive duplicates removed.
+ * @return  An output iterator addressing the position one past the final element in the destination range that is receiving the copy with consecutive duplicates removed.
+ * @remarks The ranges referenced must be valid. The destination range must be large enough to contain the transformed source range.
+ *          The two ranges must be contain same element type, otherwise the behavior of algorithm is undefined.
+ */
+extern output_iterator_t algo_unique_copy(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result);
+
+/**
+ * Copies elements from a source range into a destination range except for the duplicate elements that are adjacent to each other.
+ * @param it_first      A forward iterator addressing the position of the first element in the source range to be copied.
+ * @param it_last       A forward iterator addressing the position one past the final element in the source range to be copied.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range that is receiving the copy with consecutive duplicates removed.
+ * @param bfun_op       User-defined predicate function object that defines the condition to be satisfied if two elements are to be taken as equivalent.
+ * @return  An output iterator addressing the position one past the final element in the destination range that is receiving the copy with consecutive duplicates removed.
+ * @remarks The ranges referenced must be valid. The destination range must be large enough to contain the transformed source range.
+ *          The two ranges must be contain same element type, otherwise the behavior of algorithm is undefined.
+ */
+extern output_iterator_t algo_unique_copy_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, binary_function_t bfun_op);
+
+/**
+ * Reverses the order of the elements within a range.
+ * @param it_first      A bidirectional iterator pointing to the position of the first element in the range within which the elements are being permuted.
+ * @param it_last       A bidirectional iterator pointing to the position one past the final element in the range within which the elements are being permuted.
+ * @return  void.
+ * @remarks The ranges referenced must be valid, otherwise the behavior of algorithm is undefined.
+ */
+extern void algo_reverse(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last);
+
+/**
+ * Reverses the order of the elements within a source range while copying them into a destination range
+ * @param it_first      A bidirectional iterator pointing to the position of the first element in the range within which the elements are being permuted.
+ * @param it_last       A bidirectional iterator pointing to the position one past the final element in the range within which the elements are being permuted.
+ * @param it_result     An output iterator pointing to the position of the first element in the destination range to which elements are being copied.
+ * @return  An output iterator pointing to the position one past the final element in the destination range to where the altered sequence of elements is being copied.
+ * @remarks The ranges referenced must be valid. The destination range must be large enough to contain the transformed source range.
+ *          The two ranges must be contain same element type, otherwise the behavior of algorithm is undefined.
+ */
+extern output_iterator_t algo_reverse_copy(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, output_iterator_t it_result);
+
 #ifdef __cplusplus
 }
 #endif
