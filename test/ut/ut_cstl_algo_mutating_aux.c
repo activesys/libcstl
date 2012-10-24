@@ -137,3 +137,30 @@ void test__algo_rotate_forward__first_greater_than_second(void** state)
     slist_destroy(pslist_result);
 }
 
+void test__algo_rotate_forward__empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init(pslist);
+    expect_assert_failure(_algo_rotate_forward(slist_begin(pslist), slist_begin(pslist), slist_end(pslist)));
+    slist_destroy(pslist);
+}
+
+void test__algo_rotate_forward__first_range_empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(_algo_rotate_forward(slist_begin(pslist), slist_begin(pslist), slist_end(pslist)));
+    slist_destroy(pslist);
+}
+
+void test__algo_rotate_forward__second_range_empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(_algo_rotate_forward(slist_begin(pslist), slist_end(pslist), slist_end(pslist)));
+    slist_destroy(pslist);
+}
+

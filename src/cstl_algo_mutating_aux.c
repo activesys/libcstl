@@ -55,6 +55,7 @@ void _algo_rotate_forward(forward_iterator_t it_first, forward_iterator_t it_mid
     assert(_ITERATOR_ITERATOR_TYPE(it_first) == _FORWARD_ITERATOR &&
            _ITERATOR_ITERATOR_TYPE(it_middle) == _FORWARD_ITERATOR &&
            _ITERATOR_ITERATOR_TYPE(it_last) == _FORWARD_ITERATOR);
+    assert(!iterator_equal(it_first, it_middle) && !iterator_equal(it_middle, it_last));
 
     for (;;) {
         algo_iter_swap(it_first, it_iter);

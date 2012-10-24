@@ -16,6 +16,9 @@ void test__algo_rotate_forward__invalid_second_range3(void** state);
 void test__algo_rotate_forward__first_less_than_second(void** state);
 void test__algo_rotate_forward__first_equal_to_second(void** state);
 void test__algo_rotate_forward__first_greater_than_second(void** state);
+void test__algo_rotate_forward__empty(void** state);
+void test__algo_rotate_forward__first_range_empty(void** state);
+void test__algo_rotate_forward__second_range_empty(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_AUX_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating_aux, test__algo_rotate_forward__invalid_first_range),\
@@ -26,7 +29,10 @@ void test__algo_rotate_forward__first_greater_than_second(void** state);
     UT_CASE(test__algo_rotate_forward__invalid_second_range3),\
     UT_CASE(test__algo_rotate_forward__first_less_than_second),\
     UT_CASE(test__algo_rotate_forward__first_equal_to_second),\
-    UT_CASE(test__algo_rotate_forward__first_greater_than_second)
+    UT_CASE(test__algo_rotate_forward__first_greater_than_second),\
+    UT_CASE(test__algo_rotate_forward__empty),\
+    UT_CASE(test__algo_rotate_forward__first_range_empty),\
+    UT_CASE(test__algo_rotate_forward__second_range_empty)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_AUX_H_ */
 
