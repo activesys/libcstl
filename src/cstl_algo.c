@@ -54,14 +54,6 @@ static bidirectional_iterator_t _partition_biditer(
     unary_function_t t_unary_op);
 
 /*
- * Rotates the elements in the range [t_first, t_last).
- */
-static void _rotate_forward(
-    forward_iterator_t t_first,
-    forward_iterator_t t_middle,
-    forward_iterator_t t_last);
-
-/*
  * The implement of insertion sort.
  */
 static void _insertion_sort_if(
@@ -637,57 +629,6 @@ forward_iterator_t algo_stable_partition(
     }
 
     return t_first;
-}
-
-forward_iterator_t algo_rotate(
-    forward_iterator_t t_first,
-    forward_iterator_t t_middle,
-    forward_iterator_t t_last)
-{
-    size_t t_distance = 0;
-
-    assert(_iterator_valid_range(t_first, t_middle, _FORWARD_ITERATOR));
-    assert(_iterator_valid_range(t_middle, t_last, _FORWARD_ITERATOR));
-
-    if(iterator_equal(t_first, t_middle) || 
-       iterator_equal(t_middle, t_last))
-    {
-        return t_middle;
-    }
-
-    t_distance = iterator_distance(t_middle, t_last);
-
-    if(_ITERATOR_ITERATOR_TYPE(t_first) == _FORWARD_ITERATOR &&
-       _ITERATOR_ITERATOR_TYPE(t_middle) == _FORWARD_ITERATOR &&
-       _ITERATOR_ITERATOR_TYPE(t_last) == _FORWARD_ITERATOR)
-    {
-        _rotate_forward(t_first, t_middle, t_last);
-    }
-    else
-    {
-        algo_reverse(t_first, t_middle);
-        algo_reverse(t_middle, t_last);
-        algo_reverse(t_first, t_last);
-    }
-
-    t_middle = t_first;
-    t_middle = iterator_advance(t_middle, t_distance);
-
-    return t_middle;
-}
-
-output_iterator_t algo_rotate_copy(
-    forward_iterator_t t_first,
-    forward_iterator_t t_middle,
-    forward_iterator_t t_last,
-    output_iterator_t t_result)
-{
-    assert(_iterator_valid_range(t_first, t_middle, _FORWARD_ITERATOR));
-    assert(_iterator_valid_range(t_middle, t_last, _FORWARD_ITERATOR));
-    assert(_iterator_same_elem_type(t_first, t_result));
-    assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-
-    return algo_copy(t_first, t_middle, algo_copy(t_middle, t_last, t_result));
 }
 
 forward_iterator_t _algo_lower_bound(
@@ -2010,37 +1951,6 @@ static bidirectional_iterator_t _partition_biditer(
         /* swap element */
         algo_iter_swap(t_first, t_last);
         t_first = iterator_next(t_first);
-    }
-}
-
-static void _rotate_forward(
-    forward_iterator_t t_first,
-    forward_iterator_t t_middle,
-    forward_iterator_t t_last)
-{
-    iterator_t t_iterator = t_middle;
-
-    for(;;)
-    {
-        algo_iter_swap(t_first, t_iterator);
-        t_first = iterator_next(t_first);
-        t_iterator = iterator_next(t_iterator);
-
-        /* the [t_first, t_middle) is end */
-        if(iterator_equal(t_first, t_middle))
-        {
-            if(iterator_equal(t_iterator, t_last))
-            {
-                return;
-            }
-
-            t_middle = t_iterator;
-        }
-        /* the [t_middle, t_last) is end */
-        else if(iterator_equal(t_iterator, t_last))
-        {
-            t_iterator = t_middle;
-        }
     }
 }
 

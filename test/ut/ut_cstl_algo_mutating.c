@@ -3457,4 +3457,386 @@ void test_algo_reverse_copy__reverse_copy(void** state)
     deque_destroy(pdeq_result);
 }
 
+/*
+ * test algo_rotate
+ */
+UT_CASE_DEFINATION(algo_rotate)
+void test_algo_rotate__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_rotate(vector_begin(pvec), list_begin(plist), list_end(plist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+void test_algo_rotate__invalid_first_range2(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_rotate(iterator_next_n(vector_begin(pvec), 3), vector_begin(pvec), vector_end(pvec)));
+    vector_destroy(pvec);
+}
+
+void test_algo_rotate__invalid_first_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_rotate(it, deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_rotate__invalid_second_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_rotate(vector_begin(pvec), vector_end(pvec), list_end(plist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+void test_algo_rotate__invalid_second_range2(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_rotate(vector_begin(pvec), vector_end(pvec), iterator_next(vector_begin(pvec))));
+    vector_destroy(pvec);
+}
+
+void test_algo_rotate__invalid_second_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_rotate(deque_begin(pdeq), deque_begin(pdeq), it));
+    deque_destroy(pdeq);
+}
+
+void test_algo_rotate__empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    iterator_t it;
+
+    slist_init(pslist);
+    it = algo_rotate(slist_begin(pslist), slist_begin(pslist), slist_end(pslist));
+    assert_true(iterator_equal(it, slist_begin(pslist)));
+    assert_true(slist_empty(pslist));
+    slist_destroy(pslist);
+}
+
+void test_algo_rotate__first_range_empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    iterator_t it;
+
+    slist_init_n(pslist, 10);
+    it = algo_rotate(slist_begin(pslist), slist_begin(pslist), slist_end(pslist));
+    assert_true(iterator_equal(it, slist_begin(pslist)));
+    slist_destroy(pslist);
+}
+
+void test_algo_rotate__second_range_empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    iterator_t it;
+
+    slist_init_n(pslist, 10);
+    it = algo_rotate(slist_begin(pslist), slist_end(pslist), slist_end(pslist));
+    assert_true(iterator_equal(it, slist_end(pslist)));
+    slist_destroy(pslist);
+}
+
+void test_algo_rotate__first_less_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_t* pvec_result = create_vector(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {2, 3, 4, 5, 6, 7, 8, 9, 0, 1};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    vector_init_copy_array(pvec_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_rotate(vector_begin(pvec), iterator_next(vector_begin(pvec)), vector_end(pvec));
+    assert_true(iterator_equal(it, iterator_advance(vector_end(pvec), -1)));
+    assert_true(vector_equal(pvec, pvec_result));
+    vector_destroy(pvec);
+    vector_destroy(pvec_result);
+}
+
+void test_algo_rotate__first_greater_than_second(void** state)
+{
+    list_t* plist = create_list(int);
+    list_t* plist_result = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    iterator_t it;
+
+    list_init_copy_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy_array(plist_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_rotate(list_begin(plist), iterator_advance(list_end(plist), -1), list_end(plist));
+    assert_true(iterator_equal(it, iterator_next(list_begin(plist))));
+    assert_true(list_equal(plist, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_result);
+}
+
+void test_algo_rotate__first_equal_to_second(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {6, 7, 8, 9, 0, 1, 2, 3, 4, 5};
+    iterator_t it;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_rotate(deque_begin(pdeq), iterator_advance(deque_begin(pdeq), 5), deque_end(pdeq));
+    assert_true(iterator_equal(it, iterator_advance(deque_begin(pdeq), 5)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_rotate_copy
+ */
+UT_CASE_DEFINATION(algo_rotate_copy)
+void test_algo_rotate_copy__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_rotate_copy(vector_begin(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_rotate_copy__invalid_first_range2(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_rotate_copy(iterator_advance(vector_begin(pvec), 3), vector_begin(pvec), vector_end(pvec), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_rotate_copy__invalid_first_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    it = vector_begin(pvec);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_rotate_copy(it, iterator_advance(vector_begin(pvec), 3), vector_end(pvec), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_rotate_copy__invalid_second_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_rotate_copy(vector_begin(pvec), vector_end(pvec), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_rotate_copy__invalid_second_range2(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_rotate_copy(vector_begin(pvec), vector_end(pvec), iterator_advance(vector_begin(pvec), 3), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_rotate_copy__invalid_second_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    it = vector_end(pvec);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_rotate_copy(vector_begin(pvec), iterator_advance(vector_begin(pvec), 3), it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_rotate_copy__invalid_dest_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_rotate_copy(vector_begin(pvec), iterator_advance(vector_begin(pvec), 3), vector_end(pvec), it));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_rotate_copy__not_same_type(void** state)
+{
+    list_t* plist = create_list(int);
+    slist_t* pslist = create_slist(double);
+
+    list_init_n(plist, 10);
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_rotate_copy(list_begin(plist), iterator_next(list_begin(plist)), list_end(plist), slist_begin(pslist)));
+    list_destroy(plist);
+    slist_destroy(pslist);
+}
+
+void test_algo_rotate_copy__empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init(pdeq);
+    it = algo_rotate_copy(vector_begin(pvec), vector_end(pvec), vector_end(pvec), deque_begin(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    assert_true(deque_empty(pdeq));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_rotate_copy__first_range_empty(void** state)
+{
+    list_t* plist = create_list(int);
+    list_t* plist_dest = create_list(int);
+    list_t* plist_result = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    list_init_copy_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy(plist_result, plist);
+    list_init_n(plist_dest, list_size(plist));
+    it = algo_rotate_copy(list_begin(plist), list_begin(plist), list_end(plist), list_begin(plist_dest));
+    assert_true(iterator_equal(it, list_end(plist_dest)));
+    assert_true(list_equal(plist_dest, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_dest);
+    list_destroy(plist_result);
+}
+
+void test_algo_rotate_copy__second_range_empty(void** state)
+{
+    list_t* plist = create_list(int);
+    list_t* plist_dest = create_list(int);
+    list_t* plist_result = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    list_init_copy_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy(plist_result, plist);
+    list_init_n(plist_dest, list_size(plist));
+    it = algo_rotate_copy(list_begin(plist), list_end(plist), list_end(plist), list_begin(plist_dest));
+    assert_true(iterator_equal(it, list_end(plist_dest)));
+    assert_true(list_equal(plist_dest, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_dest);
+    list_destroy(plist_result);
+}
+
+void test_algo_rotate_copy__first_less_than_second(void** state)
+{
+    list_t* plist = create_list(int);
+    list_t* plist_dest = create_list(int);
+    list_t* plist_result = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {3, 4, 5, 6, 7, 8, 9, 0, 1, 2};
+    iterator_t it;
+
+    list_init_copy_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy_array(plist_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    list_init_n(plist_dest, list_size(plist));
+    it = algo_rotate_copy(list_begin(plist), iterator_advance(list_begin(plist), 2), list_end(plist), list_begin(plist_dest));
+    assert_true(iterator_equal(it, list_end(plist_dest)));
+    assert_true(list_equal(plist_dest, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_dest);
+    list_destroy(plist_result);
+}
+
+void test_algo_rotate_copy__first_equal_to_second(void** state)
+{
+    list_t* plist = create_list(int);
+    list_t* plist_dest = create_list(int);
+    list_t* plist_result = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {6, 7, 8, 9, 0, 1, 2, 3, 4, 5};
+    iterator_t it;
+
+    list_init_copy_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy_array(plist_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    list_init_n(plist_dest, list_size(plist));
+    it = algo_rotate_copy(list_begin(plist), iterator_advance(list_begin(plist), 5), list_end(plist), list_begin(plist_dest));
+    assert_true(iterator_equal(it, list_end(plist_dest)));
+    assert_true(list_equal(plist_dest, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_dest);
+    list_destroy(plist_result);
+}
+
+void test_algo_rotate_copy__first_greater_than_second(void** state)
+{
+    list_t* plist = create_list(int);
+    list_t* plist_dest = create_list(int);
+    list_t* plist_result = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {8, 9, 0, 1, 2, 3, 4, 5, 6, 7};
+    iterator_t it;
+
+    list_init_copy_array(plist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy_array(plist_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    list_init_n(plist_dest, list_size(plist));
+    it = algo_rotate_copy(list_begin(plist), iterator_advance(list_end(plist), -3), list_end(plist), list_begin(plist_dest));
+    assert_true(iterator_equal(it, list_end(plist_dest)));
+    assert_true(list_equal(plist_dest, plist_result));
+    list_destroy(plist);
+    list_destroy(plist_dest);
+    list_destroy(plist_result);
+}
 

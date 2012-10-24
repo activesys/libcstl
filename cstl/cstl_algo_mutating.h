@@ -349,6 +349,29 @@ extern void algo_reverse(bidirectional_iterator_t it_first, bidirectional_iterat
  */
 extern output_iterator_t algo_reverse_copy(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, output_iterator_t it_result);
 
+/**
+ * Exchanges the elements in two adjacent ranges.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be rotated.
+ * @param it_middle     A forward iterator defining the boundary within the range that addresses the position of the first element
+ *                      in the second part of the range whose elements are to be exchanged with those in the first part of the range.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be rotated.
+ * @return  An forward iterator addressing the new middle position.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_rotate(forward_iterator_t it_first, forward_iterator_t it_middle, forward_iterator_t it_last);
+
+/**
+ * Exchanges the elements in two adjacent ranges within a source range and copies the result to a destination range.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be rotated.
+ * @param it_middle     A forward iterator defining the boundary within the range that addresses the position of the first element
+ *                      in the second part of the range whose elements are to be exchanged with those in the first part of the range.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be rotated.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range.
+ * @return  An output iterator addressing the position one past the final element in the destination range.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern output_iterator_t algo_rotate_copy(forward_iterator_t it_first, forward_iterator_t it_middle, forward_iterator_t it_last, output_iterator_t it_result);
+
 #ifdef __cplusplus
 }
 #endif

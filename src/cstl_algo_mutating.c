@@ -33,6 +33,8 @@
 #include <cstl/cstl_algo_mutating_private.h>
 #include <cstl/cstl_algo_mutating.h>
 
+#include "cstl_algo_mutating_aux.h"
+
 /** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
@@ -462,6 +464,50 @@ output_iterator_t algo_reverse_copy(bidirectional_iterator_t it_first, bidirecti
     }
 
     return it_result;
+}
+
+/**
+ * Exchanges the elements in two adjacent ranges.
+ */
+forward_iterator_t algo_rotate(forward_iterator_t it_first, forward_iterator_t it_middle, forward_iterator_t it_last)
+{
+    size_t t_distance = 0;
+
+    assert(_iterator_valid_range(it_first, it_middle, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(it_middle, it_last, _FORWARD_ITERATOR));
+
+    if (iterator_equal(it_first, it_middle) || iterator_equal(it_middle, it_last)) {
+        return it_middle;
+    }
+
+    t_distance = iterator_distance(it_middle, it_last);
+
+    if (_ITERATOR_ITERATOR_TYPE(it_first) == _FORWARD_ITERATOR &&
+        _ITERATOR_ITERATOR_TYPE(it_middle) == _FORWARD_ITERATOR &&
+        _ITERATOR_ITERATOR_TYPE(it_last) == _FORWARD_ITERATOR) {
+        _algo_rotate_forward(it_first, it_middle, it_last);
+    } else {
+        algo_reverse(it_first, it_middle);
+        algo_reverse(it_middle, it_last);
+        algo_reverse(it_first, it_last);
+    }
+
+    it_middle = iterator_advance(it_first, t_distance);
+
+    return it_middle;
+}
+
+/**
+ * Exchanges the elements in two adjacent ranges within a source range and copies the result to a destination range.
+ */
+output_iterator_t algo_rotate_copy(forward_iterator_t it_first, forward_iterator_t it_middle, forward_iterator_t it_last, output_iterator_t it_result)
+{
+    assert(_iterator_valid_range(it_first, it_middle, _FORWARD_ITERATOR));
+    assert(_iterator_valid_range(it_middle, it_last, _FORWARD_ITERATOR));
+    assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first, it_result));
+
+    return algo_copy(it_first, it_middle, algo_copy(it_middle, it_last, it_result));
 }
 
 /** eof **/

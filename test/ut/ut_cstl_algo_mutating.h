@@ -261,6 +261,40 @@ void test_algo_reverse_copy__not_same_type(void** state);
 void test_algo_reverse_copy__empty(void** state);
 void test_algo_reverse_copy__one(void** state);
 void test_algo_reverse_copy__reverse_copy(void** state);
+/*
+ * test algo_rotate
+ */
+UT_CASE_DECLARATION(algo_rotate)
+void test_algo_rotate__invalid_first_range(void** state);
+void test_algo_rotate__invalid_first_range2(void** state);
+void test_algo_rotate__invalid_first_range3(void** state);
+void test_algo_rotate__invalid_second_range(void** state);
+void test_algo_rotate__invalid_second_range2(void** state);
+void test_algo_rotate__invalid_second_range3(void** state);
+void test_algo_rotate__empty(void** state);
+void test_algo_rotate__first_range_empty(void** state);
+void test_algo_rotate__second_range_empty(void** state);
+void test_algo_rotate__first_less_than_second(void** state);
+void test_algo_rotate__first_equal_to_second(void** state);
+void test_algo_rotate__first_greater_than_second(void** state);
+/*
+ * test algo_rotate_copy
+ */
+UT_CASE_DECLARATION(algo_rotate_copy)
+void test_algo_rotate_copy__invalid_first_range(void** state);
+void test_algo_rotate_copy__invalid_first_range2(void** state);
+void test_algo_rotate_copy__invalid_first_range3(void** state);
+void test_algo_rotate_copy__invalid_second_range(void** state);
+void test_algo_rotate_copy__invalid_second_range2(void** state);
+void test_algo_rotate_copy__invalid_second_range3(void** state);
+void test_algo_rotate_copy__invalid_dest_range(void** state);
+void test_algo_rotate_copy__not_same_type(void** state);
+void test_algo_rotate_copy__empty(void** state);
+void test_algo_rotate_copy__first_range_empty(void** state);
+void test_algo_rotate_copy__second_range_empty(void** state);
+void test_algo_rotate_copy__first_less_than_second(void** state);
+void test_algo_rotate_copy__first_equal_to_second(void** state);
+void test_algo_rotate_copy__first_greater_than_second(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating, test_algo_copy__invalid_source_range),\
@@ -444,7 +478,33 @@ void test_algo_reverse_copy__reverse_copy(void** state);
     UT_CASE(test_algo_reverse_copy__not_same_type),\
     UT_CASE(test_algo_reverse_copy__empty),\
     UT_CASE(test_algo_reverse_copy__one),\
-    UT_CASE(test_algo_reverse_copy__reverse_copy)
+    UT_CASE(test_algo_reverse_copy__reverse_copy),\
+    UT_CASE_BEGIN(algo_rotate, test_algo_rotate__invalid_first_range),\
+    UT_CASE(test_algo_rotate__invalid_first_range2),\
+    UT_CASE(test_algo_rotate__invalid_first_range3),\
+    UT_CASE(test_algo_rotate__invalid_second_range),\
+    UT_CASE(test_algo_rotate__invalid_second_range2),\
+    UT_CASE(test_algo_rotate__invalid_second_range3),\
+    UT_CASE(test_algo_rotate__empty),\
+    UT_CASE(test_algo_rotate__first_range_empty),\
+    UT_CASE(test_algo_rotate__second_range_empty),\
+    UT_CASE(test_algo_rotate__first_less_than_second),\
+    UT_CASE(test_algo_rotate__first_equal_to_second),\
+    UT_CASE(test_algo_rotate__first_greater_than_second),\
+    UT_CASE_BEGIN(algo_rotate_copy, test_algo_rotate_copy__invalid_first_range),\
+    UT_CASE(test_algo_rotate_copy__invalid_first_range2),\
+    UT_CASE(test_algo_rotate_copy__invalid_first_range3),\
+    UT_CASE(test_algo_rotate_copy__invalid_second_range),\
+    UT_CASE(test_algo_rotate_copy__invalid_second_range2),\
+    UT_CASE(test_algo_rotate_copy__invalid_second_range3),\
+    UT_CASE(test_algo_rotate_copy__invalid_dest_range),\
+    UT_CASE(test_algo_rotate_copy__not_same_type),\
+    UT_CASE(test_algo_rotate_copy__empty),\
+    UT_CASE(test_algo_rotate_copy__first_range_empty),\
+    UT_CASE(test_algo_rotate_copy__second_range_empty),\
+    UT_CASE(test_algo_rotate_copy__first_less_than_second),\
+    UT_CASE(test_algo_rotate_copy__first_equal_to_second),\
+    UT_CASE(test_algo_rotate_copy__first_greater_than_second)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_H_ */
 

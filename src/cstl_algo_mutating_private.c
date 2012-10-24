@@ -33,6 +33,8 @@
 #include <cstl/cstl_algo_mutating_private.h>
 #include <cstl/cstl_algo_mutating.h>
 
+#include "cstl_algo_mutating_aux.h"
+
 /** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/

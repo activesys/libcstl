@@ -144,19 +144,6 @@ extern forward_iterator_t algo_stable_partition(
     unary_function_t t_unary_op);
 
 /*
- * rotate algorithm.
- */
-extern forward_iterator_t algo_rotate(
-    forward_iterator_t t_first,
-    forward_iterator_t t_middle,
-    forward_iterator_t t_last);
-extern output_iterator_t algo_rotate_copy(
-    forward_iterator_t t_first,
-    forward_iterator_t t_middle,
-    forward_iterator_t t_last,
-    output_iterator_t t_result);
-
-/*
  * permutation algorithm.
  */
 extern bool_t algo_next_permutation(

@@ -2,7 +2,7 @@
 lib_LTLIBRARIES = libcstl.la
 libcstl_la_SOURCES = cstl_algo.c \
 		     cstl_algo_nonmutating.c cstl_algo_nonmutating_private.c \
-			 cstl_algo_mutating.c cstl_algo_mutating_private.c \
+			 cstl_algo_mutating.c cstl_algo_mutating_private.c cstl_algo_mutating_aux.c cstl_algo_mutating_aux.h \
 		     cstl_algobase.c \
 		     cstl_alloc.c cstl_alloc_aux.c cstl_alloc_aux.h \
 		     cstl_avl_tree.c cstl_avl_tree_iterator.c cstl_avl_tree_private.c cstl_avl_tree_aux.c cstl_avl_tree_aux.h \
