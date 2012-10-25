@@ -510,5 +510,229 @@ output_iterator_t algo_rotate_copy(forward_iterator_t it_first, forward_iterator
     return algo_copy(it_first, it_middle, algo_copy(it_middle, it_last, it_result));
 }
 
+/**
+ * Rearranges a sequence of N elements in a range into one of N! possible arrangements selected at random.
+ */
+void algo_random_shuffle(random_access_iterator_t it_first, random_access_iterator_t it_last)
+{
+    algo_random_shuffle_if(it_first, it_last, fun_random_number);
+}
+
+/**
+ * Rearranges a sequence of N elements in a range into one of N! possible arrangements selected at random.
+ */
+void algo_random_shuffle_if(random_access_iterator_t it_first, random_access_iterator_t it_last, unary_function_t ufun_op)
+{
+    iterator_t it_iter;
+    iterator_t it_tmp;
+    size_t     t_len = 0;
+    size_t     t_random = 0;
+
+    assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+
+    if (!iterator_equal(it_first, it_last)) {
+        for (it_iter = iterator_next(it_first); !iterator_equal(it_iter, it_last); it_iter = iterator_next(it_iter)) {
+            t_len = iterator_distance(it_first, it_iter) + 1;
+            (*ufun_op)(&t_len, &t_random);
+            if (t_len != 0) {
+                t_random %= t_len;
+            }
+            it_tmp = iterator_advance(it_first, t_random);
+            algo_iter_swap(it_iter, it_tmp);
+        }
+    }
+}
+
+/**
+ * Copy a sample of the elements from the range [it_first1, it_last1) into the range [it_first2, it_last2).
+ */
+random_access_iterator_t algo_random_sample(
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2)
+{
+    return algo_random_sample_if(it_first1, it_last1, it_first2, it_last2, fun_random_number);
+}
+
+/**
+ * Copy a sample of the elements from the range [it_first1, it_last1) into the range [it_first2, it_last2).
+ */
+random_access_iterator_t algo_random_sample_if(
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, unary_function_t ufun_op)
+{
+    iterator_t it_in;
+    iterator_t it_out;
+    size_t     t_outlen = 0;
+    size_t     t_inlen = 0;
+    size_t     t_random = 0;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+
+    for (it_in = it_first1, it_out = it_first2;
+         !iterator_equal(it_in, it_last1) && !iterator_equal(it_out, it_last2);
+         it_in = iterator_next(it_in), it_out = iterator_next(it_out)) {
+        iterator_set_value(it_out, iterator_get_pointer(it_in));
+    }
+
+    t_inlen = iterator_distance(it_first1, it_last1);
+    t_outlen = iterator_distance(it_first2, it_last2);
+    for (; !iterator_equal(it_in, it_last1); it_in = iterator_next(it_in)) {
+        t_inlen++;
+        (*ufun_op)(&t_inlen, &t_random);
+        t_random %= t_inlen;
+        if (t_random < t_outlen) {
+            it_out = iterator_advance(it_first2, t_random);
+            iterator_set_value(it_out, iterator_get_pointer(it_in));
+        }
+    }
+
+    return iterator_advance(it_first2, t_outlen < t_inlen ? t_outlen : t_inlen);
+}
+
+/**
+ * Copy a sample of the elements from the range [it_first1, it_last1) into the range [it_first2, it_first2 + t_count).
+ */
+output_iterator_t algo_random_sample_n(
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, size_t t_count)
+{
+    return algo_random_sample_n_if(it_first, it_last, it_result, t_count, fun_random_number);
+}
+
+/**
+ * Copy a sample of the elements from the range [it_first1, it_last1) into the range [it_first2, it_first2 + t_count).
+ */
+output_iterator_t algo_random_sample_n_if(
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, size_t t_count, unary_function_t ufun_op)
+{
+    size_t t_len = 0;
+    size_t t_tmp = 0;
+    size_t t_random = 0;
+
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first, it_result));
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+
+    t_len = iterator_distance(it_first, it_last);
+    t_tmp = t_count < t_len ? t_count : t_len;
+    while (t_tmp > 0) {
+        (*ufun_op)(&t_len, &t_random);
+        if (t_len != 0) {
+            t_random %= t_len;
+        }
+        if (t_random < t_tmp) {
+            iterator_set_value(it_result, iterator_get_pointer(it_first));
+            it_result = iterator_next(it_result);
+            t_tmp--;
+        }
+        it_first = iterator_next(it_first);
+        t_len--;
+    }
+
+    return it_result;
+}
+
+/**
+ * Classifies elements in a range into two disjoint sets, with those elements satisfying a unary predicate preceding those that fail to satisfy it.
+ */
+forward_iterator_t algo_partition(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op)
+{
+    bool_t     b_result = false;
+    iterator_t it_next;
+
+    assert(_iterator_valid_range(it_first, it_last, _FORWARD_ITERATOR));
+
+    if ((_ITERATOR_ITERATOR_TYPE(it_first) == _BIDIRECTIONAL_ITERATOR && _ITERATOR_ITERATOR_TYPE(it_last) == _BIDIRECTIONAL_ITERATOR) ||
+        (_ITERATOR_ITERATOR_TYPE(it_first) == _RANDOM_ACCESS_ITERATOR && _ITERATOR_ITERATOR_TYPE(it_first) == _RANDOM_ACCESS_ITERATOR)) {
+        return _algo_partition_biditer(it_first, it_last, ufun_op);
+    }
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+
+    if (iterator_equal(it_first, it_last)) {
+        return it_first;
+    }
+
+    while (!iterator_equal(it_first, it_last)) {
+        (*ufun_op)(iterator_get_pointer(it_first), &b_result);
+        if (!b_result) {
+            for (it_next = iterator_next(it_first); !iterator_equal(it_next, it_last); it_next = iterator_next(it_next)) {
+                (*ufun_op)(iterator_get_pointer(it_next), &b_result);
+                if (b_result) {
+                    algo_iter_swap(it_first, it_next);
+                    break;
+                }
+            }
+
+            if (iterator_equal(it_next, it_last)) {
+                return it_first;
+            }
+        }
+
+        it_first = iterator_next(it_first);
+    }
+
+    return it_first;
+}
+
+/**
+ * Classifies elements in a range into two disjoint sets, with those elements satisfying a unary predicate preceding those that fail to satisfy it,
+ * preserving the relative order of equivalent elements.
+ */
+forward_iterator_t algo_stable_partition(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op)
+{
+    bool_t     b_result = false;
+    iterator_t it_next;
+    iterator_t it_index;
+
+    assert(_iterator_valid_range(it_first, it_last, _FORWARD_ITERATOR));
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+
+    if (iterator_equal(it_first, it_last)) {
+        return it_first;
+    }
+
+    while (!iterator_equal(it_first, it_last)) {
+        (*ufun_op)(iterator_get_pointer(it_first), &b_result);
+        if (!b_result) {
+            for (it_next = iterator_next(it_first); !iterator_equal(it_next, it_last); it_next = iterator_next(it_next)) {
+                (*ufun_op)(iterator_get_pointer(it_next), &b_result);
+                if (b_result) {
+                    it_index = it_first;
+                    do {
+                        it_index = iterator_next(it_index);
+                        algo_iter_swap(it_first, it_index);
+                    } while (!iterator_equal(it_index, it_next));
+                    break;
+                }
+            }
+
+            if (iterator_equal(it_next, it_last)) {
+                return it_first;
+            }
+        }
+
+        it_first = iterator_next(it_first);
+    }
+
+    return it_first;
+}
+
 /** eof **/
 

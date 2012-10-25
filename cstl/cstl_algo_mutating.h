@@ -372,6 +372,96 @@ extern forward_iterator_t algo_rotate(forward_iterator_t it_first, forward_itera
  */
 extern output_iterator_t algo_rotate_copy(forward_iterator_t it_first, forward_iterator_t it_middle, forward_iterator_t it_last, output_iterator_t it_result);
 
+/**
+ * Rearranges a sequence of N elements in a range into one of N! possible arrangements selected at random.
+ * @param it_first      A random-access iterator addressing the position of the first element in the range to be rearranged.
+ * @param it_last       A random-access iterator addressing the position one past the final element in the range to be rearranged.
+ * @return  void.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern void algo_random_shuffle(random_access_iterator_t it_first, random_access_iterator_t it_last);
+
+/**
+ * Rearranges a sequence of N elements in a range into one of N! possible arrangements selected at random.
+ * @param it_first      A random-access iterator addressing the position of the first element in the range to be rearranged.
+ * @param it_last       A random-access iterator addressing the position one past the final element in the range to be rearranged.
+ * @param ufun_op       A special function called a random number generator.
+ * @return  void.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern void algo_random_shuffle_if(random_access_iterator_t it_first, random_access_iterator_t it_last, unary_function_t ufun_op);
+
+/**
+ * Copy a sample of the elements from the range [it_first1, it_last1) into the range [it_first2, it_last2).
+ * @param it_first1     An input iterator pointing to the position of the first element in the range from which elements are being selected.
+ * @param it_last1      An input iterator pointing to the position one past the final element in the range from which elements are being selected.
+ * @param it_first2     An random-access iterator pointing to the position of the first element in the destination range to which elements are being copied.
+ * @param it_last2      An random-access iterator pointing to the position one past the final element in the destination range to which elements are being copied.
+ * @return  An random-access iterator addressing the position one past the final element in the destination range.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern random_access_iterator_t algo_random_sample(
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2);
+
+/**
+ * Copy a sample of the elements from the range [it_first1, it_last1) into the range [it_first2, it_last2).
+ * @param it_first1     An input iterator pointing to the position of the first element in the range from which elements are being selected.
+ * @param it_last1      An input iterator pointing to the position one past the final element in the range from which elements are being selected.
+ * @param it_first2     An random-access iterator pointing to the position of the first element in the destination range to which elements are being copied.
+ * @param it_last2      An random-access iterator pointing to the position one past the final element in the destination range to which elements are being copied.
+ * @param ufun_op       A special function called a random number generator.
+ * @return  An random-access iterator addressing the position one past the final element in the destination range.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern random_access_iterator_t algo_random_sample_if(
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, unary_function_t ufun_op);
+
+/**
+ * Copy a sample of the elements from the range [it_first1, it_last1) into the range [it_first2, it_first2 + t_count).
+ * @param it_first      An input iterator pointing to the position of the first element in the range from which elements are being selected.
+ * @param it_last       An input iterator pointing to the position one past the final element in the range from which elements are being selected.
+ * @param it_result     An output iterator pointing to the position of the first element in the destination range to which elements are being copied.
+ * @param t_count       The number of elements to be copied the value.
+ * @return  An output iterator addressing the position one past the final element in the destination range.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern output_iterator_t algo_random_sample_n(
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, size_t t_count);
+
+/**
+ * Copy a sample of the elements from the range [it_first1, it_last1) into the range [it_first2, it_first2 + t_count).
+ * @param it_first      An input iterator pointing to the position of the first element in the range from which elements are being selected.
+ * @param it_last       An input iterator pointing to the position one past the final element in the range from which elements are being selected.
+ * @param it_result     An output iterator pointing to the position of the first element in the destination range to which elements are being copied.
+ * @param t_count       The number of elements to be copied the value.
+ * @param ufun_op       A special function called a random number generator.
+ * @return  An output iterator addressing the position one past the final element in the destination range.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern output_iterator_t algo_random_sample_n_if(
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, size_t t_count, unary_function_t ufun_op);
+
+/**
+ * Classifies elements in a range into two disjoint sets, with those elements satisfying a unary predicate preceding those that fail to satisfy it.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be partitioned.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be partitioned.
+ * @param ufun_op       User-defined predicate function that defines the condition to be satisfied if an element is to be classified.
+ * @return  A forward iterator addressing the position of the first element in the range to not satisfy the predicate condition.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_partition(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op);
+
+/**
+ * Classifies elements in a range into two disjoint sets, with those elements satisfying a unary predicate preceding those that fail to satisfy it,
+ * preserving the relative order of equivalent elements.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be partitioned.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be partitioned.
+ * @param ufun_op       User-defined predicate function that defines the condition to be satisfied if an element is to be classified.
+ * @return  A forward iterator addressing the position of the first element in the range to not satisfy the predicate condition.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_stable_partition(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op);
+
 #ifdef __cplusplus
 }
 #endif

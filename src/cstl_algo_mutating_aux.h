@@ -47,6 +47,16 @@ extern "C" {
  */
 extern void _algo_rotate_forward(forward_iterator_t it_first, forward_iterator_t it_middle, forward_iterator_t it_last);
 
+/**
+ * Classifies elements in a range into two disjoint sets, with those elements satisfying a unary predicate preceding those that fail to satisfy it.
+ * @param it_first      A bidirectional iterator addressing the position of the first element in the range to be partitioned.
+ * @param it_last       A bidirectional iterator addressing the position one past the final element in the range to be partitioned.
+ * @param ufun_op       User-defined predicate function that defines the condition to be satisfied if an element is to be classified.
+ * @return  A bidirectional iterator addressing the position of the first element in the range to not satisfy the predicate condition.
+ * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
+ */
+extern bidirectional_iterator_t _algo_partition_biditer(bidirectional_iterator_t t_first, bidirectional_iterator_t t_last, unary_function_t t_unary_op);
+
 #ifdef __cplusplus
 }
 #endif

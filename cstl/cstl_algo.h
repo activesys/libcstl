@@ -134,16 +134,6 @@ extern output_iterator_t algo_merge_if(
     output_iterator_t t_result, binary_function_t t_binary_op);
 
 /*
- * partition algorithm.
- */
-extern forward_iterator_t algo_partition(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    unary_function_t t_unary_op);
-extern forward_iterator_t algo_stable_partition(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    unary_function_t t_unary_op);
-
-/*
  * permutation algorithm.
  */
 extern bool_t algo_next_permutation(
@@ -156,28 +146,6 @@ extern bool_t algo_prev_permutation(
 extern bool_t algo_prev_permutation_if(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
     binary_function_t t_binary_op);
-
-/*
- * random algorithm.
- */
-extern void algo_random_shuffle(
-    random_access_iterator_t t_first, random_access_iterator_t t_last);
-extern void algo_random_shuffle_if(
-    random_access_iterator_t t_first, random_access_iterator_t t_last,
-    unary_function_t t_unary_op);
-extern random_access_iterator_t algo_random_sample(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    random_access_iterator_t t_first2, random_access_iterator_t t_last2);
-extern random_access_iterator_t algo_random_sample_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    random_access_iterator_t t_first2, random_access_iterator_t t_last2,
-    unary_function_t t_unary_op);
-extern output_iterator_t algo_random_sample_n(
-    input_iterator_t t_first, input_iterator_t t_last,
-    output_iterator_t t_result, size_t t_count);
-extern output_iterator_t algo_random_sample_n_if(
-    input_iterator_t t_first, input_iterator_t t_last,
-    output_iterator_t t_result, size_t t_count, unary_function_t t_unary_op);
 
 /*
  * partial sort algorithm.

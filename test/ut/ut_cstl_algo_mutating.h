@@ -295,6 +295,113 @@ void test_algo_rotate_copy__second_range_empty(void** state);
 void test_algo_rotate_copy__first_less_than_second(void** state);
 void test_algo_rotate_copy__first_equal_to_second(void** state);
 void test_algo_rotate_copy__first_greater_than_second(void** state);
+/*
+ * test algo_random_shuffle
+ */
+UT_CASE_DECLARATION(algo_random_shuffle)
+void test_algo_random_shuffle__invalid_range(void** state);
+void test_algo_random_shuffle__invalid_range2(void** state);
+void test_algo_random_shuffle__invalid_range3(void** state);
+void test_algo_random_shuffle__random(void** state);
+/*
+ * test algo_random_shuffle_if
+ */
+UT_CASE_DECLARATION(algo_random_shuffle_if)
+void test_algo_random_shuffle_if__invalid_range(void** state);
+void test_algo_random_shuffle_if__invalid_range2(void** state);
+void test_algo_random_shuffle_if__invalid_range3(void** state);
+void test_algo_random_shuffle_if__ufun_NULL(void** state);
+void test_algo_random_shuffle_if__random(void** state);
+/*
+ * test algo_random_sample
+ */
+UT_CASE_DECLARATION(algo_random_sample)
+void test_algo_random_sample__invalid_first_range(void** state);
+void test_algo_random_sample__invalid_first_range2(void** state);
+void test_algo_random_sample__invalid_first_range3(void** state);
+void test_algo_random_sample__invalid_second_range(void** state);
+void test_algo_random_sample__invalid_second_range2(void** state);
+void test_algo_random_sample__invalid_second_range3(void** state);
+void test_algo_random_sample__not_same_type(void** state);
+void test_algo_random_sample__all_empty(void** state);
+void test_algo_random_sample__first_empty(void** state);
+void test_algo_random_sample__second_empty(void** state);
+void test_algo_random_sample__first_less_than_second(void** state);
+void test_algo_random_sample__first_equal_to_second(void** state);
+void test_algo_random_sample__first_greater_than_second(void** state);
+/*
+ * test algo_random_sample_if
+ */
+UT_CASE_DECLARATION(algo_random_sample_if)
+void test_algo_random_sample_if__invalid_first_range(void** state);
+void test_algo_random_sample_if__invalid_first_range2(void** state);
+void test_algo_random_sample_if__invalid_first_range3(void** state);
+void test_algo_random_sample_if__invalid_second_range(void** state);
+void test_algo_random_sample_if__invalid_second_range2(void** state);
+void test_algo_random_sample_if__invalid_second_range3(void** state);
+void test_algo_random_sample_if__not_same_type(void** state);
+void test_algo_random_sample_if__all_empty(void** state);
+void test_algo_random_sample_if__first_empty(void** state);
+void test_algo_random_sample_if__second_empty(void** state);
+void test_algo_random_sample_if__first_less_than_second(void** state);
+void test_algo_random_sample_if__first_equal_to_second(void** state);
+void test_algo_random_sample_if__first_greater_than_second(void** state);
+void test_algo_random_sample_if__ufun_not_NULL(void** state);
+/*
+ * test algo_random_sample_n
+ */
+UT_CASE_DECLARATION(algo_random_sample_n)
+void test_algo_random_sample_n__invalid_first_range(void** state);
+void test_algo_random_sample_n__invalid_first_range2(void** state);
+void test_algo_random_sample_n__invalid_first_range3(void** state);
+void test_algo_random_sample_n__invalid_second_range(void** state);
+void test_algo_random_sample_n__not_same_type(void** state);
+void test_algo_random_sample_n__all_empty(void** state);
+void test_algo_random_sample_n__first_empty(void** state);
+void test_algo_random_sample_n__second_empty(void** state);
+void test_algo_random_sample_n__first_less_than_second(void** state);
+void test_algo_random_sample_n__first_equal_to_second(void** state);
+void test_algo_random_sample_n__first_greater_than_second(void** state);
+/*
+ * test algo_random_sample_n_if
+ */
+UT_CASE_DECLARATION(algo_random_sample_n_if)
+void test_algo_random_sample_n_if__invalid_first_range(void** state);
+void test_algo_random_sample_n_if__invalid_first_range2(void** state);
+void test_algo_random_sample_n_if__invalid_first_range3(void** state);
+void test_algo_random_sample_n_if__invalid_second_range(void** state);
+void test_algo_random_sample_n_if__not_same_type(void** state);
+void test_algo_random_sample_n_if__all_empty(void** state);
+void test_algo_random_sample_n_if__first_empty(void** state);
+void test_algo_random_sample_n_if__second_empty(void** state);
+void test_algo_random_sample_n_if__first_less_than_second(void** state);
+void test_algo_random_sample_n_if__first_equal_to_second(void** state);
+void test_algo_random_sample_n_if__first_greater_than_second(void** state);
+void test_algo_random_sample_n_if__ufun_not_NULL(void** state);
+/*
+ * test algo_partition
+ */
+UT_CASE_DECLARATION(algo_partition)
+void test_algo_partition__invalid_range(void** state);
+void test_algo_partition__invalid_range2(void** state);
+void test_algo_partition__invalid_range3(void** state);
+void test_algo_partition__empty(void** state);
+void test_algo_partition__ufun_NULL(void** state);
+void test_algo_partition__all_satify(void** state);
+void test_algo_partition__all_not_satify(void** state);
+void test_algo_partition__normal(void** state);
+/*
+ * test algo_stable_partition
+ */
+UT_CASE_DECLARATION(algo_stable_partition)
+void test_algo_stable_partition__invalid_range(void** state);
+void test_algo_stable_partition__invalid_range2(void** state);
+void test_algo_stable_partition__invalid_range3(void** state);
+void test_algo_stable_partition__empty(void** state);
+void test_algo_stable_partition__ufun_NULL(void** state);
+void test_algo_stable_partition__all_satify(void** state);
+void test_algo_stable_partition__all_not_satify(void** state);
+void test_algo_stable_partition__normal(void** state);
 
 #define UT_CSTL_ALGO_MUTATING_CASE\
     UT_SUIT_BEGIN(cstl_algo_mutating, test_algo_copy__invalid_source_range),\
@@ -504,7 +611,82 @@ void test_algo_rotate_copy__first_greater_than_second(void** state);
     UT_CASE(test_algo_rotate_copy__second_range_empty),\
     UT_CASE(test_algo_rotate_copy__first_less_than_second),\
     UT_CASE(test_algo_rotate_copy__first_equal_to_second),\
-    UT_CASE(test_algo_rotate_copy__first_greater_than_second)
+    UT_CASE(test_algo_rotate_copy__first_greater_than_second),\
+    UT_CASE_BEGIN(algo_random_shuffle, test_algo_random_shuffle__invalid_range),\
+    UT_CASE(test_algo_random_shuffle__invalid_range2),\
+    UT_CASE(test_algo_random_shuffle__invalid_range3),\
+    UT_CASE(test_algo_random_shuffle__random),\
+    UT_CASE_BEGIN(algo_random_shuffle_if, test_algo_random_shuffle_if__invalid_range),\
+    UT_CASE(test_algo_random_shuffle_if__invalid_range2),\
+    UT_CASE(test_algo_random_shuffle_if__invalid_range3),\
+    UT_CASE(test_algo_random_shuffle_if__ufun_NULL),\
+    UT_CASE(test_algo_random_shuffle_if__random),\
+    UT_CASE_BEGIN(algo_random_sample, test_algo_random_sample__invalid_first_range),\
+    UT_CASE(test_algo_random_sample__invalid_first_range2),\
+    UT_CASE(test_algo_random_sample__invalid_first_range3),\
+    UT_CASE(test_algo_random_sample__invalid_second_range),\
+    UT_CASE(test_algo_random_sample__invalid_second_range2),\
+    UT_CASE(test_algo_random_sample__invalid_second_range3),\
+    UT_CASE(test_algo_random_sample__not_same_type),\
+    UT_CASE(test_algo_random_sample__all_empty),\
+    UT_CASE(test_algo_random_sample__first_empty),\
+    UT_CASE(test_algo_random_sample__second_empty),\
+    UT_CASE(test_algo_random_sample__first_less_than_second),\
+    UT_CASE(test_algo_random_sample__first_equal_to_second),\
+    UT_CASE(test_algo_random_sample__first_greater_than_second),\
+    UT_CASE_BEGIN(algo_random_sample_if, test_algo_random_sample_if__invalid_first_range),\
+    UT_CASE(test_algo_random_sample_if__invalid_first_range2),\
+    UT_CASE(test_algo_random_sample_if__invalid_first_range3),\
+    UT_CASE(test_algo_random_sample_if__invalid_second_range),\
+    UT_CASE(test_algo_random_sample_if__invalid_second_range2),\
+    UT_CASE(test_algo_random_sample_if__invalid_second_range3),\
+    UT_CASE(test_algo_random_sample_if__not_same_type),\
+    UT_CASE(test_algo_random_sample_if__all_empty),\
+    UT_CASE(test_algo_random_sample_if__first_empty),\
+    UT_CASE(test_algo_random_sample_if__second_empty),\
+    UT_CASE(test_algo_random_sample_if__first_less_than_second),\
+    UT_CASE(test_algo_random_sample_if__first_equal_to_second),\
+    UT_CASE(test_algo_random_sample_if__first_greater_than_second),\
+    UT_CASE(test_algo_random_sample_if__ufun_not_NULL),\
+    UT_CASE_BEGIN(algo_random_sample_n, test_algo_random_sample_n__invalid_first_range),\
+    UT_CASE(test_algo_random_sample_n__invalid_first_range2),\
+    UT_CASE(test_algo_random_sample_n__invalid_first_range3),\
+    UT_CASE(test_algo_random_sample_n__invalid_second_range),\
+    UT_CASE(test_algo_random_sample_n__not_same_type),\
+    UT_CASE(test_algo_random_sample_n__all_empty),\
+    UT_CASE(test_algo_random_sample_n__first_empty),\
+    UT_CASE(test_algo_random_sample_n__second_empty),\
+    UT_CASE(test_algo_random_sample_n__first_less_than_second),\
+    UT_CASE(test_algo_random_sample_n__first_equal_to_second),\
+    UT_CASE(test_algo_random_sample_n__first_greater_than_second),\
+    UT_CASE_BEGIN(algo_random_sample_n_if, test_algo_random_sample_n_if__invalid_first_range),\
+    UT_CASE(test_algo_random_sample_n_if__invalid_first_range2),\
+    UT_CASE(test_algo_random_sample_n_if__invalid_first_range3),\
+    UT_CASE(test_algo_random_sample_n_if__invalid_second_range),\
+    UT_CASE(test_algo_random_sample_n_if__not_same_type),\
+    UT_CASE(test_algo_random_sample_n_if__all_empty),\
+    UT_CASE(test_algo_random_sample_n_if__first_empty),\
+    UT_CASE(test_algo_random_sample_n_if__second_empty),\
+    UT_CASE(test_algo_random_sample_n_if__first_less_than_second),\
+    UT_CASE(test_algo_random_sample_n_if__first_equal_to_second),\
+    UT_CASE(test_algo_random_sample_n_if__first_greater_than_second),\
+    UT_CASE(test_algo_random_sample_n_if__ufun_not_NULL),\
+    UT_CASE_BEGIN(algo_partition, test_algo_partition__invalid_range),\
+    UT_CASE(test_algo_partition__invalid_range2),\
+    UT_CASE(test_algo_partition__invalid_range3),\
+    UT_CASE(test_algo_partition__empty),\
+    UT_CASE(test_algo_partition__ufun_NULL),\
+    UT_CASE(test_algo_partition__all_satify),\
+    UT_CASE(test_algo_partition__all_not_satify),\
+    UT_CASE(test_algo_partition__normal),\
+    UT_CASE_BEGIN(algo_stable_partition, test_algo_stable_partition__invalid_range),\
+    UT_CASE(test_algo_stable_partition__invalid_range2),\
+    UT_CASE(test_algo_stable_partition__invalid_range3),\
+    UT_CASE(test_algo_stable_partition__empty),\
+    UT_CASE(test_algo_stable_partition__ufun_NULL),\
+    UT_CASE(test_algo_stable_partition__all_satify),\
+    UT_CASE(test_algo_stable_partition__all_not_satify),\
+    UT_CASE(test_algo_stable_partition__normal)
 
 #endif /* _UT_CSTL_ALGO_MUTATING_H_ */
 

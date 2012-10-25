@@ -164,3 +164,108 @@ void test__algo_rotate_forward__second_range_empty(void** state)
     slist_destroy(pslist);
 }
 
+/*
+ * test _algo_partition_biditer
+ */
+UT_CASE_DEFINATION(_algo_partition_biditer)
+void test__algo_partition_biditer__invalid_range(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_algo_partition_biditer(list_begin(plist), deque_begin(pdeq), NULL));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test__algo_partition_biditer__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_algo_partition_biditer(deque_end(pdeq), deque_begin(pdeq), NULL));
+    deque_destroy(pdeq);
+}
+
+void test__algo_partition_biditer__invalid_range3(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(_algo_partition_biditer(slist_begin(pslist), slist_end(pslist), NULL));
+    slist_destroy(pslist);
+}
+
+void test__algo_partition_biditer__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init(pdeq);
+    it = _algo_partition_biditer(deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test__algo_partition_biditer__ufun_NULL(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = _algo_partition_biditer(vector_begin(pvec), vector_end(pvec), NULL);
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+}
+
+static void _test__algo_partition_biditer__all_satify(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input < 10 ? true : false;
+}
+void test__algo_partition_biditer__all_satify(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = _algo_partition_biditer(vector_begin(pvec), vector_end(pvec), _test__algo_partition_biditer__all_satify);
+    assert_true(iterator_equal(it, vector_end(pvec)));
+    vector_destroy(pvec);
+}
+
+static void _test__algo_partition_biditer__all_not_satify(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input > 10 ? true : false;
+}
+void test__algo_partition_biditer__all_not_satify(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = _algo_partition_biditer(vector_begin(pvec), vector_end(pvec), _test__algo_partition_biditer__all_not_satify);
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+}
+
+static void _test__algo_partition_biditer__normal(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input % 2 == 0 ? true : false;
+}
+void test__algo_partition_biditer__normal(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = _algo_partition_biditer(vector_begin(pvec), vector_end(pvec), _test__algo_partition_biditer__normal);
+    assert_true(iterator_equal(it, iterator_advance(vector_begin(pvec), 5)));
+    vector_destroy(pvec);
+}
+

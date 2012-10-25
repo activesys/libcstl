@@ -25,10 +25,12 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-/*
-#include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
-*/
+
+#include <cstl/cstl_algo_nonmutating_private.h>
+#include <cstl/cstl_algo_nonmutating.h>
+#include <cstl/cstl_algo_mutating_private.h>
+#include <cstl/cstl_algo_mutating.h>
 
 #include "cstl_algo_mutating_aux.h"
 
@@ -71,6 +73,55 @@ void _algo_rotate_forward(forward_iterator_t it_first, forward_iterator_t it_mid
         } else if (iterator_equal(it_iter, it_last)) {  /* the [it_middle, it_last) is empty */
             it_iter = it_middle;
         }
+    }
+}
+
+/**
+ * Classifies elements in a range into two disjoint sets, with those elements satisfying a unary predicate preceding those that fail to satisfy it.
+ */
+bidirectional_iterator_t _algo_partition_biditer(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, unary_function_t ufun_op)
+{
+    bool_t b_result = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _BIDIRECTIONAL_ITERATOR));
+
+    if (ufun_op == NULL) {
+        ufun_op = fun_default_unary;
+    }
+
+    for (;;) {
+        /* the first element that don't satisfy the ufun_op */
+        for (;;) {
+            if (iterator_equal(it_first, it_last)) {
+                return it_first;
+            } else {
+                (*ufun_op)(iterator_get_pointer(it_first), &b_result);
+                if (b_result) {
+                    it_first = iterator_next(it_first);
+                } else {
+                    break;
+                }
+            }
+        }
+
+        /* find the last element that satisfy the ufun_op */
+        it_last = iterator_prev(it_last);
+        for (;;) {
+            if (iterator_equal(it_first, it_last)) {
+                return it_first;
+            } else {
+                (*ufun_op)(iterator_get_pointer(it_last), &b_result);
+                if (!b_result) {
+                    it_last = iterator_prev(it_last);
+                } else {
+                    break;
+                }
+            }
+        }
+
+        /* swap element */
+        algo_iter_swap(it_first, it_last);
+        it_first = iterator_next(it_first);
     }
 }
 

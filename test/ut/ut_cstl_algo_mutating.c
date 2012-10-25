@@ -3840,3 +3840,1082 @@ void test_algo_rotate_copy__first_greater_than_second(void** state)
     list_destroy(plist_result);
 }
 
+/*
+ * test algo_random_shuffle
+ */
+UT_CASE_DEFINATION(algo_random_shuffle)
+void test_algo_random_shuffle__invalid_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_shuffle(vector_begin(pvec), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_shuffle__invalid_range2(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_random_shuffle(vector_end(pvec), vector_begin(pvec)));
+    vector_destroy(pvec);
+}
+
+void test_algo_random_shuffle__invalid_range3(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_random_shuffle(list_begin(plist), list_end(plist)));
+    list_destroy(plist);
+}
+
+void test_algo_random_shuffle__random(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_random_shuffle(deque_begin(pdeq), deque_end(pdeq));
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_random_shuffle_if
+ */
+UT_CASE_DEFINATION(algo_random_shuffle_if)
+void test_algo_random_shuffle_if__invalid_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_shuffle_if(vector_begin(pvec), deque_begin(pdeq), NULL));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_shuffle_if__invalid_range2(void** state)
+{
+    vector_t* pvec = create_vector(int);
+
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_random_shuffle_if(vector_end(pvec), vector_begin(pvec), NULL));
+    vector_destroy(pvec);
+}
+
+void test_algo_random_shuffle_if__invalid_range3(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_random_shuffle_if(list_begin(plist), list_end(plist), NULL));
+    list_destroy(plist);
+}
+
+void test_algo_random_shuffle_if__ufun_NULL(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_random_shuffle_if(deque_begin(pdeq), deque_end(pdeq), NULL);
+    deque_destroy(pdeq);
+}
+
+static void _test_algo_random_shuffle_if__random(const void* cpv_input, void* pv_output)
+{
+    static size_t t_result = 1;
+    *(size_t*)pv_output = t_result++;
+}
+void test_algo_random_shuffle_if__random(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    vector_t* pvec_result = create_vector(int);
+    int an_array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    vector_init_copy(pvec_result, pvec);
+    algo_random_shuffle_if(vector_begin(pvec), vector_end(pvec), _test_algo_random_shuffle_if__random);
+    assert_true(vector_equal(pvec, pvec_result));
+    vector_destroy(pvec);
+    vector_destroy(pvec_result);
+}
+
+/*
+ * test algo_random_sample
+ */
+UT_CASE_DEFINATION(algo_random_sample)
+void test_algo_random_sample__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_random_sample(deque_begin(pdeq), list_begin(plist), vector_begin(pvec), vector_end(pvec)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_random_sample__invalid_first_range2(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample(list_end(plist), list_begin(plist), deque_begin(pdeq), deque_end(pdeq)));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__invalid_first_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    it = vector_begin(pvec);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_random_sample(it, vector_end(pvec), deque_begin(pdeq), deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_random_sample(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), vector_end(pvec)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_random_sample__invalid_second_range2(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample(list_begin(plist), list_end(plist), deque_end(pdeq), deque_begin(pdeq)));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__invalid_second_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_random_sample(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+void test_algo_random_sample__not_same_type(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample(list_begin(plist), list_end(plist), deque_begin(pdeq), deque_end(pdeq)));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__all_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init(pdeq);
+    it = algo_random_sample(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__first_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init_n(pdeq, 10);
+    it = algo_random_sample(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__second_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init(pdeq);
+    it = algo_random_sample(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__first_less_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 15);
+    it = algo_random_sample(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, iterator_advance(deque_begin(pdeq), 10)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__first_equal_to_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 10);
+    it = algo_random_sample(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample__first_greater_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 5);
+    it = algo_random_sample(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_random_sample_if
+ */
+UT_CASE_DEFINATION(algo_random_sample_if)
+void test_algo_random_sample_if__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_random_sample_if(deque_begin(pdeq), list_begin(plist), vector_begin(pvec), vector_end(pvec), NULL));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_random_sample_if__invalid_first_range2(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample_if(list_end(plist), list_begin(plist), deque_begin(pdeq), deque_end(pdeq), NULL));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__invalid_first_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    it = vector_begin(pvec);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_random_sample_if(it, vector_end(pvec), deque_begin(pdeq), deque_end(pdeq), NULL));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_random_sample_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), vector_end(pvec), NULL));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_random_sample_if__invalid_second_range2(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample_if(list_begin(plist), list_end(plist), deque_end(pdeq), deque_begin(pdeq), NULL));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__invalid_second_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_random_sample_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), NULL));
+    vector_destroy(pvec);
+    list_destroy(plist);
+}
+
+void test_algo_random_sample_if__not_same_type(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample_if(list_begin(plist), list_end(plist), deque_begin(pdeq), deque_end(pdeq), NULL));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__all_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init(pdeq);
+    it = algo_random_sample_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__first_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init_n(pdeq, 10);
+    it = algo_random_sample_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__second_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init(pdeq);
+    it = algo_random_sample_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__first_less_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 15);
+    it = algo_random_sample_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, iterator_advance(deque_begin(pdeq), 10)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__first_equal_to_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 10);
+    it = algo_random_sample_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_if__first_greater_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 5);
+    it = algo_random_sample_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+static void _test_algo_random_sample_if__ufun_non_NULL(const void* cpv_input, void* pv_output)
+{
+    static size_t t_result = 0;
+    *(size_t*)pv_output = t_result++;
+}
+void test_algo_random_sample_if__ufun_not_NULL(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 5);
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_random_sample_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), deque_end(pdeq), _test_algo_random_sample_if__ufun_non_NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_random_sample_n
+ */
+UT_CASE_DEFINATION(algo_random_sample_n)
+void test_algo_random_sample_n__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_random_sample_n(deque_begin(pdeq), list_begin(plist), vector_begin(pvec), 10));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_random_sample_n__invalid_first_range2(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample_n(list_end(plist), list_begin(plist), deque_begin(pdeq), 10));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n__invalid_first_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    it = vector_begin(pvec);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_random_sample_n(it, vector_end(pvec), deque_begin(pdeq), 10));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    it = list_begin(plist);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_random_sample_n(deque_begin(pdeq), deque_end(pdeq), it, 10));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_random_sample_n__not_same_type(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample_n(list_begin(plist), list_end(plist), deque_begin(pdeq), 10));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n__all_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init(pdeq);
+    it = algo_random_sample_n(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 0);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n__first_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init_n(pdeq, 10);
+    it = algo_random_sample_n(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 10);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n__second_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init(pdeq);
+    it = algo_random_sample_n(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 0);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n__first_less_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 15);
+    it = algo_random_sample_n(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 15);
+    assert_true(iterator_equal(it, iterator_advance(deque_begin(pdeq), 10)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n__first_equal_to_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 10);
+    it = algo_random_sample_n(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 10);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n__first_greater_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 5);
+    it = algo_random_sample_n(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 5);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_random_sample_n_if
+ */
+UT_CASE_DEFINATION(algo_random_sample_n_if)
+void test_algo_random_sample_n_if__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_random_sample_n_if(deque_begin(pdeq), list_begin(plist), vector_begin(pvec), 10, NULL));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_random_sample_n_if__invalid_first_range2(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample_n_if(list_end(plist), list_begin(plist), deque_begin(pdeq), 10, NULL));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n_if__invalid_first_range3(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    it = vector_begin(pvec);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_random_sample_n_if(it, vector_end(pvec), deque_begin(pdeq), 10, NULL));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n_if__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    it = list_begin(plist);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_random_sample_n_if(deque_begin(pdeq), deque_end(pdeq), it, 10, NULL));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_random_sample_n_if__not_same_type(void** state)
+{
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_random_sample_n_if(list_begin(plist), list_end(plist), deque_begin(pdeq), 10, NULL));
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n_if__all_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init(pdeq);
+    it = algo_random_sample_n_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 0, NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n_if__first_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init(pvec);
+    deque_init_n(pdeq, 10);
+    it = algo_random_sample_n_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 10, NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n_if__second_empty(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    deque_init(pdeq);
+    it = algo_random_sample_n_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 0, NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n_if__first_less_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 15);
+    it = algo_random_sample_n_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 15, NULL);
+    assert_true(iterator_equal(it, iterator_advance(deque_begin(pdeq), 10)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n_if__first_equal_to_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 10);
+    it = algo_random_sample_n_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 10, NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_random_sample_n_if__first_greater_than_second(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 5);
+    it = algo_random_sample_n_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 5, NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+static void _test_algo_random_sample_n_if__ufun_non_NULL(const void* cpv_input, void* pv_output)
+{
+    static size_t t_result = 0;
+    *(size_t*)pv_output = t_result++;
+}
+void test_algo_random_sample_n_if__ufun_not_NULL(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {1, 2, 3, 4, 5};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_n(pdeq, 5);
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_random_sample_n_if(vector_begin(pvec), vector_end(pvec), deque_begin(pdeq), 5, _test_algo_random_sample_n_if__ufun_non_NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_partition
+ */
+UT_CASE_DEFINATION(algo_partition)
+void test_algo_partition__invalid_range(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_t* pslist_1 = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    slist_init_n(pslist_1, 10);
+    expect_assert_failure(algo_partition(slist_begin(pslist), slist_end(pslist_1), NULL));
+    slist_destroy(pslist);
+    slist_destroy(pslist_1);
+}
+
+void test_algo_partition__invalid_range2(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_partition(slist_end(pslist), slist_begin(pslist), NULL));
+    slist_destroy(pslist);
+}
+
+void test_algo_partition__invalid_range3(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    iterator_t it;
+
+    slist_init_n(pslist, 10);
+    it = slist_begin(pslist);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_partition(slist_begin(pslist), it, NULL));
+    slist_destroy(pslist);
+}
+
+void test_algo_partition__empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    iterator_t it;
+
+    slist_init(pslist);
+    it = algo_partition(slist_begin(pslist), slist_end(pslist), NULL);
+    assert_true(iterator_equal(it, slist_begin(pslist)));
+    slist_destroy(pslist);
+}
+
+void test_algo_partition__ufun_NULL(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    slist_init_copy_array(pslist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_partition(slist_begin(pslist), slist_end(pslist), NULL);
+    assert_true(iterator_equal(it, slist_begin(pslist)));
+    slist_destroy(pslist);
+}
+
+static void _test_algo_partition__all_satify(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input < 10 ? true : false;
+}
+void test_algo_partition__all_satify(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    slist_init_copy_array(pslist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_partition(slist_begin(pslist), slist_end(pslist), _test_algo_partition__all_satify);
+    assert_true(iterator_equal(it, slist_end(pslist)));
+    slist_destroy(pslist);
+}
+
+static void _test_algo_partition__all_not_satify(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input > 10 ? true : false;
+}
+void test_algo_partition__all_not_satify(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    slist_init_copy_array(pslist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_partition(slist_begin(pslist), slist_end(pslist), _test_algo_partition__all_not_satify);
+    assert_true(iterator_equal(it, slist_begin(pslist)));
+    slist_destroy(pslist);
+}
+
+static void _test_algo_partition__normal(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input % 2 == 0 ? true : false;
+}
+void test_algo_partition__normal(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    slist_init_copy_array(pslist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_partition(slist_begin(pslist), slist_end(pslist), _test_algo_partition__normal);
+    assert_true(iterator_equal(it, iterator_advance(slist_begin(pslist), 5)));
+    slist_destroy(pslist);
+}
+
+/*
+ * test algo_stable_partition
+ */
+UT_CASE_DEFINATION(algo_stable_partition)
+void test_algo_stable_partition__invalid_range(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_t* pslist_1 = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    slist_init_n(pslist_1, 10);
+    expect_assert_failure(algo_stable_partition(slist_begin(pslist), slist_end(pslist_1), NULL));
+    slist_destroy(pslist);
+    slist_destroy(pslist_1);
+}
+
+void test_algo_stable_partition__invalid_range2(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_stable_partition(slist_end(pslist), slist_begin(pslist), NULL));
+    slist_destroy(pslist);
+}
+
+void test_algo_stable_partition__invalid_range3(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    iterator_t it;
+
+    slist_init_n(pslist, 10);
+    it = slist_begin(pslist);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_stable_partition(slist_begin(pslist), it, NULL));
+    slist_destroy(pslist);
+}
+
+void test_algo_stable_partition__empty(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    iterator_t it;
+
+    slist_init(pslist);
+    it = algo_stable_partition(slist_begin(pslist), slist_end(pslist), NULL);
+    assert_true(iterator_equal(it, slist_begin(pslist)));
+    slist_destroy(pslist);
+}
+
+void test_algo_stable_partition__ufun_NULL(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    slist_init_copy_array(pslist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_stable_partition(slist_begin(pslist), slist_end(pslist), NULL);
+    assert_true(iterator_equal(it, slist_begin(pslist)));
+    slist_destroy(pslist);
+}
+
+static void _test_algo_stable_partition__all_satify(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input < 10 ? true : false;
+}
+void test_algo_stable_partition__all_satify(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_t* pslist_result = create_slist(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    slist_init_copy_array(pslist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    slist_init_copy(pslist_result, pslist);
+    it = algo_stable_partition(slist_begin(pslist), slist_end(pslist), _test_algo_stable_partition__all_satify);
+    assert_true(iterator_equal(it, slist_end(pslist)));
+    assert_true(slist_equal(pslist, pslist_result));
+    slist_destroy(pslist);
+    slist_destroy(pslist_result);
+}
+
+static void _test_algo_stable_partition__all_not_satify(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input > 10 ? true : false;
+}
+void test_algo_stable_partition__all_not_satify(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_t* pslist_result = create_slist(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    iterator_t it;
+
+    slist_init_copy_array(pslist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    slist_init_copy(pslist_result, pslist);
+    it = algo_stable_partition(slist_begin(pslist), slist_end(pslist), _test_algo_stable_partition__all_not_satify);
+    assert_true(iterator_equal(it, slist_begin(pslist)));
+    assert_true(slist_equal(pslist, pslist_result));
+    slist_destroy(pslist);
+    slist_destroy(pslist_result);
+}
+
+static void _test_algo_stable_partition__normal(const void* cpv_input, void* pv_output)
+{
+    *(bool_t*)pv_output = *(int*)cpv_input % 2 == 0 ? true : false;
+}
+void test_algo_stable_partition__normal(void** state)
+{
+    slist_t* pslist = create_slist(int);
+    slist_t* pslist_result = create_slist(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int an_result[] = {2, 4, 6, 8, 0, 1, 3, 5, 7, 9};
+    iterator_t it;
+
+    slist_init_copy_array(pslist, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    slist_init_copy_array(pslist_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_stable_partition(slist_begin(pslist), slist_end(pslist), _test_algo_stable_partition__normal);
+    assert_true(iterator_equal(it, iterator_advance(slist_begin(pslist), 5)));
+    assert_true(slist_equal(pslist, pslist_result));
+    slist_destroy(pslist);
+    slist_destroy(pslist_result);
+}
+
