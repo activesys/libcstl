@@ -41,6 +41,7 @@
 #include <cstl/cstl_algo_private.h>
 
 #include "cstl_algo_mutating_aux.h"
+#include "cstl_algo_sorting_aux.h"
 
 /** local constant declaration and local macro section **/
 #define _CSTL_SORT_THRESHOLD  16 /* the threshold of insert sort and quick sort */
@@ -54,20 +55,6 @@
 static void _insertion_sort_if(
     random_access_iterator_t t_first, random_access_iterator_t t_last,
     binary_function_t t_binary_op, char* pc_value);
-
-/*
- * Return the median of three random_access_iterator_t
- */
-static random_access_iterator_t _median_of_three_if(
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_middle,
-    random_access_iterator_t t_last,
-    binary_function_t t_binary_op);
-
-/*
- * Compute the logarithm of t_n.
- */
-static size_t _lg(size_t t_n);
 
 /*
  * The implement of intro sort.
@@ -1244,7 +1231,7 @@ void algo_sort_if(
         t_len = iterator_distance(t_first, t_last);
         if(t_len > _CSTL_SORT_THRESHOLD)
         {
-            _intro_sort_if(t_first, t_last, t_binary_op, _lg(t_len)*2, pv_value);
+            _intro_sort_if(t_first, t_last, t_binary_op, _algo_lg(t_len)*2, pv_value);
         }
         else
         {
@@ -1443,7 +1430,7 @@ void algo_nth_element_if(
             t_pivot = iterator_advance(t_pivot, iterator_distance(t_first, t_last) / 2);
             t_prev = t_last;
             t_prev = iterator_prev(t_prev);
-            t_pivot = _median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
+            t_pivot = _algo_median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
             string_assign_cstr((string_t*)pv_value, (char*)iterator_get_pointer(t_pivot));
 
             t_begin = t_first;
@@ -1497,7 +1484,7 @@ void algo_nth_element_if(
             t_pivot = iterator_advance(t_pivot, iterator_distance(t_first, t_last) / 2);
             t_prev = t_last;
             t_prev = iterator_prev(t_prev);
-            t_pivot = _median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
+            t_pivot = _algo_median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
             iterator_get_value(t_pivot, pv_value);
 
             t_begin = t_first;
@@ -1718,75 +1705,6 @@ static void _insertion_sort_if(
     }
 }
 
-static random_access_iterator_t _median_of_three_if(
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_middle,
-    random_access_iterator_t t_last,
-    binary_function_t t_binary_op)
-{
-    bool_t t_result = false;
-
-    assert(t_binary_op != NULL);
-
-    (*t_binary_op)(
-        iterator_get_pointer(t_first), iterator_get_pointer(t_middle), &t_result);
-    if(t_result) /* t_first < t_middle */
-    {
-        (*t_binary_op)(
-            iterator_get_pointer(t_middle), iterator_get_pointer(t_last), &t_result);
-        if(t_result) /* t_first < t_middle < t_last */
-        {
-            return t_middle;
-        }
-        else /* t_last <= t_middle */
-        {
-            (*t_binary_op)(
-                iterator_get_pointer(t_first), iterator_get_pointer(t_last), &t_result);
-            if(t_result) /* t_first < t_last <= t_middle */
-            {
-                return t_last;
-            }
-            else /* t_last <= t_first <= t_middle */
-            {
-                return t_first;
-            }
-        }
-    }
-    else /* t_middle <= t_first */
-    {
-        (*t_binary_op)(
-            iterator_get_pointer(t_first), iterator_get_pointer(t_last), &t_result);
-        if(t_result) /* t_middle <= t_first < t_last */
-        {
-            return t_first;
-        }
-        else /* t_last <= t_first */
-        {
-            (*t_binary_op)(
-                iterator_get_pointer(t_middle), iterator_get_pointer(t_last), &t_result);
-            if(t_result) /* t_middle < t_last <= t_first */
-            {
-                return t_last;
-            }
-            else /* t_last <= t_middle <= t_first */
-            {
-                return t_middle;
-            }
-        }
-    }
-}
-
-static size_t _lg(size_t t_n)
-{
-    size_t t_k = 0;
-    for(t_k = 0; t_n > 1; t_n >>= 1)
-    {
-        t_k++;
-    }
-
-    return t_k;
-}
-
 static void _intro_sort_if(
     random_access_iterator_t t_first, random_access_iterator_t t_last,
     binary_function_t t_binary_op, size_t t_depth, char* pc_value)
@@ -1820,7 +1738,7 @@ static void _intro_sort_if(
     t_pivot = iterator_advance(t_pivot, iterator_distance(t_first, t_last) / 2);
     t_prev = t_last;
     t_prev = iterator_prev(t_prev);
-    t_pivot = _median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
+    t_pivot = _algo_median_of_three_if(t_first, t_pivot, t_prev, t_binary_op);
 
     /* the pc_value must be string_t type when the container type is char* */
     if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)

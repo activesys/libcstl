@@ -19,6 +19,8 @@ cstlinclude_HEADERS = calgorithm.h \
 			cstl_algo_nonmutating_private.h \
 			cstl_algo_mutating.h \
 			cstl_algo_mutating_private.h \
+			cstl_algo_sorting.h \
+			cstl_algo_sorting_private.h \
 			cstl_algobase.h \
 			cstl_algobase_private.h \
 			cstl_alloc.h \

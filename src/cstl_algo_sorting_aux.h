@@ -1,5 +1,5 @@
 /*
- *  The user interface of algorithm
+ *  The interface of auxiliary sorting algorithm.
  *  Copyright (C)  2008 - 2012  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
@@ -20,31 +20,14 @@
  *                 activesys@sina.com.cn
  */
 
-#ifndef _CALGORITHM_H_
-#define _CALGORITHM_H_
+#ifndef _CSTL_ALGO_SORTING_AUX_H_
+#define _CSTL_ALGO_SORTING_AUX_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** include section **/
-#include <cstl/cstl_def.h>
-#include <cstl/cstl_alloc.h>
-#include <cstl/cstl_types.h>
-#include <cstl/citerator.h>
-#include <cstl/cutility.h>
-
-#include <cstl/cstl_algobase.h>
-#include <cstl/cstl_algobase_private.h>
-#include <cstl/cstl_algo_nonmutating_private.h>
-#include <cstl/cstl_algo_nonmutating.h>
-#include <cstl/cstl_algo_mutating_private.h>
-#include <cstl/cstl_algo_mutating.h>
-#include <cstl/cstl_algo_sorting_private.h>
-#include <cstl/cstl_algo_sorting.h>
-#include <cstl/cstl_algo.h>
-#include <cstl/cstl_algo_private.h>
-#include <cstl/cstl_heap.h>
 
 /** constant declaration and macro section **/
 
@@ -53,11 +36,29 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
+/**
+ * Compute logarithm of 2
+ * @param t_base        Base.
+ * @return  Power.
+ */
+extern size_t _algo_lg(size_t t_base);
+
+/**
+ * Return the median of three random_access_iterator_t
+ * @param it_first      A random-access iterator addressing the position of the first element in the range.
+ * @param it_middle     A random-access iterator addressing the position of the middle element in the range.
+ * @param it_last       A random-access iterator addressing the position of the last element in the range.
+ * @param bfun_op       User-defined predicate function object that defines the comparison criterion to be satisfied by successive elements in the ordering.
+ * @return  The median iterator.
+ * @remarks This three iterator must be point element that have same type, otherwise the behavior is undefined.
+ */
+extern random_access_iterator_t _algo_median_of_three_if(
+    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _CALGORITHM_H_ */
+#endif /* _CSTL_ALGO_SORTING_AUX_H_ */
 /** eof **/
 
