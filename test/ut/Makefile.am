@@ -22,7 +22,7 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     $(srcdir)/../../src/cstl_hash_set_private.c $(srcdir)/../../src/cstl_hash_set_aux.c \
 	     $(srcdir)/../../src/cstl_hashtable.c $(srcdir)/../../src/cstl_hashtable_iterator.c \
 	     $(srcdir)/../../src/cstl_hashtable_private.c $(srcdir)/../../src/cstl_hashtable_aux.c \
-	     $(srcdir)/../../src/cstl_heap.c \
+	     $(srcdir)/../../src/cstl_heap.c $(srcdir)/../../src/cstl_heap_aux.c \
 	     $(srcdir)/../../src/cstl_list.c $(srcdir)/../../src/cstl_list_iterator.c \
 	     $(srcdir)/../../src/cstl_list_private.c $(srcdir)/../../src/cstl_list_aux.c \
 	     $(srcdir)/../../src/cstl_map.c $(srcdir)/../../src/cstl_map_iterator.c \
@@ -138,7 +138,9 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 		 ut_cstl_algo_mutating_aux.c ut_cstl_algo_mutating_aux.h \
 		 ut_cstl_algo_sorting_aux.c ut_cstl_algo_sorting_aux.h \
 		 ut_cstl_algo_sorting_private.c ut_cstl_algo_sorting_private.h \
-		 ut_cstl_algo_sorting.c ut_cstl_algo_sorting.h
+		 ut_cstl_algo_sorting.c ut_cstl_algo_sorting.h \
+		 ut_cstl_heap_aux.c ut_cstl_heap_aux.h \
+		 ut_cstl_heap.c ut_cstl_heap.h
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

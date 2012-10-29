@@ -93,6 +93,8 @@
 #include "ut_cstl_algo_mutating_private.h"
 #include "ut_cstl_algo_mutating.h"
 #include "ut_cstl_algo_mutating_aux.h"
+#include "ut_cstl_heap_aux.h"
+#include "ut_cstl_heap.h"
 #include "ut_cstl_algo_sorting_aux.h"
 
 int main(int argc, char* argv[])
@@ -186,6 +188,8 @@ int main(int argc, char* argv[])
         UT_CSTL_ALGO_MUTATING_PRIVATE_CASE,
         UT_CSTL_ALGO_MUTATING_CASE,
         */
+        UT_CSTL_HEAP_AUX_CASE,
+        UT_CSTL_HEAP_CASE,
         UT_CSTL_ALGO_SORTING_AUX_CASE
     };
 
