@@ -41,20 +41,23 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-void algo_push_heap(
-    random_access_iterator_t it_first, random_access_iterator_t it_last)
+/**
+ * Adds an element that is at the end of a range to an existing heap consisting of the prior elements in the range.
+ */
+void algo_push_heap(random_access_iterator_t it_first, random_access_iterator_t it_last)
 {
     algo_push_heap_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
 }
 
-void algo_push_heap_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_last,
-    binary_function_t bfun_op)
+/**
+ * Adds an element that is at the end of a range to an existing heap consisting of the prior elements in the range.
+ */
+void algo_push_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
 {
-    bool_t                   t_result = false;
+    bool_t                   b_result = false;
     size_t                   t_pos = 0;
     random_access_iterator_t it_parent;
-    random_access_iterator_t t_current;
+    random_access_iterator_t it_current;
 
     assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
 
@@ -64,54 +67,46 @@ void algo_push_heap_if(
     }
 
     /* not empty range */
-    if(!iterator_equal(it_first, it_last))
-    {
+    if (!iterator_equal(it_first, it_last)) {
         /* get position */
         t_pos = iterator_distance(it_first, it_last) - 1;
-        t_current = it_last;
-        t_current = iterator_prev(t_current);
-        it_parent = it_first;
         t_pos = t_pos == 0 ? t_pos : (t_pos - 1) / 2;
-        it_parent = iterator_next_n(it_parent, t_pos);
-        while(!iterator_equal(t_current, it_first))
-        {
-            (*bfun_op)(
-                iterator_get_pointer(t_current),
-                iterator_get_pointer(it_parent),
-                &t_result);
-            if(t_result) /* t_current < it_parent */
-            {
+        it_current = iterator_prev(it_last);
+        it_parent = iterator_next_n(it_first, t_pos);
+        while (!iterator_equal(it_current, it_first)) {
+            (*bfun_op)(iterator_get_pointer(it_current), iterator_get_pointer(it_parent), &b_result);
+            if (b_result) { /* it_current < it_parent */
                 break;
             }
 
-            algo_iter_swap(it_parent, t_current);
-            t_current = it_parent;
+            algo_iter_swap(it_parent, it_current);
             t_pos = t_pos == 0 ? t_pos : (t_pos - 1) / 2;
-            it_parent = it_first;
-            it_parent = iterator_next_n(it_parent, t_pos);
+            it_current = it_parent;
+            it_parent = iterator_next_n(it_first, t_pos);
         }
     }
 }
 
-void algo_pop_heap(
-    random_access_iterator_t it_first, random_access_iterator_t it_last)
+/**
+ * Removes the largest element from the front of a heap to the next-to-last position in the range and then forms a new heap from the remaining elements.
+ */
+void algo_pop_heap(random_access_iterator_t it_first, random_access_iterator_t it_last)
 {
     algo_pop_heap_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
 }
 
-void algo_pop_heap_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_last,
-    binary_function_t bfun_op)
+/**
+ * Removes the largest element from the front of a heap to the next-to-last position in the range and then forms a new heap from the remaining elements.
+ */
+void algo_pop_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
 {
     assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         bfun_op = _fun_get_binary(it_first, _LESS_FUN);
     }
 
-    if(!iterator_equal(it_first, it_last))
-    {
+    if (!iterator_equal(it_first, it_last)) {
         /* swap the first and prev */
         it_last = iterator_prev(it_last);
         algo_iter_swap(it_first, it_last);
@@ -182,69 +177,52 @@ void algo_make_heap_if(random_access_iterator_t it_first, random_access_iterator
     }
 }
 
+/**
+ * Check the specified range is a heap.
+ */
 bool_t algo_is_heap(random_access_iterator_t it_first, random_access_iterator_t it_last)
 {
     return algo_is_heap_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
 }
 
-bool_t algo_is_heap_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_last,
-    binary_function_t bfun_op)
+/**
+ * Check the specified range is a heap with user-defined predicate function.
+ */
+bool_t algo_is_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
 {
-    bool_t                   t_result = false;
+    bool_t                   b_result = false;
     size_t                   t_len = 0;
     size_t                   t_ppos = 0;
     size_t                   t_lpos = 0;
     size_t                   t_rpos = 0;
     random_access_iterator_t it_parent;
-    random_access_iterator_t t_left;
-    random_access_iterator_t t_right;
+    random_access_iterator_t it_left;
+    random_access_iterator_t it_right;
 
     assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
-    if(bfun_op == NULL)
-    {
+
+    if (bfun_op == NULL) {
         bfun_op = _fun_get_binary(it_first, _LESS_FUN);
     }
 
-    if(iterator_equal(it_first, it_last))
-    {
-        return false;
-    }
-
     t_len = iterator_distance(it_first, it_last);
-    for(t_ppos = 0; t_ppos < t_len; ++t_ppos)
-    {
+    for (t_ppos = 0; t_ppos < t_len; ++t_ppos) {
         t_lpos = t_ppos * 2 + 1;
         t_rpos = t_ppos * 2 + 2;
+        it_parent = iterator_next_n(it_first, t_ppos);
 
-        it_parent = it_first;
-        it_parent = iterator_next_n(it_parent, t_ppos);
-
-        if(t_lpos < t_len)
-        {
-            t_left = it_first;
-            t_left = iterator_next_n(t_left, t_lpos);
-
-            (*bfun_op)(
-                iterator_get_pointer(it_parent),
-                iterator_get_pointer(t_left),
-                &t_result);
-            if(t_result) /* it_parent < t_left */
-            {
+        if (t_lpos < t_len) {
+            it_left = iterator_next_n(it_first, t_lpos);
+            (*bfun_op)(iterator_get_pointer(it_parent), iterator_get_pointer(it_left), &b_result);
+            if (b_result) { /* it_parent < it_left */
                 return false;
             }
         }
-        if(t_rpos < t_len)
-        {
-            t_right = it_first;
-            t_right = iterator_next_n(t_right, t_rpos);
 
-            (*bfun_op)(
-                iterator_get_pointer(it_parent),
-                iterator_get_pointer(t_right),
-                &t_result);
-            if(t_result) /* it_parent < t_right */
-            {
+        if (t_rpos < t_len) {
+            it_right = iterator_next_n(it_first, t_rpos);
+            (*bfun_op)(iterator_get_pointer(it_parent), iterator_get_pointer(it_right), &b_result);
+            if (b_result) { /* it_parent < it_right */
                 return false;
             }
         }
