@@ -150,6 +150,7 @@ extern bool_t algo_prev_permutation_if(
 /*
  * partial sort algorithm.
  */
+/*
 extern void algo_partial_sort(
     random_access_iterator_t t_first,
     random_access_iterator_t t_middle,
@@ -159,6 +160,7 @@ extern void algo_partial_sort_if(
     random_access_iterator_t t_middle,
     random_access_iterator_t t_last,
     binary_function_t t_binary_op);
+    */
 extern random_access_iterator_t algo_partial_sort_copy(
     input_iterator_t t_first1, input_iterator_t t_last1,
     random_access_iterator_t t_first2, random_access_iterator_t t_last2);
@@ -205,11 +207,13 @@ extern void algo_nth_element_if(
 /*
  * Is sorted algorithm.
  */
+/*
 extern bool_t algo_is_sorted(
     forward_iterator_t t_first, forward_iterator_t t_last);
 extern bool_t algo_is_sorted_if(
     forward_iterator_t t_first, forward_iterator_t t_last,
     binary_function_t t_binary_op);
+    */
 
 /*
  * Stable sort algorithm.

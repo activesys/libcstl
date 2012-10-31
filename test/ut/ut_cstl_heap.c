@@ -336,6 +336,15 @@ void test_algo_is_heap__false(void** state)
     deque_destroy(pdeq);
 }
 
+void test_algo_is_heap__all_equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
 /*
  * test algo_is_heap_if
  */
@@ -408,6 +417,15 @@ void test_algo_is_heap_if__bfun_NULL_false(void** state)
     deque_destroy(pdeq);
 }
 
+void test_algo_is_heap_if__bfun_NULL_all_equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    deque_destroy(pdeq);
+}
+
 void test_algo_is_heap_if__true(void** state)
 {
     deque_t* pdeq = create_deque(int);
@@ -425,6 +443,15 @@ void test_algo_is_heap_if__false(void** state)
 
     deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
     assert_false(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_is_heap_if__all_equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
     deque_destroy(pdeq);
 }
 

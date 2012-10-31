@@ -41,6 +41,7 @@ void test_algo_is_heap__empty(void** state);
 void test_algo_is_heap__one(void** state);
 void test_algo_is_heap__true(void** state);
 void test_algo_is_heap__false(void** state);
+void test_algo_is_heap__all_equal(void** state);
 /*
  * test algo_is_heap_if
  */
@@ -52,8 +53,10 @@ void test_algo_is_heap_if__empty(void** state);
 void test_algo_is_heap_if__one(void** state);
 void test_algo_is_heap_if__bfun_NULL_true(void** state);
 void test_algo_is_heap_if__bfun_NULL_false(void** state);
+void test_algo_is_heap_if__bfun_NULL_all_equal(void** state);
 void test_algo_is_heap_if__true(void** state);
 void test_algo_is_heap_if__false(void** state);
+void test_algo_is_heap_if__all_equal(void** state);
 /*
  * test algo_push_heap
  */
@@ -148,6 +151,7 @@ void test_algo_sort_heap__more(void** state);
     UT_CASE(test_algo_is_heap__one),\
     UT_CASE(test_algo_is_heap__true),\
     UT_CASE(test_algo_is_heap__false),\
+    UT_CASE(test_algo_is_heap__all_equal),\
     UT_CASE_BEGIN(algo_is_heap_if, test_algo_is_heap_if__invalid_range),\
     UT_CASE(test_algo_is_heap_if__invalid_range2),\
     UT_CASE(test_algo_is_heap_if__invalid_range3),\
@@ -155,8 +159,10 @@ void test_algo_sort_heap__more(void** state);
     UT_CASE(test_algo_is_heap_if__one),\
     UT_CASE(test_algo_is_heap_if__bfun_NULL_true),\
     UT_CASE(test_algo_is_heap_if__bfun_NULL_false),\
+    UT_CASE(test_algo_is_heap_if__bfun_NULL_all_equal),\
     UT_CASE(test_algo_is_heap_if__true),\
     UT_CASE(test_algo_is_heap_if__false),\
+    UT_CASE(test_algo_is_heap_if__all_equal),\
     UT_CASE_BEGIN(algo_push_heap, test_algo_push_heap__invalid_range),\
     UT_CASE(test_algo_push_heap__invalid_range2),\
     UT_CASE(test_algo_push_heap__invalid_range3),\

@@ -27,7 +27,9 @@
 #include <cstl/citerator.h>
 #include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
+#include <cstl/calgorithm.h>
 
+/*
 #include <cstl/cstl_algo_nonmutating_private.h>
 #include <cstl/cstl_algo_nonmutating.h>
 #include <cstl/cstl_algo_mutating_private.h>
@@ -39,6 +41,7 @@
 
 #include <cstl/cstl_algo.h>
 #include <cstl/cstl_algo_private.h>
+*/
 
 #include "cstl_algo_mutating_aux.h"
 #include "cstl_algo_sorting_aux.h"
@@ -1097,6 +1100,7 @@ bool_t algo_prev_permutation_if(
     }
 }
 
+/*
 void algo_partial_sort(
     random_access_iterator_t t_first,
     random_access_iterator_t t_middle,
@@ -1147,6 +1151,7 @@ void algo_partial_sort_if(
     }
     algo_sort_heap_if(t_first, t_middle, t_binary_op);
 }
+*/
 
 random_access_iterator_t algo_partial_sort_copy(
     input_iterator_t t_first1, input_iterator_t t_last1,
@@ -1537,6 +1542,7 @@ void algo_nth_element_if(
     pv_value = NULL;
 }
 
+/*
 bool_t algo_is_sorted(
     forward_iterator_t t_first, forward_iterator_t t_last)
 {
@@ -1567,7 +1573,7 @@ bool_t algo_is_sorted_if(
     {
         (*t_binary_op)(
             iterator_get_pointer(t_next), iterator_get_pointer(t_first), &t_result);
-        if(t_result) /* t_next < t_first */
+        if(t_result) / * t_next < t_first * /
         {
             return false;
         }
@@ -1575,6 +1581,7 @@ bool_t algo_is_sorted_if(
 
     return true;
 }
+*/
 
 void algo_stable_sort(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
