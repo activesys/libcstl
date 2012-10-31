@@ -691,3 +691,305 @@ void test_algo_pop_heap__invalid_range3(void** state)
     list_destroy(plist);
 }
 
+void test_algo_pop_heap__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    algo_pop_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap__one(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 1);
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_begin(pdeq)));
+    algo_pop_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap__two(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {2, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    algo_pop_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_false(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(algo_is_heap(deque_begin(pdeq), iterator_prev(deque_end(pdeq))));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap__three(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {2, 0, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    algo_pop_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_false(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(algo_is_heap(deque_begin(pdeq), iterator_prev(deque_end(pdeq))));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap__more(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    algo_pop_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_false(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(algo_is_heap(deque_begin(pdeq), iterator_prev(deque_end(pdeq))));
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_pop_heap_if
+ */
+UT_CASE_DEFINATION(algo_pop_heap_if)
+void test_algo_pop_heap_if__invalid_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_pop_heap_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_pop_heap_if(deque_end(pdeq), deque_begin(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__invalid_range3(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_pop_heap_if(list_begin(plist), list_end(plist), fun_greater_int));
+    list_destroy(plist);
+}
+
+void test_algo_pop_heap_if__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    algo_pop_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__one(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 1);
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_begin(pdeq), fun_greater_int));
+    algo_pop_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__bfun_NULL_two(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {2, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    algo_pop_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_false(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), NULL));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__bfun_NULL_three(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {2, 0, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    algo_pop_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_false(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), NULL));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__bfun_NULL_more(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    algo_pop_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_false(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), NULL));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__two(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {1, 2};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    algo_pop_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_false(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__three(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {0, 1, 2};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    algo_pop_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_false(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_pop_heap_if__more(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    algo_pop_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_false(algo_is_heap_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(algo_is_heap_if(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_sort_heap
+ */
+UT_CASE_DEFINATION(algo_sort_heap)
+void test_algo_sort_heap__invalid_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_sort_heap(vector_begin(pvec), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_sort_heap__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_sort_heap(deque_end(pdeq), deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_sort_heap__invalid_range3(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_sort_heap(list_begin(plist), list_end(plist)));
+    list_destroy(plist);
+}
+
+void test_algo_sort_heap__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    algo_sort_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_sort_heap__one(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 1);
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_begin(pdeq)));
+    algo_sort_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_sort_heap__two(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {2, 1};
+    int an_result[] = {1, 2};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    algo_sort_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_false(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_sort_heap__three(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {2, 0, 1};
+    int an_result[] = {0, 1, 2};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    algo_sort_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_false(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_sort_heap__more(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+    int an_result[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    algo_sort_heap(deque_begin(pdeq), deque_end(pdeq));
+    assert_false(algo_is_heap(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+

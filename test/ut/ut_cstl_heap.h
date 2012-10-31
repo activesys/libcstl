@@ -88,6 +88,38 @@ UT_CASE_DECLARATION(algo_pop_heap)
 void test_algo_pop_heap__invalid_range(void** state);
 void test_algo_pop_heap__invalid_range2(void** state);
 void test_algo_pop_heap__invalid_range3(void** state);
+void test_algo_pop_heap__empty(void** state);
+void test_algo_pop_heap__one(void** state);
+void test_algo_pop_heap__two(void** state);
+void test_algo_pop_heap__three(void** state);
+void test_algo_pop_heap__more(void** state);
+/*
+ * test algo_pop_heap_if
+ */
+UT_CASE_DECLARATION(algo_pop_heap_if)
+void test_algo_pop_heap_if__invalid_range(void** state);
+void test_algo_pop_heap_if__invalid_range2(void** state);
+void test_algo_pop_heap_if__invalid_range3(void** state);
+void test_algo_pop_heap_if__empty(void** state);
+void test_algo_pop_heap_if__one(void** state);
+void test_algo_pop_heap_if__bfun_NULL_two(void** state);
+void test_algo_pop_heap_if__bfun_NULL_three(void** state);
+void test_algo_pop_heap_if__bfun_NULL_more(void** state);
+void test_algo_pop_heap_if__two(void** state);
+void test_algo_pop_heap_if__three(void** state);
+void test_algo_pop_heap_if__more(void** state);
+/*
+ * test algo_sort_heap
+ */
+UT_CASE_DECLARATION(algo_sort_heap)
+void test_algo_sort_heap__invalid_range(void** state);
+void test_algo_sort_heap__invalid_range2(void** state);
+void test_algo_sort_heap__invalid_range3(void** state);
+void test_algo_sort_heap__empty(void** state);
+void test_algo_sort_heap__one(void** state);
+void test_algo_sort_heap__two(void** state);
+void test_algo_sort_heap__three(void** state);
+void test_algo_sort_heap__more(void** state);
 
 #define UT_CSTL_HEAP_CASE\
     UT_SUIT_BEGIN(cstl_heap, test_algo_make_heap__invalid_range),\
@@ -146,7 +178,31 @@ void test_algo_pop_heap__invalid_range3(void** state);
     UT_CASE(test_algo_push_heap_if__more),\
     UT_CASE_BEGIN(algo_pop_heap, test_algo_pop_heap__invalid_range),\
     UT_CASE(test_algo_pop_heap__invalid_range2),\
-    UT_CASE(test_algo_pop_heap__invalid_range3)
+    UT_CASE(test_algo_pop_heap__invalid_range3),\
+    UT_CASE(test_algo_pop_heap__empty),\
+    UT_CASE(test_algo_pop_heap__one),\
+    UT_CASE(test_algo_pop_heap__two),\
+    UT_CASE(test_algo_pop_heap__three),\
+    UT_CASE(test_algo_pop_heap__more),\
+    UT_CASE_BEGIN(algo_pop_heap_if, test_algo_pop_heap_if__invalid_range),\
+    UT_CASE(test_algo_pop_heap_if__invalid_range2),\
+    UT_CASE(test_algo_pop_heap_if__invalid_range3),\
+    UT_CASE(test_algo_pop_heap_if__empty),\
+    UT_CASE(test_algo_pop_heap_if__one),\
+    UT_CASE(test_algo_pop_heap_if__bfun_NULL_two),\
+    UT_CASE(test_algo_pop_heap_if__bfun_NULL_three),\
+    UT_CASE(test_algo_pop_heap_if__bfun_NULL_more),\
+    UT_CASE(test_algo_pop_heap_if__two),\
+    UT_CASE(test_algo_pop_heap_if__three),\
+    UT_CASE(test_algo_pop_heap_if__more),\
+    UT_CASE_BEGIN(algo_sort_heap, test_algo_sort_heap__invalid_range),\
+    UT_CASE(test_algo_sort_heap__invalid_range2),\
+    UT_CASE(test_algo_sort_heap__invalid_range3),\
+    UT_CASE(test_algo_sort_heap__empty),\
+    UT_CASE(test_algo_sort_heap__one),\
+    UT_CASE(test_algo_sort_heap__two),\
+    UT_CASE(test_algo_sort_heap__three),\
+    UT_CASE(test_algo_sort_heap__more)
 
 #endif /* _UT_CSTL_HEAP_H_ */
 

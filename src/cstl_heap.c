@@ -115,23 +115,26 @@ void algo_pop_heap_if(random_access_iterator_t it_first, random_access_iterator_
     }
 }
 
+/**
+ * Removes the largest element from the front of a heap to the next-to-last position in the range and then forms a new heap from the remaining elements.
+ */
 void algo_sort_heap(random_access_iterator_t it_first, random_access_iterator_t it_last)
 {
     algo_sort_heap_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
 }
 
-void algo_sort_heap_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_last,
-    binary_function_t bfun_op)
+/**
+ * Removes the largest element from the front of a heap to the next-to-last position in the range and then forms a new heap from the remaining elements.
+ */
+void algo_sort_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
 {
     assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
-    if(bfun_op == NULL)
-    {
+
+    if (bfun_op == NULL) {
         bfun_op = _fun_get_binary(it_first, _LESS_FUN);
     }
 
-    for(; !iterator_equal(it_first, it_last); it_last = iterator_prev(it_last))
-    {
+    for (; !iterator_equal(it_first, it_last); it_last = iterator_prev(it_last)) {
         algo_pop_heap_if(it_first, it_last, bfun_op);
     }
 }
