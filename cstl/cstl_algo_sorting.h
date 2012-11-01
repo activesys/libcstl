@@ -78,6 +78,30 @@ extern void algo_partial_sort(
 extern void algo_partial_sort_if(
     random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op);
 
+/**
+ * Copies elements from a source range into a destination range where the source elements are ordered by less than.
+ * @param it_first1     An input iterator addressing the position of the first element in the source range.
+ * @param it_last1      An input iterator addressing the position one past the final element in the source range.
+ * @param it_first2     A random-access iterator addressing the position of the first element in the sorted destination range.
+ * @param it_last2      A random-access iterator addressing the position one past the final element in the sorted destination range.
+ * @return  A random-access iterator addressing the element in the destination range one position beyond the last element inserted from the source range.
+ * @remarks The source and destination ranges must not overlap and must be valid, otherwise the behavior is undefined.
+ */
+extern random_access_iterator_t algo_partial_sort_copy(
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2);
+
+/**
+ * Copies elements from a source range into a destination range where the source elements are ordered by specified binary predicate.
+ * @param it_first1     An input iterator addressing the position of the first element in the source range.
+ * @param it_last1      An input iterator addressing the position one past the final element in the source range.
+ * @param it_first2     A random-access iterator addressing the position of the first element in the sorted destination range.
+ * @param it_last2      A random-access iterator addressing the position one past the final element in the sorted destination range.
+ * @param bfun_op       User-defined predicate function object that defines the condition to be satisfied if two elements are to be taken as equivalent.
+ * @return  A random-access iterator addressing the element in the destination range one position beyond the last element inserted from the source range.
+ * @remarks The source and destination ranges must not overlap and must be valid, otherwise the behavior is undefined.
+ */
+extern random_access_iterator_t algo_partial_sort_copy_if(
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, binary_function_t bfun_op);
 #ifdef __cplusplus
 }
 #endif

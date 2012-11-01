@@ -55,6 +55,17 @@ extern size_t _algo_lg(size_t t_base);
 extern random_access_iterator_t _algo_median_of_three_if(
     random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op);
 
+/**
+ * Insertion sort for specify range.
+ * @param it_first      A random-access iterator addressing the position of the first element in the range.
+ * @param it_last       A random-access iterator addressing the position of the last element in the range.
+ * @param bfun_op       User-defined predicate function object that defines the comparison criterion to be satisfied by successive elements in the ordering.
+ * @param pc_value      Specificed value.
+ * @return  void.
+ * @remarks This three iterator must be point element that have same type, otherwise the behavior is undefined.
+ */
+extern void _algo_insertion_sort_if(random_access_iterator_t t_first, random_access_iterator_t t_last, binary_function_t t_binary_op, char* pc_value);
+
 #ifdef __cplusplus
 }
 #endif

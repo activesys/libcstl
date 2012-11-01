@@ -27,20 +27,9 @@
 #include <cstl/citerator.h>
 #include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
+#include <cstl/calgorithm.h>
 
-#include <cstl/cstl_algo_nonmutating_private.h>
-#include <cstl/cstl_algo_nonmutating.h>
-#include <cstl/cstl_algo_mutating_private.h>
-#include <cstl/cstl_algo_mutating.h>
-
-#include <cstl/cstl_algobase.h>
-#include <cstl/cstl_algobase_private.h>
-#include <cstl/cstl_heap.h>
-
-#include <cstl/cstl_algo.h>
-#include <cstl/cstl_algo_private.h>
-
-#include "cstl_algo_mutating_aux.h"
+#include "cstl_algo_sorting_aux.h"
 
 /** local constant declaration and local macro section **/
 
@@ -70,21 +59,21 @@ size_t _algo_lg(size_t t_base)
  * Return the median of three random_access_iterator_t
  */
 random_access_iterator_t _algo_median_of_three_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t t_binary_op)
+    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op)
 {
     bool_t b_result = false;
 
     assert(_iterator_valid_range(it_first, it_middle, _RANDOM_ACCESS_ITERATOR));
     assert(_iterator_valid_range(it_middle, it_last, _RANDOM_ACCESS_ITERATOR));
-    assert(t_binary_op != NULL);
+    assert(bfun_op != NULL);
 
-    (*t_binary_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_middle), &b_result);
+    (*bfun_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_middle), &b_result);
     if (b_result) {             /* it_first < it_middle */
-        (*t_binary_op)(iterator_get_pointer(it_middle), iterator_get_pointer(it_last), &b_result);
+        (*bfun_op)(iterator_get_pointer(it_middle), iterator_get_pointer(it_last), &b_result);
         if (b_result){          /* it_first < it_middle < it_last */
             return it_middle;
         } else {                /* it_last <= it_middle */
-            (*t_binary_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_last), &b_result);
+            (*bfun_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_last), &b_result);
             if (b_result) {     /* it_first < it_last <= it_middle */
                 return it_last;
             }else {             /* it_last <= it_first <= it_middle */
@@ -92,15 +81,84 @@ random_access_iterator_t _algo_median_of_three_if(
             }
         }
     } else {                    /* it_middle <= it_first */
-        (*t_binary_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_last), &b_result);
+        (*bfun_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_last), &b_result);
         if (b_result) {         /* it_middle <= it_first < it_last */
             return it_first;
         } else {                /* it_last <= it_first */
-            (*t_binary_op)(iterator_get_pointer(it_middle), iterator_get_pointer(it_last), &b_result);
+            (*bfun_op)(iterator_get_pointer(it_middle), iterator_get_pointer(it_last), &b_result);
             if (b_result) {     /* it_middle < it_last <= it_first */
                 return it_last;
             } else {            /* it_last <= it_middle <= it_first */
                 return it_middle;
+            }
+        }
+    }
+}
+
+/**
+ * Insertion sort for specify range.
+ */
+void _algo_insertion_sort_if(
+    random_access_iterator_t it_first, random_access_iterator_t it_last,
+    binary_function_t bfun_op, char* pc_value)
+{
+    iterator_t it_bound;
+    iterator_t it_next;
+    iterator_t it_tmp;
+    iterator_t it_prev;
+    bool_t     b_result = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
+    assert(pc_value != NULL);
+    assert(bfun_op != NULL);
+
+    if (iterator_equal(it_first, it_last)) {
+        return;
+    }
+
+    if (strncmp(_iterator_get_typebasename(it_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        for (it_bound = iterator_next(it_first); !iterator_equal(it_bound, it_last); it_bound = iterator_next(it_bound)) {
+            string_assign_cstr((string_t*)pc_value, (char*)iterator_get_pointer(it_bound));
+            (*bfun_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(it_first), &b_result);
+            if (b_result) { /* pc_value < *it_first */
+                it_next = iterator_next(it_bound);
+                algo_copy_backward(it_first, it_bound, it_next);
+                iterator_set_value(it_first, string_c_str((string_t*)pc_value));
+            } else {
+                it_tmp = it_bound;
+                it_prev = iterator_prev(it_tmp);
+                (*bfun_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(it_prev), &b_result);
+                while (b_result) {  /* pc_value < *it_prev */
+                    iterator_set_value(it_tmp, iterator_get_pointer(it_prev));
+                    it_tmp = it_prev;
+                    it_prev = iterator_prev(it_prev);
+                    (*bfun_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(it_prev), &b_result);
+                }
+
+                iterator_set_value(it_tmp, string_c_str((string_t*)pc_value));
+            }
+        }
+    } else {
+        for (it_bound = iterator_next(it_first); !iterator_equal(it_bound, it_last); it_bound = iterator_next(it_bound)) {
+            iterator_get_value(it_bound, pc_value);
+            (*bfun_op)(pc_value, iterator_get_pointer(it_first), &b_result);
+            if (b_result) { /* pc_value < *it_first */
+                it_next = iterator_next(it_bound);
+                algo_copy_backward(it_first, it_bound, it_next);
+                iterator_set_value(it_first, pc_value);
+            } else {
+                it_tmp = it_bound;
+                it_prev = iterator_prev(it_tmp);
+                (*bfun_op)(pc_value, iterator_get_pointer(it_prev), &b_result);
+                while (b_result) {  /* pc_value < *it_prev */
+                    iterator_set_value(it_tmp, iterator_get_pointer(it_prev));
+                    it_tmp = it_prev;
+                    it_prev = iterator_prev(it_prev);
+
+                    (*bfun_op)(pc_value, iterator_get_pointer(it_prev), &b_result);
+                }
+
+                iterator_set_value(it_tmp, pc_value);
             }
         }
     }

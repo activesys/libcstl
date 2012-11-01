@@ -331,3 +331,213 @@ void test__algo_median_of_three_if__last_less_middle_less_first(void** state)
     deque_destroy(pdeq);
 }
 
+/*
+ * test _algo_insertion_sort_if
+ */
+UT_CASE_DEFINATION(_algo_insertion_sort_if)
+void test__algo_insertion_sort_if__invalid_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    int n_elem = 0;
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_algo_insertion_sort_if(vector_begin(pvec), deque_begin(pdeq), fun_less_int, &n_elem));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test__algo_insertion_sort_if__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int n_elem = 0;
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_algo_insertion_sort_if(deque_end(pdeq), deque_begin(pdeq), fun_less_int, &n_elem));
+    deque_destroy(pdeq);
+}
+
+void test__algo_insertion_sort_if__invalid_range3(void** state)
+{
+    list_t* plist = create_list(int);
+    int n_elem = 0;
+
+    list_init_n(plist, 10);
+    expect_assert_failure(_algo_insertion_sort_if(list_begin(plist), list_end(plist), fun_less_int, &n_elem));
+    list_destroy(plist);
+}
+
+void test__algo_insertion_sort_if__bfun_NULL(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int n_elem = 0;
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), NULL, &n_elem));
+    deque_destroy(pdeq);
+}
+
+void test__algo_insertion_sort_if__value_NULL(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(_algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_int, NULL));
+    deque_destroy(pdeq);
+}
+
+void test__algo_insertion_sort_if__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int n_elem = 0;
+
+    deque_init(pdeq);
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_int, &n_elem);
+    assert_true(deque_empty(pdeq));
+    deque_destroy(pdeq);
+}
+
+void test__algo_insertion_sort_if__one(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int n_elem = 0;
+
+    deque_init_n(pdeq, 1);
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_int, &n_elem);
+    assert_true(deque_size(pdeq) == 1);
+    deque_destroy(pdeq);
+}
+
+void test__algo_insertion_sort_if__normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {0, 6, 2, 9, 8, 7, 5, 4, 1, 3};
+    int an_result[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int n_elem = 0;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_int, &n_elem);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test__algo_insertion_sort_if__duplicate(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {0, 5, 5, 5, 6, 2, 9, 4, 4,  8, 4, 7, 5, 2, 5, 4, 1, 3, 3, 3};
+    int an_result[] = {0, 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 7, 8, 9};
+    int n_elem = 0;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_int, &n_elem);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test__algo_insertion_sort_if__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int n_elem = 0;
+
+    deque_init_n(pdeq, 10);
+    deque_init_n(pdeq_result, 10);
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_int, &n_elem);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test__algo_insertion_sort_if__sorted(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_result[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int n_elem = 0;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_int, &n_elem);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test__algo_insertion_sort_if__cstr_normal(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+    deque_t* pdeq_result = create_deque(char*);
+    string_t* pstr = create_string();
+    const char* as_array[] = {"abc", "xyz", "ddd", "mnn", "pqr", "zzz"};
+    const char* as_result[] = {"abc", "ddd", "mnn", "pqr", "xyz", "zzz"};
+
+    deque_init_copy_array(pdeq, as_array, sizeof(as_array)/sizeof(as_array[0]));
+    deque_init_copy_array(pdeq_result, as_result, sizeof(as_result)/sizeof(as_result[0]));
+    string_init(pstr);
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_cstr, pstr);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+    string_destroy(pstr);
+}
+
+void test__algo_insertion_sort_if__cstr_duplicate(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+    deque_t* pdeq_result = create_deque(char*);
+    string_t* pstr = create_string();
+    const char* as_array[] = {"abc", "xyz", "abc", "ddd", "mnn", "mnn", "mnn", "ddd", "xyz", "xyz", "pqr", "zzz"};
+    const char* as_result[] = {"abc", "abc", "ddd", "ddd", "mnn", "mnn", "mnn", "pqr", "xyz", "xyz", "xyz", "zzz"};
+
+    deque_init_copy_array(pdeq, as_array, sizeof(as_array)/sizeof(as_array[0]));
+    deque_init_copy_array(pdeq_result, as_result, sizeof(as_result)/sizeof(as_result[0]));
+    string_init(pstr);
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_cstr, pstr);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+    string_destroy(pstr);
+}
+
+void test__algo_insertion_sort_if__cstr_equal(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+    deque_t* pdeq_result = create_deque(char*);
+    string_t* pstr = create_string();
+
+    deque_init_n(pdeq, 10);
+    deque_init_n(pdeq_result, 10);
+    string_init(pstr);
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_cstr, pstr);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+    string_destroy(pstr);
+}
+
+void test__algo_insertion_sort_if__cstr_sorted(void** state)
+{
+    deque_t* pdeq = create_deque(char*);
+    deque_t* pdeq_result = create_deque(char*);
+    string_t* pstr = create_string();
+    const char* as_array[] = {"abc", "ddd", "mnn", "pqr", "xyz", "zzz"};
+    const char* as_result[] = {"abc", "ddd", "mnn", "pqr", "xyz", "zzz"};
+
+    deque_init_copy_array(pdeq, as_array, sizeof(as_array)/sizeof(as_array[0]));
+    deque_init_copy_array(pdeq_result, as_result, sizeof(as_result)/sizeof(as_result[0]));
+    string_init(pstr);
+    _algo_insertion_sort_if(deque_begin(pdeq), deque_end(pdeq), fun_less_cstr, pstr);
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+    string_destroy(pstr);
+}
+

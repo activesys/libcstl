@@ -29,20 +29,6 @@
 #include <cstl/cfunctional.h>
 #include <cstl/calgorithm.h>
 
-/*
-#include <cstl/cstl_algo_nonmutating_private.h>
-#include <cstl/cstl_algo_nonmutating.h>
-#include <cstl/cstl_algo_mutating_private.h>
-#include <cstl/cstl_algo_mutating.h>
-
-#include <cstl/cstl_algobase.h>
-#include <cstl/cstl_algobase_private.h>
-#include <cstl/cstl_heap.h>
-
-#include <cstl/cstl_algo.h>
-#include <cstl/cstl_algo_private.h>
-*/
-
 #include "cstl_algo_mutating_aux.h"
 #include "cstl_algo_sorting_aux.h"
 
@@ -52,13 +38,6 @@
 /** local data type declaration and local struct, union, enum section **/
 
 /** local function prototype section **/
-/*
- * The implement of insertion sort.
- */
-static void _insertion_sort_if(
-    random_access_iterator_t t_first, random_access_iterator_t t_last,
-    binary_function_t t_binary_op, char* pc_value);
-
 /*
  * The implement of intro sort.
  */
@@ -1100,115 +1079,6 @@ bool_t algo_prev_permutation_if(
     }
 }
 
-/*
-void algo_partial_sort(
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_middle,
-    random_access_iterator_t t_last)
-{
-    algo_partial_sort_if(t_first, t_middle, t_last,
-        _fun_get_binary(t_first, _LESS_FUN));
-}
-
-void algo_partial_sort_if(
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_middle,
-    random_access_iterator_t t_last,
-    binary_function_t t_binary_op)
-{
-    iterator_t t_prev;
-    iterator_t t_iterator;
-    bool_t     t_result = false;
-
-    assert(_iterator_valid_range(t_first, t_middle, _RANDOM_ACCESS_ITERATOR));
-    assert(_iterator_valid_range(t_middle, t_last, _RANDOM_ACCESS_ITERATOR));
-
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
-    }
-
-    if(iterator_equal(t_first, t_middle))
-    {
-        return;
-    }
-
-    algo_make_heap_if(t_first, t_middle, t_binary_op);
-    for(t_iterator = t_middle;
-        !iterator_equal(t_iterator, t_last);
-        t_iterator = iterator_next(t_iterator))
-    {
-        (*t_binary_op)(
-            iterator_get_pointer(t_iterator), iterator_get_pointer(t_first), &t_result);
-        if(t_result)
-        {
-            algo_pop_heap_if(t_first, t_middle, t_binary_op);
-            t_prev = t_middle;
-            t_prev = iterator_prev(t_prev);
-            algo_iter_swap(t_prev, t_iterator);
-            algo_push_heap_if(t_first, t_middle, t_binary_op);
-        }
-    }
-    algo_sort_heap_if(t_first, t_middle, t_binary_op);
-}
-*/
-
-random_access_iterator_t algo_partial_sort_copy(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    random_access_iterator_t t_first2, random_access_iterator_t t_last2)
-{
-    return algo_partial_sort_copy_if(t_first1, t_last1, t_first2, t_last2,
-        _fun_get_binary(t_first1, _LESS_FUN));
-}
-
-random_access_iterator_t algo_partial_sort_copy_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    random_access_iterator_t t_first2, random_access_iterator_t t_last2,
-    binary_function_t t_binary_op)
-{
-    iterator_t t_iterator;
-    iterator_t t_prev;
-    bool_t     t_result = false;
-
-    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_iterator_valid_range(t_first2, t_last2, _RANDOM_ACCESS_ITERATOR));
-    assert(_iterator_same_elem_type(t_first1, t_first2));
-
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first1, _LESS_FUN);
-    }
-
-    if(iterator_equal(t_first1, t_last1) || iterator_equal(t_first2, t_last2))
-    {
-        return t_first2;
-    }
-
-    for(t_iterator = t_first2;
-        !iterator_equal(t_first1, t_last1) && !iterator_equal(t_iterator, t_last2);
-        t_first1 = iterator_next(t_first1), t_iterator = iterator_next(t_iterator))
-    {
-        iterator_set_value(t_iterator, iterator_get_pointer(t_first1));
-    }
-    algo_make_heap_if(t_first2, t_iterator, t_binary_op);
-    for(; !iterator_equal(t_first1, t_last1); t_first1 = iterator_next(t_first1))
-    {
-        (*t_binary_op)(
-            iterator_get_pointer(t_first1), iterator_get_pointer(t_first2), &t_result);
-        if(t_result) /* *t_first1 < *t_first2 */
-        {
-            algo_pop_heap_if(t_first2, t_iterator, t_binary_op);
-            t_prev = t_iterator;
-            t_prev = iterator_prev(t_prev);
-            iterator_set_value(t_prev, iterator_get_pointer(t_first1));
-            algo_push_heap_if(t_first2, t_iterator, t_binary_op);
-        }
-    }
-    algo_sort_heap_if(t_first2, t_iterator, t_binary_op);
-
-    return t_iterator;
-}
-
 void algo_sort(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
 {
@@ -1240,7 +1110,7 @@ void algo_sort_if(
         }
         else
         {
-            _insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
+            _algo_insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
         }
 
         _iterator_deallocate_destroy_elem(t_first, pv_value);
@@ -1536,52 +1406,11 @@ void algo_nth_element_if(
         }
     }
 
-    _insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
+    _algo_insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
 
     _iterator_deallocate_destroy_elem(t_first, pv_value);
     pv_value = NULL;
 }
-
-/*
-bool_t algo_is_sorted(
-    forward_iterator_t t_first, forward_iterator_t t_last)
-{
-    return algo_is_sorted_if(t_first, t_last, _fun_get_binary(t_first, _LESS_FUN));
-}
-
-bool_t algo_is_sorted_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op)
-{
-    bool_t     t_result = false;
-    iterator_t t_next;
-
-    assert(_iterator_valid_range(t_first, t_last, _FORWARD_ITERATOR));
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
-    }
-
-    if(iterator_equal(t_first, t_last))
-    {
-        return true;
-    }
-
-    for(t_next = t_first, t_next = iterator_next(t_next);
-        !iterator_equal(t_next, t_last);
-        t_first = t_next, t_next = iterator_next(t_next))
-    {
-        (*t_binary_op)(
-            iterator_get_pointer(t_next), iterator_get_pointer(t_first), &t_result);
-        if(t_result) / * t_next < t_first * /
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-*/
 
 void algo_stable_sort(
     random_access_iterator_t t_first, random_access_iterator_t t_last)
@@ -1617,7 +1446,7 @@ void algo_stable_sort_if(
     {
         pv_value = _iterator_allocate_init_elem(t_first);
 
-        _insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
+        _algo_insertion_sort_if(t_first, t_last, t_binary_op, pv_value);
 
         _iterator_deallocate_destroy_elem(t_first, pv_value);
         pv_value = NULL;
@@ -1625,93 +1454,6 @@ void algo_stable_sort_if(
 }
 
 /** local function implementation section **/
-static void _insertion_sort_if(
-    random_access_iterator_t t_first, random_access_iterator_t t_last,
-    binary_function_t t_binary_op, char* pc_value)
-{
-    iterator_t t_bound;
-    bool_t     t_result = false;
-
-    assert(pc_value != NULL);
-    assert(t_binary_op != NULL);
-
-    if(iterator_equal(t_first, t_last))
-    {
-        return;
-    }
-
-    if(strncmp(_iterator_get_typebasename(t_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        for(t_bound = t_first, t_bound = iterator_next(t_bound);
-            !iterator_equal(t_bound, t_last);
-            t_bound = iterator_next(t_bound))
-        {
-            string_assign_cstr((string_t*)pc_value, (char*)iterator_get_pointer(t_bound));
-
-            (*t_binary_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(t_first), &t_result);
-            if(t_result) /* pc_value < *t_first */
-            {
-                iterator_t t_next = t_bound;
-                t_next = iterator_next(t_next);
-                algo_copy_backward(t_first, t_bound, t_next);
-                iterator_set_value(t_first, string_c_str((string_t*)pc_value));
-            }
-            else
-            {
-                iterator_t t_tmp = t_bound;
-                iterator_t t_prev = t_tmp;
-                t_prev = iterator_prev(t_prev);
-                (*t_binary_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(t_prev), &t_result);
-                while(t_result) /* pc_value < *t_prev */
-                {
-                    iterator_set_value(t_tmp, iterator_get_pointer(t_prev));
-                    t_tmp = t_prev;
-                    t_prev = iterator_prev(t_prev);
-
-                    (*t_binary_op)(string_c_str((string_t*)pc_value), iterator_get_pointer(t_prev), &t_result);
-                }
-
-                iterator_set_value(t_tmp, string_c_str((string_t*)pc_value));
-            }
-        }
-    }
-    else
-    {
-        for(t_bound = t_first, t_bound = iterator_next(t_bound);
-            !iterator_equal(t_bound, t_last);
-            t_bound = iterator_next(t_bound))
-        {
-            iterator_get_value(t_bound, pc_value);
-
-            (*t_binary_op)(pc_value, iterator_get_pointer(t_first), &t_result);
-            if(t_result) /* pc_value < *t_first */
-            {
-                iterator_t t_next = t_bound;
-                t_next = iterator_next(t_next);
-                algo_copy_backward(t_first, t_bound, t_next);
-                iterator_set_value(t_first, pc_value);
-            }
-            else
-            {
-                iterator_t t_tmp = t_bound;
-                iterator_t t_prev = t_tmp;
-                t_prev = iterator_prev(t_prev);
-                (*t_binary_op)(pc_value, iterator_get_pointer(t_prev), &t_result);
-                while(t_result) /* pc_value < *t_prev */
-                {
-                    iterator_set_value(t_tmp, iterator_get_pointer(t_prev));
-                    t_tmp = t_prev;
-                    t_prev = iterator_prev(t_prev);
-
-                    (*t_binary_op)(pc_value, iterator_get_pointer(t_prev), &t_result);
-                }
-
-                iterator_set_value(t_tmp, pc_value);
-            }
-        }
-    }
-}
-
 static void _intro_sort_if(
     random_access_iterator_t t_first, random_access_iterator_t t_last,
     binary_function_t t_binary_op, size_t t_depth, char* pc_value)

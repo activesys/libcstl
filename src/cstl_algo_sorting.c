@@ -29,22 +29,6 @@
 #include <cstl/cfunctional.h>
 #include <cstl/calgorithm.h>
 
-/*
-#include <cstl/cstl_algo_nonmutating_private.h>
-#include <cstl/cstl_algo_nonmutating.h>
-#include <cstl/cstl_algo_mutating_private.h>
-#include <cstl/cstl_algo_mutating.h>
-
-#include <cstl/cstl_algobase.h>
-#include <cstl/cstl_algobase_private.h>
-#include <cstl/cstl_heap.h>
-
-#include <cstl/cstl_algo.h>
-#include <cstl/cstl_algo_private.h>
-
-#include "cstl_algo_mutating_aux.h"
-*/
-
 /** local constant declaration and local macro section **/
 
 /** local data type declaration and local struct, union, enum section **/
@@ -98,57 +82,94 @@ bool_t algo_is_sorted_if(forward_iterator_t it_first, forward_iterator_t it_last
  * Arranges a specified number of the smaller elements in a range into a nondescending order.
  */
 void algo_partial_sort(
-    random_access_iterator_t it_first,
-    random_access_iterator_t t_middle,
-    random_access_iterator_t it_last)
+    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last)
 {
-    algo_partial_sort_if(it_first, t_middle, it_last,
-        _fun_get_binary(it_first, _LESS_FUN));
+    algo_partial_sort_if(it_first, it_middle, it_last, _fun_get_binary(it_first, _LESS_FUN));
 }
 
 /**
  * Arranges a specified number of the smaller elements in a range according to an ordering criterion specified by a binary predicate.
  */
 void algo_partial_sort_if(
-    random_access_iterator_t it_first,
-    random_access_iterator_t t_middle,
-    random_access_iterator_t it_last,
-    binary_function_t bfun_op)
+    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op)
 {
-    iterator_t t_prev;
-    iterator_t t_iterator;
+    iterator_t it_prev;
+    iterator_t it_iter;
     bool_t     b_result = false;
 
-    assert(_iterator_valid_range(it_first, t_middle, _RANDOM_ACCESS_ITERATOR));
-    assert(_iterator_valid_range(t_middle, it_last, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(it_first, it_middle, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(it_middle, it_last, _RANDOM_ACCESS_ITERATOR));
 
-    if(bfun_op == NULL)
-    {
+    if (bfun_op == NULL) {
         bfun_op = _fun_get_binary(it_first, _LESS_FUN);
     }
 
-    if(iterator_equal(it_first, t_middle))
-    {
+    if (iterator_equal(it_first, it_middle)) {
         return;
     }
 
-    algo_make_heap_if(it_first, t_middle, bfun_op);
-    for(t_iterator = t_middle;
-        !iterator_equal(t_iterator, it_last);
-        t_iterator = iterator_next(t_iterator))
-    {
-        (*bfun_op)(
-            iterator_get_pointer(t_iterator), iterator_get_pointer(it_first), &b_result);
-        if(b_result)
-        {
-            algo_pop_heap_if(it_first, t_middle, bfun_op);
-            t_prev = t_middle;
-            t_prev = iterator_prev(t_prev);
-            algo_iter_swap(t_prev, t_iterator);
-            algo_push_heap_if(it_first, t_middle, bfun_op);
+    algo_make_heap_if(it_first, it_middle, bfun_op);
+    for (it_iter = it_middle; !iterator_equal(it_iter, it_last); it_iter = iterator_next(it_iter)) {
+        (*bfun_op)(iterator_get_pointer(it_iter), iterator_get_pointer(it_first), &b_result);
+        if (b_result) {
+            algo_pop_heap_if(it_first, it_middle, bfun_op);
+            it_prev = iterator_prev(it_middle);
+            algo_iter_swap(it_prev, it_iter);
+            algo_push_heap_if(it_first, it_middle, bfun_op);
         }
     }
-    algo_sort_heap_if(it_first, t_middle, bfun_op);
+    algo_sort_heap_if(it_first, it_middle, bfun_op);
+}
+
+/**
+ * Copies elements from a source range into a destination range where the source elements are ordered by less than.
+ */
+random_access_iterator_t algo_partial_sort_copy(
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2)
+{
+    return algo_partial_sort_copy_if(it_first1, it_last1, it_first2, it_last2, _fun_get_binary(it_first1, _LESS_FUN));
+}
+
+/**
+ * Copies elements from a source range into a destination range where the source elements are ordered by specified binary predicate.
+ */
+random_access_iterator_t algo_partial_sort_copy_if(
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, binary_function_t bfun_op)
+{
+    iterator_t it_iter;
+    iterator_t it_prev;
+    bool_t     b_result = false;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
+    }
+
+    if (iterator_equal(it_first1, it_last1) || iterator_equal(it_first2, it_last2)) {
+        return it_first2;
+    }
+
+    for (it_iter = it_first2;
+         !iterator_equal(it_first1, it_last1) && !iterator_equal(it_iter, it_last2);
+         it_first1 = iterator_next(it_first1), it_iter = iterator_next(it_iter)) {
+        iterator_set_value(it_iter, iterator_get_pointer(it_first1));
+    }
+    algo_make_heap_if(it_first2, it_iter, bfun_op);
+    for (; !iterator_equal(it_first1, it_last1); it_first1 = iterator_next(it_first1)) {
+        (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_result);
+        if (b_result) { /* *it_first1 < *it_first2 */
+            algo_pop_heap_if(it_first2, it_iter, bfun_op);
+            it_prev = iterator_prev(it_iter);
+            iterator_set_value(it_prev, iterator_get_pointer(it_first1));
+            algo_push_heap_if(it_first2, it_iter, bfun_op);
+        }
+    }
+    algo_sort_heap_if(it_first2, it_iter, bfun_op);
+
+    return it_iter;
 }
 
 /** eof **/
