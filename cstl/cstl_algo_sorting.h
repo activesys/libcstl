@@ -96,12 +96,76 @@ extern random_access_iterator_t algo_partial_sort_copy(
  * @param it_last1      An input iterator addressing the position one past the final element in the source range.
  * @param it_first2     A random-access iterator addressing the position of the first element in the sorted destination range.
  * @param it_last2      A random-access iterator addressing the position one past the final element in the sorted destination range.
- * @param bfun_op       User-defined predicate function object that defines the condition to be satisfied if two elements are to be taken as equivalent.
+ * @param bfun_op       User-defined predicate function that defines the condition to be satisfied if two elements are to be taken as equivalent.
  * @return  A random-access iterator addressing the element in the destination range one position beyond the last element inserted from the source range.
  * @remarks The source and destination ranges must not overlap and must be valid, otherwise the behavior is undefined.
  */
 extern random_access_iterator_t algo_partial_sort_copy_if(
     input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, binary_function_t bfun_op);
+
+/**
+ * Arranges the elements in a specified range into a nondescending order.
+ * @param it_first      A random-access iterator addressing the position of the first element in the range to be sorted.
+ * @param it_last       A random-access iterator addressing the position one past the final element in the range to be sorted.
+ * @return  void.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern void algo_sort(random_access_iterator_t it_first, random_access_iterator_t it_last);
+
+/**
+ * Arranges the elements in a specified range according to an ordering criterion specified by a binary predicate.
+ * @param it_first      A random-access iterator addressing the position of the first element in the range to be sorted.
+ * @param it_last       A random-access iterator addressing the position one past the final element in the range to be sorted.
+ * @param bfun_op       User-defined predicate function that defines the comparison criterion to be satisfied by successive elements in the ordering.
+ * @return  void.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern void algo_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+
+/**
+ * Combines all of the elements from two sorted source ranges into a single, sorted destination range.
+ * @param it_first1     An input iterator addressing the position of the first element in the first of two sorted source ranges to be combined
+ *                      and sorted into a single range.
+ * @param it_last1      An input iterator addressing the position one past the last element in the first of two sorted source ranges to be combined
+ *                      and sorted into a single range.
+ * @param it_first2     An input iterator addressing the position of the first element in second of two consecutive sorted source ranges to be combined
+ *                      and sorted into a single range.
+ * @param it_last2      An input iterator addressing the position one past the last element in second of two consecutive sorted source ranges to be combined
+ *                      and sorted into a single range.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range where the two source ranges
+ *                      are to be combined into a single sorted range.
+ * @return  An output iterator addressing the position one past the last element in the sorted destination range.
+ * @remarks The sorted source ranges referenced must be valid. The destination range should not overlap either of the source ranges
+ *          and should be large enough to contain the destination range.
+ */
+extern output_iterator_t algo_merge(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result);
+
+/**
+ * Combines all of the elements from two sorted source ranges into a single, sorted destination range, where the ordering criterion
+ * may be specified by a binary predicate.
+ * @param it_first1     An input iterator addressing the position of the first element in the first of two sorted source ranges to be combined
+ *                      and sorted into a single range.
+ * @param it_last1      An input iterator addressing the position one past the last element in the first of two sorted source ranges to be combined
+ *                      and sorted into a single range.
+ * @param it_first2     An input iterator addressing the position of the first element in second of two consecutive sorted source ranges to be combined
+ *                      and sorted into a single range.
+ * @param it_last2      An input iterator addressing the position one past the last element in second of two consecutive sorted source ranges to be combined
+ *                      and sorted into a single range.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range where the two source ranges
+ *                      are to be combined into a single sorted range.
+ * @param bfun_op       User-defined predicate function that defines the sense in which one element is greater than another. 
+ * @return  An output iterator addressing the position one past the last element in the sorted destination range.
+ * @remarks The sorted source ranges referenced must be valid. The destination range should not overlap either of the source ranges
+ *          and should be large enough to contain the destination range.
+ */
+extern output_iterator_t algo_merge_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result, binary_function_t bfun_op);
+
 #ifdef __cplusplus
 }
 #endif

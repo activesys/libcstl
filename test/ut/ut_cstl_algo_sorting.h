@@ -92,6 +92,72 @@ void test_algo_partial_sort_copy_if__bfun_NULL_first_greater_second(void** state
 void test_algo_partial_sort_copy_if__first_less_second(void** state);
 void test_algo_partial_sort_copy_if__first_equal_second(void** state);
 void test_algo_partial_sort_copy_if__first_greater_second(void** state);
+/*
+ * test algo_sort
+ */
+UT_CASE_DECLARATION(algo_sort)
+void test_algo_sort__invalid_range(void** state);
+void test_algo_sort__invalid_range2(void** state);
+void test_algo_sort__invalid_range3(void** state);
+void test_algo_sort__empty(void** state);
+void test_algo_sort__less_than_threshold(void** state);
+void test_algo_sort__more_than_threshold(void** state);
+/*
+ * test algo_sort_if
+ */
+UT_CASE_DECLARATION(algo_sort_if)
+void test_algo_sort_if__invalid_range(void** state);
+void test_algo_sort_if__invalid_range2(void** state);
+void test_algo_sort_if__invalid_range3(void** state);
+void test_algo_sort_if__empty(void** state);
+void test_algo_sort_if__bfun_NULL_less_than_threshold(void** state);
+void test_algo_sort_if__bfun_NULL_more_than_threshold(void** state);
+void test_algo_sort_if__less_than_threshold(void** state);
+void test_algo_sort_if__more_than_threshold(void** state);
+/*
+ * test algo_merge
+ */
+UT_CASE_DECLARATION(algo_merge)
+void test_algo_merge__invalid_first_range(void** state);
+void test_algo_merge__invalid_second_range(void** state);
+void test_algo_merge__invalid_third_range(void** state);
+void test_algo_merge__first_not_same_type(void** state);
+void test_algo_merge__second_not_same_type(void** state);
+void test_algo_merge__third_not_same_type(void** state);
+void test_algo_merge__first_empty(void** state);
+void test_algo_merge__second_empty(void** state);
+void test_algo_merge__all_empty(void** state);
+void test_algo_merge__first_lead_second(void** state);
+void test_algo_merge__second_lead_first(void** state);
+void test_algo_merge__overlap_first_lead_second(void** state);
+void test_algo_merge__overlap_second_lead_first(void** state);
+void test_algo_merge__overlap(void** state);
+/*
+ * test algo_merge_if
+ */
+UT_CASE_DECLARATION(algo_merge_if)
+void test_algo_merge_if__invalid_first_range(void** state);
+void test_algo_merge_if__invalid_second_range(void** state);
+void test_algo_merge_if__invalid_third_range(void** state);
+void test_algo_merge_if__first_not_same_type(void** state);
+void test_algo_merge_if__second_not_same_type(void** state);
+void test_algo_merge_if__third_not_same_type(void** state);
+void test_algo_merge_if__bfun_NULL_first_empty(void** state);
+void test_algo_merge_if__bfun_NULL_second_empty(void** state);
+void test_algo_merge_if__bfun_NULL_all_empty(void** state);
+void test_algo_merge_if__bfun_NULL_first_lead_second(void** state);
+void test_algo_merge_if__bfun_NULL_second_lead_first(void** state);
+void test_algo_merge_if__bfun_NULL_overlap_first_lead_second(void** state);
+void test_algo_merge_if__bfun_NULL_overlap_second_lead_first(void** state);
+void test_algo_merge_if__bfun_NULL_overlap(void** state);
+void test_algo_merge_if__first_empty(void** state);
+void test_algo_merge_if__second_empty(void** state);
+void test_algo_merge_if__all_empty(void** state);
+void test_algo_merge_if__first_lead_second(void** state);
+void test_algo_merge_if__second_lead_first(void** state);
+void test_algo_merge_if__overlap_first_lead_second(void** state);
+void test_algo_merge_if__overlap_second_lead_first(void** state);
+void test_algo_merge_if__overlap(void** state);
 
 #define UT_CSTL_ALGO_SORTING_CASE\
     UT_SUIT_BEGIN(cstl_algo_sorting, test_algo_is_sorted__invalid_range),\
@@ -158,7 +224,57 @@ void test_algo_partial_sort_copy_if__first_greater_second(void** state);
     UT_CASE(test_algo_partial_sort_copy_if__bfun_NULL_first_greater_second),\
     UT_CASE(test_algo_partial_sort_copy_if__first_less_second),\
     UT_CASE(test_algo_partial_sort_copy_if__first_equal_second),\
-    UT_CASE(test_algo_partial_sort_copy_if__first_greater_second)
+    UT_CASE(test_algo_partial_sort_copy_if__first_greater_second),\
+    UT_CASE_BEGIN(algo_sort, test_algo_sort__invalid_range),\
+    UT_CASE(test_algo_sort__invalid_range2),\
+    UT_CASE(test_algo_sort__invalid_range3),\
+    UT_CASE(test_algo_sort__empty),\
+    UT_CASE(test_algo_sort__less_than_threshold),\
+    UT_CASE(test_algo_sort__more_than_threshold),\
+    UT_CASE_BEGIN(algo_sort_if, test_algo_sort_if__invalid_range),\
+    UT_CASE(test_algo_sort_if__invalid_range2),\
+    UT_CASE(test_algo_sort_if__invalid_range3),\
+    UT_CASE(test_algo_sort_if__empty),\
+    UT_CASE(test_algo_sort_if__bfun_NULL_less_than_threshold),\
+    UT_CASE(test_algo_sort_if__bfun_NULL_more_than_threshold),\
+    UT_CASE(test_algo_sort_if__less_than_threshold),\
+    UT_CASE(test_algo_sort_if__more_than_threshold),\
+    UT_CASE_BEGIN(algo_merge, test_algo_merge__invalid_first_range),\
+    UT_CASE(test_algo_merge__invalid_second_range),\
+    UT_CASE(test_algo_merge__invalid_third_range),\
+    UT_CASE(test_algo_merge__first_not_same_type),\
+    UT_CASE(test_algo_merge__second_not_same_type),\
+    UT_CASE(test_algo_merge__third_not_same_type),\
+    UT_CASE(test_algo_merge__first_empty),\
+    UT_CASE(test_algo_merge__second_empty),\
+    UT_CASE(test_algo_merge__all_empty),\
+    UT_CASE(test_algo_merge__first_lead_second),\
+    UT_CASE(test_algo_merge__second_lead_first),\
+    UT_CASE(test_algo_merge__overlap_first_lead_second),\
+    UT_CASE(test_algo_merge__overlap_second_lead_first),\
+    UT_CASE(test_algo_merge__overlap),\
+    UT_CASE_BEGIN(algo_merge_if, test_algo_merge_if__invalid_first_range),\
+    UT_CASE(test_algo_merge_if__invalid_second_range),\
+    UT_CASE(test_algo_merge_if__invalid_third_range),\
+    UT_CASE(test_algo_merge_if__first_not_same_type),\
+    UT_CASE(test_algo_merge_if__second_not_same_type),\
+    UT_CASE(test_algo_merge_if__third_not_same_type),\
+    UT_CASE(test_algo_merge_if__bfun_NULL_first_empty),\
+    UT_CASE(test_algo_merge_if__bfun_NULL_second_empty),\
+    UT_CASE(test_algo_merge_if__bfun_NULL_all_empty),\
+    UT_CASE(test_algo_merge_if__bfun_NULL_first_lead_second),\
+    UT_CASE(test_algo_merge_if__bfun_NULL_second_lead_first),\
+    UT_CASE(test_algo_merge_if__bfun_NULL_overlap_first_lead_second),\
+    UT_CASE(test_algo_merge_if__bfun_NULL_overlap_second_lead_first),\
+    UT_CASE(test_algo_merge_if__bfun_NULL_overlap),\
+    UT_CASE(test_algo_merge_if__first_empty),\
+    UT_CASE(test_algo_merge_if__second_empty),\
+    UT_CASE(test_algo_merge_if__all_empty),\
+    UT_CASE(test_algo_merge_if__first_lead_second),\
+    UT_CASE(test_algo_merge_if__second_lead_first),\
+    UT_CASE(test_algo_merge_if__overlap_first_lead_second),\
+    UT_CASE(test_algo_merge_if__overlap_second_lead_first),\
+    UT_CASE(test_algo_merge_if__overlap)
 
 #endif /* _UT_CSTL_ALGO_SORTING_H_ */
 

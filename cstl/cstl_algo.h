@@ -122,18 +122,6 @@ extern forward_iterator_t algo_min_element_if(
     binary_function_t t_binary_op);
 
 /*
- * merge algorithm.
- */
-extern output_iterator_t algo_merge(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result);
-extern output_iterator_t algo_merge_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result, binary_function_t t_binary_op);
-
-/*
  * permutation algorithm.
  */
 extern bool_t algo_next_permutation(
@@ -145,15 +133,6 @@ extern bool_t algo_prev_permutation(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last);
 extern bool_t algo_prev_permutation_if(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
-    binary_function_t t_binary_op);
-
-/*
- * sort algorithm.
- */
-extern void algo_sort(
-    random_access_iterator_t t_first, random_access_iterator_t t_last);
-extern void algo_sort_if(
-    random_access_iterator_t t_first, random_access_iterator_t t_last,
     binary_function_t t_binary_op);
 
 /*
