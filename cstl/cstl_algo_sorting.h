@@ -166,6 +166,55 @@ extern output_iterator_t algo_merge_if(
     input_iterator_t it_first2, input_iterator_t it_last2,
     output_iterator_t it_result, binary_function_t bfun_op);
 
+/**
+ * Combines the elements from two consecutive sorted ranges into a single sorted range.
+ * @param it_first      A bidirectional iterator addressing the position of the first element in the first of two consecutive
+ *                      sorted ranges to be combined and sorted into a single range.
+ * @param it_middle     A bidirectional iterator addressing the position of the first element in the second of two consecutive
+ *                      sorted ranges to be combined and sorted into a single range.
+ * @param it_last       A bidirectional iterator addressing the position one past the last element in the second of two consecutive
+ *                      sorted ranges to be combined and sorted into a single range.
+ * @return  void.
+ * @remarks The sorted consecutive ranges referenced must be valid, otherwsie the behavior is undefined.
+ */
+extern void algo_inplace_merge(
+    bidirectional_iterator_t it_first, bidirectional_iterator_t it_middle, bidirectional_iterator_t it_last);
+
+/**
+ * Combines the elements from two consecutive sorted ranges into a single sorted range, where the ordering criterion may be specified by a binary predicate.
+ * @param it_first      A bidirectional iterator addressing the position of the first element in the first of two consecutive
+ *                      sorted ranges to be combined and sorted into a single range.
+ * @param it_middle     A bidirectional iterator addressing the position of the first element in the second of two consecutive
+ *                      sorted ranges to be combined and sorted into a single range.
+ * @param it_last       A bidirectional iterator addressing the position one past the last element in the second of two consecutive
+ *                      sorted ranges to be combined and sorted into a single range.
+ * @param bfun_op       User-defined predicate function that defines the sense in which one element is greater than another.
+ * @return  void.
+ * @remarks The sorted consecutive ranges referenced must be valid, otherwsie the behavior is undefined.
+ */
+extern void algo_inplace_merge_if(
+    bidirectional_iterator_t it_first, bidirectional_iterator_t it_middle, bidirectional_iterator_t it_last, binary_function_t bfun_op);
+
+/**
+ * Arranges the elements in a specified range into a nondescending order.
+ * @param it_first      A bidirectional iterator addressing the position of the first element in the range to be sorted.
+ * @param it_last       A bidirectional iterator addressing the position one past the final element in the range to be sorted.
+ * @return  void.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern void algo_stable_sort(random_access_iterator_t it_first, random_access_iterator_t it_last);
+
+/**
+ * Arranges the elements in a specified range into a nondescending order or according to an ordering criterion
+ * specified by a binary predicate and preserves the relative ordering of equivalent elements.
+ * @param it_first      A bidirectional iterator addressing the position of the first element in the range to be sorted.
+ * @param it_last       A bidirectional iterator addressing the position one past the final element in the range to be sorted.
+ * @param bfun_op       User-defined predicate function object that defines the comparison criterion to be satisfied by successive elements in the ordering.
+ * @return  void.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern void algo_stable_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+
 #ifdef __cplusplus
 }
 #endif

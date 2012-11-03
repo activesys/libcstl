@@ -136,19 +136,6 @@ extern bool_t algo_prev_permutation_if(
     binary_function_t t_binary_op);
 
 /*
- * inplace merge algorithm.
- */
-extern void algo_inplace_merge(
-    bidirectional_iterator_t t_first,
-    bidirectional_iterator_t t_middle,
-    bidirectional_iterator_t t_last);
-extern void algo_inplace_merge_if(
-    bidirectional_iterator_t t_first,
-    bidirectional_iterator_t t_middle,
-    bidirectional_iterator_t t_last,
-    binary_function_t t_binary_op);
-
-/*
  * nth element algorithm.
  */
 extern void algo_nth_element(
@@ -159,15 +146,6 @@ extern void algo_nth_element_if(
     random_access_iterator_t t_first,
     random_access_iterator_t t_nth,
     random_access_iterator_t t_last,
-    binary_function_t t_binary_op);
-
-/*
- * Stable sort algorithm.
- */
-extern void algo_stable_sort(
-    random_access_iterator_t t_first, random_access_iterator_t t_last);
-extern void algo_stable_sort_if(
-    random_access_iterator_t t_first, random_access_iterator_t t_last,
     binary_function_t t_binary_op);
 
 #ifdef __cplusplus

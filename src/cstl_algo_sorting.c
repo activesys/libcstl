@@ -26,6 +26,7 @@
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
 #include <cstl/cstring.h>
+#include <cstl/clist.h>
 #include <cstl/cfunctional.h>
 #include <cstl/calgorithm.h>
 
@@ -258,6 +259,88 @@ output_iterator_t algo_merge_if(
     }
 
     return algo_copy(it_first2, it_last2, algo_copy(it_first1, it_last1, it_result));
+}
+
+/**
+ * Combines the elements from two consecutive sorted ranges into a single sorted range.
+ */
+void algo_inplace_merge(
+    bidirectional_iterator_t it_first, bidirectional_iterator_t it_middle, bidirectional_iterator_t it_last)
+{
+    algo_inplace_merge_if(it_first, it_middle, it_last, _fun_get_binary(it_first, _LESS_FUN));
+}
+
+/**
+ * Combines the elements from two consecutive sorted ranges into a single sorted range, where the ordering criterion may be specified by a binary predicate.
+ */
+void algo_inplace_merge_if(
+    bidirectional_iterator_t it_first, bidirectional_iterator_t it_middle, bidirectional_iterator_t it_last, binary_function_t bfun_op)
+{
+    iterator_t it_iter;
+    list_t*    plist_buffer = NULL;
+
+    assert(_iterator_valid_range(it_first, it_middle, _BIDIRECTIONAL_ITERATOR));
+    assert(_iterator_valid_range(it_middle, it_last, _BIDIRECTIONAL_ITERATOR));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+    }
+
+    if (iterator_equal(it_first, it_middle) || iterator_equal(it_middle, it_last)) {
+        return;
+    }
+
+    /*
+     * Create buffer accroding to type name of range and the list creation failure if and only if the type is unregistered.
+     * The type came from referenced range must be regitstered, so the list creation must be not failure.
+     */
+    plist_buffer = _create_list(_iterator_get_typename(it_first));
+    assert(plist_buffer != NULL);
+
+    list_init_n(plist_buffer, iterator_distance(it_first, it_middle));
+    it_iter = algo_copy(it_first, it_middle, list_begin(plist_buffer));
+    algo_merge_if(list_begin(plist_buffer), it_iter, it_middle, it_last, it_first, bfun_op);
+
+    list_destroy(plist_buffer);
+}
+
+/**
+ * Arranges the elements in a specified range into a nondescending order.
+ */
+void algo_stable_sort(random_access_iterator_t it_first, random_access_iterator_t it_last)
+{
+    algo_stable_sort_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
+}
+
+/**
+ * Arranges the elements in a specified range into a nondescending order or according to an ordering criterion
+ * specified by a binary predicate and preserves the relative ordering of equivalent elements.
+ */
+void algo_stable_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
+{
+    size_t t_len = 0;
+    void*  pv_value = NULL;
+
+    assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+    }
+
+    t_len = iterator_distance(it_first, it_last);
+    if (t_len > _CSTL_ALGO_SORT_THRESHOLD) {
+        iterator_t it_middle = it_first;
+        it_middle = iterator_advance(it_middle, t_len/2);
+
+        algo_stable_sort_if(it_first, it_middle, bfun_op);
+        algo_stable_sort_if(it_middle, it_last, bfun_op);
+        algo_inplace_merge_if(it_first, it_middle, it_last, bfun_op);
+    } else {
+        pv_value = _iterator_allocate_init_elem(it_first);
+        _algo_insertion_sort_if(it_first, it_last, bfun_op, pv_value);
+        _iterator_deallocate_destroy_elem(it_first, pv_value);
+        pv_value = NULL;
+    }
 }
 
 /** eof **/
