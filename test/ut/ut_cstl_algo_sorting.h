@@ -226,6 +226,36 @@ void test_algo_stable_sort_if__bfun_NULL_less_than_threshold(void** state);
 void test_algo_stable_sort_if__bfun_NULL_more_than_threshold(void** state);
 void test_algo_stable_sort_if__less_than_threshold(void** state);
 void test_algo_stable_sort_if__more_than_threshold(void** state);
+/*
+ * test algo_nth_element
+ */
+UT_CASE_DECLARATION(algo_nth_element)
+void test_algo_nth_element__invalid_first_range(void** state);
+void test_algo_nth_element__invalid_second_range(void** state);
+void test_algo_nth_element__invalid_range(void** state);
+void test_algo_nth_element__empty(void** state);
+void test_algo_nth_element__three(void** state);
+void test_algo_nth_element__first_element(void** state);
+void test_algo_nth_element__last_element(void** state);
+void test_algo_nth_element__normal(void** state);
+void test_algo_nth_element__last(void** state);
+/*
+ * test algo_nth_element_if
+ */
+UT_CASE_DECLARATION(algo_nth_element_if)
+void test_algo_nth_element_if__invalid_first_range(void** state);
+void test_algo_nth_element_if__invalid_second_range(void** state);
+void test_algo_nth_element_if__invalid_range(void** state);
+void test_algo_nth_element_if__empty(void** state);
+void test_algo_nth_element_if__three(void** state);
+void test_algo_nth_element_if__first_element(void** state);
+void test_algo_nth_element_if__last_element(void** state);
+void test_algo_nth_element_if__normal(void** state);
+void test_algo_nth_element_if__last(void** state);
+void test_algo_nth_element_if__bfun_NULL_first_element(void** state);
+void test_algo_nth_element_if__bfun_NULL_last_element(void** state);
+void test_algo_nth_element_if__bfun_NULL_normal(void** state);
+void test_algo_nth_element_if__bfun_NULL_last(void** state);
 
 #define UT_CSTL_ALGO_SORTING_CASE\
     UT_SUIT_BEGIN(cstl_algo_sorting, test_algo_is_sorted__invalid_range),\
@@ -394,7 +424,30 @@ void test_algo_stable_sort_if__more_than_threshold(void** state);
     UT_CASE(test_algo_stable_sort_if__bfun_NULL_less_than_threshold),\
     UT_CASE(test_algo_stable_sort_if__bfun_NULL_more_than_threshold),\
     UT_CASE(test_algo_stable_sort_if__less_than_threshold),\
-    UT_CASE(test_algo_stable_sort_if__more_than_threshold)
+    UT_CASE(test_algo_stable_sort_if__more_than_threshold),\
+    UT_CASE_BEGIN(algo_nth_element, test_algo_nth_element__invalid_first_range),\
+    UT_CASE(test_algo_nth_element__invalid_second_range),\
+    UT_CASE(test_algo_nth_element__invalid_range),\
+    UT_CASE(test_algo_nth_element__empty),\
+    UT_CASE(test_algo_nth_element__three),\
+    UT_CASE(test_algo_nth_element__first_element),\
+    UT_CASE(test_algo_nth_element__last_element),\
+    UT_CASE(test_algo_nth_element__normal),\
+    UT_CASE(test_algo_nth_element__last),\
+    UT_CASE_BEGIN(algo_nth_element_if, test_algo_nth_element_if__invalid_first_range),\
+    UT_CASE(test_algo_nth_element_if__invalid_second_range),\
+    UT_CASE(test_algo_nth_element_if__invalid_range),\
+    UT_CASE(test_algo_nth_element_if__empty),\
+    UT_CASE(test_algo_nth_element_if__three),\
+    UT_CASE(test_algo_nth_element_if__first_element),\
+    UT_CASE(test_algo_nth_element_if__last_element),\
+    UT_CASE(test_algo_nth_element_if__normal),\
+    UT_CASE(test_algo_nth_element_if__last),\
+    UT_CASE(test_algo_nth_element_if__bfun_NULL_first_element),\
+    UT_CASE(test_algo_nth_element_if__bfun_NULL_last_element),\
+    UT_CASE(test_algo_nth_element_if__bfun_NULL_normal),\
+    UT_CASE(test_algo_nth_element_if__bfun_NULL_last),\
+    UT_CASE(test_algo_nth_element_if__last)
 
 #endif /* _UT_CSTL_ALGO_SORTING_H_ */
 

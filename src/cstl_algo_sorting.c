@@ -343,5 +343,124 @@ void algo_stable_sort_if(random_access_iterator_t it_first, random_access_iterat
     }
 }
 
+/**
+ * Partitions a range of elements, correctly locating the nth element of the sequence in the range so that all the elements in front of it are less than or equal to it and
+ * all the elements that follow it in the sequence are greater than or equal to it.
+ */
+void algo_nth_element(random_access_iterator_t it_first, random_access_iterator_t it_nth, random_access_iterator_t it_last)
+{
+    algo_nth_element_if(it_first, it_nth, it_last, _fun_get_binary(it_first, _LESS_FUN));
+}
+
+/**
+ * Partitions a range of elements, correctly locating the nth element of the sequence in the range so that all the elements in front of it are less than or equal to it and
+ * all the elements that follow it in the sequence are greater than or equal to it.
+ */
+void algo_nth_element_if(random_access_iterator_t it_first, random_access_iterator_t it_nth, random_access_iterator_t it_last, binary_function_t bfun_op)
+{
+    iterator_t it_pivot;
+    iterator_t it_begin;
+    iterator_t it_end;
+    iterator_t it_prev;
+    bool_t     b_result = false;
+    void*      pv_value = NULL;
+
+    assert(_iterator_valid_range(it_first, it_nth, _RANDOM_ACCESS_ITERATOR));
+    assert(_iterator_valid_range(it_nth, it_last, _RANDOM_ACCESS_ITERATOR));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+    }
+
+    pv_value = _iterator_allocate_init_elem(it_first);
+
+    if (strncmp(_iterator_get_typebasename(it_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        while (iterator_distance(it_first, it_last) > 3) {
+            it_pivot = iterator_advance(it_first, iterator_distance(it_first, it_last) / 2);
+            it_prev = iterator_prev(it_last);
+            it_pivot = _algo_median_of_three_if(it_first, it_pivot, it_prev, bfun_op);
+            string_assign_cstr((string_t*)pv_value, (char*)iterator_get_pointer(it_pivot));
+
+            it_begin = it_first;
+            it_end = it_last;
+            for (;;) {
+                /* move begin */
+                (*bfun_op)(iterator_get_pointer(it_begin), string_c_str((string_t*)pv_value), &b_result);
+                while (b_result) {
+                    it_begin = iterator_next(it_begin);
+                    (*bfun_op)(iterator_get_pointer(it_begin), string_c_str((string_t*)pv_value), &b_result);
+                }
+                /* move end */
+                it_end = iterator_prev(it_end);
+                (*bfun_op)(string_c_str((string_t*)pv_value), iterator_get_pointer(it_end), &b_result);
+                while (b_result) {
+                    it_end = iterator_prev(it_end);
+                    (*bfun_op)(string_c_str((string_t*)pv_value), iterator_get_pointer(it_end), &b_result);
+                }
+
+                /* across */
+                if (!iterator_less(it_begin, it_end)) {
+                    it_pivot = it_begin;
+                    break;
+                } else {
+                    algo_iter_swap(it_begin, it_end);
+                    it_begin = iterator_next(it_begin);
+                }
+            }
+
+            if (iterator_less_equal(it_pivot, it_nth)) {
+                it_first = it_pivot;
+            } else {
+                it_last = it_pivot;
+            }
+        }
+    } else {
+        while (iterator_distance(it_first, it_last) > 3) {
+            it_pivot = iterator_advance(it_first, iterator_distance(it_first, it_last) / 2);
+            it_prev = iterator_prev(it_last);
+            it_pivot = _algo_median_of_three_if(it_first, it_pivot, it_prev, bfun_op);
+            iterator_get_value(it_pivot, pv_value);
+
+            it_begin = it_first;
+            it_end = it_last;
+            for (;;) {
+                /* move begin */
+                (*bfun_op)(iterator_get_pointer(it_begin), pv_value, &b_result);
+                while (b_result) {
+                    it_begin = iterator_next(it_begin);
+                    (*bfun_op)(iterator_get_pointer(it_begin), pv_value, &b_result);
+                }
+                /* move end */
+                it_end = iterator_prev(it_end);
+                (*bfun_op)(pv_value, iterator_get_pointer(it_end), &b_result);
+                while (b_result) {
+                    it_end = iterator_prev(it_end);
+                    (*bfun_op)(pv_value, iterator_get_pointer(it_end), &b_result);
+                }
+
+                /* across */
+                if (!iterator_less(it_begin, it_end)) {
+                    it_pivot = it_begin;
+                    break;
+                } else {
+                    algo_iter_swap(it_begin, it_end);
+                    it_begin = iterator_next(it_begin);
+                }
+            }
+
+            if (iterator_less_equal(it_pivot, it_nth)) {
+                it_first = it_pivot;
+            } else {
+                it_last = it_pivot;
+            }
+        }
+    }
+
+    _algo_insertion_sort_if(it_first, it_last, bfun_op, pv_value);
+
+    _iterator_deallocate_destroy_elem(it_first, pv_value);
+    pv_value = NULL;
+}
+
 /** eof **/
 

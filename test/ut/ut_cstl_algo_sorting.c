@@ -2766,3 +2766,327 @@ void test_algo_stable_sort_if__more_than_threshold(void** state)
     deque_destroy(pdeq_result);
 }
 
+/*
+ * test algo_nth_element
+ */
+UT_CASE_DEFINATION(algo_nth_element)
+void test_algo_nth_element__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_nth_element(vector_begin(pvec), deque_begin(pdeq), deque_end(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_nth_element(deque_begin(pdeq), deque_end(pdeq), deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element__invalid_range(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_nth_element(list_begin(plist), iterator_next(list_begin(plist)), list_end(plist)));
+    list_destroy(plist);
+}
+
+void test_algo_nth_element__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    algo_nth_element(deque_begin(pdeq), deque_begin(pdeq), deque_end(pdeq));
+    assert_true(deque_empty(pdeq));
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element__three(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {2, 0, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element(deque_begin(pdeq), iterator_next(deque_begin(pdeq)), deque_end(pdeq));
+    assert_true(*(int*)deque_at(pdeq, 0) == 0);
+    assert_true(*(int*)deque_at(pdeq, 1) == 1);
+    assert_true(*(int*)deque_at(pdeq, 2) == 2);
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element__first_element(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element(deque_begin(pdeq), deque_begin(pdeq), deque_end(pdeq));
+    assert_true(*(int*)deque_at(pdeq, 0) == 0);
+    for (it = deque_begin(pdeq); iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_greater_equal_int(iterator_get_pointer(it), iterator_get_pointer(deque_begin(pdeq)), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element__last_element(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), deque_end(pdeq));
+    assert_true(*(int*)deque_at(pdeq, 9) == 9);
+    for (it = deque_begin(pdeq); iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_less_equal_int(iterator_get_pointer(it), iterator_get_pointer(iterator_prev(deque_end(pdeq))), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element__normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 5, 5, 2, 1, 6, 0, 5, 5, 3, 9};
+    iterator_t it;
+    iterator_t it_nth;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it_nth = iterator_advance(deque_begin(pdeq), 5);
+    algo_nth_element(deque_begin(pdeq), it_nth, deque_end(pdeq));
+    assert_true(*(int*)deque_at(pdeq, 5) == 5);
+    for (it = deque_begin(pdeq); iterator_equal(it, it_nth); it = iterator_next(it)) {
+        fun_less_equal_int(iterator_get_pointer(it), iterator_get_pointer(it_nth), &b_result);
+        assert_true(b_result);
+    }
+    for (it = it_nth; iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_less_equal_int(iterator_get_pointer(it), iterator_get_pointer(it_nth), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element__last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element(deque_begin(pdeq), deque_end(pdeq), deque_end(pdeq));
+    assert_true(*(int*)deque_at(pdeq, 9) == 9);
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_nth_element_if
+ */
+UT_CASE_DEFINATION(algo_nth_element_if)
+void test_algo_nth_element_if__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_nth_element_if(vector_begin(pvec), deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_nth_element_if(deque_begin(pdeq), deque_end(pdeq), deque_begin(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__invalid_range(void** state)
+{
+    list_t* plist = create_list(int);
+
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_nth_element_if(list_begin(plist), iterator_next(list_begin(plist)), list_end(plist), fun_greater_int));
+    list_destroy(plist);
+}
+
+void test_algo_nth_element_if__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    algo_nth_element_if(deque_begin(pdeq), deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(deque_empty(pdeq));
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__three(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {2, 0, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element_if(deque_begin(pdeq), iterator_next(deque_begin(pdeq)), deque_end(pdeq), fun_greater_int);
+    assert_true(*(int*)deque_at(pdeq, 0) == 2);
+    assert_true(*(int*)deque_at(pdeq, 1) == 1);
+    assert_true(*(int*)deque_at(pdeq, 2) == 0);
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__first_element(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element_if(deque_begin(pdeq), deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(*(int*)deque_at(pdeq, 0) == 9);
+    for (it = deque_begin(pdeq); iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_less_equal_int(iterator_get_pointer(it), iterator_get_pointer(deque_begin(pdeq)), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__last_element(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element_if(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), deque_end(pdeq), fun_greater_int);
+    assert_true(*(int*)deque_at(pdeq, 9) == 0);
+    for (it = deque_begin(pdeq); iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_greater_equal_int(iterator_get_pointer(it), iterator_get_pointer(iterator_prev(deque_end(pdeq))), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 5, 4, 2, 1, 6, 0, 4, 4, 3, 9};
+    iterator_t it;
+    iterator_t it_nth;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it_nth = iterator_advance(deque_begin(pdeq), 5);
+    algo_nth_element_if(deque_begin(pdeq), it_nth, deque_end(pdeq), fun_greater_int);
+    assert_true(*(int*)deque_at(pdeq, 5) == 4);
+    for (it = deque_begin(pdeq); iterator_equal(it, it_nth); it = iterator_next(it)) {
+        fun_greater_equal_int(iterator_get_pointer(it), iterator_get_pointer(it_nth), &b_result);
+        assert_true(b_result);
+    }
+    for (it = it_nth; iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_less_equal_int(iterator_get_pointer(it), iterator_get_pointer(it_nth), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element_if(deque_begin(pdeq), deque_end(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(*(int*)deque_at(pdeq, 9) == 0);
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__bfun_NULL_first_element(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element_if(deque_begin(pdeq), deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(*(int*)deque_at(pdeq, 0) == 0);
+    for (it = deque_begin(pdeq); iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_greater_equal_int(iterator_get_pointer(it), iterator_get_pointer(deque_begin(pdeq)), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__bfun_NULL_last_element(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element_if(deque_begin(pdeq), iterator_prev(deque_end(pdeq)), deque_end(pdeq), NULL);
+    assert_true(*(int*)deque_at(pdeq, 9) == 9);
+    for (it = deque_begin(pdeq); iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_less_equal_int(iterator_get_pointer(it), iterator_get_pointer(iterator_prev(deque_end(pdeq))), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__bfun_NULL_normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 5, 5, 2, 1, 6, 0, 5, 5, 3, 9};
+    iterator_t it;
+    iterator_t it_nth;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it_nth = iterator_advance(deque_begin(pdeq), 5);
+    algo_nth_element_if(deque_begin(pdeq), it_nth, deque_end(pdeq), NULL);
+    assert_true(*(int*)deque_at(pdeq, 5) == 5);
+    for (it = deque_begin(pdeq); iterator_equal(it, it_nth); it = iterator_next(it)) {
+        fun_less_equal_int(iterator_get_pointer(it), iterator_get_pointer(it_nth), &b_result);
+        assert_true(b_result);
+    }
+    for (it = it_nth; iterator_equal(it, deque_end(pdeq)); it = iterator_next(it)) {
+        fun_greater_equal_int(iterator_get_pointer(it), iterator_get_pointer(it_nth), &b_result);
+        assert_true(b_result);
+    }
+    deque_destroy(pdeq);
+}
+
+void test_algo_nth_element_if__bfun_NULL_last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
+    iterator_t it;
+    bool_t b_result = false;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    algo_nth_element_if(deque_begin(pdeq), deque_end(pdeq), deque_end(pdeq), NULL);
+    assert_true(*(int*)deque_at(pdeq, 9) == 9);
+    deque_destroy(pdeq);
+}
+

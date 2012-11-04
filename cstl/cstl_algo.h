@@ -135,19 +135,6 @@ extern bool_t algo_prev_permutation_if(
     bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
     binary_function_t t_binary_op);
 
-/*
- * nth element algorithm.
- */
-extern void algo_nth_element(
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_nth,
-    random_access_iterator_t t_last);
-extern void algo_nth_element_if(
-    random_access_iterator_t t_first,
-    random_access_iterator_t t_nth,
-    random_access_iterator_t t_last,
-    binary_function_t t_binary_op);
-
 #ifdef __cplusplus
 }
 #endif

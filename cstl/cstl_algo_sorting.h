@@ -209,11 +209,34 @@ extern void algo_stable_sort(random_access_iterator_t it_first, random_access_it
  * specified by a binary predicate and preserves the relative ordering of equivalent elements.
  * @param it_first      A bidirectional iterator addressing the position of the first element in the range to be sorted.
  * @param it_last       A bidirectional iterator addressing the position one past the final element in the range to be sorted.
- * @param bfun_op       User-defined predicate function object that defines the comparison criterion to be satisfied by successive elements in the ordering.
+ * @param bfun_op       User-defined predicate function that defines the comparison criterion to be satisfied by successive elements in the ordering.
  * @return  void.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
 extern void algo_stable_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+
+/**
+ * Partitions a range of elements, correctly locating the nth element of the sequence in the range so that all the elements in front of it are less than or equal to it and
+ * all the elements that follow it in the sequence are greater than or equal to it.
+ * @param it_first      A random-access iterator addressing the position of the first element in the range to be partitioned.
+ * @param it_nth        A random-access iterator addressing the position of element to be correctly ordered on the boundary of the partition.
+ * @param it_last       A random-access iterator addressing the position one past the final element in the range to be partitioned.
+ * @return  void.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern void algo_nth_element(random_access_iterator_t it_first, random_access_iterator_t it_nth, random_access_iterator_t it_last);
+
+/**
+ * Partitions a range of elements, correctly locating the nth element of the sequence in the range so that all the elements in front of it are less than or equal to it and
+ * all the elements that follow it in the sequence are greater than or equal to it.
+ * @param it_first      A random-access iterator addressing the position of the first element in the range to be partitioned.
+ * @param it_nth        A random-access iterator addressing the position of element to be correctly ordered on the boundary of the partition.
+ * @param it_last       A random-access iterator addressing the position one past the final element in the range to be partitioned.
+ * @param bfun_op       User-defined predicate function that defines the comparison criterion to be satisfied by successive elements in the ordering.
+ * @return  void.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern void algo_nth_element_if(random_access_iterator_t it_first, random_access_iterator_t it_nth, random_access_iterator_t it_last, binary_function_t bfun_op);
 
 #ifdef __cplusplus
 }
