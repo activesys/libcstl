@@ -36,45 +36,6 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Lower bound, upper bound and equal range algorithm.
- */
-extern forward_iterator_t _algo_lower_bound(
-    forward_iterator_t t_first, forward_iterator_t t_last, ...);
-extern forward_iterator_t _algo_lower_bound_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op, ...);
-extern forward_iterator_t _algo_lower_bound_if_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op, va_list val_elemlist);
-extern forward_iterator_t _algo_upper_bound(
-    forward_iterator_t t_first, forward_iterator_t t_last, ...);
-extern forward_iterator_t _algo_upper_bound_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op, ...);
-extern forward_iterator_t _algo_upper_bound_if_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op, va_list val_elemlist);
-extern range_t _algo_equal_range(
-    forward_iterator_t t_first, forward_iterator_t t_last, ...);
-extern range_t _algo_equal_range_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op, ...);
-extern range_t _algo_equal_range_if_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op, va_list val_elemlist);
-
-/*
- * Search algorithm.
- */
-extern bool_t _algo_binary_search(
-    forward_iterator_t t_first, forward_iterator_t t_last, ...);
-extern bool_t _algo_binary_search_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op, ...);
-extern bool_t _algo_binary_search_if_varg(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op, va_list val_elemlist);
 
 #ifdef __cplusplus
 }

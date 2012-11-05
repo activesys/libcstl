@@ -462,5 +462,153 @@ void algo_nth_element_if(random_access_iterator_t it_first, random_access_iterat
     pv_value = NULL;
 }
 
+/**
+ * Tests whether one sorted range contains all the elements contained in a second sorted range.
+ */
+bool_t algo_includes(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, input_iterator_t it_last2)
+{
+    return algo_includes_if(it_first1, it_last1, it_first2, it_last2, _fun_get_binary(it_first1, _LESS_FUN));
+}
+
+/**
+ * Tests whether one sorted range contains all the elements contained in a second sorted range, where the ordering or
+ * equivalence criterion between elements may be specified by a binary predicate.
+ */
+bool_t algo_includes_if(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, input_iterator_t it_last2, binary_function_t bfun_op)
+{
+    bool_t b_result = false;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
+    }
+
+    while (!iterator_equal(it_first1, it_last1) && !iterator_equal(it_first2, it_last2)) {
+        (*bfun_op)(iterator_get_pointer(it_first2), iterator_get_pointer(it_first1), &b_result);
+        if (b_result) {     /* *it_first2 < *it_first1 */
+            return false;
+        } else {
+            (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_result);
+            if (b_result){  /* *it_first1 < *it_first2 */
+                it_first1 = iterator_next(it_first1);
+            } else {        /* *it_first1 == *it_first2 */
+                it_first1 = iterator_next(it_first1);
+                it_first2 = iterator_next(it_first2);
+            }
+        }
+    }
+
+    return iterator_equal(it_first2, it_last2) ? true : false;
+}
+
+/**
+ * Unites all of the elements that belong to at least one of two sorted source ranges into a single, sorted destination range.
+ */
+output_iterator_t algo_set_union(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result)
+{
+    return algo_set_union_if(it_first1, it_last1, it_first2, it_last2, it_result, _fun_get_binary(it_first1, _LESS_FUN));
+}
+
+/**
+ * Unites all of the elements that belong to at least one of two sorted source ranges into a single, sorted destination range,
+ * sorted destination range, where the ordering criterion may be specified by a binary predicate.
+ */
+output_iterator_t algo_set_union_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result, binary_function_t bfun_op)
+{
+    bool_t b_cmp = false;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+    assert(_iterator_same_elem_type(it_first1, it_result));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
+    }
+    while (!iterator_equal(it_first1, it_last1) && !iterator_equal(it_first2, it_last2)) {
+        (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_cmp);
+        if (b_cmp) {        /* it_first1 < it_first2 */
+            iterator_set_value(it_result, iterator_get_pointer(it_first1));
+            it_first1 = iterator_next(it_first1);
+        } else {
+            (*bfun_op)(iterator_get_pointer(it_first2), iterator_get_pointer(it_first1), &b_cmp);
+            if (b_cmp) {    /* it_first2 < it_first1 */
+                iterator_set_value(it_result, iterator_get_pointer(it_first2));
+                it_first2 = iterator_next(it_first2);
+            } else {        /* it_first1 == it_first2 */
+                iterator_set_value(it_result, iterator_get_pointer(it_first1));
+                it_first1 = iterator_next(it_first1);
+                it_first2 = iterator_next(it_first2);
+            }
+        }
+        it_result = iterator_next(it_result);
+    }
+
+    assert(iterator_equal(it_first1, it_last1) || iterator_equal(it_first2, it_last2));
+    return algo_copy(it_first2, it_last2, algo_copy(it_first1, it_last1, it_result));
+}
+
+/**
+ * Unites all of the elements that belong to both sorted source ranges into a single, sorted destination range.
+ */
+output_iterator_t algo_set_intersection(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result)
+{
+    return algo_set_intersection_if(it_first1, it_last1, it_first2, it_last2, it_result, _fun_get_binary(it_first1, _LESS_FUN));
+}
+
+/**
+ * Unites all of the elements that belong to both sorted source ranges into a single, sorted destination range,
+ * where the ordering criterion may be specified by a binary predicate.
+ */
+output_iterator_t algo_set_intersection_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result, binary_function_t bfun_op)
+{
+    bool_t b_cmp = false;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+    assert(_iterator_same_elem_type(it_first1, it_result));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
+    }
+    while (!iterator_equal(it_first1, it_last1) && !iterator_equal(it_first2, it_last2)) {
+        (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_cmp);
+        if (b_cmp) {        /* it_first1 < it_first2 */
+            it_first1 = iterator_next(it_first1);
+        } else {
+            (*bfun_op)(iterator_get_pointer(it_first2), iterator_get_pointer(it_first1), &b_cmp);
+            if (b_cmp) {    /* it_first2 < it_first1 */
+                it_first2 = iterator_next(it_first2);
+            } else {        /* it_first1 == it_first2 */
+                iterator_set_value(it_result, iterator_get_pointer(it_first1));
+                it_first1 = iterator_next(it_first1);
+                it_first2 = iterator_next(it_first2);
+                it_result = iterator_next(it_result);
+            }
+        }
+    }
+
+    assert(iterator_equal(it_first1, it_last1) || iterator_equal(it_first2, it_last2));
+    return it_result;
+}
+
 /** eof **/
 

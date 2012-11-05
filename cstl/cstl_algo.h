@@ -30,26 +30,6 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* lower bound */
-#define algo_lower_bound(t_first, t_last, elem)\
-    _algo_lower_bound((t_first), (t_last), (elem))
-#define algo_lower_bound_if(t_first, t_last, elem, t_binary_op)\
-    _algo_lower_bound_if((t_first), (t_last), (t_binary_op), (elem))
-/* upper bound */
-#define algo_upper_bound(t_first, t_last, elem)\
-    _algo_upper_bound((t_first), (t_last), (elem))
-#define algo_upper_bound_if(t_first, t_last, elem, t_binary_op)\
-    _algo_upper_bound_if((t_first), (t_last), (t_binary_op), (elem))
-/* equal range */
-#define algo_equal_range(t_first, t_last, elem)\
-    _algo_equal_range((t_first), (t_last), (elem))
-#define algo_equal_range_if(t_first, t_last, elem, t_binary_op)\
-    _algo_equal_range_if((t_first), (t_last), (t_binary_op), (elem))
-/* binary search */
-#define algo_binary_search(t_first, t_last, elem)\
-    _algo_binary_search((t_first), (t_last), (elem))
-#define algo_binary_search_if(t_first, t_last, elem, t_binary_op)\
-    _algo_binary_search_if((t_first), (t_last), (t_binary_op), (elem))
 
 /** data type declaration and struct, union, enum section **/
 
@@ -59,24 +39,6 @@ extern "C" {
 /*
  * set algorithm.
  */
-extern output_iterator_t algo_set_union(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result);
-extern output_iterator_t algo_set_union_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result,
-    binary_function_t t_binary_op);
-extern output_iterator_t algo_set_intersection(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result);
-extern output_iterator_t algo_set_intersection_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result,
-    binary_function_t t_binary_op);
 extern output_iterator_t algo_set_difference(
     input_iterator_t t_first1, input_iterator_t t_last1,
     input_iterator_t t_first2, input_iterator_t t_last2,
@@ -94,17 +56,6 @@ extern output_iterator_t algo_set_symmetric_difference_if(
     input_iterator_t t_first1, input_iterator_t t_last1,
     input_iterator_t t_first2, input_iterator_t t_last2,
     output_iterator_t t_result,
-    binary_function_t t_binary_op);
-
-/*
- * includes algorithm.
- */
-extern bool_t algo_includes(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2);
-extern bool_t algo_includes_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
     binary_function_t t_binary_op);
 
 /*

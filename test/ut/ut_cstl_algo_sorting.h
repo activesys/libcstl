@@ -256,6 +256,93 @@ void test_algo_nth_element_if__bfun_NULL_first_element(void** state);
 void test_algo_nth_element_if__bfun_NULL_last_element(void** state);
 void test_algo_nth_element_if__bfun_NULL_normal(void** state);
 void test_algo_nth_element_if__bfun_NULL_last(void** state);
+/*
+ * test algo_includes
+ */
+UT_CASE_DECLARATION(algo_includes)
+void test_algo_includes__invalid_first_range(void** state);
+void test_algo_includes__invalid_second_range(void** state);
+void test_algo_includes__not_same_type(void** state);
+void test_algo_includes__first_empty(void** state);
+void test_algo_includes__second_empty(void** state);
+void test_algo_includes__all_empty(void** state);
+void test_algo_includes__true(void** state);
+void test_algo_includes__false(void** state);
+/*
+ * test algo_includes_if
+ */
+UT_CASE_DECLARATION(algo_includes_if)
+void test_algo_includes_if__invalid_first_range(void** state);
+void test_algo_includes_if__invalid_second_range(void** state);
+void test_algo_includes_if__not_same_type(void** state);
+void test_algo_includes_if__first_empty(void** state);
+void test_algo_includes_if__second_empty(void** state);
+void test_algo_includes_if__all_empty(void** state);
+void test_algo_includes_if__bfun_NULL_true(void** state);
+void test_algo_includes_if__bfun_NULL_false(void** state);
+void test_algo_includes_if__true(void** state);
+void test_algo_includes_if__false(void** state);
+/*
+ * test algo_set_union
+ */
+UT_CASE_DECLARATION(algo_set_union)
+void test_algo_set_union__invalid_first_range(void** state);
+void test_algo_set_union__invalid_second_range(void** state);
+void test_algo_set_union__invalid_third_range(void** state);
+void test_algo_set_union__first_not_same_type(void** state);
+void test_algo_set_union__second_not_same_type(void** state);
+void test_algo_set_union__third_not_same_type(void** state);
+void test_algo_set_union__first_empty(void** state);
+void test_algo_set_union__second_empty(void** state);
+void test_algo_set_union__all_empty(void** state);
+void test_algo_set_union__first_lead_second(void** state);
+void test_algo_set_union__first_overlap_second(void** state);
+void test_algo_set_union__second_overlap_first(void** state);
+void test_algo_set_union__second_lead_first(void** state);
+/*
+ * test algo_set_union_if
+ */
+UT_CASE_DECLARATION(algo_set_union_if)
+void test_algo_set_union_if__invalid_first_range(void** state);
+void test_algo_set_union_if__invalid_second_range(void** state);
+void test_algo_set_union_if__invalid_third_range(void** state);
+void test_algo_set_union_if__first_not_same_type(void** state);
+void test_algo_set_union_if__second_not_same_type(void** state);
+void test_algo_set_union_if__third_not_same_type(void** state);
+void test_algo_set_union_if__bfun_NULL_first_lead_second(void** state);
+void test_algo_set_union_if__bfun_NULL_first_overlap_second(void** state);
+void test_algo_set_union_if__bfun_NULL_second_overlap_first(void** state);
+void test_algo_set_union_if__bfun_NULL_second_lead_first(void** state);
+void test_algo_set_union_if__first_lead_second(void** state);
+void test_algo_set_union_if__first_overlap_second(void** state);
+void test_algo_set_union_if__second_overlap_first(void** state);
+void test_algo_set_union_if__second_lead_first(void** state);
+/*
+ * test algo_set_intersection
+ */
+UT_CASE_DECLARATION(algo_set_intersection)
+void test_algo_set_intersection__invalid_first_range(void** state);
+void test_algo_set_intersection__invalid_second_range(void** state);
+void test_algo_set_intersection__invalid_third_range(void** state);
+void test_algo_set_intersection__first_not_same_type(void** state);
+void test_algo_set_intersection__second_not_same_type(void** state);
+void test_algo_set_intersection__third_not_same_type(void** state);
+void test_algo_set_intersection__result_empty(void** state);
+void test_algo_set_intersection__result_not_empty(void** state);
+/*
+ * test algo_set_intersection_if
+ */
+UT_CASE_DECLARATION(algo_set_intersection_if)
+void test_algo_set_intersection_if__invalid_first_range(void** state);
+void test_algo_set_intersection_if__invalid_second_range(void** state);
+void test_algo_set_intersection_if__invalid_third_range(void** state);
+void test_algo_set_intersection_if__first_not_same_type(void** state);
+void test_algo_set_intersection_if__second_not_same_type(void** state);
+void test_algo_set_intersection_if__third_not_same_type(void** state);
+void test_algo_set_intersection_if__bfun_NULL_result_empty(void** state);
+void test_algo_set_intersection_if__bfun_NULL_result_not_empty(void** state);
+void test_algo_set_intersection_if__result_empty(void** state);
+void test_algo_set_intersection_if__result_not_empty(void** state);
 
 #define UT_CSTL_ALGO_SORTING_CASE\
     UT_SUIT_BEGIN(cstl_algo_sorting, test_algo_is_sorted__invalid_range),\
@@ -447,7 +534,70 @@ void test_algo_nth_element_if__bfun_NULL_last(void** state);
     UT_CASE(test_algo_nth_element_if__bfun_NULL_last_element),\
     UT_CASE(test_algo_nth_element_if__bfun_NULL_normal),\
     UT_CASE(test_algo_nth_element_if__bfun_NULL_last),\
-    UT_CASE(test_algo_nth_element_if__last)
+    UT_CASE(test_algo_nth_element_if__last),\
+    UT_CASE_BEGIN(algo_includes, test_algo_includes__invalid_first_range),\
+    UT_CASE(test_algo_includes__invalid_second_range),\
+    UT_CASE(test_algo_includes__not_same_type),\
+    UT_CASE(test_algo_includes__first_empty),\
+    UT_CASE(test_algo_includes__second_empty),\
+    UT_CASE(test_algo_includes__all_empty),\
+    UT_CASE(test_algo_includes__true),\
+    UT_CASE(test_algo_includes__false),\
+    UT_CASE_BEGIN(algo_includes_if, test_algo_includes_if__invalid_first_range),\
+    UT_CASE(test_algo_includes_if__invalid_second_range),\
+    UT_CASE(test_algo_includes_if__not_same_type),\
+    UT_CASE(test_algo_includes_if__first_empty),\
+    UT_CASE(test_algo_includes_if__second_empty),\
+    UT_CASE(test_algo_includes_if__all_empty),\
+    UT_CASE(test_algo_includes_if__bfun_NULL_true),\
+    UT_CASE(test_algo_includes_if__bfun_NULL_false),\
+    UT_CASE(test_algo_includes_if__true),\
+    UT_CASE(test_algo_includes_if__false),\
+    UT_CASE_BEGIN(algo_set_union, test_algo_set_union__invalid_first_range),\
+    UT_CASE(test_algo_set_union__invalid_second_range),\
+    UT_CASE(test_algo_set_union__invalid_third_range),\
+    UT_CASE(test_algo_set_union__first_not_same_type),\
+    UT_CASE(test_algo_set_union__second_not_same_type),\
+    UT_CASE(test_algo_set_union__third_not_same_type),\
+    UT_CASE(test_algo_set_union__first_empty),\
+    UT_CASE(test_algo_set_union__second_empty),\
+    UT_CASE(test_algo_set_union__all_empty),\
+    UT_CASE(test_algo_set_union__first_lead_second),\
+    UT_CASE(test_algo_set_union__first_overlap_second),\
+    UT_CASE(test_algo_set_union__second_overlap_first),\
+    UT_CASE(test_algo_set_union__second_lead_first),\
+    UT_CASE_BEGIN(algo_set_union_if, test_algo_set_union_if__invalid_first_range),\
+    UT_CASE(test_algo_set_union_if__invalid_second_range),\
+    UT_CASE(test_algo_set_union_if__invalid_third_range),\
+    UT_CASE(test_algo_set_union_if__first_not_same_type),\
+    UT_CASE(test_algo_set_union_if__second_not_same_type),\
+    UT_CASE(test_algo_set_union_if__third_not_same_type),\
+    UT_CASE(test_algo_set_union_if__bfun_NULL_first_lead_second),\
+    UT_CASE(test_algo_set_union_if__bfun_NULL_first_overlap_second),\
+    UT_CASE(test_algo_set_union_if__bfun_NULL_second_overlap_first),\
+    UT_CASE(test_algo_set_union_if__bfun_NULL_second_lead_first),\
+    UT_CASE(test_algo_set_union_if__first_lead_second),\
+    UT_CASE(test_algo_set_union_if__first_overlap_second),\
+    UT_CASE(test_algo_set_union_if__second_overlap_first),\
+    UT_CASE(test_algo_set_union_if__second_lead_first),\
+    UT_CASE_BEGIN(algo_set_intersection, test_algo_set_intersection__invalid_first_range),\
+    UT_CASE(test_algo_set_intersection__invalid_second_range),\
+    UT_CASE(test_algo_set_intersection__invalid_third_range),\
+    UT_CASE(test_algo_set_intersection__first_not_same_type),\
+    UT_CASE(test_algo_set_intersection__second_not_same_type),\
+    UT_CASE(test_algo_set_intersection__third_not_same_type),\
+    UT_CASE(test_algo_set_intersection__result_empty),\
+    UT_CASE(test_algo_set_intersection__result_not_empty),\
+    UT_CASE_BEGIN(algo_set_intersection_if, test_algo_set_intersection_if__invalid_first_range),\
+    UT_CASE(test_algo_set_intersection_if__invalid_second_range),\
+    UT_CASE(test_algo_set_intersection_if__invalid_third_range),\
+    UT_CASE(test_algo_set_intersection_if__first_not_same_type),\
+    UT_CASE(test_algo_set_intersection_if__second_not_same_type),\
+    UT_CASE(test_algo_set_intersection_if__third_not_same_type),\
+    UT_CASE(test_algo_set_intersection_if__bfun_NULL_result_empty),\
+    UT_CASE(test_algo_set_intersection_if__bfun_NULL_result_not_empty),\
+    UT_CASE(test_algo_set_intersection_if__result_empty),\
+    UT_CASE(test_algo_set_intersection_if__result_not_empty)
 
 #endif /* _UT_CSTL_ALGO_SORTING_H_ */
 
