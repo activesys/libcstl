@@ -343,6 +343,94 @@ void test_algo_set_intersection_if__bfun_NULL_result_empty(void** state);
 void test_algo_set_intersection_if__bfun_NULL_result_not_empty(void** state);
 void test_algo_set_intersection_if__result_empty(void** state);
 void test_algo_set_intersection_if__result_not_empty(void** state);
+/*
+ * test algo_set_difference
+ */
+UT_CASE_DECLARATION(algo_set_difference)
+void test_algo_set_difference__invalid_first_range(void** state);
+void test_algo_set_difference__invalid_second_range(void** state);
+void test_algo_set_difference__invalid_third_range(void** state);
+void test_algo_set_difference__first_not_same_type(void** state);
+void test_algo_set_difference__second_not_same_type(void** state);
+void test_algo_set_difference__third_not_same_type(void** state);
+void test_algo_set_difference__result_difference(void** state);
+void test_algo_set_difference__result_not_difference(void** state);
+/*
+ * test algo_set_difference_if
+ */
+UT_CASE_DECLARATION(algo_set_difference_if)
+void test_algo_set_difference_if__invalid_first_range(void** state);
+void test_algo_set_difference_if__invalid_second_range(void** state);
+void test_algo_set_difference_if__invalid_third_range(void** state);
+void test_algo_set_difference_if__first_not_same_type(void** state);
+void test_algo_set_difference_if__second_not_same_type(void** state);
+void test_algo_set_difference_if__third_not_same_type(void** state);
+void test_algo_set_difference_if__bfun_NULL_result_difference(void** state);
+void test_algo_set_difference_if__bfun_NULL_result_not_difference(void** state);
+void test_algo_set_difference_if__result_difference(void** state);
+void test_algo_set_difference_if__result_not_difference(void** state);
+/*
+ * test algo_set_symmetric_difference
+ */
+UT_CASE_DECLARATION(algo_set_symmetric_difference)
+void test_algo_set_symmetric_difference__invalid_first_range(void** state);
+void test_algo_set_symmetric_difference__invalid_second_range(void** state);
+void test_algo_set_symmetric_difference__invalid_third_range(void** state);
+void test_algo_set_symmetric_difference__first_not_same_type(void** state);
+void test_algo_set_symmetric_difference__second_not_same_type(void** state);
+void test_algo_set_symmetric_difference__third_not_same_type(void** state);
+void test_algo_set_symmetric_difference__result_difference(void** state);
+void test_algo_set_symmetric_difference__result_not_difference(void** state);
+/*
+ * test algo_set_symmetric_difference_if
+ */
+UT_CASE_DECLARATION(algo_set_symmetric_difference_if)
+void test_algo_set_symmetric_difference_if__invalid_first_range(void** state);
+void test_algo_set_symmetric_difference_if__invalid_second_range(void** state);
+void test_algo_set_symmetric_difference_if__invalid_third_range(void** state);
+void test_algo_set_symmetric_difference_if__first_not_same_type(void** state);
+void test_algo_set_symmetric_difference_if__second_not_same_type(void** state);
+void test_algo_set_symmetric_difference_if__third_not_same_type(void** state);
+void test_algo_set_symmetric_difference_if__bfun_NULL_result_difference(void** state);
+void test_algo_set_symmetric_difference_if__bfun_NULL_result_not_difference(void** state);
+void test_algo_set_symmetric_difference_if__result_difference(void** state);
+void test_algo_set_symmetric_difference_if__result_not_difference(void** state);
+/*
+ * test algo_max
+ */
+UT_CASE_DECLARATION(algo_max)
+void test_algo_max__not_same_type(void** state);
+void test_algo_max__first_max(void** state);
+void test_algo_max__second_max(void** state);
+void test_algo_max__equal(void** state);
+/*
+ * test algo_max_if
+ */
+UT_CASE_DECLARATION(algo_max_if)
+void test_algo_max_if__not_same_type(void** state);
+void test_algo_max_if__equal(void** state);
+void test_algo_max_if__bfun_NULL_first_max(void** state);
+void test_algo_max_if__bfun_NULL_second_max(void** state);
+void test_algo_max_if__first_max(void** state);
+void test_algo_max_if__second_max(void** state);
+/*
+ * test algo_min
+ */
+UT_CASE_DECLARATION(algo_min)
+void test_algo_min__not_same_type(void** state);
+void test_algo_min__first_min(void** state);
+void test_algo_min__second_min(void** state);
+void test_algo_min__equal(void** state);
+/*
+ * test algo_min_if
+ */
+UT_CASE_DECLARATION(algo_min_if)
+void test_algo_min_if__not_same_type(void** state);
+void test_algo_min_if__equal(void** state);
+void test_algo_min_if__bfun_NULL_first_min(void** state);
+void test_algo_min_if__bfun_NULL_second_min(void** state);
+void test_algo_min_if__first_min(void** state);
+void test_algo_min_if__second_min(void** state);
 
 #define UT_CSTL_ALGO_SORTING_CASE\
     UT_SUIT_BEGIN(cstl_algo_sorting, test_algo_is_sorted__invalid_range),\
@@ -597,7 +685,63 @@ void test_algo_set_intersection_if__result_not_empty(void** state);
     UT_CASE(test_algo_set_intersection_if__bfun_NULL_result_empty),\
     UT_CASE(test_algo_set_intersection_if__bfun_NULL_result_not_empty),\
     UT_CASE(test_algo_set_intersection_if__result_empty),\
-    UT_CASE(test_algo_set_intersection_if__result_not_empty)
+    UT_CASE(test_algo_set_intersection_if__result_not_empty),\
+    UT_CASE_BEGIN(algo_set_difference, test_algo_set_difference__invalid_first_range),\
+    UT_CASE(test_algo_set_difference__invalid_second_range),\
+    UT_CASE(test_algo_set_difference__invalid_third_range),\
+    UT_CASE(test_algo_set_difference__first_not_same_type),\
+    UT_CASE(test_algo_set_difference__second_not_same_type),\
+    UT_CASE(test_algo_set_difference__third_not_same_type),\
+    UT_CASE(test_algo_set_difference__result_difference),\
+    UT_CASE(test_algo_set_difference__result_not_difference),\
+    UT_CASE_BEGIN(algo_set_difference_if, test_algo_set_difference_if__invalid_first_range),\
+    UT_CASE(test_algo_set_difference_if__invalid_second_range),\
+    UT_CASE(test_algo_set_difference_if__invalid_third_range),\
+    UT_CASE(test_algo_set_difference_if__first_not_same_type),\
+    UT_CASE(test_algo_set_difference_if__second_not_same_type),\
+    UT_CASE(test_algo_set_difference_if__third_not_same_type),\
+    UT_CASE(test_algo_set_difference_if__bfun_NULL_result_difference),\
+    UT_CASE(test_algo_set_difference_if__bfun_NULL_result_not_difference),\
+    UT_CASE(test_algo_set_difference_if__result_difference),\
+    UT_CASE(test_algo_set_difference_if__result_not_difference),\
+    UT_CASE_BEGIN(algo_set_symmetric_difference, test_algo_set_symmetric_difference__invalid_first_range),\
+    UT_CASE(test_algo_set_symmetric_difference__invalid_second_range),\
+    UT_CASE(test_algo_set_symmetric_difference__invalid_third_range),\
+    UT_CASE(test_algo_set_symmetric_difference__first_not_same_type),\
+    UT_CASE(test_algo_set_symmetric_difference__second_not_same_type),\
+    UT_CASE(test_algo_set_symmetric_difference__third_not_same_type),\
+    UT_CASE(test_algo_set_symmetric_difference__result_difference),\
+    UT_CASE(test_algo_set_symmetric_difference__result_not_difference),\
+    UT_CASE_BEGIN(algo_set_symmetric_difference_if, test_algo_set_symmetric_difference_if__invalid_first_range),\
+    UT_CASE(test_algo_set_symmetric_difference_if__invalid_second_range),\
+    UT_CASE(test_algo_set_symmetric_difference_if__invalid_third_range),\
+    UT_CASE(test_algo_set_symmetric_difference_if__first_not_same_type),\
+    UT_CASE(test_algo_set_symmetric_difference_if__second_not_same_type),\
+    UT_CASE(test_algo_set_symmetric_difference_if__third_not_same_type),\
+    UT_CASE(test_algo_set_symmetric_difference_if__bfun_NULL_result_difference),\
+    UT_CASE(test_algo_set_symmetric_difference_if__bfun_NULL_result_not_difference),\
+    UT_CASE(test_algo_set_symmetric_difference_if__result_difference),\
+    UT_CASE(test_algo_set_symmetric_difference_if__result_not_difference),\
+    UT_CASE_BEGIN(algo_max, test_algo_max__not_same_type),\
+    UT_CASE(test_algo_max__first_max),\
+    UT_CASE(test_algo_max__second_max),\
+    UT_CASE(test_algo_max__equal),\
+    UT_CASE_BEGIN(algo_max_if, test_algo_max_if__not_same_type),\
+    UT_CASE(test_algo_max_if__equal),\
+    UT_CASE(test_algo_max_if__bfun_NULL_first_max),\
+    UT_CASE(test_algo_max_if__bfun_NULL_second_max),\
+    UT_CASE(test_algo_max_if__first_max),\
+    UT_CASE(test_algo_max_if__second_max),\
+    UT_CASE_BEGIN(algo_min, test_algo_min__not_same_type),\
+    UT_CASE(test_algo_min__first_min),\
+    UT_CASE(test_algo_min__second_min),\
+    UT_CASE(test_algo_min__equal),\
+    UT_CASE_BEGIN(algo_min_if, test_algo_min_if__not_same_type),\
+    UT_CASE(test_algo_min_if__equal),\
+    UT_CASE(test_algo_min_if__bfun_NULL_first_min),\
+    UT_CASE(test_algo_min_if__bfun_NULL_second_min),\
+    UT_CASE(test_algo_min_if__first_min),\
+    UT_CASE(test_algo_min_if__second_min)
 
 #endif /* _UT_CSTL_ALGO_SORTING_H_ */
 

@@ -4206,3 +4206,979 @@ void test_algo_set_intersection_if__result_not_empty(void** state)
     deque_destroy(pdeq_result);
 }
 
+/*
+ * test algo_set_difference
+ */
+UT_CASE_DEFINATION(algo_set_difference)
+void test_algo_set_difference__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    slist_t* pslist = create_slist(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_set_difference(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq), slist_begin(pslist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+}
+
+void test_algo_set_difference__invalid_second_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_difference(vector_begin(pvec), vector_end(pvec), list_end(plist), list_begin(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference__invalid_third_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_set_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), it));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference__first_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(double);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference__second_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(char*);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference__third_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference__result_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {0, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_second[] = {-3, 1, 3, 5};
+    int an_result[] = {0, 1, 2, 4, 6, 7, 8, 9};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq));
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_set_difference__result_not_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {1, 1, 3, 3, 5, 7, 9, 9};
+    int an_second[] = {0, 2, 4, 6, 8, 8};
+    int an_result[] = {1, 1, 3, 3, 5, 7, 9, 9};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, vector_size(pvec));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq));
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_set_difference_if
+ */
+UT_CASE_DEFINATION(algo_set_difference_if)
+void test_algo_set_difference_if__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    slist_t* pslist = create_slist(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_set_difference_if(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq), slist_begin(pslist), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+}
+
+void test_algo_set_difference_if__invalid_second_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_end(plist), list_begin(plist), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference_if__invalid_third_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), it, fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference_if__first_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(double);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference_if__second_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(char*);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference_if__third_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_difference_if__bfun_NULL_result_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {0, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_second[] = {-3, 1, 3, 5};
+    int an_result[] = {0, 1, 2, 4, 6, 7, 8, 9};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_set_difference_if__bfun_NULL_result_not_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {1, 1, 3, 3, 5, 7, 9, 9};
+    int an_second[] = {0, 2, 4, 6, 8, 8};
+    int an_result[] = {1, 1, 3, 3, 5, 7, 9, 9};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, vector_size(pvec));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_set_difference_if__result_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 1, 0};
+    int an_second[] = {5, 3, 1, -5};
+    int an_result[] = {9, 8, 7, 6, 4, 2, 1, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_set_difference_if__result_not_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {9, 9, 7, 5, 3, 3, 1, 1};
+    int an_second[] = {8, 8, 6, 4, 2, 0};
+    int an_result[] = {9, 9, 7, 5, 3, 3, 1, 1};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, vector_size(pvec));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_set_symmetric_difference
+ */
+UT_CASE_DEFINATION(algo_set_symmetric_difference)
+void test_algo_set_symmetric_difference__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    slist_t* pslist = create_slist(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_set_symmetric_difference(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq), slist_begin(pslist)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+}
+
+void test_algo_set_symmetric_difference__invalid_second_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_symmetric_difference(vector_begin(pvec), vector_end(pvec), list_end(plist), list_begin(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference__invalid_third_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_set_symmetric_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), it));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference__first_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(double);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_symmetric_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference__second_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(char*);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_symmetric_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference__third_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_symmetric_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference__result_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {0, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_second[] = {-3, 1, 3, 5};
+    int an_result[] = {-3, 0, 1, 2, 4, 6, 7, 8, 9};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_symmetric_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq));
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_set_symmetric_difference__result_not_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {1, 1, 3, 3, 5, 7, 9, 9};
+    int an_second[] = {0, 2, 4, 6, 8, 8};
+    int an_result[] = {0, 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 8, 9, 9};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_n(pdeq, deque_size(pdeq_result));
+    it = algo_set_symmetric_difference(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq));
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_set_symmetric_difference_if
+ */
+UT_CASE_DEFINATION(algo_set_symmetric_difference_if)
+void test_algo_set_symmetric_difference_if__invalid_first_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    slist_t* pslist = create_slist(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_set_symmetric_difference_if(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq), slist_begin(pslist), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    slist_destroy(pslist);
+}
+
+void test_algo_set_symmetric_difference_if__invalid_second_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_end(plist), list_begin(plist), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference_if__invalid_third_range(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = 100;
+    expect_assert_failure(algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), it, fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference_if__first_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(double);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference_if__second_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(char*);
+    deque_t* pdeq = create_deque(int);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference_if__third_not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 10);
+    list_init_n(plist, 10);
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+}
+
+void test_algo_set_symmetric_difference_if__bfun_NULL_result_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {0, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_second[] = {-3, 1, 3, 5};
+    int an_result[] = {-3, 0, 1, 2, 4, 6, 7, 8, 9};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_set_symmetric_difference_if__bfun_NULL_result_not_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {1, 1, 3, 3, 5, 7, 9, 9};
+    int an_second[] = {0, 2, 4, 6, 8, 8};
+    int an_result[] = {0, 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 8, 9, 9};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_n(pdeq, deque_size(pdeq_result));
+    it = algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_set_symmetric_difference_if__result_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 1, 0};
+    int an_second[] = {5, 3, 1, -5};
+    int an_result[] = {9, 8, 7, 6, 4, 2, 1, 0, -5};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_n(pdeq, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    it = algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_set_symmetric_difference_if__result_not_difference(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    list_t* plist = create_list(int);
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_first[] = {9, 9, 7, 5, 3, 3, 1, 1};
+    int an_second[] = {8, 8, 6, 4, 2, 0};
+    int an_result[] = {9, 9, 8, 8, 7, 6, 5, 4, 3, 3, 2, 1, 1, 0};
+    iterator_t it;
+
+    vector_init_copy_array(pvec, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    deque_init_n(pdeq, deque_size(pdeq_result));
+    it = algo_set_symmetric_difference_if(vector_begin(pvec), vector_end(pvec), list_begin(plist), list_end(plist), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    vector_destroy(pvec);
+    list_destroy(plist);
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_max
+ */
+UT_CASE_DEFINATION(algo_max)
+void test_algo_max__not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 1);
+    deque_init_n(pdeq, 1);
+    expect_assert_failure(algo_max(vector_begin(pvec), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max__first_max(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 100);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_max(vector_begin(pvec), deque_begin(pdeq));
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max__second_max(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_max(vector_begin(pvec), deque_begin(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max__equal(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 1);
+    it = algo_max(vector_begin(pvec), deque_begin(pdeq));
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_max_if
+ */
+UT_CASE_DEFINATION(algo_max_if)
+void test_algo_max_if__not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 1);
+    deque_init_n(pdeq, 1);
+    expect_assert_failure(algo_max_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_if__equal(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 1);
+    it = algo_max_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_if__bfun_NULL_first_max(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 100);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_max_if(vector_begin(pvec), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_if__bfun_NULL_second_max(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_max_if(vector_begin(pvec), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_if__first_max(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 100);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_max_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_if__second_max(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_max_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_min
+ */
+UT_CASE_DEFINATION(algo_min)
+void test_algo_min__not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 1);
+    deque_init_n(pdeq, 1);
+    expect_assert_failure(algo_min(vector_begin(pvec), deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min__second_min(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 100);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_min(vector_begin(pvec), deque_begin(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min__first_min(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_min(vector_begin(pvec), deque_begin(pdeq));
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min__equal(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 1);
+    it = algo_min(vector_begin(pvec), deque_begin(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_min_if
+ */
+UT_CASE_DEFINATION(algo_min_if)
+void test_algo_min_if__not_same_type(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(double);
+
+    vector_init_n(pvec, 1);
+    deque_init_n(pdeq, 1);
+    expect_assert_failure(algo_min_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_if__equal(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 1);
+    it = algo_min_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_if__bfun_NULL_first_min(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_min_if(vector_begin(pvec), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_if__bfun_NULL_second_min(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 100);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_min_if(vector_begin(pvec), deque_begin(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_if__first_min(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 1);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_min_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_if__second_min(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    vector_init_elem(pvec, 1, 100);
+    deque_init_elem(pdeq, 1, 10);
+    it = algo_min_if(vector_begin(pvec), deque_begin(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, vector_begin(pvec)));
+    vector_destroy(pvec);
+    deque_destroy(pdeq);
+}
+

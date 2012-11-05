@@ -450,6 +450,127 @@ extern output_iterator_t algo_set_intersection_if(
     input_iterator_t it_first2, input_iterator_t it_last2,
     output_iterator_t it_result, binary_function_t bfun_op);
 
+/**
+ * Unites all of the elements that belong to one sorted source range, but not to a second sorted source range, into a single, sorted destination range.
+ * @param it_first1     An input iterator addressing the position of the first element in the first of two sorted source ranges
+ *                      to be united and sorted into a single range representing the difference of the two source ranges.
+ * @param it_last1      An input iterator addressing the position one past the last element in the first of two sorted source ranges
+ *                      to be united and sorted into a single range representing the difference of the two source ranges.
+ * @param it_first2     An input iterator addressing the position of the first element in second of two consecutive sorted source ranges
+ *                      to be united and sorted into a single range representing the difference of the two source ranges.
+ * @param it_last2      An input iterator addressing the position one past the last element in second of two consecutive sorted source ranges
+ *                      to be united and sorted into a single range representing the difference of the two source ranges.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range where the two source ranges
+ *                      are to be united into a single sorted range representing the difference of the two source ranges.
+ * @return  An output iterator addressing the position one past the last element in the sorted destination range representing the difference of the two source ranges.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern output_iterator_t algo_set_difference(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result);
+
+/**
+ * Unites all of the elements that belong to one sorted source range, but not to a second sorted source range, into a single, sorted destination range,
+ * where the ordering criterion may be specified by a binary predicate.
+ * @param it_first1     An input iterator addressing the position of the first element in the first of two sorted source ranges
+ *                      to be united and sorted into a single range representing the difference of the two source ranges.
+ * @param it_last1      An input iterator addressing the position one past the last element in the first of two sorted source ranges
+ *                      to be united and sorted into a single range representing the difference of the two source ranges.
+ * @param it_first2     An input iterator addressing the position of the first element in second of two consecutive sorted source ranges
+ *                      to be united and sorted into a single range representing the difference of the two source ranges.
+ * @param it_last2      An input iterator addressing the position one past the last element in second of two consecutive sorted source ranges
+ *                      to be united and sorted into a single range representing the difference of the two source ranges.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range where the two source ranges
+ *                      are to be united into a single sorted range representing the difference of the two source ranges.
+ * @return  An output iterator addressing the position one past the last element in the sorted destination range representing the difference of the two source ranges.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern output_iterator_t algo_set_difference_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result, binary_function_t bfun_op);
+
+/**
+ * Unites all of the elements that belong to one, but not both, of the sorted source ranges into a single, sorted destination range.
+ * @param it_first1     An input iterator addressing the position of the first element in the first of two sorted source ranges
+ *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
+ * @param it_last1      An input iterator addressing the position one past the last element in the first of two sorted source ranges
+ *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
+ * @param it_first2     An input iterator addressing the position of the first element in second of two consecutive sorted source ranges
+ *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
+ * @param it_last2      An input iterator addressing the position one past the last element in second of two consecutive sorted source ranges
+ *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range where the two source ranges
+ *                      are to be united into a single sorted range representing the symmetric difference of the two source ranges.
+ * @return  An output iterator addressing the position one past the last element in the sorted destination range representing the symmetric difference of the two source ranges.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern output_iterator_t algo_set_symmetric_difference(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result);
+
+/**
+ * Unites all of the elements that belong to one, but not both, of the sorted source ranges into a single, sorted destination range,
+ * where the ordering criterion may be specified by a binary predicate.
+ * @param it_first1     An input iterator addressing the position of the first element in the first of two sorted source ranges
+ *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
+ * @param it_last1      An input iterator addressing the position one past the last element in the first of two sorted source ranges
+ *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
+ * @param it_first2     An input iterator addressing the position of the first element in second of two consecutive sorted source ranges
+ *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
+ * @param it_last2      An input iterator addressing the position one past the last element in second of two consecutive sorted source ranges
+ *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
+ * @param it_result     An output iterator addressing the position of the first element in the destination range where the two source ranges
+ *                      are to be united into a single sorted range representing the symmetric difference of the two source ranges.
+ * @param bfun_op       User-defined predicate function object that defines the sense in which one element is greater than another.
+ * @return  An output iterator addressing the position one past the last element in the sorted destination range representing the symmetric difference of the two source ranges.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern output_iterator_t algo_set_symmetric_difference_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    output_iterator_t it_result, binary_function_t bfun_op);
+
+/**
+ * Compares two elements and returns the larger of the two.
+ * @param it_first      An input iterator addressing the first element.
+ * @param it_second     An input iterator addressing the second element.
+ * @return  An input iterator addressing the larger element.
+ * @remarks The two iterators must be have same element type.
+ */
+extern input_iterator_t algo_max(input_iterator_t it_first, input_iterator_t it_second);
+
+/**
+ * Compares two elements and returns the larger of the two, where the ordering criterion may be specified by a binary predicate.
+ * @param it_first      An input iterator addressing the first element.
+ * @param it_second     An input iterator addressing the second element.
+ * @param bfun_op       A binary predicate used to compare the two elements.
+ * @return  An input iterator addressing the larger element.
+ * @remarks The two iterators must be have same element type.
+ */
+extern input_iterator_t algo_max_if(input_iterator_t it_first, input_iterator_t it_second, binary_function_t bfun_op);
+
+/**
+ * Compares two elements and returns the lesser of the two.
+ * @param it_first      An input iterator addressing the first element.
+ * @param it_second     An input iterator addressing the second element.
+ * @return  An input iterator addressing the lesser element.
+ * @remarks The two iterators must be have same element type.
+ */
+extern input_iterator_t algo_min(input_iterator_t it_first, input_iterator_t it_second);
+
+/**
+ * Compares two elements and returns the lesser of the two, where the ordering criterion may be specified by a binary predicate.
+ * @param it_first      An input iterator addressing the first element.
+ * @param it_second     An input iterator addressing the second element.
+ * @param bfun_op       A binary predicate used to compare the two elements.
+ * @return  An input iterator addressing the lesser element.
+ * @remarks The two iterators must be have same element type.
+ */
+extern input_iterator_t algo_min_if(input_iterator_t it_first, input_iterator_t it_second, binary_function_t bfun_op);
+
 #ifdef __cplusplus
 }
 #endif

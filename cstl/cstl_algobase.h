@@ -54,16 +54,6 @@ extern int algo_lexicographical_compare_3way_if(
     input_iterator_t t_first2, input_iterator_t t_last2,
     binary_function_t t_binary_op);
 
-/*
- * max and min algorithm.
- */
-extern input_iterator_t algo_max(input_iterator_t t_first, input_iterator_t t_second);
-extern input_iterator_t algo_max_if(
-    input_iterator_t t_first, input_iterator_t t_last, binary_function_t t_binary_op);
-extern input_iterator_t algo_min(input_iterator_t t_first, input_iterator_t t_second);
-extern input_iterator_t algo_min_if(
-    input_iterator_t t_first, input_iterator_t t_last, binary_function_t t_binary_op);
-
 #ifdef __cplusplus
 }
 #endif

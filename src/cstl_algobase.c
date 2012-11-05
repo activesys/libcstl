@@ -150,68 +150,6 @@ int algo_lexicographical_compare_3way_if(
     }
 }
 
-input_iterator_t algo_max(input_iterator_t t_first, input_iterator_t t_second)
-{
-    return algo_max_if(t_first, t_second, _fun_get_binary(t_first, _LESS_FUN));
-}
-
-input_iterator_t algo_max_if(
-    input_iterator_t t_first, input_iterator_t t_second, binary_function_t t_binary_op)
-{
-    bool_t t_result = false;
-
-    assert(_iterator_limit_type(t_first, _INPUT_ITERATOR));
-    assert(_iterator_limit_type(t_second, _INPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first, t_second));
-
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
-    }
-
-    (*t_binary_op)(
-        iterator_get_pointer(t_first), iterator_get_pointer(t_second), &t_result);
-    if(!t_result)
-    {
-        return t_first;
-    }
-    else
-    {
-        return t_second;
-    }
-}
-
-input_iterator_t algo_min(input_iterator_t t_first, input_iterator_t t_second)
-{
-    return algo_min_if(t_first, t_second, _fun_get_binary(t_first, _LESS_FUN));
-}
-
-input_iterator_t algo_min_if(
-    input_iterator_t t_first, input_iterator_t t_second, binary_function_t t_binary_op)
-{
-    bool_t t_result = false;
-
-    assert(_iterator_limit_type(t_first, _INPUT_ITERATOR));
-    assert(_iterator_limit_type(t_second, _INPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first, t_second));
-
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first, _LESS_FUN);
-    }
-
-    (*t_binary_op)(
-        iterator_get_pointer(t_first), iterator_get_pointer(t_second), &t_result);
-    if(t_result)
-    {
-        return t_first;
-    }
-    else
-    {
-        return t_second;
-    }
-}
-
 /** local function implementation section **/
 
 /** eof **/

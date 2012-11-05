@@ -37,28 +37,6 @@ extern "C" {
 
 /** exported function prototype section **/
 /*
- * set algorithm.
- */
-extern output_iterator_t algo_set_difference(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result);
-extern output_iterator_t algo_set_difference_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result,
-    binary_function_t t_binary_op);
-extern output_iterator_t algo_set_symmetric_difference(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result);
-extern output_iterator_t algo_set_symmetric_difference_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    output_iterator_t t_result,
-    binary_function_t t_binary_op);
-
-/*
  * max element and min element algorithm.
  */
 extern forward_iterator_t algo_max_element(
