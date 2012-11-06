@@ -431,6 +431,162 @@ void test_algo_min_if__bfun_NULL_first_min(void** state);
 void test_algo_min_if__bfun_NULL_second_min(void** state);
 void test_algo_min_if__first_min(void** state);
 void test_algo_min_if__second_min(void** state);
+/*
+ * test algo_max_element
+ */
+UT_CASE_DECLARATION(algo_max_element)
+void test_algo_max_element__invalid_range(void** state);
+void test_algo_max_element__invalid_range2(void** state);
+void test_algo_max_element__invalid_range3(void** state);
+void test_algo_max_element__empty(void** state);
+void test_algo_max_element__normal(void** state);
+void test_algo_max_element__equal(void** state);
+/*
+ * test algo_max_element_if
+ */
+UT_CASE_DECLARATION(algo_max_element_if)
+void test_algo_max_element_if__invalid_range(void** state);
+void test_algo_max_element_if__invalid_range2(void** state);
+void test_algo_max_element_if__invalid_range3(void** state);
+void test_algo_max_element_if__empty(void** state);
+void test_algo_max_element_if__bfun_NULL_normal(void** state);
+void test_algo_max_element_if__bfun_NULL_equal(void** state);
+void test_algo_max_element_if__normal(void** state);
+void test_algo_max_element_if__equal(void** state);
+/*
+ * test algo_min_element
+ */
+UT_CASE_DECLARATION(algo_min_element)
+void test_algo_min_element__invalid_range(void** state);
+void test_algo_min_element__invalid_range2(void** state);
+void test_algo_min_element__invalid_range3(void** state);
+void test_algo_min_element__empty(void** state);
+void test_algo_min_element__normal(void** state);
+void test_algo_min_element__equal(void** state);
+/*
+ * test algo_min_element_if
+ */
+UT_CASE_DECLARATION(algo_min_element_if)
+void test_algo_min_element_if__invalid_range(void** state);
+void test_algo_min_element_if__invalid_range2(void** state);
+void test_algo_min_element_if__invalid_range3(void** state);
+void test_algo_min_element_if__empty(void** state);
+void test_algo_min_element_if__bfun_NULL_normal(void** state);
+void test_algo_min_element_if__bfun_NULL_equal(void** state);
+void test_algo_min_element_if__normal(void** state);
+void test_algo_min_element_if__equal(void** state);
+/*
+ * test algo_lexicographical_compare
+ */
+UT_CASE_DECLARATION(algo_lexicographical_compare)
+void test_algo_lexicographical_compare__invalid_first_range(void** state);
+void test_algo_lexicographical_compare__invalid_second_range(void** state);
+void test_algo_lexicographical_compare__not_same_type(void** state);
+void test_algo_lexicographical_compare__first_empty(void** state);
+void test_algo_lexicographical_compare__second_empty(void** state);
+void test_algo_lexicographical_compare__all_empty(void** state);
+void test_algo_lexicographical_compare__less(void** state);
+void test_algo_lexicographical_compare__greater(void** state);
+void test_algo_lexicographical_compare__equal(void** state);
+/*
+ * test algo_lexicographical_compare_if
+ */
+UT_CASE_DECLARATION(algo_lexicographical_compare_if)
+void test_algo_lexicographical_compare_if__invalid_first_range(void** state);
+void test_algo_lexicographical_compare_if__invalid_second_range(void** state);
+void test_algo_lexicographical_compare_if__not_same_type(void** state);
+void test_algo_lexicographical_compare_if__first_empty(void** state);
+void test_algo_lexicographical_compare_if__second_empty(void** state);
+void test_algo_lexicographical_compare_if__all_empty(void** state);
+void test_algo_lexicographical_compare_if__bfun_NULL_less(void** state);
+void test_algo_lexicographical_compare_if__bfun_NULL_greater(void** state);
+void test_algo_lexicographical_compare_if__bfun_NULL_equal(void** state);
+void test_algo_lexicographical_compare_if__less(void** state);
+void test_algo_lexicographical_compare_if__greater(void** state);
+void test_algo_lexicographical_compare_if__equal(void** state);
+/*
+ * test algo_lexicographical_compare_3way
+ */
+UT_CASE_DECLARATION(algo_lexicographical_compare_3way)
+void test_algo_lexicographical_compare_3way__invalid_first_range(void** state);
+void test_algo_lexicographical_compare_3way__invalid_second_range(void** state);
+void test_algo_lexicographical_compare_3way__not_same_type(void** state);
+void test_algo_lexicographical_compare_3way__first_empty(void** state);
+void test_algo_lexicographical_compare_3way__second_empty(void** state);
+void test_algo_lexicographical_compare_3way__all_empty(void** state);
+void test_algo_lexicographical_compare_3way__less(void** state);
+void test_algo_lexicographical_compare_3way__greater(void** state);
+void test_algo_lexicographical_compare_3way__equal(void** state);
+/*
+ * test algo_lexicographical_compare_3way_if
+ */
+UT_CASE_DECLARATION(algo_lexicographical_compare_3way_if)
+void test_algo_lexicographical_compare_3way_if__invalid_first_range(void** state);
+void test_algo_lexicographical_compare_3way_if__invalid_second_range(void** state);
+void test_algo_lexicographical_compare_3way_if__not_same_type(void** state);
+void test_algo_lexicographical_compare_3way_if__first_empty(void** state);
+void test_algo_lexicographical_compare_3way_if__second_empty(void** state);
+void test_algo_lexicographical_compare_3way_if__all_empty(void** state);
+void test_algo_lexicographical_compare_3way_if__bfun_NULL_less(void** state);
+void test_algo_lexicographical_compare_3way_if__bfun_NULL_greater(void** state);
+void test_algo_lexicographical_compare_3way_if__bfun_NULL_equal(void** state);
+void test_algo_lexicographical_compare_3way_if__less(void** state);
+void test_algo_lexicographical_compare_3way_if__greater(void** state);
+void test_algo_lexicographical_compare_3way_if__equal(void** state);
+/*
+ * test algo_next_permutation
+ */
+UT_CASE_DECLARATION(algo_next_permutation)
+void test_algo_next_permutation__invalid_range(void** state);
+void test_algo_next_permutation__invalid_range2(void** state);
+void test_algo_next_permutation__invalid_range3(void** state);
+void test_algo_next_permutation__empty(void** state);
+void test_algo_next_permutation__equal(void** state);
+void test_algo_next_permutation__first(void** state);
+void test_algo_next_permutation__middle(void** state);
+void test_algo_next_permutation__last(void** state);
+/*
+ * test algo_next_permutation_if
+ */
+UT_CASE_DECLARATION(algo_next_permutation_if)
+void test_algo_next_permutation_if__invalid_range(void** state);
+void test_algo_next_permutation_if__invalid_range2(void** state);
+void test_algo_next_permutation_if__invalid_range3(void** state);
+void test_algo_next_permutation_if__empty(void** state);
+void test_algo_next_permutation_if__equal(void** state);
+void test_algo_next_permutation_if__bfun_NULL_first(void** state);
+void test_algo_next_permutation_if__bfun_NULL_middle(void** state);
+void test_algo_next_permutation_if__bfun_NULL_last(void** state);
+void test_algo_next_permutation_if__first(void** state);
+void test_algo_next_permutation_if__middle(void** state);
+void test_algo_next_permutation_if__last(void** state);
+/*
+ * test algo_prev_permutation
+ */
+UT_CASE_DECLARATION(algo_prev_permutation)
+void test_algo_prev_permutation__invalid_range(void** state);
+void test_algo_prev_permutation__invalid_range2(void** state);
+void test_algo_prev_permutation__invalid_range3(void** state);
+void test_algo_prev_permutation__empty(void** state);
+void test_algo_prev_permutation__equal(void** state);
+void test_algo_prev_permutation__first(void** state);
+void test_algo_prev_permutation__middle(void** state);
+void test_algo_prev_permutation__last(void** state);
+/*
+ * test algo_prev_permutation_if
+ */
+UT_CASE_DECLARATION(algo_prev_permutation_if)
+void test_algo_prev_permutation_if__invalid_range(void** state);
+void test_algo_prev_permutation_if__invalid_range2(void** state);
+void test_algo_prev_permutation_if__invalid_range3(void** state);
+void test_algo_prev_permutation_if__empty(void** state);
+void test_algo_prev_permutation_if__equal(void** state);
+void test_algo_prev_permutation_if__bfun_NULL_first(void** state);
+void test_algo_prev_permutation_if__bfun_NULL_middle(void** state);
+void test_algo_prev_permutation_if__bfun_NULL_last(void** state);
+void test_algo_prev_permutation_if__first(void** state);
+void test_algo_prev_permutation_if__middle(void** state);
+void test_algo_prev_permutation_if__last(void** state);
 
 #define UT_CSTL_ALGO_SORTING_CASE\
     UT_SUIT_BEGIN(cstl_algo_sorting, test_algo_is_sorted__invalid_range),\
@@ -741,7 +897,115 @@ void test_algo_min_if__second_min(void** state);
     UT_CASE(test_algo_min_if__bfun_NULL_first_min),\
     UT_CASE(test_algo_min_if__bfun_NULL_second_min),\
     UT_CASE(test_algo_min_if__first_min),\
-    UT_CASE(test_algo_min_if__second_min)
+    UT_CASE(test_algo_min_if__second_min),\
+    UT_CASE_BEGIN(algo_max_element, test_algo_max_element__invalid_range),\
+    UT_CASE(test_algo_max_element__invalid_range2),\
+    UT_CASE(test_algo_max_element__invalid_range3),\
+    UT_CASE(test_algo_max_element__empty),\
+    UT_CASE(test_algo_max_element__normal),\
+    UT_CASE(test_algo_max_element__equal),\
+    UT_CASE_BEGIN(algo_max_element_if, test_algo_max_element_if__invalid_range),\
+    UT_CASE(test_algo_max_element_if__invalid_range2),\
+    UT_CASE(test_algo_max_element_if__invalid_range3),\
+    UT_CASE(test_algo_max_element_if__empty),\
+    UT_CASE(test_algo_max_element_if__bfun_NULL_normal),\
+    UT_CASE(test_algo_max_element_if__bfun_NULL_equal),\
+    UT_CASE(test_algo_max_element_if__normal),\
+    UT_CASE(test_algo_max_element_if__equal),\
+    UT_CASE_BEGIN(algo_min_element, test_algo_min_element__invalid_range),\
+    UT_CASE(test_algo_min_element__invalid_range2),\
+    UT_CASE(test_algo_min_element__invalid_range3),\
+    UT_CASE(test_algo_min_element__empty),\
+    UT_CASE(test_algo_min_element__normal),\
+    UT_CASE(test_algo_min_element__equal),\
+    UT_CASE_BEGIN(algo_min_element_if, test_algo_min_element_if__invalid_range),\
+    UT_CASE(test_algo_min_element_if__invalid_range2),\
+    UT_CASE(test_algo_min_element_if__invalid_range3),\
+    UT_CASE(test_algo_min_element_if__empty),\
+    UT_CASE(test_algo_min_element_if__bfun_NULL_normal),\
+    UT_CASE(test_algo_min_element_if__bfun_NULL_equal),\
+    UT_CASE(test_algo_min_element_if__normal),\
+    UT_CASE(test_algo_min_element_if__equal),\
+    UT_CASE_BEGIN(algo_lexicographical_compare, test_algo_lexicographical_compare__invalid_first_range),\
+    UT_CASE(test_algo_lexicographical_compare__invalid_second_range),\
+    UT_CASE(test_algo_lexicographical_compare__not_same_type),\
+    UT_CASE(test_algo_lexicographical_compare__first_empty),\
+    UT_CASE(test_algo_lexicographical_compare__second_empty),\
+    UT_CASE(test_algo_lexicographical_compare__all_empty),\
+    UT_CASE(test_algo_lexicographical_compare__less),\
+    UT_CASE(test_algo_lexicographical_compare__greater),\
+    UT_CASE(test_algo_lexicographical_compare__equal),\
+    UT_CASE_BEGIN(algo_lexicographical_compare_if, test_algo_lexicographical_compare_if__invalid_first_range),\
+    UT_CASE(test_algo_lexicographical_compare_if__invalid_second_range),\
+    UT_CASE(test_algo_lexicographical_compare_if__not_same_type),\
+    UT_CASE(test_algo_lexicographical_compare_if__first_empty),\
+    UT_CASE(test_algo_lexicographical_compare_if__second_empty),\
+    UT_CASE(test_algo_lexicographical_compare_if__all_empty),\
+    UT_CASE(test_algo_lexicographical_compare_if__bfun_NULL_less),\
+    UT_CASE(test_algo_lexicographical_compare_if__bfun_NULL_greater),\
+    UT_CASE(test_algo_lexicographical_compare_if__bfun_NULL_equal),\
+    UT_CASE(test_algo_lexicographical_compare_if__less),\
+    UT_CASE(test_algo_lexicographical_compare_if__greater),\
+    UT_CASE(test_algo_lexicographical_compare_if__equal),\
+    UT_CASE_BEGIN(algo_lexicographical_compare_3way, test_algo_lexicographical_compare_3way__invalid_first_range),\
+    UT_CASE(test_algo_lexicographical_compare_3way__invalid_second_range),\
+    UT_CASE(test_algo_lexicographical_compare_3way__not_same_type),\
+    UT_CASE(test_algo_lexicographical_compare_3way__first_empty),\
+    UT_CASE(test_algo_lexicographical_compare_3way__second_empty),\
+    UT_CASE(test_algo_lexicographical_compare_3way__all_empty),\
+    UT_CASE(test_algo_lexicographical_compare_3way__less),\
+    UT_CASE(test_algo_lexicographical_compare_3way__greater),\
+    UT_CASE(test_algo_lexicographical_compare_3way__equal),\
+    UT_CASE_BEGIN(algo_lexicographical_compare_3way_if, test_algo_lexicographical_compare_3way_if__invalid_first_range),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__invalid_second_range),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__not_same_type),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__first_empty),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__second_empty),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__all_empty),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__bfun_NULL_less),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__bfun_NULL_greater),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__bfun_NULL_equal),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__less),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__greater),\
+    UT_CASE(test_algo_lexicographical_compare_3way_if__equal),\
+    UT_CASE_BEGIN(algo_next_permutation, test_algo_next_permutation__invalid_range),\
+    UT_CASE(test_algo_next_permutation__invalid_range2),\
+    UT_CASE(test_algo_next_permutation__invalid_range3),\
+    UT_CASE(test_algo_next_permutation__empty),\
+    UT_CASE(test_algo_next_permutation__equal),\
+    UT_CASE(test_algo_next_permutation__first),\
+    UT_CASE(test_algo_next_permutation__middle),\
+    UT_CASE(test_algo_next_permutation__last),\
+    UT_CASE_BEGIN(algo_next_permutation_if, test_algo_next_permutation_if__invalid_range),\
+    UT_CASE(test_algo_next_permutation_if__invalid_range2),\
+    UT_CASE(test_algo_next_permutation_if__invalid_range3),\
+    UT_CASE(test_algo_next_permutation_if__empty),\
+    UT_CASE(test_algo_next_permutation_if__equal),\
+    UT_CASE(test_algo_next_permutation_if__bfun_NULL_first),\
+    UT_CASE(test_algo_next_permutation_if__bfun_NULL_middle),\
+    UT_CASE(test_algo_next_permutation_if__bfun_NULL_last),\
+    UT_CASE(test_algo_next_permutation_if__first),\
+    UT_CASE(test_algo_next_permutation_if__middle),\
+    UT_CASE(test_algo_next_permutation_if__last),\
+    UT_CASE_BEGIN(algo_prev_permutation, test_algo_prev_permutation__invalid_range),\
+    UT_CASE(test_algo_prev_permutation__invalid_range2),\
+    UT_CASE(test_algo_prev_permutation__invalid_range3),\
+    UT_CASE(test_algo_prev_permutation__empty),\
+    UT_CASE(test_algo_prev_permutation__equal),\
+    UT_CASE(test_algo_prev_permutation__first),\
+    UT_CASE(test_algo_prev_permutation__middle),\
+    UT_CASE(test_algo_prev_permutation__last),\
+    UT_CASE_BEGIN(algo_prev_permutation_if, test_algo_prev_permutation_if__invalid_range),\
+    UT_CASE(test_algo_prev_permutation_if__invalid_range2),\
+    UT_CASE(test_algo_prev_permutation_if__invalid_range3),\
+    UT_CASE(test_algo_prev_permutation_if__empty),\
+    UT_CASE(test_algo_prev_permutation_if__equal),\
+    UT_CASE(test_algo_prev_permutation_if__bfun_NULL_first),\
+    UT_CASE(test_algo_prev_permutation_if__bfun_NULL_middle),\
+    UT_CASE(test_algo_prev_permutation_if__bfun_NULL_last),\
+    UT_CASE(test_algo_prev_permutation_if__first),\
+    UT_CASE(test_algo_prev_permutation_if__middle),\
+    UT_CASE(test_algo_prev_permutation_if__last)
 
 #endif /* _UT_CSTL_ALGO_SORTING_H_ */
 

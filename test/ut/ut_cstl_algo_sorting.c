@@ -5182,3 +5182,1361 @@ void test_algo_min_if__second_min(void** state)
     deque_destroy(pdeq);
 }
 
+/*
+ * test algo_max_element
+ */
+UT_CASE_DEFINATION(algo_max_element)
+void test_algo_max_element__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_max_element(deque_begin(pdeq), list_begin(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_max_element__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_max_element(deque_end(pdeq), deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element__invalid_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = _INPUT_ITERATOR;
+    expect_assert_failure(algo_max_element(it, deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init(pdeq);
+    it = algo_max_element(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element__normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 2, 0, 3, 9, 6, 5, 1, 7};
+    iterator_t it;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_max_element(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(*(int*)iterator_get_pointer(it) == 9);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = algo_max_element(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, iterator_prev(deque_end(pdeq))));
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_max_element_if
+ */
+UT_CASE_DEFINATION(algo_max_element_if)
+void test_algo_max_element_if__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_max_element_if(deque_begin(pdeq), list_begin(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_max_element_if__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_max_element_if(deque_end(pdeq), deque_begin(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element_if__invalid_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = _INPUT_ITERATOR;
+    expect_assert_failure(algo_max_element_if(it, deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element_if__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init(pdeq);
+    it = algo_max_element_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element_if__bfun_NULL_normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 2, 0, 3, 9, 6, 5, 1, 7};
+    iterator_t it;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_max_element_if(deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(*(int*)iterator_get_pointer(it) == 9);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element_if__bfun_NULL_equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = algo_max_element_if(deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, iterator_prev(deque_end(pdeq))));
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element_if__normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 2, 0, 3, 9, 6, 5, 1, 7};
+    iterator_t it;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_max_element_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(*(int*)iterator_get_pointer(it) == 0);
+    deque_destroy(pdeq);
+}
+
+void test_algo_max_element_if__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = algo_max_element_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, iterator_prev(deque_end(pdeq))));
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_min_element
+ */
+UT_CASE_DEFINATION(algo_min_element)
+void test_algo_min_element__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_min_element(deque_begin(pdeq), list_begin(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_min_element__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_min_element(deque_end(pdeq), deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element__invalid_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = _INPUT_ITERATOR;
+    expect_assert_failure(algo_min_element(it, deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init(pdeq);
+    it = algo_min_element(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element__normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 2, 0, 3, 9, 6, 5, 1, 7};
+    iterator_t it;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_min_element(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(*(int*)iterator_get_pointer(it) == 0);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = algo_min_element(deque_begin(pdeq), deque_end(pdeq));
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_min_element_if
+ */
+UT_CASE_DEFINATION(algo_min_element_if)
+void test_algo_min_element_if__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_min_element_if(deque_begin(pdeq), list_begin(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_min_element_if__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_min_element_if(deque_end(pdeq), deque_begin(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element_if__invalid_range3(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = deque_begin(pdeq);
+    it._t_iteratortype = _INPUT_ITERATOR;
+    expect_assert_failure(algo_min_element_if(it, deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element_if__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init(pdeq);
+    it = algo_min_element_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element_if__bfun_NULL_normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 2, 0, 3, 9, 6, 5, 1, 7};
+    iterator_t it;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_min_element_if(deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(*(int*)iterator_get_pointer(it) == 0);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element_if__bfun_NULL_equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = algo_min_element_if(deque_begin(pdeq), deque_end(pdeq), NULL);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element_if__normal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    int an_array[] = {8, 4, 2, 0, 3, 9, 6, 5, 1, 7};
+    iterator_t it;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    it = algo_min_element_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(*(int*)iterator_get_pointer(it) == 9);
+    deque_destroy(pdeq);
+}
+
+void test_algo_min_element_if__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    iterator_t it;
+
+    deque_init_n(pdeq, 10);
+    it = algo_min_element_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int);
+    assert_true(iterator_equal(it, deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+/*
+ * test algo_lexicographical_compare
+ */
+UT_CASE_DEFINATION(algo_lexicographical_compare)
+void test_algo_lexicographical_compare__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_lexicographical_compare(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_lexicographical_compare__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_end(plist), list_begin(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare__not_same_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(double);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare__first_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init(pdeq);
+    list_init_n(plist, 10);
+    assert_true(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare__second_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init(plist);
+    assert_false(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare__all_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init(pdeq);
+    list_init(plist);
+    assert_false(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare__less(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 1, 3};
+    int an_second[] = {5, 8, 3, 1, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare__greater(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 1, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_false(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_false(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
+    list_destroy(plist);
+}
+
+/*
+ * test algo_lexicographical_compare_if
+ */
+UT_CASE_DEFINATION(algo_lexicographical_compare_if)
+void test_algo_lexicographical_compare_if__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_lexicographical_compare_if(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_lexicographical_compare_if__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_end(plist), list_begin(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__not_same_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(double);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__first_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init(pdeq);
+    list_init_n(plist, 10);
+    assert_true(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__second_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init(plist);
+    assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__all_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init(pdeq);
+    list_init(plist);
+    assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__bfun_NULL_less(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 1, 3};
+    int an_second[] = {5, 8, 3, 1, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL));
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__bfun_NULL_greater(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 1, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL));
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__bfun_NULL_equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL));
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__less(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 2, 9, 1, 3};
+    int an_second[] = {5, 8, 3, 1, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__greater(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 1, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 2, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_if__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
+    list_destroy(plist);
+}
+
+/*
+ * test algo_lexicographical_compare_3way
+ */
+UT_CASE_DEFINATION(algo_lexicographical_compare_3way)
+void test_algo_lexicographical_compare_3way__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_lexicographical_compare_3way(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_lexicographical_compare_3way__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_end(plist), list_begin(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way__not_same_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(double);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way__first_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init(pdeq);
+    list_init_n(plist, 10);
+    assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) < 0);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way__second_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init(plist);
+    assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) > 0);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way__all_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init(pdeq);
+    list_init(plist);
+    assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) == 0);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way__less(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 1, 3};
+    int an_second[] = {5, 8, 3, 1, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) < 0);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way__greater(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 1, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) > 0);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) == 0);
+    list_destroy(plist);
+}
+
+/*
+ * test algo_lexicographical_compare_3way_if
+ */
+UT_CASE_DEFINATION(algo_lexicographical_compare_3way_if)
+void test_algo_lexicographical_compare_3way_if__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    vector_t* pvec = create_vector(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    vector_init_n(pvec, 10);
+    expect_assert_failure(algo_lexicographical_compare_3way_if(vector_begin(pvec), list_end(plist), deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+    vector_destroy(pvec);
+}
+
+void test_algo_lexicographical_compare_3way_if__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_end(plist), list_begin(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__not_same_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(double);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__first_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init(pdeq);
+    list_init_n(plist, 10);
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) < 0);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__second_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init(plist);
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) > 0);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__all_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init(pdeq);
+    list_init(plist);
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) == 0);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__bfun_NULL_less(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 1, 3};
+    int an_second[] = {5, 8, 3, 1, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL) < 0);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__bfun_NULL_greater(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 1, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL) > 0);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__bfun_NULL_equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL) == 0);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__less(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 2, 9, 1, 3};
+    int an_second[] = {5, 8, 3, 1, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) < 0);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__greater(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 1, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 2, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) > 0);
+    list_destroy(plist);
+}
+
+void test_algo_lexicographical_compare_3way_if__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_first[] = {5, 8, 3, 0, 9, 0, 3};
+    int an_second[] = {5, 8, 3, 0, 9, 0, 3};
+
+    deque_init_copy_array(pdeq, an_first, sizeof(an_first)/sizeof(an_first[0]));
+    list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
+    assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) == 0);
+    list_destroy(plist);
+}
+
+/*
+ * test algo_next_permutation
+ */
+UT_CASE_DEFINATION(algo_next_permutation)
+void test_algo_next_permutation__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_next_permutation(deque_begin(pdeq), list_end(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_next_permutation__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_next_permutation(deque_end(pdeq), deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_next_permutation__invalid_range3(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_next_permutation(slist_begin(pslist), slist_end(pslist)));
+    slist_destroy(pslist);
+}
+
+void test_algo_next_permutation__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    assert_false(algo_next_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_next_permutation__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    assert_false(algo_next_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_next_permutation__first(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_result[] = {1, 2, 3, 4, 5, 6, 7, 9, 8};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_next_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_next_permutation__middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {3, 7, 5, 2, 8, 9, 1, 6, 4};
+    int an_result[] = {3, 7, 5, 2, 8, 9, 4, 1, 6};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_next_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_next_permutation__last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int an_result[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_false(algo_next_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_next_permutation_if
+ */
+UT_CASE_DEFINATION(algo_next_permutation_if)
+void test_algo_next_permutation_if__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_next_permutation_if(deque_begin(pdeq), list_end(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_next_permutation_if__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_next_permutation_if(deque_end(pdeq), deque_begin(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_next_permutation_if__invalid_range3(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_next_permutation_if(slist_begin(pslist), slist_end(pslist), fun_greater_int));
+    slist_destroy(pslist);
+}
+
+void test_algo_next_permutation_if__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    assert_false(algo_next_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_next_permutation_if__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    assert_false(algo_next_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_next_permutation_if__bfun_NULL_first(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_result[] = {1, 2, 3, 4, 5, 6, 7, 9, 8};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_next_permutation_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_next_permutation_if__bfun_NULL_middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {3, 7, 5, 2, 8, 9, 1, 6, 4};
+    int an_result[] = {3, 7, 5, 2, 8, 9, 4, 1, 6};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_next_permutation_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_next_permutation_if__bfun_NULL_last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int an_result[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_false(algo_next_permutation_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_next_permutation_if__first(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int an_result[] = {9, 8, 7, 6, 5, 4, 3, 1, 2};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_next_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_next_permutation_if__middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {3, 7, 5, 2, 8, 9, 1, 4, 6};
+    int an_result[] = {3, 7, 5, 2, 8, 6, 9, 4, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_next_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_next_permutation_if__last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_result[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_false(algo_next_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_prev_permutation
+ */
+UT_CASE_DEFINATION(algo_prev_permutation)
+void test_algo_prev_permutation__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_prev_permutation(deque_begin(pdeq), list_end(plist)));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_prev_permutation__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_prev_permutation(deque_end(pdeq), deque_begin(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_prev_permutation__invalid_range3(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_prev_permutation(slist_begin(pslist), slist_end(pslist)));
+    slist_destroy(pslist);
+}
+
+void test_algo_prev_permutation__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    assert_false(algo_prev_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_prev_permutation__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    assert_false(algo_prev_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    deque_destroy(pdeq);
+}
+
+void test_algo_prev_permutation__first(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int an_result[] = {9, 8, 7, 6, 5, 4, 3, 1, 2};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_prev_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_prev_permutation__middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {3, 7, 5, 2, 8, 9, 1, 4, 6};
+    int an_result[] = {3, 7, 5, 2, 8, 6, 9, 4, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_prev_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_prev_permutation__last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_result[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_false(algo_prev_permutation(deque_begin(pdeq), deque_end(pdeq)));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+/*
+ * test algo_prev_permutation_if
+ */
+UT_CASE_DEFINATION(algo_prev_permutation_if)
+void test_algo_prev_permutation_if__invalid_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(algo_prev_permutation_if(deque_begin(pdeq), list_end(plist), fun_greater_int));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test_algo_prev_permutation_if__invalid_range2(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    expect_assert_failure(algo_prev_permutation_if(deque_end(pdeq), deque_begin(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_prev_permutation_if__invalid_range3(void** state)
+{
+    slist_t* pslist = create_slist(int);
+
+    slist_init_n(pslist, 10);
+    expect_assert_failure(algo_prev_permutation_if(slist_begin(pslist), slist_end(pslist), fun_greater_int));
+    slist_destroy(pslist);
+}
+
+void test_algo_prev_permutation_if__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init(pdeq);
+    assert_false(algo_prev_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_prev_permutation_if__equal(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+
+    deque_init_n(pdeq, 10);
+    assert_false(algo_prev_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    deque_destroy(pdeq);
+}
+
+void test_algo_prev_permutation_if__bfun_NULL_first(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int an_result[] = {9, 8, 7, 6, 5, 4, 3, 1, 2};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_prev_permutation_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_prev_permutation_if__bfun_NULL_middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {3, 7, 5, 2, 8, 9, 1, 4, 6};
+    int an_result[] = {3, 7, 5, 2, 8, 6, 9, 4, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_prev_permutation_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_prev_permutation_if__bfun_NULL_last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_result[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_false(algo_prev_permutation_if(deque_begin(pdeq), deque_end(pdeq), NULL));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_prev_permutation_if__first(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int an_result[] = {1, 2, 3, 4, 5, 6, 7, 9, 8};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_prev_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_prev_permutation_if__middle(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {3, 7, 5, 2, 8, 9, 1, 6, 4};
+    int an_result[] = {3, 7, 5, 2, 8, 9, 4, 1, 6};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_true(algo_prev_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+
+void test_algo_prev_permutation_if__last(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    deque_t* pdeq_result = create_deque(int);
+    int an_array[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int an_result[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    deque_init_copy_array(pdeq_result, an_result, sizeof(an_result)/sizeof(an_result[0]));
+    assert_false(algo_prev_permutation_if(deque_begin(pdeq), deque_end(pdeq), fun_greater_int));
+    assert_true(deque_equal(pdeq, pdeq_result));
+    deque_destroy(pdeq);
+    deque_destroy(pdeq_result);
+}
+

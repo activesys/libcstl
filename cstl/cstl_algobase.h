@@ -36,23 +36,6 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * compare and compare 3way algorithm.
- */
-extern bool_t algo_lexicographical_compare(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2);
-extern bool_t algo_lexicographical_compare_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    binary_function_t t_binary_op);
-extern int algo_lexicographical_compare_3way(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2);
-extern int algo_lexicographical_compare_3way_if(
-    input_iterator_t t_first1, input_iterator_t t_last1,
-    input_iterator_t t_first2, input_iterator_t t_last2,
-    binary_function_t t_binary_op);
 
 #ifdef __cplusplus
 }

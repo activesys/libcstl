@@ -27,11 +27,7 @@
 #include <cstl/citerator.h>
 #include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
-
-#include <cstl/cstl_algo_nonmutating_private.h>
-#include <cstl/cstl_algo_nonmutating.h>
-#include <cstl/cstl_algo_mutating_private.h>
-#include <cstl/cstl_algo_mutating.h>
+#include <cstl/calgorithm.h>
 
 #include "cstl_algo_mutating_aux.h"
 

@@ -27,9 +27,7 @@
 #include <cstl/citerator.h>
 #include <cstl/cstring.h>
 #include <cstl/cfunctional.h>
-
-#include <cstl/cstl_algo_nonmutating_private.h>
-#include <cstl/cstl_algo_nonmutating.h>
+#include <cstl/calgorithm.h>
 
 /** local constant declaration and local macro section **/
 

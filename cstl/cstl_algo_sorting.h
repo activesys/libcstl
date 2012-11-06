@@ -524,7 +524,7 @@ extern output_iterator_t algo_set_symmetric_difference(
  *                      to be united and sorted into a single range representing the symmetric difference of the two source ranges.
  * @param it_result     An output iterator addressing the position of the first element in the destination range where the two source ranges
  *                      are to be united into a single sorted range representing the symmetric difference of the two source ranges.
- * @param bfun_op       User-defined predicate function object that defines the sense in which one element is greater than another.
+ * @param bfun_op       User-defined predicate function that defines the sense in which one element is greater than another.
  * @return  An output iterator addressing the position one past the last element in the sorted destination range representing the symmetric difference of the two source ranges.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
@@ -570,6 +570,148 @@ extern input_iterator_t algo_min(input_iterator_t it_first, input_iterator_t it_
  * @remarks The two iterators must be have same element type.
  */
 extern input_iterator_t algo_min_if(input_iterator_t it_first, input_iterator_t it_second, binary_function_t bfun_op);
+
+/**
+ * Finds the first occurrence of largest element in a specified range.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched for the largest element.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched for the largest element.
+ * @return  A forward iterator addressing the position of the first occurrence of the largest element in the range searched.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_max_element(forward_iterator_t it_first, forward_iterator_t it_last);
+
+/**
+ * Finds the first occurrence of largest element in a specified range where the ordering criterion specified by a binary predicate.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched for the largest element.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched for the largest element.
+ * @param bfun_op       User-defined predicate function that defines the sense in which one element is greater than another.
+ * @return  A forward iterator addressing the position of the first occurrence of the largest element in the range searched.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_max_element_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op);
+
+/**
+ * Finds the first occurrence of smallest element in a specified range.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched for the largest element.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched for the largest element.
+ * @return  A forward iterator addressing the position of the first occurrence of the smallest element in the range searched.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_min_element(forward_iterator_t it_first, forward_iterator_t it_last);
+
+/**
+ * Finds the first occurrence of smallest element in a specified range where the ordering criterion specified by a binary predicate.
+ * @param it_first      A forward iterator addressing the position of the first element in the range to be searched for the largest element.
+ * @param it_last       A forward iterator addressing the position one past the final element in the range to be searched for the largest element.
+ * @param bfun_op       User-defined predicate function that defines the sense in which one element is greater than another.
+ * @return  A forward iterator addressing the position of the first occurrence of the smallest element in the range searched.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern forward_iterator_t algo_min_element_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op);
+
+/**
+ * Compares element by element between two sequences to determine which is lesser of the two.
+ * @param it_first1     An input iterator addressing the position of the first element in the first range to be compared.
+ * @param it_last1      An input iterator addressing the position one past the final element in the first range to be compared.
+ * @param it_first2     An input iterator addressing the position of the first element in the second range to be compared.
+ * @param it_last2      An input iterator addressing the position one past the final element in the second range to be compared.
+ * @return  true if the first range is lexicographically less than the second range; otherwise false.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern bool_t algo_lexicographical_compare(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2);
+
+/**
+ * Compares element by element between two sequences to determine which is lesser of the two.
+ * @param it_first1     An input iterator addressing the position of the first element in the first range to be compared.
+ * @param it_last1      An input iterator addressing the position one past the final element in the first range to be compared.
+ * @param it_first2     An input iterator addressing the position of the first element in the second range to be compared.
+ * @param it_last2      An input iterator addressing the position one past the final element in the second range to be compared.
+ * @param bfun_op       User-defined predicate function that defines sense in which one element is less than another.
+ * @return  true if the first range is lexicographically less than the second range; otherwise false.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern bool_t algo_lexicographical_compare_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    binary_function_t bfun_op);
+
+/**
+ * Compares element by element between two sequences to determine the relation is less or equal or greater.
+ * @param it_first1     An input iterator addressing the position of the first element in the first range to be compared.
+ * @param it_last1      An input iterator addressing the position one past the final element in the first range to be compared.
+ * @param it_first2     An input iterator addressing the position of the first element in the second range to be compared.
+ * @param it_last2      An input iterator addressing the position one past the final element in the second range to be compared.
+ * @return  negative number if the first range is lexicographically less than the second range;
+ *          positive number if the first range is lexicographically greater than the second range;
+ *          0 if the first range is lexicographically equal to the second range.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern int algo_lexicographical_compare_3way(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2);
+
+/**
+ * Compares element by element between two sequences to determine the relation is less or equal or greater.
+ * @param it_first1     An input iterator addressing the position of the first element in the first range to be compared.
+ * @param it_last1      An input iterator addressing the position one past the final element in the first range to be compared.
+ * @param it_first2     An input iterator addressing the position of the first element in the second range to be compared.
+ * @param it_last2      An input iterator addressing the position one past the final element in the second range to be compared.
+ * @param bfun_op       User-defined predicate function that defines sense in which one element is less than another.
+ * @return  negative number if the first range is lexicographically less than the second range;
+ *          positive number if the first range is lexicographically greater than the second range;
+ *          0 if the first range is lexicographically equal to the second range.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern int algo_lexicographical_compare_3way_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    binary_function_t bfun_op);
+
+/**
+ * Reorders the elements in a range so that the original ordering is replaced by the lexicographically next greater permutation if it exists.
+ * @param it_first      A bidirectional iterator pointing to the position of the first element in the range to be permuted.
+ * @param it_last       A bidirectional iterator pointing to the position one past the final element in the range to be permuted.
+ * @return  true if the lexicographically next permutation exists and has replaced the original ordering of the range; otherwise false,
+ *          in which case the ordering is transformed into the lexicographically smallest permutation.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern bool_t algo_next_permutation(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last);
+
+/**
+ * Reorders the elements in a range so that the original ordering is replaced by the lexicographically next greater permutation if it exists,
+ * where the sense of next specified with a binary predicate.
+ * @param it_first      A bidirectional iterator pointing to the position of the first element in the range to be permuted.
+ * @param it_last       A bidirectional iterator pointing to the position one past the final element in the range to be permuted.
+ * @param bfun_op       User-defined predicate function that defines the comparison criterion to be satisfied by successive elements in the ordering.
+ * @return  true if the lexicographically next permutation exists and has replaced the original ordering of the range; otherwise false,
+ *          in which case the ordering is transformed into the lexicographically smallest permutation.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern bool_t algo_next_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, binary_function_t bfun_op);
+
+/**
+ * Reorders the elements in a range so that the original ordering is replaced by the lexicographically previous permutation if it exists.
+ * @param it_first      A bidirectional iterator pointing to the position of the first element in the range to be permuted.
+ * @param it_last       A bidirectional iterator pointing to the position one past the final element in the range to be permuted.
+ * @return  true if the lexicographically next permutation exists and has replaced the original ordering of the range; otherwise false,
+ *          in which case the ordering is transformed into the lexicographically largest permutation.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern bool_t algo_prev_permutation(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last);
+
+/**
+ * Reorders the elements in a range so that the original ordering is replaced by the lexicographically previous permutation if it exists,
+ * where the sense of next specified with a binary predicate.
+ * @param it_first      A bidirectional iterator pointing to the position of the first element in the range to be permuted.
+ * @param it_last       A bidirectional iterator pointing to the position one past the final element in the range to be permuted.
+ * @param bfun_op       User-defined predicate function that defines the comparison criterion to be satisfied by successive elements in the ordering.
+ * @return  true if the lexicographically next permutation exists and has replaced the original ordering of the range; otherwise false,
+ *          in which case the ordering is transformed into the lexicographically largest permutation.
+ * @remarks The range referened must be valid, otherwise the behavior is undefined.
+ */
+extern bool_t algo_prev_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, binary_function_t bfun_op);
 
 #ifdef __cplusplus
 }

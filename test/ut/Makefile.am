@@ -2,8 +2,6 @@
 check_PROGRAMS = libcstl_ut
 libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
          $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
-	     $(srcdir)/../../src/cstl_algo.c \
-	     $(srcdir)/../../src/cstl_algobase.c \
 	     $(srcdir)/../../src/cstl_function.c \
          $(srcdir)/../../src/cstl_iterator.c $(srcdir)/../../src/cstl_iterator_private.c \
          $(srcdir)/../../src/cstl_avl_tree.c $(srcdir)/../../src/cstl_avl_tree_iterator.c \

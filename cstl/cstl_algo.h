@@ -36,33 +36,6 @@ extern "C" {
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * max element and min element algorithm.
- */
-extern forward_iterator_t algo_max_element(
-    forward_iterator_t t_first, forward_iterator_t t_last);
-extern forward_iterator_t algo_max_element_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op);
-extern forward_iterator_t algo_min_element(
-    forward_iterator_t t_first, forward_iterator_t t_last);
-extern forward_iterator_t algo_min_element_if(
-    forward_iterator_t t_first, forward_iterator_t t_last,
-    binary_function_t t_binary_op);
-
-/*
- * permutation algorithm.
- */
-extern bool_t algo_next_permutation(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last);
-extern bool_t algo_next_permutation_if(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
-    binary_function_t t_binary_op);
-extern bool_t algo_prev_permutation(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last);
-extern bool_t algo_prev_permutation_if(
-    bidirectional_iterator_t t_first, bidirectional_iterator_t t_last,
-    binary_function_t t_binary_op);
 
 #ifdef __cplusplus
 }

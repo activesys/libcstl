@@ -184,6 +184,7 @@ int main(int argc, char* argv[])
         UT_CSTL_TYPES_PARSE_CASE,
         UT_CSTL_TYPES_AUX_CASE,
         UT_CSTL_TYPES_CASE,
+        */
         UT_CSTL_ALGO_NONMUTATING_PRIVATE_CASE,
         UT_CSTL_ALGO_NONMUTATING_CASE,
         UT_CSTL_ALGO_MUTATING_AUX_CASE,
@@ -191,7 +192,6 @@ int main(int argc, char* argv[])
         UT_CSTL_ALGO_MUTATING_CASE,
         UT_CSTL_HEAP_AUX_CASE,
         UT_CSTL_HEAP_CASE,
-        */
         UT_CSTL_ALGO_SORTING_AUX_CASE,
         UT_CSTL_ALGO_SORTING_PRIVATE_CASE,
         UT_CSTL_ALGO_SORTING_CASE

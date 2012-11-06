@@ -47,8 +47,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am_libcstl_ut_OBJECTS = libcstl_ut-ut_main.$(OBJEXT) \
 	libcstl_ut-ut_def.$(OBJEXT) \
 	libcstl_ut-cstl_alloc_aux.$(OBJEXT) \
-	libcstl_ut-cstl_alloc.$(OBJEXT) libcstl_ut-cstl_algo.$(OBJEXT) \
-	libcstl_ut-cstl_algobase.$(OBJEXT) \
+	libcstl_ut-cstl_alloc.$(OBJEXT) \
 	libcstl_ut-cstl_function.$(OBJEXT) \
 	libcstl_ut-cstl_iterator.$(OBJEXT) \
 	libcstl_ut-cstl_iterator_private.$(OBJEXT) \
@@ -373,8 +372,6 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
          $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
-	     $(srcdir)/../../src/cstl_algo.c \
-	     $(srcdir)/../../src/cstl_algobase.c \
 	     $(srcdir)/../../src/cstl_function.c \
          $(srcdir)/../../src/cstl_iterator.c $(srcdir)/../../src/cstl_iterator_private.c \
          $(srcdir)/../../src/cstl_avl_tree.c $(srcdir)/../../src/cstl_avl_tree_iterator.c \
@@ -570,7 +567,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo_mutating.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo_mutating_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo_mutating_private.Po@am__quote@
@@ -579,7 +575,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo_sorting.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo_sorting_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algo_sorting_private.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_algobase.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_alloc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_alloc_aux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcstl_ut-cstl_avl_tree.Po@am__quote@
@@ -837,34 +832,6 @@ libcstl_ut-cstl_alloc.obj: $(srcdir)/../../src/cstl_alloc.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_alloc.c' object='libcstl_ut-cstl_alloc.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_alloc.obj `if test -f '$(srcdir)/../../src/cstl_alloc.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_alloc.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_alloc.c'; fi`
-
-libcstl_ut-cstl_algo.o: $(srcdir)/../../src/cstl_algo.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo.Tpo -c -o libcstl_ut-cstl_algo.o `test -f '$(srcdir)/../../src/cstl_algo.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo.Tpo $(DEPDIR)/libcstl_ut-cstl_algo.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_algo.c' object='libcstl_ut-cstl_algo.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo.o `test -f '$(srcdir)/../../src/cstl_algo.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algo.c
-
-libcstl_ut-cstl_algo.obj: $(srcdir)/../../src/cstl_algo.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algo.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algo.Tpo -c -o libcstl_ut-cstl_algo.obj `if test -f '$(srcdir)/../../src/cstl_algo.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algo.Tpo $(DEPDIR)/libcstl_ut-cstl_algo.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_algo.c' object='libcstl_ut-cstl_algo.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algo.obj `if test -f '$(srcdir)/../../src/cstl_algo.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algo.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algo.c'; fi`
-
-libcstl_ut-cstl_algobase.o: $(srcdir)/../../src/cstl_algobase.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algobase.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algobase.Tpo -c -o libcstl_ut-cstl_algobase.o `test -f '$(srcdir)/../../src/cstl_algobase.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algobase.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algobase.Tpo $(DEPDIR)/libcstl_ut-cstl_algobase.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_algobase.c' object='libcstl_ut-cstl_algobase.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algobase.o `test -f '$(srcdir)/../../src/cstl_algobase.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_algobase.c
-
-libcstl_ut-cstl_algobase.obj: $(srcdir)/../../src/cstl_algobase.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_algobase.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_algobase.Tpo -c -o libcstl_ut-cstl_algobase.obj `if test -f '$(srcdir)/../../src/cstl_algobase.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algobase.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algobase.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcstl_ut-cstl_algobase.Tpo $(DEPDIR)/libcstl_ut-cstl_algobase.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(srcdir)/../../src/cstl_algobase.c' object='libcstl_ut-cstl_algobase.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-cstl_algobase.obj `if test -f '$(srcdir)/../../src/cstl_algobase.c'; then $(CYGPATH_W) '$(srcdir)/../../src/cstl_algobase.c'; else $(CYGPATH_W) '$(srcdir)/$(srcdir)/../../src/cstl_algobase.c'; fi`
 
 libcstl_ut-cstl_function.o: $(srcdir)/../../src/cstl_function.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-cstl_function.o -MD -MP -MF $(DEPDIR)/libcstl_ut-cstl_function.Tpo -c -o libcstl_ut-cstl_function.o `test -f '$(srcdir)/../../src/cstl_function.c' || echo '$(srcdir)/'`$(srcdir)/../../src/cstl_function.c

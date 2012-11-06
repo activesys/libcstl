@@ -770,5 +770,293 @@ input_iterator_t algo_min_if(input_iterator_t it_first, input_iterator_t it_seco
     return b_result ? it_first : it_second;
 }
 
+/**
+ * Finds the first occurrence of largest element in a specified range.
+ */
+forward_iterator_t algo_max_element(forward_iterator_t it_first, forward_iterator_t it_last)
+{
+    return algo_max_element_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
+}
+
+/**
+ * Finds the first occurrence of largest element in a specified range where the ordering criterion specified by a binary predicate.
+ */
+forward_iterator_t algo_max_element_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op)
+{
+    iterator_t it_result;
+    bool_t     b_cmp = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _FORWARD_ITERATOR));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+    }
+
+    if (iterator_equal(it_first, it_last)) {
+        return it_first;
+    }
+
+    it_result = it_first;
+    for (it_first = iterator_next(it_first);
+         !iterator_equal(it_first, it_last);
+         it_first = iterator_next(it_first)) {
+        (*bfun_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_result), &b_cmp);
+        /* *it_first >= *it_result */
+        if (!b_cmp) {
+            it_result = it_first;
+        }
+    }
+
+    return it_result;
+}
+
+/**
+ * Finds the first occurrence of smallest element in a specified range.
+ */
+forward_iterator_t algo_min_element(forward_iterator_t it_first, forward_iterator_t it_last)
+{
+    return algo_min_element_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
+}
+
+/**
+ * Finds the first occurrence of smallest element in a specified range where the ordering criterion specified by a binary predicate.
+ */
+forward_iterator_t algo_min_element_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op)
+{
+    iterator_t it_result;
+    bool_t     b_cmp = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _FORWARD_ITERATOR));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+    }
+
+    if (iterator_equal(it_first, it_last)) {
+        return it_first;
+    }
+
+    it_result = it_first;
+    for (it_first = iterator_next(it_first);
+         !iterator_equal(it_first, it_last);
+         it_first = iterator_next(it_first)) {
+        (*bfun_op)(iterator_get_pointer(it_first), iterator_get_pointer(it_result), &b_cmp);
+        /* *it_first < *it_result */
+        if (b_cmp) {
+            it_result = it_first;
+        }
+    }
+
+    return it_result;
+}
+
+/**
+ * Compares element by element between two sequences to determine which is lesser of the two.
+ */
+bool_t algo_lexicographical_compare(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2)
+{
+    return algo_lexicographical_compare_if(it_first1, it_last1, it_first2, it_last2, _fun_get_binary(it_first1, _LESS_FUN));
+}
+
+/**
+ * Compares element by element between two sequences to determine which is lesser of the two.
+ */
+bool_t algo_lexicographical_compare_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    binary_function_t bfun_op)
+{
+    bool_t b_result = false;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
+    }
+    for (;
+         !iterator_equal(it_first1, it_last1) && !iterator_equal(it_first2, it_last2);
+         it_first1 = iterator_next(it_first1), it_first2 = iterator_next(it_first2)) {
+        (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_result);
+        if (b_result) {
+            return true;
+        }
+        (*bfun_op)(iterator_get_pointer(it_first2), iterator_get_pointer(it_first1), &b_result);
+        if (b_result) {
+            return false;
+        }
+    }
+
+    return iterator_equal(it_first1, it_last1) && !iterator_equal(it_first2, it_last2) ? true : false;
+}
+
+/**
+ * Compares element by element between two sequences to determine the relation is less or equal or greater.
+ */
+int algo_lexicographical_compare_3way(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2)
+{
+    return algo_lexicographical_compare_3way_if(it_first1, it_last1, it_first2, it_last2, _fun_get_binary(it_first1, _LESS_FUN));
+}
+
+/**
+ * Compares element by element between two sequences to determine the relation is less or equal or greater.
+ */
+int algo_lexicographical_compare_3way_if(
+    input_iterator_t it_first1, input_iterator_t it_last1,
+    input_iterator_t it_first2, input_iterator_t it_last2,
+    binary_function_t bfun_op)
+{
+    bool_t b_result = false;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_valid_range(it_first2, it_last2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first1, _LESS_FUN);
+    }
+    for (;
+         !iterator_equal(it_first1, it_last1) && !iterator_equal(it_first2, it_last2);
+         it_first1 = iterator_next(it_first1), it_first2 = iterator_next(it_first2)) {
+        (*bfun_op)(iterator_get_pointer(it_first1), iterator_get_pointer(it_first2), &b_result);
+        if (b_result) {
+            return -1;
+        }
+        (*bfun_op)(iterator_get_pointer(it_first2), iterator_get_pointer(it_first1), &b_result);
+        if (b_result) {
+            return 1;
+        }
+    }
+
+    if (iterator_equal(it_first1, it_last1) && !iterator_equal(it_first2, it_last2)) {
+        return -1;
+    } else if(iterator_equal(it_first1, it_last1) && iterator_equal(it_first2, it_last2)) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+/**
+ * Reorders the elements in a range so that the original ordering is replaced by the lexicographically next greater permutation if it exists.
+ */
+bool_t algo_next_permutation(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last)
+{
+    return algo_next_permutation_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
+}
+
+/**
+ * Reorders the elements in a range so that the original ordering is replaced by the lexicographically next greater permutation if it exists,
+ * where the sense of next specified with a binary predicate.
+ */
+bool_t algo_next_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, binary_function_t bfun_op)
+{
+    iterator_t it_begin;
+    iterator_t it_next;
+    iterator_t it_end;
+    bool_t     b_result = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _BIDIRECTIONAL_ITERATOR));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+    }
+
+    if (iterator_equal(it_first, it_last)) {
+        return false;
+    }
+    it_begin = iterator_next(it_first);
+    if (iterator_equal(it_begin, it_last)) {
+        return false;
+    }
+
+    it_begin = iterator_prev(it_last);
+    for (;;) {
+        it_next = it_begin;
+        it_begin = iterator_prev(it_begin);
+
+        (*bfun_op)(iterator_get_pointer(it_begin), iterator_get_pointer(it_next), &b_result);
+        if (b_result) {
+            it_end = iterator_prev(it_last);
+            (*bfun_op)(iterator_get_pointer(it_begin), iterator_get_pointer(it_end), &b_result);
+            while (!b_result) {
+                it_end = iterator_prev(it_end);
+                (*bfun_op)(iterator_get_pointer(it_begin), iterator_get_pointer(it_end), &b_result);
+            }
+            algo_iter_swap(it_begin, it_end);
+            algo_reverse(it_next, it_last);
+            return true;
+        }
+
+        if (iterator_equal(it_begin, it_first)) {
+            algo_reverse(it_first, it_last);
+            return false;
+        }
+    }
+}
+
+/**
+ * Reorders the elements in a range so that the original ordering is replaced by the lexicographically previous permutation if it exists.
+ */
+bool_t algo_prev_permutation(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last)
+{
+    return algo_prev_permutation_if(it_first, it_last, _fun_get_binary(it_first, _LESS_FUN));
+}
+
+/**
+ * Reorders the elements in a range so that the original ordering is replaced by the lexicographically previous permutation if it exists,
+ * where the sense of next specified with a binary predicate.
+ */
+bool_t algo_prev_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, binary_function_t bfun_op)
+{
+    iterator_t it_begin;
+    iterator_t it_next;
+    iterator_t it_end;
+    bool_t     b_result = false;
+
+    assert(_iterator_valid_range(it_first, it_last, _BIDIRECTIONAL_ITERATOR));
+
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _LESS_FUN);
+    }
+
+    if (iterator_equal(it_first, it_last)) {
+        return false;
+    }
+    it_begin = iterator_next(it_first);
+    if (iterator_equal(it_begin, it_last)) {
+        return false;
+    }
+
+    it_begin = iterator_prev(it_last);
+    for (;;) {
+        it_next = it_begin;
+        it_begin = iterator_prev(it_begin);
+
+        (*bfun_op)(iterator_get_pointer(it_next), iterator_get_pointer(it_begin), &b_result);
+        if (b_result) {
+            it_end = iterator_prev(it_last);
+            (*bfun_op)(iterator_get_pointer(it_end), iterator_get_pointer(it_begin), &b_result);
+            while (!b_result) {
+                it_end = iterator_prev(it_end);
+                (*bfun_op)(iterator_get_pointer(it_end), iterator_get_pointer(it_begin), &b_result);
+            }
+            algo_iter_swap(it_begin, it_end);
+            algo_reverse(it_next, it_last);
+            return true;
+        }
+
+        if (iterator_equal(it_begin, it_first)) {
+            algo_reverse(it_first, it_last);
+            return false;
+        }
+    }
+}
+
 /** eof **/
 
