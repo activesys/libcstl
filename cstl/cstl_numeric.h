@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 /*
- * Note : The numeric algorithm functions are valid for c built-in types except c-string!
+ * NOTE : The numeric algorithm functions are valid for c built-in types except c-string!
  *        You can't use numeric algorithm functions with cstl built-in types and user-defined
  *        types that whose numeric operation functions was not overwritted, but you can use
  *        _if style numeric algorithm functions that use user-defined numeric operation
@@ -38,14 +38,42 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
-/* iota */
-#define algo_iota(t_first, t_last, elem)\
-    _algo_iota((t_first), (t_last), (elem))
-/* accumulate */
-#define algo_accumulate(t_first, t_last, elem, pv_output)\
-    _algo_accumulate((t_first), (t_last), (pv_output), (elem))
-#define algo_accumulate_if(t_first, t_last, elem, t_binary_op, pv_output)\
-    _algo_accumulate_if((t_first), (t_last), (t_binary_op), (pv_output), (elem))
+/**
+ * Assigns sequentially increasing values to a range.
+ * @param it_first      A forward iterator addressing the first element int the range to be assigned.
+ * @param it_last       A forward iterator addressing the last element int the range to be assigned.
+ * @param elem          Assigned value.
+ * @return  void.
+ * @remarks The referenced range must be valid, otherwise the behavior is undefined.
+ */
+#define algo_iota(it_first, it_last, elem) _algo_iota((it_first), (it_last), (elem))
+
+/**
+ * Computes the sum of all the elements in a specified range including some initial value by computing successive partial sums or
+ * computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
+ * @param it_first      An input iterator addressing the first element in the range to be summed or combined according to a specified binary operation.
+ * @param it_last       An input iterator addressing the last element in the range to be summed or combined according to a specified binary operation
+ *                      that is one position beyond the final element actually included in the iterated accumulation.
+ * @param elem          An initial value to which each element is in turn added or combined with according to a specified binary operation.
+ * @param pv_output     A sum result.
+ * @return  void.
+ * @remarks The referenced range must be valid, otherwise the behavior is undefined.
+ */
+#define algo_accumulate(it_first, it_last, elem, pv_output) _algo_accumulate((it_first), (it_last), (pv_output), (elem))
+
+/**
+ * Computes the sum of all the elements in a specified range including some initial value by computing successive partial sums or
+ * computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
+ * @param it_first      An input iterator addressing the first element in the range to be summed or combined according to a specified binary operation.
+ * @param it_last       An input iterator addressing the last element in the range to be summed or combined according to a specified binary operation
+ *                      that is one position beyond the final element actually included in the iterated accumulation.
+ * @param elem          An initial value to which each element is in turn added or combined with according to a specified binary operation.
+ * @param bfun_op       The binary operation that is to be applied to the each element in the specified range and the result of its previous applications.
+ * @param pv_output     A sum result.
+ * @return  void.
+ * @remarks The referenced range must be valid, otherwise the behavior is undefined.
+ */
+#define algo_accumulate_if(it_first, it_last, elem, t_binary_op, pv_output) _algo_accumulate_if((it_first), (it_last), (t_binary_op), (pv_output), (elem))
 /* inner product */
 #define algo_inner_product(t_first1, t_last1, t_first2, elem, pv_output)\
     _algo_inner_product((t_first1), (t_last1), (t_first2), (pv_output), (elem))
@@ -68,14 +96,14 @@ extern void algo_power(iterator_t t_iterator, size_t t_power, void* pv_output);
 extern void algo_power_if(
     iterator_t t_iterator, size_t t_power, binary_function_t t_binary_op, void* pv_output);
 extern output_iterator_t algo_adjacent_difference(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result);
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t t_result);
 extern output_iterator_t algo_adjacent_difference_if(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result,
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t t_result,
     binary_function_t t_binary_op);
 extern output_iterator_t algo_partial_sum(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result);
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t t_result);
 extern output_iterator_t algo_partial_sum_if(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result,
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t t_result,
     binary_function_t t_binary_op);
 
 #ifdef __cplusplus

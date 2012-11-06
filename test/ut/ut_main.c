@@ -98,6 +98,8 @@
 #include "ut_cstl_algo_sorting_aux.h"
 #include "ut_cstl_algo_sorting.h"
 #include "ut_cstl_algo_sorting_private.h"
+#include "ut_cstl_numeric_private.h"
+#include "ut_cstl_numeric.h"
 
 int main(int argc, char* argv[])
 {
@@ -184,7 +186,6 @@ int main(int argc, char* argv[])
         UT_CSTL_TYPES_PARSE_CASE,
         UT_CSTL_TYPES_AUX_CASE,
         UT_CSTL_TYPES_CASE,
-        */
         UT_CSTL_ALGO_NONMUTATING_PRIVATE_CASE,
         UT_CSTL_ALGO_NONMUTATING_CASE,
         UT_CSTL_ALGO_MUTATING_AUX_CASE,
@@ -194,7 +195,9 @@ int main(int argc, char* argv[])
         UT_CSTL_HEAP_CASE,
         UT_CSTL_ALGO_SORTING_AUX_CASE,
         UT_CSTL_ALGO_SORTING_PRIVATE_CASE,
-        UT_CSTL_ALGO_SORTING_CASE
+        UT_CSTL_ALGO_SORTING_CASE,
+        */
+        UT_CSTL_NUMERIC_PRIVATE_CASE
     };
 
     return run_tests(tests);
