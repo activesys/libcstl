@@ -9,7 +9,7 @@ libcstl_la_SOURCES = \
              cstl_basic_string.c cstl_basic_string_iterator.c cstl_basic_string_private.c \
              cstl_basic_string_aux.c cstl_basic_string_aux.h \
              cstl_deque.c cstl_deque_iterator.c cstl_deque_private.c cstl_deque_aux.c cstl_deque_aux.h \
-             cstl_function.c \
+             cstl_function.c cstl_function_private.c \
              cstl_hash_map.c cstl_hash_map_iterator.c cstl_hash_map_private.c cstl_hash_map_aux.c cstl_hash_map_aux.h \
              cstl_hash_multimap.c cstl_hash_multimap_iterator.c cstl_hash_multimap_private.c cstl_hash_multimap_aux.c cstl_hash_multimap_aux.h \
              cstl_hash_multiset.c cstl_hash_multiset_iterator.c cstl_hash_multiset_private.c cstl_hash_multiset_aux.c cstl_hash_multiset_aux.h \

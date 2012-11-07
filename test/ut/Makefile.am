@@ -2,7 +2,7 @@
 check_PROGRAMS = libcstl_ut
 libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
              $(srcdir)/../../src/cstl_alloc_aux.c $(srcdir)/../../src/cstl_alloc.c \
-	     $(srcdir)/../../src/cstl_function.c \
+	     $(srcdir)/../../src/cstl_function.c $(srcdir)/../../src/cstl_function_private.c \
              $(srcdir)/../../src/cstl_iterator.c $(srcdir)/../../src/cstl_iterator_private.c \
              $(srcdir)/../../src/cstl_avl_tree.c $(srcdir)/../../src/cstl_avl_tree_iterator.c \
 	     $(srcdir)/../../src/cstl_avl_tree_private.c $(srcdir)/../../src/cstl_avl_tree_aux.c \
@@ -140,7 +140,9 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
 	     ut_cstl_heap_aux.c ut_cstl_heap_aux.h \
 	     ut_cstl_heap.c ut_cstl_heap.h \
 	     ut_cstl_numeric_private.c ut_cstl_numeric_private.h \
-	     ut_cstl_numeric.c ut_cstl_numeric.h
+	     ut_cstl_numeric.c ut_cstl_numeric.h \
+             ut_cstl_function_private.c ut_cstl_function_private.h \
+             ut_cstl_function.c ut_cstl_function.h
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)

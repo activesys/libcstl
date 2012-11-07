@@ -32,15 +32,14 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
-typedef enum _tagfununarytype
-{
+typedef enum _tagfununarytype {
     _NEGATE_FUN,
     _LOGICAL_NOT_FUN,
+    _INCREASE_FUN,
     _RANDOM_NUMBER_FUN
-}fun_unary_type_t;
+} fun_unary_type_t;
 
-typedef enum _tagfunbinarytype
-{
+typedef enum _tagfunbinarytype {
     /* arithmetic */
     _PLUS_FUN,
     _MINUS_FUN,
@@ -56,18 +55,20 @@ typedef enum _tagfunbinarytype
     _LESS_EQUAL_FUN,
     /* logical */
     _LOGICAL_AND_FUN,
-    _LOGICAL_OR_FUN,
-    /* increase */
-    _INCREASE_FUN
-}fun_binary_type_t;
+    _LOGICAL_OR_FUN
+} fun_binary_type_t;
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-/*
- * Select default function.
+/**
+ * Select unary function accroding to unary function type.
+ * @param it_iter       A iterator addressing the element.
+ * @param uftype_type   Unary function type.
+ * @return  Unary function.
+ * @remarks The iterator and unary function type must be valid, otherwise the behavior is undefine.
  */
-extern unary_function_t _fun_get_unary(iterator_t t_iter, fun_unary_type_t t_funtype);
+extern unary_function_t _fun_get_unary(iterator_t it_iter, fun_unary_type_t uftype_type);
 extern binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype);
 
 /* increase */
