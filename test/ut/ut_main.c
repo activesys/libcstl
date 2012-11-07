@@ -197,7 +197,8 @@ int main(int argc, char* argv[])
         UT_CSTL_ALGO_SORTING_PRIVATE_CASE,
         UT_CSTL_ALGO_SORTING_CASE,
         */
-        UT_CSTL_NUMERIC_PRIVATE_CASE
+        UT_CSTL_NUMERIC_PRIVATE_CASE,
+        UT_CSTL_NUMERIC_CASE
     };
 
     return run_tests(tests);

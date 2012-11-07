@@ -76,8 +76,7 @@ void _algo_iota_varg(forward_iterator_t it_first, forward_iterator_t it_last, va
 }
 
 /**
- * Computes the sum of all the elements in a specified range including some initial value by computing successive partial sums or
- * computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
+ * Computes the sum of all the elements in a specified range including some initial value by computing successive partial sums.
  */
 void _algo_accumulate(input_iterator_t it_first, input_iterator_t it_last, void* pv_output, ...)
 {
@@ -92,8 +91,7 @@ void _algo_accumulate(input_iterator_t it_first, input_iterator_t it_last, void*
 }
 
 /**
- * Computes the sum of all the elements in a specified range including some initial value by computing successive partial sums or
- * computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
+ * Computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
  */
 void _algo_accumulate_if(input_iterator_t it_first, input_iterator_t it_last, binary_function_t bfun_op, void* pv_output, ...)
 {
@@ -105,8 +103,7 @@ void _algo_accumulate_if(input_iterator_t it_first, input_iterator_t it_last, bi
 }
 
 /**
- * Computes the sum of all the elements in a specified range including some initial value by computing successive partial sums or
- * computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
+ * Computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
  */
 void _algo_accumulate_if_varg(input_iterator_t it_first, input_iterator_t it_last, binary_function_t bfun_op, void* pv_output, va_list val_elemlist)
 {
@@ -123,6 +120,74 @@ void _algo_accumulate_if_varg(input_iterator_t it_first, input_iterator_t it_las
     for (it_iter = it_first; !iterator_equal(it_iter, it_last); it_iter = iterator_next(it_iter)) {
         (*bfun_op)(pv_output, iterator_get_pointer(it_iter), pv_output);
     }
+}
+
+/**
+ * Computes the sum of the element-wise product of two ranges and adds it to a specified initial value.
+ */
+void _algo_inner_product(
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, void* pv_output, ...)
+{
+    va_list val_elemlist;
+
+    if (_iterator_get_typestyle(it_first1) == _TYPE_C_BUILTIN &&
+        strncmp(_iterator_get_typebasename(it_first1), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
+        va_start(val_elemlist, pv_output);
+        _algo_inner_product_if_varg(
+            it_first1, it_last1, it_first2, _fun_get_binary(it_first1, _PLUS_FUN),
+            _fun_get_binary(it_first1, _MULTIPLIES_FUN), pv_output, val_elemlist);
+        va_end(val_elemlist);
+    }
+}
+
+/**
+ * Computes the result of a generalized procedure where the sum and product binary operations are replaced by other specified binary operations.
+ */
+void _algo_inner_product_if(
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2,
+    binary_function_t bfun_op1, binary_function_t bfun_op2, void* pv_output, ...)
+{
+    va_list val_elemlist;
+
+    va_start(val_elemlist, pv_output);
+    _algo_inner_product_if_varg(it_first1, it_last1, it_first2, bfun_op1, bfun_op2, pv_output, val_elemlist);
+    va_end(val_elemlist);
+}
+
+/**
+ * Computes the result of a generalized procedure where the sum and product binary operations are replaced by other specified binary operations.
+ */
+void _algo_inner_product_if_varg(
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2,
+    binary_function_t bfun_op1, binary_function_t bfun_op2, void* pv_output, va_list val_elemlist)
+{
+    iterator_t it_index1;
+    iterator_t it_index2;
+    void*      pv_tmp = NULL;
+
+    assert(_iterator_valid_range(it_first1, it_last1, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_first2, _INPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first1, it_first2));
+    assert(pv_output != NULL);
+
+    pv_tmp = _iterator_allocate_init_elem(it_first1);
+    _type_get_varg_value(_iterator_get_typeinfo(it_first1), val_elemlist, pv_output);
+
+    if (bfun_op1 == NULL) {
+        bfun_op1 = _fun_get_binary(it_first1, _PLUS_FUN);
+    }
+    if (bfun_op2 == NULL) {
+        bfun_op2 = _fun_get_binary(it_first1, _MULTIPLIES_FUN);
+    }
+
+    for (it_index1 = it_first1, it_index2 = it_first2;
+         !iterator_equal(it_index1, it_last1);
+         it_index1 = iterator_next(it_index1), it_index2 = iterator_next(it_index2)) {
+        (*bfun_op2)(iterator_get_pointer(it_index1), iterator_get_pointer(it_index2), pv_tmp);
+        (*bfun_op1)(pv_output, pv_tmp, pv_output);
+    }
+
+    _iterator_deallocate_destroy_elem(it_first1, pv_tmp);
 }
 
 /** local function implementation section **/

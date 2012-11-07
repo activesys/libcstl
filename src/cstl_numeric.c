@@ -39,211 +39,141 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-void _algo_inner_product(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
-    void* pv_output, ...)
+/**
+ * Power is generalized exponentiation: it raises the value x to the power n, where n is a non-negative integer.
+ */
+void algo_power(input_iterator_t it_iter, size_t t_power, void* pv_output)
 {
-    va_list val_elemlist;
-
-    if(_iterator_get_typestyle(t_first1) == _TYPE_C_BUILTIN &&
-       strncmp(_iterator_get_typebasename(t_first1), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0)
-    {
-        va_start(val_elemlist, pv_output);
-        _algo_inner_product_if_varg(t_first1, t_last1, t_first2,
-            _fun_get_binary(t_first1, _PLUS_FUN), _fun_get_binary(t_first1, _MULTIPLIES_FUN),
-            pv_output, val_elemlist);
-        va_end(val_elemlist);
-    }
+    algo_power_if(it_iter, t_power, _fun_get_binary(it_iter, _MULTIPLIES_FUN), pv_output);
 }
 
-void _algo_inner_product_if(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
-    binary_function_t t_binary_op1, binary_function_t t_binary_op2, void* pv_output, ...)
+/**
+ * Power is generalized exponentiation: it raises the value x to the power n, where n is a non-negative integer.
+ */
+void algo_power_if(input_iterator_t it_iter, size_t t_power, binary_function_t bfun_op, void* pv_output)
 {
-    va_list val_elemlist;
+    size_t i = 0;
+    bool_t b_result = false;
 
-    va_start(val_elemlist, pv_output);
-    _algo_inner_product_if_varg(t_first1, t_last1, t_first2,
-        t_binary_op1, t_binary_op2, pv_output, val_elemlist);
-    va_end(val_elemlist);
-}
-
-void _algo_inner_product_if_varg(
-    input_iterator_t t_first1, input_iterator_t t_last1, input_iterator_t t_first2,
-    binary_function_t t_binary_op1, binary_function_t t_binary_op2,
-    void* pv_output, va_list val_elemlist)
-{
-    iterator_t t_index1;
-    iterator_t t_index2;
-    void*      pv_tmp = NULL;
-
-    assert(_iterator_valid_range(t_first1, t_last1, _INPUT_ITERATOR));
-    assert(_iterator_limit_type(t_first2, _INPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first1, t_first2));
+    assert(_iterator_limit_type(it_iter, _INPUT_ITERATOR));
     assert(pv_output != NULL);
 
-    pv_tmp = _iterator_allocate_init_elem(t_first1);
-    _type_get_varg_value(_iterator_get_typeinfo(t_first1), val_elemlist, pv_output);
-
-    if(t_binary_op1 == NULL)
-    {
-        t_binary_op1 = _fun_get_binary(t_first1, _PLUS_FUN);
-    }
-    if(t_binary_op2 == NULL)
-    {
-        t_binary_op2 = _fun_get_binary(t_first1, _MULTIPLIES_FUN);
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_iter, _MULTIPLIES_FUN);
     }
 
-    for(t_index1 = t_first1, t_index2 = t_first2;
-        !iterator_equal(t_index1, t_last1);
-        t_index1 = iterator_next(t_index1), t_index2 = iterator_next(t_index2))
-    {
-        (*t_binary_op2)(iterator_get_pointer(t_index1), iterator_get_pointer(t_index2), pv_tmp);
-        (*t_binary_op1)(pv_output, pv_tmp, pv_output);
-    }
-
-    _iterator_deallocate_destroy_elem(t_first1, pv_tmp);
-}
-
-void algo_power(input_iterator_t t_iterator, size_t t_power, void* pv_output)
-{
-    algo_power_if(t_iterator, t_power,
-        _fun_get_binary(t_iterator, _MULTIPLIES_FUN), pv_output);
-}
-
-void algo_power_if(input_iterator_t t_iterator, size_t t_power,
-    binary_function_t t_binary_op, void* pv_output)
-{
-    size_t t_index = 0;
-    bool_t t_result = false;
-
-    assert(_iterator_limit_type(t_iterator, _INPUT_ITERATOR));
-
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_iterator, _MULTIPLIES_FUN);
-    }
-
-    t_result = _iterator_get_typesize(t_iterator);
-    _iterator_get_typecopy(t_iterator)(pv_output, iterator_get_pointer(t_iterator), &t_result);
-    assert(t_result);
-    if(t_power > 0)
-    {
-        for(t_index = 1; t_index < t_power; ++t_index)
-        {
-            (*t_binary_op)(pv_output, iterator_get_pointer(t_iterator), pv_output);
+    b_result = _iterator_get_typesize(it_iter);
+    _iterator_get_typecopy(it_iter)(pv_output, iterator_get_pointer(it_iter), &b_result);
+    assert(b_result);
+    if (t_power > 0) {
+        for (i = 1; i < t_power; ++i) {
+            (*bfun_op)(pv_output, iterator_get_pointer(it_iter), pv_output);
         }
     }
 }
 
-output_iterator_t algo_adjacent_difference(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
+/**
+ * Computes the successive differences between each element and its predecessor in an input range and outputs the results to a destination range.
+ */
+output_iterator_t algo_adjacent_difference(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result)
 {
-    return algo_adjacent_difference_if(t_first, t_last, t_result,
-        _fun_get_binary(t_first, _MINUS_FUN));
+    return algo_adjacent_difference_if(it_first, it_last, it_result, _fun_get_binary(it_first, _MINUS_FUN));
 }
 
-output_iterator_t algo_adjacent_difference_if(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result,
-    binary_function_t t_binary_op)
+/**
+ * Computes the result of a generalized procedure where the difference operation is replaced by another, specified binary operation.
+ */
+output_iterator_t algo_adjacent_difference_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, binary_function_t bfun_op)
 {
-    iterator_t t_index;
-    bool_t     t_typesize = 0;
-    char*      pc_value = NULL;
-    char*      pc_tmp = NULL;
-    char*      pc_result = NULL;
+    iterator_t it_index;
+    bool_t     b_typesize = false;
+    void*      pv_value = NULL;
+    void*      pv_tmp = NULL;
+    void*      pv_result = NULL;
 
-    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
-    assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first, it_result));
 
-    if(iterator_equal(t_first, t_last))
-    {
-        return t_result;
+    if (iterator_equal(it_first, it_last)) {
+        return it_result;
     }
 
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first, _MINUS_FUN);
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _MINUS_FUN);
     }
 
-    pc_value = _iterator_allocate_init_elem(t_first);
-    pc_tmp = _iterator_allocate_init_elem(t_first);
-    pc_result = _iterator_allocate_init_elem(t_first);
+    pv_value = _iterator_allocate_init_elem(it_first);
+    pv_tmp = _iterator_allocate_init_elem(it_first);
+    pv_result = _iterator_allocate_init_elem(it_first);
 
-    iterator_get_value(t_first, pc_value);
-    iterator_set_value(t_result, pc_value);
-    for(t_index = t_first, t_index = iterator_next(t_index);
-        !iterator_equal(t_index, t_last);
-        t_index = iterator_next(t_index))
-    {
-        iterator_get_value(t_index, pc_tmp);
-        (*t_binary_op)(pc_tmp, pc_value, pc_result);
-        t_result = iterator_next(t_result);
-        iterator_set_value(t_result, pc_result);
+    iterator_get_value(it_first, pv_value);
+    iterator_set_value(it_result, pv_value);
+    for (it_index = iterator_next(it_first); !iterator_equal(it_index, it_last); it_index = iterator_next(it_index)) {
+        iterator_get_value(it_index, pv_tmp);
+        (*bfun_op)(pv_tmp, pv_value, pv_result);
+        it_result = iterator_next(it_result);
+        iterator_set_value(it_result, pv_result);
 
-        t_typesize = _iterator_get_typesize(t_first);
-        _iterator_get_typecopy(t_first)(pc_value, pc_tmp, &t_typesize);
-        assert(t_typesize);
+        b_typesize = _iterator_get_typesize(it_first);
+        _iterator_get_typecopy(it_first)(pv_value, pv_tmp, &b_typesize);
+        assert(b_typesize);
     }
 
-    _iterator_deallocate_destroy_elem(t_first, pc_value);
-    _iterator_deallocate_destroy_elem(t_first, pc_tmp);
-    _iterator_deallocate_destroy_elem(t_first, pc_result);
-    pc_value = NULL;
-    pc_tmp = NULL;
-    pc_result = NULL;
+    _iterator_deallocate_destroy_elem(it_first, pv_value);
+    _iterator_deallocate_destroy_elem(it_first, pv_tmp);
+    _iterator_deallocate_destroy_elem(it_first, pv_result);
+    pv_value = NULL;
+    pv_tmp = NULL;
+    pv_result = NULL;
 
-    t_result = iterator_next(t_result);
-    return t_result;
+    it_result = iterator_next(it_result);
+    return it_result;
 }
 
-output_iterator_t algo_partial_sum(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result)
+/**
+ * Computes a series of sums in an input range from the first element through the ith element and stores the result of each such sum in the ith element of a destination range.
+ */
+output_iterator_t algo_partial_sum(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result)
 {
-    return algo_partial_sum_if(t_first, t_last, t_result,
-        _fun_get_binary(t_first, _PLUS_FUN));
+    return algo_partial_sum_if(it_first, it_last, it_result, _fun_get_binary(it_first, _PLUS_FUN));
 }
 
-output_iterator_t algo_partial_sum_if(
-    input_iterator_t t_first, input_iterator_t t_last, output_iterator_t t_result,
-    binary_function_t t_binary_op)
+/**
+ * Computes the result of a generalized procedure where the sum operation is replaced by another specified binary operation.
+ */
+output_iterator_t algo_partial_sum_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, binary_function_t bfun_op)
 {
-    iterator_t t_index;
-    char*      pc_value = NULL;
+    iterator_t it_index;
+    void*      pv_value = NULL;
 
-    assert(_iterator_valid_range(t_first, t_last, _INPUT_ITERATOR));
-    assert(_iterator_limit_type(t_result, _OUTPUT_ITERATOR));
-    assert(_iterator_same_elem_type(t_first, t_result));
+    assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
+    assert(_iterator_limit_type(it_result, _OUTPUT_ITERATOR));
+    assert(_iterator_same_elem_type(it_first, it_result));
 
-    if(iterator_equal(t_first, t_last))
-    {
-        return t_result;
+    if (iterator_equal(it_first, it_last)) {
+        return it_result;
     }
 
-    if(t_binary_op == NULL)
-    {
-        t_binary_op = _fun_get_binary(t_first, _PLUS_FUN);
+    if (bfun_op == NULL) {
+        bfun_op = _fun_get_binary(it_first, _PLUS_FUN);
     }
 
-    pc_value = _iterator_allocate_init_elem(t_first);
+    pv_value = _iterator_allocate_init_elem(it_first);
 
-    iterator_get_value(t_first, pc_value);
-    iterator_set_value(t_result, pc_value);
-    for(t_index = t_first, t_index = iterator_next(t_index);
-        !iterator_equal(t_index, t_last);
-        t_index = iterator_next(t_index))
-    {
-        (*t_binary_op)(pc_value, iterator_get_pointer(t_index), pc_value);
-        t_result = iterator_next(t_result);
-        iterator_set_value(t_result, pc_value);
+    iterator_get_value(it_first, pv_value);
+    iterator_set_value(it_result, pv_value);
+    for (it_index = iterator_next(it_first); !iterator_equal(it_index, it_last); it_index = iterator_next(it_index)) {
+        (*bfun_op)(pv_value, iterator_get_pointer(it_index), pv_value);
+        it_result = iterator_next(it_result);
+        iterator_set_value(it_result, pv_value);
     }
 
-    _iterator_deallocate_destroy_elem(t_first, pc_value);
-    pc_value = NULL;
+    _iterator_deallocate_destroy_elem(it_first, pv_value);
+    pv_value = NULL;
 
-    t_result = iterator_next(t_result);
-    return t_result;
+    it_result = iterator_next(it_result);
+    return it_result;
 }
 
 /** local function implementation section **/

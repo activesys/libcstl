@@ -240,3 +240,207 @@ void test__algo_accumulate_if__not_empty(void** state)
     deque_destroy(pdeq);
 }
 
+/*
+ * test _algo_inner_product
+ */
+UT_CASE_DEFINATION(_algo_inner_product)
+void test__algo_inner_product__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int n_sum = 0;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(_algo_inner_product(deque_end(pdeq), deque_begin(pdeq), list_begin(plist), &n_sum, 0));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    iterator_t it;
+    int n_sum = 0;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    it = list_begin(plist);
+    it._t_iteratortype = 100;
+    expect_assert_failure(_algo_inner_product(deque_begin(pdeq), deque_end(pdeq), it, &n_sum, 0));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product__not_same_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(double);
+    int n_sum = 0;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(_algo_inner_product(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), &n_sum, 0));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product__output_NULL(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(_algo_inner_product(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), NULL, 0));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int n_sum = 0;
+
+    deque_init(pdeq);
+    list_init(plist);
+    _algo_inner_product(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), &n_sum, 100);
+    assert_true(n_sum == 100);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product__not_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int n_sum = 0;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy_range(plist, deque_begin(pdeq), deque_end(pdeq));
+    _algo_inner_product(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), &n_sum, 0);
+    assert_true(n_sum == 285);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+/*
+ * test _algo_inner_product_if
+ */
+UT_CASE_DEFINATION(_algo_inner_product_if)
+void test__algo_inner_product_if__invalid_first_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int n_sum = 0;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(_algo_inner_product_if(deque_end(pdeq), deque_begin(pdeq), list_begin(plist), fun_plus_int, fun_multiplies_int, &n_sum, 0));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product_if__invalid_second_range(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    iterator_t it;
+    int n_sum = 0;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    it = list_begin(plist);
+    it._t_iteratortype = 100;
+    expect_assert_failure(_algo_inner_product_if(deque_begin(pdeq), deque_end(pdeq), it, fun_plus_int, fun_multiplies_int, &n_sum, 0));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product_if__not_same_type(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(double);
+    int n_sum = 0;
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(_algo_inner_product_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), fun_plus_int, fun_multiplies_int, &n_sum, 0));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product_if__output_NULL(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+
+    deque_init_n(pdeq, 10);
+    list_init_n(plist, 10);
+    expect_assert_failure(_algo_inner_product_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), fun_plus_int, fun_multiplies_int, NULL, 0));
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product_if__empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int n_sum = 0;
+
+    deque_init(pdeq);
+    list_init(plist);
+    _algo_inner_product_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), fun_plus_int, fun_multiplies_int, &n_sum, 100);
+    assert_true(n_sum == 100);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product_if__bfun_op1_NULL_not_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int n_sum = 0;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy_range(plist, deque_begin(pdeq), deque_end(pdeq));
+    _algo_inner_product_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), NULL, fun_plus_int, &n_sum, 0);
+    assert_true(n_sum == 90);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product_if__bfun_op2_NULL_not_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int n_sum = 0;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy_range(plist, deque_begin(pdeq), deque_end(pdeq));
+    _algo_inner_product_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), fun_minus_int, NULL, &n_sum, 0);
+    assert_true(n_sum == -285);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
+void test__algo_inner_product_if__not_empty(void** state)
+{
+    deque_t* pdeq = create_deque(int);
+    list_t* plist = create_list(int);
+    int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int n_sum = 0;
+
+    deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
+    list_init_copy_range(plist, deque_begin(pdeq), deque_end(pdeq));
+    _algo_inner_product_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), fun_minus_int, fun_plus_int, &n_sum, 0);
+    assert_true(n_sum == -90);
+    deque_destroy(pdeq);
+    list_destroy(plist);
+}
+
