@@ -51,1239 +51,254 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype)
-{
-    const char* s_typename = _iterator_get_typebasename(t_iter);
-    _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(t_iter);
-
-    if(s_typename == NULL)
-    {
-        return fun_default_binary;
-    }
-
-    /* char */
-    if(strncmp(s_typename, _CHAR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-       strncmp(s_typename, _SIGNED_CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_char;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_char;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_char;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_char;
-            break;
-        case _MODULUS_FUN:
-            return fun_modulus_char;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_char;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_char;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_char;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_char;
-            break;
-        case _LESS_FUN:
-            return fun_less_char;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_char;
-            break;
-        default:
-            break;
-        }
-    }
-    /* unsigned char */
-    else if(strncmp(s_typename, _UNSIGNED_CHAR_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_uchar;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_uchar;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_uchar;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_uchar;
-            break;
-        case _MODULUS_FUN:
-            return fun_modulus_uchar;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_uchar;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_uchar;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_uchar;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_uchar;
-            break;
-        case _LESS_FUN:
-            return fun_less_uchar;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_uchar;
-            break;
-        default:
-            break;
-        }
-    }
-    /* short */
-    else if(strncmp(s_typename, _SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _SIGNED_SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _SIGNED_SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_short;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_short;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_short;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_short;
-            break;
-        case _MODULUS_FUN:
-            return fun_modulus_short;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_short;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_short;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_short;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_short;
-            break;
-        case _LESS_FUN:
-            return fun_less_short;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_short;
-            break;
-        default:
-            break;
-        }
-    }
-    /* unsigned short */
-    else if(strncmp(s_typename, _UNSIGNED_SHORT_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _UNSIGNED_SHORT_INT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_ushort;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_ushort;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_ushort;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_ushort;
-            break;
-        case _MODULUS_FUN:
-            return fun_modulus_ushort;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_ushort;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_ushort;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_ushort;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_ushort;
-            break;
-        case _LESS_FUN:
-            return fun_less_ushort;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_ushort;
-            break;
-        default:
-            break;
-        }
-    }
-    /* int */
-    else if(strncmp(s_typename, _INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _SIGNED_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _SIGNED_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_int;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_int;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_int;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_int;
-            break;
-        case _MODULUS_FUN:
-            return fun_modulus_int;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_int;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_int;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_int;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_int;
-            break;
-        case _LESS_FUN:
-            return fun_less_int;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_int;
-            break;
-        default:
-            break;
-        }
-    }
-    /* unsigned int */
-    else if(strncmp(s_typename, _UNSIGNED_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _UNSIGNED_INT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_uint;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_uint;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_uint;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_uint;
-            break;
-        case _MODULUS_FUN:
-            return fun_modulus_uint;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_uint;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_uint;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_uint;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_uint;
-            break;
-        case _LESS_FUN:
-            return fun_less_uint;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_uint;
-            break;
-        default:
-            break;
-        }
-    }
-    /* long */
-    else if(strncmp(s_typename, _LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _SIGNED_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _SIGNED_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_long;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_long;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_long;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_long;
-            break;
-        case _MODULUS_FUN:
-            return fun_modulus_long;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_long;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_long;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_long;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_long;
-            break;
-        case _LESS_FUN:
-            return fun_less_long;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_long;
-            break;
-        default:
-            break;
-        }
-    }
-    /* unsigned long */
-    else if(strncmp(s_typename, _UNSIGNED_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(s_typename, _UNSIGNED_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_ulong;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_ulong;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_ulong;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_ulong;
-            break;
-        case _MODULUS_FUN:
-            return fun_modulus_ulong;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_ulong;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_ulong;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_ulong;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_ulong;
-            break;
-        case _LESS_FUN:
-            return fun_less_ulong;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_ulong;
-            break;
-        default:
-            break;
-        }
-    }
-    /* float */
-    else if(strncmp(s_typename, _FLOAT_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_float;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_float;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_float;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_float;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_float;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_float;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_float;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_float;
-            break;
-        case _LESS_FUN:
-            return fun_less_float;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_float;
-            break;
-        default:
-            break;
-        }
-    }
-    /* double */
-    else if(strncmp(s_typename, _DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_double;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_double;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_double;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_double;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_double;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_double;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_double;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_double;
-            break;
-        case _LESS_FUN:
-            return fun_less_double;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_double;
-            break;
-        default:
-            break;
-        }
-    }
-    /* long double */
-    else if(strncmp(s_typename, _LONG_DOUBLE_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _PLUS_FUN:
-            return fun_plus_long_double;
-            break;
-        case _MINUS_FUN:
-            return fun_minus_long_double;
-            break;
-        case _MULTIPLIES_FUN:
-            return fun_multiplies_long_double;
-            break;
-        case _DIVIDES_FUN:
-            return fun_divides_long_double;
-            break;
-        case _EQUAL_FUN:
-            return fun_equal_long_double;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_long_double;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_long_double;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_long_double;
-            break;
-        case _LESS_FUN:
-            return fun_less_long_double;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_long_double;
-            break;
-        default:
-            break;
-        }
-    }
-    /* c-string */
-    else if(strncmp(s_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_cstr;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_cstr;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_cstr;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_cstr;
-            break;
-        case _LESS_FUN:
-            return fun_less_cstr;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_cstr;
-            break;
-        default:
-            break;
-        }
-    }
-    /* bool_t */
-    else if(strncmp(s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _LOGICAL_AND_FUN:
-            return fun_logical_and_bool;
-            break;
-        case _LOGICAL_OR_FUN:
-            return fun_logical_or_bool;
-            break;
-        default:
-            break;
-        }
-    }
-    /* vector_t */
-    else if(strncmp(s_typename, _VECTOR_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_vector;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_vector;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_vector;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_vector;
-            break;
-        case _LESS_FUN:
-            return fun_less_vector;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_vector;
-            break;
-        default:
-            break;
-        }
-    }
-    /* deque_t */
-    else if(strncmp(s_typename, _DEQUE_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_deque;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_deque;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_deque;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_deque;
-            break;
-        case _LESS_FUN:
-            return fun_less_deque;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_deque;
-            break;
-        default:
-            break;
-        }
-    }
-    /* list_t */
-    else if(strncmp(s_typename, _LIST_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_list;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_list;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_list;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_list;
-            break;
-        case _LESS_FUN:
-            return fun_less_list;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_list;
-            break;
-        default:
-            break;
-        }
-    }
-    /* slist_t */
-    else if(strncmp(s_typename, _SLIST_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_slist;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_slist;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_slist;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_slist;
-            break;
-        case _LESS_FUN:
-            return fun_less_slist;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_slist;
-            break;
-        default:
-            break;
-        }
-    }
-    /* queue_t */
-    else if(strncmp(s_typename, _QUEUE_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_queue;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_queue;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_queue;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_queue;
-            break;
-        case _LESS_FUN:
-            return fun_less_queue;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_queue;
-            break;
-        default:
-            break;
-        }
-    }
-    /* stack_t */
-    else if(strncmp(s_typename, _STACK_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_stack;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_stack;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_stack;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_stack;
-            break;
-        case _LESS_FUN:
-            return fun_less_stack;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_stack;
-            break;
-        default:
-            break;
-        }
-    }
-    /* pair_t */
-    else if(strncmp(s_typename, _PAIR_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_pair;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_pair;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_pair;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_pair;
-            break;
-        case _LESS_FUN:
-            return fun_less_pair;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_pair;
-            break;
-        default:
-            break;
-        }
-    }
-    /* set_t */
-    else if(strncmp(s_typename, _SET_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_set;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_set;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_set;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_set;
-            break;
-        case _LESS_FUN:
-            return fun_less_set;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_set;
-            break;
-        default:
-            break;
-        }
-    }
-    /* map_t */
-    else if(strncmp(s_typename, _MAP_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_map;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_map;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_map;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_map;
-            break;
-        case _LESS_FUN:
-            return fun_less_map;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_map;
-            break;
-        default:
-            break;
-        }
-    }
-    /* multiset_t */
-    else if(strncmp(s_typename, _MULTISET_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_multiset;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_multiset;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_multiset;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_multiset;
-            break;
-        case _LESS_FUN:
-            return fun_less_multiset;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_multiset;
-            break;
-        default:
-            break;
-        }
-    }
-    /* multimap_t */
-    else if(strncmp(s_typename, _MULTIMAP_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_multimap;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_multimap;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_multimap;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_multimap;
-            break;
-        case _LESS_FUN:
-            return fun_less_multimap;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_multimap;
-            break;
-        default:
-            break;
-        }
-    }
-    /* hash_set_t */
-    else if(strncmp(s_typename, _HASH_SET_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_hash_set;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_hash_set;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_hash_set;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_hash_set;
-            break;
-        case _LESS_FUN:
-            return fun_less_hash_set;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_hash_set;
-            break;
-        default:
-            break;
-        }
-    }
-    /* hash_map_t */
-    else if(strncmp(s_typename, _HASH_MAP_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_hash_map;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_hash_map;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_hash_map;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_hash_map;
-            break;
-        case _LESS_FUN:
-            return fun_less_hash_map;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_hash_map;
-            break;
-        default:
-            break;
-        }
-    }
-    /* hash_multiset_t */
-    else if(strncmp(s_typename, _HASH_MULTISET_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_hash_multiset;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_hash_multiset;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_hash_multiset;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_hash_multiset;
-            break;
-        case _LESS_FUN:
-            return fun_less_hash_multiset;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_hash_multiset;
-            break;
-        default:
-            break;
-        }
-    }
-    /* hash_multimap_t */
-    else if(strncmp(s_typename, _HASH_MULTIMAP_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_hash_multimap;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_hash_multimap;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_hash_multimap;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_hash_multimap;
-            break;
-        case _LESS_FUN:
-            return fun_less_hash_multimap;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_hash_multimap;
-            break;
-        default:
-            break;
-        }
-    }
-    /* string_t */
-    else if(strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0)
-    {
-        switch(t_funtype)
-        {
-        case _EQUAL_FUN:
-            return fun_equal_string;
-            break;
-        case _NOT_EQUAL_FUN:
-            return fun_not_equal_string;
-            break;
-        case _GREATER_FUN:
-            return fun_greater_string;
-            break;
-        case _GREATER_EQUAL_FUN:
-            return fun_greater_equal_string;
-            break;
-        case _LESS_FUN:
-            return fun_less_string;
-            break;
-        case _LESS_EQUAL_FUN:
-            return fun_less_equal_string;
-            break;
-        default:
-            break;
-        }
-    }
-
-    if(pt_typeinfo != NULL && pt_typeinfo->_pt_type != NULL && t_funtype == _LESS_FUN)
-    {
-        return pt_typeinfo->_pt_type->_t_typeless;
-    }
-
-    return fun_default_binary;
-}
-
 /* 
  * There is special condition in binary function 
  * when the second parameter is NULL.
  */
-/* arithmetic */
-/* plus */
-void fun_plus_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Plus
+ */
+void fun_plus_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(char*)pv_output = *(char*)cpv_first + *(char*)cpv_second;
 }
 
-void fun_plus_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned char*)pv_output = *(unsigned char*)cpv_first + *(unsigned char*)cpv_second;
 }
 
-void fun_plus_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(short*)pv_output = *(short*)cpv_first + *(short*)cpv_second;
 }
 
-void fun_plus_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned short*)pv_output = *(unsigned short*)cpv_first + *(unsigned short*)cpv_second;
 }
 
-void fun_plus_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(int*)pv_output = *(int*)cpv_first + *(int*)cpv_second;
 }
 
-void fun_plus_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned int*)pv_output = *(unsigned int*)cpv_first + *(unsigned int*)cpv_second;
 }
 
-void fun_plus_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(long*)pv_output = *(long*)cpv_first + *(long*)cpv_second;
 }
 
-void fun_plus_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned long*)pv_output = *(unsigned long*)cpv_first + *(unsigned long*)cpv_second;
 }
 
-void fun_plus_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(float*)pv_output = *(float*)cpv_first + *(float*)cpv_second;
 }
 
-void fun_plus_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(double*)pv_output = *(double*)cpv_first + *(double*)cpv_second;
 }
 
-void fun_plus_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_plus_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(long double*)pv_output = *(long double*)cpv_first + *(long double*)cpv_second;
 }
 
-/* minus */
-void fun_minus_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Minus.
+ */
+void fun_minus_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(char*)pv_output = *(char*)cpv_first - *(char*)cpv_second;
 }
 
-void fun_minus_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned char*)pv_output = *(unsigned char*)cpv_first - *(unsigned char*)cpv_second;
 }
 
-void fun_minus_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(short*)pv_output = *(short*)cpv_first - *(short*)cpv_second;
 }
 
-void fun_minus_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned short*)pv_output = *(unsigned short*)cpv_first - *(unsigned short*)cpv_second;
 }
 
-void fun_minus_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(int*)pv_output = *(int*)cpv_first - *(int*)cpv_second;
 }
 
-void fun_minus_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned int*)pv_output = *(unsigned int*)cpv_first - *(unsigned int*)cpv_second;
 }
 
-void fun_minus_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(long*)pv_output = *(long*)cpv_first - *(long*)cpv_second;
 }
 
-void fun_minus_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned long*)pv_output = *(unsigned long*)cpv_first - *(unsigned long*)cpv_second;
 }
 
-void fun_minus_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(float*)pv_output = *(float*)cpv_first - *(float*)cpv_second;
 }
 
-void fun_minus_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(double*)pv_output = *(double*)cpv_first - *(double*)cpv_second;
 }
 
-void fun_minus_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_minus_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(long double*)pv_output = *(long double*)cpv_first - *(long double*)cpv_second;
 }
 
-/* multiplies */
-void fun_multiplies_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Multiplies.
+ */
+void fun_multiplies_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(char*)pv_output = *(char*)cpv_first * *(char*)cpv_second;
 }
 
-void fun_multiplies_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned char*)pv_output = *(unsigned char*)cpv_first * *(unsigned char*)cpv_second;
 }
 
-void fun_multiplies_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(short*)pv_output = *(short*)cpv_first * *(short*)cpv_second;
 }
 
-void fun_multiplies_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned short*)pv_output = *(unsigned short*)cpv_first * *(unsigned short*)cpv_second;
 }
 
-void fun_multiplies_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(int*)pv_output = *(int*)cpv_first * *(int*)cpv_second;
 }
 
-void fun_multiplies_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned int*)pv_output = *(unsigned int*)cpv_first * *(unsigned int*)cpv_second;
 }
 
-void fun_multiplies_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(long*)pv_output = *(long*)cpv_first * *(long*)cpv_second;
 }
 
-void fun_multiplies_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(unsigned long*)pv_output = *(unsigned long*)cpv_first * *(unsigned long*)cpv_second;
 }
 
-void fun_multiplies_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(float*)pv_output = *(float*)cpv_first * *(float*)cpv_second;
 }
 
-void fun_multiplies_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(double*)pv_output = *(double*)cpv_first * *(double*)cpv_second;
 }
 
-void fun_multiplies_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_multiplies_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(long double*)pv_output = *(long double*)cpv_first * *(long double*)cpv_second;
 }
 
-/* divides */
-void fun_divides_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Divides.
+ */
+void fun_divides_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1291,8 +306,7 @@ void fun_divides_char(
     *(char*)pv_output = *(char*)cpv_first / *(char*)cpv_second;
 }
 
-void fun_divides_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1300,8 +314,7 @@ void fun_divides_uchar(
     *(unsigned char*)pv_output = *(unsigned char*)cpv_first / *(unsigned char*)cpv_second;
 }
 
-void fun_divides_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1309,8 +322,7 @@ void fun_divides_short(
     *(short*)pv_output = *(short*)cpv_first / *(short*)cpv_second;
 }
 
-void fun_divides_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1318,8 +330,7 @@ void fun_divides_ushort(
     *(unsigned short*)pv_output = *(unsigned short*)cpv_first / *(unsigned short*)cpv_second;
 }
 
-void fun_divides_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1327,8 +338,7 @@ void fun_divides_int(
     *(int*)pv_output = *(int*)cpv_first / *(int*)cpv_second;
 }
 
-void fun_divides_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1336,8 +346,7 @@ void fun_divides_uint(
     *(unsigned int*)pv_output = *(unsigned int*)cpv_first / *(unsigned int*)cpv_second;
 }
 
-void fun_divides_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1345,8 +354,7 @@ void fun_divides_long(
     *(long*)pv_output = *(long*)cpv_first / *(long*)cpv_second;
 }
 
-void fun_divides_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1354,8 +362,7 @@ void fun_divides_ulong(
     *(unsigned long*)pv_output = *(unsigned long*)cpv_first / *(unsigned long*)cpv_second;
 }
 
-void fun_divides_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1363,8 +370,7 @@ void fun_divides_float(
     *(float*)pv_output = *(float*)cpv_first / *(float*)cpv_second;
 }
 
-void fun_divides_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1372,19 +378,18 @@ void fun_divides_double(
     *(double*)pv_output = *(double*)cpv_first / *(double*)cpv_second;
 }
 
-void fun_divides_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_divides_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    assert(*(long double*)cpv_second > LDBL_EPSILON ||
-           *(long double*)cpv_second < -LDBL_EPSILON);
+    assert(*(long double*)cpv_second > LDBL_EPSILON || *(long double*)cpv_second < -LDBL_EPSILON);
     *(long double*)pv_output = *(long double*)cpv_first / *(long double*)cpv_second;
 }
 
-/* modulus */
-void fun_modulus_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Modulus.
+ */
+void fun_modulus_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1392,8 +397,7 @@ void fun_modulus_char(
     *(char*)pv_output = *(char*)cpv_first % *(char*)cpv_second;
 }
 
-void fun_modulus_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_modulus_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1401,8 +405,7 @@ void fun_modulus_uchar(
     *(unsigned char*)pv_output = *(unsigned char*)cpv_first % *(unsigned char*)cpv_second;
 }
 
-void fun_modulus_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_modulus_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1410,8 +413,7 @@ void fun_modulus_short(
     *(short*)pv_output = *(short*)cpv_first % *(short*)cpv_second;
 }
 
-void fun_modulus_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_modulus_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1419,8 +421,7 @@ void fun_modulus_ushort(
     *(unsigned short*)pv_output = *(unsigned short*)cpv_first % *(unsigned short*)cpv_second;
 }
 
-void fun_modulus_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_modulus_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1428,8 +429,7 @@ void fun_modulus_int(
     *(int*)pv_output = *(int*)cpv_first % *(int*)cpv_second;
 }
 
-void fun_modulus_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_modulus_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1437,8 +437,7 @@ void fun_modulus_uint(
     *(unsigned int*)pv_output = *(unsigned int*)cpv_first % *(unsigned int*)cpv_second;
 }
 
-void fun_modulus_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_modulus_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1446,8 +445,7 @@ void fun_modulus_long(
     *(long*)pv_output = *(long*)cpv_first % *(long*)cpv_second;
 }
 
-void fun_modulus_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_modulus_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1455,7 +453,9 @@ void fun_modulus_ulong(
     *(unsigned long*)pv_output = *(unsigned long*)cpv_first % *(unsigned long*)cpv_second;
 }
 
-/* negation */
+/**
+ * Negate.
+ */
 void fun_negate_char(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
@@ -1506,81 +506,66 @@ void fun_negate_long_double(const void* cpv_input, void* pv_output)
 }
 
 /* comparisons */
-/* equality */
-void fun_equal_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Equal.
+ */
+void fun_equal_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(char*)cpv_first == *(char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(char*)cpv_first == *(char*)cpv_second ? true : false;
 }
 
-void fun_equal_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first == *(unsigned char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned char*)cpv_first == *(unsigned char*)cpv_second ? true : false;
 }
 
-void fun_equal_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(short*)cpv_first == *(short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(short*)cpv_first == *(short*)cpv_second ? true : false;
 }
 
-void fun_equal_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first == *(unsigned short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned short*)cpv_first == *(unsigned short*)cpv_second ? true : false;
 }
 
-void fun_equal_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(int*)cpv_first == *(int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(int*)cpv_first == *(int*)cpv_second ? true : false;
 }
 
-void fun_equal_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first == *(unsigned int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned int*)cpv_first == *(unsigned int*)cpv_second ? true : false;
 }
 
-void fun_equal_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long*)cpv_first == *(long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(long*)cpv_first == *(long*)cpv_second ? true : false;
 }
 
-void fun_equal_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first == *(unsigned long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned long*)cpv_first == *(unsigned long*)cpv_second ? true : false;
 }
 
-void fun_equal_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1589,8 +574,7 @@ void fun_equal_float(
         *(float*)cpv_first - *(float*)cpv_second > -FLT_EPSILON ? true : false;
 }
 
-void fun_equal_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1599,8 +583,7 @@ void fun_equal_double(
         *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? true : false;
 }
 
-void fun_equal_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1609,8 +592,7 @@ void fun_equal_long_double(
         *(long double*)cpv_first - *(long double*)cpv_second > -LDBL_EPSILON ? true : false;
 }
 
-void fun_equal_cstr(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     char* s_first = NULL;
     char* s_second = NULL;
@@ -1731,93 +713,76 @@ void fun_equal_hash_multiset(const void* cpv_first, const void* cpv_second, void
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multiset_equal(
-        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multiset_equal((hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
 }
 
 void fun_equal_hash_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multimap_equal(
-        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multimap_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
-/* inequality */
-void fun_not_equal_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Not equal.
+ */
+void fun_not_equal_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(char*)cpv_first != *(char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(char*)cpv_first != *(char*)cpv_second ? true : false;
 }
 
-void fun_not_equal_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first != *(unsigned char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned char*)cpv_first != *(unsigned char*)cpv_second ? true : false;
 }
 
-void fun_not_equal_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(short*)cpv_first != *(short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(short*)cpv_first != *(short*)cpv_second ? true : false;
 }
 
-void fun_not_equal_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first != *(unsigned short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned short*)cpv_first != *(unsigned short*)cpv_second ? true : false;
 }
 
-void fun_not_equal_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(int*)cpv_first != *(int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(int*)cpv_first != *(int*)cpv_second ? true : false;
 }
 
-void fun_not_equal_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first != *(unsigned int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned int*)cpv_first != *(unsigned int*)cpv_second ? true : false;
 }
 
-void fun_not_equal_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long*)cpv_first != *(long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(long*)cpv_first != *(long*)cpv_second ? true : false;
 }
 
-void fun_not_equal_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first != *(unsigned long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned long*)cpv_first != *(unsigned long*)cpv_second ? true : false;
 }
 
-void fun_not_equal_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1826,8 +791,7 @@ void fun_not_equal_float(
         *(float*)cpv_first - *(float*)cpv_second <= -FLT_EPSILON ? true : false;
 }
 
-void fun_not_equal_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1836,8 +800,7 @@ void fun_not_equal_double(
         *(double*)cpv_first - *(double*)cpv_second <= -DBL_EPSILON ? true : false;
 }
 
-void fun_not_equal_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1846,8 +809,7 @@ void fun_not_equal_long_double(
         *(long double*)cpv_first - *(long double*)cpv_second <= -LDBL_EPSILON ? true : false;
 }
 
-void fun_not_equal_cstr(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     char* s_first = NULL;
     char* s_second = NULL;
@@ -1964,126 +926,101 @@ void fun_not_equal_hash_map(const void* cpv_first, const void* cpv_second, void*
     *(bool_t*)pv_output = hash_map_not_equal((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
 }
 
-void fun_not_equal_hash_multiset(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_hash_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multiset_not_equal(
-        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multiset_not_equal((hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
 }
 
-void fun_not_equal_hash_multimap(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_not_equal_hash_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multimap_not_equal(
-        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multimap_not_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
-/* greater */
-void fun_greater_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Greater.
+ */
+void fun_greater_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(char*)cpv_first > *(char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(char*)cpv_first > *(char*)cpv_second ? true : false;
 }
 
-void fun_greater_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first > *(unsigned char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned char*)cpv_first > *(unsigned char*)cpv_second ? true : false;
 }
 
-void fun_greater_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(short*)cpv_first > *(short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(short*)cpv_first > *(short*)cpv_second ? true : false;
 }
 
-void fun_greater_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first > *(unsigned short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned short*)cpv_first > *(unsigned short*)cpv_second ? true : false;
 }
 
-void fun_greater_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(int*)cpv_first > *(int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(int*)cpv_first > *(int*)cpv_second ? true : false;
 }
 
-void fun_greater_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first > *(unsigned int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned int*)cpv_first > *(unsigned int*)cpv_second ? true : false;
 }
 
-void fun_greater_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long*)cpv_first > *(long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(long*)cpv_first > *(long*)cpv_second ? true : false;
 }
 
-void fun_greater_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first > *(unsigned long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned long*)cpv_first > *(unsigned long*)cpv_second ? true : false;
 }
 
-void fun_greater_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(float*)cpv_first - *(float*)cpv_second >= FLT_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(float*)cpv_first - *(float*)cpv_second >= FLT_EPSILON ? true : false;
 }
 
-void fun_greater_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(double*)cpv_first - *(double*)cpv_second >= DBL_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(double*)cpv_first - *(double*)cpv_second >= DBL_EPSILON ? true : false;
 }
 
-void fun_greater_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long double*)cpv_first - *(long double*)cpv_second >= LDBL_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(long double*)cpv_first - *(long double*)cpv_second >= LDBL_EPSILON ? true : false;
 }
 
-void fun_greater_cstr(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     char* s_first = NULL;
     char* s_second = NULL;
@@ -2200,126 +1137,101 @@ void fun_greater_hash_map(const void* cpv_first, const void* cpv_second, void* p
     *(bool_t*)pv_output = hash_map_greater((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
 }
 
-void fun_greater_hash_multiset(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_hash_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multiset_greater(
-        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multiset_greater((hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
 }
 
-void fun_greater_hash_multimap(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_hash_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multimap_greater(
-        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multimap_greater((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
-/* greater or equal*/
-void fun_greater_equal_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Greater or equal.
+ */
+void fun_greater_equal_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(char*)cpv_first >= *(char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(char*)cpv_first >= *(char*)cpv_second ? true : false;
 }
 
-void fun_greater_equal_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first >= *(unsigned char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned char*)cpv_first >= *(unsigned char*)cpv_second ? true : false;
 }
 
-void fun_greater_equal_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(short*)cpv_first >= *(short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(short*)cpv_first >= *(short*)cpv_second ? true : false;
 }
 
-void fun_greater_equal_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first >= *(unsigned short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned short*)cpv_first >= *(unsigned short*)cpv_second ? true : false;
 }
 
-void fun_greater_equal_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(int*)cpv_first >= *(int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(int*)cpv_first >= *(int*)cpv_second ? true : false;
 }
 
-void fun_greater_equal_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first >= *(unsigned int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned int*)cpv_first >= *(unsigned int*)cpv_second ? true : false;
 }
 
-void fun_greater_equal_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long*)cpv_first >= *(long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(long*)cpv_first >= *(long*)cpv_second ? true : false;
 }
 
-void fun_greater_equal_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first >= *(unsigned long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned long*)cpv_first >= *(unsigned long*)cpv_second ? true : false;
 }
 
-void fun_greater_equal_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(float*)cpv_first - *(float*)cpv_second > -FLT_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(float*)cpv_first - *(float*)cpv_second > -FLT_EPSILON ? true : false;
 }
 
-void fun_greater_equal_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(double*)cpv_first - *(double*)cpv_second > -DBL_EPSILON ? true : false;
 }
 
-void fun_greater_equal_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long double*)cpv_first - *(long double*)cpv_second > -LDBL_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(long double*)cpv_first - *(long double*)cpv_second > -LDBL_EPSILON ? true : false;
 }
 
-void fun_greater_equal_cstr(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     char* s_first = NULL;
     char* s_second = NULL;
@@ -2412,154 +1324,125 @@ void fun_greater_equal_multiset(const void* cpv_first, const void* cpv_second, v
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multiset_greater_equal(
-        (multiset_t*)cpv_first, (multiset_t*)cpv_second);
+    *(bool_t*)pv_output = multiset_greater_equal((multiset_t*)cpv_first, (multiset_t*)cpv_second);
 }
 
 void fun_greater_equal_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multimap_greater_equal(
-        (multimap_t*)cpv_first, (multimap_t*)cpv_second);
+    *(bool_t*)pv_output = multimap_greater_equal((multimap_t*)cpv_first, (multimap_t*)cpv_second);
 }
 
 void fun_greater_equal_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_set_greater_equal(
-        (hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+    *(bool_t*)pv_output = hash_set_greater_equal((hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
 }
 
 void fun_greater_equal_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_map_greater_equal(
-        (hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+    *(bool_t*)pv_output = hash_map_greater_equal((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
 }
 
-void fun_greater_equal_hash_multiset(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_hash_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multiset_greater_equal(
-        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multiset_greater_equal((hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
 }
 
-void fun_greater_equal_hash_multimap(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_greater_equal_hash_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multimap_greater_equal(
-        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multimap_greater_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
-/* less */
-void fun_less_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Less.
+ */
+void fun_less_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(char*)cpv_first < *(char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(char*)cpv_first < *(char*)cpv_second ? true : false;
 }
 
-void fun_less_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first < *(unsigned char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned char*)cpv_first < *(unsigned char*)cpv_second ? true : false;
 }
 
-void fun_less_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(short*)cpv_first < *(short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(short*)cpv_first < *(short*)cpv_second ? true : false;
 }
 
-void fun_less_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first < *(unsigned short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned short*)cpv_first < *(unsigned short*)cpv_second ? true : false;
 }
 
-void fun_less_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(int*)cpv_first < *(int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(int*)cpv_first < *(int*)cpv_second ? true : false;
 }
 
-void fun_less_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first < *(unsigned int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned int*)cpv_first < *(unsigned int*)cpv_second ? true : false;
 }
 
-void fun_less_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long*)cpv_first < *(long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(long*)cpv_first < *(long*)cpv_second ? true : false;
 }
 
-void fun_less_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first < *(unsigned long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned long*)cpv_first < *(unsigned long*)cpv_second ? true : false;
 }
 
-void fun_less_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(float*)cpv_first - *(float*)cpv_second < -FLT_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(float*)cpv_first - *(float*)cpv_second < -FLT_EPSILON ? true : false;
 }
 
-void fun_less_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(double*)cpv_first - *(double*)cpv_second < -DBL_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(double*)cpv_first - *(double*)cpv_second < -DBL_EPSILON ? true : false;
 }
 
-void fun_less_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long double*)cpv_first - *(long double*)cpv_second < -LDBL_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(long double*)cpv_first - *(long double*)cpv_second < -LDBL_EPSILON ? true : false;
 }
 
-void fun_less_cstr(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     char* s_first = NULL;
     char* s_second = NULL;
@@ -2652,154 +1535,125 @@ void fun_less_multiset(const void* cpv_first, const void* cpv_second, void* pv_o
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multiset_less(
-        (multiset_t*)cpv_first, (multiset_t*)cpv_second);
+    *(bool_t*)pv_output = multiset_less((multiset_t*)cpv_first, (multiset_t*)cpv_second);
 }
 
 void fun_less_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multimap_less(
-        (multimap_t*)cpv_first, (multimap_t*)cpv_second);
+    *(bool_t*)pv_output = multimap_less((multimap_t*)cpv_first, (multimap_t*)cpv_second);
 }
 
 void fun_less_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_set_less(
-        (hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+    *(bool_t*)pv_output = hash_set_less((hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
 }
 
 void fun_less_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_map_less(
-        (hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+    *(bool_t*)pv_output = hash_map_less((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
 }
 
-void fun_less_hash_multiset(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_hash_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multiset_less(
-        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multiset_less((hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
 }
 
-void fun_less_hash_multimap(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_hash_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multimap_less(
-        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multimap_less((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
-/* less or equal*/
-void fun_less_equal_char(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Less or equal.
+ */
+void fun_less_equal_char(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(char*)cpv_first <= *(char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(char*)cpv_first <= *(char*)cpv_second ? true : false;
 }
 
-void fun_less_equal_uchar(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_uchar(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned char*)cpv_first <= *(unsigned char*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned char*)cpv_first <= *(unsigned char*)cpv_second ? true : false;
 }
 
-void fun_less_equal_short(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_short(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(short*)cpv_first <= *(short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(short*)cpv_first <= *(short*)cpv_second ? true : false;
 }
 
-void fun_less_equal_ushort(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_ushort(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned short*)cpv_first <= *(unsigned short*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned short*)cpv_first <= *(unsigned short*)cpv_second ? true : false;
 }
 
-void fun_less_equal_int(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_int(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(int*)cpv_first <= *(int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(int*)cpv_first <= *(int*)cpv_second ? true : false;
 }
 
-void fun_less_equal_uint(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_uint(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned int*)cpv_first <= *(unsigned int*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned int*)cpv_first <= *(unsigned int*)cpv_second ? true : false;
 }
 
-void fun_less_equal_long(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long*)cpv_first <= *(long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(long*)cpv_first <= *(long*)cpv_second ? true : false;
 }
 
-void fun_less_equal_ulong(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_ulong(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(unsigned long*)cpv_first <= *(unsigned long*)cpv_second ? true : false;
+    *(bool_t*)pv_output = *(unsigned long*)cpv_first <= *(unsigned long*)cpv_second ? true : false;
 }
 
-void fun_less_equal_float(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_float(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(float*)cpv_first - *(float*)cpv_second < FLT_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(float*)cpv_first - *(float*)cpv_second < FLT_EPSILON ? true : false;
 }
 
-void fun_less_equal_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(double*)cpv_first - *(double*)cpv_second < DBL_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(double*)cpv_first - *(double*)cpv_second < DBL_EPSILON ? true : false;
 }
 
-void fun_less_equal_long_double(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_long_double(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = 
-        *(long double*)cpv_first - *(long double*)cpv_second < LDBL_EPSILON ? true : false;
+    *(bool_t*)pv_output = *(long double*)cpv_first - *(long double*)cpv_second < LDBL_EPSILON ? true : false;
 }
 
-void fun_less_equal_cstr(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     char* s_first = NULL;
     char* s_second = NULL;
@@ -2892,70 +1746,68 @@ void fun_less_equal_multiset(const void* cpv_first, const void* cpv_second, void
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multiset_less_equal(
-        (multiset_t*)cpv_first, (multiset_t*)cpv_second);
+    *(bool_t*)pv_output = multiset_less_equal((multiset_t*)cpv_first, (multiset_t*)cpv_second);
 }
 
 void fun_less_equal_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = multimap_less_equal(
-        (multimap_t*)cpv_first, (multimap_t*)cpv_second);
+    *(bool_t*)pv_output = multimap_less_equal((multimap_t*)cpv_first, (multimap_t*)cpv_second);
 }
 
 void fun_less_equal_hash_set(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_set_less_equal(
-        (hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
+    *(bool_t*)pv_output = hash_set_less_equal((hash_set_t*)cpv_first, (hash_set_t*)cpv_second);
 }
 
 void fun_less_equal_hash_map(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_map_less_equal(
-        (hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
+    *(bool_t*)pv_output = hash_map_less_equal((hash_map_t*)cpv_first, (hash_map_t*)cpv_second);
 }
 
-void fun_less_equal_hash_multiset(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_hash_multiset(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multiset_less_equal(
-        (hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multiset_less_equal((hash_multiset_t*)cpv_first, (hash_multiset_t*)cpv_second);
 }
 
-void fun_less_equal_hash_multimap(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_less_equal_hash_multimap(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
-    *(bool_t*)pv_output = hash_multimap_less_equal(
-        (hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+    *(bool_t*)pv_output = hash_multimap_less_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
 /* logical */
-/* logical and */
-void fun_logical_and_bool(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Logical and.
+ */
+void fun_logical_and_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = *(bool_t*)cpv_first && *(bool_t*)cpv_second;
 }
-/* logical or */
-void fun_logical_or_bool(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+
+/**
+ * Logical or.
+ */
+void fun_logical_or_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = *(bool_t*)cpv_first || *(bool_t*)cpv_second;
 }
-/* logical not */
+
+/**
+ * Logical not.
+ */
 void fun_logical_not_bool(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
@@ -2963,7 +1815,9 @@ void fun_logical_not_bool(const void* cpv_input, void* pv_output)
     *(bool_t*)pv_output = !*(bool_t*)cpv_input;
 }
 
-/* random nunber */
+/**
+ * Random number.
+ */
 void fun_random_number(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
@@ -2973,6 +1827,9 @@ void fun_random_number(const void* cpv_input, void* pv_output)
 }
 
 /* default unary and binary function */
+/**
+ * Default unary function.
+ */
 void fun_default_unary(const void* cpv_input, void* pv_output)
 {
     void* pv_avoidwarning1 = NULL;
@@ -2981,8 +1838,10 @@ void fun_default_unary(const void* cpv_input, void* pv_output)
     pv_avoidwarning2 = (void*)pv_output;
 }
 
-void fun_default_binary(
-    const void* cpv_first, const void* cpv_second, void* pv_output)
+/**
+ * Default binary function.
+ */
+void fun_default_binary(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     void* pv_avoidwarning1 = NULL;
     void* pv_avoidwarning2 = NULL;
@@ -2990,77 +1849,6 @@ void fun_default_binary(
     pv_avoidwarning1 = (void*)cpv_first;
     pv_avoidwarning2 = (void*)cpv_second;
     pv_avoidwarning3 = (void*)pv_output;
-}
-
-/* increase function */
-void _fun_increase_char(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(char*)pv_output = *(char*)cpv_input + 0x01;
-}
-
-void _fun_increase_uchar(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(unsigned char*)pv_output = *(unsigned char*)cpv_input + 0x01;
-}
-
-void _fun_increase_short(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(short*)pv_output = *(short*)cpv_input + 1;
-}
-
-void _fun_increase_ushort(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(unsigned short*)pv_output = *(unsigned short*)cpv_input + 1;
-}
-
-void _fun_increase_int(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(int*)pv_output = *(int*)cpv_input + 1;
-}
-
-void _fun_increase_uint(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(unsigned int*)pv_output = *(unsigned int*)cpv_input + 1;
-}
-
-void _fun_increase_long(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(long*)pv_output = *(long*)cpv_input + 1;
-}
-
-void _fun_increase_ulong(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(unsigned long*)pv_output = *(unsigned long*)cpv_input + 1;
-}
-
-void _fun_increase_float(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(float*)pv_output = *(float*)cpv_input + 1.0f;
-}
-
-void _fun_increase_double(const void* cpv_input, void* pv_output)
-{
-    assert(cpv_input != NULL && pv_output != NULL);
-
-    *(double*)pv_output = *(double*)cpv_input + 1.0;
 }
 
 /** local function implementation section **/

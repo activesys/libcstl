@@ -32,14 +32,20 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
-typedef enum _tagfununarytype {
+typedef enum _tag_fun_type {
+    _INVALID_FUN,
+
+    /*
+     * unary funtion type
+     */
     _NEGATE_FUN,
     _LOGICAL_NOT_FUN,
     _INCREASE_FUN,
-    _RANDOM_NUMBER_FUN
-} fun_unary_type_t;
+    _RANDOM_NUMBER_FUN,
 
-typedef enum _tagfunbinarytype {
+    /*
+     * binary function type
+     */
     /* arithmetic */
     _PLUS_FUN,
     _MINUS_FUN,
@@ -56,7 +62,7 @@ typedef enum _tagfunbinarytype {
     /* logical */
     _LOGICAL_AND_FUN,
     _LOGICAL_OR_FUN
-} fun_binary_type_t;
+} fun_type_t;
 
 /** exported global variable declaration section **/
 
@@ -64,14 +70,28 @@ typedef enum _tagfunbinarytype {
 /**
  * Select unary function accroding to unary function type.
  * @param it_iter       A iterator addressing the element.
- * @param uftype_type   Unary function type.
+ * @param ftype_type    Unary function type.
  * @return  Unary function.
  * @remarks The iterator and unary function type must be valid, otherwise the behavior is undefine.
  */
-extern unary_function_t _fun_get_unary(iterator_t it_iter, fun_unary_type_t uftype_type);
-extern binary_function_t _fun_get_binary(iterator_t t_iter, fun_binary_type_t t_funtype);
+extern unary_function_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type);
 
-/* increase */
+/**
+ * Select binary function accroding to binary function type.
+ * @param it_iter       A iterator addressing the element.
+ * @param ftype_type    Binary function type.
+ * @return  Binary function.
+ * @remarks The iterator and binary function type must be valid, otherwise the behavior is undefine.
+ */
+extern binary_function_t _fun_get_binary(iterator_t it_iter, fun_type_t ftype_type);
+
+/**
+ * Increase.
+ * @param cpv_input     Input.
+ * @param pv_output     Output.
+ * @return  void.
+ * @remarks The input and output must not be NULL, otherwise the behavior is undefined.
+ */
 extern void _fun_increase_char(const void* cpv_input, void* pv_output);
 extern void _fun_increase_uchar(const void* cpv_input, void* pv_output);
 extern void _fun_increase_short(const void* cpv_input, void* pv_output);
