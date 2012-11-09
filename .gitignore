@@ -24,3 +24,4 @@ bin/
 *.ncb
 *.suo
 tags
+Makefile
