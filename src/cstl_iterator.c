@@ -24,18 +24,7 @@
 #include <cstl/cstl_def.h>
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
-
-#include <cstl/cstl_iterator_private.h>
-#include <cstl/cstl_iterator.h>
-#include <cstl/cvector.h>
-#include <cstl/clist.h>
-#include <cstl/cdeque.h>
-#include <cstl/cslist.h>
-#include <cstl/cset.h>
-#include <cstl/cmap.h>
-#include <cstl/chash_set.h>
-#include <cstl/chash_map.h>
-#include <cstl/cstring.h>
+#include <cstl/citerator.h>
 
 /** local constant declaration and local macro section **/
 

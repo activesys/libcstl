@@ -575,6 +575,7 @@ void test_map_init_copy_range__other_container_range_not_same_type(void** state)
     pair_destroy(ppair);
 }
 
+/*
 void test_map_init_copy_range__other_container_range_not_pair(void** state)
 {
     map_t* pmap = create_map(int, int);
@@ -590,6 +591,7 @@ void test_map_init_copy_range__other_container_range_not_pair(void** state)
     map_destroy(pmap);
     vector_destroy(pvec);
 }
+*/
 
 /*
  * test map_init_copy_array
@@ -733,6 +735,7 @@ void test_map_init_copy_array__non_empty_dup(void** state)
     }
 }
 
+/*
 void test_map_init_copy_array__array_not_pair(void** state)
 {
     int an_array[10] = {0};
@@ -746,6 +749,7 @@ void test_map_init_copy_array__array_not_pair(void** state)
 
     map_destroy(pmap);
 }
+*/
 
 /*
  * test map_init_copy_range_ex
@@ -1031,6 +1035,7 @@ void test_map_init_copy_range_ex__other_container_range_not_same_type(void** sta
     pair_destroy(ppair);
 }
 
+/*
 void test_map_init_copy_range_ex__other_container_range_not_pair(void** state)
 {
     map_t* pmap = create_map(int, int);
@@ -1046,6 +1051,7 @@ void test_map_init_copy_range_ex__other_container_range_not_pair(void** state)
     map_destroy(pmap);
     vector_destroy(pvec);
 }
+*/
 
 /*
  * test map_init_copy_array_ex
@@ -1220,6 +1226,7 @@ void test_map_init_copy_array_ex__compare(void** state)
     }
 }
 
+/*
 void test_map_init_copy_array_ex__array_not_pair(void** state)
 {
     int an_array[10] = {0};
@@ -1233,6 +1240,7 @@ void test_map_init_copy_array_ex__array_not_pair(void** state)
 
     map_destroy(pmap);
 }
+*/
 
 /*
  * test map_destroy
@@ -5243,6 +5251,7 @@ void test_map_insert_range__other_container_range_not_same_type(void** state)
     pair_destroy(ppair);
 }
 
+/*
 void test_map_insert_range__other_container_range_not_pair(void** state)
 {
     map_t* pmap = create_map(int, int);
@@ -5259,6 +5268,7 @@ void test_map_insert_range__other_container_range_not_pair(void** state)
     map_destroy(pmap);
     vector_destroy(pvec);
 }
+*/
 
 /*
  * test map_insert_array
@@ -5448,6 +5458,7 @@ void test_map_insert_array__non_empty_src_dup(void** state)
     }
 }
 
+/*
 void test_map_insert_array__array_not_pair(void** state)
 {
     int i = 0;
@@ -5462,6 +5473,7 @@ void test_map_insert_array__array_not_pair(void** state)
 
     map_destroy(pmap);
 }
+*/
 
 /*
  * test map_erase_pos

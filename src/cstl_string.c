@@ -21,18 +21,7 @@
  */
 
 /** include section **/
-#include <cstl/cstl_def.h>
-#include <cstl/cstl_alloc.h>
-#include <cstl/cstl_types.h>
-#include <cstl/citerator.h>
-#include <cstl/cvector.h>
-
-#include <cstl/cstl_basic_string_iterator.h>
-#include <cstl/cstl_basic_string_private.h>
-#include <cstl/cstl_basic_string.h>
-#include <cstl/cstl_string_iterator.h>
-#include <cstl/cstl_string_private.h>
-#include <cstl/cstl_string.h>
+#include <cstl/cstring.h>
 
 /** local constant declaration and local macro section **/
 

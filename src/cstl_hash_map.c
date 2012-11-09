@@ -25,17 +25,8 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-
-#include <cstl/cvector.h>
-#include <cstl/cstl_hashtable_iterator.h>
-#include <cstl/cstl_hashtable_private.h>
-#include <cstl/cstl_hashtable.h>
-#include <cstl/cutility.h>
 #include <cstl/cstring.h>
-
-#include <cstl/cstl_hash_map_iterator.h>
-#include <cstl/cstl_hash_map_private.h>
-#include <cstl/cstl_hash_map.h>
+#include <cstl/chash_map.h>
 
 #include "cstl_hash_map_aux.h"
 

@@ -21,12 +21,7 @@
  */
 
 /** include section **/
-#include <cstl/cdeque.h>
-#include <cstl/clist.h>
-#include <cstl/cvector.h>
-
-#include <cstl/cstl_queue_private.h>
-#include <cstl/cstl_queue.h>
+#include <cstl/cqueue.h>
 
 /** local constant declaration and local macro section **/
 

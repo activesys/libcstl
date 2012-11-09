@@ -25,15 +25,7 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-
-#include <cstl/cvector.h>
-#include <cstl/cstl_hashtable_iterator.h>
-#include <cstl/cstl_hashtable_private.h>
-#include <cstl/cstl_hashtable.h>
-
-#include <cstl/cstl_hash_multiset_iterator.h>
-#include <cstl/cstl_hash_multiset_private.h>
-#include <cstl/cstl_hash_multiset.h>
+#include <cstl/chash_set.h>
 
 #include "cstl_hash_multiset_aux.h"
 

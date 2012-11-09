@@ -541,6 +541,7 @@ void test_multimap_init_copy_range__other_container_range_not_same_type(void** s
     pair_destroy(ppair);
 }
 
+/*
 void test_multimap_init_copy_range__other_container_range_not_pair(void** state)
 {
     multimap_t* pmmap = create_multimap(int, int);
@@ -556,6 +557,7 @@ void test_multimap_init_copy_range__other_container_range_not_pair(void** state)
     multimap_destroy(pmmap);
     vector_destroy(pvec);
 }
+*/
 
 /*
  * test multimap_init_copy_array
@@ -699,6 +701,7 @@ void test_multimap_init_copy_array__non_empty_dup(void** state)
     }
 }
 
+/*
 void test_multimap_init_copy_array__array_not_pair(void** state)
 {
     int i = 0;
@@ -712,6 +715,7 @@ void test_multimap_init_copy_array__array_not_pair(void** state)
 
     multimap_destroy(pmmap);
 }
+*/
 
 /*
  * test multimap_init_copy_range_ex
@@ -963,6 +967,7 @@ void test_multimap_init_copy_range_ex__other_container_range_not_same_type(void*
     pair_destroy(ppair);
 }
 
+/*
 void test_multimap_init_copy_range_ex__other_container_range_not_pair(void** state)
 {
     multimap_t* pmmap = create_multimap(int, int);
@@ -978,6 +983,7 @@ void test_multimap_init_copy_range_ex__other_container_range_not_pair(void** sta
     multimap_destroy(pmmap);
     vector_destroy(pvec);
 }
+*/
 
 /*
  * test multimap_init_copy_array_ex
@@ -1150,6 +1156,7 @@ void test_multimap_init_copy_array_ex__compare(void** state)
     }
 }
 
+/*
 void test_multimap_init_copy_array_ex__array_not_pair(void** state)
 {
     int an_array[10] = {0};
@@ -1163,6 +1170,7 @@ void test_multimap_init_copy_array_ex__array_not_pair(void** state)
 
     multimap_destroy(pmmap);
 }
+*/
 
 /*
  * test multimap_destroy
@@ -5173,6 +5181,7 @@ void test_multimap_insert_range__other_container_range_not_same_type(void** stat
     pair_destroy(ppair);
 }
 
+/*
 void test_multimap_insert_range__other_container_range_not_pair(void** state)
 {
     multimap_t* pmmap = create_multimap(int, int);
@@ -5189,6 +5198,7 @@ void test_multimap_insert_range__other_container_range_not_pair(void** state)
     multimap_destroy(pmmap);
     vector_destroy(pvec);
 }
+*/
 
 /*
  * test multimap_insert_array
@@ -5379,6 +5389,7 @@ void test_multimap_insert_array__non_empty_src_dup(void** state)
     }
 }
 
+/*
 void test_multimap_insert_array__array_not_pair(void** state)
 {
     int an_array[10] = {0};
@@ -5393,6 +5404,7 @@ void test_multimap_insert_array__array_not_pair(void** state)
 
     multimap_destroy(pmmap);
 }
+*/
 
 /*
  * test multimap_erase_pos

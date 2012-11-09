@@ -25,22 +25,8 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-
-#ifdef CSTL_MAP_AVL_TREE
-#include <cstl/cstl_avl_tree_iterator.h>
-#include <cstl/cstl_avl_tree_private.h>
-#include <cstl/cstl_avl_tree.h>
-#else
-#include <cstl/cstl_rb_tree_iterator.h>
-#include <cstl/cstl_rb_tree_private.h>
-#include <cstl/cstl_rb_tree.h>
-#endif
-#include <cstl/cutility.h>
 #include <cstl/cstring.h>
-
-#include <cstl/cstl_map_iterator.h>
-#include <cstl/cstl_map_private.h>
-#include <cstl/cstl_map.h>
+#include <cstl/cmap.h>
 
 #include "cstl_map_aux.h"
 

@@ -592,7 +592,7 @@ void test__rb_tree_same_rb_tree_iterator_type_ex__non_created(void** state)
     _rb_tree_t rbtree;
 
     _rb_tree_init(pt_rb_tree, NULL);
-    rbtree._t_rbroot._t_color = RED;
+    rbtree._t_rbroot._t_color = BLACK;
     expect_assert_failure(_rb_tree_same_rb_tree_iterator_type_ex(&rbtree, _rb_tree_begin(pt_rb_tree)));
 
     _rb_tree_destroy(pt_rb_tree);

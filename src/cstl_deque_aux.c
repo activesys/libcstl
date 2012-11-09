@@ -25,12 +25,8 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-
-#include <cstl/cstl_deque_iterator.h>
-#include <cstl/cstl_deque_private.h>
-#include <cstl/cstl_deque.h>
-
 #include <cstl/cstring.h>
+#include <cstl/cdeque.h>
 
 #include "cstl_deque_aux.h"
 

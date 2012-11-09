@@ -308,7 +308,7 @@ void test__type_get_varg_value__long(void** state)
     long l_result = 0;
     _test__get_type(&t_info, "long");
     t_info._t_style = _TYPE_C_BUILTIN;
-    _test__type_get_varg_value__stub(&l_result, &t_info, -3333);
+    _test__type_get_varg_value__stub(&l_result, &t_info, -3333l);
     assert_true(l_result == -3333);
 }
 

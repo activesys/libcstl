@@ -25,20 +25,7 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-
-#ifdef CSTL_MULTISET_AVL_TREE
-#include <cstl/cstl_avl_tree_iterator.h>
-#include <cstl/cstl_avl_tree_private.h>
-#include <cstl/cstl_avl_tree.h>
-#else
-#include <cstl/cstl_rb_tree_iterator.h>
-#include <cstl/cstl_rb_tree_private.h>
-#include <cstl/cstl_rb_tree.h>
-#endif
-
-#include <cstl/cstl_multiset_iterator.h>
-#include <cstl/cstl_multiset_private.h>
-#include <cstl/cstl_multiset.h>
+#include <cstl/cset.h>
 
 #include "cstl_multiset_aux.h"
 

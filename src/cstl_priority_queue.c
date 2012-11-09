@@ -25,9 +25,7 @@
 #include <cstl/cfunctional.h>
 #include <cstl/cutility.h>
 #include <cstl/calgorithm.h>
-
-#include <cstl/cstl_priority_queue_private.h>
-#include <cstl/cstl_priority_queue.h>
+#include <cstl/cqueue.h>
 
 /** local constant declaration and local macro section **/
 

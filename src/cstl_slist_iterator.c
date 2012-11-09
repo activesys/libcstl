@@ -26,12 +26,8 @@
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
 #include <cstl/cfunctional.h>
-
-#include <cstl/cstl_slist_iterator.h>
-#include <cstl/cstl_slist_private.h>
-#include <cstl/cstl_slist.h>
-
 #include <cstl/cstring.h>
+#include <cstl/cslist.h>
 
 #include "cstl_slist_aux.h"
 

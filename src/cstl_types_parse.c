@@ -31,10 +31,10 @@
 
 /** local constant declaration and local macro section **/
 #define _TOKEN_MATCH(s_tokentext, s_formalname)\
-    do{\
+    do {\
         assert(strncmp(_gt_typeanalysis._s_tokentext, s_tokentext, _TYPE_NAME_SIZE) == 0);\
         strncat(s_formalname, _gt_typeanalysis._s_tokentext, _TYPE_NAME_SIZE);\
-    }while(false)
+    } while (false)
 #define _TOKEN_MATCH_SPACE(s_formalname)\
     strncat(s_formalname, _TOKEN_TEXT_SPACE, _TYPE_NAME_SIZE)
 #define _TOKEN_MATCH_IDENTIFIER(s_formalname)\

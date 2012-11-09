@@ -33,5 +33,4 @@ libcstl_la_SOURCES = \
              cstl_types.c cstl_types_builtin.c cstl_types_builtin.h cstl_types_parse.c cstl_types_parse.h cstl_types_aux.c cstl_types_aux.h \
              cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
-libcstl_la_CFLAGS = -Wall -Wextra
 libcstl_la_LDFLAGS = -version-info 4:0:2

@@ -25,12 +25,11 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
+#include <cstl/cstring.h>
 
 #include <cstl/cstl_rb_tree_iterator.h>
 #include <cstl/cstl_rb_tree_private.h>
 #include <cstl/cstl_rb_tree.h>
-
-#include <cstl/cstring.h>
 
 #include "cstl_rb_tree_aux.h"
 
