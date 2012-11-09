@@ -209,16 +209,16 @@ OTOOL64 =
 PACKAGE = libcstl
 PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
-PACKAGE_STRING = libcstl 2.2.0
+PACKAGE_STRING = libcstl 2.1.1
 PACKAGE_TARNAME = libcstl
-PACKAGE_VERSION = 2.2.0
+PACKAGE_VERSION = 2.1.1
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 2.2.0
+VERSION = 2.1.1
 abs_builddir = /home/wb/Projects/git/libcstl/src
 abs_srcdir = /home/wb/Projects/git/libcstl/src
 abs_top_builddir = /home/wb/Projects/git/libcstl
@@ -308,7 +308,7 @@ libcstl_la_SOURCES = \
              cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
 
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
-libcstl_la_LDFLAGS = -version-info 4:0:2
+libcstl_la_LDFLAGS = -version-info 3:1:1
 all: all-am
 
 .SUFFIXES:
