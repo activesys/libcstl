@@ -102,10 +102,13 @@
 #include "ut_cstl_numeric.h"
 #include "ut_cstl_function_private.h"
 #include "ut_cstl_function.h"
+#include "ut_cstl_priority_queue_private.h"
+#include "ut_cstl_priority_queue.h"
 
 int main(int argc, char* argv[])
 {
     const UnitTest tests[] = {
+        /*
         UT_CSTL_ALLOC_AUX_CASE,
         UT_CSTL_ALLOC_CASE,
         UT_CSTL_VECTOR_ITERATOR_CASE,
@@ -199,7 +202,10 @@ int main(int argc, char* argv[])
         UT_CSTL_ALGO_SORTING_CASE,
         UT_CSTL_NUMERIC_PRIVATE_CASE,
         UT_CSTL_NUMERIC_CASE,
-        UT_CSTL_FUNCTION_PRIVATE_CASE
+        UT_CSTL_FUNCTION_PRIVATE_CASE,
+        */
+        UT_CSTL_PRIORITY_QUEUE_PRIVATE_CASE,
+        UT_CSTL_PRIORITY_QUEUE_CASE
     };
 
     return run_tests(tests);

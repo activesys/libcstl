@@ -142,7 +142,9 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
          ut_cstl_numeric_private.c ut_cstl_numeric_private.h \
          ut_cstl_numeric.c ut_cstl_numeric.h \
          ut_cstl_function_private.c ut_cstl_function_private.h \
-         ut_cstl_function.c ut_cstl_function.h
+         ut_cstl_function.c ut_cstl_function.h \
+         ut_cstl_priority_queue_private.c ut_cstl_priority_queue_private.h \
+         ut_cstl_priority_queue.c ut_cstl_priority_queue.h
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
 TESTS = $(check_PROGRAMS)
