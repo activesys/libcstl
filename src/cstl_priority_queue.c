@@ -49,12 +49,12 @@ void priority_queue_init(priority_queue_t* ppque_pqueue)
 /**
  * Initialize an empty priority queue adaptor with user define priority rule.
  */
-void priority_queue_init_ex(priority_queue_t* ppque_pqueue, binary_function_t t_binary_op)
+void priority_queue_init_ex(priority_queue_t* ppque_pqueue, binary_function_t bfun_op)
 {
     assert(ppque_pqueue != NULL);
 
-    vector_init(&ppque_pqueue->_t_vector);
-    ppque_pqueue->_t_binary_op = t_binary_op;
+    vector_init(&ppque_pqueue->_vec_base);
+    ppque_pqueue->_bfun_priority = bfun_op;
 }
 
 /**
@@ -74,8 +74,8 @@ void priority_queue_init_copy(priority_queue_t* ppque_dest, const priority_queue
     assert(ppque_dest != NULL);
     assert(cppque_src != NULL);
 
-    vector_init_copy(&ppque_dest->_t_vector, &cppque_src->_t_vector);
-    ppque_dest->_t_binary_op = cppque_src->_t_binary_op;
+    vector_init_copy(&ppque_dest->_vec_base, &cppque_src->_vec_base);
+    ppque_dest->_bfun_priority = cppque_src->_bfun_priority;
 }
 
 /**
@@ -93,57 +93,83 @@ void priority_queue_init_copy_range_ex(priority_queue_t* ppque_dest, input_itera
 {
     assert(ppque_dest != NULL);
 
-    vector_init_copy_range(&ppque_dest->_t_vector, it_first, it_last);
-    ppque_dest->_t_binary_op = bfun_op;
-    algo_make_heap_if(vector_begin(&ppque_dest->_t_vector), vector_end(&ppque_dest->_t_vector), ppque_dest->_t_binary_op);
+    vector_init_copy_range(&ppque_dest->_vec_base, it_first, it_last);
+    ppque_dest->_bfun_priority = bfun_op;
+    algo_make_heap_if(vector_begin(&ppque_dest->_vec_base), vector_end(&ppque_dest->_vec_base), ppque_dest->_bfun_priority);
 }
 
-void priority_queue_assign(
-    priority_queue_t* ppque_pqueuedest, const priority_queue_t* cppque_pqueuesrc)
+/**
+ * Initialize an priority queue adaptor from an exist array.
+ */
+void priority_queue_init_copy_array(priority_queue_t* ppque_dest, const void* cpv_array, size_t t_count)
 {
-    assert(ppque_pqueuedest != NULL && cppque_pqueuesrc != NULL);
-
-    vector_assign(&ppque_pqueuedest->_t_vector, &cppque_pqueuesrc->_t_vector);
-    ppque_pqueuedest->_t_binary_op = cppque_pqueuesrc->_t_binary_op;
+    priority_queue_init_copy_array_ex(ppque_dest, cpv_array, t_count, NULL);
 }
 
+/**
+ * Initialize an priority queue adaptor from an exist array with user define priority rule.
+ */
+void priority_queue_init_copy_array_ex(priority_queue_t* ppque_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_op)
+{
+    assert(ppque_dest != NULL);
+    assert(cpv_array != NULL);
+
+    vector_init_copy_array(&ppque_dest->_vec_base, cpv_array, t_count);
+    ppque_dest->_bfun_priority = bfun_op;
+    algo_make_heap_if(vector_begin(&ppque_dest->_vec_base), vector_end(&ppque_dest->_vec_base), ppque_dest->_bfun_priority);
+}
+
+/**
+ * Assign priority queue adaptor from exist.
+ */
+void priority_queue_assign(priority_queue_t* ppque_dest, const priority_queue_t* cppque_src)
+{
+    assert(ppque_dest != NULL);
+    assert(cppque_src != NULL);
+    assert(ppque_dest->_bfun_priority == cppque_src->_bfun_priority);
+
+    vector_assign(&ppque_dest->_vec_base, &cppque_src->_vec_base);
+}
+
+/**
+ * Tests if a priority_queue is empty.
+ */
 bool_t priority_queue_empty(const priority_queue_t* cppque_pqueue)
 {
     assert(cppque_pqueue != NULL);
 
-    return vector_empty(&cppque_pqueue->_t_vector);
+    return vector_empty(&cppque_pqueue->_vec_base);
 }
 
+/**
+ * Returns the number of elements in the priority_queue.
+ */
 size_t priority_queue_size(const priority_queue_t* cppque_pqueue)
 {
     assert(cppque_pqueue != NULL);
 
-    return vector_size(&cppque_pqueue->_t_vector);
+    return vector_size(&cppque_pqueue->_vec_base);
 }
 
+/**
+ * Returns a const reference to the largest element at the top of the priority_queue.
+ */
 void* priority_queue_top(const priority_queue_t* cppque_pqueue)
 {
     assert(cppque_pqueue != NULL);
 
-    return vector_front(&cppque_pqueue->_t_vector);
+    return vector_front(&cppque_pqueue->_vec_base);
 }
 
+/**
+ * Removes the largest element of the priority_queue from the top position.
+ */
 void priority_queue_pop(priority_queue_t* ppque_pqueue)
 {
     assert(ppque_pqueue != NULL);
 
-    if(ppque_pqueue->_t_binary_op == NULL)
-    {
-        algo_pop_heap(
-            vector_begin(&ppque_pqueue->_t_vector), vector_end(&ppque_pqueue->_t_vector));
-    }
-    else
-    {
-        algo_pop_heap_if(
-            vector_begin(&ppque_pqueue->_t_vector), vector_end(&ppque_pqueue->_t_vector),
-            ppque_pqueue->_t_binary_op);
-    }
-    vector_pop_back(&ppque_pqueue->_t_vector);
+    algo_pop_heap_if(vector_begin(&ppque_pqueue->_vec_base), vector_end(&ppque_pqueue->_vec_base), ppque_pqueue->_bfun_priority);
+    vector_pop_back(&ppque_pqueue->_vec_base);
 }
 
 /** local function implementation section **/

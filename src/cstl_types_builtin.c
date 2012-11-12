@@ -618,7 +618,7 @@ void _type_copy_priority_queue(const void* cpv_first, const void* cpv_second, vo
 void _type_less_priority_queue(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
-    *(bool_t*)pv_output = vector_less(&((priority_queue_t*)cpv_first)->_t_vector, &((priority_queue_t*)cpv_second)->_t_vector);
+    *(bool_t*)pv_output = vector_less(&((priority_queue_t*)cpv_first)->_vec_base, &((priority_queue_t*)cpv_second)->_vec_base);
 }
 
 void _type_destroy_priority_queue(const void* cpv_input, void* pv_output)

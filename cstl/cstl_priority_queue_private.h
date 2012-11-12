@@ -33,8 +33,8 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef struct _tagpriority_queue
 {
-    vector_t          _t_vector;
-    binary_function_t _t_binary_op;
+    vector_t          _vec_base;
+    binary_function_t _bfun_priority;
 }priority_queue_t;
 
 /** exported global variable declaration section **/

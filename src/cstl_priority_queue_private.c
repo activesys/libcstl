@@ -67,10 +67,10 @@ bool_t _create_priority_queue_auxiliary(priority_queue_t* ppque_pqueue,  const c
     assert(ppque_pqueue != NULL);
     assert(s_typename != NULL);
 
-    if (!_create_vector_auxiliary(&ppque_pqueue->_t_vector, s_typename)) {
+    if (!_create_vector_auxiliary(&ppque_pqueue->_vec_base, s_typename)) {
         return false;
     }
-    ppque_pqueue->_t_binary_op = NULL;
+    ppque_pqueue->_bfun_priority = NULL;
 
     return true;
 }
@@ -82,8 +82,8 @@ void _priority_queue_destroy_auxiliary(priority_queue_t* ppque_pqueue)
 {
     assert(ppque_pqueue != NULL);
 
-    _vector_destroy_auxiliary(&ppque_pqueue->_t_vector);
-    ppque_pqueue->_t_binary_op = NULL;
+    _vector_destroy_auxiliary(&ppque_pqueue->_vec_base);
+    ppque_pqueue->_bfun_priority = NULL;
 }
 
 /**
@@ -96,10 +96,10 @@ void _priority_queue_push(priority_queue_t* ppque_pqueue, ...)
     assert(ppque_pqueue != NULL);
 
     va_start(val_elemlist, ppque_pqueue);
-    _vector_push_back_varg(&ppque_pqueue->_t_vector, val_elemlist);
+    _vector_push_back_varg(&ppque_pqueue->_vec_base, val_elemlist);
     va_end(val_elemlist);
 
-    algo_push_heap_if(vector_begin(&ppque_pqueue->_t_vector), vector_end(&ppque_pqueue->_t_vector), ppque_pqueue->_t_binary_op);
+    algo_push_heap_if(vector_begin(&ppque_pqueue->_vec_base), vector_end(&ppque_pqueue->_vec_base), ppque_pqueue->_bfun_priority);
 }
 
 /** local function implementation section **/

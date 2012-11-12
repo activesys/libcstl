@@ -104,6 +104,27 @@ extern void priority_queue_init_copy_range(priority_queue_t* ppque_dest, input_i
 extern void priority_queue_init_copy_range_ex(priority_queue_t* ppque_dest, input_iterator_t it_first, input_iterator_t it_last, binary_function_t bfun_op);
 
 /**
+ * Initialize an priority queue adaptor from an exist array.
+ * @param ppque_dest    destination priority queue adaptor.
+ * @param cpv_array     An exist array.
+ * @param t_count       Element count.
+ * @return void.
+ * @remarks destination priority queue adaptor and source array must be valid, and must be have same element type, otherwise the behavior is undefined.
+ */
+extern void priority_queue_init_copy_array(priority_queue_t* ppque_dest, const void* cpv_array, size_t t_count);
+
+/**
+ * Initialize an priority queue adaptor from an exist array with user define priority rule.
+ * @param ppque_dest    destination priority queue adaptor.
+ * @param cpv_array     An exist array.
+ * @param t_count       Element count.
+ * @param bfun_op       User defined priority rule.
+ * @return void.
+ * @remarks destination priority queue adaptor and source array must be valid, and must be have same element type, otherwise the behavior is undefined.
+ */
+extern void priority_queue_init_copy_array_ex(priority_queue_t* ppque_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_op);
+
+/**
  * Destroy priority queue adaptor.
  * @param ppque_pqueue   priority queue adaptor.
  * @return void.
@@ -112,21 +133,44 @@ extern void priority_queue_init_copy_range_ex(priority_queue_t* ppque_dest, inpu
  */
 extern void priority_queue_destroy(priority_queue_t* ppque_pqueue);
 
-/*
- * Assign operator functions.
+/**
+ * Assign priority queue adaptor from exist.
+ * @param ppque_dest    destination priority queue adaptor.
+ * @param ppque_src     source priority queue_adaptor.
+ * @return void.
+ * @remarks destination and source priority queue adaptor must be valid, and must be have same element type, otherwise the behavior is undefined.
  */
-extern void priority_queue_assign(
-    priority_queue_t* ppque_pqueuedest, const priority_queue_t* cppque_pqueuesrc);
+extern void priority_queue_assign(priority_queue_t* ppque_dest, const priority_queue_t* cppque_src);
 
-/*
- * priority_queue_t size operation functions.
+/**
+ * Tests if a priority_queue is empty.
+ * @param cppque_pqueue     priority queue adaptor.
+ * @reture  true if the priority_queue is empty; false if the priority_queue is nonempty.
+ * @remarks The priority queue adaptor must be valid, otherwise the behavior is undefined.
  */
 extern bool_t priority_queue_empty(const priority_queue_t* cppque_pqueue);
+
+/**
+ * Returns the number of elements in the priority_queue.
+ * @param cppque_pqueue     priority queue adaptor.
+ * @reture  The current length of the priority_queue.
+ * @remarks The priority queue adaptor must be valid, otherwise the behavior is undefined.
+ */
 extern size_t priority_queue_size(const priority_queue_t* cppque_pqueue);
+
+/**
+ * Returns a const reference to the largest element at the top of the priority_queue.
+ * @param cppque_pqueue     priority queue adaptor.
+ * @reture  A const reference to the largest element, as determined by the Traits function, object of the priority_queue.
+ * @remarks The priority queue adaptor must be valid, otherwise the behavior is undefined.
+ */
 extern void* priority_queue_top(const priority_queue_t* cppque_pqueue);
 
-/*
- * Element access functions.
+/**
+ * Removes the largest element of the priority_queue from the top position.
+ * @param cppque_pqueue     priority queue adaptor.
+ * @reture  void.
+ * @remarks The priority queue adaptor must be valid, otherwise the behavior is undefined.
  */
 extern void priority_queue_pop(priority_queue_t* ppque_pqueue);
 

@@ -138,10 +138,10 @@ void test__priority_queue_destroy_auxiliary__non_created_priority_queue_adaptor(
     priority_queue_t* pque = create_priority_queue(int);
 
     priority_queue_init(pque);
-    pque->_t_vector._t_typeinfo._t_style = 9484;
+    pque->_vec_base._t_typeinfo._t_style = 9484;
     expect_assert_failure(_priority_queue_destroy_auxiliary(pque));
 
-    pque->_t_vector._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    pque->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     priority_queue_destroy(pque);
 }
 
@@ -188,10 +188,10 @@ void test__priority_queue_push__non_inited_priority_queue_adaptor(void** state)
 {
     priority_queue_t* pque = create_priority_queue(int);
 
-    pque->_t_vector._t_typeinfo._t_style = 4444;
+    pque->_vec_base._t_typeinfo._t_style = 4444;
     expect_assert_failure(_priority_queue_push(pque, 100));
 
-    pque->_t_vector._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    pque->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     priority_queue_destroy(pque);
 }
 
@@ -203,7 +203,7 @@ void test__priority_queue_push__empty(void** state)
     _priority_queue_push(pque, 100);
     assert_true(priority_queue_size(pque) == 1);
     assert_true(*(int*)priority_queue_top(pque) == 100);
-    assert_true(algo_is_heap(vector_begin(&pque->_t_vector), vector_end(&pque->_t_vector)));
+    assert_true(algo_is_heap(vector_begin(&pque->_vec_base), vector_end(&pque->_vec_base)));
 
     priority_queue_destroy(pque);
 }
@@ -220,7 +220,7 @@ void test__priority_queue_push__non_empty(void** state)
     _priority_queue_push(pque, 1000);
     assert_true(priority_queue_size(pque) == t_oldsize + 1);
     assert_true(*(int*)priority_queue_top(pque) == 1000);
-    assert_true(algo_is_heap(vector_begin(&pque->_t_vector), vector_end(&pque->_t_vector)));
+    assert_true(algo_is_heap(vector_begin(&pque->_vec_base), vector_end(&pque->_vec_base)));
 
     priority_queue_destroy(pque);
 }
@@ -237,7 +237,7 @@ void test__priority_queue_push__non_empty_multiple(void** state)
     _priority_queue_push(pque, 100);
     assert_true(priority_queue_size(pque) == t_oldsize + 1);
     assert_true(*(int*)priority_queue_top(pque) == 100);
-    assert_true(algo_is_heap_if(vector_begin(&pque->_t_vector), vector_end(&pque->_t_vector), fun_greater_int));
+    assert_true(algo_is_heap_if(vector_begin(&pque->_vec_base), vector_end(&pque->_vec_base), fun_greater_int));
 
     priority_queue_destroy(pque);
 }
