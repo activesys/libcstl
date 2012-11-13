@@ -230,19 +230,27 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\cstl\cstl_algo.h"
+				RelativePath="..\..\cstl\cstl_algo_mutating.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\cstl\cstl_algo_private.h"
+				RelativePath="..\..\cstl\cstl_algo_mutating_private.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\cstl\cstl_algobase.h"
+				RelativePath="..\..\cstl\cstl_algo_nonmutating.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\cstl\cstl_algobase_private.h"
+				RelativePath="..\..\cstl\cstl_algo_nonmutating_private.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cstl\cstl_algo_sorting.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cstl\cstl_algo_sorting_private.h"
 				>
 			</File>
 			<File
@@ -544,11 +552,43 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\..\src\cstl_algo.c"
+				RelativePath="..\..\src\cstl_algo_mutating.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\cstl_algobase.c"
+				RelativePath="..\..\src\cstl_algo_mutating_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_algo_mutating_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_algo_mutating_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_algo_nonmutating.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_algo_nonmutating_private.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_algo_sorting.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_algo_sorting_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_algo_sorting_aux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_algo_sorting_private.c"
 				>
 			</File>
 			<File
@@ -625,6 +665,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_function.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_function_private.c"
 				>
 			</File>
 			<File
@@ -732,6 +776,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\cstl_heap_aux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_heap_aux.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\cstl_iterator.c"
 				>
 			</File>
@@ -825,6 +877,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cstl_numeric.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\cstl_numeric_private.c"
 				>
 			</File>
 			<File

@@ -1052,7 +1052,7 @@ void test_algo_transform__ufun_NULL(void** state)
     vector_t* pvec = create_vector(int);
     vector_t* pvec_result = create_vector(int);
     int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-    int i = 0;
+    size_t i = 0;
     iterator_t it;
 
     vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));

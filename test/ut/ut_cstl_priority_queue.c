@@ -121,9 +121,9 @@ void test_priority_queue_init_copy__src_not_init(void** state)
     priority_queue_t* ppque_src = create_priority_queue(int);
 
     priority_queue_init(ppque_src);
-    ppque_src->_vec_base._pby_start = 0x100;
+    ppque_src->_vec_base._pby_start = (void*)0x100;
     expect_assert_failure(priority_queue_init_copy(ppque_dest, ppque_src));
-    ppque_src->_vec_base._pby_start = 0x00;
+    ppque_src->_vec_base._pby_start = NULL;
     priority_queue_destroy(ppque_dest);
     priority_queue_destroy(ppque_src);
 }
@@ -344,9 +344,9 @@ void test_priority_queue_assign__dest_not_init(void** state)
 
     priority_queue_init(ppque_dest);
     priority_queue_init(ppque_src);
-    ppque_dest->_vec_base._pby_start = 0x100;
+    ppque_dest->_vec_base._pby_start = (void*)0x100;
     expect_assert_failure(priority_queue_assign(ppque_dest, ppque_src));
-    ppque_dest->_vec_base._pby_start = 0x00;
+    ppque_dest->_vec_base._pby_start = NULL;
     priority_queue_destroy(ppque_dest);
     priority_queue_destroy(ppque_src);
 }
@@ -358,9 +358,9 @@ void test_priority_queue_assign__src_not_init(void** state)
 
     priority_queue_init(ppque_dest);
     priority_queue_init(ppque_src);
-    ppque_src->_vec_base._pby_start = 0x100;
+    ppque_src->_vec_base._pby_start = (void*)0x100;
     expect_assert_failure(priority_queue_assign(ppque_dest, ppque_src));
-    ppque_src->_vec_base._pby_start = 0x00;
+    ppque_src->_vec_base._pby_start = NULL;
     priority_queue_destroy(ppque_dest);
     priority_queue_destroy(ppque_src);
 }
@@ -435,9 +435,9 @@ void test_priority_queue_empty__not_init(void** state)
     priority_queue_t* ppque = create_priority_queue(int);
 
     priority_queue_init(ppque);
-    ppque->_vec_base._pby_start = 0x100;
+    ppque->_vec_base._pby_start = (void*)0x100;
     expect_assert_failure(priority_queue_empty(ppque));
-    ppque->_vec_base._pby_start = 0x00;
+    ppque->_vec_base._pby_start = NULL;
     priority_queue_destroy(ppque);
 }
 
@@ -474,9 +474,9 @@ void test_priority_queue_size__not_init(void** state)
     priority_queue_t* ppque = create_priority_queue(int);
 
     priority_queue_init(ppque);
-    ppque->_vec_base._pby_start = 0x100;
+    ppque->_vec_base._pby_start = (void*)0x100;
     expect_assert_failure(priority_queue_size(ppque));
-    ppque->_vec_base._pby_start = 0x00;
+    ppque->_vec_base._pby_start = NULL;
     priority_queue_destroy(ppque);
 }
 
@@ -513,9 +513,9 @@ void test_priority_queue_top__not_init(void** state)
     priority_queue_t* ppque = create_priority_queue(int);
 
     priority_queue_init(ppque);
-    ppque->_vec_base._pby_start = 0x100;
+    ppque->_vec_base._pby_start = (void*)0x100;
     expect_assert_failure(priority_queue_top(ppque));
-    ppque->_vec_base._pby_start = 0x00;
+    ppque->_vec_base._pby_start = NULL;
     priority_queue_destroy(ppque);
 }
 
@@ -552,9 +552,9 @@ void test_priority_queue_pop__not_init(void** state)
     priority_queue_t* ppque = create_priority_queue(int);
 
     priority_queue_init(ppque);
-    ppque->_vec_base._pby_start = 0x100;
+    ppque->_vec_base._pby_start = (void*)0x100;
     expect_assert_failure(priority_queue_pop(ppque));
-    ppque->_vec_base._pby_start = 0x00;
+    ppque->_vec_base._pby_start = NULL;
     priority_queue_destroy(ppque);
 }
 

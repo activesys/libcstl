@@ -2884,7 +2884,6 @@ void test_algo_nth_element__last(void** state)
 {
     deque_t* pdeq = create_deque(int);
     int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
-    iterator_t it;
     bool_t b_result = false;
 
     deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
@@ -3011,7 +3010,6 @@ void test_algo_nth_element_if__last(void** state)
 {
     deque_t* pdeq = create_deque(int);
     int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
-    iterator_t it;
     bool_t b_result = false;
 
     deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
@@ -3081,7 +3079,6 @@ void test_algo_nth_element_if__bfun_NULL_last(void** state)
 {
     deque_t* pdeq = create_deque(int);
     int an_array[] = {8, 4, 7, 2, 1, 6, 0, 5, 3, 9};
-    iterator_t it;
     bool_t b_result = false;
 
     deque_init_copy_array(pdeq, an_array, sizeof(an_array)/sizeof(an_array[0]));
