@@ -3436,6 +3436,7 @@ void test_algo_reverse_copy__one(void** state)
     assert_true(deque_size(pdeq) == 1);
     assert_true(*(int*)deque_front(pdeq) == 100);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_reverse_copy__reverse_copy(void** state)
@@ -3455,6 +3456,7 @@ void test_algo_reverse_copy__reverse_copy(void** state)
     assert_true(deque_equal(pdeq_dest, pdeq_result));
     deque_destroy(pdeq_src);
     deque_destroy(pdeq_result);
+    deque_destroy(pdeq_dest);
 }
 
 /*

@@ -126,6 +126,7 @@ void test__hashtable_iterator_get_value__cstr(void** state)
     assert_true(strcmp(p, "abc") == 0);
 
     _hashtable_destroy(pt_hashtable);
+    string_destroy(pstr);
 }
 
 void test__hashtable_iterator_get_value__libcstl_builtin(void** state)
@@ -143,6 +144,7 @@ void test__hashtable_iterator_get_value__libcstl_builtin(void** state)
     assert_true(vector_size(pvec) == 10);
 
     _hashtable_destroy(pt_hashtable);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__hashtable_iterator_get_value__user_define
@@ -243,6 +245,7 @@ void test__hashtable_iterator_get_pointer__cstr(void** state)
     assert_true(strcmp((char*)_hashtable_iterator_get_pointer(it_iter), "abc") == 0);
 
     _hashtable_destroy(pt_hashtable);
+    string_destroy(pstr);
 }
 
 void test__hashtable_iterator_get_pointer__libcstl_builtin(void** state)
@@ -258,6 +261,7 @@ void test__hashtable_iterator_get_pointer__libcstl_builtin(void** state)
     assert_true(vector_size((vector_t*)_hashtable_iterator_get_pointer(it_iter)) == 10);
 
     _hashtable_destroy(pt_hashtable);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__hashtable_iterator_get_pointer__user_define
@@ -356,6 +360,7 @@ void test__hashtable_iterator_get_pointer_ignore_cstr__cstr(void** state)
     assert_true(strcmp(string_c_str(_hashtable_iterator_get_pointer_ignore_cstr(it_iter)), "abc") == 0);
 
     _hashtable_destroy(pt_hashtable);
+    string_destroy(pstr);
 }
 
 void test__hashtable_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
@@ -371,6 +376,7 @@ void test__hashtable_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** st
     assert_true(vector_size((vector_t*)_hashtable_iterator_get_pointer_ignore_cstr(it_iter)) == 10);
 
     _hashtable_destroy(pt_hashtable);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__hashtable_iterator_get_pointer_ignore_cstr__user_define

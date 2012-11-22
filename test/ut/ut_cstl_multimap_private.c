@@ -2176,7 +2176,7 @@ void test__multimap_init_elem_auxiliary__successfully_cstr(void** state)
     multimap_t* pmultimap = create_multimap(char*, char*);
     pair_t* pt_pair = create_pair(char*, char*);
     multimap_init_ex(pmultimap, NULL);
-    pair_init(pt_pair);
+    /*pair_init(pt_pair);*/
 
     _multimap_init_elem_auxiliary(pmultimap, pt_pair);
     assert_true(strcmp((char*)pair_first(pt_pair), "") == 0);
@@ -2192,7 +2192,7 @@ void test__multimap_init_elem_auxiliary__successfully_iterator(void** state)
     multimap_t* pmultimap = create_multimap(iterator_t, iterator_t);
     pair_t* pt_pair = create_pair(iterator_t, iterator_t);
     multimap_init_ex(pmultimap, NULL);
-    pair_init(pt_pair);
+    /*pair_init(pt_pair);*/
 
     _multimap_init_elem_auxiliary(pmultimap, pt_pair);
     memset(&it_iter, 0x00, sizeof(iterator_t));

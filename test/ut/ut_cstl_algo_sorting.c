@@ -5599,6 +5599,7 @@ void test_algo_lexicographical_compare__less(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare__greater(void** state)
@@ -5612,6 +5613,7 @@ void test_algo_lexicographical_compare__greater(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_false(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare__equal(void** state)
@@ -5625,6 +5627,7 @@ void test_algo_lexicographical_compare__equal(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_false(algo_lexicographical_compare(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 /*
@@ -5717,6 +5720,7 @@ void test_algo_lexicographical_compare_if__bfun_NULL_less(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_if__bfun_NULL_greater(void** state)
@@ -5730,6 +5734,7 @@ void test_algo_lexicographical_compare_if__bfun_NULL_greater(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_if__bfun_NULL_equal(void** state)
@@ -5743,6 +5748,7 @@ void test_algo_lexicographical_compare_if__bfun_NULL_equal(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_if__less(void** state)
@@ -5756,6 +5762,7 @@ void test_algo_lexicographical_compare_if__less(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_if__greater(void** state)
@@ -5769,6 +5776,7 @@ void test_algo_lexicographical_compare_if__greater(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_if__equal(void** state)
@@ -5782,6 +5790,7 @@ void test_algo_lexicographical_compare_if__equal(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_false(algo_lexicographical_compare_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int));
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 /*
@@ -5874,6 +5883,7 @@ void test_algo_lexicographical_compare_3way__less(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) < 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_3way__greater(void** state)
@@ -5887,6 +5897,7 @@ void test_algo_lexicographical_compare_3way__greater(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) > 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_3way__equal(void** state)
@@ -5900,6 +5911,7 @@ void test_algo_lexicographical_compare_3way__equal(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist)) == 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 /*
@@ -5992,6 +6004,7 @@ void test_algo_lexicographical_compare_3way_if__bfun_NULL_less(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL) < 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_3way_if__bfun_NULL_greater(void** state)
@@ -6005,6 +6018,7 @@ void test_algo_lexicographical_compare_3way_if__bfun_NULL_greater(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL) > 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_3way_if__bfun_NULL_equal(void** state)
@@ -6018,6 +6032,7 @@ void test_algo_lexicographical_compare_3way_if__bfun_NULL_equal(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), NULL) == 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_3way_if__less(void** state)
@@ -6031,6 +6046,7 @@ void test_algo_lexicographical_compare_3way_if__less(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) < 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_3way_if__greater(void** state)
@@ -6044,6 +6060,7 @@ void test_algo_lexicographical_compare_3way_if__greater(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) > 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_lexicographical_compare_3way_if__equal(void** state)
@@ -6057,6 +6074,7 @@ void test_algo_lexicographical_compare_3way_if__equal(void** state)
     list_init_copy_array(plist, an_second, sizeof(an_second)/sizeof(an_second[0]));
     assert_true(algo_lexicographical_compare_3way_if(deque_begin(pdeq), deque_end(pdeq), list_begin(plist), list_end(plist), fun_greater_int) == 0);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 /*

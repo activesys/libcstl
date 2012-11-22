@@ -5929,5 +5929,7 @@ void test__rb_tree_elem_compare_auxiliary__cstr(void** state)
     assert_true(b_result);
 
     _rb_tree_destroy(pt_rb_tree);
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
 }
 

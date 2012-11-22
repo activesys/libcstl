@@ -1195,5 +1195,7 @@ void test__hashtable_elem_compare_auxiliary__cstr(void** state)
     assert_true(b_result);
 
     _hashtable_destroy(pt_hashtable);
+    string_destroy(pstr_first);
+    string_destroy(pstr_second);
 }
 
