@@ -1,6 +1,6 @@
 /*
  *  The implement of basic string auxiliary function.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -41,6 +41,21 @@ extern "C" {
 #define _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string)            ((pt_basic_string)->_vec_base._t_typeinfo._t_style)
 
 /** data type declaration and struct, union, enum section **/
+/**
+ * This structure is representation of basic_string_t.
+ * and basic_string_t look like this:
+ *
+ *                     _t_length;
+ *                     _t_capacity;
+ *                     _n_refcount;
+ *   _pt_string -----> data
+ */
+typedef struct _tag_basic_string_rep
+{
+    size_t _t_length;
+    size_t _t_capacity;
+    int    _n_refcount;
+}_basic_string_rep_t;
 
 /** exported global variable declaration section **/
 

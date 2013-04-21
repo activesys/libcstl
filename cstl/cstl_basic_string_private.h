@@ -1,6 +1,6 @@
 /*
  *  The private interface of basic_string.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,9 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef struct _tagbasicstring
 {
+    /* comment for 2.2
     vector_t _vec_base;
+    */
 }basic_string_t;
 
 /** exported global variable declaration section **/

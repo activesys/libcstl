@@ -1,6 +1,6 @@
 /*
  *  The implementation of basic_string auxiliary functions.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -50,12 +50,15 @@ bool_t _iterator_belong_to_basic_string(
     const basic_string_t* cpt_basic_string,
     basic_string_iterator_t t_iter)
 {
+    /* comment for 2.2
     assert(cpt_basic_string != NULL);
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(t_iter) == _BASIC_STRING_CONTAINER &&
            _BASIC_STRING_ITERATOR_ITERATOR_TYPE(t_iter) == _RANDOM_ACCESS_ITERATOR &&
            _BASIC_STRING_ITERATOR_CONTAINER(t_iter) == cpt_basic_string);
 
     return true;
+    */
+    return false;
 }
 
 /**
@@ -63,10 +66,13 @@ bool_t _iterator_belong_to_basic_string(
  */
 bool_t _basic_string_same_type(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
+    /* comment for 2.2
     assert(cpt_first != NULL);
     assert(cpt_second != NULL);
 
     return _vector_same_type(&cpt_first->_vec_base, &cpt_second->_vec_base);
+    */
+    return false;
 }
 #endif /* NDEBUG */
 
@@ -75,6 +81,7 @@ bool_t _basic_string_same_type(const basic_string_t* cpt_first, const basic_stri
  */
 size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
+    /* comment for 2.2
     size_t t_typesize = 0;
     size_t t_length = 0;
 
@@ -82,12 +89,12 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
     assert(cpv_value_string != NULL);
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-    /* char type */
+    / * char type * /
     if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _CHAR_TYPE, _TYPE_NAME_SIZE) == 0) {
         assert(t_typesize == 1);
         return strlen(cpv_value_string);
     } else if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
-    /* char* type */
+    / * char* type * /
         char** ps_terminator = NULL;
 
         for (ps_terminator = (char**)cpv_value_string; *ps_terminator != NULL; ++ps_terminator) {
@@ -118,6 +125,8 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
 
         return t_length;
     }
+    */
+    return 0;
 }
 
 /**
@@ -125,11 +134,13 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
  */
 void _basic_string_get_varg_value_auxiliary(basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
 {
+    /* comment for 2.2
     assert(pt_basic_string != NULL);
     assert(pv_varg != NULL);
 
     _basic_string_init_elem_auxiliary(pt_basic_string, pv_varg);
     _type_get_varg_value(&pt_basic_string->_vec_base._t_typeinfo, val_elemlist, pv_varg);
+    */
 }
 
 /**
@@ -137,6 +148,7 @@ void _basic_string_get_varg_value_auxiliary(basic_string_t* pt_basic_string, va_
  */
 void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_string, void* pv_varg)
 {
+    /* comment for 2.2
     bool_t b_result = false;
 
     assert(pt_basic_string != NULL);
@@ -145,6 +157,7 @@ void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_string,
     b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pv_varg, &b_result);
     assert(b_result);
+    */
 }
 
 /** local function implementation section **/

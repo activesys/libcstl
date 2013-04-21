@@ -43,6 +43,7 @@ void test__basic_string_same_type__null_second(void** state)
 
 void test__basic_string_same_type__non_created_first(void** state)
 {
+    /* comment for 2.2
     basic_string_t bstring;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init(pt_basic_string);
@@ -51,10 +52,12 @@ void test__basic_string_same_type__non_created_first(void** state)
     expect_assert_failure(_basic_string_same_type(&bstring, pt_basic_string));
 
     basic_string_destroy(pt_basic_string);
+    */
 }
 
 void test__basic_string_same_type__non_created_second(void** state)
 {
+    /* comment for 2.2
     basic_string_t bstring;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init(pt_basic_string);
@@ -63,6 +66,7 @@ void test__basic_string_same_type__non_created_second(void** state)
     expect_assert_failure(_basic_string_same_type(pt_basic_string, &bstring));
 
     basic_string_destroy(pt_basic_string);
+    */
 }
 
 void test__basic_string_same_type__not_same_type_name(void** state)

@@ -1,6 +1,6 @@
 /*
  *  The implementation of basic_string iterator functions.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -49,10 +49,12 @@
  */
 basic_string_iterator_t _create_basic_string_iterator(void)
 {
+    /* comment for 2.2
     basic_string_iterator_t it_new = _create_vector_iterator();
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_new) = _BASIC_STRING_CONTAINER;
 
     return it_new;
+    */
 }
 
 /**
@@ -60,6 +62,7 @@ basic_string_iterator_t _create_basic_string_iterator(void)
  */
 bool_t _basic_string_iterator_equal(basic_string_iterator_t it_first, basic_string_iterator_t it_second)
 {
+    /* comment for 2.2
     bool_t b_result;
 
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_first) == _BASIC_STRING_CONTAINER);
@@ -74,6 +77,7 @@ bool_t _basic_string_iterator_equal(basic_string_iterator_t it_first, basic_stri
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_second) = _BASIC_STRING_CONTAINER;
 
     return b_result;
+    */
 }
 
 /**
@@ -81,11 +85,13 @@ bool_t _basic_string_iterator_equal(basic_string_iterator_t it_first, basic_stri
  */
 void _basic_string_iterator_get_value(basic_string_iterator_t it_iter, void* pv_value)
 {
+    /* comment for 2.2
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
     _vector_iterator_get_value(it_iter, pv_value);
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
+    */
 }
 
 /**
@@ -93,11 +99,13 @@ void _basic_string_iterator_get_value(basic_string_iterator_t it_iter, void* pv_
  */
 void _basic_string_iterator_set_value(basic_string_iterator_t it_iter, const void* cpv_value)
 {
+    /* comment for 2.2
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
     _vector_iterator_set_value(it_iter, cpv_value);
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
+    */
 }
 
 /**
@@ -105,6 +113,7 @@ void _basic_string_iterator_set_value(basic_string_iterator_t it_iter, const voi
  */
 const void* _basic_string_iterator_get_pointer(basic_string_iterator_t it_iter)
 {
+    /* comment for 2.2
     void* pv_pointer = NULL;
 
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
@@ -114,6 +123,7 @@ const void* _basic_string_iterator_get_pointer(basic_string_iterator_t it_iter)
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return pv_pointer;
+    */
 }
 
 /**
@@ -121,6 +131,7 @@ const void* _basic_string_iterator_get_pointer(basic_string_iterator_t it_iter)
  */
 const void* _basic_string_iterator_get_pointer_ignore_cstr(basic_string_iterator_t it_iter)
 {
+    /* comment for 2.2
     void* pv_pointer = NULL;
 
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
@@ -130,6 +141,7 @@ const void* _basic_string_iterator_get_pointer_ignore_cstr(basic_string_iterator
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return pv_pointer;
+    */
 }
 
 /**
@@ -137,6 +149,7 @@ const void* _basic_string_iterator_get_pointer_ignore_cstr(basic_string_iterator
  */
 basic_string_iterator_t _basic_string_iterator_next(basic_string_iterator_t it_iter)
 {
+    /* comment for 2.2
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
@@ -144,6 +157,7 @@ basic_string_iterator_t _basic_string_iterator_next(basic_string_iterator_t it_i
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
+    */
 }
 
 /**
@@ -151,6 +165,7 @@ basic_string_iterator_t _basic_string_iterator_next(basic_string_iterator_t it_i
  */
 basic_string_iterator_t _basic_string_iterator_prev(basic_string_iterator_t it_iter)
 {
+    /* comment for 2.2
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
@@ -158,6 +173,7 @@ basic_string_iterator_t _basic_string_iterator_prev(basic_string_iterator_t it_i
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
+    */
 }
 
 /**
@@ -165,6 +181,7 @@ basic_string_iterator_t _basic_string_iterator_prev(basic_string_iterator_t it_i
  */
 void* _basic_string_iterator_at(basic_string_iterator_t it_iter, int n_index)
 {
+    /* comment for 2.2
     void* pv_value = NULL;
 
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
@@ -175,6 +192,7 @@ void* _basic_string_iterator_at(basic_string_iterator_t it_iter, int n_index)
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return pv_value;
+    */
 }
 
 /**
@@ -182,6 +200,7 @@ void* _basic_string_iterator_at(basic_string_iterator_t it_iter, int n_index)
  */
 basic_string_iterator_t _basic_string_iterator_next_n(basic_string_iterator_t it_iter, int n_step)
 {
+    /* comment for 2.2
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
@@ -189,6 +208,7 @@ basic_string_iterator_t _basic_string_iterator_next_n(basic_string_iterator_t it
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
+    */
 }
 
 /**
@@ -196,6 +216,7 @@ basic_string_iterator_t _basic_string_iterator_next_n(basic_string_iterator_t it
  */
 basic_string_iterator_t _basic_string_iterator_prev_n(basic_string_iterator_t it_iter, int n_step)
 {
+    /* comment for 2.2
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
 
     _VECTOR_ITERATOR_CONTAINER_TYPE(it_iter) = _VECTOR_CONTAINER;
@@ -203,6 +224,7 @@ basic_string_iterator_t _basic_string_iterator_prev_n(basic_string_iterator_t it
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
 
     return it_iter;
+    */
 }
 
 /**
@@ -210,6 +232,7 @@ basic_string_iterator_t _basic_string_iterator_prev_n(basic_string_iterator_t it
  */
 int _basic_string_iterator_minus(basic_string_iterator_t it_first, basic_string_iterator_t it_second)
 {
+    /* comment for 2.2
     int n_distance = 0;
 
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_first) == _BASIC_STRING_CONTAINER);
@@ -224,6 +247,7 @@ int _basic_string_iterator_minus(basic_string_iterator_t it_first, basic_string_
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_second) = _BASIC_STRING_CONTAINER;
 
     return n_distance;
+    */
 }
 
 /**
@@ -231,6 +255,7 @@ int _basic_string_iterator_minus(basic_string_iterator_t it_first, basic_string_
  */
 bool_t _basic_string_iterator_less(basic_string_iterator_t it_first, basic_string_iterator_t it_second)
 {
+    /* comment for 2.2
     bool_t b_result;
 
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_first) == _BASIC_STRING_CONTAINER);
@@ -244,7 +269,8 @@ bool_t _basic_string_iterator_less(basic_string_iterator_t it_first, basic_strin
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_first) = _BASIC_STRING_CONTAINER;
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_second) = _BASIC_STRING_CONTAINER;
 
-    return b_result;   
+    return b_result;
+    */
 }
 
 /**
@@ -252,6 +278,7 @@ bool_t _basic_string_iterator_less(basic_string_iterator_t it_first, basic_strin
  */
 bool_t _basic_string_iterator_before(basic_string_iterator_t it_first, basic_string_iterator_t it_second)
 {
+    /* comment for 2.2
     bool_t b_result;
 
     assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_first) == _BASIC_STRING_CONTAINER);
@@ -266,6 +293,7 @@ bool_t _basic_string_iterator_before(basic_string_iterator_t it_first, basic_str
     _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_second) = _BASIC_STRING_CONTAINER;
 
     return b_result;
+    */
 }
 
 /** local function implementation section **/

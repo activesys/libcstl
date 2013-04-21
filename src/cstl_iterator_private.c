@@ -1,6 +1,6 @@
 /*
  *  The implement of iterator private interface.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -277,7 +277,9 @@ _typeinfo_t* _iterator_get_typeinfo(iterator_t it_iter)
             return &((deque_t*)it_iter._pt_container)->_t_typeinfo;
             break;
         case _BASIC_STRING_CONTAINER:
+            /* comment for 2.2
             return &((basic_string_t*)it_iter._pt_container)->_vec_base._t_typeinfo;
+            */
             break;
         case _LIST_CONTAINER:
             return &((list_t*)it_iter._pt_container)->_t_typeinfo;
@@ -397,9 +399,11 @@ void* _iterator_allocate_init_elem(iterator_t it_iter)
             _deque_init_elem_auxiliary((deque_t*)it_iter._pt_container, pv_value);
             break;
         case _BASIC_STRING_CONTAINER:
+            /* comment for 2.2
             pv_value = _alloc_allocate(&((basic_string_t*)it_iter._pt_container)->_vec_base._t_allocator,
                 ((basic_string_t*)it_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typesize, 1);
             _basic_string_init_elem_auxiliary((basic_string_t*)it_iter._pt_container, pv_value);
+            */
             break;
         case _LIST_CONTAINER:
             pv_value = _alloc_allocate(&((list_t*)it_iter._pt_container)->_t_allocator,
@@ -483,10 +487,12 @@ void _iterator_deallocate_destroy_elem(iterator_t it_iter, void* pv_value)
                 ((deque_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typesize, 1);
             break;
         case _BASIC_STRING_CONTAINER:
+            /* comment for 2.2
             ((basic_string_t*)it_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
             assert(b_result);
             _alloc_deallocate(&((basic_string_t*)it_iter._pt_container)->_vec_base._t_allocator, pv_value,
                 ((basic_string_t*)it_iter._pt_container)->_vec_base._t_typeinfo._pt_type->_t_typesize, 1);
+            */
             break;
         case _LIST_CONTAINER:
             ((list_t*)it_iter._pt_container)->_t_typeinfo._pt_type->_t_typedestroy(pv_value, &b_result);
