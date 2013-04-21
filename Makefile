@@ -117,7 +117,6 @@ CPPFLAGS =
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
-DLLTOOL = @DLLTOOL@
 DSYMUTIL = 
 DUMPBIN = 
 ECHO_C = 
@@ -141,7 +140,6 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/wb/Projects/git/libcstl/missing --run makeinfo
-MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
@@ -154,7 +152,6 @@ PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
 PACKAGE_STRING = libcstl 2.2.0
 PACKAGE_TARNAME = libcstl
-PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = 2.2.0
 PATH_SEPARATOR = :
 RANLIB = ranlib
@@ -167,7 +164,6 @@ abs_builddir = /home/wb/Projects/git/libcstl
 abs_srcdir = /home/wb/Projects/git/libcstl
 abs_top_builddir = /home/wb/Projects/git/libcstl
 abs_top_srcdir = /home/wb/Projects/git/libcstl
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
 am__include = include
@@ -200,6 +196,7 @@ libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
+lt_ECHO = echo
 mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
 oldincludedir = /usr/include
@@ -539,7 +536,7 @@ distcheck: dist
 	*.zip*) \
 	  unzip $(distdir).zip ;;\
 	esac
-	chmod -R a-w $(distdir); chmod a+w $(distdir)
+	chmod -R a-w $(distdir); chmod u+w $(distdir)
 	mkdir $(distdir)/_build
 	mkdir $(distdir)/_inst
 	chmod a-w $(distdir)
