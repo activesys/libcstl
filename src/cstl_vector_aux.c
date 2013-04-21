@@ -1,6 +1,6 @@
 /*
  *  The implement of vector auxiliary function.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,7 @@
 #include "cstl_vector_aux.h"
 
 /** local constant declaration and local macro section **/
-#define _VECTOR_CAPACITY_SHRESHOLD_SIZE     16 /* capacity shreshold size */
+#define _VECTOR_CAPACITY_THRESHOLD_SIZE     16 /* capacity threshold size */
 
 /** local data type declaration and local struct, union, enum section **/
 
@@ -227,8 +227,8 @@ void _vector_destroy_varg_value_auxiliary(vector_t* pvec_vector, void* pv_varg)
 size_t _vector_calculate_new_capacity(size_t t_oldsize, size_t t_insertsize)
 {
     size_t t_growsize = (t_oldsize + t_insertsize) / 2;
-    if (t_growsize < _VECTOR_CAPACITY_SHRESHOLD_SIZE) {
-        t_growsize = _VECTOR_CAPACITY_SHRESHOLD_SIZE;
+    if (t_growsize < _VECTOR_CAPACITY_THRESHOLD_SIZE) {
+        t_growsize = _VECTOR_CAPACITY_THRESHOLD_SIZE;
     }
 
     return t_oldsize + t_insertsize + t_growsize;

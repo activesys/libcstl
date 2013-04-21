@@ -15,7 +15,101 @@
 #include "ut_def.h"
 #include "ut_cstl_basic_string_aux.h"
 
-UT_SUIT_DEFINATION(cstl_basic_string_aux, _basic_string_same_type)
+UT_SUIT_DEFINATION(cstl_basic_string_aux, _basic_string_is_created)
+
+/*
+ * test _basic_string_is_created
+ */
+UT_CASE_DEFINATION(_basic_string_is_created)
+void test__basic_string_is_created__null_basic_string_container(void** state)
+{
+    expect_assert_failure(_basic_string_is_created(NULL));
+}
+
+void test__basic_string_is_created__non_created_invalid_pby_string(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    pbstr->_pby_string = 0xff;
+    assert_false(_basic_string_is_created(&pbstr));
+    pbstr->_pby_string = NULL;
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_is_created__non_created_invalid_type_style(void** state)
+{
+    basic_string_t bstr;
+    bstr._t_typeinfo._t_style = 100;
+    bstr._pby_string = NULL;
+    assert_false(_basic_string_is_created(&bstr));
+}
+
+void test__basic_string_is_created__created(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+
+    assert_true(_basic_string_is_created(pbstr));
+
+    basic_string_destroy(pbstr);
+}
+
+/*
+ * test _basic_string_is_inited
+ */
+UT_CASE_DEFINATION(_basic_string_is_inited)
+void test__basic_string_is_inited__null_basic_string_container(void** state)
+{
+    expect_assert_failure(_basic_string_is_inited(NULL));
+}
+
+void test__basic_string_is_inited__non_inited_pby_string_null(void** state)
+{
+    _byte_t* pby_data = NULL;
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init(pbstr);
+    pby_data = pbstr->_pby_string;
+    pbstr->_pby_string = NULL;
+    assert_false(_basic_string_is_inited(pbstr));
+    pbstr->_pby_string = pby_data;
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_is_inited__non_inited_leaked(void** state)
+{
+    _basic_string_rep_t* prep = NULL;
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init(pbstr);
+    prep = _basic_string_rep_get_representation(pbstr->_pby_string);
+    prep->_n_refcount = -1;
+    assert_false(_basic_string_is_inited(pbstr));
+    prep->_n_refcount = 0;
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_is_inited__non_inited_invalid_type_style(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init(pbstr);
+    pbstr->_t_typeinfo._t_style = 100;
+    assert_false(_basic_string_is_inited(pbstr));
+    pbstr->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_is_inited__inited_empty(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init(pbstr);
+
+    assert_true(_basic_string_is_inited(pbstr));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_is_inited__inited_non_empty(void** state)
+{
+    assert_true(false);
+}
+
 
 /*
  * test _basic_string_same_type

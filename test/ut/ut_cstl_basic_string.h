@@ -2727,6 +2727,19 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_init__successfully_cstl_builtin),\
     UT_CASE(test_basic_string_init__successfully_cstr),\
     UT_CASE(test_basic_string_init__successfully_user_defined),\
+    UT_CASE_BEGIN(basic_string_size, test_basic_string_size__null_basic_string_container),\
+    UT_CASE(test_basic_string_size__non_inited),\
+    UT_CASE(test_basic_string_size__successfully_empty),\
+    UT_CASE(test_basic_string_size__successfully_non_empty),\
+    UT_CASE_BEGIN(basic_string_length, test_basic_string_length__null_basic_string_container),\
+    UT_CASE(test_basic_string_length__non_inited),\
+    UT_CASE(test_basic_string_length__successfully_empty),\
+    UT_CASE(test_basic_string_length__successfully_non_empty),\
+    UT_CASE_BEGIN(basic_string_capacity, test_basic_string_capacity__null_basic_string_container),\
+    UT_CASE(test_basic_string_capacity__non_inited),\
+    UT_CASE(test_basic_string_capacity__successfully_empty),\
+    UT_CASE(test_basic_string_capacity__successfully_little),\
+    UT_CASE(test_basic_string_capacity__successfully_huge)/*,\
     UT_CASE_BEGIN(basic_string_init_cstr, test_basic_string_init_cstr__null_container),\
     UT_CASE(test_basic_string_init_cstr__non_created_container),\
     UT_CASE(test_basic_string_init_cstr__null_valuestring),\
@@ -2857,14 +2870,6 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_copy__middle_npos),\
     UT_CASE(test_basic_string_copy__end),\
     UT_CASE(test_basic_string_copy__npos),\
-    UT_CASE_BEGIN(basic_string_size, test_basic_string_size__null_basic_string_container),\
-    UT_CASE(test_basic_string_size__non_inited),\
-    UT_CASE(test_basic_string_size__successfully_empty),\
-    UT_CASE(test_basic_string_size__successfully_non_empty),\
-    UT_CASE_BEGIN(basic_string_length, test_basic_string_length__null_basic_string_container),\
-    UT_CASE(test_basic_string_length__non_inited),\
-    UT_CASE(test_basic_string_length__successfully_empty),\
-    UT_CASE(test_basic_string_length__successfully_non_empty),\
     UT_CASE_BEGIN(basic_string_empty, test_basic_string_empty__null_basic_string_container),\
     UT_CASE(test_basic_string_empty__non_inited),\
     UT_CASE(test_basic_string_empty__successfully_empty),\
@@ -2872,11 +2877,6 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE_BEGIN(basic_string_max_size, test_basic_string_max_size__null_basic_string_container),\
     UT_CASE(test_basic_string_max_size__non_inited),\
     UT_CASE(test_basic_string_max_size__successfully),\
-    UT_CASE_BEGIN(basic_string_capacity, test_basic_string_capacity__null_basic_string_container),\
-    UT_CASE(test_basic_string_capacity__non_inited),\
-    UT_CASE(test_basic_string_capacity__successfully_empty),\
-    UT_CASE(test_basic_string_capacity__successfully_little),\
-    UT_CASE(test_basic_string_capacity__successfully_huge),\
     UT_CASE_BEGIN(basic_string_at, test_basic_string_at__null_basic_string_container),\
     UT_CASE(test_basic_string_at__non_inited_basic_string_container),\
     UT_CASE(test_basic_string_at__invalid_subscript_empty),\
@@ -5087,6 +5087,7 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_replace_range__cstr),\
     UT_CASE(test_basic_string_replace_range__libcstl_builtin),\
     UT_CASE(test_basic_string_replace_range__user_define)
+*/
 
 #endif /* _UT_CSTL_BASIC_STRING_H_ */
 

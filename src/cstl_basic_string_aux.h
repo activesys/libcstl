@@ -31,31 +31,16 @@ extern "C" {
 
 /** constant declaration and macro section **/
 /* macros for type informations */
-#define _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)             ((pt_basic_string)->_vec_base._t_typeinfo._pt_type->_t_typesize)
-#define _GET_BASIC_STRING_TYPE_NAME(pt_basic_string)             ((pt_basic_string)->_vec_base._t_typeinfo._s_typename)
-#define _GET_BASIC_STRING_TYPE_BASENAME(pt_basic_string)         ((pt_basic_string)->_vec_base._t_typeinfo._pt_type->_s_typename)
-#define _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)    ((pt_basic_string)->_vec_base._t_typeinfo._pt_type->_t_typeinit)
-#define _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)    ((pt_basic_string)->_vec_base._t_typeinfo._pt_type->_t_typecopy)
-#define _GET_BASIC_STRING_TYPE_LESS_FUNCTION(pt_basic_string)    ((pt_basic_string)->_vec_base._t_typeinfo._pt_type->_t_typeless)
-#define _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string) ((pt_basic_string)->_vec_base._t_typeinfo._pt_type->_t_typedestroy)
-#define _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string)            ((pt_basic_string)->_vec_base._t_typeinfo._t_style)
+#define _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)             ((pt_basic_string)->_t_typeinfo._pt_type->_t_typesize)
+#define _GET_BASIC_STRING_TYPE_NAME(pt_basic_string)             ((pt_basic_string)->_t_typeinfo._s_typename)
+#define _GET_BASIC_STRING_TYPE_BASENAME(pt_basic_string)         ((pt_basic_string)->_t_typeinfo._pt_type->_s_typename)
+#define _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)    ((pt_basic_string)->_t_typeinfo._pt_type->_t_typeinit)
+#define _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)    ((pt_basic_string)->_t_typeinfo._pt_type->_t_typecopy)
+#define _GET_BASIC_STRING_TYPE_LESS_FUNCTION(pt_basic_string)    ((pt_basic_string)->_t_typeinfo._pt_type->_t_typeless)
+#define _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string) ((pt_basic_string)->_t_typeinfo._pt_type->_t_typedestroy)
+#define _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string)            ((pt_basic_string)->_t_typeinfo._t_style)
 
 /** data type declaration and struct, union, enum section **/
-/**
- * This structure is representation of basic_string_t.
- * and basic_string_t look like this:
- *
- *                     _t_length;
- *                     _t_capacity;
- *                     _n_refcount;
- *   _pt_string -----> data
- */
-typedef struct _tag_basic_string_rep
-{
-    size_t _t_length;
-    size_t _t_capacity;
-    int    _n_refcount;
-}_basic_string_rep_t;
 
 /** exported global variable declaration section **/
 
@@ -64,8 +49,33 @@ typedef struct _tag_basic_string_rep
 /*
  * Assert support.
  */
+/**
+ * Test basic_string_t is created by create_basic_string.
+ * @param cpt_basic_string  basic_string_t pointer.
+ * @return if basic_string is created by create_basic_string, then return true, else return false.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined.
+ */
+extern bool_t _basic_string_is_created(const basic_string_t* cpt_basic_string);
+
+/**
+ * Test basic_string is initialized by basic_string initialization functions.
+ * @param cpt_basic_string  basic_string container.
+ * @return if basic_string is initialized by basic_string initialization functions, then return true, else return false.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined.
+ */
+extern bool_t _basic_string_is_inited(const basic_string_t* cpt_basic_string);
+
+/**
+ * Test iterator referenced data is within the basic_string.
+ * @param cpt_basic_string point to basic_string container.
+ * @param it_iter basic_string iterator.
+ * @return if iterator referenced is within the basic_string, then return true, otherwise return false.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined, the it_iter must be valie basic_string
+ *          iterator and must belong to basic_string, otherwist the behavior is undefined. 
+ */
 extern bool_t _iterator_belong_to_basic_string(
     const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter);
+
 /**
  * Test the type that saved in the basic_string container is same.
  * @param cpt_first     first basic_string.

@@ -25,7 +25,6 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-#include <cstl/cvector.h>
 
 #include <cstl/cstl_basic_string_iterator.h>
 #include <cstl/cstl_basic_string_private.h>
@@ -45,11 +44,116 @@
 
 /** exported function implementation section **/
 /**
+ * Create basic_string representation.
+ */
+_basic_string_rep_t* _create_basic_string_representation(size_t t_newcapacity, size_t t_oldcapacity, size_t t_elemsize)
+{
+    size_t t_size = 0;
+    _basic_string_rep_t* prep = NULL;
+
+    assert(t_elemsize > 0);
+
+    if (t_newcapacity > t_oldcapacity && t_newcapacity < t_oldcapacity * 2) {
+        t_newcapacity = t_oldcapacity * 2;
+    }
+    t_size = (t_newcapacity + 1) * t_elemsize + sizeof(_basic_string_rep_t);
+
+    prep = (_basic_string_rep_t*)malloc(t_size);
+    if (prep == NULL) {
+        return NULL;
+    }
+    prep->_t_capacity = t_newcapacity;
+    prep->_t_elemsize = t_elemsize;
+    prep->_n_refcount = -1;
+    prep->_t_length = 0;
+
+    return prep;
+}
+
+/**
+ * Get data pointer from basic_string_rep.
+ */
+_byte_t* _basic_string_rep_get_data(const _basic_string_rep_t* cpt_rep)
+{
+    assert(cpt_rep != NULL);
+    return (_byte_t*)(cpt_rep + 1);
+}
+
+/**
+ * Get basic_string_rep_t pointer from data.
+ */
+_basic_string_rep_t* _basic_string_rep_get_representation(const _byte_t* cpby_data)
+{
+    assert(cpby_data != NULL);
+    return ((_basic_string_rep_t*)cpby_data) - 1;
+}
+
+/**
+ * Get length
+ */
+size_t _basic_string_rep_get_length(const _basic_string_rep_t* cpt_rep)
+{
+    assert(cpt_rep != NULL);
+    return cpt_rep->_t_length;
+}
+
+/**
+ * Set length
+ */
+void _basic_string_rep_set_length(_basic_string_rep_t* pt_rep, size_t t_length)
+{
+    _byte_t* pby_terminal = NULL;
+
+    assert(pt_rep != NULL);
+    assert(t_length <= pt_rep->_t_capacity);
+
+    pt_rep->_t_length = t_length;
+    /* For all types use 0x00 as terminalor */
+    pby_terminal = _basic_string_rep_get_data(pt_rep) + pt_rep->_t_length * pt_rep->_t_elemsize;
+    memset(pby_terminal, 0x00, pt_rep->_t_elemsize);
+}
+
+/**
+ * Check whether the rep is shared.
+ */
+bool_t _basic_string_rep_is_shared(const _basic_string_rep_t* cpt_rep)
+{
+    assert(cpt_rep != NULL);
+    return cpt_rep->_n_refcount > 0 ? true : false;
+}
+
+/**
+ * Set rep as sharable
+ */
+void _basic_string_rep_set_sharable(_basic_string_rep_t* pt_rep)
+{
+    assert(pt_rep != NULL);
+    pt_rep->_n_refcount = 0;
+}
+
+/**
+ * Check whether the rep is leaked.
+ */
+bool_t _basic_string_rep_is_leaked(const _basic_string_rep_t* cpt_rep)
+{
+    assert(cpt_rep != NULL);
+    return cpt_rep->_n_refcount < 0 ? true : false;
+}
+
+/**
+ * Set rep as leaked
+ */
+void _basic_string_rep_set_leaked(_basic_string_rep_t* pt_rep)
+{
+    assert(pt_rep != NULL);
+    pt_rep->_n_refcount = -1;
+}
+
+/**
  * Create basic_string container.
  */
 basic_string_t* _create_basic_string(const char* s_typename)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = NULL;
 
     assert(s_typename != NULL);
@@ -64,7 +168,6 @@ basic_string_t* _create_basic_string(const char* s_typename)
     }
 
     return pt_basic_string;
-    */
 }
 
 /**
@@ -72,12 +175,16 @@ basic_string_t* _create_basic_string(const char* s_typename)
  */
 bool_t _create_basic_string_auxiliary(basic_string_t* pt_basic_string, const char* s_typename)
 {
-    /* comment for 2.2
     assert(pt_basic_string != NULL);
     assert(s_typename != NULL);
 
-    return _create_vector_auxiliary(&pt_basic_string->_vec_base, s_typename);
-    */
+    _type_get_type(&pt_basic_string->_t_typeinfo, s_typename); 
+    if (pt_basic_string->_t_typeinfo._t_style == _TYPE_INVALID) {
+        return false;
+    }
+
+    pt_basic_string->_pby_string = NULL;
+    return true;
 }
 
 /**

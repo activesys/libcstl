@@ -25,7 +25,6 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-#include <cstl/cvector.h>
 #include <cstl/cstring.h>
 
 #include <cstl/cstl_basic_string_iterator.h>
@@ -50,11 +49,15 @@
  */
 void basic_string_init(basic_string_t* pt_basic_string)
 {
-    /* comment for 2.2
-    assert(pt_basic_string != NULL);
+    _basic_string_rep_t* prep = NULL;
 
-    vector_init(&pt_basic_string->_vec_base);
-    */
+    assert(_basic_string_is_created(pt_basic_string));
+
+    prep = _create_basic_string_representation(0, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
+    assert(prep != NULL);
+    _basic_string_rep_set_length(prep, 0);
+    _basic_string_rep_set_sharable(prep);
+    pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
 }
 
 /**
@@ -255,11 +258,8 @@ size_t basic_string_copy(const basic_string_t* cpt_basic_string, void* pv_buffer
  */
 size_t basic_string_size(const basic_string_t* cpt_basic_string)
 {
-    /* comment for 2.2
-    assert(cpt_basic_string != NULL);
-
-    return vector_size(&cpt_basic_string->_vec_base);
-    */
+    assert(_basic_string_is_inited(cpt_basic_string));
+    return _basic_string_rep_get_representation(cpt_basic_string->_pby_string)->_t_length;
 }
 
 /**
@@ -267,9 +267,7 @@ size_t basic_string_size(const basic_string_t* cpt_basic_string)
  */
 size_t basic_string_length(const basic_string_t* cpt_basic_string)
 {
-    /* comment for 2.2
     return basic_string_size(cpt_basic_string);
-    */
 }
 
 /**
@@ -301,11 +299,8 @@ size_t basic_string_max_size(const basic_string_t* cpt_basic_string)
  */
 size_t basic_string_capacity(const basic_string_t* cpt_basic_string)
 {
-    /* comment for 2.2
-    assert(cpt_basic_string != NULL);
-
-    return vector_capacity(&cpt_basic_string->_vec_base);
-    */
+    assert(_basic_string_is_inited(cpt_basic_string));
+    return _basic_string_rep_get_representation(cpt_basic_string->_pby_string)->_t_capacity;
 }
 
 /**

@@ -15,13 +15,235 @@
 #include "ut_def.h"
 #include "ut_cstl_basic_string_private.h"
 
-UT_SUIT_DEFINATION(cstl_basic_string_private, _create_basic_string)
+UT_SUIT_DEFINATION(cstl_basic_string_private, _create_basic_string_representation)
+
+/*
+ * test _create_basic_string_representation
+ */
+UT_CASE_DEFINATION(_create_basic_string_representation)
+void test__create_basic_string_representation__invalid_elemsize(void** state)
+{
+    expect_assert_failure(_create_basic_string_representation(0, 0, 0));
+}
+
+void test__create_basic_string_representation__capacity_0(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    assert_true(prep != NULL);
+    assert_true(prep->_t_elemsize == 1);
+    assert_true(prep->_t_length == 0);
+    assert_true(prep->_t_capacity == 0);
+    assert_true(prep->_n_refcount == -1);
+}
+
+void test__create_basic_string_representation__new_capacity_0(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 4, 1);
+    assert_true(prep != NULL);
+    assert_true(prep->_t_elemsize == 1);
+    assert_true(prep->_t_length == 0);
+    assert_true(prep->_t_capacity == 0);
+    assert_true(prep->_n_refcount == -1);
+}
+
+void test__create_basic_string_representation__old_capacity_0(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(8, 0, 1);
+    assert_true(prep != NULL);
+    assert_true(prep->_t_elemsize == 1);
+    assert_true(prep->_t_length == 0);
+    assert_true(prep->_t_capacity == 8);
+    assert_true(prep->_n_refcount == -1);
+}
+
+void test__create_basic_string_representation__capacity_new_le_old(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(8, 10, 1);
+    assert_true(prep != NULL);
+    assert_true(prep->_t_elemsize == 1);
+    assert_true(prep->_t_length == 0);
+    assert_true(prep->_t_capacity == 8);
+    assert_true(prep->_n_refcount == -1);
+}
+
+void test__create_basic_string_representation__capacity_new_gt_old(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(18, 10, 1);
+    assert_true(prep != NULL);
+    assert_true(prep->_t_elemsize == 1);
+    assert_true(prep->_t_length == 0);
+    assert_true(prep->_t_capacity == 20);
+    assert_true(prep->_n_refcount == -1);
+}
+
+void test__create_basic_string_representation__capacity_new_gt_old_twice(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(48, 10, 1);
+    assert_true(prep != NULL);
+    assert_true(prep->_t_elemsize == 1);
+    assert_true(prep->_t_length == 0);
+    assert_true(prep->_t_capacity == 48);
+    assert_true(prep->_n_refcount == -1);
+}
+
+/*
+ * test _basic_string_rep_get_data
+ */
+UT_CASE_DEFINATION(_basic_string_rep_get_data)
+void test__basic_string_rep_get_data__rep_null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_get_data(NULL));
+}
+
+void test__basic_string_rep_get_data__successfully(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    void* pv_data = _basic_string_rep_get_data(prep);
+    assert_true(pv_data == prep+1);
+}
+
+/*
+ * test _basic_string_rep_get_representation
+ */
+UT_CASE_DEFINATION(_basic_string_rep_get_representation)
+void test__basic_string_rep_get_representation__data_null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_get_representation(NULL));
+}
+
+void test__basic_string_rep_get_representation__successfully(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    _basic_string_rep_t* prep_check = _basic_string_rep_get_representation(prep+1);
+    assert_true(prep == prep_check);
+}
+
+/*
+ * test _basic_string_rep_get_length
+ */
+UT_CASE_DEFINATION(_basic_string_rep_get_length)
+void test__basic_string_rep_get_length__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_get_length(NULL));
+}
+void test__basic_string_rep_get_length__0(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    assert_true(_basic_string_rep_get_length(prep) == 0);
+}
+void test__basic_string_rep_get_length__n(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(100, 0, 1);
+    prep->_t_length = 10;
+    assert_true(_basic_string_rep_get_length(prep) == 10);
+}
+/*
+ * test _basic_string_rep_set_length
+ */
+UT_CASE_DEFINATION(_basic_string_rep_set_length)
+void test__basic_string_rep_set_lenght__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_set_length(NULL, 0));
+}
+void test__basic_string_rep_set_lenght__len_ge_capacity(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    expect_assert_failure(_basic_string_rep_set_length(prep, 10));
+}
+void test__basic_string_rep_set_lenght__0(void** state)
+{
+    void* pv_data = NULL;
+    int elem = 0;
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, sizeof(int));
+    _basic_string_rep_set_length(prep, 0);
+    assert_true(_basic_string_rep_get_length(prep) == 0);
+    pv_data = _basic_string_rep_get_data(prep);
+    assert_true(memcmp(pv_data, &elem, sizeof(int)) == 0);
+}
+void test__basic_string_rep_set_lenght__n(void** state)
+{
+    void* pv_data = NULL;
+    int elem = 0;
+    _basic_string_rep_t* prep = _create_basic_string_representation(10, 0, sizeof(int));
+    _basic_string_rep_set_length(prep, 6);
+    assert_true(_basic_string_rep_get_length(prep) == 6);
+    pv_data = _basic_string_rep_get_data(prep);
+    assert_true(memcmp(((char*)pv_data) + prep->_t_elemsize * 6, &elem, prep->_t_elemsize) == 0);
+}
+
+/*
+ * test _basic_string_rep_is_shared
+ */
+UT_CASE_DEFINATION(_basic_string_rep_is_shared)
+void test__basic_string_rep_is_shared__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_is_shared(NULL));
+}
+void test__basic_string_rep_is_shared__true(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    prep->_n_refcount = 1;
+    assert_true(_basic_string_rep_is_shared(prep));
+}
+void test__basic_string_rep_is_shared__false(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    assert_false(_basic_string_rep_is_shared(prep));
+}
+/*
+ * test _basic_string_rep_set_sharable
+ */
+UT_CASE_DEFINATION(_basic_string_rep_set_sharable)
+void test__basic_string_rep_set_sharable__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_set_sharable(NULL));
+}
+void test__basic_string_rep_set_sharable__successfully(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    _basic_string_rep_set_sharable(prep);
+    assert_true(prep->_n_refcount == 0);
+}
+
+/*
+ * test _basic_string_rep_is_leaked
+ */
+UT_CASE_DEFINATION(_basic_string_rep_is_leaked)
+void test__basic_string_rep_is_leaked__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_is_leaked(NULL));
+}
+void test__basic_string_rep_is_leaked__true(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    assert_true(_basic_string_rep_is_leaked(prep));
+}
+void test__basic_string_rep_is_leaked__false(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    prep->_n_refcount = 1;
+    assert_false(_basic_string_rep_is_leaked(prep));
+}
+/*
+ * test _basic_string_rep_set_leaked
+ */
+UT_CASE_DEFINATION(_basic_string_rep_set_leaked)
+void test__basic_string_rep_set_leaked__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_set_leaked(NULL));
+}
+void test__basic_string_rep_set_leaked__successfully(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    _basic_string_rep_set_leaked(prep);
+    assert_true(prep->_n_refcount == -1);
+}
+
 
 /*
  * test _create_basic_string
  */
 UT_CASE_DEFINATION(_create_basic_string)
-
 void test__create_basic_string__null_typename(void** state)
 {
     expect_assert_failure(_create_basic_string(NULL));
@@ -79,56 +301,43 @@ void test__create_basic_string_auxiliary__unregisted_type(void** state)
 
 void test__create_basic_string_auxiliary__c_builtin_type(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = (basic_string_t*)malloc(sizeof(basic_string_t));
     assert_true(pt_basic_string != NULL);
     assert_true(_create_basic_string_auxiliary(pt_basic_string, "int"));
-    assert_true(pt_basic_string->_vec_base._pby_endofstorage == NULL);
-    assert_true(pt_basic_string->_vec_base._pby_finish == NULL);
-    assert_true(pt_basic_string->_vec_base._pby_start == NULL);
-    assert_true(pt_basic_string->_vec_base._t_typeinfo._pt_type != NULL);
-    assert_true(pt_basic_string->_vec_base._t_typeinfo._t_style == _TYPE_C_BUILTIN);
-    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._s_typename, _INT_TYPE) == 0);
+    assert_true(pt_basic_string->_pby_string == NULL);
+    assert_true(pt_basic_string->_t_typeinfo._pt_type != NULL);
+    assert_true(pt_basic_string->_t_typeinfo._t_style == _TYPE_C_BUILTIN);
+    assert_true(strcmp(pt_basic_string->_t_typeinfo._s_typename, _INT_TYPE) == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__create_basic_string_auxiliary__libcstl_builtin_type(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = (basic_string_t*)malloc(sizeof(basic_string_t));
     assert_true(pt_basic_string != NULL);
     assert_true(_create_basic_string_auxiliary(pt_basic_string, "list_t< int>    "));
-    assert_true(pt_basic_string->_vec_base._pby_endofstorage == NULL);
-    assert_true(pt_basic_string->_vec_base._pby_finish == NULL);
-    assert_true(pt_basic_string->_vec_base._pby_start == NULL);
-    assert_true(pt_basic_string->_vec_base._t_typeinfo._pt_type != NULL);
-    assert_true(pt_basic_string->_vec_base._t_typeinfo._t_style == _TYPE_CSTL_BUILTIN);
-    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._s_typename, "list_t<int>") == 0);
+    assert_true(pt_basic_string->_pby_string == NULL);
+    assert_true(pt_basic_string->_t_typeinfo._pt_type != NULL);
+    assert_true(pt_basic_string->_t_typeinfo._t_style == _TYPE_CSTL_BUILTIN);
+    assert_true(strcmp(pt_basic_string->_t_typeinfo._s_typename, "list_t<int>") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__create_basic_string_auxiliary__registed_type(void** state)
 {
-    /* comment for 2.2
     typedef struct _tag_create_basic_string_auxiliary__registed_type{int n_elem;}_create_basic_string_auxiliary__registed_type_t;
     basic_string_t* pt_basic_string = (basic_string_t*)malloc(sizeof(basic_string_t));
     assert_true(pt_basic_string != NULL);
     type_register(_create_basic_string_auxiliary__registed_type_t, NULL, NULL, NULL, NULL);
     assert_true(_create_basic_string_auxiliary(pt_basic_string, "_create_basic_string_auxiliary__registed_type_t"));
-    assert_true(pt_basic_string->_vec_base._pby_endofstorage == NULL);
-    assert_true(pt_basic_string->_vec_base._pby_finish == NULL);
-    assert_true(pt_basic_string->_vec_base._pby_start == NULL);
-    assert_true(pt_basic_string->_vec_base._t_typeinfo._pt_type != NULL);
-    assert_true(pt_basic_string->_vec_base._t_typeinfo._t_style == _TYPE_USER_DEFINE);
-    assert_true(strcmp(pt_basic_string->_vec_base._t_typeinfo._s_typename,
-        "_create_basic_string_auxiliary__registed_type_t") == 0);
+    assert_true(pt_basic_string->_pby_string == NULL);
+    assert_true(pt_basic_string->_t_typeinfo._pt_type != NULL);
+    assert_true(pt_basic_string->_t_typeinfo._t_style == _TYPE_USER_DEFINE);
+    assert_true(strcmp(pt_basic_string->_t_typeinfo._s_typename, "_create_basic_string_auxiliary__registed_type_t") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 /*

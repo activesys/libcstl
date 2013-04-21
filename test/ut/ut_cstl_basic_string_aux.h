@@ -56,9 +56,37 @@ void test__basic_string_destroy_varg_value_auxiliary__null_basic_string_containe
 void test__basic_string_destroy_varg_value_auxiliary__null_varg(void** state);
 void test__basic_string_destroy_varg_value_auxiliary__non_created(void** state);
 void test__basic_string_destroy_varg_value_auxiliary__successfully(void** state);
+/*
+ * test _basic_string_is_created
+ */
+UT_CASE_DECLARATION(_basic_string_is_created)
+void test__basic_string_is_created__null_basic_string_container(void** state);
+void test__basic_string_is_created__non_created_invalid_pby_string(void** state);
+void test__basic_string_is_created__non_created_invalid_type_style(void** state);
+void test__basic_string_is_created__created(void** state);
+/*
+ * test _basic_string_is_inited
+ */
+UT_CASE_DECLARATION(_basic_string_is_inited)
+void test__basic_string_is_inited__null_basic_string_container(void** state);
+void test__basic_string_is_inited__non_inited_pby_string_null(void** state);
+void test__basic_string_is_inited__non_inited_leaked(void** state);
+void test__basic_string_is_inited__non_inited_invalid_type_style(void** state);
+void test__basic_string_is_inited__inited_empty(void** state);
+void test__basic_string_is_inited__inited_non_empty(void** state);
 
 #define UT_CSTL_BASIC_STRING_AUX_CASE\
-    UT_SUIT_BEGIN(cstl_basic_string_aux, test__basic_string_same_type__null_first),\
+    UT_SUIT_BEGIN(cstl_basic_string_aux, test__basic_string_is_created__null_basic_string_container),\
+    UT_CASE(test__basic_string_is_created__non_created_invalid_pby_string),\
+    UT_CASE(test__basic_string_is_created__non_created_invalid_type_style),\
+    UT_CASE(test__basic_string_is_created__created),\
+    UT_CASE_BEGIN(_basic_string_is_inited, test__basic_string_is_inited__null_basic_string_container),\
+    UT_CASE(test__basic_string_is_inited__non_inited_pby_string_null),\
+    UT_CASE(test__basic_string_is_inited__non_inited_leaked),\
+    UT_CASE(test__basic_string_is_inited__non_inited_invalid_type_style),\
+    UT_CASE(test__basic_string_is_inited__inited_empty),\
+    UT_CASE(test__basic_string_is_inited__inited_non_empty)/*,\
+    UT_CASE_BEGIN(_basic_string_same_type, test__basic_string_same_type__null_first),\
     UT_CASE(test__basic_string_same_type__null_second),\
     UT_CASE(test__basic_string_same_type__non_created_first),\
     UT_CASE(test__basic_string_same_type__non_created_second),\
@@ -97,6 +125,7 @@ void test__basic_string_destroy_varg_value_auxiliary__successfully(void** state)
     UT_CASE(test__basic_string_destroy_varg_value_auxiliary__null_varg),\
     UT_CASE(test__basic_string_destroy_varg_value_auxiliary__non_created),\
     UT_CASE(test__basic_string_destroy_varg_value_auxiliary__successfully)
+*/
 
 #endif /* _UT_CSTL_BASIC_STRING_AUX_H_ */
 

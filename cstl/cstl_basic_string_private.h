@@ -32,16 +32,116 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
+/**
+ * This structure is representation of basic_string_t.
+ * and basic_string_t look like this:
+ *
+ *                     _t_elemsize;
+ *                     _t_length;
+ *                     _t_capacity;
+ *                     _n_refcount;
+ *   _pby_string ----> data
+ */
+typedef struct _tag_basic_string_rep
+{
+    size_t _t_elemsize;
+    size_t _t_length;
+    size_t _t_capacity;
+    int    _n_refcount;
+}_basic_string_rep_t;
+
 typedef struct _tagbasicstring
 {
-    /* comment for 2.2
-    vector_t _vec_base;
-    */
+    /* element type information */
+    _typeinfo_t _t_typeinfo;
+
+    /* pointer to actual element string */
+    _byte_t* _pby_string;
 }basic_string_t;
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
+/**
+ * basic_string representation operation
+ */
+/**
+ * Create basic_string representation.
+ * @param t_newcapacity      new capacity.
+ * @param t_oldcapacity      old capacity.
+ * @param t_elemsize         element size.
+ * @return _basic_string_rep_t*
+ * @remarks t_elemsize muse be > 0.
+ */
+extern _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapacity, size_t t_oldcapacity, size_t t_elemsize);
+
+/**
+ * Get data pointer from basic_string_rep.
+ * @param cpt_rep            pointer to basic_string_rep_t;
+ * @return void*
+ * @remarks cpt_rep must not be NULL.
+ */
+extern _byte_t* _basic_string_rep_get_data(const _basic_string_rep_t* cpt_rep);
+
+/**
+ * Get basic_string_rep_t pointer from data.
+ * @param cpt_data            pointer to data;
+ * @return basic_string_rep*
+ * @remarks cpt_data must not be NULL.
+ */
+extern _basic_string_rep_t* _basic_string_rep_get_representation(const _byte_t* cpby_data);
+
+/**
+ * Get length
+ * @param cpt_rep            pointer to basic_string_rep_t;
+ * @return length
+ * @remarks cpt_rep must not be NULL.
+ */
+extern size_t _basic_string_rep_get_length(const _basic_string_rep_t* cpt_rep);
+
+/**
+ * Set length
+ * @param pt_rep             pointer to basic_string_rep_t;
+ * @return void
+ * @remarks pt_rep must not be NULL and length muse be less than capacity.
+ */
+extern void _basic_string_rep_set_length(_basic_string_rep_t* pt_rep, size_t t_length);
+
+/**
+ * Check whether the rep is shared.
+ * @param cpt_rep            pointer to basic_string_rep_t;
+ * @return the rep sharing of case.
+ * @remarks cpt_rep must not be NULL.
+ */
+extern bool_t _basic_string_rep_is_shared(const _basic_string_rep_t* cpt_rep);
+
+/**
+ * Set rep as sharable
+ * @param pt_rep             pointer to basic_string_rep_t;
+ * @return void
+ * @remarks pt_rep must not be NULL.
+ */
+extern void _basic_string_rep_set_sharable(_basic_string_rep_t* pt_rep);
+
+/**
+ * Check whether the rep is leaked.
+ * @param cpt_rep            pointer to basic_string_rep_t;
+ * @return the rep leaking of case.
+ * @remarks cpt_rep must not be NULL.
+ */
+extern bool_t _basic_string_rep_is_leaked(const _basic_string_rep_t* cpt_rep);
+
+/**
+ * Set rep as leaked
+ * @param pt_rep             pointer to basic_string_rep_t;
+ * @return void
+ * @remarks pt_rep must not be NULL.
+ */
+extern void _basic_string_rep_set_leaked(_basic_string_rep_t* pt_rep);
+
+/**
+ * basic_string private operation
+ */
 /**
  * Create basic_string container.
  * @param s_typename     element type name.

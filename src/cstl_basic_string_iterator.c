@@ -25,7 +25,6 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-#include <cstl/cvector.h>
 
 #include <cstl/cstl_basic_string_iterator.h>
 #include <cstl/cstl_basic_string_private.h>

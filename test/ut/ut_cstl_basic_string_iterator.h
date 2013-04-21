@@ -175,6 +175,8 @@ void test__basic_string_iterator_minus__first_less_then_second(void** state);
 void test__basic_string_iterator_minus__first_greater_then_second(void** state);
 void test__basic_string_iterator_minus__first_equal_to_second(void** state);
 
+#define UT_CSTL_BASIC_STRING_ITERATOR_CASE
+/*
 #define UT_CSTL_BASIC_STRING_ITERATOR_CASE\
     UT_SUIT_BEGIN(cstl_basic_string_iterator, test__create_basic_string_iterator__successfully),\
     UT_CASE_BEGIN(_basic_string_iterator_equal, test__basic_string_iterator_equal__different_container_type),\
@@ -287,6 +289,7 @@ void test__basic_string_iterator_minus__first_equal_to_second(void** state);
     UT_CASE(test__basic_string_iterator_minus__first_less_then_second),\
     UT_CASE(test__basic_string_iterator_minus__first_greater_then_second),\
     UT_CASE(test__basic_string_iterator_minus__first_equal_to_second)
+*/
 
 #endif /* _UT_CSTL_BASIC_STRING_ITERATOR_H_ */
 

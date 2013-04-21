@@ -25,14 +25,12 @@
 #include <cstl/cstl_alloc.h>
 #include <cstl/cstl_types.h>
 #include <cstl/citerator.h>
-#include <cstl/cvector.h>
 
 #include <cstl/cstl_basic_string_iterator.h>
 #include <cstl/cstl_basic_string_private.h>
 #include <cstl/cstl_basic_string.h>
 
 #include "cstl_basic_string_aux.h"
-#include "cstl_vector_aux.h"
 
 /** local constant declaration and local macro section **/
 
@@ -46,9 +44,60 @@
 
 /** exported function implementation section **/
 #ifndef NDEBUG
+/**
+ * Test basic_string_t is created by create_basic_string.
+ */
+bool_t _basic_string_is_created(const basic_string_t* cpt_basic_string)
+{
+    assert(cpt_basic_string != NULL);
+
+    if (cpt_basic_string->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpt_basic_string->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpt_basic_string->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
+        return false;
+    }
+
+    if (cpt_basic_string->_t_typeinfo._pt_type == NULL) {
+        return false;
+    }
+
+    if (cpt_basic_string->_pby_string != NULL) {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Test basic_string is initialized by basic_string initialization functions.
+ */
+bool_t _basic_string_is_inited(const basic_string_t* cpt_basic_string)
+{
+    assert(cpt_basic_string != NULL);
+
+    if (cpt_basic_string->_t_typeinfo._t_style != _TYPE_C_BUILTIN &&
+        cpt_basic_string->_t_typeinfo._t_style != _TYPE_CSTL_BUILTIN &&
+        cpt_basic_string->_t_typeinfo._t_style != _TYPE_USER_DEFINE) {
+        return false;
+    }
+
+    if (cpt_basic_string->_t_typeinfo._pt_type == NULL) {
+        return false;
+    }
+
+    if (cpt_basic_string->_pby_string == NULL) {
+        return false;
+    }
+
+    return !_basic_string_rep_is_leaked(_basic_string_rep_get_representation(cpt_basic_string->_pby_string));
+}
+
+
+/**
+ * Test iterator referenced data is within the basic_string.
+ */
 bool_t _iterator_belong_to_basic_string(
-    const basic_string_t* cpt_basic_string,
-    basic_string_iterator_t t_iter)
+    const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter)
 {
     /* comment for 2.2
     assert(cpt_basic_string != NULL);
