@@ -2425,7 +2425,7 @@ void test__map_init_elem_auxiliary__successfully_cstr(void** state)
     map_t* pmap = create_map(char*, char*);
     pair_t* pt_pair = create_pair(char*, char*);
     map_init_ex(pmap, NULL);
-    pair_init(pt_pair);
+    /*pair_init(pt_pair);*/
 
     _map_init_elem_auxiliary(pmap, pt_pair);
     assert_true(strcmp((char*)pair_first(pt_pair), "") == 0);
@@ -2441,7 +2441,7 @@ void test__map_init_elem_auxiliary__successfully_iterator(void** state)
     map_t* pmap = create_map(iterator_t, iterator_t);
     pair_t* pt_pair = create_pair(iterator_t, iterator_t);
     map_init_ex(pmap, NULL);
-    pair_init(pt_pair);
+    /*pair_init(pt_pair);*/
 
     _map_init_elem_auxiliary(pmap, pt_pair);
     memset(&it_iter, 0x00, sizeof(iterator_t));

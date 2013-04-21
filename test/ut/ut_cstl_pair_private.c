@@ -512,6 +512,7 @@ void test__pair_make_first__libcstl_builtin(void** state)
     assert_true(*(int*)pair_second(ppair) == 0);
 
     pair_destroy(ppair);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__pair_make_first__user_define
@@ -601,6 +602,7 @@ void test__pair_make_second__libcstl_builtin(void** state)
     assert_true(*(int*)pair_first(ppair) == 0);
 
     pair_destroy(ppair);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__pair_make_second__user_define

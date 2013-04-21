@@ -1,6 +1,6 @@
 ; Define export functions for libcstl
 LIBRARY libcstl
-VERSION 2.0
+VERSION 2.2
 
 EXPORTS
 ; type interfaces
@@ -273,6 +273,8 @@ EXPORTS
     priority_queue_top                      @9010
     _priority_queue_push                    @9011
     priority_queue_pop                      @9012
+    priority_queue_init_copy_array          @9013
+    priority_queue_init_copy_array_ex       @9014
 
 ; string_t interfaces
     create_string                           @10000

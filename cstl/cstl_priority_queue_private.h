@@ -31,29 +31,53 @@ extern "C" {
 /** constant declaration and macro section **/
 
 /** data type declaration and struct, union, enum section **/
-
 typedef struct _tagpriority_queue
 {
-    vector_t          _t_vector;
-    binary_function_t _t_binary_op;
+    vector_t          _vec_base;
+    binary_function_t _bfun_priority;
 }priority_queue_t;
 
 /** exported global variable declaration section **/
 
 /** exported function prototype section **/
-
-/*
- * Create the new priority queue.
+/**
+ * Create priority queue adaptor.
+ * @param s_typename    type name.
+ * @return priority queue adaptor pointer, if create queue successfully, else return NULL.
+ * @remarks if s_typename == NULL, the behavior is undefined. s_typename must be c builtin type, libcstl builtin type or
+ *          user defined type, otherwise creation will be failure.
  */
 extern priority_queue_t* _create_priority_queue(const char* s_typename);
-extern bool_t _create_priority_queue_auxiliary(
-    priority_queue_t* pt_pqueue, const char* s_typename);
-extern void _priority_queue_destroy_auxiliary(priority_queue_t* pt_queue);
 
-/*
- * Append a copy of element at the top.
+/**
+ * Create priority queue adaptor auxiliary function.
+ * @param ppque_pqueue      priority queue adaptor.
+ * @param s_typename        type name.
+ * @return true if create priority queue adaptor successfully, otherwise return false.
+ * @remarks if ppque_pqueue == NULL or s_typename == NULL, the behavior is undefined. s_typename must be c builtin type,
+ *          libcstl builtin type or user defined type, otherwise creation will be failure.
  */
-extern void _priority_queue_push(priority_queue_t* pt_pqueue, ...);
+extern bool_t _create_priority_queue_auxiliary(priority_queue_t* ppque_pqueue, const char* s_typename);
+
+/**
+ * Destroy priority queue adaptor auxiliary function.
+ * @param ppque_pqueue   priority queue adaptor.
+ * @return void.
+ * @remarks if ppque_pqueue == NULL, then the behavior is undefined. priority queue adaptor must be initialized or created by
+ *          create_queue, otherwise the behavior is undefined.
+ */
+extern void _priority_queue_destroy_auxiliary(priority_queue_t* ppque_pqueue);
+
+/**
+ * Add specificed element at the back of priority queue. 
+ * @param ppque_pqueue    priority queue adaptor.
+ * @param ...             specificed element.
+ * @return void.
+ * @remarks if ppque_pqueue == NULL or priority queue is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and priority queue element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use.
+ */
+extern void _priority_queue_push(priority_queue_t* ppque_pqueue, ...);
 
 #ifdef __cplusplus
 }

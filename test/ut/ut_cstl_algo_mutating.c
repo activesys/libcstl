@@ -1052,7 +1052,7 @@ void test_algo_transform__ufun_NULL(void** state)
     vector_t* pvec = create_vector(int);
     vector_t* pvec_result = create_vector(int);
     int an_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-    int i = 0;
+    size_t i = 0;
     iterator_t it;
 
     vector_init_copy_array(pvec, an_array, sizeof(an_array)/sizeof(an_array[0]));
@@ -3436,6 +3436,7 @@ void test_algo_reverse_copy__one(void** state)
     assert_true(deque_size(pdeq) == 1);
     assert_true(*(int*)deque_front(pdeq) == 100);
     list_destroy(plist);
+    deque_destroy(pdeq);
 }
 
 void test_algo_reverse_copy__reverse_copy(void** state)
@@ -3455,6 +3456,7 @@ void test_algo_reverse_copy__reverse_copy(void** state)
     assert_true(deque_equal(pdeq_dest, pdeq_result));
     deque_destroy(pdeq_src);
     deque_destroy(pdeq_result);
+    deque_destroy(pdeq_dest);
 }
 
 /*

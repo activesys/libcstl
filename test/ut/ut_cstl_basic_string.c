@@ -11345,6 +11345,7 @@ void test_basic_string_connect_cstr__libcstl(void** state)
     }
 
     basic_string_destroy(pt_basic_string);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test_basic_string_connect_cstr__user_define
@@ -34569,6 +34570,7 @@ void test_basic_string_erase__libcstl_builtin(void** state)
     assert_true(iterator_equal(it_pos, basic_string_end(pt_basic_string)));
 
     basic_string_destroy(pt_basic_string);
+    list_destroy(plist);
 }
 
 typedef struct _tag_test_basic_string_erase__user_define

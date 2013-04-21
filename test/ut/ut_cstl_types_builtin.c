@@ -1785,6 +1785,7 @@ void test__type_init_cstr__null_output(void** state)
         return;
     }
     expect_assert_failure(_type_init_cstr(pstr_input, NULL));
+    /*string_destroy(pstr_input);*/
 }
 
 void test__type_init_cstr__ok(void** state)
@@ -4711,6 +4712,7 @@ void test__type_copy_map__ok(void** state)
     assert_true(b_output);
     map_destroy(pmap_first);
     map_destroy(pmap_second);
+    pair_destroy(ppair);
 }
 
 /*
@@ -5054,6 +5056,7 @@ void test__type_copy_multimap__ok(void** state)
     assert_true(b_output);
     multimap_destroy(pmmap_first);
     multimap_destroy(pmmap_second);
+    pair_destroy(ppair);
 }
 
 /*
@@ -5985,6 +5988,7 @@ void test__type_copy_hash_map__ok(void** state)
     assert_true(b_output);
     hash_map_destroy(phmap_first);
     hash_map_destroy(phmap_second);
+    pair_destroy(ppair);
 }
 
 /*
@@ -6328,6 +6332,7 @@ void test__type_copy_hash_multimap__ok(void** state)
     assert_true(b_output);
     hash_multimap_destroy(phmmap_first);
     hash_multimap_destroy(phmmap_second);
+    pair_destroy(ppair);
 }
 
 /*

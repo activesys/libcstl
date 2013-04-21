@@ -167,6 +167,7 @@ void test__set_iterator_get_value__libcstl_builtin(void** state)
     assert_true(vector_size(pvec) == 10);
 
     set_destroy(pt_set);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__set_iterator_get_value__user_define
@@ -306,6 +307,7 @@ void test__set_iterator_get_pointer__libcstl_builtin(void** state)
     assert_true(vector_size((vector_t*)_set_iterator_get_pointer(it_iter)) == 10);
 
     set_destroy(pt_set);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__set_iterator_get_pointer__user_define
@@ -443,6 +445,7 @@ void test__set_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
     assert_true(vector_size((vector_t*)_set_iterator_get_pointer_ignore_cstr(it_iter)) == 10);
 
     set_destroy(pt_set);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__set_iterator_get_pointer_ignore_cstr__user_define

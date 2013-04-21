@@ -121,6 +121,7 @@ void test__avl_tree_iterator_get_value__cstr(void** state)
     assert_true(strcmp(p, "abc") == 0);
 
     _avl_tree_destroy(pt_avl_tree);
+    string_destroy(pstr);
 }
 
 void test__avl_tree_iterator_get_value__libcstl_builtin(void** state)
@@ -138,6 +139,7 @@ void test__avl_tree_iterator_get_value__libcstl_builtin(void** state)
     assert_true(vector_size(pvec) == 10);
 
     _avl_tree_destroy(pt_avl_tree);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__avl_tree_iterator_get_value__user_define
@@ -236,6 +238,7 @@ void test__avl_tree_iterator_get_pointer__cstr(void** state)
     assert_true(strcmp((char*)_avl_tree_iterator_get_pointer(it_iter), "abc") == 0);
 
     _avl_tree_destroy(pt_avl_tree);
+    string_destroy(pstr);
 }
 
 void test__avl_tree_iterator_get_pointer__libcstl_builtin(void** state)
@@ -251,6 +254,7 @@ void test__avl_tree_iterator_get_pointer__libcstl_builtin(void** state)
     assert_true(vector_size((vector_t*)_avl_tree_iterator_get_pointer(it_iter)) == 10);
 
     _avl_tree_destroy(pt_avl_tree);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__avl_tree_iterator_get_pointer__user_define
@@ -347,6 +351,7 @@ void test__avl_tree_iterator_get_pointer_ignore_cstr__cstr(void** state)
     assert_true(strcmp(string_c_str(_avl_tree_iterator_get_pointer_ignore_cstr(it_iter)), "abc") == 0);
 
     _avl_tree_destroy(pt_avl_tree);
+    string_destroy(pstr);
 }
 
 void test__avl_tree_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** state)
@@ -362,6 +367,7 @@ void test__avl_tree_iterator_get_pointer_ignore_cstr__libcstl_builtin(void** sta
     assert_true(vector_size((vector_t*)_avl_tree_iterator_get_pointer_ignore_cstr(it_iter)) == 10);
 
     _avl_tree_destroy(pt_avl_tree);
+    vector_destroy(pvec);
 }
 
 typedef struct _tag_test__avl_tree_iterator_get_pointer_ignore_cstr__user_define

@@ -1,3 +1,8 @@
+2012-11-22    Bo Wang <activesys.wb@gmail.com>
+    * Release libcstl-2.1.1
+    * Fixup bug 4, 17, 18, 20, 21, 23.
+    * Add priority_queue_init_copy_array and priority_queue_init_copy_array_ex interface.
+
 2012-07-12    Bo Wang <activesys.wb@gmail.com>
     * Release libcstl-2.1.0
 

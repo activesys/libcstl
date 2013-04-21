@@ -1680,6 +1680,7 @@ void test_deque_assign_array__10_assign_array_10_same_elem(void** state)
     }
 
     deque_destroy(pdeq_dest);
+    deque_destroy(pdeq_src);
 }
 
 void test_deque_assign_array__10_assign_array_10_not_same_elem(void** state)
@@ -1704,6 +1705,7 @@ void test_deque_assign_array__10_assign_array_10_not_same_elem(void** state)
     }
 
     deque_destroy(pdeq_dest);
+    deque_destroy(pdeq_src);
 }
 
 void test_deque_assign_array__10_assign_array_1000(void** state)
@@ -1760,6 +1762,10 @@ void test_deque_assign_array__other_container_array(void** state)
          !iterator_equal(it_iter, deque_end(pdeq)) && i < 100;
          it_iter = iterator_next(it_iter), ++i) {
         assert_true(list_equal((list_t*)iterator_get_pointer(it_iter), aplist_array[i]));
+    }
+
+    for (i = 0; i < 100; ++i) {
+        list_destroy(aplist_array[i]);
     }
 
     deque_destroy(pdeq);
@@ -3908,6 +3914,9 @@ void test_deque_insert_array__other_container_array1(void** state)
         {
             assert_true(deque_size((deque_t*)deque_at(pdeq, i)) == 10);
         }
+    }
+    for (i = 0; i < 100; ++i) {
+        deque_destroy(apdeq_array[i]);
     }
 
     deque_destroy(pdeq);

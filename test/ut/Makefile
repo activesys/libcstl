@@ -237,7 +237,9 @@ am_libcstl_ut_OBJECTS = libcstl_ut-ut_main.$(OBJEXT) \
 	libcstl_ut-ut_cstl_numeric_private.$(OBJEXT) \
 	libcstl_ut-ut_cstl_numeric.$(OBJEXT) \
 	libcstl_ut-ut_cstl_function_private.$(OBJEXT) \
-	libcstl_ut-ut_cstl_function.$(OBJEXT)
+	libcstl_ut-ut_cstl_function.$(OBJEXT) \
+	libcstl_ut-ut_cstl_priority_queue_private.$(OBJEXT) \
+	libcstl_ut-ut_cstl_priority_queue.$(OBJEXT)
 libcstl_ut_OBJECTS = $(am_libcstl_ut_OBJECTS)
 libcstl_ut_LDADD = $(LDADD)
 libcstl_ut_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -515,7 +517,9 @@ libcstl_ut_SOURCES = ut_main.c ut_def.c ut_def.h \
          ut_cstl_numeric_private.c ut_cstl_numeric_private.h \
          ut_cstl_numeric.c ut_cstl_numeric.h \
          ut_cstl_function_private.c ut_cstl_function_private.h \
-         ut_cstl_function.c ut_cstl_function.h
+         ut_cstl_function.c ut_cstl_function.h \
+         ut_cstl_priority_queue_private.c ut_cstl_priority_queue_private.h \
+         ut_cstl_priority_queue.c ut_cstl_priority_queue.h
 
 libcstl_ut_CPPFLAGS = -D_CSTL_UNIT_TESTING -I$(srcdir)/../.. -I$(srcdir)/../../src
 libcstl_ut_LDFLAGS = -lcmockery
@@ -740,6 +744,8 @@ include ./$(DEPDIR)/libcstl_ut-ut_cstl_numeric_private.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_pair.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_pair_aux.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_pair_private.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_priority_queue.Po
+include ./$(DEPDIR)/libcstl_ut-ut_cstl_priority_queue_private.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_queue.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_queue_private.Po
 include ./$(DEPDIR)/libcstl_ut-ut_cstl_rb_tree.Po
@@ -3505,6 +3511,34 @@ libcstl_ut-ut_cstl_function.obj: ut_cstl_function.c
 #	source='ut_cstl_function.c' object='libcstl_ut-ut_cstl_function.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_function.obj `if test -f 'ut_cstl_function.c'; then $(CYGPATH_W) 'ut_cstl_function.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_function.c'; fi`
+
+libcstl_ut-ut_cstl_priority_queue_private.o: ut_cstl_priority_queue_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_priority_queue_private.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue_private.Tpo -c -o libcstl_ut-ut_cstl_priority_queue_private.o `test -f 'ut_cstl_priority_queue_private.c' || echo '$(srcdir)/'`ut_cstl_priority_queue_private.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue_private.Po
+#	source='ut_cstl_priority_queue_private.c' object='libcstl_ut-ut_cstl_priority_queue_private.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_priority_queue_private.o `test -f 'ut_cstl_priority_queue_private.c' || echo '$(srcdir)/'`ut_cstl_priority_queue_private.c
+
+libcstl_ut-ut_cstl_priority_queue_private.obj: ut_cstl_priority_queue_private.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_priority_queue_private.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue_private.Tpo -c -o libcstl_ut-ut_cstl_priority_queue_private.obj `if test -f 'ut_cstl_priority_queue_private.c'; then $(CYGPATH_W) 'ut_cstl_priority_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_priority_queue_private.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue_private.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue_private.Po
+#	source='ut_cstl_priority_queue_private.c' object='libcstl_ut-ut_cstl_priority_queue_private.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_priority_queue_private.obj `if test -f 'ut_cstl_priority_queue_private.c'; then $(CYGPATH_W) 'ut_cstl_priority_queue_private.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_priority_queue_private.c'; fi`
+
+libcstl_ut-ut_cstl_priority_queue.o: ut_cstl_priority_queue.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_priority_queue.o -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue.Tpo -c -o libcstl_ut-ut_cstl_priority_queue.o `test -f 'ut_cstl_priority_queue.c' || echo '$(srcdir)/'`ut_cstl_priority_queue.c
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue.Po
+#	source='ut_cstl_priority_queue.c' object='libcstl_ut-ut_cstl_priority_queue.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_priority_queue.o `test -f 'ut_cstl_priority_queue.c' || echo '$(srcdir)/'`ut_cstl_priority_queue.c
+
+libcstl_ut-ut_cstl_priority_queue.obj: ut_cstl_priority_queue.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcstl_ut-ut_cstl_priority_queue.obj -MD -MP -MF $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue.Tpo -c -o libcstl_ut-ut_cstl_priority_queue.obj `if test -f 'ut_cstl_priority_queue.c'; then $(CYGPATH_W) 'ut_cstl_priority_queue.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_priority_queue.c'; fi`
+	$(am__mv) $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue.Tpo $(DEPDIR)/libcstl_ut-ut_cstl_priority_queue.Po
+#	source='ut_cstl_priority_queue.c' object='libcstl_ut-ut_cstl_priority_queue.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcstl_ut_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcstl_ut-ut_cstl_priority_queue.obj `if test -f 'ut_cstl_priority_queue.c'; then $(CYGPATH_W) 'ut_cstl_priority_queue.c'; else $(CYGPATH_W) '$(srcdir)/ut_cstl_priority_queue.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

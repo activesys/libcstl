@@ -38,69 +38,68 @@
 /** local global variable definition section **/
 
 /** exported function implementation section **/
-/* priority queue function */
-/* create new priority queue */
+/**
+ * Create priority queue adaptor.
+ */
 priority_queue_t* _create_priority_queue(const char* s_typename)
 {
-    priority_queue_t* pt_newpqueue = (priority_queue_t*)malloc(sizeof(priority_queue_t));
+    priority_queue_t* ppque_new = NULL;
 
-    if(pt_newpqueue == NULL)
-    {
+    assert(s_typename != NULL);
+    
+    if ((ppque_new = (priority_queue_t*)malloc(sizeof(priority_queue_t))) == NULL) {
         return NULL;
     }
 
-    if(!_create_priority_queue_auxiliary(pt_newpqueue, s_typename))
-    {
-        free(pt_newpqueue);
+    if (!_create_priority_queue_auxiliary(ppque_new, s_typename)) {
+        free(ppque_new);
         return NULL;
     }
 
-    return pt_newpqueue;
+    return ppque_new;
 }
 
-bool_t _create_priority_queue_auxiliary(priority_queue_t* pt_pqueue,  const char* s_typename)
+/**
+ * Create priority queue adaptor auxiliary function.
+ */
+bool_t _create_priority_queue_auxiliary(priority_queue_t* ppque_pqueue,  const char* s_typename)
 {
-    assert(pt_pqueue != NULL && s_typename != NULL);
+    assert(ppque_pqueue != NULL);
+    assert(s_typename != NULL);
 
-    if(!_create_vector_auxiliary(&pt_pqueue->_t_vector, s_typename))
-    {
+    if (!_create_vector_auxiliary(&ppque_pqueue->_vec_base, s_typename)) {
         return false;
     }
-    pt_pqueue->_t_binary_op = NULL;
+    ppque_pqueue->_bfun_priority = NULL;
 
     return true;
 }
 
-void _priority_queue_destroy_auxiliary(priority_queue_t* pt_pqueue)
+/**
+ * Destroy priority queue adaptor auxiliary function.
+ */
+void _priority_queue_destroy_auxiliary(priority_queue_t* ppque_pqueue)
 {
-    assert(pt_pqueue != NULL);
+    assert(ppque_pqueue != NULL);
 
-    _vector_destroy_auxiliary(&pt_pqueue->_t_vector);
-    pt_pqueue->_t_binary_op = NULL;
+    _vector_destroy_auxiliary(&ppque_pqueue->_vec_base);
+    ppque_pqueue->_bfun_priority = NULL;
 }
 
-
-void _priority_queue_push(priority_queue_t* pt_pqueue, ...)
+/**
+ * Add specificed element at the back of priority queue. 
+ */
+void _priority_queue_push(priority_queue_t* ppque_pqueue, ...)
 {
     va_list val_elemlist;
 
-    assert(pt_pqueue != NULL);
+    assert(ppque_pqueue != NULL);
 
-    va_start(val_elemlist, pt_pqueue);
-    _vector_push_back_varg(&pt_pqueue->_t_vector, val_elemlist);
+    va_start(val_elemlist, ppque_pqueue);
+    _vector_push_back_varg(&ppque_pqueue->_vec_base, val_elemlist);
     va_end(val_elemlist);
 
-    if(pt_pqueue->_t_binary_op == NULL)
-    {
-        algo_push_heap(
-            vector_begin(&pt_pqueue->_t_vector), vector_end(&pt_pqueue->_t_vector));
-    }
-    else
-    {
-        algo_push_heap_if(
-            vector_begin(&pt_pqueue->_t_vector), vector_end(&pt_pqueue->_t_vector),
-            pt_pqueue->_t_binary_op);
-    }
+    algo_push_heap_if(vector_begin(&ppque_pqueue->_vec_base), vector_end(&ppque_pqueue->_vec_base), ppque_pqueue->_bfun_priority);
 }
 
 /** local function implementation section **/

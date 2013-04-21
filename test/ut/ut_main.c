@@ -102,6 +102,8 @@
 #include "ut_cstl_numeric.h"
 #include "ut_cstl_function_private.h"
 #include "ut_cstl_function.h"
+#include "ut_cstl_priority_queue_private.h"
+#include "ut_cstl_priority_queue.h"
 
 int main(int argc, char* argv[])
 {
@@ -202,7 +204,9 @@ int main(int argc, char* argv[])
         UT_CSTL_ALGO_SORTING_CASE,
         UT_CSTL_NUMERIC_PRIVATE_CASE,
         UT_CSTL_NUMERIC_CASE,
-        UT_CSTL_FUNCTION_PRIVATE_CASE
+        UT_CSTL_FUNCTION_PRIVATE_CASE,
+        UT_CSTL_PRIORITY_QUEUE_PRIVATE_CASE,
+        UT_CSTL_PRIORITY_QUEUE_CASE
         */
     };
 

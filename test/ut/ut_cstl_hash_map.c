@@ -490,6 +490,7 @@ void test_hash_map_init_copy_range__invalid_range(void** state)
 
     hash_map_destroy(pt_dest);
     hash_map_destroy(pt_src);
+    pair_destroy(pt_pair);
 }
 
 void test_hash_map_init_copy_range__invalid_range_not_same_type(void** state)

@@ -657,6 +657,9 @@ void test_slist_init_copy_array__libcstl_builtin(void** state)
     {
         assert_true(slist_equal((slist_t*)iterator_get_pointer(it_dest), apslist_array[i]));
     }
+    for (i = 0; i < 10; ++i) {
+        slist_destroy(apslist_array[i]);
+    }
 
     slist_destroy(pslist_dest);
 }
@@ -4228,6 +4231,7 @@ void test_slist_insert_after_array__user_define(void** state)
     for (i = 0; i < 10; ++i) {
         free(apt_array[i]);
     }
+    slist_destroy(pslist);
 }
 
 /*

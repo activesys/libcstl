@@ -1821,7 +1821,7 @@ void test__hash_map_init_elem_auxiliary__successfully_cstr(void** state)
     hash_map_t* phash_map = create_hash_map(char*, char*);
     pair_t* pt_pair = create_pair(char*, char*);
     hash_map_init_ex(phash_map, 0, NULL, NULL);
-    pair_init(pt_pair);
+    /*pair_init(pt_pair);*/
 
     _hash_map_init_elem_auxiliary(phash_map, pt_pair);
     assert_true(strcmp((char*)pair_first(pt_pair), "") == 0);
@@ -1837,7 +1837,7 @@ void test__hash_map_init_elem_auxiliary__successfully_iterator(void** state)
     hash_map_t* phash_map = create_hash_map(iterator_t, iterator_t);
     pair_t* pt_pair = create_pair(iterator_t, iterator_t);
     hash_map_init_ex(phash_map, 0, NULL, NULL);
-    pair_init(pt_pair);
+    /*pair_init(pt_pair);*/
 
     _hash_map_init_elem_auxiliary(phash_map, pt_pair);
     memset(&it_iter, 0x00, sizeof(iterator_t));
