@@ -204,15 +204,14 @@ void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string)
  */
 void _basic_string_init_elem(basic_string_t* pt_basic_string, size_t t_count, ...)
 {
-    /* comment for 2.2
     va_list val_elemlist;
 
     assert(pt_basic_string != NULL);
+    assert(_basic_string_is_created(pt_basic_string));
 
     va_start(val_elemlist, t_count);
     _basic_string_init_elem_varg(pt_basic_string, t_count, val_elemlist);
     va_end(val_elemlist);
-    */
 }
 
 /**
@@ -220,11 +219,37 @@ void _basic_string_init_elem(basic_string_t* pt_basic_string, size_t t_count, ..
  */
 void _basic_string_init_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 {
-    /* comment for 2.2
-    assert(pt_basic_string != NULL);
+    size_t               i = 0;
+    void*                pv_varg = NULL;
+    _byte_t*             pby_index = NULL;
+    _basic_string_rep_t* prep = NULL;
 
-    _vector_init_elem_varg(&pt_basic_string->_vec_base, t_count, val_elemlist);
-    */
+    assert(pt_basic_string != NULL);
+    assert(_basic_string_is_created(pt_basic_string));
+
+    prep = _create_basic_string_representation(t_count, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
+    assert(prep != NULL);
+    _basic_string_rep_set_length(prep, t_count);
+    _basic_string_rep_set_sharable(prep);
+    pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
+
+    if (t_count > 0) {
+        /* get varg value only once */
+        pv_varg = malloc(_GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
+        assert(pv_varg != NULL);
+        _basic_string_get_varg_value_auxiliary(pt_basic_string, val_elemlist, pv_varg);
+
+        /* copy varg value to each element */
+        for (i = 0, pby_index = pt_basic_string->_pby_string;
+             i < t_count;
+             ++i, pby_index += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)) {
+            memcpy(pby_index, pv_varg, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
+        }
+
+        /* destroy varg value and free memory */
+        _basic_string_destroy_varg_value_auxiliary(pt_basic_string, pv_varg);
+        free(pv_varg);
+    }
 }
 
 /**
@@ -809,13 +834,13 @@ void _basic_string_range_replace_elem_varg(
  */
 void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv_elem)
 {
-    /* comment for 2.2
     assert(pt_basic_string != NULL);
     assert(pv_elem != NULL);
+    assert(_basic_string_is_inited(pt_basic_string) || _basic_string_is_created(pt_basic_string));
 
-    / * initialize new elements * /
+    /* initialize new elements */
     if (_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_CSTL_BUILTIN) {
-        / * get element type name * /
+        /* get element type name */
         char s_elemtypename[_TYPE_NAME_SIZE + 1];
         _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string), s_elemtypename);
 
@@ -825,7 +850,6 @@ void _basic_string_init_elem_auxiliary(basic_string_t* pt_basic_string, void* pv
         _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pv_elem, &b_result);
         assert(b_result);
     }
-    */
 }
 
 /** local function implementation section **/

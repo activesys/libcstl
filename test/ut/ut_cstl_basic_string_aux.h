@@ -85,7 +85,7 @@ void test__basic_string_is_inited__inited_non_empty(void** state);
     UT_CASE(test__basic_string_is_inited__non_inited_leaked),\
     UT_CASE(test__basic_string_is_inited__non_inited_invalid_type_style),\
     UT_CASE(test__basic_string_is_inited__inited_empty),\
-    UT_CASE(test__basic_string_is_inited__inited_non_empty)/*,\
+    UT_CASE(test__basic_string_is_inited__inited_non_empty),\
     UT_CASE_BEGIN(_basic_string_same_type, test__basic_string_same_type__null_first),\
     UT_CASE(test__basic_string_same_type__null_second),\
     UT_CASE(test__basic_string_same_type__non_created_first),\
@@ -98,6 +98,16 @@ void test__basic_string_is_inited__inited_non_empty(void** state);
     UT_CASE(test__basic_string_same_type__same_type),\
     UT_CASE(test__basic_string_same_type__same_type_duplicate_name),\
     UT_CASE(test__basic_string_same_type__same_container),\
+    UT_CASE_BEGIN(_basic_string_get_varg_value_auxiliary,\
+        test__basic_string_get_varg_value_auxiliary__null_basic_string_container),\
+    UT_CASE(test__basic_string_get_varg_value_auxiliary__null_varg),\
+    UT_CASE(test__basic_string_get_varg_value_auxiliary__non_created),\
+    UT_CASE(test__basic_string_get_varg_value_auxiliary__successfully),\
+    UT_CASE_BEGIN(_basic_string_destroy_varg_value_auxiliary,\
+        test__basic_string_destroy_varg_value_auxiliary__null_basic_string_container),\
+    UT_CASE(test__basic_string_destroy_varg_value_auxiliary__null_varg),\
+    UT_CASE(test__basic_string_destroy_varg_value_auxiliary__non_created),\
+    UT_CASE(test__basic_string_destroy_varg_value_auxiliary__successfully)/*,\
     UT_CASE_BEGIN(_basic_string_get_value_string_length, test__basic_string_get_value_string_length__null_basic_string),\
     UT_CASE(test__basic_string_get_value_string_length__null_value_string),\
     UT_CASE(test__basic_string_get_value_string_length__c_builtin_empty),\
@@ -114,17 +124,7 @@ void test__basic_string_is_inited__inited_non_empty(void** state);
     UT_CASE(test__basic_string_get_value_string_length__libcstl_builtin_no_terminal),\
     UT_CASE(test__basic_string_get_value_string_length__user_define_empty),\
     UT_CASE(test__basic_string_get_value_string_length__user_define_non_empty),\
-    UT_CASE(test__basic_string_get_value_string_length__user_define_no_terminal),\
-    UT_CASE_BEGIN(_basic_string_get_varg_value_auxiliary,\
-        test__basic_string_get_varg_value_auxiliary__null_basic_string_container),\
-    UT_CASE(test__basic_string_get_varg_value_auxiliary__null_varg),\
-    UT_CASE(test__basic_string_get_varg_value_auxiliary__non_created),\
-    UT_CASE(test__basic_string_get_varg_value_auxiliary__successfully),\
-    UT_CASE_BEGIN(_basic_string_destroy_varg_value_auxiliary,\
-        test__basic_string_destroy_varg_value_auxiliary__null_basic_string_container),\
-    UT_CASE(test__basic_string_destroy_varg_value_auxiliary__null_varg),\
-    UT_CASE(test__basic_string_destroy_varg_value_auxiliary__non_created),\
-    UT_CASE(test__basic_string_destroy_varg_value_auxiliary__successfully)
+    UT_CASE(test__basic_string_get_value_string_length__user_define_no_terminal)
 */
 
 #endif /* _UT_CSTL_BASIC_STRING_AUX_H_ */

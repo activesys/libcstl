@@ -115,13 +115,18 @@ bool_t _iterator_belong_to_basic_string(
  */
 bool_t _basic_string_same_type(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    /* comment for 2.2
     assert(cpt_first != NULL);
     assert(cpt_second != NULL);
+    assert(_basic_string_is_inited(cpt_first) || _basic_string_is_created(cpt_first));
+    assert(_basic_string_is_inited(cpt_second) || _basic_string_is_created(cpt_second));
 
-    return _vector_same_type(&cpt_first->_vec_base, &cpt_second->_vec_base);
-    */
-    return false;
+    if (cpt_first == cpt_second) {
+        return true;
+    }
+
+    return (cpt_first->_t_typeinfo._pt_type == cpt_second->_t_typeinfo._pt_type) &&
+           (cpt_first->_t_typeinfo._t_style == cpt_second->_t_typeinfo._t_style) &&
+           _type_is_same(_GET_BASIC_STRING_TYPE_NAME(cpt_first), _GET_BASIC_STRING_TYPE_NAME(cpt_second));
 }
 #endif /* NDEBUG */
 
@@ -183,13 +188,12 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
  */
 void _basic_string_get_varg_value_auxiliary(basic_string_t* pt_basic_string, va_list val_elemlist, void* pv_varg)
 {
-    /* comment for 2.2
     assert(pt_basic_string != NULL);
     assert(pv_varg != NULL);
+    assert(_basic_string_is_inited(pt_basic_string) || _basic_string_is_created(pt_basic_string));
 
     _basic_string_init_elem_auxiliary(pt_basic_string, pv_varg);
-    _type_get_varg_value(&pt_basic_string->_vec_base._t_typeinfo, val_elemlist, pv_varg);
-    */
+    _type_get_varg_value(&pt_basic_string->_t_typeinfo, val_elemlist, pv_varg);
 }
 
 /**
@@ -197,16 +201,15 @@ void _basic_string_get_varg_value_auxiliary(basic_string_t* pt_basic_string, va_
  */
 void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_string, void* pv_varg)
 {
-    /* comment for 2.2
     bool_t b_result = false;
 
     assert(pt_basic_string != NULL);
     assert(pv_varg != NULL);
+    assert(_basic_string_is_inited(pt_basic_string) || _basic_string_is_created(pt_basic_string));
 
     b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pv_varg, &b_result);
     assert(b_result);
-    */
 }
 
 /** local function implementation section **/

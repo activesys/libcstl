@@ -308,11 +308,11 @@ size_t basic_string_capacity(const basic_string_t* cpt_basic_string)
  */
 void* basic_string_at(const basic_string_t* cpt_basic_string, size_t t_pos)
 {
-    /* comment for 2.2
     assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
+    assert(t_pos < basic_string_size(cpt_basic_string));
 
-    return vector_at(&cpt_basic_string->_vec_base, t_pos);
-    */
+    return cpt_basic_string->_pby_string + _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string) * t_pos;
 }
 
 /**

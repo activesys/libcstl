@@ -403,7 +403,7 @@ void test__basic_string_rep_set_leaked__successfully(void** state);
     UT_CASE(test__create_basic_string_auxiliary__unregisted_type),\
     UT_CASE(test__create_basic_string_auxiliary__c_builtin_type),\
     UT_CASE(test__create_basic_string_auxiliary__libcstl_builtin_type),\
-    UT_CASE(test__create_basic_string_auxiliary__registed_type)/*,\
+    UT_CASE(test__create_basic_string_auxiliary__registed_type),\
     UT_CASE_BEGIN(_basic_string_init_elem__basic_string_init_elem_varg,\
             test__basic_string_init_elem__basic_string_init_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__non_created),\
@@ -411,6 +411,13 @@ void test__basic_string_rep_set_leaked__successfully(void** state);
     UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully),\
     UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully_large_amounts_of_data),\
     UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully_multiple_specificed_element),\
+    UT_CASE_BEGIN(_basic_string_init_elem_auxiliary, test__basic_string_init_elem_auxiliary__null_basic_string_container),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__null_elem),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__non_created_basic_string),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_int),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_cstr),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_iterator),\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_container)/*,\
     UT_CASE_BEGIN(_basic_string_destroy_auxiliary, test__basic_string_destroy_auxiliary__null_basic_string_container),\
     UT_CASE(test__basic_string_destroy_auxiliary__invalid_basic_string_container_finish_less_than_start),\
     UT_CASE(test__basic_string_destroy_auxiliary__invalid_basic_string_container_endofstorage_less_than_start),\
@@ -619,14 +626,7 @@ void test__basic_string_rep_set_leaked__successfully(void** state);
     UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_less),\
     UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_equal),\
     UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_greater),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all),\
-    UT_CASE_BEGIN(_basic_string_init_elem_auxiliary, test__basic_string_init_elem_auxiliary__null_basic_string_container),\
-    UT_CASE(test__basic_string_init_elem_auxiliary__null_elem),\
-    UT_CASE(test__basic_string_init_elem_auxiliary__non_created_basic_string),\
-    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_int),\
-    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_cstr),\
-    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_iterator),\
-    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_container)
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all)
 */
 
 #endif /* _UT_CSTL_BASIC_STRING_PRIVATE_H_ */
