@@ -2646,7 +2646,7 @@ void test_basic_string_at__c_builtin(void** state)
     basic_string_init_elem(pbstr, 10, 111);
 
     for (i = 0; i < basic_string_size(pbstr); ++i) {
-        assert_true(*(int*)basic_string_at(pbstr, i) == 10);
+        assert_true(*(int*)basic_string_at(pbstr, i) == 111);
     }
     basic_string_destroy(pbstr);
 }

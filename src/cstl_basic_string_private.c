@@ -221,6 +221,7 @@ void _basic_string_init_elem_varg(basic_string_t* pt_basic_string, size_t t_coun
 {
     size_t               i = 0;
     void*                pv_varg = NULL;
+    bool_t               b_result = false;
     _byte_t*             pby_index = NULL;
     _basic_string_rep_t* prep = NULL;
 
@@ -233,6 +234,8 @@ void _basic_string_init_elem_varg(basic_string_t* pt_basic_string, size_t t_coun
     _basic_string_rep_set_sharable(prep);
     pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
 
+    _basic_string_init_elem_range_auxiliary(pt_basic_string, pt_basic_string->_pby_string, t_count);
+
     if (t_count > 0) {
         /* get varg value only once */
         pv_varg = malloc(_GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
@@ -243,7 +246,9 @@ void _basic_string_init_elem_varg(basic_string_t* pt_basic_string, size_t t_coun
         for (i = 0, pby_index = pt_basic_string->_pby_string;
              i < t_count;
              ++i, pby_index += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)) {
-            memcpy(pby_index, pv_varg, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pby_index, pv_varg, &b_result);
+            assert(b_result);
         }
 
         /* destroy varg value and free memory */
