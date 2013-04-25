@@ -65,12 +65,13 @@ void basic_string_init(basic_string_t* pt_basic_string)
  */
 void basic_string_init_copy(basic_string_t* pt_dest, const basic_string_t* cpt_src)
 {
-    /* comment for 2.2
     assert(pt_dest != NULL);
     assert(cpt_src != NULL);
+    assert(_basic_string_is_created(pt_dest));
+    assert(_basic_string_is_inited(cpt_src));
+    assert(_basic_string_same_type(pt_dest, cpt_src));
 
-    vector_init_copy(&pt_dest->_vec_base, &cpt_src->_vec_base);
-    */
+    pt_dest->_pby_string = cpt_src->_pby_string;
 }
 
 /**

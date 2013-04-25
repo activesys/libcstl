@@ -74,6 +74,17 @@ void test__basic_string_is_inited__non_inited_leaked(void** state);
 void test__basic_string_is_inited__non_inited_invalid_type_style(void** state);
 void test__basic_string_is_inited__inited_empty(void** state);
 void test__basic_string_is_inited__inited_non_empty(void** state);
+/*
+ * test _basic_string_init_elem_range_auxiliary
+ */
+UT_CASE_DECLARATION(_basic_string_init_elem_range_auxiliary)
+void test__basic_string_init_elem_range_auxiliary__null_basic_string_containter(void** state);
+void test__basic_string_init_elem_range_auxiliary__null_pby_string(void** state);
+void test__basic_string_init_elem_range_auxiliary__non_created(void** state);
+void test__basic_string_init_elem_range_auxiliary__successfully_int(void** state);
+void test__basic_string_init_elem_range_auxiliary__successfully_cstr(void** state);
+void test__basic_string_init_elem_range_auxiliary__successfully_iterator(void** state);
+void test__basic_string_init_elem_range_auxiliary__successfully_container(void** state);
 
 #define UT_CSTL_BASIC_STRING_AUX_CASE\
     UT_SUIT_BEGIN(cstl_basic_string_aux, test__basic_string_is_created__null_basic_string_container),\
@@ -107,7 +118,14 @@ void test__basic_string_is_inited__inited_non_empty(void** state);
         test__basic_string_destroy_varg_value_auxiliary__null_basic_string_container),\
     UT_CASE(test__basic_string_destroy_varg_value_auxiliary__null_varg),\
     UT_CASE(test__basic_string_destroy_varg_value_auxiliary__non_created),\
-    UT_CASE(test__basic_string_destroy_varg_value_auxiliary__successfully)/*,\
+    UT_CASE(test__basic_string_destroy_varg_value_auxiliary__successfully),\
+    UT_CASE_BEGIN(_basic_string_init_elem_range_auxiliary, test__basic_string_init_elem_range_auxiliary__null_basic_string_containter),\
+    UT_CASE(test__basic_string_init_elem_range_auxiliary__null_pby_string),\
+    UT_CASE(test__basic_string_init_elem_range_auxiliary__non_created),\
+    UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_int),\
+    UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_cstr),\
+    UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_iterator),\
+    UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_container)/*,\
     UT_CASE_BEGIN(_basic_string_get_value_string_length, test__basic_string_get_value_string_length__null_basic_string),\
     UT_CASE(test__basic_string_get_value_string_length__null_value_string),\
     UT_CASE(test__basic_string_get_value_string_length__c_builtin_empty),\

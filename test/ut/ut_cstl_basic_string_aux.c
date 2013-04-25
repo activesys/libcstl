@@ -576,3 +576,124 @@ void test__basic_string_destroy_varg_value_auxiliary__successfully(void** state)
     basic_string_destroy(pt_basic_string);
 }
 
+/*
+ * test _basic_string_init_elem_range_auxiliary
+ */
+UT_CASE_DEFINATION(_basic_string_init_elem_range_auxiliary)
+void test__basic_string_init_elem_range_auxiliary__null_basic_string_containter(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init_elem(pbstr, 10, 100);
+
+    expect_assert_failure(_basic_string_init_elem_range_auxiliary(NULL, pbstr->_pby_string, 10));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_init_elem_range_auxiliary__null_pby_string(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init_elem(pbstr, 10, 100);
+
+    expect_assert_failure(_basic_string_init_elem_range_auxiliary(pbstr, NULL, 10));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_init_elem_range_auxiliary__non_created(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init_elem(pbstr, 10, 100);
+    pbstr->_t_typeinfo._t_style = 100;
+
+    expect_assert_failure(_basic_string_init_elem_range_auxiliary(pbstr, pbstr->_pby_string, 10));
+
+    pbstr->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_init_elem_range_auxiliary__successfully_int(void** state)
+{
+    size_t i = 0;
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init_elem(pbstr, 10, 100);
+
+    for(i = 0; i < basic_string_size(pbstr); ++i)
+    {
+        assert_int_equal(*(int*)basic_string_at(pbstr, i), 100);
+    }
+    _basic_string_init_elem_range_auxiliary(pbstr, pbstr->_pby_string, 10);
+    for(i = 0; i < basic_string_size(pbstr); ++i)
+    {
+        assert_int_equal(*(int*)basic_string_at(pbstr, i), 0);
+    }
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_init_elem_range_auxiliary__successfully_cstr(void** state)
+{
+    /*
+    size_t i = 0;
+    basic_string_t* pbstr = create_basic_string(char*);
+    basic_string_init_elem(pbstr, 10, "abcdefg");
+
+    for(i = 0; i < basic_string_size(pbstr); ++i)
+    {
+        assert_true(strcmp((char*)basic_string_at(pbstr, i), "abcdefg") == 0);
+    }
+    _basic_string_init_elem_range_auxiliary(pbstr, pbstr->_pby_string, 10);
+    for(i = 0; i < basic_string_size(pbstr); ++i)
+    {
+        assert_true(strcmp((char*)basic_string_at(pbstr, i), "") == 0);
+    }
+
+    basic_string_destroy(pbstr);
+    */
+    assert_true(false);
+}
+
+void test__basic_string_init_elem_range_auxiliary__successfully_iterator(void** state)
+{
+    size_t i = 0;
+    basic_string_t* pbstr = create_basic_string(iterator_t);
+    basic_string_iterator_t it_iter = _create_basic_string_iterator();
+    basic_string_init_elem(pbstr, 10, &it_iter);
+
+    for(i = 0; i < basic_string_size(pbstr); ++i)
+    {
+        assert_true(memcmp((iterator_t*)basic_string_at(pbstr, i), &it_iter, sizeof(iterator_t)) == 0);
+    }
+    _basic_string_init_elem_range_auxiliary(pbstr, pbstr->_pby_string, 10);
+    memset(&it_iter, 0x00, sizeof(iterator_t));
+    for(i = 0; i < basic_string_size(pbstr); ++i)
+    {
+        assert_true(memcmp((iterator_t*)basic_string_at(pbstr, i), &it_iter, sizeof(iterator_t)) == 0);
+    }
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_init_elem_range_auxiliary__successfully_container(void** state)
+{
+    size_t i = 0;
+    basic_string_t a_vec[10];
+    basic_string_t* pbstr = create_basic_string(basic_string_t<int>);
+    basic_string_init(pbstr);
+
+    _basic_string_init_elem_range_auxiliary(pbstr, (_byte_t*)a_vec, 10);
+    for(i = 0; i < 10; ++i)
+    {
+        assert_true(a_vec[i]._t_typeinfo._t_style == _TYPE_C_BUILTIN);
+        assert_true(strcmp(a_vec[i]._t_typeinfo._s_typename, _INT_TYPE) == 0);
+        assert_true(a_vec[i]._t_typeinfo._pt_type != NULL);
+        assert_true(a_vec[i]._pby_string != NULL);
+        assert_true(_basic_string_rep_get_representation(a_vec[i]._pby_string)->_t_length == 0);
+        assert_true(_basic_string_rep_get_representation(a_vec[i]._pby_string)->_t_capacity == 0);
+        assert_true(_basic_string_rep_get_representation(a_vec[i]._pby_string)->_n_refcount == 0);
+        assert_true(_basic_string_rep_get_representation(a_vec[i]._pby_string)->_t_elemsize == sizeof(int));
+    }
+
+    basic_string_destroy(pbstr);
+}
+

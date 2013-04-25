@@ -212,6 +212,36 @@ void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_string,
     assert(b_result);
 }
 
+/**
+ * Initialize data within string according to data type of basic_string.
+ */
+void _basic_string_init_elem_range_auxiliary(basic_string_t* pt_basic_string, _byte_t* pby_string, size_t t_length)
+{
+    size_t   i = 0;
+    _byte_t* pby_pos = NULL;
+
+    assert(pt_basic_string != NULL);
+    assert(pby_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string) || _basic_string_is_created(pt_basic_string));
+
+    /* initialize new elements */
+    if (_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_CSTL_BUILTIN) {
+        /* get element type name */
+        char s_elemtypename[_TYPE_NAME_SIZE + 1];
+        _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(pt_basic_string), s_elemtypename);
+
+        for (i = 0, pby_pos = pby_string; i < t_length; ++i, pby_pos += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)) {
+            _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pby_pos, s_elemtypename);
+        }
+    } else {
+        for (i = 0, pby_pos = pby_string; i < t_length; ++i, pby_pos += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)) {
+            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pby_pos, &b_result);
+            assert(b_result);
+        }
+    }
+}
+
 /** local function implementation section **/
 
 /** eof **/

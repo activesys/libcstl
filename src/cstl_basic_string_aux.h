@@ -118,6 +118,16 @@ extern void _basic_string_get_varg_value_auxiliary(basic_string_t* pt_basic_stri
  */
 extern void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_string, void* pv_varg);
 
+/**
+ * Initialize data within string according to data type of basic_string.
+ * @param pt_basic_string   basic_string.
+ * @param pby_string        string.
+ * @param t_length          string length.
+ * @return void.
+ * @remarks pt_basic_string must be initialized or created by create_basic_string().
+ */
+extern void _basic_string_init_elem_range_auxiliary(basic_string_t* pt_basic_string, _byte_t* pby_string, size_t t_length);
+
 #ifdef __cplusplus
 }
 #endif

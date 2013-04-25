@@ -228,6 +228,9 @@ void test_basic_string_at__non_inited_basic_string_container(void** state);
 void test_basic_string_at__invalid_subscript_empty(void** state);
 void test_basic_string_at__invalid_subscript_end(void** state);
 void test_basic_string_at__invalid_subscript(void** state);
+void test_basic_string_at__c_builtin(void** state);
+void test_basic_string_at__cstl(void** state);
+void test_basic_string_at__user_define(void** state);
 void test_basic_string_at__successfully(void** state);
 void test_basic_string_at__successfully_cstr(void** state);
 /*
@@ -2745,8 +2748,28 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_at__invalid_subscript_empty),\
     UT_CASE(test_basic_string_at__invalid_subscript_end),\
     UT_CASE(test_basic_string_at__invalid_subscript),\
+    UT_CASE(test_basic_string_at__c_builtin),\
+    UT_CASE(test_basic_string_at__cstl),\
+    UT_CASE(test_basic_string_at__user_define),\
     UT_CASE(test_basic_string_at__successfully),\
-    UT_CASE(test_basic_string_at__successfully_cstr)/*,\
+    UT_CASE(test_basic_string_at__successfully_cstr),\
+    UT_CASE_BEGIN(basic_string_init_copy, test_basic_string_init_copy__null_dest),\
+    UT_CASE(test_basic_string_init_copy__null_src),\
+    UT_CASE(test_basic_string_init_copy__non_create_dest),\
+    UT_CASE(test_basic_string_init_copy__non_inited_src),\
+    UT_CASE(test_basic_string_init_copy__not_same_type),\
+    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_empty),\
+    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_little),\
+    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_huge),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstr_empty),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstr_little),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstr_huge),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_empty),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_little),\
+    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_huge),\
+    UT_CASE(test_basic_string_init_copy__successfully_user_define_empty),\
+    UT_CASE(test_basic_string_init_copy__successfully_user_define_little),\
+    UT_CASE(test_basic_string_init_copy__successfully_user_define_huge)/*,\
     UT_CASE_BEGIN(basic_string_init_cstr, test_basic_string_init_cstr__null_container),\
     UT_CASE(test_basic_string_init_cstr__non_created_container),\
     UT_CASE(test_basic_string_init_cstr__null_valuestring),\
@@ -2778,23 +2801,6 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_init_subcstr__user_define_empty),\
     UT_CASE(test_basic_string_init_subcstr__user_define_non_empty),\
     UT_CASE(test_basic_string_init_subcstr__user_define_total),\
-    UT_CASE_BEGIN(basic_string_init_copy, test_basic_string_init_copy__null_dest),\
-    UT_CASE(test_basic_string_init_copy__null_src),\
-    UT_CASE(test_basic_string_init_copy__non_create_dest),\
-    UT_CASE(test_basic_string_init_copy__non_inited_src),\
-    UT_CASE(test_basic_string_init_copy__not_same_type),\
-    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_empty),\
-    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_little),\
-    UT_CASE(test_basic_string_init_copy__successfully_c_builtin_huge),\
-    UT_CASE(test_basic_string_init_copy__successfully_cstr_empty),\
-    UT_CASE(test_basic_string_init_copy__successfully_cstr_little),\
-    UT_CASE(test_basic_string_init_copy__successfully_cstr_huge),\
-    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_empty),\
-    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_little),\
-    UT_CASE(test_basic_string_init_copy__successfully_cstl_builtin_huge),\
-    UT_CASE(test_basic_string_init_copy__successfully_user_define_empty),\
-    UT_CASE(test_basic_string_init_copy__successfully_user_define_little),\
-    UT_CASE(test_basic_string_init_copy__successfully_user_define_huge),\
     UT_CASE_BEGIN(basic_string_init_copy_substring, test_basic_string_init_copy_substring__null_dest),\
     UT_CASE(test_basic_string_init_copy_substring__null_src),\
     UT_CASE(test_basic_string_init_copy_substring__non_create_dest),\
