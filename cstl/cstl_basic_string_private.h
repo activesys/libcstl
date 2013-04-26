@@ -78,10 +78,11 @@ extern _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapa
 /**
  * Reduce shared and delete rep if necessary.
  * @param pt_rep             pointer to basic_string_rep_t;
+ * @param ufun_destroy       destroy for element.
  * @return new rep that reduced shared or NULL if the rep is deleted.
- * @remarks pt_rep must not be NULL.
+ * @remarks pt_rep and ufun_destroy, must not be NULL.
  */
-extern _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep);
+extern _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep, unary_function_t ufun_destroy);
 
 /**
  * Increase shared.
@@ -94,10 +95,11 @@ extern void _basic_string_rep_increase_shared(_basic_string_rep_t* pt_rep);
 /**
  * Clone rep.
  * @param cpt_rep            pointer to basic_string_rep_t;
+ * @param bfun_copy          copy function for element.
  * @return new rep that cloned from cpt_rep.
- * @remarks cpt_rep must not be NULL.
+ * @remarks cpt_rep and bfun_copy must not be NULL.
  */
-extern _basic_string_rep_t* _basic_string_rep_clone(const _basic_string_rep_t* cpt_rep);
+extern _basic_string_rep_t* _basic_string_rep_clone(const _basic_string_rep_t* cpt_rep, binary_function_t bfun_copy);
 
 /**
  * Get data pointer from basic_string_rep.

@@ -367,14 +367,16 @@ void test__basic_string_rep_set_leaked__successfully(void** state);
  * test _basic_string_rep_clone
  */
 UT_CASE_DECLARATION(_basic_string_rep_clone)
-void test__basic_string_rep_clone__null(void** state);
+void test__basic_string_rep_clone__rep_null(void** state);
+void test__basic_string_rep_clone__fun_null(void** state);
 void test__basic_string_rep_clone__length_0(void** state);
 void test__basic_string_rep_clone__length_not_0(void** state);
 /*
  * test _basic_string_rep_reduce_shared
  */
 UT_CASE_DECLARATION(_basic_string_rep_reduce_shared)
-void test__basic_string_rep_reduce_shared__null(void** state);
+void test__basic_string_rep_reduce_shared__rep_null(void** state);
+void test__basic_string_rep_reduce_shared__fun_null(void** state);
 void test__basic_string_rep_reduce_shared__not_shared(void** state);
 void test__basic_string_rep_reduce_shared__shared(void** state);
 /*
@@ -396,10 +398,12 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE_BEGIN(_basic_string_rep_increase_shared, test__basic_string_rep_increase_shared__null),\
     UT_CASE(test__basic_string_rep_increase_shared__shared),\
     UT_CASE(test__basic_string_rep_increase_shared__not_shared),\
-    UT_CASE_BEGIN(_basic_string_rep_reduce_shared, test__basic_string_rep_reduce_shared__null),\
+    UT_CASE_BEGIN(_basic_string_rep_reduce_shared, test__basic_string_rep_reduce_shared__rep_null),\
+    UT_CASE(test__basic_string_rep_reduce_shared__fun_null),\
     UT_CASE(test__basic_string_rep_reduce_shared__not_shared),\
     UT_CASE(test__basic_string_rep_reduce_shared__shared),\
-    UT_CASE_BEGIN(_basic_string_rep_clone, test__basic_string_rep_clone__null),\
+    UT_CASE_BEGIN(_basic_string_rep_clone, test__basic_string_rep_clone__rep_null),\
+    UT_CASE(test__basic_string_rep_clone__fun_null),\
     UT_CASE(test__basic_string_rep_clone__length_0),\
     UT_CASE(test__basic_string_rep_clone__length_not_0),\
     UT_CASE_BEGIN(_basic_string_rep_get_data, test__basic_string_rep_get_data__rep_null),\

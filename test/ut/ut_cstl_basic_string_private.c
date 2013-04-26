@@ -115,22 +115,28 @@ void test__basic_string_rep_increase_shared__not_shared(void** state)
  * test _basic_string_rep_reduce_shared
  */
 UT_CASE_DEFINATION(_basic_string_rep_reduce_shared)
-void test__basic_string_rep_reduce_shared__null(void** state)
+void test__basic_string_rep_reduce_shared__rep_null(void** state)
 {
-    expect_assert_failure(_basic_string_rep_reduce_shared(NULL));
+    expect_assert_failure(_basic_string_rep_reduce_shared(NULL, _type_destroy_default));
+}
+void test__basic_string_rep_reduce_shared__fun_null(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    _basic_string_rep_set_sharable(prep);
+    expect_assert_failure(_basic_string_rep_reduce_shared(prep, NULL));
 }
 void test__basic_string_rep_reduce_shared__not_shared(void** state)
 {
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     _basic_string_rep_set_sharable(prep);
-    assert(_basic_string_rep_reduce_shared(prep) == NULL);
+    assert(_basic_string_rep_reduce_shared(prep, _type_destroy_default) == NULL);
 }
 void test__basic_string_rep_reduce_shared__shared(void** state)
 {
     _basic_string_rep_t* prep_reduce = NULL;
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     prep->_n_refcount = 10;
-    prep_reduce = _basic_string_rep_reduce_shared(prep);
+    prep_reduce = _basic_string_rep_reduce_shared(prep, _type_destroy_default);
     assert(prep == prep_reduce);
     assert(prep->_n_refcount == 9);
     free(prep);
@@ -140,14 +146,20 @@ void test__basic_string_rep_reduce_shared__shared(void** state)
  * test _basic_string_rep_clone
  */
 UT_CASE_DEFINATION(_basic_string_rep_clone)
-void test__basic_string_rep_clone__null(void** state)
+void test__basic_string_rep_clone__rep_null(void** state)
 {
-    expect_assert_failure(_basic_string_rep_clone(NULL));
+    expect_assert_failure(_basic_string_rep_clone(NULL, _type_copy_default));
+}
+void test__basic_string_rep_clone__fun_null(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    expect_assert_failure(_basic_string_rep_clone(prep, NULL));
+    free(prep);
 }
 void test__basic_string_rep_clone__length_0(void** state)
 {
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
-    _basic_string_rep_t* prep_clone = _basic_string_rep_clone(prep);
+    _basic_string_rep_t* prep_clone = _basic_string_rep_clone(prep, _type_copy_default);
     assert(prep_clone != NULL);
     assert(prep_clone->_n_refcount == -1);
     assert(prep_clone->_t_capacity == 0);
@@ -161,7 +173,7 @@ void test__basic_string_rep_clone__length_not_0(void** state)
     _basic_string_rep_t* prep = _create_basic_string_representation(10, 0, 4);
     prep->_t_length = 4;
     memset(_basic_string_rep_get_data(prep), 0xcc, prep->_t_elemsize * prep->_t_length);
-    _basic_string_rep_t* prep_clone = _basic_string_rep_clone(prep);
+    _basic_string_rep_t* prep_clone = _basic_string_rep_clone(prep, _type_copy_default);
     assert(prep_clone != NULL);
     assert(prep_clone->_n_refcount == -1);
     assert(prep_clone->_t_capacity == 10);

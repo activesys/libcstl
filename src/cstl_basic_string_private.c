@@ -73,13 +73,24 @@ _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapacity, s
 /**
  * Reduce shared and delete rep if necessary.
  */
-_basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep)
+_basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep, unary_function_t ufun_destroy)
 {
     assert(pt_rep != NULL);
+    assert(ufun_destroy != NULL);
 
     pt_rep->_n_refcount -= 1;
     if (_basic_string_rep_is_leaked(pt_rep)) {
+        size_t   i = 0;
+        bool_t   b_result = 0;
+        _byte_t* pby_string = _basic_string_rep_get_data(pt_rep);
+
+        for (i = 0; i < pt_rep->_t_length; ++i) {
+            b_result = pt_rep->_t_elemsize;
+            ufun_destroy(pby_string + i * pt_rep->_t_elemsize, &b_result);
+            assert(b_result);
+        }
         free(pt_rep);
+
         return NULL;
     } else {
         return pt_rep;
@@ -98,17 +109,26 @@ void _basic_string_rep_increase_shared(_basic_string_rep_t* pt_rep)
 /**
  * Clone rep.
  */
-_basic_string_rep_t* _basic_string_rep_clone(const _basic_string_rep_t* cpt_rep)
+_basic_string_rep_t* _basic_string_rep_clone(const _basic_string_rep_t* cpt_rep, binary_function_t bfun_copy)
 {
     _basic_string_rep_t* prep_clone = NULL;
+    _byte_t*             pby_dest = NULL;
+    _byte_t*             pby_src = NULL;
+    bool_t               b_result = false;
+    size_t               i = 0;
 
     assert(cpt_rep != NULL);
+    assert(bfun_copy != NULL);
 
     prep_clone = _create_basic_string_representation(cpt_rep->_t_capacity, cpt_rep->_t_capacity, cpt_rep->_t_elemsize);
     assert(prep_clone != NULL);
-    memcpy(_basic_string_rep_get_data(prep_clone),
-           _basic_string_rep_get_data(cpt_rep),
-           cpt_rep->_t_elemsize * cpt_rep->_t_length);
+    pby_dest = _basic_string_rep_get_data(prep_clone);
+    pby_src = _basic_string_rep_get_data(cpt_rep);
+    for (i = 0; i < cpt_rep->_t_length; ++i) {
+        b_result = cpt_rep->_t_elemsize;
+        bfun_copy(pby_dest + i * cpt_rep->_t_elemsize, pby_src + i * cpt_rep->_t_elemsize, &b_result);
+        assert(b_result);
+    }
     _basic_string_rep_set_length(prep_clone, cpt_rep->_t_length);
     /* The refcount will be set outof this function, so we do not set is here */
 

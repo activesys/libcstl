@@ -253,10 +253,11 @@ void _basic_string_detach(basic_string_t* pt_basic_string)
     prep = _basic_string_rep_get_representation(pt_basic_string->_pby_string);
     if (_basic_string_rep_is_shared(prep)) {
         /* clone */
-        _basic_string_rep_t* prep_clone = _basic_string_rep_clone(prep);
+        _basic_string_rep_t* prep_clone =
+            _basic_string_rep_clone(prep, _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string));
         _basic_string_rep_set_sharable(prep_clone);
         /* reduce shared */
-        _basic_string_rep_reduce_shared(prep);
+        _basic_string_rep_reduce_shared(prep, _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
         /* set new rep */
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep_clone);
     }

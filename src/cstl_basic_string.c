@@ -126,9 +126,8 @@ void basic_string_init_copy_substring(basic_string_t* pt_dest, const basic_strin
  */
 void basic_string_init_cstr(basic_string_t* pt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
-    basic_string_init_subcstr(pt_basic_string, cpv_value_string, NPOS);
-    */
+    basic_string_init_subcstr(pt_basic_string, cpv_value_string,
+        _basic_string_get_value_string_length(pt_basic_string, cpv_value_string));
 }
 
 /**
@@ -313,7 +312,7 @@ void* basic_string_at(const basic_string_t* cpt_basic_string, size_t t_pos)
     assert(_basic_string_is_inited(cpt_basic_string));
     assert(t_pos < basic_string_size(cpt_basic_string));
 
-    _basic_string_detach(cpt_basic_string);
+    _basic_string_detach((basic_string_t*)cpt_basic_string);
     return cpt_basic_string->_pby_string + _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string) * t_pos;
 }
 

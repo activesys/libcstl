@@ -96,11 +96,9 @@ void test_basic_string_init_cstr__null_container(void** state)
 
 void test_basic_string_init_cstr__non_created_container(void** state)
 {
-    /* comment for 2.2
     basic_string_t bstr;
-    bstr._vec_base._t_typeinfo._t_style = 24455656;
+    bstr._t_typeinfo._t_style = 24455656;
     expect_assert_failure(basic_string_init_cstr(&bstr, "abcdefg"));
-    */
 }
 
 void test_basic_string_init_cstr__null_valuestring(void** state)
@@ -162,6 +160,7 @@ void test_basic_string_init_cstr__char_init_non_empty(void** state)
 
 void test_basic_string_init_cstr__cstr_init_empty(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {NULL};
 
@@ -169,10 +168,13 @@ void test_basic_string_init_cstr__cstr_init_empty(void** state)
     assert_true(basic_string_size(pt_basic_string) == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_cstr__cstr_init_non_empty(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "hij", NULL};
 
@@ -183,6 +185,8 @@ void test_basic_string_init_cstr__cstr_init_non_empty(void** state)
     assert_true(strcmp((char*)basic_string_at(pt_basic_string, 2), "hij") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_cstr__libcstl_builtin_empty(void** state)
@@ -875,31 +879,25 @@ void test_basic_string_init_copy_substring__null_src(void** state)
 
 void test_basic_string_init_copy_substring__non_create_dest(void** state)
 {
-    /* comment for 2.2
     basic_string_t bstr;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init(pt_basic_string);
 
-    bstr._vec_base._t_typeinfo._pt_type = NULL;
+    bstr._t_typeinfo._pt_type = NULL;
     expect_assert_failure(basic_string_init_copy_substring(&bstr, pt_basic_string, 0, NPOS));
 
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test_basic_string_init_copy_substring__non_inited_src(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_dest = create_basic_string(int);
     basic_string_t* pt_src = create_basic_string(int);
 
-    pt_src->_vec_base._pby_finish = (_byte_t*)0x732;
     expect_assert_failure(basic_string_init_copy_substring(pt_dest, pt_src, 0, NPOS));
 
-    pt_src->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
-    */
 }
 
 void test_basic_string_init_copy_substring__not_same_type(void** state)
