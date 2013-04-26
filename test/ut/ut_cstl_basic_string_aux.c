@@ -285,6 +285,13 @@ void test__basic_string_get_value_string_length__null_value_string(void** state)
     basic_string_destroy(pt_basic_string);
 }
 
+void test__basic_string_get_value_string_length__non_create(void** state)
+{
+    basic_string_t bstr;
+    bstr._t_typeinfo._t_style = 1010;
+    expect_assert_failure(_basic_string_get_value_string_length(&bstr, 0xcc));
+}
+
 void test__basic_string_get_value_string_length__c_builtin_empty(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
@@ -524,9 +531,9 @@ void test__basic_string_get_varg_value_auxiliary__null_varg(void** state)
 void test__basic_string_get_varg_value_auxiliary__non_created(void** state)
 {
     int varg = 0;
-    /*basic_string_t bstr;*/
-    /*bstr._vec_base._t_typeinfo._t_style = 100;*/
-    /*expect_assert_failure(_wrapper_basic_string_get_varg_value_auxiliary(&bstr, &varg, 100));*/
+    basic_string_t bstr;
+    bstr._t_typeinfo._t_style = 100;
+    expect_assert_failure(_wrapper_basic_string_get_varg_value_auxiliary(&bstr, &varg, 100));
     assert_true(true);
 }
 
@@ -561,10 +568,9 @@ void test__basic_string_destroy_varg_value_auxiliary__null_varg(void** state)
 void test__basic_string_destroy_varg_value_auxiliary__non_created(void** state)
 {
     int varg = 0;
-    /*basic_string_t bstr;*/
-    /*bstr._vec_base._t_typeinfo._t_style = 100;*/
-    /*expect_assert_failure(_basic_string_destroy_varg_value_auxiliary(&bstr, &varg));*/
-    assert_true(true);
+    basic_string_t bstr;
+    bstr._t_typeinfo._t_style = 100;
+    expect_assert_failure(_basic_string_destroy_varg_value_auxiliary(&bstr, &varg));
 }
 
 void test__basic_string_destroy_varg_value_auxiliary__successfully(void** state)
@@ -695,5 +701,80 @@ void test__basic_string_init_elem_range_auxiliary__successfully_container(void**
     }
 
     basic_string_destroy(pbstr);
+}
+
+/*
+ * test _basic_string_detach
+ */
+UT_CASE_DEFINATION(_basic_string_detach)
+void test__basic_string_detach__null(void** state)
+{
+    expect_assert_failure(_basic_string_detach(NULL));
+}
+
+void test__basic_string_detach__non_init(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    expect_assert_failure(_basic_string_detach(pbstr));
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_detach__non_sharable(void** state)
+{
+    size_t t_length = 0;
+    size_t t_size = 0;
+    size_t t_capacity = 0;
+    int n_refcount = 0;
+    _byte_t* pby_string = NULL;
+
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_init_elem(pbstr, 10, 111);
+    
+    t_length = _basic_string_rep_get_representation(pbstr->_pby_string)->_t_length;
+    t_capacity = _basic_string_rep_get_representation(pbstr->_pby_string)->_t_capacity;
+    t_size = _basic_string_rep_get_representation(pbstr->_pby_string)->_t_elemsize;
+    n_refcount = _basic_string_rep_get_representation(pbstr->_pby_string)->_n_refcount;
+    pby_string = pbstr->_pby_string;
+    _basic_string_detach(pbstr);
+    assert(_basic_string_rep_get_representation(pbstr->_pby_string)->_t_length == t_length);
+    assert(_basic_string_rep_get_representation(pbstr->_pby_string)->_t_capacity == t_capacity);
+    assert(_basic_string_rep_get_representation(pbstr->_pby_string)->_t_elemsize == t_size);
+    assert(_basic_string_rep_get_representation(pbstr->_pby_string)->_n_refcount == n_refcount);
+    assert(pbstr->_pby_string == pby_string);
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_detach__sharable(void** state)
+{
+    _basic_string_rep_t* prep1 = NULL;
+    _basic_string_rep_t* prep2 = NULL;
+    _basic_string_rep_t* prep3 = NULL;
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+    basic_string_t* pbstr3 = create_basic_string(int);
+    basic_string_init_elem(pbstr1, 10, 111);
+    basic_string_init_copy(pbstr2, pbstr1);
+    basic_string_init_copy(pbstr3, pbstr2);
+    
+    assert(pbstr1->_pby_string == pbstr2->_pby_string);
+    assert(pbstr1->_pby_string == pbstr3->_pby_string);
+    _basic_string_detach(pbstr2);
+    prep1 = _basic_string_rep_get_representation(pbstr1->_pby_string);
+    prep2 = _basic_string_rep_get_representation(pbstr2->_pby_string);
+    prep3 = _basic_string_rep_get_representation(pbstr3->_pby_string);
+    assert(prep1 == prep3);
+    assert(prep1 != prep2);
+    assert(prep1->_n_refcount == 1);
+    assert(prep2->_n_refcount == 0);
+    assert(prep1->_t_capacity == prep2->_t_capacity);
+    assert(prep1->_t_elemsize == prep2->_t_elemsize);
+    assert(prep1->_t_length == prep2->_t_length);
+    assert(pbstr1->_pby_string != pbstr2->_pby_string);
+    assert(memcmp(pbstr1->_pby_string, pbstr2->_pby_string, prep1->_t_length * prep1->_t_elemsize) == 0);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+    basic_string_destroy(pbstr3);
 }
 

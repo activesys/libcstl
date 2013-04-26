@@ -87,6 +87,92 @@ void test__create_basic_string_representation__capacity_new_gt_old_twice(void** 
 }
 
 /*
+ * test _basic_string_rep_increase_shared
+ */
+UT_CASE_DEFINATION(_basic_string_rep_increase_shared)
+void test__basic_string_rep_increase_shared__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_increase_shared(NULL));
+}
+void test__basic_string_rep_increase_shared__shared(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    prep->_n_refcount = 10;
+    _basic_string_rep_increase_shared(prep);
+    assert(prep->_n_refcount == 11);
+    free(prep);
+}
+void test__basic_string_rep_increase_shared__not_shared(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    prep->_n_refcount = 0;
+    _basic_string_rep_increase_shared(prep);
+    assert(prep->_n_refcount == 1);
+    free(prep);
+}
+
+/*
+ * test _basic_string_rep_reduce_shared
+ */
+UT_CASE_DEFINATION(_basic_string_rep_reduce_shared)
+void test__basic_string_rep_reduce_shared__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_reduce_shared(NULL));
+}
+void test__basic_string_rep_reduce_shared__not_shared(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    _basic_string_rep_set_sharable(prep);
+    assert(_basic_string_rep_reduce_shared(prep) == NULL);
+}
+void test__basic_string_rep_reduce_shared__shared(void** state)
+{
+    _basic_string_rep_t* prep_reduce = NULL;
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    prep->_n_refcount = 10;
+    prep_reduce = _basic_string_rep_reduce_shared(prep);
+    assert(prep == prep_reduce);
+    assert(prep->_n_refcount == 9);
+    free(prep);
+}
+
+/*
+ * test _basic_string_rep_clone
+ */
+UT_CASE_DEFINATION(_basic_string_rep_clone)
+void test__basic_string_rep_clone__null(void** state)
+{
+    expect_assert_failure(_basic_string_rep_clone(NULL));
+}
+void test__basic_string_rep_clone__length_0(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
+    _basic_string_rep_t* prep_clone = _basic_string_rep_clone(prep);
+    assert(prep_clone != NULL);
+    assert(prep_clone->_n_refcount == -1);
+    assert(prep_clone->_t_capacity == 0);
+    assert(prep_clone->_t_elemsize == 1);
+    assert(prep_clone->_t_length == 0);
+    free(prep);
+    free(prep_clone);
+}
+void test__basic_string_rep_clone__length_not_0(void** state)
+{
+    _basic_string_rep_t* prep = _create_basic_string_representation(10, 0, 4);
+    prep->_t_length = 4;
+    memset(_basic_string_rep_get_data(prep), 0xcc, prep->_t_elemsize * prep->_t_length);
+    _basic_string_rep_t* prep_clone = _basic_string_rep_clone(prep);
+    assert(prep_clone != NULL);
+    assert(prep_clone->_n_refcount == -1);
+    assert(prep_clone->_t_capacity == 10);
+    assert(prep_clone->_t_elemsize == 4);
+    assert(prep_clone->_t_length == 4);
+    assert(memcmp(_basic_string_rep_get_data(prep), _basic_string_rep_get_data(prep_clone), prep->_t_length * prep->_t_elemsize) == 0);
+    free(prep);
+    free(prep_clone);
+}
+
+/*
  * test _basic_string_rep_get_data
  */
 UT_CASE_DEFINATION(_basic_string_rep_get_data)

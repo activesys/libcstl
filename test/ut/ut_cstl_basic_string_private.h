@@ -363,6 +363,27 @@ void test__basic_string_rep_is_leaked__false(void** state);
 UT_CASE_DECLARATION(_basic_string_rep_set_leaked)
 void test__basic_string_rep_set_leaked__null(void** state);
 void test__basic_string_rep_set_leaked__successfully(void** state);
+/*
+ * test _basic_string_rep_clone
+ */
+UT_CASE_DECLARATION(_basic_string_rep_clone)
+void test__basic_string_rep_clone__null(void** state);
+void test__basic_string_rep_clone__length_0(void** state);
+void test__basic_string_rep_clone__length_not_0(void** state);
+/*
+ * test _basic_string_rep_reduce_shared
+ */
+UT_CASE_DECLARATION(_basic_string_rep_reduce_shared)
+void test__basic_string_rep_reduce_shared__null(void** state);
+void test__basic_string_rep_reduce_shared__not_shared(void** state);
+void test__basic_string_rep_reduce_shared__shared(void** state);
+/*
+ * test _basic_string_rep_increase_shared
+ */
+UT_CASE_DECLARATION(_basic_string_rep_increase_shared)
+void test__basic_string_rep_increase_shared__null(void** state);
+void test__basic_string_rep_increase_shared__shared(void** state);
+void test__basic_string_rep_increase_shared__not_shared(void** state);
 
 #define UT_CSTL_BASIC_STRING_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_basic_string_private, test__create_basic_string_representation__invalid_elemsize),\
@@ -372,6 +393,15 @@ void test__basic_string_rep_set_leaked__successfully(void** state);
     UT_CASE(test__create_basic_string_representation__capacity_new_le_old),\
     UT_CASE(test__create_basic_string_representation__capacity_new_gt_old),\
     UT_CASE(test__create_basic_string_representation__capacity_new_gt_old_twice),\
+    UT_CASE_BEGIN(_basic_string_rep_increase_shared, test__basic_string_rep_increase_shared__null),\
+    UT_CASE(test__basic_string_rep_increase_shared__shared),\
+    UT_CASE(test__basic_string_rep_increase_shared__not_shared),\
+    UT_CASE_BEGIN(_basic_string_rep_reduce_shared, test__basic_string_rep_reduce_shared__null),\
+    UT_CASE(test__basic_string_rep_reduce_shared__not_shared),\
+    UT_CASE(test__basic_string_rep_reduce_shared__shared),\
+    UT_CASE_BEGIN(_basic_string_rep_clone, test__basic_string_rep_clone__null),\
+    UT_CASE(test__basic_string_rep_clone__length_0),\
+    UT_CASE(test__basic_string_rep_clone__length_not_0),\
     UT_CASE_BEGIN(_basic_string_rep_get_data, test__basic_string_rep_get_data__rep_null),\
     UT_CASE(test__basic_string_rep_get_data__successfully),\
     UT_CASE_BEGIN(_basic_string_rep_get_representation, test__basic_string_rep_get_representation__data_null),\

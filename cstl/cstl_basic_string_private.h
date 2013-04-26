@@ -76,6 +76,30 @@ typedef struct _tagbasicstring
 extern _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapacity, size_t t_oldcapacity, size_t t_elemsize);
 
 /**
+ * Reduce shared and delete rep if necessary.
+ * @param pt_rep             pointer to basic_string_rep_t;
+ * @return new rep that reduced shared or NULL if the rep is deleted.
+ * @remarks pt_rep must not be NULL.
+ */
+extern _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep);
+
+/**
+ * Increase shared.
+ * @param pt_rep             pointer to basic_string_rep_t;
+ * @return void.
+ * @remarks pt_rep must not be NULL.
+ */
+extern void _basic_string_rep_increase_shared(_basic_string_rep_t* pt_rep);
+
+/**
+ * Clone rep.
+ * @param cpt_rep            pointer to basic_string_rep_t;
+ * @return new rep that cloned from cpt_rep.
+ * @remarks cpt_rep must not be NULL.
+ */
+extern _basic_string_rep_t* _basic_string_rep_clone(const _basic_string_rep_t* cpt_rep);
+
+/**
  * Get data pointer from basic_string_rep.
  * @param cpt_rep            pointer to basic_string_rep_t;
  * @return void*

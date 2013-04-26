@@ -284,13 +284,13 @@ extern void basic_string_init_cstr(basic_string_t* pt_basic_string, const void* 
  * Initialize basic_string container specific sub value string.
  * @param pt_basic_string    basic_string container.
  * @param cpv_value_string   value string.
- * @param t_len              length of sub value string.
+ * @param t_length           length of sub value string.
  * @return void.
  * @remarks if pt_basic_string == NULL or cpv_value_string == NULL, then the behavior is undefined. pt_basic_string muse be
- *          created by create_basic_string(), otherwise the behavior is undefined. if t_len is NPOS or greater then the
- *          length of value string, then use total value string to initialize basic_string.
+ *          created by create_basic_string(), otherwise the behavior is undefined. if t_length greater then the max_size then
+ *          the behavior is undefined.
  */
-extern void basic_string_init_subcstr(basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_len);
+extern void basic_string_init_subcstr(basic_string_t* pt_basic_string, const void* cpv_value_string, size_t t_length);
 
 /**
  * Initialize basic_string container with an exist basic_string container.

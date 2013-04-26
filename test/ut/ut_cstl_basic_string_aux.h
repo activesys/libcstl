@@ -25,6 +25,7 @@ void test__basic_string_same_type__same_container(void** state);
 UT_CASE_DECLARATION(_basic_string_get_value_string_length)
 void test__basic_string_get_value_string_length__null_basic_string(void** state);
 void test__basic_string_get_value_string_length__null_value_string(void** state);
+void test__basic_string_get_value_string_length__non_create(void** state);
 void test__basic_string_get_value_string_length__c_builtin_empty(void** state);
 void test__basic_string_get_value_string_length__c_builtin_non_empty(void** state);
 void test__basic_string_get_value_string_length__c_builtin_no_terminal(void** state);
@@ -85,6 +86,14 @@ void test__basic_string_init_elem_range_auxiliary__successfully_int(void** state
 void test__basic_string_init_elem_range_auxiliary__successfully_cstr(void** state);
 void test__basic_string_init_elem_range_auxiliary__successfully_iterator(void** state);
 void test__basic_string_init_elem_range_auxiliary__successfully_container(void** state);
+/*
+ * test _basic_string_detach
+ */
+UT_CASE_DECLARATION(_basic_string_detach)
+void test__basic_string_detach__null(void** state);
+void test__basic_string_detach__non_init(void** state);
+void test__basic_string_detach__non_sharable(void** state);
+void test__basic_string_detach__sharable(void** state);
 
 #define UT_CSTL_BASIC_STRING_AUX_CASE\
     UT_SUIT_BEGIN(cstl_basic_string_aux, test__basic_string_is_created__null_basic_string_container),\
@@ -125,9 +134,14 @@ void test__basic_string_init_elem_range_auxiliary__successfully_container(void**
     UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_int),\
     UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_cstr),\
     UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_iterator),\
-    UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_container)/*,\
+    UT_CASE(test__basic_string_init_elem_range_auxiliary__successfully_container),\
+    UT_CASE_BEGIN(_basic_string_detach, test__basic_string_detach__null),\
+    UT_CASE(test__basic_string_detach__non_init),\
+    UT_CASE(test__basic_string_detach__non_sharable),\
+    UT_CASE(test__basic_string_detach__sharable),\
     UT_CASE_BEGIN(_basic_string_get_value_string_length, test__basic_string_get_value_string_length__null_basic_string),\
     UT_CASE(test__basic_string_get_value_string_length__null_value_string),\
+    UT_CASE(test__basic_string_get_value_string_length__non_create),\
     UT_CASE(test__basic_string_get_value_string_length__c_builtin_empty),\
     UT_CASE(test__basic_string_get_value_string_length__c_builtin_non_empty),\
     UT_CASE(test__basic_string_get_value_string_length__c_builtin_no_terminal),\
@@ -143,7 +157,6 @@ void test__basic_string_init_elem_range_auxiliary__successfully_container(void**
     UT_CASE(test__basic_string_get_value_string_length__user_define_empty),\
     UT_CASE(test__basic_string_get_value_string_length__user_define_non_empty),\
     UT_CASE(test__basic_string_get_value_string_length__user_define_no_terminal)
-*/
 
 #endif /* _UT_CSTL_BASIC_STRING_AUX_H_ */
 

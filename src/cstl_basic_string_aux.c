@@ -135,20 +135,20 @@ bool_t _basic_string_same_type(const basic_string_t* cpt_first, const basic_stri
  */
 size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
     size_t t_typesize = 0;
     size_t t_length = 0;
 
     assert(cpt_basic_string != NULL);
     assert(cpv_value_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-    / * char type * /
     if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _CHAR_TYPE, _TYPE_NAME_SIZE) == 0) {
+        /* char type */
         assert(t_typesize == 1);
         return strlen(cpv_value_string);
     } else if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
-    / * char* type * /
+        /* char* type */
         char** ps_terminator = NULL;
 
         for (ps_terminator = (char**)cpv_value_string; *ps_terminator != NULL; ++ps_terminator) {
@@ -159,7 +159,7 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
     } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
         _byte_t* pby_terminator = NULL;
 
-        pby_terminator = (_byte_t*)_alloc_allocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocator, t_typesize, 1);
+        pby_terminator = (_byte_t*)malloc(t_typesize);
         assert(pby_terminator != NULL);
         memset(pby_terminator, 0x00, t_typesize);
 
@@ -167,7 +167,7 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
             t_length++;
         }
 
-        _alloc_deallocate(&((basic_string_t*)cpt_basic_string)->_vec_base._t_allocator, pby_terminator, t_typesize, 1);
+        free(pby_terminator);
 
         return t_length;
     } else {
@@ -179,8 +179,6 @@ size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_str
 
         return t_length;
     }
-    */
-    return 0;
 }
 
 /**
@@ -239,6 +237,28 @@ void _basic_string_init_elem_range_auxiliary(basic_string_t* pt_basic_string, _b
             _GET_BASIC_STRING_TYPE_INIT_FUNCTION(pt_basic_string)(pby_pos, &b_result);
             assert(b_result);
         }
+    }
+}
+
+/**
+ * Detach this basic_string from sharable string.
+ */
+void _basic_string_detach(basic_string_t* pt_basic_string)
+{
+    _basic_string_rep_t* prep = NULL;
+
+    assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string));
+
+    prep = _basic_string_rep_get_representation(pt_basic_string->_pby_string);
+    if (_basic_string_rep_is_shared(prep)) {
+        /* clone */
+        _basic_string_rep_t* prep_clone = _basic_string_rep_clone(prep);
+        _basic_string_rep_set_sharable(prep_clone);
+        /* reduce shared */
+        _basic_string_rep_reduce_shared(prep);
+        /* set new rep */
+        pt_basic_string->_pby_string = _basic_string_rep_get_data(prep_clone);
     }
 }
 

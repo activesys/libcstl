@@ -71,6 +71,51 @@ _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapacity, s
 }
 
 /**
+ * Reduce shared and delete rep if necessary.
+ */
+_basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep)
+{
+    assert(pt_rep != NULL);
+
+    pt_rep->_n_refcount -= 1;
+    if (_basic_string_rep_is_leaked(pt_rep)) {
+        free(pt_rep);
+        return NULL;
+    } else {
+        return pt_rep;
+    }
+}
+
+/**
+ * Increase shared.
+ */
+void _basic_string_rep_increase_shared(_basic_string_rep_t* pt_rep)
+{
+    assert(pt_rep != NULL);
+    pt_rep->_n_refcount += 1;
+}
+
+/**
+ * Clone rep.
+ */
+_basic_string_rep_t* _basic_string_rep_clone(const _basic_string_rep_t* cpt_rep)
+{
+    _basic_string_rep_t* prep_clone = NULL;
+
+    assert(cpt_rep != NULL);
+
+    prep_clone = _create_basic_string_representation(cpt_rep->_t_capacity, cpt_rep->_t_capacity, cpt_rep->_t_elemsize);
+    assert(prep_clone != NULL);
+    memcpy(_basic_string_rep_get_data(prep_clone),
+           _basic_string_rep_get_data(cpt_rep),
+           cpt_rep->_t_elemsize * cpt_rep->_t_length);
+    _basic_string_rep_set_length(prep_clone, cpt_rep->_t_length);
+    /* The refcount will be set outof this function, so we do not set is here */
+
+    return prep_clone;
+}
+
+/**
  * Get data pointer from basic_string_rep.
  */
 _byte_t* _basic_string_rep_get_data(const _basic_string_rep_t* cpt_rep)

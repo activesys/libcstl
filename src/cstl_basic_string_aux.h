@@ -128,6 +128,14 @@ extern void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_
  */
 extern void _basic_string_init_elem_range_auxiliary(basic_string_t* pt_basic_string, _byte_t* pby_string, size_t t_length);
 
+/**
+ * Detach this basic_string from sharable string.
+ * @param pt_basic_string   basic_string.
+ * @return void.
+ * @remarks cpt_basic_string must be initialized.
+ */
+extern void _basic_string_detach(basic_string_t* pt_basic_string);
+
 #ifdef __cplusplus
 }
 #endif
