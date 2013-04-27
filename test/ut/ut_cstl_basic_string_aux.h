@@ -94,6 +94,28 @@ void test__basic_string_detach__null(void** state);
 void test__basic_string_detach__non_init(void** state);
 void test__basic_string_detach__non_sharable(void** state);
 void test__basic_string_detach__sharable(void** state);
+/*
+ * test _basic_string_is_shared
+ */
+UT_CASE_DECLARATION(_basic_string_is_shared)
+void test__basic_string_is_shared__null(void** state);
+void test__basic_string_is_shared__non_inited(void** state);
+void test__basic_string_is_shared__shared(void** state);
+void test__basic_string_is_shared__not_shared(void** state);
+/*
+ * test _basic_string_clone_representation
+ */
+UT_CASE_DECLARATION(_basic_string_clone_representation)
+void test__basic_string_clone_representation__null(void** state);
+void test__basic_string_clone_representation__non_inited(void** state);
+void test__basic_string_clone_representation__c_builtin_length_0(void** state);
+void test__basic_string_clone_representation__c_builtin_length_not_0(void** state);
+void test__basic_string_clone_representation__cstr_length_0(void** state);
+void test__basic_string_clone_representation__cstr_length_not_0(void** state);
+void test__basic_string_clone_representation__cstl_builtin_length_0(void** state);
+void test__basic_string_clone_representation__cstl_builtin_length_not_0(void** state);
+void test__basic_string_clone_representation__user_define_length_0(void** state);
+void test__basic_string_clone_representation__user_define_length_not_0(void** state);
 
 #define UT_CSTL_BASIC_STRING_AUX_CASE\
     UT_SUIT_BEGIN(cstl_basic_string_aux, test__basic_string_is_created__null_basic_string_container),\
@@ -156,7 +178,21 @@ void test__basic_string_detach__sharable(void** state);
     UT_CASE(test__basic_string_get_value_string_length__libcstl_builtin_no_terminal),\
     UT_CASE(test__basic_string_get_value_string_length__user_define_empty),\
     UT_CASE(test__basic_string_get_value_string_length__user_define_non_empty),\
-    UT_CASE(test__basic_string_get_value_string_length__user_define_no_terminal)
+    UT_CASE(test__basic_string_get_value_string_length__user_define_no_terminal),\
+    UT_CASE_BEGIN(_basic_string_is_shared, test__basic_string_is_shared__null),\
+    UT_CASE(test__basic_string_is_shared__non_inited),\
+    UT_CASE(test__basic_string_is_shared__shared),\
+    UT_CASE(test__basic_string_is_shared__not_shared),\
+    UT_CASE_BEGIN(_basic_string_clone_representation, test__basic_string_clone_representation__null),\
+    UT_CASE(test__basic_string_clone_representation__non_inited),\
+    UT_CASE(test__basic_string_clone_representation__c_builtin_length_0),\
+    UT_CASE(test__basic_string_clone_representation__c_builtin_length_not_0),\
+    UT_CASE(test__basic_string_clone_representation__cstr_length_0),\
+    UT_CASE(test__basic_string_clone_representation__cstr_length_not_0),\
+    UT_CASE(test__basic_string_clone_representation__cstl_builtin_length_0),\
+    UT_CASE(test__basic_string_clone_representation__cstl_builtin_length_not_0),\
+    UT_CASE(test__basic_string_clone_representation__user_define_length_0),\
+    UT_CASE(test__basic_string_clone_representation__user_define_length_not_0)
 
 #endif /* _UT_CSTL_BASIC_STRING_AUX_H_ */
 

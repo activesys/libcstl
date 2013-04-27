@@ -90,7 +90,6 @@ _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep
             assert(b_result);
         }
         free(pt_rep);
-
         return NULL;
     } else {
         return pt_rep;
@@ -104,35 +103,6 @@ void _basic_string_rep_increase_shared(_basic_string_rep_t* pt_rep)
 {
     assert(pt_rep != NULL);
     pt_rep->_n_refcount += 1;
-}
-
-/**
- * Clone rep.
- */
-_basic_string_rep_t* _basic_string_rep_clone(const _basic_string_rep_t* cpt_rep, binary_function_t bfun_copy)
-{
-    _basic_string_rep_t* prep_clone = NULL;
-    _byte_t*             pby_dest = NULL;
-    _byte_t*             pby_src = NULL;
-    bool_t               b_result = false;
-    size_t               i = 0;
-
-    assert(cpt_rep != NULL);
-    assert(bfun_copy != NULL);
-
-    prep_clone = _create_basic_string_representation(cpt_rep->_t_capacity, cpt_rep->_t_capacity, cpt_rep->_t_elemsize);
-    assert(prep_clone != NULL);
-    pby_dest = _basic_string_rep_get_data(prep_clone);
-    pby_src = _basic_string_rep_get_data(cpt_rep);
-    for (i = 0; i < cpt_rep->_t_length; ++i) {
-        b_result = cpt_rep->_t_elemsize;
-        bfun_copy(pby_dest + i * cpt_rep->_t_elemsize, pby_src + i * cpt_rep->_t_elemsize, &b_result);
-        assert(b_result);
-    }
-    _basic_string_rep_set_length(prep_clone, cpt_rep->_t_length);
-    /* The refcount will be set outof this function, so we do not set is here */
-
-    return prep_clone;
 }
 
 /**
@@ -678,13 +648,11 @@ void _basic_string_pop_back(basic_string_t* pt_basic_string)
  */
 void _basic_string_push_back(basic_string_t* pt_basic_string, ...)
 {
-    /* comment for 2.2
     va_list val_elemlist;
 
     va_start(val_elemlist, pt_basic_string);
     _basic_string_push_back_varg(pt_basic_string, val_elemlist);
     va_end(val_elemlist);
-    */
 }
 
 /**
@@ -692,11 +660,23 @@ void _basic_string_push_back(basic_string_t* pt_basic_string, ...)
  */
 void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist)
 {
-    /* comment for 2.2
-    assert(pt_basic_string != NULL);
+    _byte_t* pby_last = NULL;
+    size_t   t_size = 0;
 
-    _vector_push_back_varg(&pt_basic_string->_vec_base, val_elemlist);
-    */
+    assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string));
+
+    t_size = basic_string_size(pt_basic_string);
+    if (t_size == basic_string_capacity(pt_basic_string) || _basic_string_is_shared(pt_basic_string)) {
+        basic_string_reserve(pt_basic_string, t_size + 1);
+    }
+
+    pby_last = pt_basic_string->_pby_string + t_size * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    _basic_string_init_elem_auxiliary(pt_basic_string, pby_last);
+    _type_get_varg_value(&pt_basic_string->_t_typeinfo, val_elemlist, pby_last);
+
+    /* set sharable in reserve(). */
+    _basic_string_rep_set_length(_basic_string_rep_get_representation(pt_basic_string->_pby_string), t_size + 1);
 }
 
 /**

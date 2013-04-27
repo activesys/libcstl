@@ -164,6 +164,12 @@ void test__basic_string_push_back__basic_string_push_back_varg__empty(void** sta
 void test__basic_string_push_back__basic_string_push_back_varg__non_empty(void** state);
 void test__basic_string_push_back__basic_string_push_back_varg__cstr_empty(void** state);
 void test__basic_string_push_back__basic_string_push_back_varg__cstr_non_empty(void** state);
+void test__basic_string_push_back__basic_string_push_back_varg__shared_empty(void** state);
+void test__basic_string_push_back__basic_string_push_back_varg__shared_non_empty(void** state);
+void test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_empty(void** state);
+void test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_non_empty(void** state);
+void test__basic_string_push_back__basic_string_push_back_varg__user_define_empty(void** state);
+void test__basic_string_push_back__basic_string_push_back_varg__user_define_non_empty(void** state);
 /*
  * test _basic_string_pop_back
  */
@@ -364,14 +370,6 @@ UT_CASE_DECLARATION(_basic_string_rep_set_leaked)
 void test__basic_string_rep_set_leaked__null(void** state);
 void test__basic_string_rep_set_leaked__successfully(void** state);
 /*
- * test _basic_string_rep_clone
- */
-UT_CASE_DECLARATION(_basic_string_rep_clone)
-void test__basic_string_rep_clone__rep_null(void** state);
-void test__basic_string_rep_clone__fun_null(void** state);
-void test__basic_string_rep_clone__length_0(void** state);
-void test__basic_string_rep_clone__length_not_0(void** state);
-/*
  * test _basic_string_rep_reduce_shared
  */
 UT_CASE_DECLARATION(_basic_string_rep_reduce_shared)
@@ -402,10 +400,6 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_rep_reduce_shared__fun_null),\
     UT_CASE(test__basic_string_rep_reduce_shared__not_shared),\
     UT_CASE(test__basic_string_rep_reduce_shared__shared),\
-    UT_CASE_BEGIN(_basic_string_rep_clone, test__basic_string_rep_clone__rep_null),\
-    UT_CASE(test__basic_string_rep_clone__fun_null),\
-    UT_CASE(test__basic_string_rep_clone__length_0),\
-    UT_CASE(test__basic_string_rep_clone__length_not_0),\
     UT_CASE_BEGIN(_basic_string_rep_get_data, test__basic_string_rep_get_data__rep_null),\
     UT_CASE(test__basic_string_rep_get_data__successfully),\
     UT_CASE_BEGIN(_basic_string_rep_get_representation, test__basic_string_rep_get_representation__data_null),\
@@ -451,7 +445,20 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_init_elem_auxiliary__successfully_int),\
     UT_CASE(test__basic_string_init_elem_auxiliary__successfully_cstr),\
     UT_CASE(test__basic_string_init_elem_auxiliary__successfully_iterator),\
-    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_container)/*,\
+    UT_CASE(test__basic_string_init_elem_auxiliary__successfully_container),\
+    UT_CASE_BEGIN(_basic_string_push_back__basic_string_push_back_varg,\
+        test__basic_string_push_back__basic_string_push_back_varg__null_container),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__non_inited_container),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__non_empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__cstr_empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__cstr_non_empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__shared_empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__shared_non_empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_non_empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__user_define_empty),\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__user_define_non_empty)/*,\
     UT_CASE_BEGIN(_basic_string_destroy_auxiliary, test__basic_string_destroy_auxiliary__null_basic_string_container),\
     UT_CASE(test__basic_string_destroy_auxiliary__invalid_basic_string_container_finish_less_than_start),\
     UT_CASE(test__basic_string_destroy_auxiliary__invalid_basic_string_container_endofstorage_less_than_start),\
@@ -552,13 +559,6 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_less),\
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_equal),\
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_greater),\
-    UT_CASE_BEGIN(_basic_string_push_back__basic_string_push_back_varg,\
-        test__basic_string_push_back__basic_string_push_back_varg__null_container),\
-    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__non_inited_container),\
-    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__empty),\
-    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__non_empty),\
-    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__cstr_empty),\
-    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__cstr_non_empty),\
     UT_CASE_BEGIN(_basic_string_pop_back, test__basic_string_pop_back__null_container),\
     UT_CASE(test__basic_string_pop_back__non_inited_container),\
     UT_CASE(test__basic_string_pop_back__empty),\

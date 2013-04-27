@@ -93,15 +93,6 @@ extern _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t*
 extern void _basic_string_rep_increase_shared(_basic_string_rep_t* pt_rep);
 
 /**
- * Clone rep.
- * @param cpt_rep            pointer to basic_string_rep_t;
- * @param bfun_copy          copy function for element.
- * @return new rep that cloned from cpt_rep.
- * @remarks cpt_rep and bfun_copy must not be NULL.
- */
-extern _basic_string_rep_t* _basic_string_rep_clone(const _basic_string_rep_t* cpt_rep, binary_function_t bfun_copy);
-
-/**
  * Get data pointer from basic_string_rep.
  * @param cpt_rep            pointer to basic_string_rep_t;
  * @return void*

@@ -253,14 +253,75 @@ void _basic_string_detach(basic_string_t* pt_basic_string)
     prep = _basic_string_rep_get_representation(pt_basic_string->_pby_string);
     if (_basic_string_rep_is_shared(prep)) {
         /* clone */
-        _basic_string_rep_t* prep_clone =
-            _basic_string_rep_clone(prep, _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string));
+        _basic_string_rep_t* prep_clone = _basic_string_clone_representation(pt_basic_string, 0);
         _basic_string_rep_set_sharable(prep_clone);
         /* reduce shared */
         _basic_string_rep_reduce_shared(prep, _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
         /* set new rep */
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep_clone);
     }
+}
+
+/**
+ * Check whether the basic_string_t is shared.
+ */
+bool_t _basic_string_is_shared(const basic_string_t* cpt_basic_string)
+{
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
+
+    return _basic_string_rep_is_shared(_basic_string_rep_get_representation(cpt_basic_string->_pby_string));
+}
+
+/**
+ * Clone representation.
+ */
+_basic_string_rep_t* _basic_string_clone_representation(const basic_string_t* cpt_basic_string, size_t t_addsize)
+{
+    _basic_string_rep_t* prep_clone = NULL;
+    _byte_t*             pby_dest = NULL;
+    _byte_t*             pby_src = NULL;
+    bool_t               b_result = false;
+    size_t               i = 0;
+
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
+
+    prep_clone = _create_basic_string_representation(
+        basic_string_size(cpt_basic_string) + t_addsize,
+        basic_string_capacity(cpt_basic_string),
+        _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+    assert(prep_clone != NULL);
+
+    pby_dest = _basic_string_rep_get_data(prep_clone);
+    pby_src = cpt_basic_string->_pby_string;
+    for (i = 0; i < basic_string_size(cpt_basic_string); ++i) {
+        /* initialize new elements */
+        if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_CSTL_BUILTIN) {
+            /* get element type name */
+            char s_elemtypename[_TYPE_NAME_SIZE + 1];
+            _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(cpt_basic_string), s_elemtypename);
+
+            _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pby_dest, s_elemtypename);
+        } else {
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+            assert(b_result);
+        }
+
+        /* copy */
+        b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+        assert(b_result);
+
+        pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        pby_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    }
+
+    _basic_string_rep_set_length(prep_clone, basic_string_size(cpt_basic_string));
+    /* The refcount will be set outof this function, so we do not set is here */
+
+    return prep_clone;
 }
 
 /** local function implementation section **/

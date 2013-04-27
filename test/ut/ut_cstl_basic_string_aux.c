@@ -778,3 +778,174 @@ void test__basic_string_detach__sharable(void** state)
     basic_string_destroy(pbstr3);
 }
 
+/*
+ * test _basic_string_is_shared
+ */
+UT_CASE_DEFINATION(_basic_string_is_shared)
+void test__basic_string_is_shared__null(void** state)
+{
+    expect_assert_failure(_basic_string_is_shared(NULL));
+}
+void test__basic_string_is_shared__non_inited(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    expect_assert_failure(_basic_string_is_shared(pbstr));
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_is_shared__shared(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+    basic_string_init(pbstr1);
+    basic_string_init_copy(pbstr2, pbstr1);
+    assert_true(_basic_string_is_shared(pbstr1));
+    assert_true(_basic_string_is_shared(pbstr2));
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2); 
+}
+void test__basic_string_is_shared__not_shared(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+    basic_string_init(pbstr1);
+    basic_string_init(pbstr2);
+    assert_false(_basic_string_is_shared(pbstr1));
+    assert_false(_basic_string_is_shared(pbstr2));
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+
+/*
+ * test _basic_string_clone_representation
+ */
+UT_CASE_DEFINATION(_basic_string_clone_representation)
+void test__basic_string_clone_representation__null(void** state)
+{
+    expect_assert_failure(_basic_string_clone_representation(NULL, 0));
+}
+void test__basic_string_clone_representation__non_inited(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    expect_assert_failure(_basic_string_clone_representation(pbstr, 0));
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_clone_representation__c_builtin_length_0(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    _basic_string_rep_t* prep = NULL;
+    basic_string_init(pbstr);
+    prep = _basic_string_clone_representation(pbstr, 0);
+    assert(prep != NULL);
+    assert(prep->_n_refcount == -1);
+    assert(prep->_t_capacity == 0);
+    assert(prep->_t_elemsize == _GET_BASIC_STRING_TYPE_SIZE(pbstr));
+    assert(prep->_t_length == 0);
+    free(prep);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_clone_representation__c_builtin_length_not_0(void** state)
+{
+    int i = 0;
+    basic_string_t* pbstr = create_basic_string(int);
+    _basic_string_rep_t* prep = NULL;
+    basic_string_init_elem(pbstr, 10, 111);
+    prep = _basic_string_clone_representation(pbstr, 5);
+    assert(prep != NULL);
+    assert(prep->_n_refcount == -1);
+    assert(prep->_t_capacity == 20);
+    assert(prep->_t_elemsize == _GET_BASIC_STRING_TYPE_SIZE(pbstr));
+    assert(prep->_t_length == 10);
+    for (i = 0; i < prep->_t_length; ++i) {
+        assert_true(*(int*)(_basic_string_rep_get_data(prep) + i * prep->_t_elemsize) == 111);
+    }
+    free(prep);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_clone_representation__cstr_length_0(void** state)
+{
+    assert_true(false);
+}
+void test__basic_string_clone_representation__cstr_length_not_0(void** state)
+{
+    assert_true(false);
+}
+void test__basic_string_clone_representation__cstl_builtin_length_0(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    _basic_string_rep_t* prep = NULL;
+    basic_string_init(pbstr);
+    prep = _basic_string_clone_representation(pbstr, 0);
+    assert(prep != NULL);
+    assert(prep->_n_refcount == -1);
+    assert(prep->_t_capacity == 0);
+    assert(prep->_t_elemsize == _GET_BASIC_STRING_TYPE_SIZE(pbstr));
+    assert(prep->_t_length == 0);
+    free(prep);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_clone_representation__cstl_builtin_length_not_0(void** state)
+{
+    int i = 0;
+    list_t* plist = create_list(int);
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    _basic_string_rep_t* prep = NULL;
+    list_init(plist);
+    list_push_back(plist, 111);
+    basic_string_init_elem(pbstr, 10, plist);
+    prep = _basic_string_clone_representation(pbstr, 100);
+    assert(prep != NULL);
+    assert(prep->_n_refcount == -1);
+    assert(prep->_t_capacity == 110);
+    assert(prep->_t_elemsize == _GET_BASIC_STRING_TYPE_SIZE(pbstr));
+    assert(prep->_t_length == 10);
+    for (i = 0; i < prep->_t_length; ++i) {
+        assert_true(*(int*)list_front((list_t*)(_basic_string_rep_get_data(prep) + i * prep->_t_elemsize)) == 111);
+    }
+    free(prep);
+    basic_string_destroy(pbstr);
+    list_destroy(plist);
+}
+typedef struct _tag_basic_string_clone_representation
+{
+    int a;
+} _basic_string_clone_representation_t;
+void test__basic_string_clone_representation__user_define_length_0(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    _basic_string_rep_t* prep = NULL;
+
+    type_register(_basic_string_clone_representation_t, NULL, NULL, NULL, NULL);
+
+    pbstr = create_basic_string(_basic_string_clone_representation_t);
+    basic_string_init(pbstr);
+    prep = _basic_string_clone_representation(pbstr, 10);
+    assert(prep != NULL);
+    assert(prep->_n_refcount == -1);
+    assert(prep->_t_capacity == 10);
+    assert(prep->_t_elemsize == _GET_BASIC_STRING_TYPE_SIZE(pbstr));
+    assert(prep->_t_length == 0);
+    free(prep);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_clone_representation__user_define_length_not_0(void** state)
+{
+    int i = 0;
+    _basic_string_clone_representation_t t_elem;
+    basic_string_t* pbstr = create_basic_string(_basic_string_clone_representation_t);
+    _basic_string_rep_t* prep = NULL;
+    t_elem.a = 111;
+    basic_string_init_elem(pbstr, 10, &t_elem);
+    prep = _basic_string_clone_representation(pbstr, 100);
+    assert(prep != NULL);
+    assert(prep->_n_refcount == -1);
+    assert(prep->_t_capacity == 110);
+    assert(prep->_t_elemsize == _GET_BASIC_STRING_TYPE_SIZE(pbstr));
+    assert(prep->_t_length == 10);
+    for (i = 0; i < prep->_t_length; ++i) {
+        assert_true(((_basic_string_clone_representation_t*)(_basic_string_rep_get_data(prep) + i * prep->_t_elemsize))->a == 111);
+    }
+    free(prep);
+    basic_string_destroy(pbstr);
+}
+
+

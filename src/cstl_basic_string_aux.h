@@ -132,9 +132,26 @@ extern void _basic_string_init_elem_range_auxiliary(basic_string_t* pt_basic_str
  * Detach this basic_string from sharable string.
  * @param pt_basic_string   basic_string.
  * @return void.
- * @remarks cpt_basic_string must be initialized.
+ * @remarks pt_basic_string must be initialized.
  */
 extern void _basic_string_detach(basic_string_t* pt_basic_string);
+
+/**
+ * Check whether the basic_string_t is shared.
+ * @param cpt_basic_string   basic_string.
+ * @return bool_t.
+ * @remarks cpt_basic_string must be initialized.
+ */
+extern bool_t _basic_string_is_shared(const basic_string_t* cpt_basic_string);
+
+/**
+ * Clone representation.
+ * @param cpt_basic_string   basic_string.
+ * @param t_addsize          additional size.
+ * @return new rep that cloned from cpt_basic_string.
+ * @remarks cpt_basic_string must not be NULL.
+ */
+extern _basic_string_rep_t* _basic_string_clone_representation(const basic_string_t* cpt_basic_string, size_t t_addsize);
 
 #ifdef __cplusplus
 }

@@ -921,6 +921,7 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
     basic_string_init_copy_substring(pt_dest, pt_src, 0, 0);
     assert_true(basic_string_size(pt_dest) == 0);
     assert_true(basic_string_capacity(pt_dest) == 0);
+    assert_true(pt_dest->_pby_string != pt_src->_pby_string);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -939,6 +940,8 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
 
     basic_string_init_copy_substring(pt_dest, pt_src, 0, 3);
     assert_true(basic_string_size(pt_dest) == 3);
+    assert_true(basic_string_capacity(pt_dest) == 3);
+    assert_true(pt_dest->_pby_string != pt_src->_pby_string);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_dest, i) == i);
@@ -961,6 +964,8 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
 
     basic_string_init_copy_substring(pt_dest, pt_src, 0, basic_string_length(pt_src));
     assert_true(basic_string_size(pt_dest) == basic_string_length(pt_src));
+    assert_true(basic_string_capacity(pt_dest) == 10);
+    assert_true(pt_dest->_pby_string != pt_src->_pby_string);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_dest, i) == i);
@@ -983,6 +988,7 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
 
     basic_string_init_copy_substring(pt_dest, pt_src, 0, NPOS);
     assert_true(basic_string_size(pt_dest) == basic_string_length(pt_src));
+    assert_true(pt_dest->_pby_string != pt_src->_pby_string);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_dest, i) == i);
@@ -1005,6 +1011,8 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
 
     basic_string_init_copy_substring(pt_dest, pt_src, 3, 0);
     assert_true(basic_string_size(pt_dest) == 0);
+    assert_true(basic_string_capacity(pt_dest) == 0);
+    assert_true(pt_dest->_pby_string != pt_src->_pby_string);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_dest, i) == i);
@@ -1027,6 +1035,8 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
 
     basic_string_init_copy_substring(pt_dest, pt_src, 3, 4);
     assert_true(basic_string_size(pt_dest) == 4);
+    assert_true(basic_string_capacity(pt_dest) == 4);
+    assert_true(pt_dest->_pby_string != pt_src->_pby_string);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_dest, i) == i + 3);
@@ -1049,6 +1059,8 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
 
     basic_string_init_copy_substring(pt_dest, pt_src, 3, basic_string_length(pt_src)-3);
     assert_true(basic_string_size(pt_dest) == 7);
+    assert_true(basic_string_capacity(pt_dest) == 7);
+    assert_true(pt_dest->_pby_string != pt_src->_pby_string);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_dest, i) == i + 3);
@@ -1071,6 +1083,8 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
 
     basic_string_init_copy_substring(pt_dest, pt_src, 3, NPOS);
     assert_true(basic_string_size(pt_dest) == 7);
+    assert_true(basic_string_capacity(pt_dest) == 7);
+    assert_true(pt_dest->_pby_string != pt_src->_pby_string);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_dest, i) == i + 3);
@@ -1116,6 +1130,7 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_begin_empty(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init_elem(pt_src, 10, "abcdefg");
@@ -1126,10 +1141,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_begi
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_begin_non_empty(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1147,10 +1165,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_begi
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_begin_length(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1170,10 +1191,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_begi
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_begin_npos(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1193,10 +1217,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_begi
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_middle_empty(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1211,10 +1238,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_midd
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_middle_non_empty(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1231,10 +1261,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_midd
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_middle_length(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1252,10 +1285,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_midd
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_middle_npos(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1273,10 +1309,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_midd
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_end(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1290,10 +1329,13 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_end(
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_dest = create_basic_string(char*);
     basic_string_t* pt_src = create_basic_string(char*);
     basic_string_init(pt_src);
@@ -1307,6 +1349,8 @@ void test_basic_string_init_copy_substring__successfully_cstr_src_non_empty_npos
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_init_copy_substring__successfully_cstl_builtin_src_non_empty_begin_empty(void** state)
@@ -1327,6 +1371,7 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_src_non_em
 
     basic_string_init_copy_substring(pt_dest, pt_src, 0, 0);
     assert_true(basic_string_size(pt_dest) == 0);
+    assert_true(basic_string_capacity(pt_dest) == 0);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -1351,6 +1396,7 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_non_empty_
 
     basic_string_init_copy_substring(pt_dest, pt_src, 0, 2);
     assert_true(basic_string_size(pt_dest) == 2);
+    assert_true(basic_string_capacity(pt_dest) == 2);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)list_front((list_t*)basic_string_at(pt_dest, i)) == i);
@@ -1379,6 +1425,7 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_non_empty_
 
     basic_string_init_copy_substring(pt_dest, pt_src, 0, basic_string_length(pt_src));
     assert_true(basic_string_size(pt_dest) == 10);
+    assert_true(basic_string_capacity(pt_dest) == 10);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)list_front((list_t*)basic_string_at(pt_dest, i)) == i);
@@ -1407,6 +1454,7 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_non_empty_
 
     basic_string_init_copy_substring(pt_dest, pt_src, 0, NPOS);
     assert_true(basic_string_size(pt_dest) == 10);
+    assert_true(basic_string_capacity(pt_dest) == 10);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)list_front((list_t*)basic_string_at(pt_dest, i)) == i);
@@ -1435,6 +1483,7 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_non_empty_
 
     basic_string_init_copy_substring(pt_dest, pt_src, 3, 0);
     assert_true(basic_string_size(pt_dest) == 0);
+    assert_true(basic_string_capacity(pt_dest) == 0);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -1459,6 +1508,7 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_non_empty_
 
     basic_string_init_copy_substring(pt_dest, pt_src, 3, 3);
     assert_true(basic_string_size(pt_dest) == 3);
+    assert_true(basic_string_capacity(pt_dest) == 3);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)list_front((list_t*)basic_string_at(pt_dest, i)) == i + 3);
@@ -1487,6 +1537,7 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_non_empty_
 
     basic_string_init_copy_substring(pt_dest, pt_src, 3, basic_string_length(pt_src));
     assert_true(basic_string_size(pt_dest) == 7);
+    assert_true(basic_string_capacity(pt_dest) == 7);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)list_front((list_t*)basic_string_at(pt_dest, i)) == i + 3);
@@ -1515,6 +1566,7 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_non_empty_
 
     basic_string_init_copy_substring(pt_dest, pt_src, 3, NPOS);
     assert_true(basic_string_size(pt_dest) == 7);
+    assert_true(basic_string_capacity(pt_dest) == 7);
     for(i = 0; i < basic_string_size(pt_dest); ++i)
     {
         assert_true(*(int*)list_front((list_t*)basic_string_at(pt_dest, i)) == i + 3);
@@ -2713,7 +2765,6 @@ void test_basic_string_at__user_define(void** state)
 
 void test_basic_string_at__successfully(void** state)
 {
-    /*
     size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init(pt_basic_string);
@@ -2728,8 +2779,6 @@ void test_basic_string_at__successfully(void** state)
     }
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test_basic_string_at__successfully_cstr(void** state)
@@ -28685,15 +28734,21 @@ void test_basic_string_reserve__null_basic_string_container(void** state)
 
 void test_basic_string_reserve__non_inited(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
 
-    pt_basic_string->_vec_base._pby_finish = (_byte_t*)0x34;
     expect_assert_failure(basic_string_reserve(pt_basic_string, 100));    
 
-    pt_basic_string->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_basic_string);
-    */
+}
+
+void test_basic_string_reserve__max_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init_elem(pt_basic_string, 100, 0);
+    expect_assert_failure(basic_string_reserve(pt_basic_string, NPOS));
+
+    basic_string_destroy(pt_basic_string);
 }
 
 void test_basic_string_reserve__shrink(void** state)
@@ -28701,9 +28756,9 @@ void test_basic_string_reserve__shrink(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 100, 0);
-    assert_true(basic_string_capacity(pt_basic_string) == 150);
+    assert_true(basic_string_capacity(pt_basic_string) == 100);
     basic_string_reserve(pt_basic_string, 0);
-    assert_true(basic_string_capacity(pt_basic_string) == 150);
+    assert_true(basic_string_capacity(pt_basic_string) == 100);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -28713,9 +28768,9 @@ void test_basic_string_reserve__not_change(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 100, 0);
-    assert_true(basic_string_capacity(pt_basic_string) == 150);
-    basic_string_reserve(pt_basic_string, 150);
-    assert_true(basic_string_capacity(pt_basic_string) == 150);
+    assert_true(basic_string_capacity(pt_basic_string) == 100);
+    basic_string_reserve(pt_basic_string, 100);
+    assert_true(basic_string_capacity(pt_basic_string) == 100);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -28725,11 +28780,31 @@ void test_basic_string_reserve__expand(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 100, 0);
-    assert_true(basic_string_capacity(pt_basic_string) == 150);
+    assert_true(basic_string_capacity(pt_basic_string) == 100);
     basic_string_reserve(pt_basic_string, 850);
     assert_true(basic_string_capacity(pt_basic_string) == 850);
 
     basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_reserve__shared(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+
+    basic_string_init_elem(pbstr1, 100, 0);
+    basic_string_init_copy(pbstr2, pbstr1);
+
+    assert_true(basic_string_capacity(pbstr1) == 100);
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    basic_string_reserve(pbstr2, 150);
+    assert_true(basic_string_capacity(pbstr1) == 100);
+    assert_true(basic_string_capacity(pbstr2) == 200);
+    assert_true(basic_string_size(pbstr2) == 100);
+    assert_true(pbstr1->_pby_string != pbstr2->_pby_string);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
 }
 
 /*
