@@ -297,17 +297,7 @@ _basic_string_rep_t* _basic_string_clone_representation(const basic_string_t* cp
     pby_src = cpt_basic_string->_pby_string;
     for (i = 0; i < basic_string_size(cpt_basic_string); ++i) {
         /* initialize new elements */
-        if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_CSTL_BUILTIN) {
-            /* get element type name */
-            char s_elemtypename[_TYPE_NAME_SIZE + 1];
-            _type_get_elem_typename(_GET_BASIC_STRING_TYPE_NAME(cpt_basic_string), s_elemtypename);
-
-            _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pby_dest, s_elemtypename);
-        } else {
-            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-            _GET_BASIC_STRING_TYPE_INIT_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
-            assert(b_result);
-        }
+        _basic_string_init_elem_auxiliary(cpt_basic_string, pby_dest);
 
         /* copy */
         b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
