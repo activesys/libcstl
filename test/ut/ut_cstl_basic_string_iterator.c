@@ -476,6 +476,7 @@ void test__basic_string_iterator_get_value__successfully(void** state)
 
 void test__basic_string_iterator_get_value__successfully_cstr(void** state)
 {
+    /*
     char* str = NULL;
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_iter;
@@ -487,6 +488,8 @@ void test__basic_string_iterator_get_value__successfully_cstr(void** state)
     assert_true(strcmp(str, "abcdefg") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 /*
@@ -597,6 +600,7 @@ void test__basic_string_iterator_set_value__successfully(void** state)
 
 void test__basic_string_iterator_set_value__successfully_cstr(void** state)
 {
+    /*
     const char* str = "AAAAAAAAAAA";
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_iter;
@@ -608,6 +612,8 @@ void test__basic_string_iterator_set_value__successfully_cstr(void** state)
     assert_true(strcmp(str, (char*)basic_string_at(pt_basic_string, 0)) == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 /*
@@ -698,6 +704,7 @@ void test__basic_string_iterator_get_pointer__successfully(void** state)
 
 void test__basic_string_iterator_get_pointer__successfully_cstr(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_iter;
 
@@ -707,6 +714,8 @@ void test__basic_string_iterator_get_pointer__successfully_cstr(void** state)
     assert_true(strcmp("abcdefg", (char*)_basic_string_iterator_get_pointer(it_iter)) == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 /*
@@ -797,6 +806,7 @@ void test__basic_string_iterator_get_pointer_ignore_cstr__successfully(void** st
 
 void test__basic_string_iterator_get_pointer_ignore_cstr__successfully_cstr(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_iter;
 
@@ -806,6 +816,8 @@ void test__basic_string_iterator_get_pointer_ignore_cstr__successfully_cstr(void
     assert_true(strcmp("abcdefg", string_c_str(_basic_string_iterator_get_pointer_ignore_cstr(it_iter))) == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 /*
@@ -1434,6 +1446,7 @@ void test__basic_string_iterator_at__move_to_end_successfully(void** state)
 
 void test__basic_string_iterator_at__move_to_end_cstr_successfully(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_iter;
     char* s_at = NULL;
@@ -1450,6 +1463,8 @@ void test__basic_string_iterator_at__move_to_end_cstr_successfully(void** state)
     assert_true(strcmp(s_at, "klm") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_iterator_at__move_to_front_successfully(void** state)
@@ -1472,6 +1487,7 @@ void test__basic_string_iterator_at__move_to_front_successfully(void** state)
 
 void test__basic_string_iterator_at__move_to_front_cstr_successfully(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_iter;
     char* s_at = NULL;
@@ -1488,6 +1504,8 @@ void test__basic_string_iterator_at__move_to_front_cstr_successfully(void** stat
     assert_true(strcmp(s_at, "hij") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_iterator_at__does_not_move_successfully(void** state)
@@ -1510,6 +1528,7 @@ void test__basic_string_iterator_at__does_not_move_successfully(void** state)
 
 void test__basic_string_iterator_at__does_not_move_cstr_successfully(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_iter;
     char* s_at = NULL;
@@ -1526,6 +1545,8 @@ void test__basic_string_iterator_at__does_not_move_cstr_successfully(void** stat
     assert_true(strcmp(s_at, "abc") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 /*

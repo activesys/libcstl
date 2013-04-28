@@ -45,6 +45,31 @@
 /** exported function implementation section **/
 #ifndef NDEBUG
 /**
+ * Test iterator referenced data is within the basic_string.
+ */
+bool_t _basic_string_iterator_belong_to_basic_string(
+    const basic_string_t* cpt_basic_string, basic_string_iterator_t it_iter)
+{
+    _byte_t* pby_begin = NULL;
+    _byte_t* pby_end = NULL;
+
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
+    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) == _BASIC_STRING_CONTAINER);
+    assert(_BASIC_STRING_ITERATOR_ITERATOR_TYPE(it_iter) == _RANDOM_ACCESS_ITERATOR);
+    assert(_BASIC_STRING_ITERATOR_CONTAINER(it_iter) == cpt_basic_string);
+
+    pby_begin = cpt_basic_string->_pby_string;
+    pby_end = pby_begin + _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string) * basic_string_size(cpt_basic_string);
+    if (_BASIC_STRING_ITERATOR_COREPOS(it_iter) >= pby_begin &&
+        _BASIC_STRING_ITERATOR_COREPOS(it_iter) <= pby_end) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
  * Test basic_string_t is created by create_basic_string.
  */
 bool_t _basic_string_is_created(const basic_string_t* cpt_basic_string)
@@ -90,24 +115,6 @@ bool_t _basic_string_is_inited(const basic_string_t* cpt_basic_string)
     }
 
     return !_basic_string_rep_is_leaked(_basic_string_rep_get_representation(cpt_basic_string->_pby_string));
-}
-
-
-/**
- * Test iterator referenced data is within the basic_string.
- */
-bool_t _iterator_belong_to_basic_string(
-    const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter)
-{
-    /* comment for 2.2
-    assert(cpt_basic_string != NULL);
-    assert(_BASIC_STRING_ITERATOR_CONTAINER_TYPE(t_iter) == _BASIC_STRING_CONTAINER &&
-           _BASIC_STRING_ITERATOR_ITERATOR_TYPE(t_iter) == _RANDOM_ACCESS_ITERATOR &&
-           _BASIC_STRING_ITERATOR_CONTAINER(t_iter) == cpt_basic_string);
-
-    return true;
-    */
-    return false;
 }
 
 /**

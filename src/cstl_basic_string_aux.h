@@ -50,6 +50,17 @@ extern "C" {
  * Assert support.
  */
 /**
+ * Test iterator referenced data is within the basic_string.
+ * @param cpt_basic_string point to basic_string container.
+ * @param it_iter basic_string iterator.
+ * @return if iterator referenced is within the basic_string, then return true, otherwise return false.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined, the it_iter must be valie basic_string
+ *          iterator and must belong to basic_string, otherwist the behavior is undefined. 
+ */
+extern bool_t _basic_string_iterator_belong_to_basic_string(
+    const basic_string_t* cpt_basic_string, basic_string_iterator_t it_iter);
+
+/**
  * Test basic_string_t is created by create_basic_string.
  * @param cpt_basic_string  basic_string_t pointer.
  * @return if basic_string is created by create_basic_string, then return true, else return false.
@@ -64,17 +75,6 @@ extern bool_t _basic_string_is_created(const basic_string_t* cpt_basic_string);
  * @remarks if cpt_basic_string == NULL, then the behavior is undefined.
  */
 extern bool_t _basic_string_is_inited(const basic_string_t* cpt_basic_string);
-
-/**
- * Test iterator referenced data is within the basic_string.
- * @param cpt_basic_string point to basic_string container.
- * @param it_iter basic_string iterator.
- * @return if iterator referenced is within the basic_string, then return true, otherwise return false.
- * @remarks if cpt_basic_string == NULL, then the behavior is undefined, the it_iter must be valie basic_string
- *          iterator and must belong to basic_string, otherwist the behavior is undefined. 
- */
-extern bool_t _iterator_belong_to_basic_string(
-    const basic_string_t* cpt_basic_string, basic_string_iterator_t t_iter);
 
 /**
  * Test the type that saved in the basic_string container is same.

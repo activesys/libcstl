@@ -826,16 +826,18 @@ void basic_string_connect_cstr(basic_string_t* pt_basic_string, const void* cpv_
  */
 basic_string_iterator_t basic_string_begin(const basic_string_t* cpt_basic_string)
 {
-    /* comment for 2.2
     basic_string_iterator_t it_begin;
 
     assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
 
-    it_begin = vector_begin(&cpt_basic_string->_vec_base);
-    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_begin) = _BASIC_STRING_CONTAINER;
+    _basic_string_detach((basic_string_t*)cpt_basic_string);
+
+    it_begin = _create_basic_string_iterator();
+    _ITERATOR_CONTAINER(it_begin) = (basic_string_t*)cpt_basic_string;
+    _BASIC_STRING_ITERATOR_COREPOS(it_begin) = cpt_basic_string->_pby_string;
 
     return it_begin;
-    */
 }
 
 /**
@@ -843,50 +845,32 @@ basic_string_iterator_t basic_string_begin(const basic_string_t* cpt_basic_strin
  */
 basic_string_iterator_t basic_string_end(const basic_string_t* cpt_basic_string)
 {
-    /* comment for 2.2
     basic_string_iterator_t it_end;
+    size_t                  t_elemsize = 0;
+    size_t                  t_length = 0;
 
     assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
 
-    it_end = vector_end(&cpt_basic_string->_vec_base);
-    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_end) = _BASIC_STRING_CONTAINER;
+    _basic_string_detach((basic_string_t*)cpt_basic_string);
+
+    t_elemsize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    t_length = basic_string_size(cpt_basic_string);
+    it_end = _create_basic_string_iterator();
+    _ITERATOR_CONTAINER(it_end) = (basic_string_t*)cpt_basic_string;
+    _BASIC_STRING_ITERATOR_COREPOS(it_end) = cpt_basic_string->_pby_string + t_elemsize * t_length;
 
     return it_end;
-    */
 }
 
-basic_string_reverse_iterator_t basic_string_rbegin(
-    const basic_string_t* cpt_basic_string)
+/*** private ***/
+basic_string_reverse_iterator_t basic_string_rbegin(const basic_string_t* cpt_basic_string)
 {
-    /* comment for 2.2
-    basic_string_reverse_iterator_t t_newiterator;
-
-    assert(cpt_basic_string != NULL);
-    assert(vector_size(&cpt_basic_string->_vec_base) > 0);
-
-    if (basic_string_empty(cpt_basic_string)) {
-        t_newiterator = basic_string_rend(cpt_basic_string);
-    } else {
-        t_newiterator = vector_rbegin(&cpt_basic_string->_vec_base);
-        _BASIC_STRING_ITERATOR_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
-    }
-
-    return t_newiterator;
-    */
+    return basic_string_end(cpt_basic_string);
 }
-
 basic_string_reverse_iterator_t basic_string_rend(const basic_string_t* cpt_basic_string)
 {
-    /* comment for 2.2
-    basic_string_iterator_t t_newiterator;
-
-    assert(cpt_basic_string != NULL);
-
-    t_newiterator = vector_rend(&cpt_basic_string->_vec_base);
-    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(t_newiterator) = _BASIC_STRING_CONTAINER;
-
-    return t_newiterator;
-    */
+    return basic_string_begin(cpt_basic_string);
 }
 
 /**

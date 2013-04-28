@@ -948,4 +948,131 @@ void test__basic_string_clone_representation__user_define_length_not_0(void** st
     basic_string_destroy(pbstr);
 }
 
+/*
+ * test _basic_string_iterator_belong_to_basic_string
+ */
+UT_CASE_DEFINATION(_basic_string_iterator_belong_to_basic_string)
+void test__basic_string_iterator_belong_to_basic_string__null_container_pointer(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pbstr, 10, 100);
+    it_iter = basic_string_begin(pbstr);
+
+    expect_assert_failure(_basic_string_iterator_belong_to_basic_string(NULL, it_iter));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_iterator_belong_to_basic_string__non_inited_basic_string_container(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init(pbstr);
+    it_iter = basic_string_begin(pbstr);
+
+    pbstr->_t_typeinfo._t_style = 123455;
+    expect_assert_failure(_basic_string_iterator_belong_to_basic_string(pbstr, it_iter));
+
+    pbstr->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_iterator_belong_to_basic_string__invalid_iterator_container_type(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pbstr, 10, 100);
+    it_iter = basic_string_begin(pbstr);
+    it_iter._t_containertype = _LIST_CONTAINER;
+
+    expect_assert_failure(_basic_string_iterator_belong_to_basic_string(pbstr, it_iter));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_iterator_belong_to_basic_string__invalid_iterator_iterator_type(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pbstr, 10, 100);
+    it_iter = basic_string_begin(pbstr);
+    it_iter._t_iteratortype = _INPUT_ITERATOR;
+
+    expect_assert_failure(_basic_string_iterator_belong_to_basic_string(pbstr, it_iter));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_iterator_belong_to_basic_string__invalid_iterator_different_container(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pbstr, 10, 100);
+    it_iter = basic_string_begin(pbstr);
+    it_iter._pt_container = NULL;
+
+    expect_assert_failure(_basic_string_iterator_belong_to_basic_string(pbstr, it_iter));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_iterator_belong_to_basic_string__less_than_begin(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pbstr, 10, 100);
+    it_iter = basic_string_begin(pbstr);
+    it_iter._t_pos._pby_corepos = pbstr->_pby_string - 1;
+
+    assert_false(_basic_string_iterator_belong_to_basic_string(pbstr, it_iter));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_iterator_belong_to_basic_string__within_basic_string(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pbstr, 10, 100);
+    it_iter = basic_string_begin(pbstr);
+
+    assert_true(_basic_string_iterator_belong_to_basic_string(pbstr, it_iter));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_iterator_belong_to_basic_string__end_iterator(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pbstr, 10, 100);
+    it_iter = basic_string_end(pbstr);
+
+    assert_true(_basic_string_iterator_belong_to_basic_string(pbstr, it_iter));
+
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_iterator_belong_to_basic_string__greater_than_end(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init_elem(pbstr, 10, 100);
+    it_iter = basic_string_end(pbstr);
+    it_iter._t_pos._pby_corepos += pbstr->_t_typeinfo._pt_type->_t_typesize;
+
+    assert_false(_basic_string_iterator_belong_to_basic_string(pbstr, it_iter));
+
+    basic_string_destroy(pbstr);
+}
 

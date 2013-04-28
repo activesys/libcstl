@@ -2042,6 +2042,7 @@ void test_basic_string_begin__null_basic_string_container(void** state);
 void test_basic_string_begin__non_inited_basic_string_container(void** state);
 void test_basic_string_begin__empty(void** state);
 void test_basic_string_begin__non_empty(void** state);
+void test_basic_string_begin__shared(void** state);
 /*
  * test basic_string_end
  */
@@ -2050,6 +2051,7 @@ void test_basic_string_end__null_basic_string_container(void** state);
 void test_basic_string_end__non_inited_basic_string_container(void** state);
 void test_basic_string_end__empty(void** state);
 void test_basic_string_end__non_empty(void** state);
+void test_basic_string_end__shared(void** state);
 /*
  * test basic_string_clear
  */
@@ -2863,7 +2865,17 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_init_copy_substring__successfully_user_define_non_empty_middle_length),\
     UT_CASE(test_basic_string_init_copy_substring__successfully_user_define_non_empty_middle_npos),\
     UT_CASE(test_basic_string_init_copy_substring__successfully_user_define_non_empty_end),\
-    UT_CASE(test_basic_string_init_copy_substring__successfully_user_define_non_empty_npos)/*,\
+    UT_CASE(test_basic_string_init_copy_substring__successfully_user_define_non_empty_npos),\
+    UT_CASE_BEGIN(basic_string_begin, test_basic_string_begin__null_basic_string_container),\
+    UT_CASE(test_basic_string_begin__non_inited_basic_string_container),\
+    UT_CASE(test_basic_string_begin__empty),\
+    UT_CASE(test_basic_string_begin__non_empty),\
+    UT_CASE(test_basic_string_begin__shared),\
+    UT_CASE_BEGIN(basic_string_end, test_basic_string_end__null_basic_string_container),\
+    UT_CASE(test_basic_string_end__non_inited_basic_string_container),\
+    UT_CASE(test_basic_string_end__empty),\
+    UT_CASE(test_basic_string_end__non_empty),\
+    UT_CASE(test_basic_string_end__shared)/*,\
     UT_CASE_BEGIN(basic_string_init_copy_range, test_basic_string_init_copy_range__null_dest),\
     UT_CASE(test_basic_string_init_copy_range__invalid_begin_iterator),\
     UT_CASE(test_basic_string_init_copy_range__invalid_end_iterator),\
@@ -4547,14 +4559,6 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_find),\
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find),\
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find_pos),\
-    UT_CASE_BEGIN(basic_string_begin, test_basic_string_begin__null_basic_string_container),\
-    UT_CASE(test_basic_string_begin__non_inited_basic_string_container),\
-    UT_CASE(test_basic_string_begin__empty),\
-    UT_CASE(test_basic_string_begin__non_empty),\
-    UT_CASE_BEGIN(basic_string_begin, test_basic_string_end__null_basic_string_container),\
-    UT_CASE(test_basic_string_end__non_inited_basic_string_container),\
-    UT_CASE(test_basic_string_end__empty),\
-    UT_CASE(test_basic_string_end__non_empty),\
     UT_CASE_BEGIN(basic_string_clear, test_basic_string_clear__null_basic_string_container),\
     UT_CASE(test_basic_string_clear__non_inited_basic_string_container),\
     UT_CASE(test_basic_string_clear__empty_basic_string_container),\
