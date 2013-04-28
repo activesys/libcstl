@@ -61,6 +61,15 @@ extern bool_t _basic_string_iterator_belong_to_basic_string(
     const basic_string_t* cpt_basic_string, basic_string_iterator_t it_iter);
 
 /**
+ * Test the type that saved in the basic_string container and referenced by it_iter are same.
+ * @param cpt_basic_string  basic_string container.
+ * @param it_iter           basic_string iterator.
+ * @return if the type is same, return true, else return false.
+ * @remarks if cpt_basic_string == NULL, then the behavior is undefined.
+ */
+extern bool_t _basic_string_same_iterator_type(const basic_string_t* cpt_basic_string, iterator_t it_iter);
+
+/**
  * Test basic_string_t is created by create_basic_string.
  * @param cpt_basic_string  basic_string_t pointer.
  * @return if basic_string is created by create_basic_string, then return true, else return false.

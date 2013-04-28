@@ -129,6 +129,19 @@ void test__basic_string_iterator_belong_to_basic_string__less_than_begin(void** 
 void test__basic_string_iterator_belong_to_basic_string__within_basic_string(void** state);
 void test__basic_string_iterator_belong_to_basic_string__end_iterator(void** state);
 void test__basic_string_iterator_belong_to_basic_string__greater_than_end(void** state);
+/*
+ * test _basic_string_same_iterator_type
+ */
+UT_CASE_DECLARATION(_basic_string_same_iterator_type)
+void test__basic_string_same_iterator_type__null_basic_string_container(void** state);
+void test__basic_string_same_iterator_type__invalid_iterator_null_container(void** state);
+void test__basic_string_same_iterator_type__invalid_iterator_container_type(void** state);
+void test__basic_string_same_iterator_type__invalid_iterator_iterator_type(void** state);
+void test__basic_string_same_iterator_type__same_type_belong_to_basic_string(void** state);
+void test__basic_string_same_iterator_type__same_type_not_belong_to_basic_string(void** state);
+void test__basic_string_same_iterator_type__not_same_type(void** state);
+void test__basic_string_same_iterator_type__same_type_not_basic_string_iterator(void** state);
+void test__basic_string_same_iterator_type__not_same_type_not_basic_string_iterator(void** state);
 
 #define UT_CSTL_BASIC_STRING_AUX_CASE\
     UT_SUIT_BEGIN(cstl_basic_string_aux, test__basic_string_is_created__null_basic_string_container),\
@@ -214,7 +227,16 @@ void test__basic_string_iterator_belong_to_basic_string__greater_than_end(void**
     UT_CASE(test__basic_string_iterator_belong_to_basic_string__less_than_begin),\
     UT_CASE(test__basic_string_iterator_belong_to_basic_string__within_basic_string),\
     UT_CASE(test__basic_string_iterator_belong_to_basic_string__end_iterator),\
-    UT_CASE(test__basic_string_iterator_belong_to_basic_string__greater_than_end)
+    UT_CASE(test__basic_string_iterator_belong_to_basic_string__greater_than_end),\
+    UT_CASE_BEGIN(_basic_string_same_iterator_type, test__basic_string_same_iterator_type__null_basic_string_container),\
+    UT_CASE(test__basic_string_same_iterator_type__invalid_iterator_null_container),\
+    UT_CASE(test__basic_string_same_iterator_type__invalid_iterator_container_type),\
+    UT_CASE(test__basic_string_same_iterator_type__invalid_iterator_iterator_type),\
+    UT_CASE(test__basic_string_same_iterator_type__same_type_belong_to_basic_string),\
+    UT_CASE(test__basic_string_same_iterator_type__same_type_not_belong_to_basic_string),\
+    UT_CASE(test__basic_string_same_iterator_type__not_same_type),\
+    UT_CASE(test__basic_string_same_iterator_type__same_type_not_basic_string_iterator),\
+    UT_CASE(test__basic_string_same_iterator_type__not_same_type_not_basic_string_iterator)
 
 #endif /* _UT_CSTL_BASIC_STRING_AUX_H_ */
 

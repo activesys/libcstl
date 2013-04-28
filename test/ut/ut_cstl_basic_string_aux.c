@@ -1076,3 +1076,120 @@ void test__basic_string_iterator_belong_to_basic_string__greater_than_end(void**
     basic_string_destroy(pbstr);
 }
 
+/*
+ * test _basic_string_same_iterator_type
+ */
+UT_CASE_DEFINATION(_basic_string_same_iterator_type)
+void test__basic_string_same_iterator_type__null_basic_string_container(void** state)
+{
+    basic_string_t* pbasic_string = create_basic_string(int);
+    basic_string_init(pbasic_string);
+
+    expect_assert_failure(_basic_string_same_iterator_type(NULL, basic_string_begin(pbasic_string)));
+
+    basic_string_destroy(pbasic_string);
+}
+
+void test__basic_string_same_iterator_type__invalid_iterator_null_container(void** state)
+{
+    basic_string_t* pbasic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init(pbasic_string);
+    it_iter = basic_string_begin(pbasic_string);
+    it_iter._pt_container = NULL;
+    expect_assert_failure(_basic_string_same_iterator_type(pbasic_string, it_iter));
+
+    basic_string_destroy(pbasic_string);
+}
+
+void test__basic_string_same_iterator_type__invalid_iterator_container_type(void** state)
+{
+    basic_string_t* pbasic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init(pbasic_string);
+    it_iter = basic_string_begin(pbasic_string);
+    it_iter._t_containertype = 2823;
+    expect_assert_failure(_basic_string_same_iterator_type(pbasic_string, it_iter));
+
+    basic_string_destroy(pbasic_string);
+}
+
+void test__basic_string_same_iterator_type__invalid_iterator_iterator_type(void** state)
+{
+    basic_string_t* pbasic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init(pbasic_string);
+    it_iter = basic_string_begin(pbasic_string);
+    it_iter._t_iteratortype = 222;
+    expect_assert_failure(_basic_string_same_iterator_type(pbasic_string, it_iter));
+
+    basic_string_destroy(pbasic_string);
+}
+
+void test__basic_string_same_iterator_type__same_type_belong_to_basic_string(void** state)
+{
+    basic_string_t* pbasic_string = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init(pbasic_string);
+    it_iter = basic_string_begin(pbasic_string);
+    assert_true(_basic_string_same_iterator_type(pbasic_string, it_iter));
+
+    basic_string_destroy(pbasic_string);
+}
+
+void test__basic_string_same_iterator_type__same_type_not_belong_to_basic_string(void** state)
+{
+    basic_string_t* pbasic_string_first = create_basic_string(int);
+    basic_string_t* pbasic_string_second = create_basic_string(int);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init(pbasic_string_second);
+    it_iter = basic_string_begin(pbasic_string_second);
+    assert_true(_basic_string_same_iterator_type(pbasic_string_first, it_iter));
+
+    basic_string_destroy(pbasic_string_first);
+    basic_string_destroy(pbasic_string_second);
+}
+
+void test__basic_string_same_iterator_type__not_same_type(void** state)
+{
+    basic_string_t* pbasic_string_first = create_basic_string(int);
+    basic_string_t* pbasic_string_second = create_basic_string(double);
+    basic_string_iterator_t it_iter;
+
+    basic_string_init(pbasic_string_second);
+    it_iter = basic_string_begin(pbasic_string_second);
+    assert_false(_basic_string_same_iterator_type(pbasic_string_first, it_iter));
+
+    basic_string_destroy(pbasic_string_first);
+    basic_string_destroy(pbasic_string_second);
+}
+
+void test__basic_string_same_iterator_type__same_type_not_basic_string_iterator(void** state)
+{
+    basic_string_t* pbasic_string = create_basic_string(int);
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    assert_true(_basic_string_same_iterator_type(pbasic_string, list_begin(plist)));
+
+    basic_string_destroy(pbasic_string);
+    list_destroy(plist);
+}
+
+void test__basic_string_same_iterator_type__not_same_type_not_basic_string_iterator(void** state)
+{
+    basic_string_t* pbasic_string = create_basic_string(int);
+    list_t* plist = create_list(double);
+
+    list_init(plist);
+    assert_false(_basic_string_same_iterator_type(pbasic_string, list_begin(plist)));
+
+    basic_string_destroy(pbasic_string);
+    list_destroy(plist);
+}
+

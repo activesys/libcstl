@@ -70,6 +70,18 @@ bool_t _basic_string_iterator_belong_to_basic_string(
 }
 
 /**
+ * Test the type that saved in the basic_string container and referenced by it_iter are same.
+ */
+bool_t _basic_string_same_iterator_type(const basic_string_t* cpt_basic_string, iterator_t it_iter)
+{
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
+    assert(_iterator_is_valid(it_iter));
+
+    return _type_is_same_ex(&cpt_basic_string->_t_typeinfo, _iterator_get_typeinfo(it_iter));
+}
+
+/**
  * Test basic_string_t is created by create_basic_string.
  */
 bool_t _basic_string_is_created(const basic_string_t* cpt_basic_string)

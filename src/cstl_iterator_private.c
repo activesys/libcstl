@@ -277,9 +277,7 @@ _typeinfo_t* _iterator_get_typeinfo(iterator_t it_iter)
             return &((deque_t*)it_iter._pt_container)->_t_typeinfo;
             break;
         case _BASIC_STRING_CONTAINER:
-            /* comment for 2.2
-            return &((basic_string_t*)it_iter._pt_container)->_vec_base._t_typeinfo;
-            */
+            return &((basic_string_t*)it_iter._pt_container)->_t_typeinfo;
             break;
         case _LIST_CONTAINER:
             return &((list_t*)it_iter._pt_container)->_t_typeinfo;
