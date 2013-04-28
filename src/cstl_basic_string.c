@@ -358,12 +358,7 @@ bool_t basic_string_equal(const basic_string_t* cpt_first, const basic_string_t*
  */
 bool_t basic_string_not_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    /* comment for 2.2
-    assert(cpt_first != NULL);
-    assert(cpt_second != NULL);
-
-    return vector_not_equal(&cpt_first->_vec_base, &cpt_second->_vec_base);
-    */
+    return basic_string_compare(cpt_first, cpt_second) != 0 ? true : false;
 }
 
 /**
@@ -371,12 +366,7 @@ bool_t basic_string_not_equal(const basic_string_t* cpt_first, const basic_strin
  */
 bool_t basic_string_less(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    /* comment for 2.2
-    assert(cpt_first != NULL);
-    assert(cpt_second != NULL);
-
-    return vector_less(&cpt_first->_vec_base, &cpt_second->_vec_base);
-    */
+    return basic_string_compare(cpt_first, cpt_second) < 0 ? true : false;
 }
 
 /**
@@ -384,12 +374,7 @@ bool_t basic_string_less(const basic_string_t* cpt_first, const basic_string_t* 
  */
 bool_t basic_string_less_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    /* comment for 2.2
-    assert(cpt_first != NULL);
-    assert(cpt_second != NULL);
-
-    return vector_less_equal(&cpt_first->_vec_base, &cpt_second->_vec_base);
-    */
+    return basic_string_compare(cpt_first, cpt_second) <= 0 ? true : false;
 }
 
 /**
@@ -397,12 +382,7 @@ bool_t basic_string_less_equal(const basic_string_t* cpt_first, const basic_stri
  */
 bool_t basic_string_greater(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    /* comment for 2.2
-    assert(cpt_first != NULL);
-    assert(cpt_second != NULL);
-
-    return vector_greater(&cpt_first->_vec_base, &cpt_second->_vec_base);
-    */
+    return basic_string_compare(cpt_first, cpt_second) > 0 ? true : false;
 }
 
 /**
@@ -410,12 +390,7 @@ bool_t basic_string_greater(const basic_string_t* cpt_first, const basic_string_
  */
 bool_t basic_string_greater_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second)
 {
-    /* comment for 2.2
-    assert(cpt_first != NULL);
-    assert(cpt_second != NULL);
-
-    return vector_greater_equal(&cpt_first->_vec_base, &cpt_second->_vec_base);
-    */
+    return basic_string_compare(cpt_first, cpt_second) >= 0 ? true : false;
 }
 
 /**

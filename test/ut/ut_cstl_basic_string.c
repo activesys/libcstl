@@ -3076,34 +3076,26 @@ void test_basic_string_not_equal__null_second(void** state)
 
 void test_basic_string_not_equal__non_inited_first(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_second);
-    pt_first->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_not_equal(pt_first, pt_second));
 
-    pt_first->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_not_equal__non_inited_second(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_first);
-    pt_second->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_not_equal(pt_first, pt_second));
 
-    pt_second->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_not_equal__not_same_type(void** state)
@@ -3207,6 +3199,20 @@ void test_basic_string_not_equal__size_equal_elem_equal(void** state)
     basic_string_destroy(pt_second);
 }
 
+void test_basic_string_not_equal__shared(void** state)
+{
+    basic_string_t* pt_first = create_basic_string(int);
+    basic_string_t* pt_second = create_basic_string(int);
+
+    basic_string_init_elem(pt_first, 10, 100);
+    basic_string_init_copy(pt_second, pt_first);
+    assert_false(basic_string_not_equal(pt_first, pt_second));
+    assert_true(pt_first->_pby_string == pt_second->_pby_string);
+
+    basic_string_destroy(pt_first);
+    basic_string_destroy(pt_second);
+}
+
 /*
  * test basic_string_less
  */
@@ -3233,34 +3239,26 @@ void test_basic_string_less__null_second(void** state)
 
 void test_basic_string_less__non_inited_first(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_second);
-    pt_first->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_less(pt_first, pt_second));
 
-    pt_first->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_less__non_inited_second(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_first);
-    pt_second->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_less(pt_first, pt_second));
 
-    pt_second->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_less__not_same_type(void** state)
@@ -3364,6 +3362,20 @@ void test_basic_string_less__size_equal_elem_equal(void** state)
     basic_string_destroy(pt_second);
 }
 
+void test_basic_string_less__shared(void** state)
+{
+    basic_string_t* pt_first = create_basic_string(int);
+    basic_string_t* pt_second = create_basic_string(int);
+
+    basic_string_init_elem(pt_first, 10, 100);
+    basic_string_init_copy(pt_second, pt_first);
+    assert_false(basic_string_less(pt_first, pt_second));
+    assert_true(pt_first->_pby_string == pt_second->_pby_string);
+
+    basic_string_destroy(pt_first);
+    basic_string_destroy(pt_second);
+}
+
 /*
  * test basic_string_less_equal
  */
@@ -3390,34 +3402,26 @@ void test_basic_string_less_equal__null_second(void** state)
 
 void test_basic_string_less_equal__non_inited_first(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_second);
-    pt_first->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_less_equal(pt_first, pt_second));
 
-    pt_first->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_less_equal__non_inited_second(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_first);
-    pt_second->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_less_equal(pt_first, pt_second));
 
-    pt_second->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_less_equal__not_same_type(void** state)
@@ -3521,6 +3525,20 @@ void test_basic_string_less_equal__size_equal_elem_equal(void** state)
     basic_string_destroy(pt_second);
 }
 
+void test_basic_string_less_equal__shared(void** state)
+{
+    basic_string_t* pt_first = create_basic_string(int);
+    basic_string_t* pt_second = create_basic_string(int);
+
+    basic_string_init_elem(pt_first, 10, 100);
+    basic_string_init_copy(pt_second, pt_first);
+    assert_true(basic_string_less_equal(pt_first, pt_second));
+    assert_true(pt_first->_pby_string == pt_second->_pby_string);
+
+    basic_string_destroy(pt_first);
+    basic_string_destroy(pt_second);
+}
+
 /*
  * test basic_string_greater
  */
@@ -3547,34 +3565,26 @@ void test_basic_string_greater__null_second(void** state)
 
 void test_basic_string_greater__non_inited_first(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_second);
-    pt_first->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_greater(pt_first, pt_second));
 
-    pt_first->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_greater__non_inited_second(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_first);
-    pt_second->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_greater(pt_first, pt_second));
 
-    pt_second->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_greater__not_same_type(void** state)
@@ -3678,6 +3688,20 @@ void test_basic_string_greater__size_equal_elem_equal(void** state)
     basic_string_destroy(pt_second);
 }
 
+void test_basic_string_greater__shared(void** state)
+{
+    basic_string_t* pt_first = create_basic_string(int);
+    basic_string_t* pt_second = create_basic_string(int);
+
+    basic_string_init_elem(pt_first, 10, 100);
+    basic_string_init_copy(pt_second, pt_first);
+    assert_false(basic_string_greater(pt_first, pt_second));
+    assert_true(pt_first->_pby_string == pt_second->_pby_string);
+
+    basic_string_destroy(pt_first);
+    basic_string_destroy(pt_second);
+}
+
 /*
  * test basic_string_greater_equal
  */
@@ -3704,34 +3728,26 @@ void test_basic_string_greater_equal__null_second(void** state)
 
 void test_basic_string_greater_equal__non_inited_first(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_second);
-    pt_first->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_greater_equal(pt_first, pt_second));
 
-    pt_first->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_greater_equal__non_inited_second(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_first = create_basic_string(int);
     basic_string_t* pt_second = create_basic_string(int);
 
     basic_string_init(pt_first);
-    pt_second->_vec_base._pby_finish = (_byte_t*)0x73;
     expect_assert_failure(basic_string_greater_equal(pt_first, pt_second));
 
-    pt_second->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
-    */
 }
 
 void test_basic_string_greater_equal__not_same_type(void** state)
@@ -3830,6 +3846,20 @@ void test_basic_string_greater_equal__size_equal_elem_equal(void** state)
     basic_string_init_elem(pt_first, 10, 100);
     basic_string_init_elem(pt_second, 10, 100);
     assert_true(basic_string_greater_equal(pt_first, pt_second));
+
+    basic_string_destroy(pt_first);
+    basic_string_destroy(pt_second);
+}
+
+void test_basic_string_greater_equal__shared(void** state)
+{
+    basic_string_t* pt_first = create_basic_string(int);
+    basic_string_t* pt_second = create_basic_string(int);
+
+    basic_string_init_elem(pt_first, 10, 100);
+    basic_string_init_copy(pt_second, pt_first);
+    assert_true(basic_string_greater_equal(pt_first, pt_second));
+    assert_true(pt_first->_pby_string == pt_second->_pby_string);
 
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
