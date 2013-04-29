@@ -398,9 +398,7 @@ bool_t basic_string_greater_equal(const basic_string_t* cpt_first, const basic_s
  */
 bool_t basic_string_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
     return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) == 0 ? true : false;
-    */
 }
 
 /**
@@ -408,9 +406,7 @@ bool_t basic_string_equal_cstr(const basic_string_t* cpt_basic_string, const voi
  */
 bool_t basic_string_not_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
     return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) != 0 ? true : false;
-    */
 }
 
 /**
@@ -418,9 +414,7 @@ bool_t basic_string_not_equal_cstr(const basic_string_t* cpt_basic_string, const
  */
 bool_t basic_string_less_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
     return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) < 0 ? true : false;
-    */
 }
 
 /**
@@ -428,9 +422,7 @@ bool_t basic_string_less_cstr(const basic_string_t* cpt_basic_string, const void
  */
 bool_t basic_string_less_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
     return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) <= 0 ? true : false;
-    */
 }
 
 /**
@@ -438,9 +430,7 @@ bool_t basic_string_less_equal_cstr(const basic_string_t* cpt_basic_string, cons
  */
 bool_t basic_string_greater_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
     return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) > 0 ? true : false;
-    */
 }
 
 /**
@@ -448,9 +438,7 @@ bool_t basic_string_greater_cstr(const basic_string_t* cpt_basic_string, const v
  */
 bool_t basic_string_greater_equal_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
     return basic_string_compare_cstr(cpt_basic_string, cpv_value_string) >= 0 ? true : false;
-    */
 }
 
 /**
@@ -569,7 +557,6 @@ int basic_string_compare_substring_substring(
  */
 int basic_string_compare_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    /* comment for 2.2
     size_t t_stringlen = basic_string_length(cpt_basic_string);
     size_t t_valuelen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
 
@@ -581,8 +568,7 @@ int basic_string_compare_cstr(const basic_string_t* cpt_basic_string, const void
         return 0;
     }
 
-    return basic_string_compare_substring_subcstr(cpt_basic_string, 0, NPOS, cpv_value_string, NPOS);
-    */
+    return basic_string_compare_substring_subcstr(cpt_basic_string, 0, NPOS, cpv_value_string, t_valuelen);
 }
 
 /**
@@ -591,9 +577,9 @@ int basic_string_compare_cstr(const basic_string_t* cpt_basic_string, const void
 int basic_string_compare_substring_cstr(
     const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len, const void* cpv_value_string)
 {
-    /* comment for 2.2
-    return basic_string_compare_substring_subcstr(cpt_basic_string, t_pos, t_len, cpv_value_string, NPOS);
-    */
+    return basic_string_compare_substring_subcstr(
+        cpt_basic_string, t_pos, t_len, cpv_value_string,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string));
 }
 
 /**
@@ -602,9 +588,7 @@ int basic_string_compare_substring_cstr(
 int basic_string_compare_substring_subcstr(
     const basic_string_t* cpt_basic_string, size_t t_pos, size_t t_len, const void* cpv_value_string, size_t t_valuelen)
 {
-    /* comment for 2.2
     size_t   t_lentmp = 0;
-    size_t   t_valuelentmp = 0;
     size_t   t_cmplen = 0;
     size_t   t_typesize = 0;
     size_t   i = 0;
@@ -613,13 +597,12 @@ int basic_string_compare_substring_subcstr(
 
     assert(cpt_basic_string != NULL);
     assert(cpv_value_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
     assert(t_pos < basic_string_size(cpt_basic_string));
 
-    / * get actual string length and value string length * /
+    /* get actual string length and value string length */
     t_lentmp = basic_string_size(cpt_basic_string) - t_pos;
-    t_valuelentmp = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
     t_len = t_len < t_lentmp ? t_len : t_lentmp;
-    t_valuelen = t_valuelen < t_valuelentmp ? t_valuelen : t_valuelentmp;
     t_cmplen = t_len < t_valuelen ? t_len : t_valuelen;
 
     if (t_len == 0 && t_valuelen > 0) {
@@ -631,10 +614,10 @@ int basic_string_compare_substring_subcstr(
     }
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
+    pby_string = cpt_basic_string->_pby_string;
     assert(pby_string != NULL);
 
-    / * char* * /
+    /* char* */
     if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         for (i = 0; i < t_cmplen; ++i) {
             int n_result = string_compare_cstr((string_t*)(pby_string + i * t_typesize), *((char**)cpv_value_string + i));
@@ -675,7 +658,6 @@ int basic_string_compare_substring_subcstr(
     }
 
     return t_len < t_valuelen ? -1 : (t_len > t_valuelen ? 1 : 0);
-    */
 }
 
 /**

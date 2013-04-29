@@ -44,10 +44,10 @@ extern "C" {
  */
 typedef struct _tag_basic_string_rep
 {
+    int    _n_refcount;
     size_t _t_elemsize;
     size_t _t_length;
     size_t _t_capacity;
-    int    _n_refcount;
 }_basic_string_rep_t;
 
 typedef struct _tagbasicstring
