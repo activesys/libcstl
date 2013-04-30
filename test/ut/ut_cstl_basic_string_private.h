@@ -37,11 +37,11 @@ void test__basic_string_init_elem__basic_string_init_elem_varg__successfully_mul
  */
 UT_CASE_DECLARATION(_basic_string_destroy_auxiliary)
 void test__basic_string_destroy_auxiliary__null_basic_string_container(void** state);
-void test__basic_string_destroy_auxiliary__invalid_basic_string_container_finish_less_than_start(void** state);
-void test__basic_string_destroy_auxiliary__invalid_basic_string_container_endofstorage_less_than_start(void** state);
-void test__basic_string_destroy_auxiliary__successfully_non_init_container(void** state);
+void test__basic_string_destroy_auxiliary__non_created(void** state);
+void test__basic_string_destroy_auxiliary__successfully_non_inited(void** state);
 void test__basic_string_destroy_auxiliary__successfully_empty_container(void** state);
 void test__basic_string_destroy_auxiliary__successfully(void** state);
+void test__basic_string_destroy_auxiliary__shared(void** state);
 /*
  * test _basic_string_find_elem and _basic_string_find_elem_varg
  */
@@ -170,15 +170,6 @@ void test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_emp
 void test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_non_empty(void** state);
 void test__basic_string_push_back__basic_string_push_back_varg__user_define_empty(void** state);
 void test__basic_string_push_back__basic_string_push_back_varg__user_define_non_empty(void** state);
-/*
- * test _basic_string_pop_back
- */
-UT_CASE_DECLARATION(_basic_string_pop_back)
-void test__basic_string_pop_back__null_container(void** state);
-void test__basic_string_pop_back__non_inited_container(void** state);
-void test__basic_string_pop_back__empty(void** state);
-void test__basic_string_pop_back__non_empty(void** state);
-void test__basic_string_pop_back__cstr_non_empty(void** state);
 /*
  * test _basic_string_resize and _basic_string_resize_varg
  */
@@ -458,13 +449,13 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_empty),\
     UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_non_empty),\
     UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__user_define_empty),\
-    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__user_define_non_empty)/*,\
+    UT_CASE(test__basic_string_push_back__basic_string_push_back_varg__user_define_non_empty),\
     UT_CASE_BEGIN(_basic_string_destroy_auxiliary, test__basic_string_destroy_auxiliary__null_basic_string_container),\
-    UT_CASE(test__basic_string_destroy_auxiliary__invalid_basic_string_container_finish_less_than_start),\
-    UT_CASE(test__basic_string_destroy_auxiliary__invalid_basic_string_container_endofstorage_less_than_start),\
-    UT_CASE(test__basic_string_destroy_auxiliary__successfully_non_init_container),\
+    UT_CASE(test__basic_string_destroy_auxiliary__non_created),\
+    UT_CASE(test__basic_string_destroy_auxiliary__successfully_non_inited),\
     UT_CASE(test__basic_string_destroy_auxiliary__successfully_empty_container),\
     UT_CASE(test__basic_string_destroy_auxiliary__successfully),\
+    UT_CASE(test__basic_string_destroy_auxiliary__shared)/*,\
     UT_CASE_BEGIN(_basic_string_find_elem__basic_string_find_elem_varg,\
         test__basic_string_find_elem__basic_string_find_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__non_init_basic_string_container),\
@@ -559,11 +550,6 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_less),\
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_equal),\
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_greater),\
-    UT_CASE_BEGIN(_basic_string_pop_back, test__basic_string_pop_back__null_container),\
-    UT_CASE(test__basic_string_pop_back__non_inited_container),\
-    UT_CASE(test__basic_string_pop_back__empty),\
-    UT_CASE(test__basic_string_pop_back__non_empty),\
-    UT_CASE(test__basic_string_pop_back__cstr_non_empty),\
     UT_CASE_BEGIN(_basic_string_resize__basic_string_resize_varg,\
         test__basic_string_resize__basic_string_resize_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_resize__basic_string_resize_varg__non_inited),\

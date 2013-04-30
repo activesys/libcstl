@@ -29188,17 +29188,27 @@ void test_basic_string_swap__shared(void** state)
 {
     basic_string_t* pbstr1 = create_basic_string(int);
     basic_string_t* pbstr2 = create_basic_string(int);
+    basic_string_t* pbstr3 = create_basic_string(int);
 
     basic_string_init_elem(pbstr1, 10, 111);
     basic_string_init_copy(pbstr2, pbstr1);
+    basic_string_init(pbstr3);
 
     assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
     basic_string_swap(pbstr1, pbstr2);
     assert_true(basic_string_equal(pbstr1, pbstr2));
     assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    basic_string_swap(pbstr1, pbstr3);
+    assert_true(basic_string_size(pbstr1) == 0);
+    assert_true(basic_string_capacity(pbstr1) == 0);
+    assert_true(basic_string_size(pbstr3) == 10);
+    assert_true(basic_string_capacity(pbstr3) == 10);
+    assert_true(pbstr1->_pby_string != pbstr2->_pby_string);
+    assert_true(pbstr2->_pby_string == pbstr3->_pby_string);
 
     basic_string_destroy(pbstr1);
     basic_string_destroy(pbstr2);
+    basic_string_destroy(pbstr3);
 }
 
 /*

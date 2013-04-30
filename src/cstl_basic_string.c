@@ -228,11 +228,7 @@ void basic_string_destroy(basic_string_t* pt_basic_string)
     assert(pt_basic_string != NULL);
     assert(_basic_string_is_inited(pt_basic_string) || _basic_string_is_created(pt_basic_string));
 
-    if (pt_basic_string->_pby_string != NULL) {
-        _basic_string_rep_reduce_shared(
-            _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
-    }
+    _basic_string_destroy_auxiliary(pt_basic_string);
     free(pt_basic_string);
 }
 

@@ -227,11 +227,15 @@ bool_t _create_basic_string_auxiliary(basic_string_t* pt_basic_string, const cha
  */
 void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string)
 {
-    /* comment for 2.2
     assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string) || _basic_string_is_created(pt_basic_string));
 
-    _vector_destroy_auxiliary(&pt_basic_string->_vec_base);
-    */
+    if (pt_basic_string->_pby_string != NULL) {
+        _basic_string_rep_reduce_shared(
+            _basic_string_rep_get_representation(pt_basic_string->_pby_string),
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
+        pt_basic_string->_pby_string = NULL;
+    }
 }
 
 /**
@@ -628,18 +632,6 @@ void _basic_string_resize_varg(basic_string_t* pt_basic_string, size_t t_resize,
     assert(pt_basic_string != NULL);
 
     _vector_resize_elem_varg(&pt_basic_string->_vec_base, t_resize, val_elemlist);
-    */
-}
-
-/**
- * Erase the last element.
- */
-void _basic_string_pop_back(basic_string_t* pt_basic_string)
-{
-    /* comment for 2.2
-    assert(pt_basic_string != NULL);
-
-    vector_pop_back(&pt_basic_string->_vec_base);
     */
 }
 

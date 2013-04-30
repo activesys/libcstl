@@ -336,15 +336,6 @@ extern void _basic_string_push_back(basic_string_t* pt_basic_string, ...);
 extern void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist);
 
 /**
- * Erase the last element.
- * @param pt_basic_string      basic_string container.
- * @return void.
- * @remarks if pt_basic_string == NULL or uninitialized, then the bahavior is undefine. basic string container must not be
- *          empty, otherwise the behavior is undefined.
- */
-extern void _basic_string_pop_back(basic_string_t* pt_basic_string);
-
-/**
  * Reset the size of basic_string elements.
  * @param pt_basic_string   basic_string container.
  * @param t_resize          new size of basic_string elements.
