@@ -2130,6 +2130,8 @@ void test_basic_string_assign__char(void** state);
 void test_basic_string_assign__cstr(void** state);
 void test_basic_string_assign__libcstl(void** state);
 void test_basic_string_assign__user_define(void** state);
+void test_basic_string_assign__same_rep(void** state);
+void test_basic_string_assign__shared(void** state);
 /*
  * test basic_string_assign_substring
  */
@@ -3596,7 +3598,30 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_clear__non_inited_basic_string_container),\
     UT_CASE(test_basic_string_clear__empty_basic_string_container),\
     UT_CASE(test_basic_string_clear__non_empty_basic_string_container),\
-    UT_CASE(test_basic_string_clear__shared)/*,\
+    UT_CASE(test_basic_string_clear__shared),\
+    UT_CASE_BEGIN(basic_string_assign, test_basic_string_assign__null_dest),\
+    UT_CASE(test_basic_string_assign__null_src),\
+    UT_CASE(test_basic_string_assign__non_inited_dest),\
+    UT_CASE(test_basic_string_assign__non_inited_src),\
+    UT_CASE(test_basic_string_assign__not_same_type),\
+    UT_CASE(test_basic_string_assign__same_container),\
+    UT_CASE(test_basic_string_assign__0_assign_0),\
+    UT_CASE(test_basic_string_assign__0_assign_10),\
+    UT_CASE(test_basic_string_assign__0_assign_1000),\
+    UT_CASE(test_basic_string_assign__10_assign_0),\
+    UT_CASE(test_basic_string_assign__10_assign_10_basic_string_equal),\
+    UT_CASE(test_basic_string_assign__10_assign_10_basic_string_not_equal),\
+    UT_CASE(test_basic_string_assign__10_assign_1000),\
+    UT_CASE(test_basic_string_assign__1000_assign_0),\
+    UT_CASE(test_basic_string_assign__1000_assign_10),\
+    UT_CASE(test_basic_string_assign__1000_assign_1010),\
+    UT_CASE(test_basic_string_assign__1000_assign_1810),\
+    UT_CASE(test_basic_string_assign__char),\
+    UT_CASE(test_basic_string_assign__cstr),\
+    UT_CASE(test_basic_string_assign__libcstl),\
+    UT_CASE(test_basic_string_assign__user_define),\
+    UT_CASE(test_basic_string_assign__same_rep),\
+    UT_CASE(test_basic_string_assign__shared)/*,\
     UT_CASE_BEGIN(basic_string_connect, test_basic_string_connect__null_dest),\
     UT_CASE(test_basic_string_connect__null_src),\
     UT_CASE(test_basic_string_connect__non_inited_dest),\
@@ -4609,27 +4634,6 @@ void test_basic_string_replace_range__user_define(void** state);
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_find),\
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find),\
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find_pos),\
-    UT_CASE_BEGIN(basic_string_assign, test_basic_string_assign__null_dest),\
-    UT_CASE(test_basic_string_assign__null_src),\
-    UT_CASE(test_basic_string_assign__non_inited_dest),\
-    UT_CASE(test_basic_string_assign__non_inited_src),\
-    UT_CASE(test_basic_string_assign__not_same_type),\
-    UT_CASE(test_basic_string_assign__same_container),\
-    UT_CASE(test_basic_string_assign__0_assign_0),\
-    UT_CASE(test_basic_string_assign__0_assign_10),\
-    UT_CASE(test_basic_string_assign__0_assign_1000),\
-    UT_CASE(test_basic_string_assign__10_assign_0),\
-    UT_CASE(test_basic_string_assign__10_assign_10_basic_string_equal),\
-    UT_CASE(test_basic_string_assign__10_assign_10_basic_string_not_equal),\
-    UT_CASE(test_basic_string_assign__10_assign_1000),\
-    UT_CASE(test_basic_string_assign__1000_assign_0),\
-    UT_CASE(test_basic_string_assign__1000_assign_10),\
-    UT_CASE(test_basic_string_assign__1000_assign_1010),\
-    UT_CASE(test_basic_string_assign__1000_assign_1810),\
-    UT_CASE(test_basic_string_assign__char),\
-    UT_CASE(test_basic_string_assign__cstr),\
-    UT_CASE(test_basic_string_assign__libcstl),\
-    UT_CASE(test_basic_string_assign__user_define),\
     UT_CASE_BEGIN(basic_string_assign_substring, test_basic_string_assign_substring__null_dest),\
     UT_CASE(test_basic_string_assign_substring__null_src),\
     UT_CASE(test_basic_string_assign_substring__non_inited_dest),\

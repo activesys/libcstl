@@ -1827,12 +1827,19 @@ void basic_string_reserve(basic_string_t* pt_basic_string, size_t t_reservesize)
  */
 void basic_string_assign(basic_string_t* pt_dest, const basic_string_t* cpt_src)
 {
-    /* comment for 2.2
     assert(pt_dest != NULL);
     assert(cpt_src != NULL);
+    assert(_basic_string_is_inited(pt_dest));
+    assert(_basic_string_is_inited(cpt_src));
+    assert(_basic_string_same_type(pt_dest, cpt_src));
 
-    vector_assign(&pt_dest->_vec_base, &cpt_src->_vec_base);
-    */
+    if (pt_dest->_pby_string != cpt_src->_pby_string) {
+        _basic_string_rep_reduce_shared(
+            _basic_string_rep_get_representation(pt_dest->_pby_string),
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_dest));
+        pt_dest->_pby_string = cpt_src->_pby_string;
+        _basic_string_rep_increase_shared(_basic_string_rep_get_representation(pt_dest->_pby_string));
+    }
 }
 
 /**
