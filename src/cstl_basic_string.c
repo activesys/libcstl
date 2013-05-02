@@ -1859,7 +1859,7 @@ void basic_string_assign_substring(basic_string_t* pt_dest, const basic_string_t
         t_len = basic_string_size(cpt_src) - t_pos;
     }
 
-    basic_string_resize(pt_dest, t_len);
+    _basic_string_resize_auxiliary(pt_dest, t_len, false);
     if (t_len > 0) {
         size_t   i = 0;
         size_t   t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_dest);
@@ -1896,7 +1896,7 @@ void basic_string_assign_subcstr(basic_string_t* pt_basic_string, const void* cp
     assert(_basic_string_is_inited(pt_basic_string));
     assert(t_len <= basic_string_max_size(pt_basic_string));
 
-    basic_string_resize(pt_basic_string, t_len);
+    _basic_string_resize_auxiliary(pt_basic_string, t_len, false);
     if (t_len > 0) {
         size_t   i = 0;
         size_t   t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
@@ -1942,7 +1942,7 @@ void basic_string_assign_range(
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
     t_len = iterator_distance(it_begin, it_end);
-    basic_string_resize(pt_basic_string, t_len);
+    _basic_string_resize_auxiliary(pt_basic_string, t_len, false);
     if (t_len > 0) {
         size_t     i = 0;
         size_t     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
@@ -2466,58 +2466,7 @@ void basic_string_replace_range(
  */
 void basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize)
 {
-    assert(pt_basic_string != NULL);
-    assert(_basic_string_is_inited(pt_basic_string));
-    assert(t_resize <= basic_string_max_size(pt_basic_string));
-
-    if (t_resize > basic_string_capacity(pt_basic_string) || _basic_string_is_shared(pt_basic_string)) {
-        size_t               i = 0;
-        size_t               t_copylen = 0;
-        _byte_t*             pby_dest = NULL;
-        _byte_t*             pby_src = NULL;
-        _basic_string_rep_t* prep = _create_basic_string_representation(
-            t_resize, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
-        assert(prep != NULL);
-        _basic_string_rep_set_length(prep, t_resize);
-        _basic_string_rep_set_sharable(prep);
-        _basic_string_init_elem_range_auxiliary(pt_basic_string, _basic_string_rep_get_data(prep), t_resize);
-
-        pby_dest = _basic_string_rep_get_data(prep);
-        pby_src = pt_basic_string->_pby_string;
-        t_copylen = t_resize < basic_string_size(pt_basic_string) ? t_resize : basic_string_size(pt_basic_string);
-        for (i = 0; i < t_copylen; ++i) {
-            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pby_dest, pby_src, &b_result);
-            assert(b_result);
-
-            pby_dest += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            pby_src += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-        }
-
-        _basic_string_rep_reduce_shared(
-            _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
-        pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
-    } else {
-        if (t_resize < basic_string_size(pt_basic_string)) {
-            size_t   i = 0;
-            size_t   t_delpos = t_resize;
-            size_t   t_dellen = basic_string_size(pt_basic_string) - t_resize;
-            _byte_t* pby_del = pt_basic_string->_pby_string + t_delpos * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            for (i = 0; i < t_dellen; ++i) {
-                bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pby_del, &b_result);
-                assert(b_result);
-                pby_del += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            }
-        } else {
-            size_t   t_initpos = basic_string_size(pt_basic_string);
-            size_t   t_initlen = t_resize - basic_string_size(pt_basic_string);
-            _byte_t* pby_init = pt_basic_string->_pby_string + t_initpos * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            _basic_string_init_elem_range_auxiliary(pt_basic_string, pby_init, t_initlen);
-        }
-        _basic_string_rep_set_length(_basic_string_rep_get_representation(pt_basic_string->_pby_string), t_resize);
-    }
+    _basic_string_resize_auxiliary(pt_basic_string, t_resize, true);
 }
 
 /** local function implementation section **/

@@ -197,6 +197,7 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
 UT_CASE_DECLARATION(_basic_string_append_elem__basic_string_append_elem_varg)
 void test__basic_string_append_elem__basic_string_append_elem_varg__null_container(void** state);
 void test__basic_string_append_elem__basic_string_append_elem_varg__non_inited_container(void** state);
+void test__basic_string_append_elem__basic_string_append_elem_varg__invalid_count(void** state);
 void test__basic_string_append_elem__basic_string_append_elem_varg__empty_append_empty(void** state);
 void test__basic_string_append_elem__basic_string_append_elem_varg__empty_append_non_empty(void** state);
 void test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_append_empty(void** state);
@@ -205,6 +206,9 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_a
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_non_empty(void** state);
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_empty(void** state);
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_non_empty(void** state);
+void test__basic_string_append_elem__basic_string_append_elem_varg__libcstl(void** state);
+void test__basic_string_append_elem__basic_string_append_elem_varg__user_define(void** state);
+void test__basic_string_append_elem__basic_string_append_elem_varg__shared(void** state);
 /*
  * test _basic_string_insert_n and _basic_string_insert_n_varg
  */
@@ -476,7 +480,22 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_greater),\
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__libcstl),\
     UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__user_define),\
-    UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__shared)/*,\
+    UT_CASE(test__basic_string_assign_elem__basic_string_assign_elem_varg__shared),\
+    UT_CASE_BEGIN(_basic_string_append_elem__basic_string_append_elem_varg,\
+        test__basic_string_append_elem__basic_string_append_elem_varg__null_container),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__non_inited_container),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__invalid_count),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__empty_append_empty),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__empty_append_non_empty),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_append_empty),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_append_non_empty),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_empty),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_non_empty),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_empty),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_non_empty),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__libcstl),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__user_define),\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__shared)/*,\
     UT_CASE_BEGIN(_basic_string_find_elem__basic_string_find_elem_varg,\
         test__basic_string_find_elem__basic_string_find_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__non_init_basic_string_container),\
@@ -571,17 +590,6 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully_1000_resize_1200),\
     UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully_1000_resize_2000),\
     UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully_1000_resize_2000_multiple),\
-    UT_CASE_BEGIN(_basic_string_append_elem__basic_string_append_elem_varg,\
-        test__basic_string_append_elem__basic_string_append_elem_varg__null_container),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__non_inited_container),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__empty_append_empty),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__empty_append_non_empty),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_append_empty),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_append_non_empty),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_empty),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_non_empty),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_empty),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_non_empty),\
     UT_CASE_BEGIN(_basic_string_insert_n__basic_string_insert_n_varg,\
         test__basic_string_insert_n__basic_string_insert_n_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__non_inited),\

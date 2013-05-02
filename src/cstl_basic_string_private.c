@@ -693,7 +693,7 @@ void _basic_string_assign_elem_varg(basic_string_t* pt_basic_string, size_t t_co
     assert(_basic_string_is_inited(pt_basic_string));
     assert(t_count <= basic_string_max_size(pt_basic_string));
 
-    basic_string_resize(pt_basic_string, t_count);
+    _basic_string_resize_auxiliary(pt_basic_string, t_count, false);
     if (t_count > 0) {
         size_t i = 0;
         void*  pv_varg = NULL;
@@ -724,13 +724,11 @@ void _basic_string_assign_elem_varg(basic_string_t* pt_basic_string, size_t t_co
  */
 void _basic_string_append_elem(basic_string_t* pt_basic_string, size_t t_count, ...)
 {
-    /* comment for 2.2
     va_list val_elemlist;
 
     va_start(val_elemlist, t_count);
     _basic_string_append_elem_varg(pt_basic_string, t_count, val_elemlist);
     va_end(val_elemlist);
-    */
 }
 
 /**
@@ -738,9 +736,49 @@ void _basic_string_append_elem(basic_string_t* pt_basic_string, size_t t_count, 
  */
 void _basic_string_append_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 {
-    /* comment for 2.2
-    _basic_string_resize_varg(pt_basic_string, basic_string_size(pt_basic_string) + t_count, val_elemlist);
-    */
+    size_t   i = 0;
+    size_t   t_len = 0;
+    size_t   t_typesize = 0;
+    bool_t   b_result = false;
+    void*    pv_varg = NULL;
+    _byte_t* pby_index = NULL;
+
+    assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string));
+    assert(t_count <= basic_string_max_size(pt_basic_string));
+    assert(t_count + basic_string_size(pt_basic_string) <= basic_string_max_size(pt_basic_string));
+
+    if (t_count > 0) {
+        t_len = t_count + basic_string_size(pt_basic_string);
+        if (t_len > basic_string_capacity(pt_basic_string) || _basic_string_is_shared(pt_basic_string)) {
+            basic_string_reserve(pt_basic_string, t_len);
+        }
+
+        t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        pby_index = pt_basic_string->_pby_string + basic_string_size(pt_basic_string) * t_typesize;
+
+        /* get varg value only once */
+        pv_varg = malloc(_GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
+        assert(pv_varg != NULL);
+        _basic_string_get_varg_value_auxiliary(pt_basic_string, val_elemlist, pv_varg);
+
+        /* copy varg value to each element */
+        for (i = 0; i < t_count; ++i) {
+            _basic_string_init_elem_auxiliary(pt_basic_string, pby_index);
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(pby_index, pv_varg, &b_result);
+            assert(b_result);
+
+            pby_index += t_typesize;
+        }
+
+        /* destroy varg value and free memory */
+        _basic_string_destroy_varg_value_auxiliary(pt_basic_string, pv_varg);
+        free(pv_varg);
+
+        _basic_string_rep_set_length(
+            _basic_string_rep_get_representation(pt_basic_string->_pby_string), t_len);
+    }
 }
 
 /**
