@@ -347,7 +347,7 @@ extern void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_lis
  *          if t_resize greater than current basic_string size, then append elements to the end, and the element is specificed
  *          element.
  */
-extern void _basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize, ...);
+extern void _basic_string_resize_elem(basic_string_t* pt_basic_string, size_t t_resize, ...);
 
 /**
  * Reset the size of basic_string elements, and filled element is from variable argument list.
@@ -361,7 +361,7 @@ extern void _basic_string_resize(basic_string_t* pt_basic_string, size_t t_resiz
  *          if t_resize greater than current basic_string size, then append elements to the end, and the element is from
  *          variable argument list.
  */
-extern void _basic_string_resize_varg(basic_string_t* pt_basic_string, size_t t_resize, va_list val_elemlist);
+extern void _basic_string_resize_elem_varg(basic_string_t* pt_basic_string, size_t t_resize, va_list val_elemlist);
 
 /**
  * Assign new element to basic_string.

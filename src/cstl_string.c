@@ -830,7 +830,7 @@ void string_reserve(string_t* pstr_string, size_t t_reservesize)
 void string_resize(string_t* pstr_string, size_t t_resize, char c_char)
 {
     /*_basic_string_pop_back(pstr_string);*/
-    basic_string_resize(pstr_string, t_resize, c_char);
+    basic_string_resize_elem(pstr_string, t_resize, c_char);
     basic_string_push_back(pstr_string, '\0');
 }
 

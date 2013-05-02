@@ -151,7 +151,8 @@ extern "C" {
  *          if t_resize less than current basic_string size, then erase elmement from the end. if t_resize greater than
  *          current basic_string size, then append elements to the end, and the element is specificed element.
  */
-#define basic_string_resize(pt_basic_string, t_resize, elem) _basic_string_resize((pt_basic_string), (t_resize), (elem))
+#define basic_string_resize_elem(pt_basic_string, t_resize, elem)\
+    _basic_string_resize_elem((pt_basic_string), (t_resize), (elem))
 
 /**
  * Assign basic_string with specificed element.
@@ -1395,6 +1396,18 @@ extern void basic_string_range_replace_subcstr(
 extern void basic_string_replace_range(
     basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end,
     basic_string_iterator_t t_first, basic_string_iterator_t t_last);
+
+/**
+ * Reset the size of basic_string elements.
+ * @param pt_basic_string   basic_string container.
+ * @param t_resize          new size of basic_string elements.
+ * @return void.
+ * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of specificed
+ *          element and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is
+ *          in use, others are not in use. if t_resize less than current basic_string size, then erase elmement from the end.
+ *          if t_resize greater than current basic_string size, then append elements to the end.
+ */
+extern void basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize);
 
 #ifdef __cplusplus
 }
