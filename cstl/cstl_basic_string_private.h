@@ -119,10 +119,11 @@ extern size_t _basic_string_rep_get_length(const _basic_string_rep_t* cpt_rep);
 /**
  * Set length
  * @param pt_rep             pointer to basic_string_rep_t;
+ * @param t_len              length
  * @return void
  * @remarks pt_rep must not be NULL and length muse be less than capacity.
  */
-extern void _basic_string_rep_set_length(_basic_string_rep_t* pt_rep, size_t t_length);
+extern void _basic_string_rep_set_length(_basic_string_rep_t* pt_rep, size_t t_len);
 
 /**
  * Check whether the rep is shared.

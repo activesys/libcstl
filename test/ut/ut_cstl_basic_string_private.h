@@ -495,7 +495,14 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_non_empty),\
     UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__libcstl),\
     UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__user_define),\
-    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__shared)/*,\
+    UT_CASE(test__basic_string_append_elem__basic_string_append_elem_varg__shared),\
+    UT_CASE_BEGIN(_basic_string_connect_elem__basic_string_connect_elem_varg,\
+        test__basic_string_connect_elem__basic_string_connect_elem_varg__null_basic_string_container),\
+    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__non_inited_basic_string_container),\
+    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__empty_container),\
+    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__non_empty_container),\
+    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__cstr_empty_container),\
+    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__cstr_non_empty_container)/*,\
     UT_CASE_BEGIN(_basic_string_find_elem__basic_string_find_elem_varg,\
         test__basic_string_find_elem__basic_string_find_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__non_init_basic_string_container),\
@@ -568,13 +575,6 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_middle),\
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_back),\
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_middle_pos),\
-    UT_CASE_BEGIN(_basic_string_connect_elem__basic_string_connect_elem_varg,\
-        test__basic_string_connect_elem__basic_string_connect_elem_varg__null_basic_string_container),\
-    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__non_inited_basic_string_container),\
-    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__empty_container),\
-    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__non_empty_container),\
-    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__cstr_empty_container),\
-    UT_CASE(test__basic_string_connect_elem__basic_string_connect_elem_varg__cstr_non_empty_container),\
     UT_CASE_BEGIN(_basic_string_resize_elem__basic_string_resize_elem_varg,\
         test__basic_string_resize_elem__basic_string_resize_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__non_inited),\

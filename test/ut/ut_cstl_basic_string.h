@@ -2264,6 +2264,7 @@ void test_basic_string_append__char(void** state);
 void test_basic_string_append__cstr(void** state);
 void test_basic_string_append__libcstl(void** state);
 void test_basic_string_append__user_define(void** state);
+void test_basic_string_append__shared(void** state);
 /*
  * test basic_string_append_substring
  */
@@ -2313,6 +2314,7 @@ void test_basic_string_append_substring__successfully_user_define_non_empty_midd
 void test_basic_string_append_substring__successfully_user_define_non_empty_middle_npos(void** state);
 void test_basic_string_append_substring__successfully_user_define_non_empty_end(void** state);
 void test_basic_string_append_substring__successfully_user_define_non_empty_npos(void** state);
+void test_basic_string_append_substring__shared(void** state);
 /*
  * test basic_string_append_range
  */
@@ -2329,6 +2331,7 @@ void test_basic_string_append_range__successfully_cstr(void** state);
 void test_basic_string_append_range__successfully_cstl_builtin(void** state);
 void test_basic_string_append_range__successfully_user_define(void** state);
 /*void test_basic_string_append_range__same_container(void** state);*/
+void test_basic_string_append_range__shared(void** state);
 /*
  * test basic_string_append_cstr
  */
@@ -2346,6 +2349,7 @@ void test_basic_string_append_cstr__libcstl_builtin_empty(void** state);
 void test_basic_string_append_cstr__libcstl_builtin_non_empty(void** state);
 void test_basic_string_append_cstr__user_define_empty(void** state);
 void test_basic_string_append_cstr__user_define_non_empty(void** state);
+void test_basic_string_append_cstr__shared(void** state);
 /*
  * test basic_string_append_subcstr
  */
@@ -2368,6 +2372,7 @@ void test_basic_string_append_subcstr__libcstl_builtin_total(void** state);
 void test_basic_string_append_subcstr__user_define_empty(void** state);
 void test_basic_string_append_subcstr__user_define_non_empty(void** state);
 void test_basic_string_append_subcstr__user_define_total(void** state);
+void test_basic_string_append_subcstr__shared(void** state);
 /*
  * test basic_string_insert_string
  */
@@ -3760,7 +3765,113 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_resize__cstr),\
     UT_CASE(test_basic_string_resize__libcstl),\
     UT_CASE(test_basic_string_resize__user_define),\
-    UT_CASE(test_basic_string_resize__shared)/*,\
+    UT_CASE(test_basic_string_resize__shared),\
+    UT_CASE_BEGIN(basic_string_append_subcstr, test_basic_string_append_subcstr__null_container),\
+    UT_CASE(test_basic_string_append_subcstr__non_created_container),\
+    UT_CASE(test_basic_string_append_subcstr__null_valuestring),\
+    UT_CASE(test_basic_string_append_subcstr__c_builtin_empty),\
+    UT_CASE(test_basic_string_append_subcstr__c_builtin_non_empty),\
+    UT_CASE(test_basic_string_append_subcstr__c_builtin_total),\
+    UT_CASE(test_basic_string_append_subcstr__char_empty),\
+    UT_CASE(test_basic_string_append_subcstr__char_non_empty),\
+    UT_CASE(test_basic_string_append_subcstr__char_total),\
+    UT_CASE(test_basic_string_append_subcstr__cstr_empty),\
+    UT_CASE(test_basic_string_append_subcstr__cstr_non_empty),\
+    UT_CASE(test_basic_string_append_subcstr__cstr_total),\
+    UT_CASE(test_basic_string_append_subcstr__libcstl_builtin_empty),\
+    UT_CASE(test_basic_string_append_subcstr__libcstl_builtin_non_empty),\
+    UT_CASE(test_basic_string_append_subcstr__libcstl_builtin_total),\
+    UT_CASE(test_basic_string_append_subcstr__user_define_empty),\
+    UT_CASE(test_basic_string_append_subcstr__user_define_non_empty),\
+    UT_CASE(test_basic_string_append_subcstr__user_define_total),\
+    UT_CASE(test_basic_string_append_subcstr__shared),\
+    UT_CASE_BEGIN(basic_string_append_cstr, test_basic_string_append_cstr__null_container),\
+    UT_CASE(test_basic_string_append_cstr__non_inited),\
+    UT_CASE(test_basic_string_append_cstr__null_valuestring),\
+    UT_CASE(test_basic_string_append_cstr__c_builtin_empty),\
+    UT_CASE(test_basic_string_append_cstr__c_builtin_non_empty),\
+    UT_CASE(test_basic_string_append_cstr__char_empty),\
+    UT_CASE(test_basic_string_append_cstr__char_non_empty),\
+    UT_CASE(test_basic_string_append_cstr__cstr_empty),\
+    UT_CASE(test_basic_string_append_cstr__cstr_init_non_empty),\
+    UT_CASE(test_basic_string_append_cstr__libcstl_builtin_empty),\
+    UT_CASE(test_basic_string_append_cstr__libcstl_builtin_non_empty),\
+    UT_CASE(test_basic_string_append_cstr__user_define_empty),\
+    UT_CASE(test_basic_string_append_cstr__user_define_non_empty),\
+    UT_CASE(test_basic_string_append_cstr__shared),\
+    UT_CASE_BEGIN(basic_string_append_range, test_basic_string_append_range__null_dest),\
+    UT_CASE(test_basic_string_append_range__non_inited_dest),\
+    UT_CASE(test_basic_string_append_range__invalid_begin_iterator),\
+    UT_CASE(test_basic_string_append_range__invalid_end_iterator),\
+    UT_CASE(test_basic_string_append_range__invalid_range),\
+    UT_CASE(test_basic_string_append_range__not_same_type),\
+    UT_CASE(test_basic_string_append_range__successfully_empty_range),\
+    UT_CASE(test_basic_string_append_range__successfully_c_builtin),\
+    UT_CASE(test_basic_string_append_range__successfully_cstr),\
+    UT_CASE(test_basic_string_append_range__successfully_cstl_builtin),\
+    UT_CASE(test_basic_string_append_range__successfully_user_define),\
+    UT_CASE(test_basic_string_append_range__shared),\
+    UT_CASE_BEGIN(basic_string_append_substring, test_basic_string_append_substring__null_dest),\
+    UT_CASE(test_basic_string_append_substring__null_src),\
+    UT_CASE(test_basic_string_append_substring__non_inited_dest),\
+    UT_CASE(test_basic_string_append_substring__non_inited_src),\
+    UT_CASE(test_basic_string_append_substring__not_same_type),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_begin_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_begin_non_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_begin_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_begin_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_middle_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_middle_non_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_middle_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_middle_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_end),\
+    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_begin_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_begin_non_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_begin_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_begin_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_middle_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_middle_non_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_middle_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_middle_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_end),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_src_non_empty_begin_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_begin_non_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_begin_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_begin_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_middle_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_middle_non_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_middle_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_middle_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_begin_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_begin_non_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_begin_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_begin_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_middle_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_middle_non_empty),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_middle_length),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_middle_npos),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_end),\
+    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_npos),\
+    UT_CASE(test_basic_string_append_substring__shared),\
+    UT_CASE_BEGIN(basic_string_append, test_basic_string_append__null_dest),\
+    UT_CASE(test_basic_string_append__null_src),\
+    UT_CASE(test_basic_string_append__non_inited_dest),\
+    UT_CASE(test_basic_string_append__non_inited_src),\
+    UT_CASE(test_basic_string_append__not_same_type),\
+    UT_CASE(test_basic_string_append__same_container),\
+    UT_CASE(test_basic_string_append__0_assign_0),\
+    UT_CASE(test_basic_string_append__0_assign_10),\
+    UT_CASE(test_basic_string_append__10_assign_0),\
+    UT_CASE(test_basic_string_append__1000_assign_1810),\
+    UT_CASE(test_basic_string_append__char),\
+    UT_CASE(test_basic_string_append__cstr),\
+    UT_CASE(test_basic_string_append__libcstl),\
+    UT_CASE(test_basic_string_append__user_define),\
+    UT_CASE(test_basic_string_append__shared),\
     UT_CASE_BEGIN(basic_string_connect, test_basic_string_connect__null_dest),\
     UT_CASE(test_basic_string_connect__null_src),\
     UT_CASE(test_basic_string_connect__non_inited_dest),\
@@ -3785,7 +3896,7 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_connect_cstr__char),\
     UT_CASE(test_basic_string_connect_cstr__cstr),\
     UT_CASE(test_basic_string_connect_cstr__libcstl),\
-    UT_CASE(test_basic_string_connect_cstr__user_define),\
+    UT_CASE(test_basic_string_connect_cstr__user_define)/*,\
     UT_CASE_BEGIN(basic_string_find, test_basic_string_find__null_basic_string),\
     UT_CASE(test_basic_string_find__null_find),\
     UT_CASE(test_basic_string_find__non_inited_basic_string),\
@@ -4773,107 +4884,6 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_find),\
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find),\
     UT_CASE(test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find_pos),\
-    UT_CASE_BEGIN(basic_string_append, test_basic_string_append__null_dest),\
-    UT_CASE(test_basic_string_append__null_src),\
-    UT_CASE(test_basic_string_append__non_inited_dest),\
-    UT_CASE(test_basic_string_append__non_inited_src),\
-    UT_CASE(test_basic_string_append__not_same_type),\
-    UT_CASE(test_basic_string_append__same_container),\
-    UT_CASE(test_basic_string_append__0_assign_0),\
-    UT_CASE(test_basic_string_append__0_assign_10),\
-    UT_CASE(test_basic_string_append__10_assign_0),\
-    UT_CASE(test_basic_string_append__1000_assign_1810),\
-    UT_CASE(test_basic_string_append__char),\
-    UT_CASE(test_basic_string_append__cstr),\
-    UT_CASE(test_basic_string_append__libcstl),\
-    UT_CASE(test_basic_string_append__user_define),\
-    UT_CASE_BEGIN(basic_string_append_substring, test_basic_string_append_substring__null_dest),\
-    UT_CASE(test_basic_string_append_substring__null_src),\
-    UT_CASE(test_basic_string_append_substring__non_inited_dest),\
-    UT_CASE(test_basic_string_append_substring__non_inited_src),\
-    UT_CASE(test_basic_string_append_substring__not_same_type),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_begin_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_begin_non_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_begin_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_begin_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_middle_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_middle_non_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_middle_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_middle_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_end),\
-    UT_CASE(test_basic_string_append_substring__successfully_c_builtin_src_non_empty_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_begin_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_begin_non_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_begin_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_begin_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_middle_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_middle_non_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_middle_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_middle_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_end),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstr_src_non_empty_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_src_non_empty_begin_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_begin_non_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_begin_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_begin_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_middle_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_middle_non_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_middle_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_non_empty_middle_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_cstl_builtin_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_begin_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_begin_non_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_begin_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_begin_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_middle_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_middle_non_empty),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_middle_length),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_middle_npos),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_end),\
-    UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_npos),\
-    UT_CASE_BEGIN(basic_string_append_range, test_basic_string_append_range__null_dest),\
-    UT_CASE(test_basic_string_append_range__non_inited_dest),\
-    UT_CASE(test_basic_string_append_range__invalid_begin_iterator),\
-    UT_CASE(test_basic_string_append_range__invalid_end_iterator),\
-    UT_CASE(test_basic_string_append_range__invalid_range),\
-    UT_CASE(test_basic_string_append_range__not_same_type),\
-    UT_CASE(test_basic_string_append_range__successfully_empty_range),\
-    UT_CASE(test_basic_string_append_range__successfully_c_builtin),\
-    UT_CASE(test_basic_string_append_range__successfully_cstr),\
-    UT_CASE(test_basic_string_append_range__successfully_cstl_builtin),\
-    UT_CASE(test_basic_string_append_range__successfully_user_define),\
-    UT_CASE_BEGIN(basic_string_append_cstr, test_basic_string_append_cstr__null_container),\
-    UT_CASE(test_basic_string_append_cstr__non_inited),\
-    UT_CASE(test_basic_string_append_cstr__null_valuestring),\
-    UT_CASE(test_basic_string_append_cstr__c_builtin_empty),\
-    UT_CASE(test_basic_string_append_cstr__c_builtin_non_empty),\
-    UT_CASE(test_basic_string_append_cstr__char_empty),\
-    UT_CASE(test_basic_string_append_cstr__char_non_empty),\
-    UT_CASE(test_basic_string_append_cstr__cstr_empty),\
-    UT_CASE(test_basic_string_append_cstr__cstr_init_non_empty),\
-    UT_CASE(test_basic_string_append_cstr__libcstl_builtin_empty),\
-    UT_CASE(test_basic_string_append_cstr__libcstl_builtin_non_empty),\
-    UT_CASE(test_basic_string_append_cstr__user_define_empty),\
-    UT_CASE(test_basic_string_append_cstr__user_define_non_empty),\
-    UT_CASE_BEGIN(basic_string_append_subcstr, test_basic_string_append_subcstr__null_container),\
-    UT_CASE(test_basic_string_append_subcstr__non_created_container),\
-    UT_CASE(test_basic_string_append_subcstr__null_valuestring),\
-    UT_CASE(test_basic_string_append_subcstr__c_builtin_empty),\
-    UT_CASE(test_basic_string_append_subcstr__c_builtin_non_empty),\
-    UT_CASE(test_basic_string_append_subcstr__c_builtin_total),\
-    UT_CASE(test_basic_string_append_subcstr__char_empty),\
-    UT_CASE(test_basic_string_append_subcstr__char_non_empty),\
-    UT_CASE(test_basic_string_append_subcstr__char_total),\
-    UT_CASE(test_basic_string_append_subcstr__cstr_empty),\
-    UT_CASE(test_basic_string_append_subcstr__cstr_non_empty),\
-    UT_CASE(test_basic_string_append_subcstr__cstr_total),\
-    UT_CASE(test_basic_string_append_subcstr__libcstl_builtin_empty),\
-    UT_CASE(test_basic_string_append_subcstr__libcstl_builtin_non_empty),\
-    UT_CASE(test_basic_string_append_subcstr__libcstl_builtin_total),\
-    UT_CASE(test_basic_string_append_subcstr__user_define_empty),\
-    UT_CASE(test_basic_string_append_subcstr__user_define_non_empty),\
-    UT_CASE(test_basic_string_append_subcstr__user_define_total),\
     UT_CASE_BEGIN(basic_string_insert_string, test_basic_string_insert_string__null_dest),\
     UT_CASE(test_basic_string_insert_string__null_insert),\
     UT_CASE(test_basic_string_insert_string__non_inited_dest),\

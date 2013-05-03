@@ -160,6 +160,61 @@ void test__basic_string_resize_auxiliary__libcstl(void** state);
 void test__basic_string_resize_auxiliary__user_define(void** state);
 void test__basic_string_resize_auxiliary__shared(void** state);
 void test__basic_string_resize_auxiliary__no_copy(void** state);
+/*
+ * test _basic_string_copy_substring_auxiliary
+ */
+UT_CASE_DECLARATION(_basic_string_copy_substring_auxiliary)
+void test__basic_string_copy_substring_auxiliary__null_bstr(void** state);
+void test__basic_string_copy_substring_auxiliary__non_created(void** state);
+void test__basic_string_copy_substring_auxiliary__null_dest(void** state);
+void test__basic_string_copy_substring_auxiliary__null_src(void** state);
+void test__basic_string_copy_substring_auxiliary__invalid_len(void** state);
+void test__basic_string_copy_substring_auxiliary__empty(void** state);
+void test__basic_string_copy_substring_auxiliary__non_empty(void** state);
+void test__basic_string_copy_substring_auxiliary__cstr(void** state);
+void test__basic_string_copy_substring_auxiliary__libcstl(void** state);
+void test__basic_string_copy_substring_auxiliary__user_define(void** state);
+/*
+ * test _basic_string_copy_subcstr_auxiliary
+ */
+UT_CASE_DECLARATION(_basic_string_copy_subcstr_auxiliary)
+void test__basic_string_copy_subcstr_auxiliary__null_bstr(void** state);
+void test__basic_string_copy_subcstr_auxiliary__non_created(void** state);
+void test__basic_string_copy_subcstr_auxiliary__null_dest(void** state);
+void test__basic_string_copy_subcstr_auxiliary__null_src(void** state);
+void test__basic_string_copy_subcstr_auxiliary__invalid_len(void** state);
+void test__basic_string_copy_subcstr_auxiliary__empty(void** state);
+void test__basic_string_copy_subcstr_auxiliary__non_empty(void** state);
+void test__basic_string_copy_subcstr_auxiliary__cstr(void** state);
+void test__basic_string_copy_subcstr_auxiliary__libcstl(void** state);
+void test__basic_string_copy_subcstr_auxiliary__user_define(void** state);
+void test__basic_string_copy_subcstr_auxiliary__include_terminator(void** state);
+/*
+ * test _basic_string_copy_range_auxiliary
+ */
+UT_CASE_DECLARATION(_basic_string_copy_range_auxiliary)
+void test__basic_string_copy_range_auxiliary__null_bstr(void** state);
+void test__basic_string_copy_range_auxiliary__non_created(void** state);
+void test__basic_string_copy_range_auxiliary__null_dest(void** state);
+void test__basic_string_copy_range_auxiliary__invalid_range(void** state);
+void test__basic_string_copy_range_auxiliary__empty(void** state);
+void test__basic_string_copy_range_auxiliary__non_empty(void** state);
+void test__basic_string_copy_range_auxiliary__cstr(void** state);
+void test__basic_string_copy_range_auxiliary__libcstl(void** state);
+void test__basic_string_copy_range_auxiliary__user_define(void** state);
+/*
+ * test _basic_string_copy_elem_auxiliary
+ */
+UT_CASE_DECLARATION(_basic_string_copy_elem_auxiliary)
+void test__basic_string_copy_elem_auxiliary__null_bstr(void** state);
+void test__basic_string_copy_elem_auxiliary__non_created(void** state);
+void test__basic_string_copy_elem_auxiliary__null_dest(void** state);
+void test__basic_string_copy_elem_auxiliary__invalid_len(void** state);
+void test__basic_string_copy_elem_auxiliary__empty(void** state);
+void test__basic_string_copy_elem_auxiliary__non_empty(void** state);
+void test__basic_string_copy_elem_auxiliary__cstr(void** state);
+void test__basic_string_copy_elem_auxiliary__libcstl(void** state);
+void test__basic_string_copy_elem_auxiliary__user_define(void** state);
 
 #define UT_CSTL_BASIC_STRING_AUX_CASE\
     UT_SUIT_BEGIN(cstl_basic_string_aux, test__basic_string_is_created__null_basic_string_container),\
@@ -268,7 +323,46 @@ void test__basic_string_resize_auxiliary__no_copy(void** state);
     UT_CASE(test__basic_string_resize_auxiliary__libcstl),\
     UT_CASE(test__basic_string_resize_auxiliary__user_define),\
     UT_CASE(test__basic_string_resize_auxiliary__shared),\
-    UT_CASE(test__basic_string_resize_auxiliary__no_copy)
+    UT_CASE(test__basic_string_resize_auxiliary__no_copy),\
+    UT_CASE_BEGIN(_basic_string_copy_substring_auxiliary, test__basic_string_copy_substring_auxiliary__null_bstr),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__non_created),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__null_dest),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__null_src),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__invalid_len),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__empty),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__non_empty),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__cstr),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__libcstl),\
+    UT_CASE(test__basic_string_copy_substring_auxiliary__user_define),\
+    UT_CASE_BEGIN(_basic_string_copy_subcstr_auxiliary, test__basic_string_copy_subcstr_auxiliary__null_bstr),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__non_created),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__null_dest),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__null_src),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__invalid_len),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__empty),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__non_empty),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__cstr),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__libcstl),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__user_define),\
+    UT_CASE(test__basic_string_copy_subcstr_auxiliary__include_terminator),\
+    UT_CASE_BEGIN(_basic_string_copy_range_auxiliary, test__basic_string_copy_range_auxiliary__null_bstr),\
+    UT_CASE(test__basic_string_copy_range_auxiliary__non_created),\
+    UT_CASE(test__basic_string_copy_range_auxiliary__null_dest),\
+    UT_CASE(test__basic_string_copy_range_auxiliary__invalid_range),\
+    UT_CASE(test__basic_string_copy_range_auxiliary__empty),\
+    UT_CASE(test__basic_string_copy_range_auxiliary__non_empty),\
+    UT_CASE(test__basic_string_copy_range_auxiliary__cstr),\
+    UT_CASE(test__basic_string_copy_range_auxiliary__libcstl),\
+    UT_CASE(test__basic_string_copy_range_auxiliary__user_define),\
+    UT_CASE_BEGIN(_basic_string_copy_elem_auxiliary, test__basic_string_copy_elem_auxiliary__null_bstr),\
+    UT_CASE(test__basic_string_copy_elem_auxiliary__non_created),\
+    UT_CASE(test__basic_string_copy_elem_auxiliary__null_dest),\
+    UT_CASE(test__basic_string_copy_elem_auxiliary__invalid_len),\
+    UT_CASE(test__basic_string_copy_elem_auxiliary__empty),\
+    UT_CASE(test__basic_string_copy_elem_auxiliary__non_empty),\
+    UT_CASE(test__basic_string_copy_elem_auxiliary__cstr),\
+    UT_CASE(test__basic_string_copy_elem_auxiliary__libcstl),\
+    UT_CASE(test__basic_string_copy_elem_auxiliary__user_define)
 
 #endif /* _UT_CSTL_BASIC_STRING_AUX_H_ */
 

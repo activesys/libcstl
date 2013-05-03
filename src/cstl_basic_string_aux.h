@@ -101,7 +101,7 @@ extern bool_t _basic_string_same_type(const basic_string_t* cpt_first, const bas
  * @param cpt_basic_string   basic_string container.
  * @param cpv_value_string   value string.
  * @return value string length.
- * @remarks if cpt_basic_string == NULL or cpv_valuestring == NULL, the behavior is undefined. the basic_string must be
+ * @remarks if cpt_basic_string == NULL or cpv_value_string == NULL, the behavior is undefined. the basic_string must be
  *          initialized or created by create_basic_string(), otherwise the behavior is undefine.
  */
 extern size_t _basic_string_get_value_string_length(const basic_string_t* cpt_basic_string, const void* cpv_value_string);
@@ -131,11 +131,11 @@ extern void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_
  * Initialize data within string according to data type of basic_string.
  * @param pt_basic_string   basic_string.
  * @param pby_string        string.
- * @param t_length          string length.
+ * @param t_len          string length.
  * @return void.
  * @remarks pt_basic_string must be initialized or created by create_basic_string().
  */
-extern void _basic_string_init_elem_range_auxiliary(basic_string_t* pt_basic_string, _byte_t* pby_string, size_t t_length);
+extern void _basic_string_init_elem_range_auxiliary(basic_string_t* pt_basic_string, _byte_t* pby_string, size_t t_len);
 
 /**
  * Detach this basic_string from sharable string.
@@ -174,6 +174,25 @@ extern _basic_string_rep_t* _basic_string_clone_representation(const basic_strin
  *          if t_resize greater than current basic_string size, then append elements to the end.
  */
 extern void _basic_string_resize_auxiliary(basic_string_t* pt_basic_string, size_t t_resize, bool_t b_copy);
+
+/**
+ * Copy elements from source.
+ * @param cpt_basic_string  basic_string container.
+ * @param pby_dest          destination pointer.
+ * @param pby_src/cpv_value_string/it_begin/it_end/val_elemlist
+ *                          source.
+ * @param t_len/t_count     element count.
+ * @return void.
+ * @remarks cpt_basic_string, destination and source pointer must be not NULL, and the destination pointer must be initialized.
+ */
+extern void _basic_string_copy_substring_auxiliary(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_dest, _byte_t* pby_src, size_t t_len);
+extern void _basic_string_copy_subcstr_auxiliary(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_dest, const void* cpv_value_string, size_t t_len);
+extern void _basic_string_copy_range_auxiliary(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_dest, iterator_t it_begin, iterator_t it_end);
+extern void _basic_string_copy_elem_auxiliary(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_dest, size_t t_count, va_list val_elemlist);
 
 #ifdef __cplusplus
 }
