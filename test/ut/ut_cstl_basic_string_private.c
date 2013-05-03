@@ -2028,15 +2028,11 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__null_basic_s
 
 void test__basic_string_resize_elem__basic_string_resize_elem_varg__non_inited(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
-    pt_basic_string->_vec_base._pby_start = (_byte_t*)0x987;
 
     expect_assert_failure(_basic_string_resize_elem(pt_basic_string, 10, 100));
 
-    pt_basic_string->_vec_base._pby_start = NULL;
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully_0_resize_0(void** state)
@@ -2063,7 +2059,7 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     assert_true(basic_string_capacity(pt_basic_string) == 0);
     _basic_string_resize_elem(pt_basic_string, 10, 100);
     assert_true(basic_string_size(pt_basic_string) == 10);
-    assert_true(basic_string_capacity(pt_basic_string) == 26);
+    assert_true(basic_string_capacity(pt_basic_string) == 10);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 100);
@@ -2082,7 +2078,7 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     assert_true(basic_string_capacity(pt_basic_string) == 0);
     _basic_string_resize_elem(pt_basic_string, 1000, 100);
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 100);
@@ -2097,10 +2093,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 10, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 10);
-    assert_true(basic_string_capacity(pt_basic_string) == 26);
+    assert_true(basic_string_capacity(pt_basic_string) == 10);
     _basic_string_resize_elem(pt_basic_string, 0, 100);
     assert_true(basic_string_size(pt_basic_string) == 0);
-    assert_true(basic_string_capacity(pt_basic_string) == 26);
+    assert_true(basic_string_capacity(pt_basic_string) == 10);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -2112,10 +2108,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 10, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 10);
-    assert_true(basic_string_capacity(pt_basic_string) == 26);
+    assert_true(basic_string_capacity(pt_basic_string) == 10);
     _basic_string_resize_elem(pt_basic_string, 10, 100);
     assert_true(basic_string_size(pt_basic_string) == 10);
-    assert_true(basic_string_capacity(pt_basic_string) == 26);
+    assert_true(basic_string_capacity(pt_basic_string) == 10);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -2131,10 +2127,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 10, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 10);
-    assert_true(basic_string_capacity(pt_basic_string) == 26);
+    assert_true(basic_string_capacity(pt_basic_string) == 10);
     _basic_string_resize_elem(pt_basic_string, 1000, 100);
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 10)
@@ -2156,10 +2152,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_resize_elem(pt_basic_string, 0, 100);
     assert_true(basic_string_size(pt_basic_string) == 0);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -2171,10 +2167,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_resize_elem(pt_basic_string, 10, 100);
     assert_true(basic_string_size(pt_basic_string) == 10);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -2190,10 +2186,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_resize_elem(pt_basic_string, 1000, 100);
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -2209,10 +2205,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_resize_elem(pt_basic_string, 1200, 100);
     assert_true(basic_string_size(pt_basic_string) == 1200);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 1000)
@@ -2235,10 +2231,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_resize_elem(pt_basic_string, 2000, 100);
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 1000)
@@ -2261,10 +2257,10 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_resize_elem(pt_basic_string, 2000, 100, 110, 120, 130, 140, 150);
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 1000)
@@ -2278,6 +2274,44 @@ void test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully
     }
 
     basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_resize_elem__basic_string_resize_elem_varg__shared_append(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+
+    basic_string_init_elem(pbstr1, 10, 111);
+    basic_string_reserve(pbstr1, 100);
+    basic_string_init_copy(pbstr2, pbstr1);
+
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    basic_string_resize_elem(pbstr1, 20, 999);
+    assert_true(pbstr1->_pby_string != pbstr2->_pby_string);
+    assert_true(basic_string_size(pbstr1) == 20);
+    assert_true(basic_string_capacity(pbstr1) == 20);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+
+void test__basic_string_resize_elem__basic_string_resize_elem_varg__shared_erase(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+
+    basic_string_init_elem(pbstr1, 10, 111);
+    basic_string_reserve(pbstr1, 100);
+    basic_string_init_copy(pbstr2, pbstr1);
+
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    basic_string_resize_elem(pbstr1, 2, 999);
+    assert_true(pbstr1->_pby_string != pbstr2->_pby_string);
+    assert_true(basic_string_size(pbstr1) == 2);
+    assert_true(basic_string_capacity(pbstr1) == 2);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
 }
 
 /*

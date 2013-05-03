@@ -35906,16 +35906,11 @@ void test_basic_string_erase_substring__null_basic_string(void** state)
 
 void test_basic_string_erase_substring__non_inited_basic_string(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
 
-    basic_string_init(pt_basic_string);
-    pt_basic_string->_vec_base._pby_finish = (_byte_t*)0x8888;
     expect_assert_failure(basic_string_erase_substring(pt_basic_string, 0, NPOS));
 
-    pt_basic_string->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test_basic_string_erase_substring__invalid_pos(void** state)
@@ -36015,6 +36010,7 @@ void test_basic_string_erase_substring__char(void** state)
 
 void test_basic_string_erase_substring__cstr(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
 
@@ -36025,6 +36021,8 @@ void test_basic_string_erase_substring__cstr(void** state)
     assert_true(strcmp((char*)basic_string_at(pt_basic_string, 1), "mno") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_erase_substring__libcstr_builtin(void** state)
@@ -36076,6 +36074,23 @@ void test_basic_string_erase_substring__user_define(void** state)
     assert_true(((_test_basic_string_erase_substring__user_define_t*)basic_string_at(pt_basic_string, 1))->n_elem == 9);
 
     basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_erase_substring__shared(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+
+    basic_string_init_elem(pbstr1, 10, 111);
+    basic_string_init_copy(pbstr2, pbstr1);
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    basic_string_erase_substring(pbstr1, 0, 5);
+    assert_true(pbstr1->_pby_string != pbstr2->_pby_string);
+    assert_true(basic_string_size(pbstr1) == 5);
+    assert_true(basic_string_capacity(pbstr1) == 5);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
 }
 
 /*

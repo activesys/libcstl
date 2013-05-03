@@ -590,13 +590,11 @@ size_t _basic_string_find_last_not_of_elem_varg(const basic_string_t* cpt_basic_
  */
 void _basic_string_resize_elem(basic_string_t* pt_basic_string, size_t t_resize, ...)
 {
-    /* comment for 2.2
     va_list val_elemlist;
 
     va_start(val_elemlist, t_resize);
     _basic_string_resize_elem_varg(pt_basic_string, t_resize, val_elemlist);
     va_end(val_elemlist);
-    */
 }
 
 /**
@@ -604,11 +602,15 @@ void _basic_string_resize_elem(basic_string_t* pt_basic_string, size_t t_resize,
  */
 void _basic_string_resize_elem_varg(basic_string_t* pt_basic_string, size_t t_resize, va_list val_elemlist)
 {
-    /* comment for 2.2
     assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string));
+    assert(t_resize <= basic_string_max_size(pt_basic_string));
 
-    _vector_resize_elem_varg(&pt_basic_string->_vec_base, t_resize, val_elemlist);
-    */
+    if (t_resize > basic_string_size(pt_basic_string)) {
+        _basic_string_append_elem_varg(pt_basic_string, t_resize - basic_string_size(pt_basic_string), val_elemlist);
+    } else {
+        basic_string_erase_substring(pt_basic_string, t_resize, NPOS);
+    }
 }
 
 /**

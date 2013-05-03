@@ -2051,22 +2051,64 @@ basic_string_iterator_t basic_string_erase_range(
  */
 void basic_string_erase_substring(basic_string_t* pt_basic_string, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    basic_string_iterator_t it_begin;
-    basic_string_iterator_t it_end;
-
     assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string));
     assert(t_pos < basic_string_size(pt_basic_string));
 
-    it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
-    if (t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string)) {
-        it_end = basic_string_end(pt_basic_string);
-    } else {
-        it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
+    if (t_len == NPOS || t_len + t_pos >= basic_string_size(pt_basic_string)) {
+        t_len = basic_string_size(pt_basic_string) - t_pos;
     }
 
-    basic_string_erase_range(pt_basic_string, it_begin, it_end);
-    */
+    if (t_len > 0) {
+        if (_basic_string_is_shared(pt_basic_string)) {
+            size_t               t_size = basic_string_size(pt_basic_string);
+            size_t               t_newsize = t_size - t_len;
+            size_t               t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _byte_t*             pby_dest = NULL;
+            _byte_t*             pby_src = NULL;
+            _basic_string_rep_t* prep = _create_basic_string_representation(t_newsize, 0, t_typesize);
+            assert(prep != NULL);
+            _basic_string_rep_set_length(prep, t_newsize);
+            _basic_string_rep_set_sharable(prep);
+            _basic_string_init_elem_range_auxiliary(pt_basic_string, _basic_string_rep_get_data(prep), t_newsize);
+
+            /* copy elements before erase range */
+            pby_dest = _basic_string_rep_get_data(prep);
+            pby_src = pt_basic_string->_pby_string;
+            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_pos);
+            /* copy elements after erase range */
+            pby_dest = _basic_string_rep_get_data(prep) + t_pos * t_typesize;
+            pby_src = pt_basic_string->_pby_string + (t_pos + t_len) * t_typesize;
+            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_size - t_pos - t_len);
+
+            _basic_string_rep_reduce_shared(
+                _basic_string_rep_get_representation(pt_basic_string->_pby_string),
+                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
+            pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
+        } else {
+            size_t   i = 0;
+            size_t   t_size = basic_string_size(pt_basic_string);
+            size_t   t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _byte_t* pby_del = NULL;
+            _byte_t* pby_dest = pt_basic_string->_pby_string + t_pos * t_typesize;
+            _byte_t* pby_src = pby_dest + t_len * t_typesize;
+
+            /* move elements after erase range */
+            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_size - t_pos - t_len);
+
+            /* delete elements */
+            pby_del = pt_basic_string->_pby_string + (t_size - t_len) * t_typesize;
+            for (i = 0; i < t_len; ++i) {
+                bool_t b_result = t_typesize;
+                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pby_del, &b_result);
+                assert(b_result);
+
+                pby_del += t_typesize;
+            }
+            _basic_string_rep_set_length(
+                _basic_string_rep_get_representation(pt_basic_string->_pby_string), t_size - t_len);
+        }
+    }
 }
 
 /**
