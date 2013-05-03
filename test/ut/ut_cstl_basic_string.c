@@ -35481,19 +35481,14 @@ void test_basic_string_erase__null_basic_string(void** state)
 
 void test_basic_string_erase__non_inited_basic_string(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_t* pt_non_inited = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 100);
-    basic_string_init(pt_non_inited);
-    pt_non_inited->_vec_base._pby_start = (_byte_t*)0x777;
     expect_assert_failure(basic_string_erase(pt_non_inited, basic_string_begin(pt_basic_string)));
 
-    pt_non_inited->_vec_base._pby_start = NULL;
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_non_inited);
-    */
 }
 
 void test_basic_string_erase__invalid_pos(void** state)
@@ -35592,6 +35587,7 @@ void test_basic_string_erase__char(void** state)
 
 void test_basic_string_erase__cstr(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_pos;
     const char* elems[] = {"abc", "def", "hij", "null", NULL};
@@ -35603,6 +35599,8 @@ void test_basic_string_erase__cstr(void** state)
     assert_true(strcmp((char*)iterator_get_pointer(it_pos), "hij") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_erase__libcstl_builtin(void** state)
@@ -35673,17 +35671,12 @@ void test_basic_string_erase_range__null_basic_string(void** state)
 
 void test_basic_string_erase_range__non_inited_basic_string(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
 
-    basic_string_init(pt_basic_string);
-    pt_basic_string->_vec_base._pby_finish = (_byte_t*)0x5555;
     expect_assert_failure(basic_string_erase_range(
         pt_basic_string, basic_string_begin(pt_basic_string), basic_string_end(pt_basic_string)));
 
-    pt_basic_string->_vec_base._pby_finish = NULL;
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test_basic_string_erase_range__invalid_begin(void** state)
@@ -35826,6 +35819,7 @@ void test_basic_string_erase_range__char(void** state)
 
 void test_basic_string_erase_range__cstr(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_iterator_t it_pos;
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -35837,6 +35831,8 @@ void test_basic_string_erase_range__cstr(void** state)
     assert_true(strcmp((char*)iterator_get_pointer(it_pos), "mno") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_erase_range__libcstl_builtin(void** state)

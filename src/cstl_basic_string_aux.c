@@ -354,16 +354,10 @@ void _basic_string_resize_auxiliary(basic_string_t* pt_basic_string, size_t t_re
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
     } else {
         if (t_resize < basic_string_size(pt_basic_string)) {
-            size_t   i = 0;
             size_t   t_delpos = t_resize;
             size_t   t_dellen = basic_string_size(pt_basic_string) - t_resize;
             _byte_t* pby_del = pt_basic_string->_pby_string + t_delpos * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            for (i = 0; i < t_dellen; ++i) {
-                bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pby_del, &b_result);
-                assert(b_result);
-                pby_del += _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            }
+            _basic_string_destroy_elem_range_auxiliary(pt_basic_string, pby_del, t_dellen);
         } else {
             size_t   t_initpos = basic_string_size(pt_basic_string);
             size_t   t_initlen = t_resize - basic_string_size(pt_basic_string);
@@ -481,6 +475,28 @@ void _basic_string_copy_elem_auxiliary(
         /* destroy varg value and free memory */
         _basic_string_destroy_varg_value_auxiliary(cpt_basic_string, pv_varg);
         free(pv_varg);
+    }
+}
+
+/**
+ * Destroy elements in substring.
+ */
+void _basic_string_destroy_elem_range_auxiliary(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_del, size_t t_len)
+{
+    size_t i = 0;
+
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
+    assert(pby_del != NULL);
+    assert(t_len <= basic_string_max_size(cpt_basic_string));
+
+    for (i = 0; i < t_len; ++i) {
+        bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_del, &b_result);
+        assert(b_result);
+
+        pby_del += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     }
 }
 

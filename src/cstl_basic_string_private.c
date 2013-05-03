@@ -608,7 +608,7 @@ void _basic_string_resize_elem_varg(basic_string_t* pt_basic_string, size_t t_re
 
     if (t_resize > basic_string_size(pt_basic_string)) {
         _basic_string_append_elem_varg(pt_basic_string, t_resize - basic_string_size(pt_basic_string), val_elemlist);
-    } else {
+    } else if (t_resize < basic_string_size(pt_basic_string)) {
         basic_string_erase_substring(pt_basic_string, t_resize, NPOS);
     }
 }

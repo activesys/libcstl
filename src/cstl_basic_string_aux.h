@@ -194,6 +194,17 @@ extern void _basic_string_copy_range_auxiliary(
 extern void _basic_string_copy_elem_auxiliary(
     const basic_string_t* cpt_basic_string, _byte_t* pby_dest, size_t t_count, va_list val_elemlist);
 
+/**
+ * Destroy elements in substring.
+ * @param cpt_basic_string  basic_string container.
+ * @param pby_del           destination pointer.
+ * @param t_len             element count.
+ * @return void.
+ * @remarks cpt_basic_string, destination  pointer must be not NULL.
+ */
+extern void _basic_string_destroy_elem_range_auxiliary(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_del, size_t t_len);
+
 #ifdef __cplusplus
 }
 #endif
