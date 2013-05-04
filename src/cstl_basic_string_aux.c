@@ -322,53 +322,6 @@ _basic_string_rep_t* _basic_string_clone_representation(const basic_string_t* cp
 }
 
 /**
- * Reset the size of basic_string elements.
- */
-void _basic_string_resize_auxiliary(basic_string_t* pt_basic_string, size_t t_resize, bool_t b_copy)
-{
-    assert(pt_basic_string != NULL);
-    assert(_basic_string_is_inited(pt_basic_string));
-    assert(t_resize <= basic_string_max_size(pt_basic_string));
-
-    if (t_resize > basic_string_capacity(pt_basic_string) || _basic_string_is_shared(pt_basic_string)) {
-        size_t               t_copylen = 0;
-        _byte_t*             pby_dest = NULL;
-        _byte_t*             pby_src = NULL;
-        _basic_string_rep_t* prep = _create_basic_string_representation(
-            t_resize, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
-        assert(prep != NULL);
-        _basic_string_rep_set_length(prep, t_resize);
-        _basic_string_rep_set_sharable(prep);
-        _basic_string_init_elem_range_auxiliary(pt_basic_string, _basic_string_rep_get_data(prep), t_resize);
-
-        if (b_copy) {
-            pby_dest = _basic_string_rep_get_data(prep);
-            pby_src = pt_basic_string->_pby_string;
-            t_copylen = t_resize < basic_string_size(pt_basic_string) ? t_resize : basic_string_size(pt_basic_string);
-            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_copylen);
-        }
-
-        _basic_string_rep_reduce_shared(
-            _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
-        pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
-    } else {
-        if (t_resize < basic_string_size(pt_basic_string)) {
-            size_t   t_delpos = t_resize;
-            size_t   t_dellen = basic_string_size(pt_basic_string) - t_resize;
-            _byte_t* pby_del = pt_basic_string->_pby_string + t_delpos * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            _basic_string_destroy_elem_range_auxiliary(pt_basic_string, pby_del, t_dellen);
-        } else {
-            size_t   t_initpos = basic_string_size(pt_basic_string);
-            size_t   t_initlen = t_resize - basic_string_size(pt_basic_string);
-            _byte_t* pby_init = pt_basic_string->_pby_string + t_initpos * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-            _basic_string_init_elem_range_auxiliary(pt_basic_string, pby_init, t_initlen);
-        }
-        _basic_string_rep_set_length(_basic_string_rep_get_representation(pt_basic_string->_pby_string), t_resize);
-    }
-}
-
-/**
  * Copy elements from source.
  */
 void _basic_string_copy_substring_auxiliary(
@@ -389,6 +342,29 @@ void _basic_string_copy_substring_auxiliary(
 
         pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
         pby_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    }
+}
+
+void _basic_string_copy_substring_backward_auxiliary(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_dest, _byte_t* pby_src, size_t t_len)
+{
+    size_t i = 0;
+
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
+    assert(pby_dest != NULL);
+    assert(pby_src != NULL);
+    assert(t_len <= basic_string_max_size(cpt_basic_string));
+
+    pby_dest = pby_dest + (t_len - 1) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    pby_src = pby_src + (t_len - 1) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    for (i = 0; i < t_len; ++i) {
+        bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+        assert(b_result);
+
+        pby_dest -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        pby_src -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     }
 }
 
@@ -497,6 +473,66 @@ void _basic_string_destroy_elem_range_auxiliary(
         assert(b_result);
 
         pby_del += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    }
+}
+
+/**
+ * Preparation for replace.
+ */
+void _basic_string_replace_preparation(
+    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_replacelen)
+{
+    size_t   t_size = 0;
+    size_t   t_newsize = 0;
+    size_t   t_typesize = 0;
+    _byte_t* pby_dest = NULL;
+    _byte_t* pby_src = NULL;
+
+    assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string));
+    assert(t_pos <= basic_string_size(pt_basic_string));
+
+    if (t_len == NPOS || t_len + t_pos >= basic_string_size(pt_basic_string)) {
+        t_len = basic_string_size(pt_basic_string) - t_pos;
+    }
+
+    t_size = basic_string_size(pt_basic_string);
+    t_newsize = t_size + t_replacelen - t_len;
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+
+    if (t_newsize > basic_string_capacity(pt_basic_string) || _basic_string_is_shared(pt_basic_string)) {
+            _basic_string_rep_t* prep = _create_basic_string_representation(
+                t_newsize, basic_string_capacity(pt_basic_string), t_typesize);
+            assert(prep != NULL);
+            _basic_string_rep_set_length(prep, t_newsize);
+            _basic_string_rep_set_sharable(prep);
+            _basic_string_init_elem_range_auxiliary(pt_basic_string, _basic_string_rep_get_data(prep), t_newsize);
+
+            /* copy elements before replace range */
+            pby_dest = _basic_string_rep_get_data(prep);
+            pby_src = pt_basic_string->_pby_string;
+            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_pos);
+            /* copy elements after replace range */
+            pby_dest = _basic_string_rep_get_data(prep) + (t_pos + t_replacelen) * t_typesize;
+            pby_src = pt_basic_string->_pby_string + (t_pos + t_len) * t_typesize;
+            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_size - t_pos - t_len);
+
+            _basic_string_rep_reduce_shared(
+                _basic_string_rep_get_representation(pt_basic_string->_pby_string),
+                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
+            pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
+    } else {
+        if (t_replacelen > t_len) {
+            basic_string_resize(pt_basic_string, t_newsize);
+            pby_dest = pt_basic_string->_pby_string + (t_pos + t_replacelen) * t_typesize;
+            pby_src = pt_basic_string->_pby_string + (t_pos + t_len) * t_typesize;
+            _basic_string_copy_substring_backward_auxiliary(pt_basic_string, pby_dest, pby_src, t_size - t_pos - t_len);
+        } else if (t_len > t_replacelen) {
+            pby_dest = pt_basic_string->_pby_string + (t_pos + t_replacelen) * t_typesize;
+            pby_src = pt_basic_string->_pby_string + (t_pos + t_len) * t_typesize;
+            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_size - t_pos - t_len);
+            basic_string_resize(pt_basic_string, t_newsize);
+        }
     }
 }
 

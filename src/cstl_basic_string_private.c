@@ -630,23 +630,7 @@ void _basic_string_push_back(basic_string_t* pt_basic_string, ...)
  */
 void _basic_string_push_back_varg(basic_string_t* pt_basic_string, va_list val_elemlist)
 {
-    _byte_t* pby_last = NULL;
-    size_t   t_size = 0;
-
-    assert(pt_basic_string != NULL);
-    assert(_basic_string_is_inited(pt_basic_string));
-
-    t_size = basic_string_size(pt_basic_string);
-    if (t_size == basic_string_capacity(pt_basic_string) || _basic_string_is_shared(pt_basic_string)) {
-        basic_string_reserve(pt_basic_string, t_size + 1);
-    }
-
-    pby_last = pt_basic_string->_pby_string + t_size * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-    _basic_string_init_elem_auxiliary(pt_basic_string, pby_last);
-    _type_get_varg_value(&pt_basic_string->_t_typeinfo, val_elemlist, pby_last);
-
-    /* set sharable in reserve(). */
-    _basic_string_rep_set_length(_basic_string_rep_get_representation(pt_basic_string->_pby_string), t_size + 1);
+    _basic_string_replace_elem_varg(pt_basic_string, basic_string_size(pt_basic_string), 0, 1, val_elemlist);
 }
 
 /**
@@ -666,12 +650,7 @@ void _basic_string_assign_elem(basic_string_t* pt_basic_string, size_t t_count, 
  */
 void _basic_string_assign_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 {
-    assert(pt_basic_string != NULL);
-    assert(_basic_string_is_inited(pt_basic_string));
-    assert(t_count <= basic_string_max_size(pt_basic_string));
-
-    _basic_string_resize_auxiliary(pt_basic_string, t_count, false);
-    _basic_string_copy_elem_auxiliary(pt_basic_string, pt_basic_string->_pby_string, t_count, val_elemlist);
+    _basic_string_replace_elem_varg(pt_basic_string, 0, NPOS, t_count, val_elemlist);
 }
 
 /**
@@ -691,26 +670,8 @@ void _basic_string_append_elem(basic_string_t* pt_basic_string, size_t t_count, 
  */
 void _basic_string_append_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 {
-    assert(pt_basic_string != NULL);
-    assert(_basic_string_is_inited(pt_basic_string));
-    assert(t_count <= basic_string_max_size(pt_basic_string));
     assert(t_count + basic_string_size(pt_basic_string) <= basic_string_max_size(pt_basic_string));
-
-    if (t_count > 0) {
-        size_t   t_size = basic_string_size(pt_basic_string);
-        size_t   t_len = t_count + t_size;
-        size_t   t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-        _byte_t* pby_dest = NULL;
-
-        if (t_len > basic_string_capacity(pt_basic_string) || _basic_string_is_shared(pt_basic_string)) {
-            basic_string_reserve(pt_basic_string, t_len);
-        }
-        pby_dest = pt_basic_string->_pby_string + t_size * t_typesize;
-        _basic_string_init_elem_range_auxiliary(pt_basic_string, pby_dest, t_count);
-        _basic_string_copy_elem_auxiliary(pt_basic_string, pby_dest, t_count, val_elemlist);
-        _basic_string_rep_set_length(
-            _basic_string_rep_get_representation(pt_basic_string->_pby_string), t_len);
-    }
+    _basic_string_replace_elem_varg(pt_basic_string, basic_string_size(pt_basic_string), 0, t_count, val_elemlist);
 }
 
 /**
@@ -718,7 +679,6 @@ void _basic_string_append_elem_varg(basic_string_t* pt_basic_string, size_t t_co
  */
 basic_string_iterator_t _basic_string_insert(basic_string_t* pt_basic_string, basic_string_iterator_t it_pos, ...)
 {
-    /* comment for 2.2
     basic_string_iterator_t it_iter;
     va_list val_elemlist;
 
@@ -727,7 +687,6 @@ basic_string_iterator_t _basic_string_insert(basic_string_t* pt_basic_string, ba
     va_end(val_elemlist);
 
     return it_iter;
-    */
 }
 
 /**
@@ -736,7 +695,6 @@ basic_string_iterator_t _basic_string_insert(basic_string_t* pt_basic_string, ba
 basic_string_iterator_t _basic_string_insert_n(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_pos, size_t t_count, ...)
 {
-    /* comment for 2.2
     basic_string_iterator_t it_iter;
     va_list val_elemlist;
 
@@ -745,7 +703,6 @@ basic_string_iterator_t _basic_string_insert_n(
     va_end(val_elemlist);
 
     return it_iter;
-    */
 }
 
 /**
@@ -754,16 +711,9 @@ basic_string_iterator_t _basic_string_insert_n(
 basic_string_iterator_t _basic_string_insert_n_varg(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_pos, size_t t_count, va_list val_elemlist)
 {
-    /* comment for 2.2
-    basic_string_iterator_t it_iter;
-    assert(pt_basic_string != NULL);
-
-    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
-    it_iter = _vector_insert_n_varg(&pt_basic_string->_vec_base, it_pos, t_count, val_elemlist);
-    _BASIC_STRING_ITERATOR_CONTAINER_TYPE(it_iter) = _BASIC_STRING_CONTAINER;
-
-    return it_iter;
-    */
+    int n_len = iterator_distance(basic_string_begin(pt_basic_string), it_pos);
+    _basic_string_range_replace_elem_varg(pt_basic_string, it_pos, it_pos, t_count, val_elemlist);
+    return iterator_next_n(basic_string_begin(pt_basic_string), n_len);
 }
 
 /**
@@ -771,13 +721,11 @@ basic_string_iterator_t _basic_string_insert_n_varg(
  */
 void _basic_string_insert_elem(basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, ...)
 {
-    /* comment for 2.2
     va_list val_elemlist;
 
     va_start(val_elemlist, t_count);
     _basic_string_insert_elem_varg(pt_basic_string, t_pos, t_count, val_elemlist);
     va_end(val_elemlist);
-    */
 }
 
 /**
@@ -785,31 +733,19 @@ void _basic_string_insert_elem(basic_string_t* pt_basic_string, size_t t_pos, si
  */
 void _basic_string_insert_elem_varg(basic_string_t* pt_basic_string, size_t t_pos, size_t t_count, va_list val_elemlist)
 {
-    /* comment for 2.2
-    basic_string_iterator_t it_pos;
-
-    assert(pt_basic_string != NULL);
-    assert(t_pos <= basic_string_size(pt_basic_string));
-
-    it_pos = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
-    _VECTOR_ITERATOR_CONTAINER_TYPE(it_pos) = _VECTOR_CONTAINER;
-    _vector_insert_n_varg(&pt_basic_string->_vec_base, it_pos, t_count, val_elemlist);
-    */
+    _basic_string_replace_elem_varg(pt_basic_string, t_pos, 0, t_count, val_elemlist);
 }
-
 
 /**
  * Replace elements at specificed posititon.
  */
 void _basic_string_replace_elem(basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, ...)
 {
-    /* comment for 2.2
     va_list val_elemlist;
 
     va_start(val_elemlist, t_count);
     _basic_string_replace_elem_varg(pt_basic_string, t_pos, t_len, t_count, val_elemlist);
     va_end(val_elemlist);
-    */
 }
 
 /**
@@ -818,35 +754,43 @@ void _basic_string_replace_elem(basic_string_t* pt_basic_string, size_t t_pos, s
 void _basic_string_replace_elem_varg(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_count, va_list val_elemlist)
 {
-    /* comment for 2.2
-    basic_string_iterator_t it_begin;
-    basic_string_iterator_t it_end;
+    size_t   t_size = 0;
+    size_t   t_newsize = 0;
+    size_t   t_typesize = 0;
+    _byte_t* pby_dest = NULL;
+    _byte_t* pby_src = NULL;
 
+    assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string));
     assert(t_pos <= basic_string_size(pt_basic_string));
+    assert(t_count <= basic_string_max_size(pt_basic_string));
 
-    it_begin = iterator_next_n(basic_string_begin(pt_basic_string), t_pos);
-    if (t_len == NPOS || t_pos + t_len >= basic_string_size(pt_basic_string)) {
-        it_end = basic_string_end(pt_basic_string);
-    } else {
-        it_end = iterator_next_n(basic_string_begin(pt_basic_string), t_pos + t_len);
+    if (t_len == NPOS || t_len + t_pos >= basic_string_size(pt_basic_string)) {
+        t_len = basic_string_size(pt_basic_string) - t_pos;
     }
-    _basic_string_range_replace_elem_varg(pt_basic_string, it_begin, it_end, t_count, val_elemlist);
-    */
+
+    _basic_string_replace_preparation(pt_basic_string, t_pos, t_len, t_count);
+
+    /* copy elements in replace range */
+    t_size = basic_string_size(pt_basic_string);
+    t_newsize = t_size + t_count - t_len;
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    pby_dest = pt_basic_string->_pby_string + t_pos * t_typesize;
+    _basic_string_copy_elem_auxiliary(pt_basic_string, pby_dest, t_count, val_elemlist);
 }
 
 /**
  * Replace elements at specificed posititon.
  */
 void _basic_string_range_replace_elem(
-    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end, size_t t_count, ...)
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end,
+    size_t t_count, ...)
 {
-    /* comment for 2.2
     va_list val_elemlist;
 
     va_start(val_elemlist, t_count);
     _basic_string_range_replace_elem_varg(pt_basic_string, it_begin, it_end, t_count, val_elemlist);
     va_end(val_elemlist);
-    */
 }
 
 /**
@@ -856,10 +800,15 @@ void _basic_string_range_replace_elem_varg(
     basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end,
     size_t t_count, va_list val_elemlist)
 {
-    /* comment for 2.2
-    basic_string_iterator_t it_pos = basic_string_erase_range(pt_basic_string, it_begin, it_end);
-    _basic_string_insert_n_varg(pt_basic_string, it_pos, t_count, val_elemlist);
-    */
+    assert(pt_basic_string != NULL);
+    assert(_basic_string_is_inited(pt_basic_string));
+    assert(_basic_string_iterator_belong_to_basic_string(pt_basic_string, it_begin));
+    assert(_basic_string_iterator_belong_to_basic_string(pt_basic_string, it_end));
+    assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
+
+    _basic_string_replace_elem_varg(
+        pt_basic_string, iterator_distance(basic_string_begin(pt_basic_string), it_begin),
+        iterator_distance(it_begin, it_end), t_count, val_elemlist);
 }
 
 /**

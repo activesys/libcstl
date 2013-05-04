@@ -273,6 +273,7 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_equal(void** state);
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_greater(void** state);
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__replace_all(void** state);
+void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__shared(void** state);
 /*
  * test _basic_string_replace_elem and _basic_string_replace_elem_varg
  */
@@ -294,6 +295,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replac
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_equal(void** state);
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_greater(void** state);
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all(void** state);
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__shared(void** state);
 /*
  * test _basic_string_init_elem_auxiliary
  */
@@ -521,7 +523,80 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully_1000_resize_2000),\
     UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__successfully_1000_resize_2000_multiple),\
     UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__shared_append),\
-    UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__shared_erase)/*,\
+    UT_CASE(test__basic_string_resize_elem__basic_string_resize_elem_varg__shared_erase),\
+    UT_CASE_BEGIN(_basic_string_replace_elem__basic_string_replace_elem_varg,\
+        test__basic_string_replace_elem__basic_string_replace_elem_varg__null_container),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__non_inited_container),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_non_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_less),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_equal),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_greater),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_less),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_equal),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_greater),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_empty),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_less),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_equal),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_greater),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all),\
+    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__shared),\
+    UT_CASE_BEGIN(_basic_string_range_replace_elem__basic_string_range_replace_elem_varg,\
+        test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__null_container),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__non_inited_container),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__invalid_range),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__empty_replace_empty),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__empty_replace_non_empty),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_empty),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_less),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_equal),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_greater),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_empty),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_less),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_equal),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_greater),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_empty),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_less),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_equal),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_greater),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__replace_all),\
+    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__shared),\
+    UT_CASE_BEGIN(_basic_string_insert_elem__basic_string_insert_elem_varg,\
+        test__basic_string_insert_elem__basic_string_insert_elem_varg__null_basic_string_container),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__non_inited),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__invalid_position),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__empty_insert_0),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__empty_insert_10),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__empty_insert_1000),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert_0),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert_10),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert_1000),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_insert_0),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_insert_10),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_insert_1000),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_0),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_10),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_1000),\
+    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_1000_multiple),\
+    UT_CASE_BEGIN(_basic_string_insert_n__basic_string_insert_n_varg,\
+        test__basic_string_insert_n__basic_string_insert_n_varg__null_basic_string_container),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__non_inited),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__invalid_position),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__empty_insert_0),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__empty_insert_10),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__empty_insert_1000),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_0),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_10),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_1000),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_0),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_10),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_1000),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_0),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_10),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000),\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000_multiple)/*,\
     UT_CASE_BEGIN(_basic_string_find_elem__basic_string_find_elem_varg,\
         test__basic_string_find_elem__basic_string_find_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__non_init_basic_string_container),\
@@ -594,77 +669,6 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_middle),\
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_back),\
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_middle_pos),\
-    UT_CASE_BEGIN(_basic_string_insert_n__basic_string_insert_n_varg,\
-        test__basic_string_insert_n__basic_string_insert_n_varg__null_basic_string_container),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__non_inited),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__invalid_position),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__empty_insert_0),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__empty_insert_10),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__empty_insert_1000),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_0),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_10),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_1000),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_0),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_10),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_1000),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_0),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_10),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000_multiple),\
-    UT_CASE_BEGIN(_basic_string_insert_elem__basic_string_insert_elem_varg,\
-        test__basic_string_insert_elem__basic_string_insert_elem_varg__null_basic_string_container),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__non_inited),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__invalid_position),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__empty_insert_0),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__empty_insert_10),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__empty_insert_1000),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert_0),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert_10),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert_1000),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_insert_0),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_insert_10),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_insert_1000),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_0),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_10),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_1000),\
-    UT_CASE(test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_1000_multiple),\
-    UT_CASE_BEGIN(_basic_string_range_replace_elem__basic_string_range_replace_elem_varg,\
-        test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__null_container),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__non_inited_container),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__invalid_range),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__empty_replace_empty),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__empty_replace_non_empty),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_empty),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_less),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_equal),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__begin_replace_greater),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_empty),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_less),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_equal),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__middle_replace_greater),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_empty),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_less),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_equal),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__end_replace_greater),\
-    UT_CASE(test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__replace_all),\
-    UT_CASE_BEGIN(_basic_string_replace_elem__basic_string_replace_elem_varg,\
-        test__basic_string_replace_elem__basic_string_replace_elem_varg__null_container),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__non_inited_container),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_empty),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_non_empty),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_empty),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_less),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_equal),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__begin_replace_greater),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_empty),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_less),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_equal),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_replace_greater),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_empty),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_less),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_equal),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__end_replace_greater),\
-    UT_CASE(test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_all)
 */
 
 #endif /* _UT_CSTL_BASIC_STRING_PRIVATE_H_ */

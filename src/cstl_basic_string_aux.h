@@ -163,19 +163,6 @@ extern bool_t _basic_string_is_shared(const basic_string_t* cpt_basic_string);
 extern _basic_string_rep_t* _basic_string_clone_representation(const basic_string_t* cpt_basic_string, size_t t_addsize);
 
 /**
- * Reset the size of basic_string elements.
- * @param pt_basic_string   basic_string container.
- * @param t_resize          new size of basic_string elements.
- * @param b_copy            copy or not.
- * @return void.
- * @remarks if pt_basic_string == NULL or basic_string is uninitialized, then the behavior is undefined. the type of specificed
- *          element and basic_string element type must be same, otherwise the behavior is undefined. the first specificed is
- *          in use, others are not in use. if t_resize less than current basic_string size, then erase elmement from the end.
- *          if t_resize greater than current basic_string size, then append elements to the end.
- */
-extern void _basic_string_resize_auxiliary(basic_string_t* pt_basic_string, size_t t_resize, bool_t b_copy);
-
-/**
  * Copy elements from source.
  * @param cpt_basic_string  basic_string container.
  * @param pby_dest          destination pointer.
@@ -193,6 +180,8 @@ extern void _basic_string_copy_range_auxiliary(
     const basic_string_t* cpt_basic_string, _byte_t* pby_dest, iterator_t it_begin, iterator_t it_end);
 extern void _basic_string_copy_elem_auxiliary(
     const basic_string_t* cpt_basic_string, _byte_t* pby_dest, size_t t_count, va_list val_elemlist);
+extern void _basic_string_copy_substring_backward_auxiliary(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_dest, _byte_t* pby_src, size_t t_len);
 
 /**
  * Destroy elements in substring.
@@ -204,6 +193,18 @@ extern void _basic_string_copy_elem_auxiliary(
  */
 extern void _basic_string_destroy_elem_range_auxiliary(
     const basic_string_t* cpt_basic_string, _byte_t* pby_del, size_t t_len);
+
+/**
+ * Preparation for replace.
+ * @param pt_basic_string   basic string container.
+ * @param t_pos             position.
+ * @param t_len             length.
+ * @param t_replacelen      replace length.
+ * @return void.
+ * @remarks pt_basic_string must be not NULL.
+ */
+extern void _basic_string_replace_preparation(
+    basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_replacelen);
 
 #ifdef __cplusplus
 }

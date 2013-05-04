@@ -2573,15 +2573,11 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__null_basic_string_
 
 void test__basic_string_insert_n__basic_string_insert_n_varg__non_inited(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
-    pt_basic_string->_vec_base._pby_start = (_byte_t*)0x78;
 
     expect_assert_failure(_basic_string_insert_n(pt_basic_string, basic_string_begin(pt_basic_string), 10, 100));
 
-    pt_basic_string->_vec_base._pby_start = NULL;
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__basic_string_insert_n__basic_string_insert_n_varg__invalid_position(void** state)
@@ -2629,7 +2625,7 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__empty_insert_10(vo
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 10, 100);
     assert_true(iterator_equal(it_iter, basic_string_begin(pt_basic_string)));
     assert_true(basic_string_size(pt_basic_string) == 10);
-    assert_true(basic_string_capacity(pt_basic_string) == 26);
+    assert_true(basic_string_capacity(pt_basic_string) == 10);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 100);
@@ -2652,7 +2648,7 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__empty_insert_1000(
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 1000, 100);
     assert_true(iterator_equal(it_iter, basic_string_begin(pt_basic_string)));
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 100);
@@ -2670,12 +2666,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_0(voi
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = basic_string_begin(pt_basic_string);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 0, 100);
     assert_true(iterator_equal(it_iter, basic_string_begin(pt_basic_string)));
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -2693,12 +2689,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_10(vo
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = basic_string_begin(pt_basic_string);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 10, 100);
     assert_true(iterator_equal(it_iter, basic_string_begin(pt_basic_string)));
     assert_true(basic_string_size(pt_basic_string) == 1010);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 10)
@@ -2723,12 +2719,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__begin_insert_1000(
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = basic_string_begin(pt_basic_string);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 1000, 100);
     assert_true(iterator_equal(it_iter, basic_string_begin(pt_basic_string)));
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 1000)
@@ -2753,12 +2749,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_0(vo
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = iterator_next_n(basic_string_begin(pt_basic_string), 300);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 0, 100);
     assert_true(iterator_equal(it_iter, iterator_next_n(basic_string_begin(pt_basic_string), 300)));
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -2776,12 +2772,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_10(v
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = iterator_next_n(basic_string_begin(pt_basic_string), 300);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 10, 100);
     assert_true(iterator_equal(it_iter, iterator_next_n(basic_string_begin(pt_basic_string), 300)));
     assert_true(basic_string_size(pt_basic_string) == 1010);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 300 && i < 310)
@@ -2806,12 +2802,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__middle_insert_1000
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = iterator_next_n(basic_string_begin(pt_basic_string), 300);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 1000, 100);
     assert_true(iterator_equal(it_iter, iterator_next_n(basic_string_begin(pt_basic_string), 300)));
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 300 && i < 1300)
@@ -2836,12 +2832,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_0(void*
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = basic_string_end(pt_basic_string);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 0, 100);
     assert_true(iterator_equal(it_iter, basic_string_end(pt_basic_string)));
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -2859,12 +2855,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_10(void
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = basic_string_end(pt_basic_string);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 10, 100);
     assert_true(iterator_equal(it_iter, iterator_next_n(basic_string_begin(pt_basic_string), 1000)));
     assert_true(basic_string_size(pt_basic_string) == 1010);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 1000)
@@ -2889,12 +2885,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000(vo
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = basic_string_end(pt_basic_string);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 1000, 100);
     assert_true(iterator_equal(it_iter, iterator_next_n(basic_string_begin(pt_basic_string), 1000)));
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 1000)
@@ -2919,12 +2915,12 @@ void test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000_mu
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     it_pos = basic_string_end(pt_basic_string);
     it_iter = _basic_string_insert_n(pt_basic_string, it_pos, 1000, 100, 200, 300, 400, 500);
     assert_true(iterator_equal(it_iter, iterator_next_n(basic_string_begin(pt_basic_string), 1000)));
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 1000)
@@ -2956,15 +2952,11 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__null_basic_s
 
 void test__basic_string_insert_elem__basic_string_insert_elem_varg__non_inited(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
-    pt_basic_string->_vec_base._pby_start = (_byte_t*)0x78;
 
     expect_assert_failure(_basic_string_insert_elem(pt_basic_string, 0, 10, 100));
 
-    pt_basic_string->_vec_base._pby_start = NULL;
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__basic_string_insert_elem__basic_string_insert_elem_varg__invalid_position(void** state)
@@ -3001,7 +2993,7 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__empty_insert
     assert_true(basic_string_capacity(pt_basic_string) == 0);
     _basic_string_insert_elem(pt_basic_string, 0, 10, 100);
     assert_true(basic_string_size(pt_basic_string) == 10);
-    assert_true(basic_string_capacity(pt_basic_string) == 26);
+    assert_true(basic_string_capacity(pt_basic_string) == 10);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 100);
@@ -3020,7 +3012,7 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__empty_insert
     assert_true(basic_string_capacity(pt_basic_string) == 0);
     _basic_string_insert_elem(pt_basic_string, 0, 1000, 100);
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 100);
@@ -3036,10 +3028,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 0, 0, 100);
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -3055,10 +3047,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 0, 10, 100);
     assert_true(basic_string_size(pt_basic_string) == 1010);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 10)
@@ -3081,10 +3073,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__begin_insert
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 0, 1000, 100);
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 1000)
@@ -3107,10 +3099,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_inser
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 300, 0, 100);
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -3126,10 +3118,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_inser
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 300, 10, 100);
     assert_true(basic_string_size(pt_basic_string) == 1010);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 300 && i < 310)
@@ -3152,10 +3144,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__middle_inser
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 300, 1000, 100);
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 300 && i < 1300)
@@ -3178,10 +3170,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_0
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 1000, 0, 100);
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         assert_true(*(int*)basic_string_at(pt_basic_string, i) == 0);
@@ -3197,10 +3189,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_1
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 1000, 10, 100);
     assert_true(basic_string_size(pt_basic_string) == 1010);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 1000)
@@ -3223,10 +3215,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_1
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 1000, 1000, 100);
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 1000)
@@ -3249,10 +3241,10 @@ void test__basic_string_insert_elem__basic_string_insert_elem_varg__end_insert_1
     basic_string_init_elem(pt_basic_string, 1000, 0);
 
     assert_true(basic_string_size(pt_basic_string) == 1000);
-    assert_true(basic_string_capacity(pt_basic_string) == 1500);
+    assert_true(basic_string_capacity(pt_basic_string) == 1000);
     _basic_string_insert_elem(pt_basic_string, 1000, 1000, 100, 200, 300, 400, 500);
     assert_true(basic_string_size(pt_basic_string) == 2000);
-    assert_true(basic_string_capacity(pt_basic_string) == 3000);
+    assert_true(basic_string_capacity(pt_basic_string) == 2000);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i >= 1000)
@@ -3285,7 +3277,6 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__non_inited_container(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_iterator_t it_begin;
     basic_string_iterator_t it_end;
@@ -3294,12 +3285,11 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
     it_begin = basic_string_begin(pt_basic_string);
     it_end = basic_string_end(pt_basic_string);
 
-    pt_basic_string->_vec_base._t_typeinfo._t_style = 20000;
+    pt_basic_string->_t_typeinfo._t_style = 20000;
     expect_assert_failure(_basic_string_range_replace_elem(pt_basic_string, it_begin, it_end, 10, 1000));
-    pt_basic_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
+    pt_basic_string->_t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__invalid_range(void** state)
@@ -3679,6 +3669,23 @@ void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg
     basic_string_destroy(pt_basic_string);
 }
 
+void test__basic_string_range_replace_elem__basic_string_range_replace_elem_varg__shared(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+
+    basic_string_init_elem(pbstr1, 10, 111);
+    basic_string_init_copy(pbstr2, pbstr1);
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    basic_string_range_replace_elem(pbstr1, basic_string_begin(pbstr1), iterator_next_n(basic_string_begin(pbstr1), 5), 3, 0);
+    assert_true(pbstr1->_pby_string != pbstr2->_pby_string);
+    assert_true(basic_string_size(pbstr1) == 8);
+    assert_true(basic_string_capacity(pbstr1) == 10);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+
 /*
  * test _basic_string_replace_elem and _basic_string_replace_elem_varg
  */
@@ -3690,15 +3697,11 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__null_conta
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__non_inited_container(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
 
-    pt_basic_string->_vec_base._t_typeinfo._t_style = 9999;
     expect_assert_failure(_basic_string_replace_elem(pt_basic_string, 0, 0, 0, 0));
-    pt_basic_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
 
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__basic_string_replace_elem__basic_string_replace_elem_varg__empty_replace_empty(void** state)
@@ -3818,6 +3821,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_rep
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
+    basic_string_reserve(pt_basic_string, 100);
 
     _basic_string_replace_elem(pt_basic_string, 1, 3, 0, 1000);
     assert_true(basic_string_size(pt_basic_string) == 7);
@@ -3831,6 +3835,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_rep
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
+    basic_string_reserve(pt_basic_string, 100);
 
     _basic_string_replace_elem(pt_basic_string, 1, 3, 1, 8000);
     assert_true(basic_string_size(pt_basic_string) == 8);
@@ -3855,6 +3860,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_rep
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
+    basic_string_reserve(pt_basic_string, 100);
 
     _basic_string_replace_elem(pt_basic_string, 1, 3, 3, 8000);
     assert_true(basic_string_size(pt_basic_string) == 10);
@@ -3879,6 +3885,7 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__middle_rep
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 1000);
+    basic_string_reserve(pt_basic_string, 100);
 
     _basic_string_replace_elem(pt_basic_string, 1, 3, 8, 8000);
     assert_true(basic_string_size(pt_basic_string) == 15);
@@ -3996,6 +4003,23 @@ void test__basic_string_replace_elem__basic_string_replace_elem_varg__replace_al
     }
 
     basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_replace_elem__basic_string_replace_elem_varg__shared(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+
+    basic_string_init_elem(pbstr1, 10, 111);
+    basic_string_init_copy(pbstr2, pbstr1);
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    basic_string_replace_elem(pbstr1, 0, 5, 3, 0);
+    assert_true(pbstr1->_pby_string != pbstr2->_pby_string);
+    assert_true(basic_string_size(pbstr1) == 8);
+    assert_true(basic_string_capacity(pbstr1) == 8);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
 }
 
 /*
