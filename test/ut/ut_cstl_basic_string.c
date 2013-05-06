@@ -13539,7 +13539,8 @@ void test_basic_string_find_subcstr__invalid_pos(void** state)
     int elems[] = {1, 2, 0};
 
     basic_string_init_elem(pt_basic_string, 10, 100);
-    expect_assert_failure(basic_string_find_subcstr(pt_basic_string, elems, 100, 2));
+    /* pos > size, = NPOS */
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 100, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -13555,6 +13556,7 @@ void test_basic_string_find_subcstr__c_builtin_begin_empty(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos = 0, n = 0 = 0 */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 0, 0) == 0);
 
     basic_string_destroy(pt_basic_string);
@@ -13571,6 +13573,7 @@ void test_basic_string_find_subcstr__c_builtin_begin_length_0(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos = 0, n = 0 = 0 */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 0, 0) == 0);
 
     basic_string_destroy(pt_basic_string);
@@ -13587,6 +13590,7 @@ void test_basic_string_find_subcstr__c_builtin_begin_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos = 0, n < size = findpos */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 0, 1) == 3);
 
     basic_string_destroy(pt_basic_string);
@@ -13603,7 +13607,42 @@ void test_basic_string_find_subcstr__c_builtin_begin_not_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos = 0, n < size = findpos */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 0, 4) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_subcstr__c_builtin_begin_equal_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = 0, n = size = findpos */
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 0, 10) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_subcstr__c_builtin_begin_greater_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = 0, n > size = NPOS */
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 0, 12) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -13619,6 +13658,7 @@ void test_basic_string_find_subcstr__c_builtin_middle_empty(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n = 0 = pos */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 5, 0) == 5);
 
     basic_string_destroy(pt_basic_string);
@@ -13635,6 +13675,7 @@ void test_basic_string_find_subcstr__c_builtin_middle_length_0(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n = 0 = pos */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 2, 0) == 2);
 
     basic_string_destroy(pt_basic_string);
@@ -13651,6 +13692,7 @@ void test_basic_string_find_subcstr__c_builtin_middle_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n < size = findpos */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 2, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
@@ -13667,6 +13709,7 @@ void test_basic_string_find_subcstr__c_builtin_middle_not_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n < size = findpos */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 4, 1) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -13683,7 +13726,76 @@ void test_basic_string_find_subcstr__c_builtin_middle_not_find_pos(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n < size = findpos */
     assert_true(basic_string_find_subcstr(pt_basic_string, elems, 5, 2) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_subcstr__c_builtin_middle_equal_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {5, 6, 7, 8, 9};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos < size, n = size = findpos */
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 5, 5) == 5);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_subcstr__c_builtin_middle_great_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {5, 6, 7, 8, 9, 10};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos < size, n > size = findpos */
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 5, 6) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_subcstr__c_builtin_end_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {3, 4, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = size, n = 0 = size */
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 10, 0) == 10);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_subcstr__c_builtin_end_non_empty(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {3, 4, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = size, n > 0 = NPOS */
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 10, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }

@@ -733,10 +733,9 @@ size_t basic_string_find_subcstr(
     assert(cpt_basic_string != NULL);
     assert(_basic_string_is_inited(cpt_basic_string));
     assert(cpv_value_string != NULL);
-    assert(t_pos < basic_string_size(cpt_basic_string));
 
     if (t_len == 0) {
-        return t_pos;
+        return t_pos <= basic_string_size(cpt_basic_string) ? t_pos : NPOS;
     }
 
     if (t_len <= basic_string_size(cpt_basic_string)) {

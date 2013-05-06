@@ -1091,11 +1091,17 @@ void test_basic_string_find_subcstr__c_builtin_begin_empty(void** state);
 void test_basic_string_find_subcstr__c_builtin_begin_length_0(void** state);
 void test_basic_string_find_subcstr__c_builtin_begin_find(void** state);
 void test_basic_string_find_subcstr__c_builtin_begin_not_find(void** state);
+void test_basic_string_find_subcstr__c_builtin_begin_equal_size(void** state);
+void test_basic_string_find_subcstr__c_builtin_begin_greater_size(void** state);
 void test_basic_string_find_subcstr__c_builtin_middle_empty(void** state);
 void test_basic_string_find_subcstr__c_builtin_middle_length_0(void** state);
 void test_basic_string_find_subcstr__c_builtin_middle_find(void** state);
 void test_basic_string_find_subcstr__c_builtin_middle_not_find(void** state);
 void test_basic_string_find_subcstr__c_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find_subcstr__c_builtin_middle_equal_size(void** state);
+void test_basic_string_find_subcstr__c_builtin_middle_great_size(void** state);
+void test_basic_string_find_subcstr__c_builtin_end_empty(void** state);
+void test_basic_string_find_subcstr__c_builtin_end_non_empty(void** state);
 void test_basic_string_find_subcstr__char_begin_empty(void** state);
 void test_basic_string_find_subcstr__char_begin_length_0(void** state);
 void test_basic_string_find_subcstr__char_begin_find(void** state);
@@ -4233,11 +4239,17 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_find_subcstr__c_builtin_begin_length_0),\
     UT_CASE(test_basic_string_find_subcstr__c_builtin_begin_find),\
     UT_CASE(test_basic_string_find_subcstr__c_builtin_begin_not_find),\
+    UT_CASE(test_basic_string_find_subcstr__c_builtin_begin_equal_size),\
+    UT_CASE(test_basic_string_find_subcstr__c_builtin_begin_greater_size),\
     UT_CASE(test_basic_string_find_subcstr__c_builtin_middle_empty),\
     UT_CASE(test_basic_string_find_subcstr__c_builtin_middle_length_0),\
     UT_CASE(test_basic_string_find_subcstr__c_builtin_middle_find),\
     UT_CASE(test_basic_string_find_subcstr__c_builtin_middle_not_find),\
     UT_CASE(test_basic_string_find_subcstr__c_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_subcstr__c_builtin_middle_equal_size),\
+    UT_CASE(test_basic_string_find_subcstr__c_builtin_middle_great_size),\
+    UT_CASE(test_basic_string_find_subcstr__c_builtin_end_empty),\
+    UT_CASE(test_basic_string_find_subcstr__c_builtin_end_non_empty),\
     UT_CASE(test_basic_string_find_subcstr__char_begin_empty),\
     UT_CASE(test_basic_string_find_subcstr__char_begin_length_0),\
     UT_CASE(test_basic_string_find_subcstr__char_begin_find),\
