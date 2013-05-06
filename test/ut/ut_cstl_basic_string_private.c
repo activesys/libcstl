@@ -555,15 +555,11 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__null_basic_strin
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__non_init_basic_string_container(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
 
-    pt_basic_string->_vec_base._t_typeinfo._t_style = 23423;
     expect_assert_failure(_basic_string_find_elem(pt_basic_string, 0, 111));
 
-    pt_basic_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__invalid_position(void** state)
@@ -687,16 +683,20 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__find_successful_
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failure(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
     assert_true(_basic_string_find_elem(pt_basic_string, 0, "9999") == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failure_middle_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 1, "9999");
@@ -709,10 +709,13 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failur
     assert_true(_basic_string_find_elem(pt_basic_string, 3, "9999") == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -725,10 +728,13 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
     assert_true(_basic_string_find_elem(pt_basic_string, 0, "97") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -741,10 +747,13 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
     assert_true(_basic_string_find_elem(pt_basic_string, 0, "97") == 2);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_back(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -756,10 +765,13 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
     assert_true(_basic_string_find_elem(pt_basic_string, 0, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -772,6 +784,23 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
     assert_true(_basic_string_find_elem(pt_basic_string, 3, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
+}
+
+void test__basic_string_find_elem__basic_string_find_elem_varg__shared(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+
+    basic_string_init_elem(pbstr1, 10, 111);
+    basic_string_init_copy(pbstr2, pbstr1);
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    assert_true(basic_string_find_elem(pbstr1, 111, 3) == 3);
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
 }
 
 /*
@@ -786,15 +815,11 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__null_basic_str
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__non_init_basic_string_container(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
 
-    pt_basic_string->_vec_base._t_typeinfo._t_style = 23423;
     expect_assert_failure(_basic_string_rfind_elem(pt_basic_string, 0, 111));
 
-    pt_basic_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__invalid_position(void** state)
@@ -919,16 +944,20 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successfu
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_failure(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
     assert_true(_basic_string_rfind_elem(pt_basic_string, NPOS, "9999") == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_failure_middle_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -942,10 +971,13 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_fail
     assert_true(_basic_string_rfind_elem(pt_basic_string, 3, "9999") == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -958,10 +990,13 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
     assert_true(_basic_string_rfind_elem(pt_basic_string, 0, "97") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -974,10 +1009,13 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
     assert_true(_basic_string_rfind_elem(pt_basic_string, 3, "97") == 2);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_back(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -989,10 +1027,13 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
     assert_true(_basic_string_rfind_elem(pt_basic_string, NPOS, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1005,6 +1046,23 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
     assert_true(_basic_string_rfind_elem(pt_basic_string, 4, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
+}
+
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__shared(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+
+    basic_string_init_elem(pbstr1, 10, 111);
+    basic_string_init_copy(pbstr2, pbstr1);
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+    assert_true(basic_string_rfind_elem(pbstr1, 111, 3) == 3);
+    assert_true(pbstr1->_pby_string == pbstr2->_pby_string);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
 }
 
 /*

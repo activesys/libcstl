@@ -63,6 +63,7 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle(void** state);
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_back(void** state);
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle_pos(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__shared(void** state);
 /*
  * test _basic_string_rfind_elem and _basic_string_rfind_elem_varg
  */
@@ -84,6 +85,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_back(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle_pos(void** state);
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__shared(void** state);
 /*
  * test _basic_string_find_first_not_of_elem and _basic_string_find_first_not_of_elem_varg
  */
@@ -596,7 +598,7 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_0),\
     UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_10),\
     UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000),\
-    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000_multiple)/*,\
+    UT_CASE(test__basic_string_insert_n__basic_string_insert_n_varg__end_insert_1000_multiple),\
     UT_CASE_BEGIN(_basic_string_find_elem__basic_string_find_elem_varg,\
         test__basic_string_find_elem__basic_string_find_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__non_init_basic_string_container),\
@@ -615,6 +617,7 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_back),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle_pos),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__shared),\
     UT_CASE_BEGIN(_basic_string_rfind_elem__basic_string_rfind_elem_varg,\
         test__basic_string_rfind_elem__basic_string_rfind_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__non_init_basic_string_container),\
@@ -633,6 +636,7 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_back),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle_pos),\
+    UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__shared)/*,\
     UT_CASE_BEGIN(_basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg,\
         test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__non_init_basic_string_container),\
