@@ -837,6 +837,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__invalid_positi
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 100);
+    /* pos = 0, = findpos */
     assert_true(_basic_string_rfind_elem(pt_basic_string, 0, 100) == 0);
 
     basic_string_destroy(pt_basic_string);
@@ -847,6 +848,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__invalid_positi
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 100);
+    /* pos > size, = findpos */
     assert_true(_basic_string_rfind_elem(pt_basic_string, NPOS, 100) == 9);
 
     basic_string_destroy(pt_basic_string);
@@ -857,6 +859,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_failure(v
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init_elem(pt_basic_string, 10, 100);
+    /* pos > size, = findpos */
     assert_true(_basic_string_rfind_elem(pt_basic_string, NPOS, 9999) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -874,6 +877,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_failure_m
     basic_string_push_back(pt_basic_string, 100);
     basic_string_push_back(pt_basic_string, 100);
     basic_string_push_back(pt_basic_string, 9999);
+    /* pos < size, = findpos */
     assert_true(_basic_string_rfind_elem(pt_basic_string, 3, 9999) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -890,6 +894,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successfu
     basic_string_push_back(pt_basic_string, -3);
     basic_string_push_back(pt_basic_string, 97);
     basic_string_push_back(pt_basic_string, 700);
+    /* pos = 0, = findpos */
     assert_true(_basic_string_rfind_elem(pt_basic_string, 0, 97) == 0);
 
     basic_string_destroy(pt_basic_string);
@@ -906,6 +911,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successfu
     basic_string_push_back(pt_basic_string, -3);
     basic_string_push_back(pt_basic_string, 97);
     basic_string_push_back(pt_basic_string, 700);
+    /* pos < size, = findpos */
     assert_true(_basic_string_rfind_elem(pt_basic_string, 3, 97) == 2);
 
     basic_string_destroy(pt_basic_string);
@@ -921,6 +927,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successfu
     basic_string_push_back(pt_basic_string, 7);
     basic_string_push_back(pt_basic_string, -3);
     basic_string_push_back(pt_basic_string, 97);
+    /* pos > size, = findpos */
     assert_true(_basic_string_rfind_elem(pt_basic_string, 100, 97) == 4);
 
     basic_string_destroy(pt_basic_string);
@@ -937,7 +944,25 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successfu
     basic_string_push_back(pt_basic_string, -3);
     basic_string_push_back(pt_basic_string, 97);
     basic_string_push_back(pt_basic_string, 700);
+    /* pos < size, = findpos */
     assert_true(_basic_string_rfind_elem(pt_basic_string, 4, 97) == 4);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__pos_eq_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+
+    basic_string_init(pt_basic_string);
+    basic_string_push_back(pt_basic_string, 47);
+    basic_string_push_back(pt_basic_string, 400);
+    basic_string_push_back(pt_basic_string, 97);
+    basic_string_push_back(pt_basic_string, -3);
+    basic_string_push_back(pt_basic_string, 97);
+    basic_string_push_back(pt_basic_string, 700);
+    /* pos = size, = findpos */
+    assert_true(_basic_string_rfind_elem(pt_basic_string, basic_string_size(pt_basic_string), 97) == 4);
 
     basic_string_destroy(pt_basic_string);
 }

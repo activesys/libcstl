@@ -12016,7 +12016,7 @@ void test_basic_string_find__invalid_pos(void** state)
 
     basic_string_init_elem(pt_basic_string, 10, 100);
     basic_string_init(pt_find);
-    expect_assert_failure(basic_string_find(pt_basic_string, pt_find, 100));
+    assert_true(basic_string_find(pt_basic_string, pt_find, 100) == NPOS);
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
@@ -12054,6 +12054,7 @@ void test_basic_string_find__c_builtin_begin_empty(void** state)
         basic_string_push_back(pt_basic_string, i);
     }
     basic_string_init(pt_find);
+    /* pos = 0, n = 0, = 0 */
     assert_true(basic_string_find(pt_basic_string, pt_find, 0) == 0);
 
     basic_string_destroy(pt_basic_string);
@@ -12074,6 +12075,7 @@ void test_basic_string_find__c_builtin_begin_find(void** state)
     basic_string_init(pt_find);
     basic_string_push_back(pt_find, 3);
     basic_string_push_back(pt_find, 4);
+    /* pos = 0, n != 0, = findpos */
     assert_true(basic_string_find(pt_basic_string, pt_find, 0) == 3);
 
     basic_string_destroy(pt_basic_string);
@@ -12094,6 +12096,7 @@ void test_basic_string_find__c_builtin_begin_not_find(void** state)
     basic_string_init(pt_find);
     basic_string_push_back(pt_find, 13);
     basic_string_push_back(pt_find, 14);
+    /* pos = 0, n != 0, = findpos */
     assert_true(basic_string_find(pt_basic_string, pt_find, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -12112,6 +12115,7 @@ void test_basic_string_find__c_builtin_middle_empty(void** state)
         basic_string_push_back(pt_basic_string, i);
     }
     basic_string_init(pt_find);
+    /* pos < size, n = 0, = pos */
     assert_true(basic_string_find(pt_basic_string, pt_find, 5) == 5);
 
     basic_string_destroy(pt_basic_string);
@@ -12132,6 +12136,7 @@ void test_basic_string_find__c_builtin_middle_find(void** state)
     basic_string_init(pt_find);
     basic_string_push_back(pt_find, 3);
     basic_string_push_back(pt_find, 4);
+    /* pos < size, n != 0, = findpos */
     assert_true(basic_string_find(pt_basic_string, pt_find, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
@@ -12152,6 +12157,7 @@ void test_basic_string_find__c_builtin_middle_not_find(void** state)
     basic_string_init(pt_find);
     basic_string_push_back(pt_find, 13);
     basic_string_push_back(pt_find, 14);
+    /* pos < size, n != 0, = findpos */
     assert_true(basic_string_find(pt_basic_string, pt_find, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -12172,7 +12178,92 @@ void test_basic_string_find__c_builtin_middle_not_find_pos(void** state)
     basic_string_init(pt_find);
     basic_string_push_back(pt_find, 3);
     basic_string_push_back(pt_find, 4);
+    /* pos < size, n != 0, = findpos */
     assert_true(basic_string_find(pt_basic_string, pt_find, 5) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+    basic_string_destroy(pt_find);
+}
+
+void test_basic_string_find__c_builtin_pos_eq_size_n_eq_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_t* pt_find = create_basic_string(int);
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    basic_string_init(pt_find);
+    /*basic_string_push_back(pt_find, 3);*/
+    /*basic_string_push_back(pt_find, 4);*/
+    /* pos = size, n = 0, = pos */
+    assert_true(basic_string_find(pt_basic_string, pt_find, basic_string_size(pt_basic_string)) == basic_string_size(pt_basic_string));
+
+    basic_string_destroy(pt_basic_string);
+    basic_string_destroy(pt_find);
+}
+
+void test_basic_string_find__c_builtin_pos_eq_size_n_ne_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_t* pt_find = create_basic_string(int);
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    basic_string_init(pt_find);
+    basic_string_push_back(pt_find, 3);
+    basic_string_push_back(pt_find, 4);
+    /* pos = size, n != 0, = pos */
+    assert_true(basic_string_find(pt_basic_string, pt_find, basic_string_size(pt_basic_string)) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+    basic_string_destroy(pt_find);
+}
+
+void test_basic_string_find__c_builtin_pos_gt_size_n_eq_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_t* pt_find = create_basic_string(int);
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    basic_string_init(pt_find);
+    /*basic_string_push_back(pt_find, 3);*/
+    /*basic_string_push_back(pt_find, 4);*/
+    /* pos > size, n = 0, = pos */
+    assert_true(basic_string_find(pt_basic_string, pt_find, basic_string_size(pt_basic_string)+1) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+    basic_string_destroy(pt_find);
+}
+
+void test_basic_string_find__c_builtin_pos_gt_size_n_ne_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    basic_string_t* pt_find = create_basic_string(int);
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    basic_string_init(pt_find);
+    basic_string_push_back(pt_find, 3);
+    basic_string_push_back(pt_find, 4);
+    /* pos > size, n = 0, = pos */
+    assert_true(basic_string_find(pt_basic_string, pt_find, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
@@ -12837,7 +12928,7 @@ void test_basic_string_find_cstr__invalid_pos(void** state)
     int elems[] = {1, 2, 0};
 
     basic_string_init_elem(pt_basic_string, 10, 100);
-    expect_assert_failure(basic_string_find_cstr(pt_basic_string, elems, 100));
+    assert_true(basic_string_find_cstr(pt_basic_string, elems, 100) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -12853,6 +12944,7 @@ void test_basic_string_find_cstr__c_builtin_begin_empty(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos = 0, n = 0, = 0 */
     assert_true(basic_string_find_cstr(pt_basic_string, elems, 0) == 0);
 
     basic_string_destroy(pt_basic_string);
@@ -12869,6 +12961,7 @@ void test_basic_string_find_cstr__c_builtin_begin_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos = 0, n != 0, = findpos */
     assert_true(basic_string_find_cstr(pt_basic_string, elems, 0) == 3);
 
     basic_string_destroy(pt_basic_string);
@@ -12885,6 +12978,7 @@ void test_basic_string_find_cstr__c_builtin_begin_not_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos = 0, n != 0, = findpos */
     assert_true(basic_string_find_cstr(pt_basic_string, elems, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -12901,6 +12995,7 @@ void test_basic_string_find_cstr__c_builtin_middle_empty(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n = 0, = pos */
     assert_true(basic_string_find_cstr(pt_basic_string, elems, 5) == 5);
 
     basic_string_destroy(pt_basic_string);
@@ -12917,6 +13012,7 @@ void test_basic_string_find_cstr__c_builtin_middle_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n != 0, = findpos */
     assert_true(basic_string_find_cstr(pt_basic_string, elems, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
@@ -12933,6 +13029,7 @@ void test_basic_string_find_cstr__c_builtin_middle_not_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n != 0, = findpos */
     assert_true(basic_string_find_cstr(pt_basic_string, elems, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -12949,7 +13046,76 @@ void test_basic_string_find_cstr__c_builtin_middle_not_find_pos(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n != 0, = findpos */
     assert_true(basic_string_find_cstr(pt_basic_string, elems, 5) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_cstr__c_builtin_pos_eq_size_n_eq_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = size, n = 0, = size */
+    assert_true(basic_string_find_cstr(pt_basic_string, elems, basic_string_size(pt_basic_string)) == basic_string_size(pt_basic_string));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_cstr__c_builtin_pos_eq_size_n_ne_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {3, 4, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = size, n != 0, = npos */
+    assert_true(basic_string_find_cstr(pt_basic_string, elems, basic_string_size(pt_basic_string)) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_cstr__c_builtin_pos_gt_size_n_eq_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos > size, n = 0, = npos */
+    assert_true(basic_string_find_cstr(pt_basic_string, elems, basic_string_size(pt_basic_string)+100) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_cstr__c_builtin_pos_gt_size_n_ne_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {3, 4, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos > size, n != 0, = npos */
+    assert_true(basic_string_find_cstr(pt_basic_string, elems, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -16591,7 +16757,8 @@ void test_basic_string_rfind_subcstr__c_builtin_empty_empty_0(void** state)
     int elems[] = {0};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 0) == NPOS);
+    /* pos = 0, n = 0, = pos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 0) == 0);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -16602,7 +16769,8 @@ void test_basic_string_rfind_subcstr__c_builtin_empty_empty_npos(void** state)
     int elems[] = {0};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 0) == NPOS);
+    /* pos > size, n = 0, = size */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 0) == basic_string_size(pt_basic_string));
 
     basic_string_destroy(pt_basic_string);
 }
@@ -16613,7 +16781,8 @@ void test_basic_string_rfind_subcstr__c_builtin_empty_non_empty_0_length_0(void*
     int elems[] = {1, 2, 3, 4, 5, 0};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 0) == NPOS);
+    /* pos = 0, n = 0, = pos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 0) == 0);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -16624,7 +16793,8 @@ void test_basic_string_rfind_subcstr__c_builtin_empty_non_empty_npos_length_0(vo
     int elems[] = {1, 2, 3, 4, 5, 0};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 0) == NPOS);
+    /* pos > size, n = 0, = size */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 0) == basic_string_size(pt_basic_string));
 
     basic_string_destroy(pt_basic_string);
 }
@@ -16635,6 +16805,7 @@ void test_basic_string_rfind_subcstr__c_builtin_empty_non_empty_0(void** state)
     int elems[] = {1, 2, 3, 4, 5, 0};
 
     basic_string_init(pt_basic_string);
+    /* pos = 0, n < size, = findpos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 3) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -16646,6 +16817,7 @@ void test_basic_string_rfind_subcstr__c_builtin_empty_non_empty_npos(void** stat
     int elems[] = {1, 2, 3, 4, 5, 0};
 
     basic_string_init(pt_basic_string);
+    /* pos = 0, n < size, = findpos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 5) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -16662,7 +16834,8 @@ void test_basic_string_rfind_subcstr__c_builtin_empty_npos(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
-    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 0) == 9);
+    /* pos > size, n = 0, = size */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 0) == basic_string_size(pt_basic_string));
 
     basic_string_destroy(pt_basic_string);
 }
@@ -16678,7 +16851,8 @@ void test_basic_string_rfind_subcstr__c_builtin_non_empty_npos_length_0(void** s
     {
         basic_string_push_back(pt_basic_string, i);
     }
-    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 0) == 9);
+    /* pos > size, n = 0, = size */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 0) == basic_string_size(pt_basic_string));
 
     basic_string_destroy(pt_basic_string);
 }
@@ -16694,6 +16868,7 @@ void test_basic_string_rfind_subcstr__c_builtin_find_npos(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos > size, n < size, = findpos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
@@ -16710,6 +16885,7 @@ void test_basic_string_rfind_subcstr__c_builtin_not_find_npos(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos > size, n < size, = findpos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -16726,6 +16902,7 @@ void test_basic_string_rfind_subcstr__c_builtin_middle_empty(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n = 0, = pos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 5, 0) == 5);
 
     basic_string_destroy(pt_basic_string);
@@ -16742,6 +16919,7 @@ void test_basic_string_rfind_subcstr__c_builtin_middle_empty_length_0(void** sta
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n = 0, = pos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 5, 0) == 5);
 
     basic_string_destroy(pt_basic_string);
@@ -16760,6 +16938,7 @@ void test_basic_string_rfind_subcstr__c_builtin_middle_find(void** state)
     }
     basic_string_push_back(pt_basic_string, 3);
     basic_string_push_back(pt_basic_string, 4);
+    /* pos < size, n < size, = findpos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 5, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
@@ -16776,6 +16955,7 @@ void test_basic_string_rfind_subcstr__c_builtin_middle_not_find(void** state)
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n < size, = findpos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 7, 4) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -16792,7 +16972,280 @@ void test_basic_string_rfind_subcstr__c_builtin_middle_not_find_pos(void** state
     {
         basic_string_push_back(pt_basic_string, i);
     }
+    /* pos < size, n < size, = findpos */
     assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 5, 2) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_eq_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {7, 8, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = 0, n = 0, = 0 */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 0) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_eq_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {7, 8, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos < size, n = 0, = pos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 4, 0) == 4);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_eq_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {7, 8, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = size, n = 0, = size */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, basic_string_size(pt_basic_string), 0) == basic_string_size(pt_basic_string));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_eq_0(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {7, 8, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos > size, n = 0, = size */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, basic_string_size(pt_basic_string)+100, 0) == basic_string_size(pt_basic_string));
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_lt_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {7, 8, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = 0, n < size, = findpos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 2) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_lt_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {7, 8, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos < size, n < size, = findpos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 8, 2) == 7);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_lt_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {7, 8, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = size, n < size, = findpos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, basic_string_size(pt_basic_string), 2) == 7);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_lt_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {7, 8, 0};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos > size, n < size, = findpos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, basic_string_size(pt_basic_string)+100, 2) == 7);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_eq_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = 0, n = size, = findpos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 10) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_eq_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos < size, n = size, = findpos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 8, 10) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_eq_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = size, n = size, = findpos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, basic_string_size(pt_basic_string), 10) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_eq_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos > size, n = size, = findpos */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, basic_string_size(pt_basic_string)+100, 10) == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_gt_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = 0, n > size, = NPOS */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 0, 11) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_gt_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos < size, n > size, = NPOS */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, 8, 11) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_gt_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos = size, n > size, = NPOS */
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, basic_string_size(pt_basic_string), 11) == NPOS);
+
+    basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_gt_size(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(int);
+    int elems[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    size_t i = 0;
+
+    basic_string_init(pt_basic_string);
+    for(i = 0; i < 10; ++i)
+    {
+        basic_string_push_back(pt_basic_string, i);
+    }
+    /* pos > size, n > size, =  NPOS*/
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, basic_string_size(pt_basic_string)+100, 11) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }

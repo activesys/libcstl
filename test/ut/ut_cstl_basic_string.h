@@ -1008,6 +1008,10 @@ void test_basic_string_find__c_builtin_middle_empty(void** state);
 void test_basic_string_find__c_builtin_middle_find(void** state);
 void test_basic_string_find__c_builtin_middle_not_find(void** state);
 void test_basic_string_find__c_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find__c_builtin_pos_eq_size_n_eq_0(void** state);
+void test_basic_string_find__c_builtin_pos_eq_size_n_ne_0(void** state);
+void test_basic_string_find__c_builtin_pos_gt_size_n_eq_0(void** state);
+void test_basic_string_find__c_builtin_pos_gt_size_n_ne_0(void** state);
 void test_basic_string_find__char_begin_empty(void** state);
 void test_basic_string_find__char_begin_find(void** state);
 void test_basic_string_find__char_begin_not_find(void** state);
@@ -1051,6 +1055,10 @@ void test_basic_string_find_cstr__c_builtin_middle_empty(void** state);
 void test_basic_string_find_cstr__c_builtin_middle_find(void** state);
 void test_basic_string_find_cstr__c_builtin_middle_not_find(void** state);
 void test_basic_string_find_cstr__c_builtin_middle_not_find_pos(void** state);
+void test_basic_string_find_cstr__c_builtin_pos_eq_size_n_eq_0(void** state);
+void test_basic_string_find_cstr__c_builtin_pos_eq_size_n_ne_0(void** state);
+void test_basic_string_find_cstr__c_builtin_pos_gt_size_n_eq_0(void** state);
+void test_basic_string_find_cstr__c_builtin_pos_gt_size_n_ne_0(void** state);
 void test_basic_string_find_cstr__char_begin_empty(void** state);
 void test_basic_string_find_cstr__char_begin_find(void** state);
 void test_basic_string_find_cstr__char_begin_not_find(void** state);
@@ -1349,6 +1357,22 @@ void test_basic_string_rfind_subcstr__user_define_middle_non_empty_length_0(void
 void test_basic_string_rfind_subcstr__user_define_middle_find(void** state);
 void test_basic_string_rfind_subcstr__user_define_middle_not_find(void** state);
 void test_basic_string_rfind_subcstr__user_define_middle_not_find_pos(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_eq_0(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_eq_0(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_eq_0(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_eq_0(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_lt_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_lt_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_lt_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_lt_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_eq_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_eq_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_eq_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_eq_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_gt_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_gt_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_gt_size(void** state);
+void test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_gt_size(void** state);
 /*
  * test basic_string_find_first_of
  */
@@ -4298,6 +4322,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_find_cstr__c_builtin_middle_find),\
     UT_CASE(test_basic_string_find_cstr__c_builtin_middle_not_find),\
     UT_CASE(test_basic_string_find_cstr__c_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find_cstr__c_builtin_pos_eq_size_n_eq_0),\
+    UT_CASE(test_basic_string_find_cstr__c_builtin_pos_eq_size_n_ne_0),\
+    UT_CASE(test_basic_string_find_cstr__c_builtin_pos_gt_size_n_eq_0),\
+    UT_CASE(test_basic_string_find_cstr__c_builtin_pos_gt_size_n_ne_0),\
     UT_CASE(test_basic_string_find_cstr__char_begin_empty),\
     UT_CASE(test_basic_string_find_cstr__char_begin_find),\
     UT_CASE(test_basic_string_find_cstr__char_begin_not_find),\
@@ -4341,6 +4369,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_find__c_builtin_middle_find),\
     UT_CASE(test_basic_string_find__c_builtin_middle_not_find),\
     UT_CASE(test_basic_string_find__c_builtin_middle_not_find_pos),\
+    UT_CASE(test_basic_string_find__c_builtin_pos_eq_size_n_eq_0),\
+    UT_CASE(test_basic_string_find__c_builtin_pos_eq_size_n_ne_0),\
+    UT_CASE(test_basic_string_find__c_builtin_pos_gt_size_n_eq_0),\
+    UT_CASE(test_basic_string_find__c_builtin_pos_gt_size_n_ne_0),\
     UT_CASE(test_basic_string_find__char_begin_empty),\
     UT_CASE(test_basic_string_find__char_begin_find),\
     UT_CASE(test_basic_string_find__char_begin_not_find),\
@@ -4447,6 +4479,22 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_rfind_subcstr__user_define_middle_find),\
     UT_CASE(test_basic_string_rfind_subcstr__user_define_middle_not_find),\
     UT_CASE(test_basic_string_rfind_subcstr__user_define_middle_not_find_pos),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_eq_0),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_eq_0),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_eq_0),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_eq_0),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_lt_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_lt_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_lt_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_lt_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_eq_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_eq_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_eq_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_eq_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_eq_0_n_gt_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_lt_size_n_gt_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_eq_size_n_gt_size),\
+    UT_CASE(test_basic_string_rfind_subcstr__c_builtin_pos_gt_size_n_gt_size),\
     UT_CASE_BEGIN(basic_string_rfind_cstr, test_basic_string_rfind_cstr__null_basic_string),\
     UT_CASE(test_basic_string_rfind_cstr__null_find),\
     UT_CASE(test_basic_string_rfind_cstr__non_inited_basic_string),\

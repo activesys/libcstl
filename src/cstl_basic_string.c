@@ -696,10 +696,9 @@ size_t basic_string_find(const basic_string_t* cpt_basic_string, const basic_str
     assert(cpt_find != NULL);
     assert(_basic_string_is_inited(cpt_find));
     assert(_basic_string_same_type(cpt_basic_string, cpt_find));
-    assert(t_pos < basic_string_size(cpt_basic_string));
 
     if (basic_string_empty(cpt_find)) {
-        return t_pos;
+        return t_pos <= basic_string_size(cpt_basic_string) ? t_pos : NPOS;
     }
 
     if (basic_string_size(cpt_find) <= basic_string_size(cpt_basic_string)) {

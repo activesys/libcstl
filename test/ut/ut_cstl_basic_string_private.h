@@ -79,6 +79,7 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successfu
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successful_middle(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successful_back(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successful_middle_pos(void** state);
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__pos_eq_size(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_failure(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_failure_middle_pos(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful(void** state);
@@ -630,6 +631,7 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successful_middle),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successful_back),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__find_successful_middle_pos),\
+    UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__pos_eq_size),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_failure),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_failure_middle_pos),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful),\
