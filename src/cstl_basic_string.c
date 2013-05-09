@@ -451,8 +451,8 @@ int basic_string_compare_substring_substring(
     assert(_basic_string_is_inited(cpt_first));
     assert(_basic_string_is_inited(cpt_second));
     assert(_basic_string_same_type(cpt_first, cpt_second));
-    assert(t_firstpos < basic_string_size(cpt_first));
-    assert(t_secondpos < basic_string_size(cpt_second));
+    assert(t_firstpos <= basic_string_size(cpt_first));
+    assert(t_secondpos <= basic_string_size(cpt_second));
 
     t_firstlentmp = basic_string_size(cpt_first) - t_firstpos;
     t_secondlentmp = basic_string_size(cpt_second) - t_secondpos;
@@ -537,7 +537,7 @@ int basic_string_compare_substring_subcstr(
     assert(cpt_basic_string != NULL);
     assert(cpv_value_string != NULL);
     assert(_basic_string_is_inited(cpt_basic_string));
-    assert(t_pos < basic_string_size(cpt_basic_string));
+    assert(t_pos <= basic_string_size(cpt_basic_string));
 
     /* get actual string length and value string length */
     t_lentmp = basic_string_size(cpt_basic_string) - t_pos;
@@ -753,69 +753,27 @@ size_t basic_string_find_subcstr(
  */
 size_t basic_string_rfind(const basic_string_t* cpt_basic_string, const basic_string_t* cpt_find, size_t t_pos)
 {
-    /* comment for 2.2
-    basic_string_iterator_t it_iter;
-    basic_string_iterator_t it_string;
-    basic_string_iterator_t it_find;
-    size_t                  t_stringlen = 0;
-    size_t                  t_findlen = 0;
-    bool_t                  b_result = false;
+    size_t t_len = 0;
 
     assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
     assert(cpt_find != NULL);
+    assert(_basic_string_is_inited(cpt_find));
     assert(_basic_string_same_type(cpt_basic_string, cpt_find));
 
-    if (cpt_basic_string == cpt_find) {
-        return 0;
-    }
+    t_len = basic_string_size(cpt_find);
+    if (t_len <= basic_string_size(cpt_basic_string)) {
+        t_pos = t_pos < basic_string_size(cpt_basic_string) - t_len ?
+                t_pos : basic_string_size(cpt_basic_string) - t_len;
 
-    t_stringlen = basic_string_size(cpt_basic_string);
-    t_findlen = basic_string_size(cpt_find);
-
-    if (t_stringlen == 0 || t_stringlen < t_findlen) {
-        return NPOS;
-    }
-
-    t_pos = t_pos < t_stringlen ? t_pos : t_stringlen - 1;
-    if (basic_string_empty(cpt_find)) {
-        return t_pos;
-    }
-
-    for (it_iter = iterator_next_n(basic_string_begin(cpt_basic_string), t_pos);
-         ;
-         it_iter = iterator_prev(it_iter), --t_pos) {
-        for (it_string = it_iter,
-             it_find = basic_string_begin(cpt_find);
-             !iterator_equal(it_string, basic_string_end(cpt_basic_string)) &&
-             !iterator_equal(it_find, basic_string_end(cpt_find));
-             it_string = iterator_next(it_string),
-             it_find = iterator_next(it_find)) {
-            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _BASIC_STRING_ITERATOR_COREPOS(it_string), _BASIC_STRING_ITERATOR_COREPOS(it_find), &b_result);
-            if (b_result) {
-                break;
+        do {
+            if (basic_string_compare_substring_substring(cpt_basic_string, t_pos, t_len, cpt_find, 0, t_len) == 0) {
+                return t_pos;
             }
-
-            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _BASIC_STRING_ITERATOR_COREPOS(it_find), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_result);
-            if (b_result) {
-                break;
-            }
-        }
-
-        if (iterator_equal(it_find, basic_string_end(cpt_find))) {
-            return t_pos;
-        }
-        if (t_pos == 0) {
-            return NPOS;
-        }
+        } while (t_pos-- > 0);
     }
 
-    assert(false);
     return NPOS;
-    */
 }
 
 /**
