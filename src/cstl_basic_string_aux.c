@@ -536,6 +536,89 @@ void _basic_string_replace_preparation(
     }
 }
 
+/**
+ * Find element in value string/basic_string.
+ */
+bool_t _basic_string_substring_find(
+    const basic_string_t* cpt_basic_string, size_t t_pos, const basic_string_t* cpt_find)
+{
+    size_t   i = 0;
+    bool_t   b_less = false;
+    bool_t   b_greater = false;
+    _byte_t* pby_string = NULL;
+    _byte_t* pby_index = NULL;
+
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
+    assert(cpt_find != NULL);
+    assert(_basic_string_is_inited(cpt_find));
+    assert(_basic_string_same_type(cpt_basic_string, cpt_find));
+
+    pby_string = cpt_basic_string->_pby_string + t_pos * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    pby_index = cpt_find->_pby_string;
+    for (i = 0; i < basic_string_size(cpt_find); ++i) {
+        b_less = b_greater = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string, pby_index, &b_less);
+        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_index, pby_string, &b_greater);
+        if (!b_less && !b_greater) {
+            return true;
+        }
+
+        pby_index += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    }
+
+    return false;
+}
+
+bool_t _basic_string_value_string_find(
+    const basic_string_t* cpt_basic_string, size_t t_pos, const void* cpv_value_string, size_t t_len)
+{
+    size_t   i = 0;
+    bool_t   b_less = false;
+    bool_t   b_greater = false;
+    _byte_t* pby_string = NULL;
+    _byte_t* pby_index = NULL;
+
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
+    assert(cpv_value_string != NULL);
+
+    pby_string = cpt_basic_string->_pby_string + t_pos * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    pby_index = (_byte_t*)cpv_value_string;
+    /* char* */
+    if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        for (i = 0; i < t_len; ++i) {
+            if (string_equal_cstr((string_t*)pby_string, *((char**)cpv_value_string + i))) {
+                return true;
+            }
+        }
+    } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_len; ++i) {
+            b_less = b_greater = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string, pby_index, &b_less);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_index, pby_string, &b_greater);
+            if (!b_less && !b_greater) {
+                return true;
+            }
+
+            pby_index += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        }
+    } else {
+        for (i = 0; i < t_len; ++i) {
+            b_less = b_greater = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                pby_string, *((_byte_t**)cpv_value_string + i), &b_less);
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                *((_byte_t**)cpv_value_string + i), pby_string, &b_greater);
+            if (!b_less && !b_greater) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 /** local function implementation section **/
 
 /** eof **/

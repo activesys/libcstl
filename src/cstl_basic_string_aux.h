@@ -206,6 +206,21 @@ extern void _basic_string_destroy_elem_range_auxiliary(
 extern void _basic_string_replace_preparation(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len, size_t t_replacelen);
 
+/**
+ * Find element in value string/basic_string.
+ * @param cpt_basic_string  basic string container.
+ * @param t_pos             position.
+ * @param cpv_value_string  value string.
+ * @param cpt_find          basic_string.
+ * @param t_len             length.
+ * @return true if find, otherwise return false.
+ * @remarks cpt_basic_string and cpv_value_string must be not NULL.
+ */
+extern bool_t _basic_string_value_string_find(
+    const basic_string_t* cpt_basic_string, size_t t_pos, const void* cpv_value_string, size_t t_len);
+extern bool_t _basic_string_substring_find(
+    const basic_string_t* cpt_basic_string, size_t t_pos, const basic_string_t* cpt_find);
+
 #ifdef __cplusplus
 }
 #endif
