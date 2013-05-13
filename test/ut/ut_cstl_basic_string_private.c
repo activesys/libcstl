@@ -1103,15 +1103,11 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__non_init_basic_string_container(
     void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
 
-    pt_basic_string->_vec_base._t_typeinfo._t_style = 23423;
     expect_assert_failure(_basic_string_find_first_not_of_elem(pt_basic_string, 0, 111));
 
-    pt_basic_string->_vec_base._t_typeinfo._t_style = _TYPE_C_BUILTIN;
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__invalid_position(void** state)
@@ -1240,16 +1236,20 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_failure(
     void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 0, "100") == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_failure_middle_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 1, "9999");
@@ -1262,11 +1262,14 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 3, "100") == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful(
     void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1279,11 +1282,14 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 0, "97") == 0);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_middle(
     void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1297,11 +1303,14 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 0, "97") == 2);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_back(
     void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1313,10 +1322,13 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 0, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_middle_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1330,6 +1342,8 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 3, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 /*

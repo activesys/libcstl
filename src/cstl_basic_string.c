@@ -870,44 +870,19 @@ size_t basic_string_find_first_of_subcstr(
 size_t basic_string_find_first_not_of(
     const basic_string_t* cpt_basic_string, const basic_string_t* cpt_find, size_t t_pos)
 {
-    /* comment for 2.2
-    basic_string_iterator_t it_string;
-    basic_string_iterator_t it_find;
-    bool_t                  b_less = false;
-    bool_t                  b_greater = false;
-
     assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
     assert(cpt_find != NULL);
+    assert(_basic_string_is_inited(cpt_find));
     assert(_basic_string_same_type(cpt_basic_string, cpt_find));
-    assert(t_pos < basic_string_size(cpt_basic_string));
 
-    if (basic_string_empty(cpt_find)) {
-        return t_pos;
-    }
-
-    for (it_string = iterator_next_n(basic_string_begin(cpt_basic_string), t_pos);
-         !iterator_equal(it_string, basic_string_end(cpt_basic_string));
-         it_string = iterator_next(it_string), ++t_pos) {
-        for (it_find = basic_string_begin(cpt_find);
-             !iterator_equal(it_find, basic_string_end(cpt_find));
-             it_find = iterator_next(it_find)) {
-            b_less = b_greater = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _BASIC_STRING_ITERATOR_COREPOS(it_string), _BASIC_STRING_ITERATOR_COREPOS(it_find), &b_less);
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                _BASIC_STRING_ITERATOR_COREPOS(it_find), _BASIC_STRING_ITERATOR_COREPOS(it_string), &b_greater);
-            if (!b_less && !b_greater) {
-                break;
-            }
-        }
-
-        if (iterator_equal(it_find, basic_string_end(cpt_find))) {
+    for (; t_pos < basic_string_size(cpt_basic_string); ++t_pos) {
+        if (!_basic_string_substring_find(cpt_basic_string, t_pos, cpt_find)) {
             return t_pos;
         }
     }
 
     return NPOS;
-    */
 }
 
 /**
@@ -916,9 +891,9 @@ size_t basic_string_find_first_not_of(
 size_t basic_string_find_first_not_of_cstr(
     const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos)
 {
-    /* comment for 2.2
-    return basic_string_find_first_not_of_subcstr(cpt_basic_string, cpv_value_string, t_pos, NPOS); 
-    */
+    return basic_string_find_first_not_of_subcstr(
+        cpt_basic_string, cpv_value_string, t_pos,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string)); 
 }
 
 /**
@@ -927,76 +902,17 @@ size_t basic_string_find_first_not_of_cstr(
 size_t basic_string_find_first_not_of_subcstr(
     const basic_string_t* cpt_basic_string, const void* cpv_value_string, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    size_t   t_typesize = 0;
-    size_t   t_stringlen = 0;
-    size_t   t_cstrlen = 0;
-    size_t   t_subcstrlen = 0;
-    size_t   t_stringpos = 0;
-    size_t   t_subcstrpos = 0;
-    _byte_t* pby_string = NULL;
-    bool_t   b_less = false;
-    bool_t   b_greater = false;
-
     assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
     assert(cpv_value_string != NULL);
-    assert(t_pos < basic_string_size(cpt_basic_string));
 
-    t_stringlen = basic_string_length(cpt_basic_string);
-    t_cstrlen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
-    t_subcstrlen = t_len < t_cstrlen ? t_len : t_cstrlen;
-
-    if (t_subcstrlen == 0) {
-        return t_pos;
-    }
-
-    pby_string = _BASIC_STRING_ITERATOR_COREPOS(basic_string_begin(cpt_basic_string));
-    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-
-    for (; t_pos < t_stringlen; ++t_pos) {
-        / * char* * /
-        if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
-            for (t_stringpos = t_pos, t_subcstrpos = 0; t_subcstrpos < t_subcstrlen; ++t_subcstrpos) {
-                if (string_equal_cstr(
-                    (string_t*)(pby_string + t_stringpos * t_typesize), *((char**)cpv_value_string + t_subcstrpos))) {
-                    break;
-                }
-            }
-        } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
-            for (t_stringpos = t_pos, t_subcstrpos = 0; t_subcstrpos < t_subcstrlen; ++t_subcstrpos) {
-                b_less = b_greater = t_typesize;
-                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                    pby_string + t_stringpos * t_typesize,
-                    (_byte_t*)cpv_value_string + t_subcstrpos * t_typesize,
-                    &b_less);
-                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                    (_byte_t*)cpv_value_string + t_subcstrpos * t_typesize,
-                    pby_string + t_stringpos * t_typesize,
-                    &b_greater);
-                if (!b_less && !b_greater) {
-                    break;
-                }
-            }
-        } else {
-            for (t_stringpos = t_pos, t_subcstrpos = 0; t_subcstrpos < t_subcstrlen; ++t_subcstrpos) {
-                b_less = b_greater = t_typesize;
-                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                    pby_string + t_stringpos * t_typesize, *((_byte_t**)cpv_value_string + t_subcstrpos), &b_less);
-                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                    *((_byte_t**)cpv_value_string + t_subcstrpos), pby_string + t_stringpos * t_typesize, &b_greater);
-                if (!b_less && !b_greater) {
-                    break;
-                }
-            }
-        }
-
-        if (t_subcstrpos == t_subcstrlen) {
+    for (; t_pos < basic_string_size(cpt_basic_string); ++t_pos) {
+        if (!_basic_string_value_string_find(cpt_basic_string, t_pos, cpv_value_string, t_len)) {
             return t_pos;
         }
     }
 
     return NPOS;
-    */
 }
 
 /**
