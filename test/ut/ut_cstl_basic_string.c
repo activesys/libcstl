@@ -28193,34 +28193,26 @@ void test_basic_string_find_last_not_of__null_find(void** state)
 
 void test_basic_string_find_last_not_of__non_inited_basic_string(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_t* pt_find = create_basic_string(int);
 
     basic_string_init(pt_find);
-    pt_basic_string->_vec_base._pby_start = (_byte_t*)0x888;
     expect_assert_failure(basic_string_find_last_not_of(pt_basic_string, pt_find, 0));
-    pt_basic_string->_vec_base._pby_start = NULL;
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
-    */
 }
 
 void test_basic_string_find_last_not_of__non_inited_find(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_t* pt_find = create_basic_string(int);
 
     basic_string_init(pt_basic_string);
-    pt_find->_vec_base._pby_start = (_byte_t*)0x888;
     expect_assert_failure(basic_string_find_last_not_of(pt_basic_string, pt_find, 0));
-    pt_find->_vec_base._pby_start = NULL;
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
-    */
 }
 
 void test_basic_string_find_last_not_of__not_same_type(void** state)
@@ -28638,6 +28630,7 @@ void test_basic_string_find_last_not_of__char_middle_not_find_pos(void** state)
 
 void test_basic_string_find_last_not_of__cstr_empty_empty_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
 
@@ -28647,10 +28640,13 @@ void test_basic_string_find_last_not_of__cstr_empty_empty_0(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_empty_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
 
@@ -28660,10 +28656,13 @@ void test_basic_string_find_last_not_of__cstr_empty_empty_npos(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_empty_non_empty_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28674,10 +28673,13 @@ void test_basic_string_find_last_not_of__cstr_empty_non_empty_0(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_empty_non_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28688,10 +28690,13 @@ void test_basic_string_find_last_not_of__cstr_empty_non_empty_npos(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28702,10 +28707,13 @@ void test_basic_string_find_last_not_of__cstr_empty_npos(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_find_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28718,10 +28726,13 @@ void test_basic_string_find_last_not_of__cstr_find_npos(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_not_find_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28734,10 +28745,13 @@ void test_basic_string_find_last_not_of__cstr_not_find_npos(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_middle_empty(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28748,10 +28762,13 @@ void test_basic_string_find_last_not_of__cstr_middle_empty(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_middle_find(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28764,10 +28781,13 @@ void test_basic_string_find_last_not_of__cstr_middle_find(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_middle_not_find(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28780,10 +28800,13 @@ void test_basic_string_find_last_not_of__cstr_middle_not_find(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__cstr_middle_not_find_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_t* pt_find = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
@@ -28796,6 +28819,8 @@ void test_basic_string_find_last_not_of__cstr_middle_not_find_pos(void** state)
 
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of__libcstl_builtin_empty_empty_0(void** state)
@@ -29299,6 +29324,199 @@ void test_basic_string_find_last_not_of__user_define_middle_not_find_pos(void** 
     basic_string_destroy(pt_find);
 }
 
+void test_basic_string_find_last_not_of__pos_gt_size_n_gt_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcdefghijk");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, NPOS) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_eq_size_n_gt_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcdefghijk");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, basic_string_size(pbstr1)) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_lt_size_n_gt_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcdefghijk");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, 5) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_eq_0_n_gt_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcdefghijk");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, 0) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_gt_size_n_eq_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcdefghij");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, NPOS) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_eq_size_n_eq_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcdefghij");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, basic_string_size(pbstr1)) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_lt_size_n_eq_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcdefghij");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, 5) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_eq_0_n_eq_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcdefghij");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, 0) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_gt_size_n_lt_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcde");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, NPOS) == 9);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_eq_size_n_lt_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcde");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, basic_string_size(pbstr1)) == 9);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_lt_size_n_lt_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcde");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, 5) == 5);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_eq_0_n_lt_size(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init_cstr(pbstr2, "abcde");
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, 0) == NPOS);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_gt_size_n_eq_0(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init(pbstr2);
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, NPOS) == 9);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_eq_size_n_eq_0(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init(pbstr2);
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, basic_string_size(pbstr1)) == 9);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_lt_size_n_eq_0(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init(pbstr2);
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, 5) == 5);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_last_not_of__pos_eq_0_n_eq_0(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr1, "abcdefghij");
+    basic_string_init(pbstr2);
+    assert_true(basic_string_find_last_not_of(pbstr1, pbstr2, 0) == 0);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+
 /*
  * test basic_string_find_last_not_of_cstr
  */
@@ -29321,16 +29539,12 @@ void test_basic_string_find_last_not_of_cstr__null_find(void** state)
 
 void test_basic_string_find_last_not_of_cstr__non_inited_basic_string(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
     int elems[] = {0};
 
-    pt_basic_string->_vec_base._pby_start = (_byte_t*)0x888;
     expect_assert_failure(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 0));
-    pt_basic_string->_vec_base._pby_start = NULL;
 
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test_basic_string_find_last_not_of_cstr__c_builtin_empty_empty_0(void** state)
@@ -29610,6 +29824,7 @@ void test_basic_string_find_last_not_of_cstr__char_middle_not_find_pos(void** st
 
 void test_basic_string_find_last_not_of_cstr__cstr_empty_empty_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {NULL};
 
@@ -29617,10 +29832,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_empty_empty_0(void** state)
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_empty_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {NULL};
 
@@ -29628,10 +29846,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_empty_empty_npos(void** state
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_empty_non_empty_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
 
@@ -29639,10 +29860,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_empty_non_empty_0(void** stat
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_empty_non_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
 
@@ -29650,10 +29874,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_empty_non_empty_npos(void** s
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {NULL};
@@ -29662,10 +29889,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_empty_npos(void** state)
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, NPOS) == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_find_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "def", "ghi", "jjj", "mno", NULL};
@@ -29674,10 +29904,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_find_npos(void** state)
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, NPOS) == 3);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_not_find_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", "www", "ooo", NULL};
@@ -29686,10 +29919,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_not_find_npos(void** state)
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_middle_empty(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {NULL};
@@ -29698,10 +29934,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_middle_empty(void** state)
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 3) == 3);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_middle_find(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "ghi", "jkl", "mnx", NULL};
@@ -29710,10 +29949,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_middle_find(void** state)
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 2) == 1);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_middle_not_find(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", "www", "yyy", NULL};
@@ -29722,10 +29964,13 @@ void test_basic_string_find_last_not_of_cstr__cstr_middle_not_find(void** state)
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 8) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__cstr_middle_not_find_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"def", "abc", "ghi", NULL};
@@ -29734,6 +29979,8 @@ void test_basic_string_find_last_not_of_cstr__cstr_middle_not_find_pos(void** st
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_cstr__libcstl_builtin_empty_empty_0(void** state)
@@ -30180,7 +30427,7 @@ UT_CASE_DEFINATION(basic_string_find_last_not_of_subcstr)
 void test_basic_string_find_last_not_of_subcstr__null_basic_string(void** state)
 {
     int elems[] = {0};
-    expect_assert_failure(basic_string_find_last_not_of_subcstr(NULL, elems, 0, NPOS));
+    expect_assert_failure(basic_string_find_last_not_of_subcstr(NULL, elems, 0, 0));
 }
 
 void test_basic_string_find_last_not_of_subcstr__null_find(void** state)
@@ -30188,23 +30435,19 @@ void test_basic_string_find_last_not_of_subcstr__null_find(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
 
     basic_string_init(pt_basic_string);
-    expect_assert_failure(basic_string_find_last_not_of_subcstr(pt_basic_string, NULL, 0, NPOS));
+    expect_assert_failure(basic_string_find_last_not_of_subcstr(pt_basic_string, NULL, 0, 0));
 
     basic_string_destroy(pt_basic_string);
 }
 
 void test_basic_string_find_last_not_of_subcstr__non_inited_basic_string(void** state)
 {
-    /* comment for 2.2
     basic_string_t* pt_basic_string = create_basic_string(int);
     int elems[] = {0};
 
-    pt_basic_string->_vec_base._pby_start = (_byte_t*)0x888;
-    expect_assert_failure(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS));
-    pt_basic_string->_vec_base._pby_start = NULL;
+    expect_assert_failure(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, 0));
 
     basic_string_destroy(pt_basic_string);
-    */
 }
 
 void test_basic_string_find_last_not_of_subcstr__c_builtin_empty_empty_0(void** state)
@@ -30213,7 +30456,7 @@ void test_basic_string_find_last_not_of_subcstr__c_builtin_empty_empty_0(void** 
     int elems[] = {0};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30224,7 +30467,7 @@ void test_basic_string_find_last_not_of_subcstr__c_builtin_empty_empty_npos(void
     int elems[] = {0};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30268,7 +30511,7 @@ void test_basic_string_find_last_not_of_subcstr__c_builtin_empty_non_empty_npos(
     int elems[] = {1, 2, 3, 4, 5, 0};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 5) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30284,7 +30527,7 @@ void test_basic_string_find_last_not_of_subcstr__c_builtin_empty_npos(void** sta
     {
         basic_string_push_back(pt_basic_string, i);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == 9);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 0) == 9);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30332,7 +30575,7 @@ void test_basic_string_find_last_not_of_subcstr__c_builtin_not_find_npos(void** 
     {
         basic_string_push_back(pt_basic_string, i + 1);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 10) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30348,7 +30591,7 @@ void test_basic_string_find_last_not_of_subcstr__c_builtin_middle_empty(void** s
     {
         basic_string_push_back(pt_basic_string, i);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 5, 999) == 5);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 5, 0) == 5);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30398,7 +30641,7 @@ void test_basic_string_find_last_not_of_subcstr__c_builtin_middle_not_find(void*
     {
         basic_string_push_back(pt_basic_string, i + 1);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 7, 100) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 7, 14) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30414,7 +30657,7 @@ void test_basic_string_find_last_not_of_subcstr__c_builtin_middle_not_find_pos(v
     {
         basic_string_push_back(pt_basic_string, i + 1);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 5, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 5, 8) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30424,7 +30667,7 @@ void test_basic_string_find_last_not_of_subcstr__char_empty_empty_0(void** state
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "", 0, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "", 0, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30434,7 +30677,7 @@ void test_basic_string_find_last_not_of_subcstr__char_empty_empty_npos(void** st
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "", NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "", NPOS, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30464,7 +30707,7 @@ void test_basic_string_find_last_not_of_subcstr__char_empty_non_empty_0(void** s
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "abcd", 0, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "abcd", 0, 4) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30474,7 +30717,7 @@ void test_basic_string_find_last_not_of_subcstr__char_empty_non_empty_npos(void*
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "abcd", NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "abcd", NPOS, 4) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30484,7 +30727,7 @@ void test_basic_string_find_last_not_of_subcstr__char_empty_npos(void** state)
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init_cstr(pt_basic_string, "abcdefghij");
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "", NPOS, NPOS) == 9);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "", NPOS, 0) == 9);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30504,7 +30747,7 @@ void test_basic_string_find_last_not_of_subcstr__char_find_npos(void** state)
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init_cstr(pt_basic_string, "abcdefghij");
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "fghijklmn", NPOS, 15676) == 4);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "fghijklmn", NPOS, 9) == 4);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30514,7 +30757,7 @@ void test_basic_string_find_last_not_of_subcstr__char_not_find_npos(void** state
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init_cstr(pt_basic_string, "abcdefghij");
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "wabcdewfghijwklmxnoy", NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "wabcdewfghijwklmxnoy", NPOS, 20) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30524,7 +30767,7 @@ void test_basic_string_find_last_not_of_subcstr__char_middle_empty(void** state)
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init_cstr(pt_basic_string, "abcdefghij");
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "", 5, NPOS) == 5);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "", 5, 0) == 5);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30544,7 +30787,7 @@ void test_basic_string_find_last_not_of_subcstr__char_middle_find(void** state)
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init_cstr(pt_basic_string, "abcdefghij");
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "abcefg", 3, NPOS) == 3);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "abcefg", 3, 6) == 3);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30554,7 +30797,7 @@ void test_basic_string_find_last_not_of_subcstr__char_middle_not_find(void** sta
     basic_string_t* pt_basic_string = create_basic_string(char);
 
     basic_string_init_cstr(pt_basic_string, "abcdefghij");
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "xabcdefgy", 5, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "xabcdefgy", 5, 9) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30565,13 +30808,14 @@ void test_basic_string_find_last_not_of_subcstr__char_middle_not_find_pos(void**
     size_t i = 0;
 
     basic_string_init_cstr(pt_basic_string, "abcdefghij");
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "abcde", 2, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, "abcde", 2, 5) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_empty_empty_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {NULL};
 
@@ -30579,10 +30823,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_empty_empty_0(void** state
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_empty_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {NULL};
 
@@ -30590,10 +30837,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_empty_empty_npos(void** st
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_empty_non_empty_0_length_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
 
@@ -30601,10 +30851,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_empty_non_empty_0_length_0
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_empty_non_empty_npos_length_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
 
@@ -30612,10 +30865,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_empty_non_empty_npos_lengt
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_empty_non_empty_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
 
@@ -30623,10 +30879,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_empty_non_empty_0(void** s
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_empty_non_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
 
@@ -30634,10 +30893,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_empty_non_empty_npos(void*
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_empty_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {NULL};
@@ -30646,10 +30908,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_empty_npos(void** state)
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_non_empty_npos_length_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "def", NULL};
@@ -30658,10 +30923,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_non_empty_npos_length_0(vo
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 0) == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_find_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "def", "ghi", "jkl", "mnx", NULL};
@@ -30670,10 +30938,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_find_npos(void** state)
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == 4);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_not_find_npos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "ghi", "jkl", "def", "mno", "www", "ooo", NULL};
@@ -30682,10 +30953,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_not_find_npos(void** state
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_middle_empty(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {NULL};
@@ -30694,10 +30968,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_middle_empty(void** state)
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 3, NPOS) == 3);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_middle_non_empty_length_0(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"ghi", "jkl", NULL};
@@ -30706,10 +30983,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_middle_non_empty_length_0(
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 3, 0) == 3);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_middle_find(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"jkl", "mno", "lskdlk", "xxxx", NULL};
@@ -30718,10 +30998,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_middle_find(void** state)
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 4, 3) == 2);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_middle_not_find(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "ghi", "jkl", "mno", "def", "www", "yyy", NULL};
@@ -30730,10 +31013,13 @@ void test_basic_string_find_last_not_of_subcstr__cstr_middle_not_find(void** sta
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 8, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__cstr_middle_not_find_pos(void** state)
 {
+    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     const char* values[] = {"abc", "def", "ghi", "jkl", "mno", NULL};
     const char* elems[] = {"abc", "def", "ghi", NULL};
@@ -30742,6 +31028,8 @@ void test_basic_string_find_last_not_of_subcstr__cstr_middle_not_find_pos(void**
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+    */
+    assert_true(false);
 }
 
 void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_empty_empty_0(void** state)
@@ -30750,7 +31038,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_empty_empty_0(v
     vector_t* elems[] = {NULL};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30761,7 +31049,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_empty_empty_npo
     vector_t* elems[] = {NULL};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -30805,7 +31093,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_empty_non_empty
 
     vector_init(pvec);
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -30820,7 +31108,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_empty_non_empty
 
     vector_init(pvec);
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -30841,7 +31129,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_empty_npos(void
         vector_push_back(pvec, i);
         basic_string_push_back(pt_basic_string, pvec);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == 9);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 0) == 9);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -30897,7 +31185,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_find_npos(void*
     }
     vector_push_back(pvec_elem1, 9);
     vector_push_back(pvec_elem2, 4);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == 8);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 3) == 8);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -30926,7 +31214,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_not_find_npos(v
     }
     vector_push_back(pvec_elem1, 0);
     vector_push_back(pvec_elem2, 1);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -30949,7 +31237,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_middle_empty(vo
         vector_push_back(pvec, i);
         basic_string_push_back(pt_basic_string, pvec);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 3, NPOS) == 3);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 3, 0) == 3);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -31005,7 +31293,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_middle_find(voi
     }
     vector_push_back(pvec_elem1, 8);
     vector_push_back(pvec_elem2, 7);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 8, NPOS) == 6);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 8, 2) == 6);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -31034,7 +31322,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_middle_not_find
     }
     vector_push_back(pvec_elem1, 0);
     vector_push_back(pvec_elem2, 1);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -31063,7 +31351,7 @@ void test_basic_string_find_last_not_of_subcstr__libcstl_builtin_middle_not_find
     }
     vector_push_back(pvec_elem1, 0);
     vector_push_back(pvec_elem2, 1);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -31083,7 +31371,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_empty_empty_0(void*
     type_register(_test_basic_string_find_last_not_of_subcstr__user_define_t, NULL, NULL, NULL, NULL);
     pt_basic_string = create_basic_string(_test_basic_string_find_last_not_of_subcstr__user_define_t);
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31094,7 +31382,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_empty_empty_npos(vo
     _test_basic_string_find_last_not_of_subcstr__user_define_t* elems[] = {NULL};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31130,7 +31418,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_empty_non_empty_0(v
     _test_basic_string_find_last_not_of_subcstr__user_define_t* elems[] = {&t_elem, &t_elem, NULL};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 0, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31142,7 +31430,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_empty_non_empty_npo
     _test_basic_string_find_last_not_of_subcstr__user_define_t* elems[] = {&t_elem, &t_elem, NULL};
 
     basic_string_init(pt_basic_string);
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31160,7 +31448,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_empty_npos(void** s
         t_elem.n_elem = i;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == 9);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 0) == 9);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31204,7 +31492,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_find_npos(void** st
     }
     t_elem1.n_elem = 3;
     t_elem2.n_elem = 4;
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == 9);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 2) == 9);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31226,7 +31514,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_not_find_npos(void*
     }
     t_elem1.n_elem = 1;
     t_elem2.n_elem = 0;
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, NPOS, 3) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31244,7 +31532,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_middle_empty(void**
         t_elem.n_elem = i;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 3, NPOS) == 3);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 3, 0) == 3);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31288,7 +31576,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_middle_find(void** 
     }
     t_elem1.n_elem = 8;
     t_elem2.n_elem = 4;
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 8, NPOS) == 7);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 8, 2) == 7);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31310,7 +31598,7 @@ void test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find(voi
     }
     t_elem1.n_elem = 1;
     t_elem2.n_elem = 0;
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -31332,9 +31620,154 @@ void test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find_pos
     }
     t_elem1.n_elem = 1;
     t_elem2.n_elem = 0;
-    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, NPOS) == NPOS);
+    assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
+}
+
+void test_basic_string_find_last_not_of_subcstr__pos_gt_size_n_gt_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghijk", basic_string_size(pbstr)+100, 11) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_eq_size_n_gt_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghijk", basic_string_size(pbstr), 11) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_lt_size_n_gt_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghijk", 5, 11) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_eq_0_n_gt_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghijk", 0, 11) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_gt_size_n_eq_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", basic_string_size(pbstr)+100, 10) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_eq_size_n_eq_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", basic_string_size(pbstr), 10) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_lt_size_n_eq_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", 5, 10) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_eq_0_n_eq_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", 0, 10) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_gt_size_n_lt_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", basic_string_size(pbstr)+100, 5) == 9);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_eq_size_n_lt_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", basic_string_size(pbstr), 5) == 9);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_lt_size_n_lt_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", 5, 5) == 5);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_eq_0_n_lt_size(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", 0, 5) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_gt_size_n_eq_0(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", basic_string_size(pbstr)+100, 0) == 9);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_eq_size_n_eq_0(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", basic_string_size(pbstr), 0) == 9);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_lt_size_n_eq_0(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", 5, 0) == 5);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_last_not_of_subcstr__pos_eq_0_n_eq_0(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_cstr(pbstr, "abcdefghij");
+    assert_true(basic_string_find_last_not_of_subcstr(pbstr, "abcdefghij", 0, 0) == 0);
+
+    basic_string_destroy(pbstr);
 }
 
 /*
