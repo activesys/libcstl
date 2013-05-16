@@ -124,6 +124,7 @@ void test_basic_string_init_copy_substring__successfully_user_define_non_empty_m
 void test_basic_string_init_copy_substring__successfully_user_define_non_empty_middle_npos(void** state);
 void test_basic_string_init_copy_substring__successfully_user_define_non_empty_end(void** state);
 void test_basic_string_init_copy_substring__successfully_user_define_non_empty_npos(void** state);
+void test_basic_string_init_copy_substring__check(void** state);
 /*
  * test basic_string_init_copy_range
  */
@@ -960,6 +961,7 @@ void test_basic_string_substr__char(void** state);
 void test_basic_string_substr__cstr(void** state);
 void test_basic_string_substr__libcstl(void** state);
 void test_basic_string_substr__user_define(void** state);
+void test_basic_string_substr__check(void** state);
 /*
  * test basic_string_connect
  */
@@ -2381,6 +2383,7 @@ void test_basic_string_assign_substring__same_pbstr(void** state);
 void test_basic_string_assign_substring__shared_assign(void** state);
 void test_basic_string_assign_substring__less_size(void** state);
 void test_basic_string_assign_substring__greater_size(void** state);
+void test_basic_string_assign_substring__about_size(void** state);
 /*
  * test basic_string_assign_range
  */
@@ -2510,6 +2513,9 @@ void test_basic_string_append_substring__successfully_user_define_non_empty_midd
 void test_basic_string_append_substring__successfully_user_define_non_empty_end(void** state);
 void test_basic_string_append_substring__successfully_user_define_non_empty_npos(void** state);
 void test_basic_string_append_substring__shared(void** state);
+void test_basic_string_append_substring__gt_size(void** state);
+void test_basic_string_append_substring__eq_size(void** state);
+void test_basic_string_append_substring__lt_size(void** state);
 /*
  * test basic_string_append_range
  */
@@ -2611,6 +2617,7 @@ void test_basic_string_insert_substring__libcstl_builtin_middle_insert_empty(voi
 void test_basic_string_insert_substring__libcstl_builtin_begin_insert_non_empty(void** state);
 void test_basic_string_insert_substring__user_define_middle_insert_empty(void** state);
 void test_basic_string_insert_substring__user_define_begin_insert_non_empty(void** state);
+void test_basic_string_insert_substring__end(void** state);
 /*
  * test basic_string_insert_range
  */
@@ -2727,6 +2734,7 @@ void test_basic_string_erase_substring__cstr(void** state);
 void test_basic_string_erase_substring__libcstr_builtin(void** state);
 void test_basic_string_erase_substring__user_define(void** state);
 void test_basic_string_erase_substring__shared(void** state);
+void test_basic_string_erase_substring__end(void** state);
 /*
  * test basic_string_replace
  */
@@ -2784,6 +2792,7 @@ void test_basic_string_replace_substring__cstr(void** state);
 void test_basic_string_replace_substring__libcstl_builtin(void** state);
 void test_basic_string_replace_substring__user_define(void** state);
 void test_basic_string_replace_substring__shared(void** state);
+void test_basic_string_replace_substring__check(void** state);
 /*
  * test basic_string_replace_cstr
  */
@@ -3115,6 +3124,7 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_init_copy_substring__successfully_user_define_non_empty_middle_npos),\
     UT_CASE(test_basic_string_init_copy_substring__successfully_user_define_non_empty_end),\
     UT_CASE(test_basic_string_init_copy_substring__successfully_user_define_non_empty_npos),\
+    UT_CASE(test_basic_string_init_copy_substring__check),\
     UT_CASE_BEGIN(basic_string_begin, test_basic_string_begin__null_basic_string_container),\
     UT_CASE(test_basic_string_begin__non_inited_basic_string_container),\
     UT_CASE(test_basic_string_begin__empty),\
@@ -3814,6 +3824,7 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_substr__cstr),\
     UT_CASE(test_basic_string_substr__libcstl),\
     UT_CASE(test_basic_string_substr__user_define),\
+    UT_CASE(test_basic_string_substr__check),\
     UT_CASE_BEGIN(basic_string_swap, test_basic_string_swap__null_first),\
     UT_CASE(test_basic_string_swap__null_second),\
     UT_CASE(test_basic_string_swap__non_inited_first),\
@@ -3907,6 +3918,7 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_assign_substring__shared_assign),\
     UT_CASE(test_basic_string_assign_substring__less_size),\
     UT_CASE(test_basic_string_assign_substring__greater_size),\
+    UT_CASE(test_basic_string_assign_substring__about_size),\
     UT_CASE_BEGIN(basic_string_assign_subcstr, test_basic_string_assign_subcstr__null_container),\
     UT_CASE(test_basic_string_assign_subcstr__non_created_container),\
     UT_CASE(test_basic_string_assign_subcstr__null_valuestring),\
@@ -4059,6 +4071,9 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_end),\
     UT_CASE(test_basic_string_append_substring__successfully_user_define_non_empty_npos),\
     UT_CASE(test_basic_string_append_substring__shared),\
+    UT_CASE(test_basic_string_append_substring__gt_size),\
+    UT_CASE(test_basic_string_append_substring__eq_size),\
+    UT_CASE(test_basic_string_append_substring__lt_size),\
     UT_CASE_BEGIN(basic_string_append, test_basic_string_append__null_dest),\
     UT_CASE(test_basic_string_append__null_src),\
     UT_CASE(test_basic_string_append__non_inited_dest),\
@@ -4112,6 +4127,7 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_erase_substring__libcstr_builtin),\
     UT_CASE(test_basic_string_erase_substring__user_define),\
     UT_CASE(test_basic_string_erase_substring__shared),\
+    UT_CASE(test_basic_string_erase_substring__end),\
     UT_CASE_BEGIN(basic_string_erase, test_basic_string_erase__null_basic_string),\
     UT_CASE(test_basic_string_erase__non_inited_basic_string),\
     UT_CASE(test_basic_string_erase__invalid_pos),\
@@ -4163,6 +4179,7 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_replace_substring__libcstl_builtin),\
     UT_CASE(test_basic_string_replace_substring__user_define),\
     UT_CASE(test_basic_string_replace_substring__shared),\
+    UT_CASE(test_basic_string_replace_substring__check),\
     UT_CASE_BEGIN(basic_string_replace, test_basic_string_replace__null_dest),\
     UT_CASE(test_basic_string_replace__null_replace),\
     UT_CASE(test_basic_string_replace__non_inited_dest),\
@@ -4354,6 +4371,7 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_insert_substring__libcstl_builtin_begin_insert_non_empty),\
     UT_CASE(test_basic_string_insert_substring__user_define_middle_insert_empty),\
     UT_CASE(test_basic_string_insert_substring__user_define_begin_insert_non_empty),\
+    UT_CASE(test_basic_string_insert_substring__end),\
     UT_CASE_BEGIN(basic_string_insert_string, test_basic_string_insert_string__null_dest),\
     UT_CASE(test_basic_string_insert_string__null_insert),\
     UT_CASE(test_basic_string_insert_string__non_inited_dest),\

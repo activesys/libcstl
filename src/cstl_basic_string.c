@@ -114,7 +114,7 @@ void basic_string_init_copy_substring(basic_string_t* pt_dest, const basic_strin
     assert(_basic_string_is_created(pt_dest));
     assert(_basic_string_is_inited(cpt_src));
     assert(_basic_string_same_type(pt_dest, cpt_src));
-    assert(t_pos < basic_string_size(cpt_src));
+    assert(t_pos <= basic_string_size(cpt_src));
 
     if (t_len == NPOS || t_len + t_pos >= basic_string_size(cpt_src)) {
         t_len = basic_string_size(cpt_src) - t_pos;
@@ -387,23 +387,12 @@ int basic_string_compare(const basic_string_t* cpt_first, const basic_string_t* 
 {
     assert(cpt_first != NULL);
     assert(cpt_second != NULL);
-    assert(_basic_string_is_inited(cpt_first));
-    assert(_basic_string_is_inited(cpt_second));
-    assert(_basic_string_same_type(cpt_first, cpt_second));
 
     if (cpt_first == cpt_second || cpt_first->_pby_string == cpt_second->_pby_string) {
         return 0;
     }
 
-    if (basic_string_empty(cpt_first) && !basic_string_empty(cpt_second)) {
-        return -1;
-    } else if (!basic_string_empty(cpt_first) && basic_string_empty(cpt_second)) {
-        return 1;
-    } else if (basic_string_empty(cpt_first) && basic_string_empty(cpt_second)) {
-        return 0;
-    }
-
-    return basic_string_compare_substring_string(cpt_first, 0, NPOS, cpt_second);
+    return basic_string_compare_substring_substring(cpt_first, 0, NPOS, cpt_second, 0, NPOS);
 }
 
 /**
@@ -412,21 +401,6 @@ int basic_string_compare(const basic_string_t* cpt_first, const basic_string_t* 
 int basic_string_compare_substring_string(
     const basic_string_t* cpt_first, size_t t_pos, size_t t_len, const basic_string_t* cpt_second)
 {
-    assert(cpt_first != NULL);
-    assert(cpt_second != NULL);
-    assert(_basic_string_is_inited(cpt_first));
-    assert(_basic_string_is_inited(cpt_second));
-    assert(_basic_string_same_type(cpt_first, cpt_second));
-    assert(t_pos < basic_string_size(cpt_first));
-
-    if (t_len == 0 && !basic_string_empty(cpt_second)) {
-        return -1;
-    } else if (t_len > 0 && basic_string_empty(cpt_second)) {
-        return 1;
-    } else if (t_len == 0 && basic_string_empty(cpt_second)) {
-        return 0;
-    }
-
     return basic_string_compare_substring_substring(cpt_first, t_pos, t_len, cpt_second, 0, NPOS);
 }
 
@@ -496,18 +470,9 @@ int basic_string_compare_substring_substring(
  */
 int basic_string_compare_cstr(const basic_string_t* cpt_basic_string, const void* cpv_value_string)
 {
-    size_t t_stringlen = basic_string_length(cpt_basic_string);
-    size_t t_valuelen = _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string);
-
-    if (t_stringlen == 0 && t_valuelen > 0) {
-        return -1;
-    } else if (t_stringlen > 0 && t_valuelen == 0) {
-        return 1;
-    } else if (t_stringlen == 0 && t_valuelen == 0) {
-        return 0;
-    }
-
-    return basic_string_compare_substring_subcstr(cpt_basic_string, 0, NPOS, cpv_value_string, t_valuelen);
+    return basic_string_compare_substring_subcstr(
+        cpt_basic_string, 0, NPOS, cpv_value_string,
+        _basic_string_get_value_string_length(cpt_basic_string, cpv_value_string));
 }
 
 /**
@@ -608,7 +573,7 @@ basic_string_t* basic_string_substr(const basic_string_t* cpt_basic_string, size
 
     assert(cpt_basic_string != NULL);
     assert(_basic_string_is_inited(cpt_basic_string));
-    assert(t_pos < basic_string_size(cpt_basic_string));
+    assert(t_pos <= basic_string_size(cpt_basic_string));
 
     pt_substr = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(cpt_basic_string));
     if (pt_substr != NULL) {
