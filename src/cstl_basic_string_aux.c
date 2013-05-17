@@ -313,7 +313,7 @@ _basic_string_rep_t* _basic_string_clone_representation(const basic_string_t* cp
 
     pby_dest = _basic_string_rep_get_data(prep_clone);
     pby_src = cpt_basic_string->_pby_string;
-    _basic_string_init_elem_range_auxiliary(cpt_basic_string, pby_dest, basic_string_size(cpt_basic_string));
+    _basic_string_init_elem_range_auxiliary((basic_string_t*)cpt_basic_string, pby_dest, basic_string_size(cpt_basic_string));
     _basic_string_copy_substring_auxiliary(cpt_basic_string, pby_dest, pby_src, basic_string_size(cpt_basic_string));
     _basic_string_rep_set_length(prep_clone, basic_string_size(cpt_basic_string));
     /* The refcount will be set outof this function, so we do not set here */
@@ -437,7 +437,7 @@ void _basic_string_copy_elem_auxiliary(
         size_t i = 0;
         void* pv_varg = malloc(_GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
         assert(pv_varg != NULL);
-        _basic_string_get_varg_value_auxiliary(cpt_basic_string, val_elemlist, pv_varg);
+        _basic_string_get_varg_value_auxiliary((basic_string_t*)cpt_basic_string, val_elemlist, pv_varg);
 
         /* copy varg value to each element */
         for (i = 0; i < t_count; ++i) {
@@ -449,7 +449,7 @@ void _basic_string_copy_elem_auxiliary(
         }
 
         /* destroy varg value and free memory */
-        _basic_string_destroy_varg_value_auxiliary(cpt_basic_string, pv_varg);
+        _basic_string_destroy_varg_value_auxiliary((basic_string_t*)cpt_basic_string, pv_varg);
         free(pv_varg);
     }
 }
@@ -501,26 +501,22 @@ void _basic_string_replace_preparation(
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
 
     if (t_newsize > basic_string_capacity(pt_basic_string) || _basic_string_is_shared(pt_basic_string)) {
-            _basic_string_rep_t* prep = _create_basic_string_representation(
-                t_newsize, basic_string_capacity(pt_basic_string), t_typesize);
-            assert(prep != NULL);
-            _basic_string_rep_set_length(prep, t_newsize);
-            _basic_string_rep_set_sharable(prep);
-            _basic_string_init_elem_range_auxiliary(pt_basic_string, _basic_string_rep_get_data(prep), t_newsize);
+        _basic_string_rep_t* prep = _basic_string_rep_construct(
+            pt_basic_string, t_newsize, t_newsize, basic_string_capacity(pt_basic_string));
 
-            /* copy elements before replace range */
-            pby_dest = _basic_string_rep_get_data(prep);
-            pby_src = pt_basic_string->_pby_string;
-            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_pos);
-            /* copy elements after replace range */
-            pby_dest = _basic_string_rep_get_data(prep) + (t_pos + t_replacelen) * t_typesize;
-            pby_src = pt_basic_string->_pby_string + (t_pos + t_len) * t_typesize;
-            _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_size - t_pos - t_len);
+        /* copy elements before replace range */
+        pby_dest = _basic_string_rep_get_data(prep);
+        pby_src = pt_basic_string->_pby_string;
+        _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_pos);
+        /* copy elements after replace range */
+        pby_dest = _basic_string_rep_get_data(prep) + (t_pos + t_replacelen) * t_typesize;
+        pby_src = pt_basic_string->_pby_string + (t_pos + t_len) * t_typesize;
+        _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_size - t_pos - t_len);
 
-            _basic_string_rep_reduce_shared(
-                _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
-            pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
+        _basic_string_rep_reduce_shared(
+            _basic_string_rep_get_representation(pt_basic_string->_pby_string),
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
+        pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
     } else {
         if (t_replacelen > t_len) {
             basic_string_resize(pt_basic_string, t_newsize);
@@ -617,6 +613,27 @@ bool_t _basic_string_value_string_find(
     }
 
     return false;
+}
+
+/**
+ * Create basic_string representation and initialize it.
+ */
+_basic_string_rep_t* _basic_string_rep_construct(
+    const basic_string_t* cpt_basic_string, size_t t_len, size_t t_newcapacity, size_t t_oldcapacity)
+{
+    _basic_string_rep_t* prep = NULL;
+
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
+
+    prep = _create_basic_string_representation(
+        t_newcapacity, t_oldcapacity, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+    assert(prep != NULL);
+    _basic_string_rep_set_length(prep, t_len);
+    _basic_string_rep_set_sharable(prep);
+    _basic_string_init_elem_range_auxiliary((basic_string_t*)cpt_basic_string, _basic_string_rep_get_data(prep), t_len);
+
+    return prep;
 }
 
 /** local function implementation section **/

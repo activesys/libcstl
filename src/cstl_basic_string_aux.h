@@ -221,6 +221,18 @@ extern bool_t _basic_string_value_string_find(
 extern bool_t _basic_string_substring_find(
     const basic_string_t* cpt_basic_string, size_t t_pos, const basic_string_t* cpt_find);
 
+/**
+ * Create basic_string representation and initialize it.
+ * @param cpt_basic_string  basic string container.
+ * @param t_len             length.
+ * @param t_newcapacity     new capacity.
+ * @param t_oldcapacity     old capacity.
+ * @return representation.
+ * @remarks cpt_basic_string must be not NULL.
+ */
+extern _basic_string_rep_t* _basic_string_rep_construct(
+    const basic_string_t* cpt_basic_string, size_t t_len, size_t t_newcapacity, size_t t_oldcapacity);
+
 #ifdef __cplusplus
 }
 #endif

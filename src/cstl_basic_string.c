@@ -53,10 +53,7 @@ void basic_string_init(basic_string_t* pt_basic_string)
 
     assert(_basic_string_is_created(pt_basic_string));
 
-    prep = _create_basic_string_representation(0, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
-    assert(prep != NULL);
-    _basic_string_rep_set_length(prep, 0);
-    _basic_string_rep_set_sharable(prep);
+    prep = _basic_string_rep_construct(pt_basic_string, 0, 0, 0);
     pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
 }
 
@@ -92,12 +89,8 @@ void basic_string_init_copy_range(
 
     /* initialize all elements with default value */
     t_len = iterator_distance(it_begin, it_end);
-    prep = _create_basic_string_representation(t_len, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
-    assert(prep != NULL);
-    _basic_string_rep_set_length(prep, t_len);
-    _basic_string_rep_set_sharable(prep);
+    prep = _basic_string_rep_construct(pt_basic_string, t_len, t_len, 0);
     pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
-    _basic_string_init_elem_range_auxiliary(pt_basic_string, pt_basic_string->_pby_string, t_len);
 
     _basic_string_copy_range_auxiliary(pt_basic_string, pt_basic_string->_pby_string, it_begin, it_end);
 }
@@ -120,12 +113,8 @@ void basic_string_init_copy_substring(basic_string_t* pt_dest, const basic_strin
         t_len = basic_string_size(cpt_src) - t_pos;
     }
 
-    prep = _create_basic_string_representation(t_len, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_dest));
-    assert(prep != NULL);
-    _basic_string_rep_set_length(prep, t_len);
-    _basic_string_rep_set_sharable(prep);
+    prep = _basic_string_rep_construct(pt_dest, t_len, t_len, 0);
     pt_dest->_pby_string = _basic_string_rep_get_data(prep);
-    _basic_string_init_elem_range_auxiliary(pt_dest, pt_dest->_pby_string, t_len);
 
     _basic_string_copy_substring_auxiliary(
         pt_dest, pt_dest->_pby_string, cpt_src->_pby_string + t_pos * _GET_BASIC_STRING_TYPE_SIZE(pt_dest), t_len);
@@ -152,13 +141,8 @@ void basic_string_init_subcstr(basic_string_t* pt_basic_string, const void* cpv_
     assert(_basic_string_is_created(pt_basic_string));
     assert(t_len <= basic_string_max_size(pt_basic_string));
 
-    /* create representation according to length. */
-    prep = _create_basic_string_representation(t_len, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
-    assert(prep != NULL);
-    _basic_string_rep_set_length(prep, t_len);
-    _basic_string_rep_set_sharable(prep);
+    prep = _basic_string_rep_construct(pt_basic_string, t_len, t_len, 0);
     pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
-    _basic_string_init_elem_range_auxiliary(pt_basic_string, pt_basic_string->_pby_string, t_len);
 
     _basic_string_copy_subcstr_auxiliary(pt_basic_string, pt_basic_string->_pby_string, cpv_value_string, t_len);
 }
@@ -1015,12 +999,7 @@ void basic_string_clear(basic_string_t* pt_basic_string)
     assert(_basic_string_is_inited(pt_basic_string));
 
     if (_basic_string_is_shared(pt_basic_string)) {
-        _basic_string_rep_t* prep = NULL;
-
-        prep = _create_basic_string_representation(0, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
-        assert(prep != NULL);
-        _basic_string_rep_set_length(prep, 0);
-        _basic_string_rep_set_sharable(prep);
+        _basic_string_rep_t* prep = _basic_string_rep_construct(pt_basic_string, 0, 0, 0);
         _basic_string_rep_reduce_shared(
             _basic_string_rep_get_representation(pt_basic_string->_pby_string),
             _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
@@ -1476,12 +1455,7 @@ void basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize)
         size_t               t_copylen = 0;
         _byte_t*             pby_dest = NULL;
         _byte_t*             pby_src = NULL;
-        _basic_string_rep_t* prep = _create_basic_string_representation(
-            t_resize, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
-        assert(prep != NULL);
-        _basic_string_rep_set_length(prep, t_resize);
-        _basic_string_rep_set_sharable(prep);
-        _basic_string_init_elem_range_auxiliary(pt_basic_string, _basic_string_rep_get_data(prep), t_resize);
+        _basic_string_rep_t* prep = _basic_string_rep_construct(pt_basic_string, t_resize, t_resize, 0);
 
         pby_dest = _basic_string_rep_get_data(prep);
         pby_src = pt_basic_string->_pby_string;

@@ -175,7 +175,7 @@ basic_string_iterator_t _basic_string_iterator_prev(basic_string_iterator_t it_i
  */
 void* _basic_string_iterator_at(basic_string_iterator_t it_iter, int n_index)
 {
-    return _basic_string_iterator_get_pointer(_basic_string_iterator_next_n(it_iter, n_index));
+    return (void*)_basic_string_iterator_get_pointer(_basic_string_iterator_next_n(it_iter, n_index));
 }
 
 /**

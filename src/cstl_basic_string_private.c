@@ -258,20 +258,14 @@ void _basic_string_init_elem(basic_string_t* pt_basic_string, size_t t_count, ..
  */
 void _basic_string_init_elem_varg(basic_string_t* pt_basic_string, size_t t_count, va_list val_elemlist)
 {
-    size_t               i = 0;
     _basic_string_rep_t* prep = NULL;
 
     assert(pt_basic_string != NULL);
     assert(_basic_string_is_created(pt_basic_string));
     assert(t_count <= basic_string_max_size(pt_basic_string));
 
-    prep = _create_basic_string_representation(t_count, 0, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string));
-    assert(prep != NULL);
-    _basic_string_rep_set_length(prep, t_count);
-    _basic_string_rep_set_sharable(prep);
+    prep = _basic_string_rep_construct(pt_basic_string, t_count, t_count, 0);
     pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
-
-    _basic_string_init_elem_range_auxiliary(pt_basic_string, pt_basic_string->_pby_string, t_count);
     _basic_string_copy_elem_auxiliary(pt_basic_string, pt_basic_string->_pby_string, t_count, val_elemlist);
 }
 
@@ -708,7 +702,6 @@ void _basic_string_replace_elem_varg(
     size_t   t_newsize = 0;
     size_t   t_typesize = 0;
     _byte_t* pby_dest = NULL;
-    _byte_t* pby_src = NULL;
 
     assert(pt_basic_string != NULL);
     assert(_basic_string_is_inited(pt_basic_string));
