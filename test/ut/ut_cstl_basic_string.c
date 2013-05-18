@@ -541,6 +541,70 @@ void test_basic_string_init_subcstr__user_define_total(void** state)
     basic_string_destroy(pt_basic_string);
 }
 
+void test_basic_string_init_subcstr__terminator_c(void** state)
+{
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(*(char*)basic_string_at(pbstr, 0) == 'a');
+    assert_true(*(char*)basic_string_at(pbstr, 1) == '\0');
+    assert_true(*(char*)basic_string_at(pbstr, 2) == 'b');
+    assert_true(*(char*)basic_string_at(pbstr, 3) == '\0');
+    assert_true(*(char*)basic_string_at(pbstr, 4) == 'c');
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_init_subcstr__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_init_subcstr__terminator_libcstl(void** state)
+{
+    list_t  terminator;
+    list_t* plist = create_list(int);
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    memset(&terminator, 0x00, sizeof(list_t));
+    list_init(plist);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 0)));
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 1), sizeof(list_t)) == 0);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 2)));
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 3), sizeof(list_t)) == 0);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 4)));
+    basic_string_destroy(pbstr);
+    list_destroy(plist);
+}
+void test_basic_string_init_subcstr__terminator_user_define(void** state)
+{
+    _test_basic_string_init_subcstr__user_define_t terminator;
+    _test_basic_string_init_subcstr__user_define_t elem;
+    _test_basic_string_init_subcstr__user_define_t* elems[] = {&elem, NULL, &elem, NULL, &elem};
+    basic_string_t* pbstr = create_basic_string(_test_basic_string_init_subcstr__user_define_t);
+
+    memset(&terminator, 0x00, sizeof(_test_basic_string_init_subcstr__user_define_t));
+    elem.n_elem = 100;
+    elem.d_elem = 100.001;
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pbstr, 0))->n_elem == 100);
+    assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pbstr, 0))->d_elem == 100.001);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 1), sizeof(_test_basic_string_init_subcstr__user_define_t)) == 0);
+    assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pbstr, 2))->n_elem == 100);
+    assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pbstr, 2))->d_elem == 100.001);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 3), sizeof(_test_basic_string_init_subcstr__user_define_t)) == 0);
+    assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pbstr, 4))->n_elem == 100);
+    assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pbstr, 4))->d_elem == 100.001);
+
+    basic_string_destroy(pbstr);
+}
+
 /*
  * test basic_string_init_copy
  */

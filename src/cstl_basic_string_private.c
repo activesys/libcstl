@@ -143,7 +143,7 @@ void _basic_string_rep_set_length(_basic_string_rep_t* pt_rep, size_t t_len)
     assert(t_len <= pt_rep->_t_capacity);
 
     pt_rep->_t_length = t_len;
-    /* For all types use 0x00 as terminalor */
+    /* For all types use 0x00 as terminator */
     pby_terminator = _basic_string_rep_get_data(pt_rep) + pt_rep->_t_length * pt_rep->_t_elemsize;
     memset(pby_terminator, 0x00, pt_rep->_t_elemsize);
 }

@@ -396,10 +396,15 @@ void _basic_string_copy_subcstr_auxiliary(
         }
     } else {
         for (i = 0; i < t_len; ++i) {
-            b_result = t_typesize;
-            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
-                pby_dest + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
-            assert(b_result);
+            if (*((_byte_t**)cpv_value_string + i) != NULL) {
+                b_result = t_typesize;
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
+                    pby_dest + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
+                assert(b_result);
+            } else {
+                /* set terminator for NULL */
+                memset(pby_dest + i * t_typesize, 0x00, t_typesize);
+            }
         }
     }
 }
