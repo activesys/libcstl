@@ -371,9 +371,10 @@ void _basic_string_copy_substring_backward_auxiliary(
 void _basic_string_copy_subcstr_auxiliary(
     const basic_string_t* cpt_basic_string, _byte_t* pby_dest, const void* cpv_value_string, size_t t_len)
 {
-    size_t i = 0;
-    size_t t_typesize = 0;
-    bool_t b_result = false;
+    size_t   i = 0;
+    size_t   t_typesize = 0;
+    bool_t   b_result = false;
+    _byte_t* pby_terminator = NULL;
 
     assert(cpt_basic_string != NULL);
     assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
@@ -382,6 +383,7 @@ void _basic_string_copy_subcstr_auxiliary(
     assert(t_len <= basic_string_max_size(cpt_basic_string));
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    pby_terminator = cpt_basic_string->_pby_string + basic_string_size(cpt_basic_string) * t_typesize;
     /* char* */
     if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         for (i = 0; i < t_len; ++i) {
@@ -402,8 +404,15 @@ void _basic_string_copy_subcstr_auxiliary(
                     pby_dest + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
                 assert(b_result);
             } else {
+                /* NOTE:
+                 * The elements are inited, so it must be destroied before
+                 * it is seted to 0x00 for preventing memory leak.
+                 * */
+                b_result = t_typesize;
+                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest + i * t_typesize, &b_result);
+                assert(b_result);
                 /* set terminator for NULL */
-                memset(pby_dest + i * t_typesize, 0x00, t_typesize);
+                memcpy(pby_dest + i * t_typesize, pby_terminator, t_typesize);
             }
         }
     }

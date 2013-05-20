@@ -83,11 +83,16 @@ _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep
         size_t   i = 0;
         bool_t   b_result = 0;
         _byte_t* pby_string = _basic_string_rep_get_data(pt_rep);
+        _byte_t* pby_terminator = pby_string + pt_rep->_t_length * pt_rep->_t_elemsize;
 
         for (i = 0; i < pt_rep->_t_length; ++i) {
-            b_result = pt_rep->_t_elemsize;
-            ufun_destroy(pby_string + i * pt_rep->_t_elemsize, &b_result);
-            assert(b_result);
+            if (memcmp(pby_string, pby_terminator, pt_rep->_t_elemsize) != 0) {
+                b_result = pt_rep->_t_elemsize;
+                ufun_destroy(pby_string, &b_result);
+                assert(b_result);
+            }
+
+            pby_string += pt_rep->_t_elemsize;
         }
         free(pt_rep);
         return NULL;

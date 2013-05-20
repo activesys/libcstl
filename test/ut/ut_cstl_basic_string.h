@@ -57,6 +57,7 @@ void test_basic_string_init_subcstr__terminator_c(void** state);
 void test_basic_string_init_subcstr__terminator_cstr(void** state);
 void test_basic_string_init_subcstr__terminator_libcstl(void** state);
 void test_basic_string_init_subcstr__terminator_user_define(void** state);
+void test_basic_string_init_subcstr__memleak(void** state);
 /*
  * test basic_string_init_copy
  */
@@ -3067,6 +3068,7 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_init_subcstr__terminator_cstr),\
     UT_CASE(test_basic_string_init_subcstr__terminator_libcstl),\
     UT_CASE(test_basic_string_init_subcstr__terminator_user_define),\
+    UT_CASE(test_basic_string_init_subcstr__memleak),\
     UT_CASE_BEGIN(basic_string_init_cstr, test_basic_string_init_cstr__null_container),\
     UT_CASE(test_basic_string_init_cstr__non_created_container),\
     UT_CASE(test_basic_string_init_cstr__null_valuestring),\

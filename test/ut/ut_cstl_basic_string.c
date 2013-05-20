@@ -521,8 +521,10 @@ void test_basic_string_init_subcstr__user_define_total(void** state)
     _test_basic_string_init_subcstr__user_define_t t_user1;
     _test_basic_string_init_subcstr__user_define_t t_user2;
     _test_basic_string_init_subcstr__user_define_t t_user3;
+    _test_basic_string_init_subcstr__user_define_t t_terminator;
     _test_basic_string_init_subcstr__user_define_t* elems[5] = {&t_user1, &t_user2, &t_user3, NULL, &t_user1};
 
+    memset(&t_terminator, 0x00, sizeof(_test_basic_string_init_subcstr__user_define_t));
     t_user1.n_elem = 4; t_user1.d_elem = 0.0;
     t_user2.n_elem = 0; t_user2.d_elem = 9.24;
     t_user3.n_elem = 0; t_user3.d_elem = 0.0;
@@ -534,7 +536,7 @@ void test_basic_string_init_subcstr__user_define_total(void** state)
     assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pt_basic_string, 1))->d_elem == 9.24);
     assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pt_basic_string, 2))->n_elem == 0);
     assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pt_basic_string, 2))->d_elem == 0.0);
-    assert_true(basic_string_at(pt_basic_string, 3) == NULL);
+    assert_true(memcmp(basic_string_at(pt_basic_string, 3), &t_terminator, sizeof(_test_basic_string_init_subcstr__user_define_t)) == 0);
     assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pt_basic_string, 4))->n_elem == 4);
     assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pt_basic_string, 4))->d_elem == 0.0);
 
@@ -602,6 +604,47 @@ void test_basic_string_init_subcstr__terminator_user_define(void** state)
     assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pbstr, 4))->n_elem == 100);
     assert_true(((_test_basic_string_init_subcstr__user_define_t*)basic_string_at(pbstr, 4))->d_elem == 100.001);
 
+    basic_string_destroy(pbstr);
+}
+
+typedef struct _tag_test_memleak {
+    int* pn;
+} _test_memleak_t;
+
+static void _test_memleak_init(const void* cpv_input, void* pv_output)
+{
+    _test_memleak_t* p = (_test_memleak_t*)cpv_input;
+    p->pn = malloc(sizeof(int));
+    *(bool_t*)pv_output = true;
+}
+static void _test_memleak_destroy(const void* cpv_input, void* pv_output)
+{
+    _test_memleak_t* p = (_test_memleak_t*)cpv_input;
+    free(p->pn);
+    *(bool_t*)pv_output = true;
+}
+static void _test_memleak_copy(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = true;
+}
+void test_basic_string_init_subcstr__memleak(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    bool_t b_ret = false;
+    _test_memleak_t elem1;
+    _test_memleak_t elem2;
+    _test_memleak_t* elems[] = {&elem1, NULL, &elem2};
+
+    type_register(_test_memleak_t, _test_memleak_init, _test_memleak_copy, NULL, _test_memleak_destroy);
+    pbstr = create_basic_string(_test_memleak_t);
+    _test_memleak_init(&elem1, &b_ret);
+    _test_memleak_init(&elem2, &b_ret);
+
+    basic_string_init_subcstr(pbstr, elems, 3);
+    assert_true(basic_string_size(pbstr) == 3);
+
+    _test_memleak_destroy(&elem1, &b_ret);
+    _test_memleak_destroy(&elem2, &b_ret);
     basic_string_destroy(pbstr);
 }
 
