@@ -219,14 +219,20 @@ void _basic_string_get_varg_value_auxiliary(basic_string_t* pt_basic_string, va_
  */
 void _basic_string_destroy_varg_value_auxiliary(basic_string_t* pt_basic_string, void* pv_varg)
 {
-    bool_t b_result = false;
+    bool_t   b_result = false;
+    _byte_t* pby_terminator = NULL;
 
     assert(pt_basic_string != NULL);
     assert(pv_varg != NULL);
     assert(_basic_string_is_inited(pt_basic_string) || _basic_string_is_created(pt_basic_string));
 
+    pby_terminator = pt_basic_string->_pby_string +
+        basic_string_size(pt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-    _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pv_varg, &b_result);
+
+    if (memcmp(pv_varg, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string)) != 0) {
+        _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pv_varg, &b_result);
+    }
     assert(b_result);
 }
 
@@ -328,6 +334,7 @@ void _basic_string_copy_substring_auxiliary(
     const basic_string_t* cpt_basic_string, _byte_t* pby_dest, _byte_t* pby_src, size_t t_len)
 {
     size_t i = 0;
+    _byte_t* pby_terminator = NULL;
 
     assert(cpt_basic_string != NULL);
     assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
@@ -335,9 +342,17 @@ void _basic_string_copy_substring_auxiliary(
     assert(pby_src != NULL);
     assert(t_len <= basic_string_max_size(cpt_basic_string));
 
+    pby_terminator = cpt_basic_string->_pby_string +
+        basic_string_size(cpt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     for (i = 0; i < t_len; ++i) {
         bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+
+        if (memcmp(pby_src, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+        } else {
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+            memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+        }
         assert(b_result);
 
         pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
@@ -422,16 +437,26 @@ void _basic_string_copy_range_auxiliary(
     const basic_string_t* cpt_basic_string, _byte_t* pby_dest, iterator_t it_begin, iterator_t it_end)
 {
     iterator_t it;
+    _byte_t*   pby_terminator = NULL;
 
     assert(cpt_basic_string != NULL);
     assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
     assert(pby_dest != NULL);
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
+    pby_terminator = cpt_basic_string->_pby_string +
+        basic_string_size(cpt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     for (it = it_begin; !iterator_equal(it, it_end); it = iterator_next(it)) {
         bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
-            pby_dest, _iterator_get_pointer_ignore_cstr(it), &b_result);
+
+        if (memcmp(_iterator_get_pointer_ignore_cstr(it), pby_terminator,
+            _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
+                pby_dest, _iterator_get_pointer_ignore_cstr(it), &b_result);
+        } else {
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+            memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+        }
         assert(b_result);
 
         pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
@@ -448,15 +473,24 @@ void _basic_string_copy_elem_auxiliary(
 
     if (t_count > 0) {
         /* get varg value only once */
-        size_t i = 0;
-        void* pv_varg = malloc(_GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+        size_t   i = 0;
+        _byte_t* pby_terminator = NULL;
+        void*    pv_varg = malloc(_GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
         assert(pv_varg != NULL);
         _basic_string_get_varg_value_auxiliary((basic_string_t*)cpt_basic_string, val_elemlist, pv_varg);
 
         /* copy varg value to each element */
+        pby_terminator = cpt_basic_string->_pby_string +
+            basic_string_size(cpt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
         for (i = 0; i < t_count; ++i) {
             bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pv_varg, &b_result);
+
+            if (memcmp(pv_varg, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pv_varg, &b_result);
+            } else {
+                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+                memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+            }
             assert(b_result);
 
             pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);

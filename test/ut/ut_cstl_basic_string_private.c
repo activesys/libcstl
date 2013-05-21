@@ -475,6 +475,60 @@ void test__basic_string_init_elem__basic_string_init_elem_varg__successfully_mul
     basic_string_destroy(pt_basic_string);
 }
 
+void test__basic_string_init_elem__terminator_c(void** state)
+{
+    size_t i = 0;
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_elem(pbstr, 10, '\0');
+    assert_true(basic_string_size(pbstr) == 10);
+    for (i = 0; i < basic_string_size(pbstr); ++i) {
+        assert_true(*(char*)basic_string_at(pbstr, i) == '\0');
+    }
+
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_init_elem__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test__basic_string_init_elem__terminator_libcstl(void** state)
+{
+    size_t i = 0;
+    list_t list_terminator;
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+
+    basic_string_init_elem(pbstr, 10, NULL);
+    assert_true(basic_string_size(pbstr) == 10);
+    memset(&list_terminator, 0x00, sizeof(list_t));
+    for (i = 0; i < basic_string_size(pbstr); ++i) {
+        assert_true(memcmp(&list_terminator, basic_string_at(pbstr, i), sizeof(list_t)) == 0);
+    }
+
+    basic_string_destroy(pbstr);
+}
+typedef struct _tag_test__basic_string_init_elem__terminator_user_define {
+    int n_elem;
+} _test__basic_string_init_elem__terminator_user_define_t;
+void test__basic_string_init_elem__terminator_user_define(void** state)
+{
+    size_t i = 0;
+    basic_string_t* pbstr = NULL;
+    _test__basic_string_init_elem__terminator_user_define_t t_terminator;
+
+    type_register(_test__basic_string_init_elem__terminator_user_define_t, NULL, NULL, NULL, NULL);
+    pbstr = create_basic_string(_test__basic_string_init_elem__terminator_user_define_t);
+
+    basic_string_init_elem(pbstr, 10, NULL);
+    assert_true(basic_string_size(pbstr) == 10);
+    memset(&t_terminator, 0x00, sizeof(_test__basic_string_init_elem__terminator_user_define_t));
+    for (i = 0; i < basic_string_size(pbstr); ++i) {
+        assert_true(memcmp(&t_terminator, basic_string_at(pbstr, i), sizeof(_test__basic_string_init_elem__terminator_user_define_t)) == 0);
+    }
+
+    basic_string_destroy(pbstr);
+}
+
 /*
  * test _basic_string_destroy_auxiliary
  */

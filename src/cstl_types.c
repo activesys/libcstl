@@ -606,7 +606,14 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
          */
         bool_t b_result = pt_typeinfo->_pt_type->_t_typesize;
         void*  pv_elem = va_arg(val_elemlist, void*);
-        (*pt_typeinfo->_pt_type->_t_typecopy)(pv_output, pv_elem, &b_result);
+
+        /* set terminator to pv_output when input pointer is NULL. */
+        if (pv_elem != NULL) {
+            (*pt_typeinfo->_pt_type->_t_typecopy)(pv_output, pv_elem, &b_result);
+        } else {
+            (*pt_typeinfo->_pt_type->_t_typedestroy)(pv_output, &b_result);
+            memset(pv_output, 0x00, pt_typeinfo->_pt_type->_t_typesize);
+        }
         assert(b_result);
     } else {
         /* invalid type style */

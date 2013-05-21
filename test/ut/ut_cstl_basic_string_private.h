@@ -32,6 +32,10 @@ void test__basic_string_init_elem__basic_string_init_elem_varg__successfully_0_c
 void test__basic_string_init_elem__basic_string_init_elem_varg__successfully(void** state);
 void test__basic_string_init_elem__basic_string_init_elem_varg__successfully_large_amounts_of_data(void** state);
 void test__basic_string_init_elem__basic_string_init_elem_varg__successfully_multiple_specificed_element(void** state);
+void test__basic_string_init_elem__terminator_c(void** state);
+void test__basic_string_init_elem__terminator_cstr(void** state);
+void test__basic_string_init_elem__terminator_libcstl(void** state);
+void test__basic_string_init_elem__terminator_user_define(void** state);
 /*
  * test _basic_string_destroy_auxiliary
  */
@@ -449,6 +453,10 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully),\
     UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully_large_amounts_of_data),\
     UT_CASE(test__basic_string_init_elem__basic_string_init_elem_varg__successfully_multiple_specificed_element),\
+    UT_CASE(test__basic_string_init_elem__terminator_c),\
+    UT_CASE(test__basic_string_init_elem__terminator_cstr),\
+    UT_CASE(test__basic_string_init_elem__terminator_libcstl),\
+    UT_CASE(test__basic_string_init_elem__terminator_user_define),\
     UT_CASE_BEGIN(_basic_string_init_elem_auxiliary, test__basic_string_init_elem_auxiliary__null_basic_string_container),\
     UT_CASE(test__basic_string_init_elem_auxiliary__null_elem),\
     UT_CASE(test__basic_string_init_elem_auxiliary__non_created_basic_string),\

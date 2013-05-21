@@ -1212,7 +1212,8 @@ void test_basic_string_init_copy_substring__successfully_c_builtin_src_non_empty
         basic_string_push_back(pt_src, i);
     }
 
-    expect_assert_failure(basic_string_init_copy_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_init_copy_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_empty(pt_dest));
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -1700,7 +1701,8 @@ void test_basic_string_init_copy_substring__successfully_cstl_builtin_length(voi
         basic_string_push_back(pt_src, pt_elem);
     }
 
-    expect_assert_failure(basic_string_init_copy_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_init_copy_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_empty(pt_dest));
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -1940,7 +1942,8 @@ void test_basic_string_init_copy_substring__successfully_user_define_non_empty_e
         basic_string_push_back(pt_src, &t_user);
     }
 
-    expect_assert_failure(basic_string_init_copy_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_init_copy_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_empty(pt_dest));
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -1983,6 +1986,75 @@ void test_basic_string_init_copy_substring__check(void** state)
     basic_string_destroy(pbstr2);
     basic_string_destroy(pbstr3);
     basic_string_destroy(pbstr4);
+}
+
+void test_basic_string_init_copy_substring__terminator_c(void** state)
+{
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+    basic_string_t* pbstr = create_basic_string(char);
+    basic_string_t* pbstr1 = create_basic_string(char);
+
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_copy_substring(pbstr, pbstr1, 0, NPOS);
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(*(char*)basic_string_at(pbstr, 0) == 'a');
+    assert_true(*(char*)basic_string_at(pbstr, 1) == '\0');
+    assert_true(*(char*)basic_string_at(pbstr, 2) == 'b');
+    assert_true(*(char*)basic_string_at(pbstr, 3) == '\0');
+    assert_true(*(char*)basic_string_at(pbstr, 4) == 'c');
+
+    basic_string_destroy(pbstr);
+    basic_string_destroy(pbstr1);
+}
+void test_basic_string_init_copy_substring__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_init_copy_substring__terminator_libcstl(void** state)
+{
+    list_t  terminator;
+    list_t* plist = create_list(int);
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    basic_string_t* pbstr1 = create_basic_string(list_t<int>);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    memset(&terminator, 0x00, sizeof(list_t));
+    list_init(plist);
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_copy_substring(pbstr, pbstr1, 0, NPOS);
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 0)));
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 1), sizeof(list_t)) == 0);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 2)));
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 3), sizeof(list_t)) == 0);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 4)));
+    basic_string_destroy(pbstr);
+    basic_string_destroy(pbstr1);
+    list_destroy(plist);
+}
+void test_basic_string_init_copy_substring__terminator_user_define(void** state)
+{
+    _test_basic_string_init_copy_substring__successfully_user_define_t terminator;
+    _test_basic_string_init_copy_substring__successfully_user_define_t elem;
+    _test_basic_string_init_copy_substring__successfully_user_define_t* elems[] = {&elem, NULL, &elem, NULL, &elem};
+    basic_string_t* pbstr = create_basic_string(_test_basic_string_init_copy_substring__successfully_user_define_t);
+    basic_string_t* pbstr1 = create_basic_string(_test_basic_string_init_copy_substring__successfully_user_define_t);
+
+    memset(&terminator, 0x00, sizeof(_test_basic_string_init_copy_substring__successfully_user_define_t));
+    elem.n_elem = 100;
+
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_copy_substring(pbstr, pbstr1, 0, NPOS);
+
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(((_test_basic_string_init_copy_substring__successfully_user_define_t*)basic_string_at(pbstr, 0))->n_elem == 100);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 1), sizeof(_test_basic_string_init_copy_substring__successfully_user_define_t)) == 0);
+    assert_true(((_test_basic_string_init_copy_substring__successfully_user_define_t*)basic_string_at(pbstr, 2))->n_elem == 100);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 3), sizeof(_test_basic_string_init_copy_substring__successfully_user_define_t)) == 0);
+    assert_true(((_test_basic_string_init_copy_substring__successfully_user_define_t*)basic_string_at(pbstr, 4))->n_elem == 100);
+
+    basic_string_destroy(pbstr);
+    basic_string_destroy(pbstr1);
 }
 
 /*
@@ -2175,13 +2247,13 @@ void test_basic_string_init_copy_range__successfully_cstl_builtin(void** state)
     list_destroy(pt_elem);
 }
 
+typedef struct _tag_test_basic_string_init_copy_range__successfully_user_define
+{
+    int n_elem;
+}_test_basic_string_init_copy_range__successfully_user_define_t;
+
 void test_basic_string_init_copy_range__successfully_user_define(void** state)
 {
-    typedef struct _tag_test_basic_string_init_copy_range__successfully_user_define
-    {
-        int n_elem;
-    }_test_basic_string_init_copy_range__successfully_user_define_t;
-
     size_t i = 0;
     basic_string_t* pt_dest = NULL;
     basic_string_t* pt_src = NULL;
@@ -2211,6 +2283,75 @@ void test_basic_string_init_copy_range__successfully_user_define(void** state)
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
 }
+void test_basic_string_init_copy_range__terminator_c(void** state)
+{
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+    basic_string_t* pbstr = create_basic_string(char);
+    basic_string_t* pbstr1 = create_basic_string(char);
+
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_copy_range(pbstr, basic_string_begin(pbstr1), basic_string_end(pbstr1));
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(*(char*)basic_string_at(pbstr, 0) == 'a');
+    assert_true(*(char*)basic_string_at(pbstr, 1) == '\0');
+    assert_true(*(char*)basic_string_at(pbstr, 2) == 'b');
+    assert_true(*(char*)basic_string_at(pbstr, 3) == '\0');
+    assert_true(*(char*)basic_string_at(pbstr, 4) == 'c');
+
+    basic_string_destroy(pbstr);
+    basic_string_destroy(pbstr1);
+}
+void test_basic_string_init_copy_range__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_init_copy_range__terminator_libcstl(void** state)
+{
+    list_t  terminator;
+    list_t* plist = create_list(int);
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    basic_string_t* pbstr1 = create_basic_string(list_t<int>);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    memset(&terminator, 0x00, sizeof(list_t));
+    list_init(plist);
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_copy_range(pbstr, basic_string_begin(pbstr1), basic_string_end(pbstr1));
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 0)));
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 1), sizeof(list_t)) == 0);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 2)));
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 3), sizeof(list_t)) == 0);
+    assert_true(list_equal(plist, (list_t*)basic_string_at(pbstr, 4)));
+    basic_string_destroy(pbstr);
+    basic_string_destroy(pbstr1);
+    list_destroy(plist);
+}
+void test_basic_string_init_copy_range__terminator_user_define(void** state)
+{
+    _test_basic_string_init_copy_range__successfully_user_define_t terminator;
+    _test_basic_string_init_copy_range__successfully_user_define_t elem;
+    _test_basic_string_init_copy_range__successfully_user_define_t* elems[] = {&elem, NULL, &elem, NULL, &elem};
+    basic_string_t* pbstr = create_basic_string(_test_basic_string_init_copy_range__successfully_user_define_t);
+    basic_string_t* pbstr1 = create_basic_string(_test_basic_string_init_copy_range__successfully_user_define_t);
+
+    memset(&terminator, 0x00, sizeof(_test_basic_string_init_copy_range__successfully_user_define_t));
+    elem.n_elem = 100;
+
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_copy_range(pbstr, basic_string_begin(pbstr1), basic_string_end(pbstr1));
+
+    assert_true(basic_string_size(pbstr) == 5);
+    assert_true(((_test_basic_string_init_copy_range__successfully_user_define_t*)basic_string_at(pbstr, 0))->n_elem == 100);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 1), sizeof(_test_basic_string_init_copy_range__successfully_user_define_t)) == 0);
+    assert_true(((_test_basic_string_init_copy_range__successfully_user_define_t*)basic_string_at(pbstr, 2))->n_elem == 100);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 3), sizeof(_test_basic_string_init_copy_range__successfully_user_define_t)) == 0);
+    assert_true(((_test_basic_string_init_copy_range__successfully_user_define_t*)basic_string_at(pbstr, 4))->n_elem == 100);
+
+    basic_string_destroy(pbstr);
+    basic_string_destroy(pbstr1);
+}
+
 
 /*
  * test basic_string_destroy
