@@ -282,7 +282,8 @@ void _basic_string_detach(basic_string_t* pt_basic_string)
         _basic_string_rep_t* prep_clone = _basic_string_clone_representation(pt_basic_string, 0);
         _basic_string_rep_set_sharable(prep_clone);
         /* reduce shared */
-        _basic_string_rep_reduce_shared(prep, _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
+        _basic_string_rep_reduce_shared(
+            prep, _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string), _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string));
         /* set new rep */
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep_clone);
     }
@@ -344,19 +345,36 @@ void _basic_string_copy_substring_auxiliary(
 
     pby_terminator = cpt_basic_string->_pby_string +
         basic_string_size(cpt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-    for (i = 0; i < t_len; ++i) {
-        bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
-        if (memcmp(pby_src, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+    /*
+     * It does not require judgment terminator, 
+     * when the type style is c built-in type, 
+     * which improves efficiency.
+     */
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_len; ++i) {
+            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
-        } else {
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
-            memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
-        }
-        assert(b_result);
+            assert(b_result);
 
-        pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        pby_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            pby_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        }
+    } else {
+        for (i = 0; i < t_len; ++i) {
+            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+
+            if (memcmp(pby_src, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+            } else {
+                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+                memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+            }
+            assert(b_result);
+
+            pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            pby_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        }
     }
 }
 
@@ -446,20 +464,37 @@ void _basic_string_copy_range_auxiliary(
 
     pby_terminator = cpt_basic_string->_pby_string +
         basic_string_size(cpt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-    for (it = it_begin; !iterator_equal(it, it_end); it = iterator_next(it)) {
-        bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
-        if (memcmp(_iterator_get_pointer_ignore_cstr(it), pby_terminator,
-            _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+    /*
+     * It does not require judgment terminator, 
+     * when the type style is c built-in type, 
+     * which improves efficiency.
+     */
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+        for (it = it_begin; !iterator_equal(it, it_end); it = iterator_next(it)) {
+            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
                 pby_dest, _iterator_get_pointer_ignore_cstr(it), &b_result);
-        } else {
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
-            memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
-        }
-        assert(b_result);
+            assert(b_result);
 
-        pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        }
+    } else {
+        for (it = it_begin; !iterator_equal(it, it_end); it = iterator_next(it)) {
+            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+
+            if (memcmp(_iterator_get_pointer_ignore_cstr(it), pby_terminator,
+                _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
+                    pby_dest, _iterator_get_pointer_ignore_cstr(it), &b_result);
+            } else {
+                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+                memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+            }
+            assert(b_result);
+
+            pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        }
     }
 }
 
@@ -482,18 +517,34 @@ void _basic_string_copy_elem_auxiliary(
         /* copy varg value to each element */
         pby_terminator = cpt_basic_string->_pby_string +
             basic_string_size(cpt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        for (i = 0; i < t_count; ++i) {
-            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
-            if (memcmp(pv_varg, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+        /*
+         * It does not require judgment terminator, 
+         * when the type style is c built-in type, 
+         * which improves efficiency.
+         */
+        if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+            for (i = 0; i < t_count; ++i) {
+                bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
                 _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pv_varg, &b_result);
-            } else {
-                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
-                memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
-            }
-            assert(b_result);
+                assert(b_result);
 
-            pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+                pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            }
+        } else {
+            for (i = 0; i < t_count; ++i) {
+                bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+
+                if (memcmp(pv_varg, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+                    _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pv_varg, &b_result);
+                } else {
+                    _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+                    memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+                }
+                assert(b_result);
+
+                pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            }
         }
 
         /* destroy varg value and free memory */
@@ -563,7 +614,8 @@ void _basic_string_replace_preparation(
 
         _basic_string_rep_reduce_shared(
             _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string));
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string),
+            _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string));
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
     } else {
         if (t_replacelen > t_len) {

@@ -198,6 +198,10 @@ void test_basic_string_copy__middle_npos(void** state);
 void test_basic_string_copy__end(void** state);
 void test_basic_string_copy__npos(void** state);
 void test_basic_string_copy__shared(void** state);
+void test_basic_string_copy__terminator_c(void** state);
+void test_basic_string_copy__terminator_cstr(void** state);
+void test_basic_string_copy__terminator_cstl(void** state);
+void test_basic_string_copy__terminator_user_define(void** state);
 /*
  * test basic_string_size
  */
@@ -3205,6 +3209,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_copy__end),\
     UT_CASE(test_basic_string_copy__npos),\
     UT_CASE(test_basic_string_copy__shared),\
+    UT_CASE(test_basic_string_copy__terminator_c),\
+    UT_CASE(test_basic_string_copy__terminator_cstr),\
+    UT_CASE(test_basic_string_copy__terminator_cstl),\
+    UT_CASE(test_basic_string_copy__terminator_user_define),\
     UT_CASE_BEGIN(basic_string_compare_substring_substring, test_basic_string_compare_substring_substring__null_first),\
     UT_CASE(test_basic_string_compare_substring_substring__null_second),\
     UT_CASE(test_basic_string_compare_substring_substring__non_inited_first),\

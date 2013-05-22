@@ -79,10 +79,11 @@ extern _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapa
  * Reduce shared and delete rep if necessary.
  * @param pt_rep             pointer to basic_string_rep_t;
  * @param ufun_destroy       destroy for element.
+ * @param t_style            type style.
  * @return new rep that reduced shared or NULL if the rep is deleted.
  * @remarks pt_rep and ufun_destroy, must not be NULL.
  */
-extern _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep, unary_function_t ufun_destroy);
+extern _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep, unary_function_t ufun_destroy, _typestyle_t t_style);
 
 /**
  * Increase shared.

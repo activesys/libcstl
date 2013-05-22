@@ -2753,10 +2753,11 @@ void test_basic_string_copy__middle_npos(void** state)
 void test_basic_string_copy__end(void** state)
 {
     basic_string_t* pt_basic_string = create_basic_string(int);
-    int buffer[10];
+    int buffer[10] = {0};
     basic_string_init_elem(pt_basic_string, 10, 100);
 
-    expect_assert_failure(basic_string_copy(pt_basic_string, buffer, 0, 10));
+    basic_string_copy(pt_basic_string, buffer, 0, 10);
+    assert_true(buffer[0] == 0);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -2801,6 +2802,65 @@ void test_basic_string_copy__shared(void** state)
     basic_string_destroy(pbstr);
 }
 
+void test_basic_string_copy__terminator_c(void** state)
+{
+    int i = 0;
+    basic_string_t* pbstr = create_basic_string(char);
+    char buffer[10] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
+
+    basic_string_init_elem(pbstr, 10, '\0');
+    basic_string_copy(pbstr, buffer, 10, 0);
+    for (i = 0; i < 10; ++i) {
+        assert_true(buffer[i] == '\0');
+    }
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_copy__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_copy__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    int i = 0;
+    list_t buffer[10];
+    list_t terminator;
+
+    basic_string_init_elem(pbstr, 10, NULL);
+    for (i = 0; i < 10; ++i) {
+        _create_list_auxiliary(buffer + i, "int");
+        list_init(buffer + i);
+    }
+    basic_string_copy(pbstr, buffer, 10, 0);
+    memset(&terminator, 0x00, sizeof(list_t));
+    for (i = 0; i < 10; ++i) {
+        assert_true(memcmp(&terminator, buffer + i, sizeof(list_t)) == 0);
+    }
+
+    basic_string_destroy(pbstr);
+}
+typedef struct _tag_test_basic_string_copy__terminator_user_define {
+    int n_elem;
+} _test_basic_string_copy__terminator_user_define_t;
+void test_basic_string_copy__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    int i = 0;
+    _test_basic_string_copy__terminator_user_define_t buffer[10];
+    _test_basic_string_copy__terminator_user_define_t terminator;
+
+    type_register(_test_basic_string_copy__terminator_user_define_t, NULL, NULL, NULL, NULL);
+    pbstr = create_basic_string(_test_basic_string_copy__terminator_user_define_t);
+    basic_string_init_elem(pbstr, 10, NULL);
+    memset(buffer, 0xcc, sizeof(_test_basic_string_copy__terminator_user_define_t) * 10);
+    basic_string_copy(pbstr, buffer, 10, 0);
+    for (i = 0; i < 10; ++i) {
+        assert_true(buffer[i].n_elem == 0);
+    }
+
+    basic_string_destroy(pbstr);
+}
 
 /*
  * test basic_string_size
