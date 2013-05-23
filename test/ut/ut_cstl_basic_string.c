@@ -9393,6 +9393,69 @@ void test_basic_string_compare_substring_substring__size(void** state)
     basic_string_destroy(pbstr2);
 }
 
+void test_basic_string_compare_substring_substring__terminator_c(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+    int elems[] = {1, 0, 3, 0, 5};
+
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    elems[1] = -1;
+    basic_string_init_subcstr(pbstr2, elems, 5);
+    assert_true(basic_string_compare_substring_substring(pbstr1, 0, basic_string_size(pbstr1), pbstr2, 0, basic_string_size(pbstr2)) > 0);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_compare_substring_substring__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_compare_substring_substring__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(list_t<int>);
+    basic_string_t* pbstr2 = create_basic_string(list_t<int>);
+    basic_string_t* pbstr3 = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    basic_string_init_elem(pbstr1, 10, plist);
+    basic_string_init_elem(pbstr2, 9, NULL);
+    basic_string_push_back(pbstr2, plist);
+    basic_string_init_elem(pbstr3, 9, NULL);
+    basic_string_push_back(pbstr3, plist);
+
+    assert_true(basic_string_compare_substring_substring(pbstr1, 0, basic_string_size(pbstr1), pbstr2, 0, basic_string_size(pbstr2)) > 0);
+    assert_true(basic_string_compare_substring_substring(pbstr2, 0, basic_string_size(pbstr2), pbstr1, 0, basic_string_size(pbstr1)) < 0);
+    assert_true(basic_string_compare_substring_substring(pbstr2, 0, basic_string_size(pbstr2), pbstr3, 0, basic_string_size(pbstr3)) == 0);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+    basic_string_destroy(pbstr3);
+    list_destroy(plist);
+}
+void test_basic_string_compare_substring_substring__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(_test_basic_string_compare_substring_substring__user_define_t);
+    basic_string_t* pbstr2 = create_basic_string(_test_basic_string_compare_substring_substring__user_define_t);
+    basic_string_t* pbstr3 = create_basic_string(_test_basic_string_compare_substring_substring__user_define_t);
+    _test_basic_string_compare_substring_substring__user_define_t t_elem;
+
+    t_elem.n_elem = 100;
+    basic_string_init_elem(pbstr1, 10, &t_elem);
+    basic_string_init_elem(pbstr2, 9, NULL);
+    basic_string_push_back(pbstr2, &t_elem);
+    basic_string_init_elem(pbstr3, 9, NULL);
+    basic_string_push_back(pbstr3, &t_elem);
+    assert_true(basic_string_compare_substring_substring(pbstr1, 0, basic_string_size(pbstr1), pbstr2, 0, basic_string_size(pbstr2)) > 0);
+    assert_true(basic_string_compare_substring_substring(pbstr2, 0, basic_string_size(pbstr2), pbstr1, 0, basic_string_size(pbstr1)) < 0);
+    assert_true(basic_string_compare_substring_substring(pbstr2, 0, basic_string_size(pbstr2), pbstr3, 0, basic_string_size(pbstr3)) == 0);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+    basic_string_destroy(pbstr3);
+}
+
 /*
  * test basic_string_compare_cstr
  */
@@ -11609,9 +11672,9 @@ void test_basic_string_compare_substring_subcstr__include_terminator(void** stat
     _test_basic_string_compare_substring_subcstr__user_defined_t* elems[] = {&t_elem, &t_elem, &t_elem, NULL, &t_elem, &t_elem};
 
     t_elem.n_elem = 100;
-    basic_string_init_subcstr(pt_basic_string, &t_elem, 6);
+    basic_string_init_subcstr(pt_basic_string, elems, 6);
 
-    assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, 6) == 0);
+    assert_true(basic_string_compare_substring_subcstr(pt_basic_string, 0, NPOS, elems, 6) > 0);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -11622,6 +11685,56 @@ void test_basic_string_compare_substring_subcstr__size(void** state)
 
     basic_string_init(pbstr);
     assert_true(basic_string_compare_substring_subcstr(pbstr, basic_string_size(pbstr), 15, elems, 0) == 0);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_compare_substring_subcstr__terminator_c(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(int);
+    int elems[] = {1, 0, 2, 0, 3};
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+    elems[1] = -1;
+    assert_true(basic_string_compare_substring_subcstr(pbstr, 0, basic_string_size(pbstr), elems, 5) > 0);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_compare_substring_subcstr__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_compare_substring_subcstr__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    list_init(plist);
+    basic_string_init_subcstr(pbstr, elems, 5);
+
+    assert_true(basic_string_compare_substring_subcstr(pbstr, 0, basic_string_size(pbstr), elems, 5) == 0);
+    elems[0] = NULL;
+    assert_true(basic_string_compare_substring_subcstr(pbstr, 0, basic_string_size(pbstr), elems, 5) > 0);
+    elems[0] = elems[1] = plist;
+    assert_true(basic_string_compare_substring_subcstr(pbstr, 0, basic_string_size(pbstr), elems, 5) < 0);
+
+    basic_string_destroy(pbstr);
+    list_destroy(plist);
+}
+void test_basic_string_compare_substring_subcstr__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(_test_basic_string_compare_substring_subcstr__user_defined_t);
+    _test_basic_string_compare_substring_subcstr__user_defined_t t_elem;
+    _test_basic_string_compare_substring_subcstr__user_defined_t* elems[] = {&t_elem, NULL, &t_elem, NULL, &t_elem};
+
+    t_elem.n_elem = 100;
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_compare_substring_subcstr(pbstr, 0, basic_string_size(pbstr), elems, 5) > 0);
+    elems[0] = NULL;
+    assert_true(basic_string_compare_substring_subcstr(pbstr, 0, basic_string_size(pbstr), elems, 5) > 0);
+    elems[0] = elems[1] = &t_elem;
+    assert_true(basic_string_compare_substring_subcstr(pbstr, 0, basic_string_size(pbstr), elems, 5) < 0);
 
     basic_string_destroy(pbstr);
 }

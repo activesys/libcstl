@@ -427,6 +427,7 @@ int basic_string_compare_substring_substring(
     bool_t   b_result;
     _byte_t* pby_first = NULL;
     _byte_t* pby_second = NULL;
+    _byte_t* pby_terminator = NULL;
 
     assert(cpt_first != NULL);
     assert(cpt_second != NULL);
@@ -453,21 +454,50 @@ int basic_string_compare_substring_substring(
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_first);
     pby_first = cpt_first->_pby_string + t_firstpos * t_typesize;
     pby_second = cpt_second->_pby_string + t_secondpos * t_typesize;
-    for (i = 0; i < t_cmplen; ++i) {
-        b_result = t_typesize;
-        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(pby_first, pby_second, &b_result);
-        if (b_result) {
-            return -1;
-        }
+    pby_terminator = cpt_first->_pby_string + basic_string_size(cpt_first) * t_typesize;
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_first) == _TYPE_CSTL_BUILTIN) {
+        for (i = 0; i < t_cmplen; ++i) {
+            int n_first = memcmp(pby_terminator, pby_first, t_typesize);
+            int n_second = memcmp(pby_terminator, pby_second, t_typesize);
 
-        b_result = t_typesize;
-        _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(pby_second, pby_first, &b_result);
-        if (b_result) {
-            return 1;
-        }
+            if (n_first == 0 && n_second != 0) {
+                return -1;
+            } else if (n_first != 0 && n_second == 0) {
+                return 1;
+            } else if (n_first != 0 && n_second != 0) {
+                b_result = t_typesize;
+                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(pby_first, pby_second, &b_result);
+                if (b_result) {
+                    return -1;
+                }
 
-        pby_first += t_typesize;
-        pby_second += t_typesize;
+                b_result = t_typesize;
+                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(pby_second, pby_first, &b_result);
+                if (b_result) {
+                    return 1;
+                }
+            }
+
+            pby_first += t_typesize;
+            pby_second += t_typesize;
+        }
+    } else {
+        for (i = 0; i < t_cmplen; ++i) {
+            b_result = t_typesize;
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(pby_first, pby_second, &b_result);
+            if (b_result) {
+                return -1;
+            }
+
+            b_result = t_typesize;
+            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_first)(pby_second, pby_first, &b_result);
+            if (b_result) {
+                return 1;
+            }
+
+            pby_first += t_typesize;
+            pby_second += t_typesize;
+        }
     }
 
     return t_firstlen < t_secondlen ? -1 : (t_firstlen > t_secondlen ? 1 : 0);
@@ -505,6 +535,7 @@ int basic_string_compare_substring_subcstr(
     size_t   t_typesize = 0;
     size_t   i = 0;
     _byte_t* pby_string = NULL;
+    _byte_t* pby_terminator = NULL;
     bool_t   b_result = false;
 
     assert(cpt_basic_string != NULL);
@@ -526,6 +557,7 @@ int basic_string_compare_substring_subcstr(
     }
 
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    pby_terminator = cpt_basic_string->_pby_string + basic_string_size(cpt_basic_string) * t_typesize;
     pby_string = cpt_basic_string->_pby_string + t_pos * t_typesize;
     assert(pby_string != NULL);
 
@@ -552,19 +584,46 @@ int basic_string_compare_substring_subcstr(
                 return 1;
             }
         }
+    } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_CSTL_BUILTIN) {
+        for (i = 0; i < t_cmplen; ++i) {
+            int n_result = memcmp(pby_terminator, pby_string + i * t_typesize, t_typesize);
+
+            if (n_result == 0 && *((_byte_t**)cpv_value_string + i) != NULL) {
+                return -1;
+            } else if (n_result != 0 && *((_byte_t**)cpv_value_string + i) == NULL) {
+                return 1;
+            } else if (n_result != 0 && *((_byte_t**)cpv_value_string + i) != NULL) {
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                    pby_string + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
+                if (b_result) {
+                    return -1;
+                }
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                    *((_byte_t**)cpv_value_string + i), pby_string + i * t_typesize, &b_result);
+                if (b_result) {
+                    return 1;
+                }
+            }
+        }
     } else {
         for (i = 0; i < t_cmplen; ++i) {
-            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                pby_string + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
-            if (b_result) {
-                return -1;
-            }
-            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-            _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
-                *((_byte_t**)cpv_value_string + i), pby_string + i * t_typesize, &b_result);
-            if (b_result) {
+            if (*((_byte_t**)cpv_value_string + i) == NULL) {
                 return 1;
+            } else {
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                    pby_string + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
+                if (b_result) {
+                    return -1;
+                }
+                b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+                _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(
+                    *((_byte_t**)cpv_value_string + i), pby_string + i * t_typesize, &b_result);
+                if (b_result) {
+                    return 1;
+                }
             }
         }
     }

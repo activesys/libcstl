@@ -778,6 +778,10 @@ void test_basic_string_compare_substring_substring__shared(void** state);
 void test_basic_string_compare_substring_substring__size1(void** state);
 void test_basic_string_compare_substring_substring__size2(void** state);
 void test_basic_string_compare_substring_substring__size(void** state);
+void test_basic_string_compare_substring_substring__terminator_c(void** state);
+void test_basic_string_compare_substring_substring__terminator_cstr(void** state);
+void test_basic_string_compare_substring_substring__terminator_cstl(void** state);
+void test_basic_string_compare_substring_substring__terminator_user_define(void** state);
 /*
  * test basic_string_compare_cstr
  */
@@ -964,6 +968,10 @@ void test_basic_string_compare_substring_subcstr__user_defined_all_content_great
 void test_basic_string_compare_substring_subcstr__shared(void** state);
 void test_basic_string_compare_substring_subcstr__include_terminator(void** state);
 void test_basic_string_compare_substring_subcstr__size(void** state);
+void test_basic_string_compare_substring_subcstr__terminator_c(void** state);
+void test_basic_string_compare_substring_subcstr__terminator_cstr(void** state);
+void test_basic_string_compare_substring_subcstr__terminator_cstl(void** state);
+void test_basic_string_compare_substring_subcstr__terminator_user_define(void** state);
 /*
  * test basic_string_substr
  */
@@ -3289,6 +3297,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_compare_substring_substring__size1),\
     UT_CASE(test_basic_string_compare_substring_substring__size2),\
     UT_CASE(test_basic_string_compare_substring_substring__size),\
+    UT_CASE(test_basic_string_compare_substring_substring__terminator_c),\
+    UT_CASE(test_basic_string_compare_substring_substring__terminator_cstr),\
+    UT_CASE(test_basic_string_compare_substring_substring__terminator_cstl),\
+    UT_CASE(test_basic_string_compare_substring_substring__terminator_user_define),\
     UT_CASE_BEGIN(basic_string_compare_substring_string, test_basic_string_compare_substring_string__null_first),\
     UT_CASE(test_basic_string_compare_substring_string__null_second),\
     UT_CASE(test_basic_string_compare_substring_string__non_inited_first),\
@@ -3548,6 +3560,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_compare_substring_subcstr__shared),\
     UT_CASE(test_basic_string_compare_substring_subcstr__include_terminator),\
     UT_CASE(test_basic_string_compare_substring_subcstr__size),\
+    UT_CASE(test_basic_string_compare_substring_subcstr__terminator_c),\
+    UT_CASE(test_basic_string_compare_substring_subcstr__terminator_cstr),\
+    UT_CASE(test_basic_string_compare_substring_subcstr__terminator_cstl),\
+    UT_CASE(test_basic_string_compare_substring_subcstr__terminator_user_define),\
     UT_CASE_BEGIN(basic_string_compare_substring_cstr, test_basic_string_compare_substring_cstr__null_basic_string),\
     UT_CASE(test_basic_string_compare_substring_cstr__null_value_string),\
     UT_CASE(test_basic_string_compare_substring_cstr__non_inited_basic_string),\
