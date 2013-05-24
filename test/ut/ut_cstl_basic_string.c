@@ -20537,6 +20537,55 @@ void test_basic_string_find_first_of__user_define_middle_not_find_pos(void** sta
     basic_string_destroy(pt_basic_string);
     basic_string_destroy(pt_find);
 }
+void test_basic_string_find_first_of__terminator_c(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_elem(pbstr2, 5, '\0');
+    assert_true(basic_string_find_first_of(pbstr1, pbstr2, 0) == 1);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_find_first_of__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_find_first_of__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(list_t<int>);
+    basic_string_t* pbstr2 = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    list_init(plist);
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_elem(pbstr2, 2, NULL);
+
+    assert_true(basic_string_find_first_of(pbstr1, pbstr2, 0) == 1);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+    list_destroy(plist);
+}
+void test_basic_string_find_first_of__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(_test_basic_string_find_first_of__user_define_t);
+    basic_string_t* pbstr2 = create_basic_string(_test_basic_string_find_first_of__user_define_t);
+    _test_basic_string_find_first_of__user_define_t t_elem;
+    _test_basic_string_find_first_of__user_define_t* elems[] = {&t_elem, NULL, &t_elem, NULL, &t_elem};
+
+    t_elem.n_elem = 10;
+    basic_string_init_subcstr(pbstr1, elems, 5);
+    basic_string_init_elem(pbstr2, 2, NULL);
+    assert_true(basic_string_find_first_of(pbstr1, pbstr2, 0) == 1);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
 
 /*
  * test basic_string_find_first_of_cstr
@@ -22277,6 +22326,46 @@ void test_basic_string_find_first_of_subcstr__pos_gt_size_n_gt_size(void** state
     basic_string_init_cstr(pbstr, "abcdefghij");
 
     assert_true(basic_string_find_first_of_subcstr(pbstr, "nposdxkyeicq", NPOS, 12) == NPOS);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_first_of_subcstr__terminator_c(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+    elems[0] = '\0';
+    assert_true(basic_string_find_first_of_subcstr(pbstr, elems, 0, 5) == 1);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_first_of_subcstr__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_find_first_of_subcstr__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    basic_string_init_subcstr(plist, elems, 5);
+    elems[0] = NULL;
+    assert_true(basic_string_find_first_of_subcstr(pbstr, elems, 0, 5) == 1);
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_find_first_of_subcstr__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(_test_basic_string_find_first_of_subcstr__user_define_t);
+    _test_basic_string_find_first_of_subcstr__user_define_t t_elem;
+    _test_basic_string_find_first_of_subcstr__user_define_t* elems[] = {&t_elem, NULL, &t_elem, NULL, &t_elem};
+
+    t_elem.n_elem = 100;
+    basic_string_init_subcstr(pbstr, elems, 5);
+    elems[0] = NULL;
+    assert_true(basic_string_find_first_of_subcstr(pbstr, elems, 0, 5) == 1);
 
     basic_string_destroy(pbstr);
 }
@@ -32438,6 +32527,45 @@ void test_basic_string_clear__shared(void** state)
 
     basic_string_destroy(pbstr1);
     basic_string_destroy(pbstr2);
+}
+void test_basic_string_clear__terminator_c(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+
+    basic_string_init_elem(pbstr, 10, '\0');
+    basic_string_clear(pbstr);
+    assert_true(basic_string_empty(pbstr));
+
+    basic_string_destroy(pbstr);
+}
+void test_basic_string_clear__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_clear__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+
+    basic_string_init_elem(pbstr, 10, NULL);
+    basic_string_clear(pbstr);
+    assert_true(basic_string_empty(pbstr));
+
+    basic_string_destroy(pbstr);
+}
+typedef struct _tag_test_basic_string_clear__user_define {
+    int n_elem;
+} _test_basic_string_clear__user_define_t;
+void test_basic_string_clear__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr = NULL;
+
+    type_register(_test_basic_string_clear__user_define_t, NULL, NULL, NULL, NULL);
+    pbstr = create_basic_string(_test_basic_string_clear__user_define_t);
+    basic_string_init_elem(pbstr, 10, NULL);
+    basic_string_clear(pbstr);
+    assert_true(basic_string_empty(pbstr));
+
+    basic_string_destroy(pbstr);
 }
 
 /*

@@ -1499,6 +1499,10 @@ void test_basic_string_find_first_of__pos_gt_size_n_eq_0(void** state);
 void test_basic_string_find_first_of__pos_eq_size_n_eq_0(void** state);
 void test_basic_string_find_first_of__pos_lt_size_n_eq_0(void** state);
 void test_basic_string_find_first_of__pos_eq_0_n_eq_0(void** state);
+void test_basic_string_find_first_of__terminator_c(void** state);
+void test_basic_string_find_first_of__terminator_cstr(void** state);
+void test_basic_string_find_first_of__terminator_cstl(void** state);
+void test_basic_string_find_first_of__terminator_user_define(void** state);
 /*
  * test basic_string_find_first_of_cstr
  */
@@ -1611,6 +1615,10 @@ void test_basic_string_find_first_of_subcstr__pos_eq_0_n_gt_size(void** state);
 void test_basic_string_find_first_of_subcstr__pos_lt_size_n_gt_size(void** state);
 void test_basic_string_find_first_of_subcstr__pos_eq_size_n_gt_size(void** state);
 void test_basic_string_find_first_of_subcstr__pos_gt_size_n_gt_size(void** state);
+void test_basic_string_find_first_of_subcstr__terminator_c(void** state);
+void test_basic_string_find_first_of_subcstr__terminator_cstr(void** state);
+void test_basic_string_find_first_of_subcstr__terminator_cstl(void** state);
+void test_basic_string_find_first_of_subcstr__terminator_user_define(void** state);
 /*
  * test basic_string_find_first_not_of
  */
@@ -2297,6 +2305,10 @@ void test_basic_string_clear__non_inited_basic_string_container(void** state);
 void test_basic_string_clear__empty_basic_string_container(void** state);
 void test_basic_string_clear__non_empty_basic_string_container(void** state);
 void test_basic_string_clear__shared(void** state);
+void test_basic_string_clear__terminator_c(void** state);
+void test_basic_string_clear__terminator_cstr(void** state);
+void test_basic_string_clear__terminator_cstl(void** state);
+void test_basic_string_clear__terminator_user_define(void** state);
 /*
  * test basic_string_swap
  */
@@ -3895,6 +3907,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_clear__empty_basic_string_container),\
     UT_CASE(test_basic_string_clear__non_empty_basic_string_container),\
     UT_CASE(test_basic_string_clear__shared),\
+    UT_CASE(test_basic_string_clear__terminator_c),\
+    UT_CASE(test_basic_string_clear__terminator_cstr),\
+    UT_CASE(test_basic_string_clear__terminator_cstl),\
+    UT_CASE(test_basic_string_clear__terminator_user_define),\
     UT_CASE_BEGIN(basic_string_assign, test_basic_string_assign__null_dest),\
     UT_CASE(test_basic_string_assign__null_src),\
     UT_CASE(test_basic_string_assign__non_inited_dest),\
@@ -4948,6 +4964,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_find_first_of_subcstr__pos_lt_size_n_gt_size),\
     UT_CASE(test_basic_string_find_first_of_subcstr__pos_eq_size_n_gt_size),\
     UT_CASE(test_basic_string_find_first_of_subcstr__pos_gt_size_n_gt_size),\
+    UT_CASE(test_basic_string_find_first_of_subcstr__terminator_c),\
+    UT_CASE(test_basic_string_find_first_of_subcstr__terminator_cstr),\
+    UT_CASE(test_basic_string_find_first_of_subcstr__terminator_cstl),\
+    UT_CASE(test_basic_string_find_first_of_subcstr__terminator_user_define),\
     UT_CASE_BEGIN(basic_string_find_first_of_cstr, test_basic_string_find_first_of_cstr__null_basic_string),\
     UT_CASE(test_basic_string_find_first_of_cstr__null_find),\
     UT_CASE(test_basic_string_find_first_of_cstr__non_inited_basic_string),\
@@ -5046,6 +5066,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_find_first_of__pos_eq_size_n_eq_0),\
     UT_CASE(test_basic_string_find_first_of__pos_lt_size_n_eq_0),\
     UT_CASE(test_basic_string_find_first_of__pos_eq_0_n_eq_0),\
+    UT_CASE(test_basic_string_find_first_of__terminator_c),\
+    UT_CASE(test_basic_string_find_first_of__terminator_cstr),\
+    UT_CASE(test_basic_string_find_first_of__terminator_cstl),\
+    UT_CASE(test_basic_string_find_first_of__terminator_user_define),\
     UT_CASE_BEGIN(basic_string_find_first_not_of_subcstr, test_basic_string_find_first_not_of_subcstr__null_basic_string),\
     UT_CASE(test_basic_string_find_first_not_of_subcstr__null_find),\
     UT_CASE(test_basic_string_find_first_not_of_subcstr__non_inited_basic_string),\
