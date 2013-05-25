@@ -856,6 +856,49 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__shared(void** st
     basic_string_destroy(pbstr1);
     basic_string_destroy(pbstr2);
 }
+void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_c(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_elem(pbstr, '\0', 0) == 1);
+
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    list_init(plist);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_elem(pbstr, NULL, 0) == 1);
+    basic_string_destroy(pbstr);
+    list_destroy(plist);
+}
+typedef struct _tag_test__basic_string_find_elem__user_define {
+    int n_elem;
+} _test__basic_string_find_elem__user_define_t;
+void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    _test__basic_string_find_elem__user_define_t t_elem;
+    _test__basic_string_find_elem__user_define_t* elems[] = {&t_elem, NULL, &t_elem, NULL, &t_elem};
+
+    type_register(_test__basic_string_find_elem__user_define_t, NULL, NULL, NULL, NULL);
+
+    t_elem.n_elem = 100;
+    pbstr = create_basic_string(_test__basic_string_find_elem__user_define_t);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_elem(pbstr, NULL, 0) == 1);
+    basic_string_destroy(pbstr);
+}
 
 /*
  * test _basic_string_rfind_elem and _basic_string_rfind_elem_varg
@@ -1143,6 +1186,50 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__shared(void** 
     basic_string_destroy(pbstr1);
     basic_string_destroy(pbstr2);
 }
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_c(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_rfind_elem(pbstr, '\0', 9) == 3);
+
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    list_init(plist);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_rfind_elem(pbstr, NULL, 9) == 3);
+    basic_string_destroy(pbstr);
+    list_destroy(plist);
+}
+typedef struct _tag_test__basic_string_rfind_elem__user_define {
+    int n_elem;
+} _test__basic_string_rfind_elem__user_define_t;
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    _test__basic_string_rfind_elem__user_define_t t_elem;
+    _test__basic_string_rfind_elem__user_define_t* elems[] = {&t_elem, NULL, &t_elem, NULL, &t_elem};
+
+    type_register(_test__basic_string_rfind_elem__user_define_t, NULL, NULL, NULL, NULL);
+
+    t_elem.n_elem = 100;
+    pbstr = create_basic_string(_test__basic_string_rfind_elem__user_define_t);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_rfind_elem(pbstr, NULL, 9) == 3);
+    basic_string_destroy(pbstr);
+}
+
 
 /*
  * test _basic_string_find_first_not_of_elem and _basic_string_find_first_not_of_elem_varg
@@ -1398,6 +1485,49 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     basic_string_destroy(pt_basic_string);
     */
     assert_true(false);
+}
+void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_c(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_first_not_of_elem(pbstr, 'a', 0) == 1);
+
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    list_init(plist);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_first_not_of_elem(pbstr, plist, 0) == 1);
+    basic_string_destroy(pbstr);
+    list_destroy(plist);
+}
+typedef struct _tag_test__basic_string_find_first_not_of_elem__user_define {
+    int n_elem;
+} _test__basic_string_find_first_not_of_elem__user_define_t;
+void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    _test__basic_string_find_first_not_of_elem__user_define_t t_elem;
+    _test__basic_string_find_first_not_of_elem__user_define_t* elems[] = {&t_elem, NULL, &t_elem, NULL, &t_elem};
+
+    type_register(_test__basic_string_find_first_not_of_elem__user_define_t, NULL, NULL, NULL, NULL);
+
+    t_elem.n_elem = 100;
+    pbstr = create_basic_string(_test__basic_string_find_first_not_of_elem__user_define_t);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_first_not_of_elem(pbstr, &t_elem, 0) == 1);
+    basic_string_destroy(pbstr);
 }
 
 /*
@@ -1696,6 +1826,49 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
     basic_string_init(pbstr);
     assert_true(basic_string_find_last_not_of_elem(pbstr, 'a', 0) == NPOS);
 
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_c(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char);
+    char elems[] = {'a', '\0', 'b', '\0', 'c'};
+
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_last_not_of_elem(pbstr, 'c', 9) == 3);
+
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+    list_t* elems[] = {plist, NULL, plist, NULL, plist};
+
+    list_init(plist);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_last_not_of_elem(pbstr, plist, 9) == 3);
+    basic_string_destroy(pbstr);
+    list_destroy(plist);
+}
+typedef struct _tag_test__basic_string_find_last_not_of_elem__user_define {
+    int n_elem;
+} _test__basic_string_find_last_not_of_elem__user_define_t;
+void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    _test__basic_string_find_last_not_of_elem__user_define_t t_elem;
+    _test__basic_string_find_last_not_of_elem__user_define_t* elems[] = {&t_elem, NULL, &t_elem, NULL, &t_elem};
+
+    type_register(_test__basic_string_find_last_not_of_elem__user_define_t, NULL, NULL, NULL, NULL);
+
+    t_elem.n_elem = 100;
+    pbstr = create_basic_string(_test__basic_string_find_last_not_of_elem__user_define_t);
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_last_not_of_elem(pbstr, &t_elem, 9) == 3);
     basic_string_destroy(pbstr);
 }
 

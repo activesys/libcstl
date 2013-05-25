@@ -381,7 +381,8 @@ void _basic_string_copy_substring_auxiliary(
 void _basic_string_copy_substring_backward_auxiliary(
     const basic_string_t* cpt_basic_string, _byte_t* pby_dest, _byte_t* pby_src, size_t t_len)
 {
-    size_t i = 0;
+    size_t   i = 0;
+    _byte_t* pby_terminator = NULL;
 
     assert(cpt_basic_string != NULL);
     assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
@@ -389,15 +390,35 @@ void _basic_string_copy_substring_backward_auxiliary(
     assert(pby_src != NULL);
     assert(t_len <= basic_string_max_size(cpt_basic_string));
 
+    pby_terminator = cpt_basic_string->_pby_string +
+        basic_string_size(cpt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     pby_dest = pby_dest + (t_len - 1) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     pby_src = pby_src + (t_len - 1) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-    for (i = 0; i < t_len; ++i) {
-        bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
-        assert(b_result);
 
-        pby_dest -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-        pby_src -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+        for (i = 0; i < t_len; ++i) {
+            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+            assert(b_result);
+
+            pby_dest -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            pby_src -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        }
+    } else {
+        for (i = 0; i < t_len; ++i) {
+            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+
+            if (memcmp(pby_terminator, pby_src, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+            } else {
+                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+                memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+            }
+            assert(b_result);
+
+            pby_dest -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+            pby_src -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+        }
     }
 }
 

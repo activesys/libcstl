@@ -2830,6 +2830,10 @@ void test_basic_string_replace_substring__libcstl_builtin(void** state);
 void test_basic_string_replace_substring__user_define(void** state);
 void test_basic_string_replace_substring__shared(void** state);
 void test_basic_string_replace_substring__check(void** state);
+void test_basic_string_replace_substring__terminator_c(void** state);
+void test_basic_string_replace_substring__terminator_cstr(void** state);
+void test_basic_string_replace_substring__terminator_cstl(void** state);
+void test_basic_string_replace_substring__terminator_user_define(void** state);
 /*
  * test basic_string_replace_cstr
  */
@@ -4246,6 +4250,10 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_replace_substring__user_define),\
     UT_CASE(test_basic_string_replace_substring__shared),\
     UT_CASE(test_basic_string_replace_substring__check),\
+    UT_CASE(test_basic_string_replace_substring__terminator_c),\
+    UT_CASE(test_basic_string_replace_substring__terminator_cstr),\
+    UT_CASE(test_basic_string_replace_substring__terminator_cstl),\
+    UT_CASE(test_basic_string_replace_substring__terminator_user_define),\
     UT_CASE_BEGIN(basic_string_replace, test_basic_string_replace__null_dest),\
     UT_CASE(test_basic_string_replace__null_replace),\
     UT_CASE(test_basic_string_replace__non_inited_dest),\

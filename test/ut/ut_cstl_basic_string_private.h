@@ -68,6 +68,10 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_back(void** state);
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle_pos(void** state);
 void test__basic_string_find_elem__basic_string_find_elem_varg__shared(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_c(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_cstr(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_cstl(void** state);
+void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_user_define(void** state);
 /*
  * test _basic_string_rfind_elem and _basic_string_rfind_elem_varg
  */
@@ -91,6 +95,10 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_back(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle_pos(void** state);
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__shared(void** state);
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_c(void** state);
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_cstr(void** state);
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_cstl(void** state);
+void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_user_define(void** state);
 /*
  * test _basic_string_find_first_not_of_elem and _basic_string_find_first_not_of_elem_varg
  */
@@ -112,6 +120,10 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_middle(void** state);
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_back(void** state);
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_middle_pos(void** state);
+void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_c(void** state);
+void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_cstr(void** state);
+void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_cstl(void** state);
+void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_user_define(void** state);
 /*
  * test _basic_string_find_last_not_of_elem and _basic_string_find_last_not_of_elem_varg
  */
@@ -138,6 +150,10 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__pos_lt_size(void** state);
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__pos_eq_0(void** state);
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__empty(void** state);
+void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_c(void** state);
+void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_cstr(void** state);
+void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_cstl(void** state);
+void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_user_define(void** state);
 /*
  * test _basic_string_connect_elem and _basic_string_connect_elem_varg
  */
@@ -632,6 +648,10 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_back),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle_pos),\
     UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__shared),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__terminator_c),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__terminator_cstr),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__terminator_cstl),\
+    UT_CASE(test__basic_string_find_elem__basic_string_find_elem_varg__terminator_user_define),\
     UT_CASE_BEGIN(_basic_string_rfind_elem__basic_string_rfind_elem_varg,\
         test__basic_string_rfind_elem__basic_string_rfind_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__non_init_basic_string_container),\
@@ -652,6 +672,10 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_back),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle_pos),\
     UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__shared),\
+    UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_c),\
+    UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_cstr),\
+    UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_cstl),\
+    UT_CASE(test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_user_define),\
     UT_CASE_BEGIN(_basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg,\
         test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__non_init_basic_string_container),\
@@ -670,6 +694,10 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_middle),\
     UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_back),\
     UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_middle_pos),\
+    UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_c),\
+    UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_cstr),\
+    UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_cstl),\
+    UT_CASE(test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_user_define),\
     UT_CASE_BEGIN(_basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg,\
         test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__null_basic_string_container),\
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__non_init_basic_string_container),\
@@ -692,7 +720,11 @@ void test__basic_string_rep_increase_shared__not_shared(void** state);
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__pos_eq_size),\
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__pos_lt_size),\
     UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__pos_eq_0),\
-    UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__empty)
+    UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__empty),\
+    UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_c),\
+    UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_cstr),\
+    UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_cstl),\
+    UT_CASE(test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_user_define)
 
 #endif /* _UT_CSTL_BASIC_STRING_PRIVATE_H_ */
 

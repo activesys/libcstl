@@ -40916,6 +40916,57 @@ void test_basic_string_replace_substring__check(void** state)
     basic_string_destroy(pbstr1);
     basic_string_destroy(pbstr2);
 }
+void test_basic_string_replace_substring__terminator_c(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(char);
+    basic_string_t* pbstr2 = create_basic_string(char);
+
+    basic_string_init_elem(pbstr1, 10, '\0');
+    basic_string_init_elem(pbstr2, 10, 'a');
+    basic_string_reserve(pbstr1, 30);
+    basic_string_replace_substring(pbstr1, 0, 0, pbstr2, 0, NPOS);
+    assert_true(basic_string_size(pbstr1) == 20);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_replace_substring__terminator_cstr(void** state)
+{
+    assert_true(false);
+}
+void test_basic_string_replace_substring__terminator_cstl(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(list_t<int>);
+    basic_string_t* pbstr2 = create_basic_string(list_t<int>);
+    list_t* plist = create_list(int);
+
+    list_init(plist);
+    basic_string_init_elem(pbstr1, 10, NULL);
+    basic_string_init_elem(pbstr2, 10, plist);
+    basic_string_reserve(pbstr1, 30);
+    basic_string_replace_substring(pbstr1, 0, 0, pbstr2, 0, NPOS);
+    assert_true(basic_string_size(pbstr1) == 20);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+void test_basic_string_replace_substring__terminator_user_define(void** state)
+{
+    basic_string_t* pbstr1 = create_basic_string(_test_basic_string_replace_substring__user_define_t);
+    basic_string_t* pbstr2 = create_basic_string(_test_basic_string_replace_substring__user_define_t);
+    _test_basic_string_replace_substring__user_define_t t_elem;
+
+    t_elem.n_elem = 100;
+    basic_string_init_elem(pbstr1, 10, NULL);
+    basic_string_init_elem(pbstr2, 10, &t_elem);
+
+    basic_string_reserve(pbstr1, 30);
+    basic_string_replace_substring(pbstr1, 0, 0, pbstr2, 0, NPOS);
+    assert_true(basic_string_size(pbstr1) == 20);
+
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
 
 /*
  * test basic_string_replace_cstr
