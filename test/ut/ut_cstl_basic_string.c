@@ -2840,6 +2840,23 @@ void test_basic_string_copy__terminator_cstl(void** state)
 
     basic_string_destroy(pbstr);
 }
+void test_basic_string_copy__terminator_cstl_2(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    int i = 0;
+    list_t buffer[10];
+    list_t terminator;
+
+    basic_string_init_elem(pbstr, 10, NULL);
+    memset(buffer, 0x00, sizeof(list_t) * 10);
+    basic_string_copy(pbstr, buffer, 10, 0);
+    memset(&terminator, 0x00, sizeof(list_t));
+    for (i = 0; i < 10; ++i) {
+        assert_true(memcmp(&terminator, buffer + i, sizeof(list_t)) == 0);
+    }
+
+    basic_string_destroy(pbstr);
+}
 typedef struct _tag_test_basic_string_copy__terminator_user_define {
     int n_elem;
 } _test_basic_string_copy__terminator_user_define_t;

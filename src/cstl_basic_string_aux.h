@@ -233,6 +233,18 @@ extern bool_t _basic_string_substring_find(
 extern _basic_string_rep_t* _basic_string_rep_construct(
     const basic_string_t* cpt_basic_string, size_t t_len, size_t t_newcapacity, size_t t_oldcapacity);
 
+/**
+ * Copy element with terminator.
+ * @param cpt_basic_string  basic string container.
+ * @param pby_dest          destination.
+ * @param pby_src           source.
+ * @param pby_terminator    terminator.
+ * @return void.
+ * @remarks cpt_basic_string must be not NULL.
+ */
+extern void _basic_string_copy_elem_with_terminator(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_dest, _byte_t* pby_src, _byte_t* pby_terminator);
+
 #ifdef __cplusplus
 }
 #endif

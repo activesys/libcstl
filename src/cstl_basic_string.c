@@ -217,17 +217,8 @@ size_t basic_string_copy(const basic_string_t* cpt_basic_string, void* pv_buffer
         }
     } else {
         for (i = 0; i < t_size; ++i) {
-            b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-
-            if (memcmp(pby_terminator, pby_pos + i * t_typesize, t_typesize) != 0) {
-                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
-                    (_byte_t*)pv_buffer + i * t_typesize, pby_pos + i * t_typesize, &b_result);
-            } else {
-                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(
-                    (_byte_t*)pv_buffer + i * t_typesize, &b_result);
-                memcpy((_byte_t*)pv_buffer + i * t_typesize, pby_terminator, t_typesize);
-            }
-            assert(b_result);
+            _basic_string_copy_elem_with_terminator(
+                cpt_basic_string, (_byte_t*)pv_buffer + i * t_typesize, pby_pos + i * t_typesize, pby_terminator);
         }
     }
 

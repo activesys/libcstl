@@ -362,15 +362,7 @@ void _basic_string_copy_substring_auxiliary(
         }
     } else {
         for (i = 0; i < t_len; ++i) {
-            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-
-            if (memcmp(pby_src, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
-                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
-            } else {
-                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
-                memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
-            }
-            assert(b_result);
+            _basic_string_copy_elem_with_terminator(cpt_basic_string, pby_dest, pby_src, pby_terminator);
 
             pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             pby_src += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
@@ -406,15 +398,7 @@ void _basic_string_copy_substring_backward_auxiliary(
         }
     } else {
         for (i = 0; i < t_len; ++i) {
-            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-
-            if (memcmp(pby_terminator, pby_src, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
-                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
-            } else {
-                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
-                memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
-            }
-            assert(b_result);
+            _basic_string_copy_elem_with_terminator(cpt_basic_string, pby_dest, pby_src, pby_terminator);
 
             pby_dest -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             pby_src -= _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
@@ -428,6 +412,7 @@ void _basic_string_copy_subcstr_auxiliary(
     size_t   i = 0;
     size_t   t_typesize = 0;
     bool_t   b_result = false;
+    int      n_dest_terminator = 0;
     _byte_t* pby_terminator = NULL;
 
     assert(cpt_basic_string != NULL);
@@ -452,21 +437,27 @@ void _basic_string_copy_subcstr_auxiliary(
         }
     } else {
         for (i = 0; i < t_len; ++i) {
-            if (*((_byte_t**)cpv_value_string + i) != NULL) {
-                b_result = t_typesize;
+            n_dest_terminator = memcmp(pby_terminator, pby_dest + i * t_typesize, t_typesize);
+            b_result = t_typesize;
+
+            if (n_dest_terminator != 0 && *((_byte_t**)cpv_value_string + i) != NULL) {
                 _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
                     pby_dest + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
                 assert(b_result);
-            } else {
+            } else if (n_dest_terminator != 0 && *((_byte_t**)cpv_value_string + i) == NULL) {
                 /* NOTE:
                  * The elements are inited, so it must be destroied before
                  * it is seted to 0x00 for preventing memory leak.
                  * */
-                b_result = t_typesize;
                 _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest + i * t_typesize, &b_result);
                 assert(b_result);
                 /* set terminator for NULL */
                 memcpy(pby_dest + i * t_typesize, pby_terminator, t_typesize);
+            } else if (n_dest_terminator == 0 && *((_byte_t**)cpv_value_string + i) != NULL) {
+                _basic_string_init_elem_auxiliary((basic_string_t*)cpt_basic_string, pby_dest + i * t_typesize);
+                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
+                    pby_dest + i * t_typesize, *((_byte_t**)cpv_value_string + i), &b_result);
+                assert(b_result);
             }
         }
     }
@@ -502,17 +493,8 @@ void _basic_string_copy_range_auxiliary(
         }
     } else {
         for (it = it_begin; !iterator_equal(it, it_end); it = iterator_next(it)) {
-            bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-
-            if (memcmp(_iterator_get_pointer_ignore_cstr(it), pby_terminator,
-                _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
-                _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
-                    pby_dest, _iterator_get_pointer_ignore_cstr(it), &b_result);
-            } else {
-                _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
-                memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
-            }
-            assert(b_result);
+            _basic_string_copy_elem_with_terminator(
+                cpt_basic_string, pby_dest, (_byte_t*)_iterator_get_pointer_ignore_cstr(it), pby_terminator);
 
             pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
         }
@@ -554,15 +536,7 @@ void _basic_string_copy_elem_auxiliary(
             }
         } else {
             for (i = 0; i < t_count; ++i) {
-                bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
-
-                if (memcmp(pv_varg, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string)) != 0) {
-                    _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pv_varg, &b_result);
-                } else {
-                    _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
-                    memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
-                }
-                assert(b_result);
+                _basic_string_copy_elem_with_terminator(cpt_basic_string, pby_dest, pv_varg, pby_terminator);
 
                 pby_dest += _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             }
@@ -806,6 +780,37 @@ _basic_string_rep_t* _basic_string_rep_construct(
     _basic_string_init_elem_range_auxiliary((basic_string_t*)cpt_basic_string, _basic_string_rep_get_data(prep), t_len);
 
     return prep;
+}
+
+/**
+ * Copy element with terminator.
+ */
+void _basic_string_copy_elem_with_terminator(
+    const basic_string_t* cpt_basic_string, _byte_t* pby_dest, _byte_t* pby_src, _byte_t* pby_terminator)
+{
+    int    n_dest_terminator = 0;
+    int    n_src_terminator = 0;
+    bool_t b_result = false;
+
+    assert(cpt_basic_string != NULL);
+    assert(pby_dest != NULL);
+    assert(pby_src != NULL);
+    assert(pby_terminator != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string) || _basic_string_is_created(cpt_basic_string));
+
+    n_dest_terminator = memcmp(pby_terminator, pby_dest, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+    n_src_terminator = memcmp(pby_terminator, pby_src, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+    b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
+
+    if (n_dest_terminator != 0 && n_src_terminator != 0) {
+        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+    } else if (n_dest_terminator != 0 && n_src_terminator == 0) {
+        _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_dest, &b_result);
+        memcpy(pby_dest, pby_terminator, _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string));
+    } else if (n_dest_terminator == 0 && n_src_terminator != 0) {
+        _basic_string_init_elem_auxiliary((basic_string_t*)cpt_basic_string, pby_dest);
+        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
+    }
 }
 
 /** local function implementation section **/
