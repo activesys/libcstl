@@ -2810,7 +2810,6 @@ void test_basic_string_replace_substring__null_replace(void** state);
 void test_basic_string_replace_substring__non_inited_dest(void** state);
 void test_basic_string_replace_substring__non_inited_replace(void** state);
 void test_basic_string_replace_substring__not_same_type(void** state);
-void test_basic_string_replace_substring__same_container(void** state);
 void test_basic_string_replace_substring__invalid_pos(void** state);
 void test_basic_string_replace_substring__invalid_position(void** state);
 void test_basic_string_replace_substring__c_builtin_begin_empty_replace_empty(void** state);
@@ -2835,6 +2834,23 @@ void test_basic_string_replace_substring__terminator_c(void** state);
 void test_basic_string_replace_substring__terminator_cstr(void** state);
 void test_basic_string_replace_substring__terminator_cstl(void** state);
 void test_basic_string_replace_substring__terminator_user_define(void** state);
+void test_basic_string_replace_substring__same_container(void** state);
+void test_basic_string_replace_substring__same_container_1(void** state);
+void test_basic_string_replace_substring__same_container_2(void** state);
+void test_basic_string_replace_substring__same_container_3(void** state);
+void test_basic_string_replace_substring__same_container_4(void** state);
+void test_basic_string_replace_substring__same_container_5(void** state);
+void test_basic_string_replace_substring__same_container_6(void** state);
+void test_basic_string_replace_substring__same_container_7(void** state);
+void test_basic_string_replace_substring__same_container_8(void** state);
+void test_basic_string_replace_substring__same_container_9(void** state);
+void test_basic_string_replace_substring__same_container_10(void** state);
+void test_basic_string_replace_substring__same_container_11(void** state);
+void test_basic_string_replace_substring__same_container_12(void** state);
+void test_basic_string_replace_substring__same_container_13(void** state);
+void test_basic_string_replace_substring__same_container_14(void** state);
+void test_basic_string_replace_substring__same_container_15(void** state);
+void test_basic_string_replace_substring__same_container_16(void** state);
 /*
  * test basic_string_replace_cstr
  */
@@ -4231,7 +4247,6 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_replace_substring__non_inited_dest),\
     UT_CASE(test_basic_string_replace_substring__non_inited_replace),\
     UT_CASE(test_basic_string_replace_substring__not_same_type),\
-    UT_CASE(test_basic_string_replace_substring__same_container),\
     UT_CASE(test_basic_string_replace_substring__invalid_pos),\
     UT_CASE(test_basic_string_replace_substring__invalid_position),\
     UT_CASE(test_basic_string_replace_substring__c_builtin_begin_empty_replace_empty),\
@@ -4256,6 +4271,23 @@ void test_basic_string_resize__shared(void** state);
     UT_CASE(test_basic_string_replace_substring__terminator_cstr),\
     UT_CASE(test_basic_string_replace_substring__terminator_cstl),\
     UT_CASE(test_basic_string_replace_substring__terminator_user_define),\
+    UT_CASE(test_basic_string_replace_substring__same_container),\
+    UT_CASE(test_basic_string_replace_substring__same_container_1),\
+    UT_CASE(test_basic_string_replace_substring__same_container_2),\
+    UT_CASE(test_basic_string_replace_substring__same_container_3),\
+    UT_CASE(test_basic_string_replace_substring__same_container_4),\
+    UT_CASE(test_basic_string_replace_substring__same_container_5),\
+    UT_CASE(test_basic_string_replace_substring__same_container_6),\
+    UT_CASE(test_basic_string_replace_substring__same_container_7),\
+    UT_CASE(test_basic_string_replace_substring__same_container_8),\
+    UT_CASE(test_basic_string_replace_substring__same_container_9),\
+    UT_CASE(test_basic_string_replace_substring__same_container_10),\
+    UT_CASE(test_basic_string_replace_substring__same_container_11),\
+    UT_CASE(test_basic_string_replace_substring__same_container_12),\
+    UT_CASE(test_basic_string_replace_substring__same_container_13),\
+    UT_CASE(test_basic_string_replace_substring__same_container_14),\
+    UT_CASE(test_basic_string_replace_substring__same_container_15),\
+    UT_CASE(test_basic_string_replace_substring__same_container_16),\
     UT_CASE_BEGIN(basic_string_replace, test_basic_string_replace__null_dest),\
     UT_CASE(test_basic_string_replace__null_replace),\
     UT_CASE(test_basic_string_replace__non_inited_dest),\

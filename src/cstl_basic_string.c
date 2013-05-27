@@ -1342,15 +1342,17 @@ void basic_string_replace_substring(
     basic_string_t* pt_basic_string, size_t t_pos, size_t t_len,
     const basic_string_t* cpt_replace, size_t t_position, size_t t_length)
 {
-    size_t   t_size = 0;
-    size_t   t_newsize = 0;
-    size_t   t_typesize = 0;
-    _byte_t* pby_dest = NULL;
-    _byte_t* pby_src = NULL;
+    size_t          t_size = 0;
+    size_t          t_newsize = 0;
+    size_t          t_typesize = 0;
+    _byte_t*        pby_dest = NULL;
+    _byte_t*        pby_dest_end = NULL;
+    _byte_t*        pby_src = NULL;
+    _byte_t*        pby_src_end = NULL;
+    basic_string_t* pt_basic_temp = NULL;
 
     assert(pt_basic_string != NULL);
     assert(cpt_replace != NULL);
-    assert(pt_basic_string != cpt_replace);
     assert(_basic_string_is_inited(pt_basic_string));
     assert(_basic_string_is_inited(cpt_replace));
     assert(_basic_string_same_type(pt_basic_string, cpt_replace));
@@ -1364,15 +1366,45 @@ void basic_string_replace_substring(
         t_length = basic_string_size(cpt_replace) - t_position;
     }
 
-    _basic_string_replace_preparation(pt_basic_string, t_pos, t_len, t_length);
-
-    /* copy elements in replace range */
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     t_size = basic_string_size(pt_basic_string);
     t_newsize = t_size + t_length - t_len;
-    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
     pby_dest = pt_basic_string->_pby_string + t_pos * t_typesize;
+    pby_dest_end = pby_dest + t_len * t_typesize;
     pby_src = cpt_replace->_pby_string + t_position * t_typesize;
+    pby_src_end = pby_src + t_length * t_typesize;
+
+    /* Overlapping case */
+    if (pby_src_end > pby_dest && pby_src_end <= pby_dest_end ||
+        pby_src >= pby_dest && pby_src < pby_dest_end) {
+        pt_basic_temp = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(cpt_replace));
+        basic_string_init_copy_substring(pt_basic_temp, cpt_replace, t_position, t_length);
+    }
+
+    _basic_string_replace_preparation(pt_basic_string, t_pos, t_len, t_length);
+
+    /* Must be calculate dest and src because the memory pt_basic_string->_pby_string may be reallocated. */
+    pby_dest = pt_basic_string->_pby_string + t_pos * t_typesize;
+    pby_dest_end = pby_dest + t_len * t_typesize;
+    pby_src = cpt_replace->_pby_string + t_position * t_typesize;
+    pby_src_end = pby_src + t_length * t_typesize;
+
+    if (pt_basic_temp != NULL) {
+        pby_src = pt_basic_temp->_pby_string;
+    } else if (pby_src >= pby_dest_end && pby_src <= pt_basic_string->_pby_string + t_size * t_typesize) {
+        if (t_newsize > t_size) {
+            pby_src = pby_src + (t_newsize - t_size) * t_typesize;
+        } else {
+            pby_src = pby_src - (t_size - t_newsize) * t_typesize;
+        }
+    }
+
+    /* copy elements in replace range */
     _basic_string_copy_substring_auxiliary(pt_basic_string, pby_dest, pby_src, t_length);
+
+    if (pt_basic_temp != NULL) {
+        basic_string_destroy(pt_basic_temp);
+    }
 }
 
 /**
@@ -1416,7 +1448,6 @@ void basic_string_replace_subcstr(
     pby_dest = pt_basic_string->_pby_string + t_pos * t_typesize;
     _basic_string_copy_subcstr_auxiliary(pt_basic_string, pby_dest, cpv_value_string, t_length);
 }
-
 
 /**
  * Replace elements in a basic_string at a specificed range with specificed basic_string.

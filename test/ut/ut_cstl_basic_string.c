@@ -40489,10 +40489,171 @@ void test_basic_string_replace_substring__not_same_type(void** state)
 
 void test_basic_string_replace_substring__same_container(void** state)
 {
-    basic_string_t* pt_basic_string = create_basic_string(int);
-    basic_string_init_elem(pt_basic_string, 10, 100);
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
 
-    expect_assert_failure(basic_string_replace_substring(pt_basic_string, 0, NPOS, pt_basic_string, 0, NPOS));
+    basic_string_replace_substring(pt_basic_string, 0, NPOS, pt_basic_string, 0, NPOS);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_1(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 0, 0, pt_basic_string, 0, 0);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_2(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 3, 0, pt_basic_string, 0, 0);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_3(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, basic_string_size(pt_basic_string), 0, pt_basic_string, 0, 0);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_4(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 0, 3, pt_basic_string, 0, 0);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "defg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_5(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 3, 3, pt_basic_string, 0, 0);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_6(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, basic_string_size(pt_basic_string), 3, pt_basic_string, 0, 0);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_7(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 0, NPOS, pt_basic_string, 0, 0);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_8(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 0, 0, pt_basic_string, 0, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcabcdefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_9(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 4, 0, pt_basic_string, 0, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdabcefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_10(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, basic_string_size(pt_basic_string), 0, pt_basic_string, 0, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdefgabc") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_11(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 0, 4, pt_basic_string, 0, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_12(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 4, 4, pt_basic_string, 0, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdabc") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_13(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, basic_string_size(pt_basic_string), 4, pt_basic_string, 0, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdefgabc") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_14(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 0, 3, pt_basic_string, 3, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "defdefg") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_15(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, 4, 3, pt_basic_string, 3, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcddef") == 0);
+
+    basic_string_destroy(pt_basic_string);
+}
+void test_basic_string_replace_substring__same_container_16(void** state)
+{
+    basic_string_t* pt_basic_string = create_basic_string(char);
+    basic_string_init_cstr(pt_basic_string, "abcdefg");
+
+    basic_string_replace_substring(pt_basic_string, basic_string_size(pt_basic_string), 3, pt_basic_string, 3, 3);
+    assert_true(strcmp((char*)basic_string_c_str(pt_basic_string), "abcdefgdef") == 0);
 
     basic_string_destroy(pt_basic_string);
 }
