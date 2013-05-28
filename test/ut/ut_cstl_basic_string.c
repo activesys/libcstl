@@ -3287,7 +3287,7 @@ void test_basic_string_equal__not_same_type(void** state)
 
     basic_string_init(pt_first);
     basic_string_init(pt_second);
-    assert_false(basic_string_equal(pt_first, pt_second));
+    expect_assert_failure(basic_string_equal(pt_first, pt_second));
 
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
@@ -3450,7 +3450,7 @@ void test_basic_string_not_equal__not_same_type(void** state)
 
     basic_string_init(pt_first);
     basic_string_init(pt_second);
-    assert_true(basic_string_not_equal(pt_first, pt_second));
+    expect_assert_failure(basic_string_not_equal(pt_first, pt_second));
 
     basic_string_destroy(pt_first);
     basic_string_destroy(pt_second);
@@ -12079,7 +12079,8 @@ void test_basic_string_connect__same(void** state)
         basic_string_push_back(pt_basic_string, i);
     }
 
-    expect_assert_failure(basic_string_connect(pt_basic_string, pt_basic_string));
+    basic_string_connect(pt_basic_string, pt_basic_string);
+    assert_true(basic_string_size(pt_basic_string) == 20);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -14940,7 +14941,7 @@ void test_basic_string_find_subcstr__libcstl_builtin_middle_find(void** state)
     }
     vector_push_back(pvec_elem1, 3);
     vector_push_back(pvec_elem2, 4);
-    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 2, 3) == 3);
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 2, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -15153,7 +15154,7 @@ void test_basic_string_find_subcstr__user_define_middle_find(void** state)
     }
     t_elem1.n_elem = 3;
     t_elem2.n_elem = 4;
-    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 2, 3) == 3);
+    assert_true(basic_string_find_subcstr(pt_basic_string, elems, 2, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -18892,7 +18893,7 @@ void test_basic_string_rfind_subcstr__libcstl_builtin_find_npos(void** state)
     }
     vector_push_back(pvec_elem1, 3);
     vector_push_back(pvec_elem2, 4);
-    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 3) == 3);
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
     vector_destroy(pvec);
@@ -19199,7 +19200,7 @@ void test_basic_string_rfind_subcstr__user_define_find_npos(void** state)
     }
     t_elem1.n_elem = 3;
     t_elem2.n_elem = 4;
-    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 3) == 3);
+    assert_true(basic_string_rfind_subcstr(pt_basic_string, elems, NPOS, 2) == 3);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -22109,7 +22110,7 @@ void test_basic_string_find_first_of_subcstr__user_define_middle_empty(void** st
         t_elem.n_elem = i;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    assert_true(basic_string_find_first_of_subcstr(pt_basic_string, elems, 3, NPOS) == 3);
+    assert_true(basic_string_find_first_of_subcstr(pt_basic_string, elems, 3, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -22367,11 +22368,13 @@ void test_basic_string_find_first_of_subcstr__terminator_cstl(void** state)
     list_t* plist = create_list(int);
     list_t* elems[] = {plist, NULL, plist, NULL, plist};
 
-    basic_string_init_subcstr(plist, elems, 5);
+    list_init(plist);
+    basic_string_init_subcstr(pbstr, elems, 5);
     elems[0] = NULL;
-    assert_true(basic_string_find_first_of_subcstr(pbstr, elems, 0, 5) == 1);
+    assert_true(basic_string_find_first_of_subcstr(pbstr, elems, 0, 5) == 0);
 
     basic_string_destroy(pbstr);
+    list_destroy(plist);
 }
 void test_basic_string_find_first_of_subcstr__terminator_user_define(void** state)
 {
@@ -22382,7 +22385,7 @@ void test_basic_string_find_first_of_subcstr__terminator_user_define(void** stat
     t_elem.n_elem = 100;
     basic_string_init_subcstr(pbstr, elems, 5);
     elems[0] = NULL;
-    assert_true(basic_string_find_first_of_subcstr(pbstr, elems, 0, 5) == 1);
+    assert_true(basic_string_find_first_of_subcstr(pbstr, elems, 0, 5) == 0);
 
     basic_string_destroy(pbstr);
 }
@@ -24799,6 +24802,12 @@ typedef struct _tag_test_basic_string_find_first_not_of_subcstr__user_define
 {
     int n_elem;
 }_test_basic_string_find_first_not_of_subcstr__user_define_t;
+void _test_basic_string_find_first_not_of_subcstr__user_define_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output =
+        ((_test_basic_string_find_first_not_of_subcstr__user_define_t*)cpv_first)->n_elem <
+        ((_test_basic_string_find_first_not_of_subcstr__user_define_t*)cpv_second)->n_elem ? true : false;
+}
 void test_basic_string_find_first_not_of_subcstr__user_define_begin_empty(void** state)
 {
     basic_string_t* pt_basic_string = NULL;
@@ -24806,7 +24815,7 @@ void test_basic_string_find_first_not_of_subcstr__user_define_begin_empty(void**
     _test_basic_string_find_first_not_of_subcstr__user_define_t* elems[] = {NULL};
     size_t i = 0;
 
-    type_register(_test_basic_string_find_first_not_of_subcstr__user_define_t, NULL, NULL, NULL, NULL);
+    type_register(_test_basic_string_find_first_not_of_subcstr__user_define_t, NULL, NULL, _test_basic_string_find_first_not_of_subcstr__user_define_less, NULL);
     pt_basic_string = create_basic_string(_test_basic_string_find_first_not_of_subcstr__user_define_t);
     basic_string_init(pt_basic_string);
     for(i = 0; i < 10; ++i)
@@ -24853,11 +24862,11 @@ void test_basic_string_find_first_not_of_subcstr__user_define_begin_find(void** 
     basic_string_init(pt_basic_string);
     for(i = 0; i < 10; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 0;
-    t_elem2.n_elem = 2;
+    t_elem1.n_elem = 1;
+    t_elem2.n_elem = 3;
     assert_true(basic_string_find_first_not_of_subcstr(pt_basic_string, elems, 0, 2) == 1);
 
     basic_string_destroy(pt_basic_string);
@@ -24875,11 +24884,11 @@ void test_basic_string_find_first_not_of_subcstr__user_define_begin_not_find(voi
     basic_string_init(pt_basic_string);
     for(i = 0; i < 2; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 0;
-    t_elem2.n_elem = 1;
+    t_elem1.n_elem = 1;
+    t_elem2.n_elem = 2;
     assert_true(basic_string_find_first_not_of_subcstr(pt_basic_string, elems, 0, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -30891,11 +30900,11 @@ void test_basic_string_find_last_not_of_cstr__user_define_not_find_npos(void** s
     basic_string_init(pt_basic_string);
     for(i = 0; i < 2; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 1;
-    t_elem2.n_elem = 0;
+    t_elem1.n_elem = 2;
+    t_elem2.n_elem = 1;
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, NPOS) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -30953,11 +30962,11 @@ void test_basic_string_find_last_not_of_cstr__user_define_middle_not_find(void**
     basic_string_init(pt_basic_string);
     for(i = 0; i < 2; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 0;
-    t_elem2.n_elem = 1;
+    t_elem1.n_elem = 1;
+    t_elem2.n_elem = 2;
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -30975,11 +30984,11 @@ void test_basic_string_find_last_not_of_cstr__user_define_middle_not_find_pos(vo
     basic_string_init(pt_basic_string);
     for(i = 0; i < 2; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 1;
-    t_elem2.n_elem = 0;
+    t_elem1.n_elem = 2;
+    t_elem2.n_elem = 1;
     assert_true(basic_string_find_last_not_of_cstr(pt_basic_string, elems, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -32158,11 +32167,11 @@ void test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find(voi
     basic_string_init(pt_basic_string);
     for(i = 0; i < 10; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 1;
-    t_elem2.n_elem = 0;
+    t_elem1.n_elem = 2;
+    t_elem2.n_elem = 1;
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -32180,11 +32189,11 @@ void test_basic_string_find_last_not_of_subcstr__user_define_middle_not_find_pos
     basic_string_init(pt_basic_string);
     for(i = 0; i < 10; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 1;
-    t_elem2.n_elem = 0;
+    t_elem1.n_elem = 2;
+    t_elem2.n_elem = 1;
     assert_true(basic_string_find_last_not_of_subcstr(pt_basic_string, elems, 1, 2) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -33680,7 +33689,8 @@ void test_basic_string_assign_substring__successfully_c_builtin_src_non_empty_en
         basic_string_push_back(pt_src, i);
     }
 
-    expect_assert_failure(basic_string_assign_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_assign_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_size(pt_dest) == 0);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -34180,7 +34190,8 @@ void test_basic_string_assign_substring__successfully_cstl_builtin_length(void**
         basic_string_push_back(pt_src, pt_elem);
     }
 
-    expect_assert_failure(basic_string_assign_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_assign_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_size(pt_dest) == 0);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -34430,7 +34441,8 @@ void test_basic_string_assign_substring__successfully_user_define_non_empty_end(
         basic_string_push_back(pt_src, &t_user);
     }
 
-    expect_assert_failure(basic_string_assign_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_assign_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_size(pt_dest) == 0);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -34490,7 +34502,8 @@ void test_basic_string_assign_substring__same_pbstr(void** state)
     basic_string_t* pbstr = create_basic_string(int);
     basic_string_init_elem(pbstr, 10, 111);
 
-    expect_assert_failure(basic_string_assign_substring(pbstr, pbstr, 0, NPOS));
+    basic_string_assign_substring(pbstr, pbstr, 0, NPOS);
+    assert_true(basic_string_size(pbstr) == 10);
 
     basic_string_destroy(pbstr);
 }
@@ -35475,7 +35488,8 @@ void test_basic_string_append__same_container(void** state)
 
     basic_string_init_elem(pvec, 10, 100);
 
-    expect_assert_failure(basic_string_append(pvec, pvec));
+    basic_string_append(pvec, pvec);
+    assert_true(basic_string_size(pvec) == 20);
 
     basic_string_destroy(pvec);
 }
@@ -35959,7 +35973,8 @@ void test_basic_string_append_substring__successfully_c_builtin_src_non_empty_en
         basic_string_push_back(pt_src, i);
     }
 
-    expect_assert_failure(basic_string_append_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_append_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_size(pt_dest) == 0);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -36474,7 +36489,8 @@ void test_basic_string_append_substring__successfully_cstl_builtin_length(void**
         basic_string_push_back(pt_src, pt_elem);
     }
 
-    expect_assert_failure(basic_string_append_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_append_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_size(pt_dest) == 0);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -36734,7 +36750,8 @@ void test_basic_string_append_substring__successfully_user_define_non_empty_end(
         basic_string_push_back(pt_src, &t_user);
     }
 
-    expect_assert_failure(basic_string_append_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS));
+    basic_string_append_substring(pt_dest, pt_src, basic_string_length(pt_src), NPOS);
+    assert_true(basic_string_size(pt_dest) == 0);
 
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
@@ -37576,7 +37593,7 @@ void test_basic_string_append_subcstr__libcstl_builtin_total(void** state)
     elems[4] = plist;
     basic_string_init(pt_basic_string);
     basic_string_append_subcstr(pt_basic_string, elems, 5);
-    assert_true(basic_string_size(pt_basic_string) == 3);
+    assert_true(basic_string_size(pt_basic_string) == 5);
 
     basic_string_destroy(pt_basic_string);
     list_destroy(plist);
@@ -37649,7 +37666,7 @@ void test_basic_string_append_subcstr__user_define_total(void** state)
     t_user2.n_elem = 0; t_user2.d_elem = 9.24;
     t_user3.n_elem = 0; t_user3.d_elem = 0.0;
     basic_string_append_subcstr(pt_basic_string, elems, 5);
-    assert_true(basic_string_size(pt_basic_string) == 4);
+    assert_true(basic_string_size(pt_basic_string) == 6);
     assert_true(((_test_basic_string_append_subcstr__user_define_t*)basic_string_at(pt_basic_string, 0))->n_elem == 100);
     assert_true(((_test_basic_string_append_subcstr__user_define_t*)basic_string_at(pt_basic_string, 0))->d_elem == 100.0);
     assert_true(((_test_basic_string_append_subcstr__user_define_t*)basic_string_at(pt_basic_string, 1))->n_elem == 4);
@@ -37658,6 +37675,10 @@ void test_basic_string_append_subcstr__user_define_total(void** state)
     assert_true(((_test_basic_string_append_subcstr__user_define_t*)basic_string_at(pt_basic_string, 2))->d_elem == 9.24);
     assert_true(((_test_basic_string_append_subcstr__user_define_t*)basic_string_at(pt_basic_string, 3))->n_elem == 0);
     assert_true(((_test_basic_string_append_subcstr__user_define_t*)basic_string_at(pt_basic_string, 3))->d_elem == 0.0);
+    memset(&t_user1, 0x00, sizeof(_test_basic_string_append_subcstr__user_define_t));
+    assert_true(memcmp(&t_user1, basic_string_at(pt_basic_string, 4), sizeof(_test_basic_string_append_subcstr__user_define_t)) == 0);
+    assert_true(((_test_basic_string_append_subcstr__user_define_t*)basic_string_at(pt_basic_string, 5))->n_elem == 4);
+    assert_true(((_test_basic_string_append_subcstr__user_define_t*)basic_string_at(pt_basic_string, 5))->d_elem == 0.0);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -37754,7 +37775,8 @@ void test_basic_string_insert_string__same_container(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init_elem(pt_basic_string, 10, 100);
 
-    expect_assert_failure(basic_string_insert_string(pt_basic_string, 0, pt_basic_string));
+    basic_string_insert_string(pt_basic_string, 0, pt_basic_string);
+    assert_true(basic_string_size(pt_basic_string) == 20);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -38068,7 +38090,8 @@ void test_basic_string_insert_substring__same_container(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init_elem(pt_basic_string, 10, 100);
 
-    expect_assert_failure(basic_string_insert_substring(pt_basic_string, 0, pt_basic_string, 0, NPOS));
+    basic_string_insert_substring(pt_basic_string, 0, pt_basic_string, 0, NPOS);
+    assert_true(basic_string_size(pt_basic_string) == 20);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -39230,7 +39253,7 @@ void test_basic_string_insert_subcstr__libcstl_builtin_total(void** state)
     elems[4] = plist;
     basic_string_init_cstr(pt_basic_string, elems);
     basic_string_insert_subcstr(pt_basic_string, 0, elems, 5);
-    assert_true(basic_string_size(pt_basic_string) == 6);
+    assert_true(basic_string_size(pt_basic_string) == 8);
 
     basic_string_destroy(pt_basic_string);
     list_destroy(plist);
@@ -39303,15 +39326,19 @@ void test_basic_string_insert_subcstr__user_define_total(void** state)
     t_user2.n_elem = 0; t_user2.d_elem = 9.24;
     t_user3.n_elem = 0; t_user3.d_elem = 0.0;
     basic_string_insert_subcstr(pt_basic_string, 0, elems, 5);
-    assert_true(basic_string_size(pt_basic_string) == 4);
+    assert_true(basic_string_size(pt_basic_string) == 6);
     assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 0))->n_elem == 4);
     assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 0))->d_elem == 0.0);
     assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 1))->n_elem == 0);
     assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 1))->d_elem == 9.24);
     assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 2))->n_elem == 0);
     assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 2))->d_elem == 0.0);
-    assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 3))->n_elem == 100);
-    assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 3))->d_elem == 100.0);
+    memset(&t_user1, 0x00, sizeof(_test_basic_string_insert_subcstr__user_define_t));
+    assert_true(memcmp(&t_user1, basic_string_at(pt_basic_string, 3), sizeof(_test_basic_string_insert_subcstr__user_define_t)) == 0);
+    assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 4))->n_elem == 4);
+    assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 4))->d_elem == 0.0);
+    assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 5))->n_elem == 100);
+    assert_true(((_test_basic_string_insert_subcstr__user_define_t*)basic_string_at(pt_basic_string, 5))->d_elem == 100.0);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -40017,7 +40044,8 @@ void test_basic_string_replace__same_container(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init_elem(pt_basic_string, 10, 100);
 
-    expect_assert_failure(basic_string_replace(pt_basic_string, 0, NPOS, pt_basic_string));
+    basic_string_replace(pt_basic_string, 0, NPOS, pt_basic_string);
+    assert_true(basic_string_size(pt_basic_string) == 10);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -41869,18 +41897,24 @@ void test_basic_string_replace_subcstr__libcstl_builtin(void** state)
     basic_string_t* pt_basic_string = create_basic_string(vector_t<int>);
     vector_t* pvec = create_vector(int);
     vector_t* elems[] = {pvec, pvec, pvec, NULL};
+    vector_t  vec_terminator;
 
     vector_init(pvec);
     basic_string_init_elem(pt_basic_string, 10, pvec);
     vector_push_back(pvec, 19);
 
     basic_string_replace_subcstr(pt_basic_string, 4, NPOS, elems, 4);
-    assert_true(basic_string_size(pt_basic_string) == 7);
+    assert_true(basic_string_size(pt_basic_string) == 8);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 4)
         {
             assert_true(vector_size((vector_t*)basic_string_at(pt_basic_string, i)) == 0);
+        }
+        else if (i == 7)
+        {
+            memset(&vec_terminator, 0x00, sizeof(vector_t));
+            assert_true(memcmp(&vec_terminator, basic_string_at(pt_basic_string, i), sizeof(vector_t)) == 0);
         }
         else
         {
@@ -43726,6 +43760,7 @@ void test_basic_string_range_replace_subcstr__libcstl_builtin(void** state)
     basic_string_t* pt_basic_string = create_basic_string(vector_t<int>);
     vector_t* pvec = create_vector(int);
     vector_t* elems[] = {pvec, pvec, pvec, NULL};
+    vector_t vec_terminator;
 
     vector_init(pvec);
     basic_string_init_elem(pt_basic_string, 10, pvec);
@@ -43733,13 +43768,18 @@ void test_basic_string_range_replace_subcstr__libcstl_builtin(void** state)
 
     basic_string_range_replace_subcstr(
         pt_basic_string, iterator_next_n(basic_string_begin(pt_basic_string), 4),
-        basic_string_end(pt_basic_string), elems, NPOS);
-    assert_true(basic_string_size(pt_basic_string) == 7);
+        basic_string_end(pt_basic_string), elems, 4);
+    assert_true(basic_string_size(pt_basic_string) == 8);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
         if(i < 4)
         {
             assert_true(vector_size((vector_t*)basic_string_at(pt_basic_string, i)) == 0);
+        }
+        else if (i == 7)
+        {
+            memset(&vec_terminator, 0x00, sizeof(vector_t));
+            assert_true(memcmp(&vec_terminator, basic_string_at(pt_basic_string, i), sizeof(vector_t)) == 0);
         }
         else
         {
