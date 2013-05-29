@@ -23982,11 +23982,11 @@ void test_basic_string_find_first_not_of_cstr__user_define_begin_find(void** sta
     basic_string_init(pt_basic_string);
     for(i = 0; i < 10; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 0;
-    t_elem2.n_elem = 1;
+    t_elem1.n_elem = 1;
+    t_elem2.n_elem = 2;
     assert_true(basic_string_find_first_not_of_cstr(pt_basic_string, elems, 0) == 2);
 
     basic_string_destroy(pt_basic_string);
@@ -24004,11 +24004,11 @@ void test_basic_string_find_first_not_of_cstr__user_define_begin_not_find(void**
     basic_string_init(pt_basic_string);
     for(i = 0; i < 2; ++i)
     {
-        t_elem.n_elem = i;
+        t_elem.n_elem = i+1;
         basic_string_push_back(pt_basic_string, &t_elem);
     }
-    t_elem1.n_elem = 0;
-    t_elem2.n_elem = 1;
+    t_elem1.n_elem = 1;
+    t_elem2.n_elem = 2;
     assert_true(basic_string_find_first_not_of_cstr(pt_basic_string, elems, 0) == NPOS);
 
     basic_string_destroy(pt_basic_string);
@@ -34771,7 +34771,6 @@ void test_basic_string_assign_range__successfully_cstr(void** state)
 
 void test_basic_string_assign_range__successfully_cstl_builtin(void** state)
 {
-    /*
     size_t i = 0;
     basic_string_t* pt_dest = create_basic_string(list_t<int>);
     basic_string_t* pt_src = create_basic_string(list_t<int>);
@@ -34797,8 +34796,6 @@ void test_basic_string_assign_range__successfully_cstl_builtin(void** state)
     basic_string_destroy(pt_dest);
     basic_string_destroy(pt_src);
     list_destroy(pt_elem);
-    */
-    assert_true(false);
 }
 
 void test_basic_string_assign_range__successfully_user_define(void** state)
@@ -34867,7 +34864,8 @@ void test_basic_string_assign_range__same_pbstr(void** state)
 
     basic_string_init_elem(pbstr, 10, 111);
 
-    expect_assert_failure(basic_string_assign_range(pbstr, basic_string_begin(pbstr), basic_string_end(pbstr)));
+    basic_string_assign_range(pbstr, basic_string_begin(pbstr), basic_string_end(pbstr));
+    assert_true(basic_string_size(pbstr) == 10);
 
     basic_string_destroy(pbstr);
 }
@@ -42024,8 +42022,9 @@ void test_basic_string_range_replace__same_container(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init_elem(pt_basic_string, 10, 100);
 
-    expect_assert_failure(basic_string_range_replace(
-        pt_basic_string, basic_string_begin(pt_basic_string), basic_string_end(pt_basic_string), pt_basic_string));
+    basic_string_range_replace(
+        pt_basic_string, basic_string_begin(pt_basic_string), basic_string_end(pt_basic_string), pt_basic_string);
+    assert_true(basic_string_size(pt_basic_string) == 10);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -42517,8 +42516,9 @@ void test_basic_string_range_replace_substring__same_container(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init_elem(pt_basic_string, 10, 100);
 
-    expect_assert_failure(basic_string_range_replace_substring(
-        pt_basic_string, basic_string_begin(pt_basic_string), basic_string_end(pt_basic_string), pt_basic_string, 0, NPOS));
+    basic_string_range_replace_substring(
+        pt_basic_string, basic_string_begin(pt_basic_string), basic_string_end(pt_basic_string), pt_basic_string, 0, NPOS);
+    assert_true(basic_string_size(pt_basic_string) == 10);
 
     basic_string_destroy(pt_basic_string);
 }
@@ -43873,9 +43873,10 @@ void test_basic_string_replace_range__same_container(void** state)
     basic_string_t* pt_basic_string = create_basic_string(int);
     basic_string_init_elem(pt_basic_string, 10, 100);
 
-    expect_assert_failure(basic_string_replace_range(
+    basic_string_replace_range(
         pt_basic_string, basic_string_begin(pt_basic_string), basic_string_end(pt_basic_string),
-        basic_string_begin(pt_basic_string), basic_string_end(pt_basic_string)));
+        basic_string_begin(pt_basic_string), basic_string_end(pt_basic_string));
+    assert_true(basic_string_size(pt_basic_string) == 10);
 
     basic_string_destroy(pt_basic_string);
 }

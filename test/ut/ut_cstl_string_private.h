@@ -14,8 +14,7 @@ void test__create_string_auxiliary__successfully(void** state);
  */
 UT_CASE_DECLARATION(_string_destroy_auxiliary)
 void test__string_destroy_auxiliary__null_string_container(void** state);
-void test__string_destroy_auxiliary__invalid_string_container_finish_less_than_start(void** state);
-void test__string_destroy_auxiliary__invalid_string_container_endofstorage_less_than_start(void** state);
+void test__string_destroy_auxiliary__invalid_string_container(void** state);
 void test__string_destroy_auxiliary__successfully_non_init_container(void** state);
 void test__string_destroy_auxiliary__successfully_empty_container(void** state);
 void test__string_destroy_auxiliary__successfully(void** state);
@@ -24,8 +23,7 @@ void test__string_destroy_auxiliary__successfully(void** state);
     UT_SUIT_BEGIN(cstl_string_private, test__create_string_auxiliary__null_string_container),\
     UT_CASE(test__create_string_auxiliary__successfully),\
     UT_CASE_BEGIN(_string_destroy_auxiliary, test__string_destroy_auxiliary__null_string_container),\
-    UT_CASE(test__string_destroy_auxiliary__invalid_string_container_finish_less_than_start),\
-    UT_CASE(test__string_destroy_auxiliary__invalid_string_container_endofstorage_less_than_start),\
+    UT_CASE(test__string_destroy_auxiliary__invalid_string_container),\
     UT_CASE(test__string_destroy_auxiliary__successfully_non_init_container),\
     UT_CASE(test__string_destroy_auxiliary__successfully_empty_container),\
     UT_CASE(test__string_destroy_auxiliary__successfully)

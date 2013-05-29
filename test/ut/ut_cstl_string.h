@@ -1566,6 +1566,8 @@ void test_string_getline_delimiter__non_inited_string(void** state);
 void test_string_getline_delimiter__getline_delimiter_empty(void** state);
 void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
 
+#define UT_CSTL_STRING_CASE
+    /*
 #define UT_CSTL_STRING_CASE\
     UT_SUIT_BEGIN(cstl_string, test_create_string__successfully),\
     UT_CASE_BEGIN(string_init, test_string_init__null_string_container),\
@@ -2693,6 +2695,7 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_getline_delimiter__non_inited_string),\
     UT_CASE(test_string_getline_delimiter__getline_delimiter_empty),\
     UT_CASE(test_string_getline_delimiter__getline_delimiter_non_empty)
+    */
 
 #endif /* _UT_CSTL_STRING_H_ */
 

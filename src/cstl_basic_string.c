@@ -1468,7 +1468,6 @@ void basic_string_range_replace_substring(
 {
     assert(pt_basic_string != NULL);
     assert(cpt_replace != NULL);
-    assert(pt_basic_string != cpt_replace);
     assert(_basic_string_is_inited(pt_basic_string));
     assert(_basic_string_is_inited(cpt_replace));
     assert(_basic_string_iterator_belong_to_basic_string(pt_basic_string, it_begin));
@@ -1536,28 +1535,28 @@ void basic_string_replace_range(
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
     assert(_basic_string_same_iterator_type(pt_basic_string, it_first));
     assert(_basic_string_same_iterator_type(pt_basic_string, it_last));
-    assert(_BASIC_STRING_ITERATOR_CONTAINER(it_first) != pt_basic_string);
-    assert(_BASIC_STRING_ITERATOR_CONTAINER(it_last) != pt_basic_string);
     assert(iterator_equal(it_first, it_last) || _iterator_before(it_first, it_last));
 
-    pt_replace = _BASIC_STRING_ITERATOR_CONTAINER(it_first);
-    t_pos = iterator_distance(basic_string_begin(pt_basic_string), it_begin);
-    t_len = iterator_distance(it_begin, it_end);
-    t_position = iterator_distance(basic_string_begin(pt_replace), it_first);
-    t_length = iterator_distance(it_first, it_last);
-    basic_string_replace_substring(pt_basic_string, t_pos, t_len, pt_replace, t_position, t_length);
-    /*
-    t_pos = iterator_distance(basic_string_begin(pt_basic_string), it_begin);
-    t_len = iterator_distance(it_begin, it_end);
-    t_replacelen = iterator_distance(it_first, it_last);
-    _basic_string_replace_preparation(pt_basic_string, t_pos, t_len, t_replacelen);
+    if (_BASIC_STRING_ITERATOR_CONTAINER(it_first) == pt_basic_string) {
+        pt_replace = _BASIC_STRING_ITERATOR_CONTAINER(it_first);
+        t_pos = iterator_distance(basic_string_begin(pt_basic_string), it_begin);
+        t_len = iterator_distance(it_begin, it_end);
+        t_position = iterator_distance(basic_string_begin(pt_replace), it_first);
+        t_length = iterator_distance(it_first, it_last);
 
-    t_size = basic_string_size(pt_basic_string);
-    t_newsize = t_size + t_replacelen - t_len;
-    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
-    pby_dest = pt_basic_string->_pby_string + t_pos * t_typesize;
-    _basic_string_copy_range_auxiliary(pt_basic_string, pby_dest, it_first, it_last);
-    */
+        basic_string_replace_substring(pt_basic_string, t_pos, t_len, pt_replace, t_position, t_length);
+    } else {
+        t_pos = iterator_distance(basic_string_begin(pt_basic_string), it_begin);
+        t_len = iterator_distance(it_begin, it_end);
+        t_replacelen = iterator_distance(it_first, it_last);
+        _basic_string_replace_preparation(pt_basic_string, t_pos, t_len, t_replacelen);
+
+        t_size = basic_string_size(pt_basic_string);
+        t_newsize = t_size + t_replacelen - t_len;
+        t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        pby_dest = pt_basic_string->_pby_string + t_pos * t_typesize;
+        _basic_string_copy_range_auxiliary(pt_basic_string, pby_dest, it_first, it_last);
+    }
 }
 
 /**
