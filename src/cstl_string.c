@@ -39,9 +39,7 @@
  */
 string_t* create_string(void)
 {
-    /* comment for 2.2
     return create_basic_string(char);
-    */
 }
 
 /**
@@ -49,12 +47,7 @@ string_t* create_string(void)
  */
 void string_init(string_t* pstr_string)
 {
-    /* comment for 2.2
-    assert(pstr_string != NULL);
-
     basic_string_init(pstr_string);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -62,13 +55,7 @@ void string_init(string_t* pstr_string)
  */
 void string_init_cstr(string_t* pstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
-    assert(pstr_string != NULL);
-    assert(s_cstr != NULL);
-
     basic_string_init_cstr(pstr_string, s_cstr);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -76,13 +63,7 @@ void string_init_cstr(string_t* pstr_string, const char* s_cstr)
  */
 void string_init_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_count)
 {
-    /* comment for 2.2
-    assert(pstr_string != NULL);
-    assert(s_cstr != NULL);
-
     basic_string_init_subcstr(pstr_string, s_cstr, t_count);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -90,12 +71,7 @@ void string_init_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_cou
  */
 void string_init_char(string_t* pstr_string, size_t t_count, char c_char)
 {
-    /* comment for 2.2
-    assert(pstr_string != NULL);
-
     basic_string_init_elem(pstr_string, t_count, c_char);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -103,12 +79,7 @@ void string_init_char(string_t* pstr_string, size_t t_count, char c_char)
  */
 void string_init_copy(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    /* comment for 2.2
-    assert(pstr_dest != NULL);
-    assert(cpstr_src != NULL);
-
     basic_string_init_copy(pstr_dest, cpstr_src);
-    */
 }
 
 /**
@@ -116,16 +87,7 @@ void string_init_copy(string_t* pstr_dest, const string_t* cpstr_src)
  */
 void string_init_copy_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    assert(pstr_dest != NULL);
-    assert(cpstr_src != NULL);
-    assert(t_pos < string_size(cpstr_src));
-
     basic_string_init_copy_substring(pstr_dest, cpstr_src, t_pos, t_len);
-    if (t_len != NPOS && t_pos + t_len <= string_size(cpstr_src)) {
-        basic_string_push_back(pstr_dest, '\0');
-    }
-    */
 }
 
 
@@ -134,14 +96,7 @@ void string_init_copy_substring(string_t* pstr_dest, const string_t* cpstr_src, 
  */
 void string_init_copy_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    /* comment for 2.2
-    assert(pstr_string != NULL);
-
     basic_string_init_copy_range(pstr_string, it_begin, it_end);
-    if (!iterator_equal(it_end, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_end)))) {
-        basic_string_push_back(pstr_string, '\0');
-    }
-    */
 }
 
 /**
@@ -149,9 +104,7 @@ void string_init_copy_range(string_t* pstr_string, string_iterator_t it_begin, s
  */
 void string_destroy(string_t* pstr_string)
 {
-    /* comment for 2.2
     basic_string_destroy(pstr_string);
-    */
 }
 
 /**
@@ -159,9 +112,7 @@ void string_destroy(string_t* pstr_string)
  */
 const char* string_c_str(const string_t* cpstr_string)
 {
-    /* comment for 2.2
     return basic_string_c_str(cpstr_string);
-    */
 }
 
 /**
@@ -169,9 +120,7 @@ const char* string_c_str(const string_t* cpstr_string)
  */
 const char* string_data(const string_t* cpstr_string)
 {
-    /* comment for 2.2
     return basic_string_data(cpstr_string);
-    */
 }
 
 /**
@@ -179,14 +128,7 @@ const char* string_data(const string_t* cpstr_string)
  */
 size_t string_copy(const string_t* cpstr_string, char* s_buffer, size_t t_len, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_count = 0;
-
-    t_count =  basic_string_copy(cpstr_string, s_buffer, t_len, t_pos);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return t_count;
-    */
+    return basic_string_copy(cpstr_string, s_buffer, t_len, t_pos);
 }
 
 /**
@@ -194,9 +136,7 @@ size_t string_copy(const string_t* cpstr_string, char* s_buffer, size_t t_len, s
  */
 size_t string_size(const string_t* cpstr_string)
 {
-    /* comment for 2.2
-    return basic_string_size(cpstr_string) - 1;
-    */
+    return basic_string_size(cpstr_string);
 }
 
 /**
@@ -204,9 +144,7 @@ size_t string_size(const string_t* cpstr_string)
  */
 size_t string_length(const string_t* cpstr_string)
 {
-    /* comment for 2.2
-    return basic_string_length(cpstr_string) - 1;
-    */
+    return basic_string_length(cpstr_string);
 }
 
 /**
@@ -214,9 +152,7 @@ size_t string_length(const string_t* cpstr_string)
  */
 size_t string_max_size(const string_t* cpstr_string)
 {
-    /* comment for 2.2
-    return basic_string_max_size(cpstr_string) - 1;
-    */
+    return basic_string_max_size(cpstr_string);
 }
 
 /**
@@ -224,9 +160,7 @@ size_t string_max_size(const string_t* cpstr_string)
  */
 size_t string_capacity(const string_t* cpstr_string)
 {
-    /* comment for 2.2
-    return basic_string_capacity(cpstr_string) - 1;
-    */
+    return basic_string_capacity(cpstr_string);
 }
 
 /**
@@ -234,9 +168,7 @@ size_t string_capacity(const string_t* cpstr_string)
  */
 bool_t string_empty(const string_t* cpstr_string)
 {
-    /* comment for 2.2
-    return string_size(cpstr_string) == 0 ? true : false;
-    */
+    return basic_string_empty(cpstr_string);
 }
 
 /**
@@ -244,10 +176,7 @@ bool_t string_empty(const string_t* cpstr_string)
  */
 char* string_at(const string_t* cpstr_string, size_t t_pos)
 {
-    /* comment for 2.2
-    assert(t_pos < string_length(cpstr_string));
     return (char*)basic_string_at(cpstr_string, t_pos);
-    */
 }
 
 /**
@@ -255,9 +184,7 @@ char* string_at(const string_t* cpstr_string, size_t t_pos)
  */
 bool_t string_equal(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    /* comment for 2.2
     return basic_string_equal(cpstr_first, cpstr_second);
-    */
 }
 
 /**
@@ -265,9 +192,7 @@ bool_t string_equal(const string_t* cpstr_first, const string_t* cpstr_second)
  */
 bool_t string_not_equal(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    /* comment for 2.2
     return basic_string_not_equal(cpstr_first, cpstr_second);
-    */
 }
 
 /**
@@ -275,9 +200,7 @@ bool_t string_not_equal(const string_t* cpstr_first, const string_t* cpstr_secon
  */
 bool_t string_less(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    /* comment for 2.2
     return basic_string_less(cpstr_first, cpstr_second);
-    */
 }
 
 /**
@@ -285,9 +208,7 @@ bool_t string_less(const string_t* cpstr_first, const string_t* cpstr_second)
  */
 bool_t string_less_equal(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    /* comment for 2.2
     return basic_string_less_equal(cpstr_first, cpstr_second);
-    */
 }
 
 /**
@@ -295,9 +216,7 @@ bool_t string_less_equal(const string_t* cpstr_first, const string_t* cpstr_seco
  */
 bool_t string_greater(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    /* comment for 2.2
     return basic_string_greater(cpstr_first, cpstr_second);
-    */
 }
 
 /**
@@ -305,9 +224,7 @@ bool_t string_greater(const string_t* cpstr_first, const string_t* cpstr_second)
  */
 bool_t string_greater_equal(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    /* comment for 2.2
     return basic_string_greater_equal(cpstr_first, cpstr_second);
-    */
 }
 
 /**
@@ -315,14 +232,7 @@ bool_t string_greater_equal(const string_t* cpstr_first, const string_t* cpstr_s
  */
 bool_t string_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_equal_cstr(cpstr_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_equal_cstr(cpstr_string, s_cstr);
 }
 
 /**
@@ -330,14 +240,7 @@ bool_t string_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
  */
 bool_t string_not_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_not_equal_cstr(cpstr_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_not_equal_cstr(cpstr_string, s_cstr);
 }
 
 /**
@@ -345,14 +248,7 @@ bool_t string_not_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
  */
 bool_t string_less_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_less_cstr(cpstr_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_less_cstr(cpstr_string, s_cstr);
 }
 
 /**
@@ -360,14 +256,7 @@ bool_t string_less_cstr(const string_t* cpstr_string, const char* s_cstr)
  */
 bool_t string_less_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_less_equal_cstr(cpstr_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_less_equal_cstr(cpstr_string, s_cstr);
 }
 
 /**
@@ -375,14 +264,7 @@ bool_t string_less_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
  */
 bool_t string_greater_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_greater_cstr(cpstr_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_greater_cstr(cpstr_string, s_cstr);
 }
 
 /**
@@ -390,14 +272,7 @@ bool_t string_greater_cstr(const string_t* cpstr_string, const char* s_cstr)
  */
 bool_t string_greater_equal_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_greater_equal_cstr(cpstr_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_greater_equal_cstr(cpstr_string, s_cstr);
 }
 
 /**
@@ -405,9 +280,7 @@ bool_t string_greater_equal_cstr(const string_t* cpstr_string, const char* s_cst
  */
 int string_compare(const string_t* cpstr_first, const string_t* cpstr_second)
 {
-    /* comment for 2.2
-    return string_compare_cstr(cpstr_first, string_c_str(cpstr_second));
-    */
+    return basic_string_compare(cpstr_first, cpstr_second);
 }
 
 /**
@@ -416,9 +289,7 @@ int string_compare(const string_t* cpstr_first, const string_t* cpstr_second)
 int string_compare_substring_string(
     const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen, const string_t* cpstr_second)
 {
-    /* comment for 2.2
-    return string_compare_substring_cstr(cpstr_first, t_firstpos, t_firstlen, string_c_str(cpstr_second));
-    */
+    return basic_string_compare_substring_string(cpstr_first, t_firstpos, t_firstlen, cpstr_second);
 }
 
 /**
@@ -428,10 +299,8 @@ int string_compare_substring_substring(
     const string_t* cpstr_first, size_t t_firstpos, size_t t_firstlen,
     const string_t* cpstr_second, size_t t_secondpos, size_t t_secondlen)
 {
-    /* comment for 2.2
-    return string_compare_substring_subcstr(
-        cpstr_first, t_firstpos, t_firstlen, basic_string_at(cpstr_second, t_secondpos), t_secondlen);
-        */
+    return basic_string_compare_substring_substring(
+        cpstr_first, t_firstpos, t_firstlen, cpstr_second, t_secondpos, t_secondlen);
 }
 
 /**
@@ -439,14 +308,7 @@ int string_compare_substring_substring(
  */
 int string_compare_cstr(const string_t* cpstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_compare_cstr(cpstr_string, s_cstr);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_compare_cstr(cpstr_string, s_cstr);
 }
 
 /**
@@ -455,14 +317,7 @@ int string_compare_cstr(const string_t* cpstr_string, const char* s_cstr)
 int string_compare_substring_cstr(
     const string_t* cpstr_string, size_t t_firstpos, size_t t_firstlen, const char* s_cstr)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_compare_substring_cstr(cpstr_string, t_firstpos, t_firstlen, s_cstr);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_compare_substring_cstr(cpstr_string, t_firstpos, t_firstlen, s_cstr);
 }
 
 /**
@@ -471,14 +326,7 @@ int string_compare_substring_cstr(
 int string_compare_substring_subcstr(
     const string_t* cpstr_string, size_t t_firstpos, size_t t_firstlen, const char* s_cstr, size_t t_len)
 {
-    /* comment for 2.2
-    bool_t b_result = false;
-
-    b_result = basic_string_compare_substring_subcstr(cpstr_string, t_firstpos, t_firstlen, s_cstr, t_len);
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-
-    return b_result;
-    */
+    return basic_string_compare_substring_subcstr(cpstr_string, t_firstpos, t_firstlen, s_cstr, t_len);
 }
 
 
@@ -873,9 +721,7 @@ size_t string_find_last_not_of_char(const string_t* cpstr_string, char c_char, s
  */
 string_iterator_t string_begin(const string_t* cpstr_string)
 {
-    /* comment for 2.2
     return basic_string_begin(cpstr_string);
-    */
 }
 
 /**
@@ -883,27 +729,17 @@ string_iterator_t string_begin(const string_t* cpstr_string)
  */
 string_iterator_t string_end(const string_t* cpstr_string)
 {
-    /* comment for 2.2
     return basic_string_rbegin(cpstr_string);
-    */
 }
 
+/** private **/
 string_reverse_iterator_t string_rbegin(const string_t* cpstr_string)
 {
-    /* comment for 2.2
-    if (string_empty(cpstr_string)) {
-        return basic_string_rbegin(cpstr_string);
-    } else {
-        return iterator_prev(basic_string_rbegin(cpstr_string));
-    }
-    */
+    return basic_string_rbegin(cpstr_string);
 }
-
 string_reverse_iterator_t string_rend(const string_t* cpstr_string)
 {
-    /* comment for 2.2
     return basic_string_rend(cpstr_string);
-    */
 }
 
 /**
@@ -950,10 +786,7 @@ void string_resize(string_t* pstr_string, size_t t_resize, char c_char)
  */
 void string_push_back(string_t* pstr_string, char c_char)
 {
-    /* comment for 2.2
     basic_string_push_back(pstr_string, c_char);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
