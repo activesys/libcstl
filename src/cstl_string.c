@@ -335,17 +335,7 @@ int string_compare_substring_subcstr(
  */
 string_t* string_substr(const string_t* cpstr_string, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    string_t* pstr_string = NULL;
-
-    pstr_string = basic_string_substr(cpstr_string, t_pos, t_len);
-    assert(pstr_string != NULL);
-
-    basic_string_push_back((basic_string_t*)cpstr_string, '\0');
-    basic_string_push_back(pstr_string, '\0');
-
-    return pstr_string;
-    */
+    return basic_string_substr(cpstr_string, t_pos, t_len);
 }
 
 /**
@@ -353,13 +343,7 @@ string_t* string_substr(const string_t* cpstr_string, size_t t_pos, size_t t_len
  */
 void string_connect(string_t* pstr_string, const string_t* cpstr_src)
 {
-    /* comment for 2.2
     basic_string_connect(pstr_string, cpstr_src);
-
-    if (pstr_string == cpstr_src) {
-        basic_string_push_back(pstr_string, '\0');
-    }
-    */
 }
 
 /**
@@ -367,10 +351,7 @@ void string_connect(string_t* pstr_string, const string_t* cpstr_src)
  */
 void string_connect_cstr(string_t* pstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
     basic_string_connect_cstr(pstr_string, s_cstr);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -378,10 +359,7 @@ void string_connect_cstr(string_t* pstr_string, const char* s_cstr)
  */
 void string_connect_char(string_t* pstr_string, char c_char)
 {
-    /* comment for 2.2
     basic_string_connect_elem(pstr_string, c_char);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -389,9 +367,7 @@ void string_connect_char(string_t* pstr_string, char c_char)
  */
 size_t string_find(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    /* comment for 2.2
-    return string_find_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
-    */
+    return basic_string_find(cpstr_string, cpstr_find, t_pos);
 }
 
 /**
@@ -399,14 +375,7 @@ size_t string_find(const string_t* cpstr_string, const string_t* cpstr_find, siz
  */
 size_t string_find_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_cstr(cpstr_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_cstr(cpstr_string, s_cstr, t_pos);
 }
 
 /**
@@ -414,14 +383,7 @@ size_t string_find_cstr(const string_t* cpstr_string, const char* s_cstr, size_t
  */
 size_t string_find_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_subcstr(cpstr_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_subcstr(cpstr_string, s_cstr, t_pos, t_len);
 }
 
 /**
@@ -429,14 +391,7 @@ size_t string_find_subcstr(const string_t* cpstr_string, const char* s_cstr, siz
  */
 size_t string_find_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_elem(cpstr_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_elem(cpstr_string, c_char, t_pos);
 }
 
 /**
@@ -444,9 +399,7 @@ size_t string_find_char(const string_t* cpstr_string, char c_char, size_t t_pos)
  */
 size_t string_rfind(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    /* comment for 2.2
-    return string_rfind_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
-    */
+    return basic_string_rfind(cpstr_string, cpstr_find, t_pos);
 }
 
 /**
@@ -454,14 +407,7 @@ size_t string_rfind(const string_t* cpstr_string, const string_t* cpstr_find, si
  */
 size_t string_rfind_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_rfind_cstr(cpstr_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_rfind_cstr(cpstr_string, s_cstr, t_pos);
 }
 
 /**
@@ -469,14 +415,7 @@ size_t string_rfind_cstr(const string_t* cpstr_string, const char* s_cstr, size_
  */
 size_t string_rfind_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_rfind_subcstr(cpstr_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_rfind_subcstr(cpstr_string, s_cstr, t_pos, t_len);
 }
 
 /**
@@ -484,14 +423,7 @@ size_t string_rfind_subcstr(const string_t* cpstr_string, const char* s_cstr, si
  */
 size_t string_rfind_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_rfind_elem(cpstr_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_rfind_elem(cpstr_string, c_char, t_pos);
 }
 
 /**
@@ -499,41 +431,23 @@ size_t string_rfind_char(const string_t* cpstr_string, char c_char, size_t t_pos
  */
 size_t string_find_first_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    /* comment for 2.2
-    return string_find_first_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
-    */
+    return basic_string_find_first_of(cpstr_string, cpstr_find, t_pos);
 }
-
 
 /**
  * Find string for first character that matches any character of specific character string.
  */
 size_t string_find_first_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_first_of_cstr(cpstr_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_first_of_cstr(cpstr_string, s_cstr, t_pos);
 }
-
 
 /**
  * Find string for first character that matches any character of specific sub character string.
  */
 size_t string_find_first_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_first_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_first_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
 }
 
 /**
@@ -541,14 +455,7 @@ size_t string_find_first_of_subcstr(const string_t* cpstr_string, const char* s_
  */
 size_t string_find_first_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_first_of_elem(cpstr_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_first_of_elem(cpstr_string, c_char, t_pos);
 }
 
 /**
@@ -556,9 +463,7 @@ size_t string_find_first_of_char(const string_t* cpstr_string, char c_char, size
  */
 size_t string_find_first_not_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    /* comment for 2.2
-    return string_find_first_not_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
-    */
+    return basic_string_find_first_not_of(cpstr_string, cpstr_find, t_pos);
 }
 
 /**
@@ -566,14 +471,7 @@ size_t string_find_first_not_of(const string_t* cpstr_string, const string_t* cp
  */
 size_t string_find_first_not_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_first_not_of_cstr(cpstr_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_first_not_of_cstr(cpstr_string, s_cstr, t_pos);
 }
 
 /**
@@ -581,14 +479,7 @@ size_t string_find_first_not_of_cstr(const string_t* cpstr_string, const char* s
  */
 size_t string_find_first_not_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_first_not_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_first_not_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
 }
 
 /**
@@ -596,14 +487,7 @@ size_t string_find_first_not_of_subcstr(const string_t* cpstr_string, const char
  */
 size_t string_find_first_not_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_first_not_of_elem(cpstr_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_first_not_of_elem(cpstr_string, c_char, t_pos);
 }
 
 /**
@@ -611,9 +495,7 @@ size_t string_find_first_not_of_char(const string_t* cpstr_string, char c_char, 
  */
 size_t string_find_last_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    /* comment for 2.2
-    return string_find_last_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
-    */
+    return basic_string_find_last_of(cpstr_string, cpstr_find, t_pos);
 }
 
 /**
@@ -621,14 +503,7 @@ size_t string_find_last_of(const string_t* cpstr_string, const string_t* cpstr_f
  */
 size_t string_find_last_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_last_of_cstr(cpstr_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_last_of_cstr(cpstr_string, s_cstr, t_pos);
 }
 
 /**
@@ -636,14 +511,7 @@ size_t string_find_last_of_cstr(const string_t* cpstr_string, const char* s_cstr
  */
 size_t string_find_last_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_last_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_last_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
 }
 
 /**
@@ -651,14 +519,7 @@ size_t string_find_last_of_subcstr(const string_t* cpstr_string, const char* s_c
  */
 size_t string_find_last_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_last_of_elem(cpstr_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_last_of_elem(cpstr_string, c_char, t_pos);
 }
 
 /**
@@ -666,9 +527,7 @@ size_t string_find_last_of_char(const string_t* cpstr_string, char c_char, size_
  */
 size_t string_find_last_not_of(const string_t* cpstr_string, const string_t* cpstr_find, size_t t_pos)
 {
-    /* comment for 2.2
-    return string_find_last_not_of_cstr(cpstr_string, string_c_str(cpstr_find), t_pos);
-    */
+    return basic_string_find_last_not_of(cpstr_string, cpstr_find, t_pos);
 }
 
 /**
@@ -676,14 +535,7 @@ size_t string_find_last_not_of(const string_t* cpstr_string, const string_t* cps
  */
 size_t string_find_last_not_of_cstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_last_not_of_cstr(cpstr_string, s_cstr, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_last_not_of_cstr(cpstr_string, s_cstr, t_pos);
 }
 
 /**
@@ -691,14 +543,7 @@ size_t string_find_last_not_of_cstr(const string_t* cpstr_string, const char* s_
  */
 size_t string_find_last_not_of_subcstr(const string_t* cpstr_string, const char* s_cstr, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_last_not_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_last_not_of_subcstr(cpstr_string, s_cstr, t_pos, t_len);
 }
 
 /**
@@ -706,14 +551,7 @@ size_t string_find_last_not_of_subcstr(const string_t* cpstr_string, const char*
  */
 size_t string_find_last_not_of_char(const string_t* cpstr_string, char c_char, size_t t_pos)
 {
-    /* comment for 2.2
-    size_t t_findpos = NPOS;
-
-    t_findpos = basic_string_find_last_not_of_elem(cpstr_string, c_char, t_pos);
-    basic_string_push_back((string_t*)cpstr_string, '\0');
-
-    return t_findpos;
-    */
+    return basic_string_find_last_not_of_elem(cpstr_string, c_char, t_pos);
 }
 
 /**

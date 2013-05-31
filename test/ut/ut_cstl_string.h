@@ -1892,7 +1892,7 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_compare_substring_subcstr__char_all_content_less),\
     UT_CASE(test_string_compare_substring_subcstr__char_all_equal),\
     UT_CASE(test_string_compare_substring_subcstr__char_all_size_greater),\
-    UT_CASE(test_string_compare_substring_subcstr__char_all_content_greater)/*,\
+    UT_CASE(test_string_compare_substring_subcstr__char_all_content_greater),\
     UT_CASE_BEGIN(string_substr, test_string_substr__null_string),\
     UT_CASE(test_string_substr__non_inited_string),\
     UT_CASE(test_string_substr__invalid_pos),\
@@ -2247,7 +2247,7 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_find_last_not_of_char__find_successful),\
     UT_CASE(test_string_find_last_not_of_char__find_successful_middle),\
     UT_CASE(test_string_find_last_not_of_char__find_successful_back),\
-    UT_CASE(test_string_find_last_not_of_char__find_successful_middle_pos),\
+    UT_CASE(test_string_find_last_not_of_char__find_successful_middle_pos)/*,\
     UT_CASE_BEGIN(string_clear, test_string_clear__null_string_container),\
     UT_CASE(test_string_clear__non_inited_string_container),\
     UT_CASE(test_string_clear__empty_string_container),\
