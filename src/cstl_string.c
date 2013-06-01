@@ -585,10 +585,7 @@ string_reverse_iterator_t string_rend(const string_t* cpstr_string)
  */
 void string_clear(string_t* pstr_string)
 {
-    /* comment for 2.2
     basic_string_clear(pstr_string);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -596,9 +593,7 @@ void string_clear(string_t* pstr_string)
  */
 void string_swap(string_t* pstr_first, string_t* pstr_second)
 {
-    /* comment for 2.2
     basic_string_swap(pstr_first, pstr_second);
-    */
 }
 
 /**
@@ -606,9 +601,7 @@ void string_swap(string_t* pstr_first, string_t* pstr_second)
  */
 void string_reserve(string_t* pstr_string, size_t t_reservesize)
 {
-    /* comment for 2.2
-    basic_string_reserve(pstr_string, t_reservesize + 1);
-    */
+    basic_string_reserve(pstr_string, t_reservesize);
 }
 
 void string_resize(string_t* pstr_string, size_t t_resize, char c_char)
@@ -632,9 +625,7 @@ void string_push_back(string_t* pstr_string, char c_char)
  */
 void string_assign(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    /* comment for 2.2
     basic_string_assign(pstr_dest, cpstr_src);
-    */
 }
 
 /**
@@ -642,9 +633,7 @@ void string_assign(string_t* pstr_dest, const string_t* cpstr_src)
  */
 void string_assign_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    string_assign_subcstr(pstr_dest, string_at(cpstr_src, t_pos), t_len);
-    */
+    basic_string_assign_substring(pstr_dest, cpstr_src, t_pos, t_len);
 }
 
 /**
@@ -652,10 +641,7 @@ void string_assign_substring(string_t* pstr_dest, const string_t* cpstr_src, siz
  */
 void string_assign_cstr(string_t* pstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
     basic_string_assign_cstr(pstr_string, s_cstr);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -663,10 +649,7 @@ void string_assign_cstr(string_t* pstr_string, const char* s_cstr)
  */
 void string_assign_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len)
 {
-    /* comment for 2.2
     basic_string_assign_subcstr(pstr_string, s_cstr, t_len);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -674,10 +657,7 @@ void string_assign_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_l
  */
 void string_assign_char(string_t* pstr_string, size_t t_count, char c_char)
 {
-    /* comment for 2.2
     basic_string_assign_elem(pstr_string, t_count, c_char);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -685,11 +665,7 @@ void string_assign_char(string_t* pstr_string, size_t t_count, char c_char)
  */
 void string_assign_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    /* comment for 2.2
-    assert(!iterator_equal(it_end, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_end))));
     basic_string_assign_range(pstr_string, it_begin, it_end);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -697,9 +673,7 @@ void string_assign_range(string_t* pstr_string, string_iterator_t it_begin, stri
  */
 void string_append(string_t* pstr_dest, const string_t* cpstr_src)
 {
-    /* comment for 2.2
-    string_append_cstr(pstr_dest, string_c_str(cpstr_src));
-    */
+    basic_string_append(pstr_dest, cpstr_src);
 }
 
 /**
@@ -707,9 +681,7 @@ void string_append(string_t* pstr_dest, const string_t* cpstr_src)
  */
 void string_append_substring(string_t* pstr_dest, const string_t* cpstr_src, size_t t_pos, size_t t_len)
 {
-    /* comment for 2.2
-    string_append_subcstr(pstr_dest, string_at(cpstr_src, t_pos), t_len);
-    */
+    basic_string_append_substring(pstr_dest, cpstr_src, t_pos, t_len);
 }
 
 /**
@@ -717,10 +689,7 @@ void string_append_substring(string_t* pstr_dest, const string_t* cpstr_src, siz
  */
 void string_append_cstr(string_t* pstr_string, const char* s_cstr)
 {
-    /* comment for 2.2
     basic_string_append_cstr(pstr_string, s_cstr);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -728,10 +697,7 @@ void string_append_cstr(string_t* pstr_string, const char* s_cstr)
  */
 void string_append_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_len)
 {
-    /* comment for 2.2
     basic_string_append_subcstr(pstr_string, s_cstr, t_len);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -739,10 +705,7 @@ void string_append_subcstr(string_t* pstr_string, const char* s_cstr, size_t t_l
  */
 void string_append_char(string_t* pstr_string, size_t t_count, char c_char)
 {
-    /* comment for 2.2
     basic_string_append_elem(pstr_string, t_count, c_char);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -750,11 +713,7 @@ void string_append_char(string_t* pstr_string, size_t t_count, char c_char)
  */
 void string_append_range(string_t* pstr_string, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    /* comment for 2.2
-    assert(!iterator_equal(it_end, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_end))));
     basic_string_append_range(pstr_string, it_begin, it_end);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -762,9 +721,7 @@ void string_append_range(string_t* pstr_string, string_iterator_t it_begin, stri
  */
 string_iterator_t string_insert(string_t* pstr_string, string_iterator_t it_pos, char c_char)
 {
-    /* comment for 2.2
     return basic_string_insert(pstr_string, it_pos, c_char);
-    */
 }
 
 /**
@@ -772,9 +729,7 @@ string_iterator_t string_insert(string_t* pstr_string, string_iterator_t it_pos,
  */
 string_iterator_t string_insert_n(string_t* pstr_string, string_iterator_t it_pos, size_t t_count, char c_char)
 {
-    /* comment for 2.2
     return basic_string_insert_n(pstr_string, it_pos, t_count, c_char);
-    */
 }
 
 /**
@@ -782,12 +737,7 @@ string_iterator_t string_insert_n(string_t* pstr_string, string_iterator_t it_po
  */
 void string_insert_string(string_t* pstr_string, size_t t_pos, const string_t* cpstr_insert)
 {
-    /* comment for 2.2
-    assert(pstr_string != cpstr_insert);
-
-    basic_string_insert_cstr(pstr_string, t_pos, string_c_str(cpstr_insert));
-    basic_string_push_back(pstr_string, '\0');
-    */
+    basic_string_insert_string(pstr_string, t_pos, cpstr_insert);
 }
 
 /**
@@ -796,12 +746,7 @@ void string_insert_string(string_t* pstr_string, size_t t_pos, const string_t* c
 void string_insert_substring(
     string_t* pstr_string, size_t t_pos, const string_t* cpstr_insert, size_t t_startpos, size_t t_len)
 {
-    /* comment for 2.2
-    assert(pstr_string != cpstr_insert);
-
-    basic_string_insert_subcstr(pstr_string, t_pos, string_at(cpstr_insert, t_startpos), t_len);
-    basic_string_push_back(pstr_string, '\0');
-    */
+    basic_string_insert_substring(pstr_string, t_pos, cpstr_insert, t_startpos, t_len);
 }
 
 /**
@@ -809,10 +754,7 @@ void string_insert_substring(
  */
 void string_insert_cstr(string_t* pstr_string, size_t t_pos, const char* s_cstr)
 {
-    /* comment for 2.2
     basic_string_insert_cstr(pstr_string, t_pos, s_cstr);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -820,10 +762,7 @@ void string_insert_cstr(string_t* pstr_string, size_t t_pos, const char* s_cstr)
  */
 void string_insert_subcstr(string_t* pstr_string, size_t t_pos, const char* s_cstr, size_t t_len)
 {
-    /* comment for 2.2
     basic_string_insert_subcstr(pstr_string, t_pos, s_cstr, t_len);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -831,10 +770,7 @@ void string_insert_subcstr(string_t* pstr_string, size_t t_pos, const char* s_cs
  */
 void string_insert_char(string_t* pstr_string, size_t t_pos, size_t t_count, char c_char)
 {
-    /* comment for 2.2
     basic_string_insert_elem(pstr_string, t_pos, t_count, c_char);
-    basic_string_push_back(pstr_string, '\0');
-    */
 }
 
 /**
@@ -843,9 +779,7 @@ void string_insert_char(string_t* pstr_string, size_t t_pos, size_t t_count, cha
 void string_insert_range(
     string_t* pstr_string, string_iterator_t it_pos, string_iterator_t it_begin, string_iterator_t it_end)
 {
-    /* comment for 2.2
     basic_string_insert_range(pstr_string, it_pos, it_begin, it_end);
-    */
 }
 
 /**

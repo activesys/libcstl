@@ -1095,6 +1095,7 @@ void test_string_append_range__invalid_end_iterator(void** state);
 void test_string_append_range__invalid_range(void** state);
 void test_string_append_range__successfully_empty_range(void** state);
 void test_string_append_range__successfully(void** state);
+void test_string_append_range__same_container(void** state);
 /*
  * test string_append_cstr
  */
@@ -1210,6 +1211,7 @@ void test_string_insert_range__invalid_pos(void** state);
 void test_string_insert_range__invalid_begin(void** state);
 void test_string_insert_range__invalid_end(void** state);
 void test_string_insert_range__invalid_range(void** state);
+void test_string_insert_range__range_belong_to_dest(void** state);
 void test_string_insert_range__empty_insert_empty(void** state);
 void test_string_insert_range__empty_insert_non_empty(void** state);
 void test_string_insert_range__non_empty_insert_begin_empty(void** state);
@@ -2247,7 +2249,7 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_find_last_not_of_char__find_successful),\
     UT_CASE(test_string_find_last_not_of_char__find_successful_middle),\
     UT_CASE(test_string_find_last_not_of_char__find_successful_back),\
-    UT_CASE(test_string_find_last_not_of_char__find_successful_middle_pos)/*,\
+    UT_CASE(test_string_find_last_not_of_char__find_successful_middle_pos),\
     UT_CASE_BEGIN(string_clear, test_string_clear__null_string_container),\
     UT_CASE(test_string_clear__non_inited_string_container),\
     UT_CASE(test_string_clear__empty_string_container),\
@@ -2350,6 +2352,7 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_append_range__invalid_end_iterator),\
     UT_CASE(test_string_append_range__invalid_range),\
     UT_CASE(test_string_append_range__successfully_empty_range),\
+    UT_CASE(test_string_append_range__same_container),\
     UT_CASE(test_string_append_range__successfully),\
     UT_CASE_BEGIN(string_append_cstr, test_string_append_cstr__null_container),\
     UT_CASE(test_string_append_cstr__non_inited),\
@@ -2433,6 +2436,7 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_insert_range__non_empty_insert_end_empty),\
     UT_CASE(test_string_insert_range__non_empty_insert_begin_non_empty),\
     UT_CASE(test_string_insert_range__non_empty_insert_middle_non_empty),\
+    UT_CASE(test_string_insert_range__range_belong_to_dest),\
     UT_CASE(test_string_insert_range__non_empty_insert_end_non_empty),\
     UT_CASE_BEGIN(string_insert_char, test_string_insert_char__null_string_container),\
     UT_CASE(test_string_insert_char__non_inited),\
@@ -2448,7 +2452,7 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_insert_char__middle_insert_1000),\
     UT_CASE(test_string_insert_char__end_insert_0),\
     UT_CASE(test_string_insert_char__end_insert_10),\
-    UT_CASE(test_string_insert_char__end_insert_1000),\
+    UT_CASE(test_string_insert_char__end_insert_1000)/*,\
     UT_CASE_BEGIN(string_resize, test_string_resize__null_string_container),\
     UT_CASE(test_string_resize__non_inited),\
     UT_CASE(test_string_resize__successfully_0_resize_0),\
