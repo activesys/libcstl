@@ -827,7 +827,18 @@ extern void string_reserve(string_t* pstr_string, size_t t_reservesize);
  *          if t_resize less than current string size, then erase elmement from the end. if t_resize greater than
  *          current string size, then append characters to the end, and the character is specificed character.
  */
-extern void string_resize(string_t* pstr_string, size_t t_resize, char c_char);
+extern void string_resize_char(string_t* pstr_string, size_t t_resize, char c_char);
+
+/**
+ * Reset the size of string characters.
+ * @param pstr_string           string container.
+ * @param t_resize              new size of string characters.
+ * @return void.
+ * @remarks if pstr_string == NULL or string is uninitialized, then the behavior is undefined. the first
+ *          if t_resize less than current string size, then erase elmement from the end. if t_resize greater than
+ *          current string size, then append characters to the end, and the character is terminator character.
+ */
+extern void string_resize(string_t* pstr_string, size_t t_resize);
 
 /**
  * Adds an character to basic string.

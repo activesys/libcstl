@@ -351,7 +351,8 @@ void _basic_string_copy_substring_auxiliary(
      * when the type style is c built-in type, 
      * which improves efficiency.
      */
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
         for (i = 0; i < t_len; ++i) {
             bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
@@ -387,7 +388,8 @@ void _basic_string_copy_substring_backward_auxiliary(
     pby_dest = pby_dest + (t_len - 1) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
     pby_src = pby_src + (t_len - 1) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
         for (i = 0; i < t_len; ++i) {
             bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pby_src, &b_result);
@@ -426,7 +428,17 @@ void _basic_string_copy_subcstr_auxiliary(
     /* char* */
     if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         for (i = 0; i < t_len; ++i) {
-            string_assign_cstr((string_t*)(pby_dest + i * t_typesize), *((char**)cpv_value_string + i));
+            n_dest_terminator = memcmp(pby_terminator, pby_dest + i * t_typesize, t_typesize);
+
+            if (n_dest_terminator != 0 && *((char**)cpv_value_string + i) != NULL) {
+                string_assign_cstr((string_t*)(pby_dest + i * t_typesize), *((char**)cpv_value_string + i));
+            } else if (n_dest_terminator != 0 && *((char**)cpv_value_string + i) == NULL) {
+                _string_destroy_auxiliary((string_t*)(pby_dest + i * t_typesize));
+                memcpy(pby_dest + i * t_typesize, pby_terminator, t_typesize);
+            } else if (n_dest_terminator == 0 && *((char**)cpv_value_string + i) != NULL) {
+                _basic_string_init_elem_auxiliary((basic_string_t*)cpt_basic_string, pby_dest + i * t_typesize);
+                string_assign_cstr((string_t*)(pby_dest + i * t_typesize), *((char**)cpv_value_string + i));
+            }
         }
     } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
         for (i = 0; i < t_len; ++i) {

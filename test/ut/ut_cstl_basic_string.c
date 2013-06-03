@@ -3187,7 +3187,6 @@ void test_basic_string_at__successfully(void** state)
 
 void test_basic_string_at__successfully_cstr(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_init(pt_basic_string);
 
@@ -3200,8 +3199,6 @@ void test_basic_string_at__successfully_cstr(void** state)
     assert_true(strcmp((char*)basic_string_at(pt_basic_string, 2), "hij") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test_basic_string_at__sharable(void** state)
