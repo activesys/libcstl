@@ -1248,6 +1248,18 @@ void test_string_push_back__non_inited_container(void** state);
 void test_string_push_back__empty(void** state);
 void test_string_push_back__non_empty(void** state);
 /*
+ * test string_resize_char
+ */
+UT_CASE_DECLARATION(string_resize_char)
+void test_string_resize_char__null_string_container(void** state);
+void test_string_resize_char__non_inited(void** state);
+void test_string_resize_char__successfully_0_resize_0(void** state);
+void test_string_resize_char__successfully_0_resize_10(void** state);
+void test_string_resize_char__successfully_10_resize_0(void** state);
+void test_string_resize_char__successfully_10_resize_10(void** state);
+void test_string_resize_char__successfully_10_resize_1000(void** state);
+void test_string_resize_char__successfully_1000_resize_10(void** state);
+/*
  * test string_resize
  */
 UT_CASE_DECLARATION(string_resize)
@@ -2452,7 +2464,15 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_insert_char__middle_insert_1000),\
     UT_CASE(test_string_insert_char__end_insert_0),\
     UT_CASE(test_string_insert_char__end_insert_10),\
-    UT_CASE(test_string_insert_char__end_insert_1000)/*,\
+    UT_CASE(test_string_insert_char__end_insert_1000),\
+    UT_CASE_BEGIN(string_resize_char, test_string_resize_char__null_string_container),\
+    UT_CASE(test_string_resize_char__non_inited),\
+    UT_CASE(test_string_resize_char__successfully_0_resize_0),\
+    UT_CASE(test_string_resize_char__successfully_0_resize_10),\
+    UT_CASE(test_string_resize_char__successfully_10_resize_0),\
+    UT_CASE(test_string_resize_char__successfully_10_resize_10),\
+    UT_CASE(test_string_resize_char__successfully_10_resize_1000),\
+    UT_CASE(test_string_resize_char__successfully_1000_resize_10),\
     UT_CASE_BEGIN(string_resize, test_string_resize__null_string_container),\
     UT_CASE(test_string_resize__non_inited),\
     UT_CASE(test_string_resize__successfully_0_resize_0),\
@@ -2697,7 +2717,6 @@ void test_string_getline_delimiter__getline_delimiter_non_empty(void** state);
     UT_CASE(test_string_getline_delimiter__non_inited_string),\
     UT_CASE(test_string_getline_delimiter__getline_delimiter_empty),\
     UT_CASE(test_string_getline_delimiter__getline_delimiter_non_empty)
-    */
 
 #endif /* _UT_CSTL_STRING_H_ */
 

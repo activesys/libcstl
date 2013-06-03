@@ -1375,8 +1375,8 @@ void basic_string_replace_substring(
     pby_src_end = pby_src + t_length * t_typesize;
 
     /* Overlapping case */
-    if (pby_src_end > pby_dest && pby_src_end <= pby_dest_end ||
-        pby_src >= pby_dest && pby_src < pby_dest_end) {
+    if ((pby_src_end > pby_dest && pby_src_end <= pby_dest_end) ||
+        (pby_src >= pby_dest && pby_src < pby_dest_end)) {
         pt_basic_temp = _create_basic_string(_GET_BASIC_STRING_TYPE_NAME(cpt_replace));
         basic_string_init_copy_substring(pt_basic_temp, cpt_replace, t_position, t_length);
     }
