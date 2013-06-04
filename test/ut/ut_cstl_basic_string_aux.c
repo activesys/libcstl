@@ -1611,21 +1611,15 @@ void test__basic_string_copy_subcstr_auxiliary__cstr(void** state)
     int i = 0;
     basic_string_t* pbstr = create_basic_string(char*);
     const char* elems[] = {"abc", "abc", NULL, NULL};
+    const char* inits[] = {"xyz", NULL, NULL, "xyz", "xyz", "xyz", "xyz", "xyz", "xyz", "xyz"};
     string_t terminator;
 
-    basic_string_init(pbstr);
-    basic_string_push_back(pbstr, "xyz");
-    basic_string_push_back(pbstr, NULL);
-    basic_string_push_back(pbstr, NULL);
-    for (i = 0; i < 7; ++i) {
-        basic_string_push_back(pbstr, "xyz");
-    }
+    basic_string_init_subcstr(pbstr, inits, 10);
     _basic_string_copy_subcstr_auxiliary(pbstr, pbstr->_pby_string, elems, 4);
     for (i = 0; i < 10; ++i) {
         if (i < 4) {
             if (i == 2 || i == 3) {
-                memset(&terminator, 0x00, sizeof(string_t));
-                assert_true(memcmp(&terminator, basic_string_at(pbstr, i), sizeof(string_t)) == 0);
+                assert_true(basic_string_at(pbstr, i) == NULL);
             } else {
                 assert_true(strcmp((char*)basic_string_at(pbstr, i), "abc") == 0);
             }
@@ -1793,7 +1787,6 @@ void test__basic_string_copy_range_auxiliary__cstr(void** state)
 {
     basic_string_t* pbstr1 = create_basic_string(char*);
     basic_string_t* pbstr2 = create_basic_string(char*);
-    string_t terminator;
 
     basic_string_init(pbstr1);
     basic_string_init(pbstr2);
@@ -1809,9 +1802,8 @@ void test__basic_string_copy_range_auxiliary__cstr(void** state)
     _basic_string_copy_range_auxiliary(pbstr1, pbstr1->_pby_string, basic_string_begin(pbstr2), basic_string_end(pbstr2));
     assert_true(strcmp((char*)basic_string_at(pbstr1, 0), "xyz") == 0);
     assert_true(strcmp((char*)basic_string_at(pbstr1, 1), "xyz") == 0);
-    memset(&terminator, 0x00, sizeof(string_t));
-    assert_true(memcmp(&terminator, basic_string_at(pbstr1, 2), sizeof(string_t)) == 0);
-    assert_true(memcmp(&terminator, basic_string_at(pbstr1, 3), sizeof(string_t)) == 0);
+    assert_true(basic_string_at(pbstr1, 2) == NULL);
+    assert_true(basic_string_at(pbstr1, 3) == NULL);
 
     basic_string_destroy(pbstr1);
     basic_string_destroy(pbstr2);
@@ -1942,7 +1934,20 @@ void test__basic_string_copy_elem_auxiliary__non_empty(void** state)
 }
 void test__basic_string_copy_elem_auxiliary__cstr(void** state)
 {
-    assert_true(false);
+    int i = 0;
+    basic_string_t* pbstr = create_basic_string(char*);
+    basic_string_init_elem(pbstr, 10, "abc");
+
+    _basic_string_copy_elem_auxiliary__wrapper(pbstr, pbstr->_pby_string, 5, NULL);
+    for (i = 0; i < 10; ++i) {
+        if (i < 5) {
+            assert_true(basic_string_at(pbstr, i) == NULL);
+        } else {
+            assert_true(strcmp((char*)basic_string_at(pbstr, i), "abc") == 0);
+        }
+    }
+
+    basic_string_destroy(pbstr);
 }
 void test__basic_string_copy_elem_auxiliary__libcstl(void** state)
 {

@@ -594,7 +594,15 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
             /* char* */
             char* s_str = va_arg(val_elemlist, char*);
             assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(string_t));
-            string_assign_cstr((string_t*)pv_output, s_str);
+
+            if (s_str != NULL) {
+                string_assign_cstr((string_t*)pv_output, s_str);
+            } else {
+                bool_t b_result = pt_typeinfo->_pt_type->_t_typesize;
+                (*pt_typeinfo->_pt_type->_t_typedestroy)(pv_output, &b_result);
+                assert(b_result);
+                memset(pv_output, 0x00, pt_typeinfo->_pt_type->_t_typesize);
+            }
         } else {
             /* invalid c builtin style */
             assert(false);

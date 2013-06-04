@@ -1075,8 +1075,7 @@ void basic_string_clear(basic_string_t* pt_basic_string)
         _basic_string_rep_t* prep = _basic_string_rep_construct(pt_basic_string, 0, 0, 0);
         _basic_string_rep_reduce_shared(
             _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string),
-            _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string));
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string), &pt_basic_string->_t_typeinfo);
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
     } else {
         _basic_string_destroy_elem_range_auxiliary(
@@ -1129,8 +1128,7 @@ void basic_string_reserve(basic_string_t* pt_basic_string, size_t t_reservesize)
         _basic_string_rep_set_sharable(prep);
         _basic_string_rep_reduce_shared(
             _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string),
-            _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string));
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string), &pt_basic_string->_t_typeinfo);
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
     }
 }
@@ -1149,8 +1147,7 @@ void basic_string_assign(basic_string_t* pt_dest, const basic_string_t* cpt_src)
     if (pt_dest->_pby_string != cpt_src->_pby_string) {
         _basic_string_rep_reduce_shared(
             _basic_string_rep_get_representation(pt_dest->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_dest),
-            _GET_BASIC_STRING_TYPE_STYLE(pt_dest));
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_dest), &pt_dest->_t_typeinfo);
         pt_dest->_pby_string = cpt_src->_pby_string;
         _basic_string_rep_increase_shared(_basic_string_rep_get_representation(pt_dest->_pby_string));
     }
@@ -1580,8 +1577,7 @@ void basic_string_resize(basic_string_t* pt_basic_string, size_t t_resize)
 
         _basic_string_rep_reduce_shared(
             _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string),
-            _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string));
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string), &pt_basic_string->_t_typeinfo);
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
     } else {
         if (t_resize < basic_string_size(pt_basic_string)) {

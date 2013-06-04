@@ -74,10 +74,11 @@ _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapacity, s
  * Reduce shared and delete rep if necessary.
  */
 _basic_string_rep_t* _basic_string_rep_reduce_shared(
-    _basic_string_rep_t* pt_rep, unary_function_t ufun_destroy, _typestyle_t t_style)
+    _basic_string_rep_t* pt_rep, unary_function_t ufun_destroy, _typeinfo_t* pt_typeinfo)
 {
     assert(pt_rep != NULL);
     assert(ufun_destroy != NULL);
+    assert(pt_typeinfo != NULL);
 
     pt_rep->_n_refcount -= 1;
     if (_basic_string_rep_is_leaked(pt_rep)) {
@@ -91,7 +92,8 @@ _basic_string_rep_t* _basic_string_rep_reduce_shared(
          * when the type style is c built-in type,
          * which improves efficiency.
          */
-        if (t_style == _TYPE_C_BUILTIN) {
+        if (pt_typeinfo->_t_style == _TYPE_C_BUILTIN &&
+            strncmp(pt_typeinfo->_pt_type->_s_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
             for (i = 0; i < pt_rep->_t_length; ++i) {
                 b_result = pt_rep->_t_elemsize;
                 ufun_destroy(pby_string, &b_result);
@@ -254,8 +256,7 @@ void _basic_string_destroy_auxiliary(basic_string_t* pt_basic_string)
     if (pt_basic_string->_pby_string != NULL) {
         _basic_string_rep_reduce_shared(
             _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string),
-            _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string));
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string), &pt_basic_string->_t_typeinfo);
         pt_basic_string->_pby_string = NULL;
     }
 }

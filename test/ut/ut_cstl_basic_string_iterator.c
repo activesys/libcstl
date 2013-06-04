@@ -10,6 +10,7 @@
 #include "cstl/cstl_basic_string_private.h"
 #include "cstl/cstl_basic_string.h"
 #include "cstl/cstring.h"
+#include "cstl/clist.h"
 
 #include "ut_def.h"
 #include "ut_cstl_basic_string_iterator.h"
@@ -709,6 +710,31 @@ void test__basic_string_iterator_get_pointer__successfully_cstr(void** state)
     basic_string_destroy(pt_basic_string);
 }
 
+void test__basic_string_iterator_get_pointer__terminator(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    iterator_t it;
+    list_t terminator;
+
+    basic_string_init_elem(pbstr, 10, NULL);
+    it = basic_string_begin(pbstr);
+    memset(&terminator, 0x00, sizeof(list_t));
+    assert_true(memcmp(&terminator, _basic_string_iterator_get_pointer(it), sizeof(list_t)) == 0);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_iterator_get_pointer__cstr_terminator(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char*);
+    iterator_t it;
+    string_t terminator;
+
+    basic_string_init_elem(pbstr, 10, NULL);
+    it = basic_string_begin(pbstr);
+    memset(&terminator, 0x00, sizeof(string_t));
+    assert_true(_basic_string_iterator_get_pointer(it) == NULL);
+    basic_string_destroy(pbstr);
+}
+
 /*
  * test _basic_string_iterator_get_pointer_ignore_cstr
  */
@@ -806,6 +832,31 @@ void test__basic_string_iterator_get_pointer_ignore_cstr__successfully_cstr(void
     assert_true(strcmp("abcdefg", string_c_str(_basic_string_iterator_get_pointer_ignore_cstr(it_iter))) == 0);
 
     basic_string_destroy(pt_basic_string);
+}
+
+void test__basic_string_iterator_get_pointer_ignore_cstr__cstr_terminator(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char*);
+    basic_string_iterator_t it;
+    string_t terminator;
+
+    memset(&terminator, 0x00, sizeof(string_t));
+    basic_string_init_elem(pbstr, 10, NULL);
+    it = basic_string_begin(pbstr);
+    assert_true(memcmp(&terminator, _basic_string_iterator_get_pointer_ignore_cstr(it), sizeof(string_t)) == 0);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_iterator_get_pointer_ignore_cstr__terminator(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    iterator_t it;
+    list_t terminator;
+
+    memset(&terminator, 0x00, sizeof(list_t));
+    basic_string_init_elem(pbstr, 10, NULL);
+    it = basic_string_begin(pbstr);
+    assert_true(memcmp(&terminator, _basic_string_iterator_get_pointer_ignore_cstr(it), sizeof(string_t)) == 0);
+    basic_string_destroy(pbstr);
 }
 
 /*

@@ -78,6 +78,8 @@ void test__basic_string_iterator_get_pointer__invalid_iterator_container_pointer
 void test__basic_string_iterator_get_pointer__basic_string_end(void** state);
 void test__basic_string_iterator_get_pointer__successfully(void** state);
 void test__basic_string_iterator_get_pointer__successfully_cstr(void** state);
+void test__basic_string_iterator_get_pointer__terminator(void** state);
+void test__basic_string_iterator_get_pointer__cstr_terminator(void** state);
 /*
  * test _basic_string_iterator_get_pointer_ignore_cstr
  */
@@ -89,6 +91,8 @@ void test__basic_string_iterator_get_pointer_ignore_cstr__invalid_iterator_conta
 void test__basic_string_iterator_get_pointer_ignore_cstr__basic_string_end(void** state);
 void test__basic_string_iterator_get_pointer_ignore_cstr__successfully(void** state);
 void test__basic_string_iterator_get_pointer_ignore_cstr__successfully_cstr(void** state);
+void test__basic_string_iterator_get_pointer_ignore_cstr__terminator(void** state);
+void test__basic_string_iterator_get_pointer_ignore_cstr__cstr_terminator(void** state);
 /*
  * test _basic_string_iterator_next
  */
@@ -191,6 +195,8 @@ void test__basic_string_iterator_minus__first_equal_to_second(void** state);
     UT_CASE(test__basic_string_iterator_get_pointer__basic_string_end),\
     UT_CASE(test__basic_string_iterator_get_pointer__successfully),\
     UT_CASE(test__basic_string_iterator_get_pointer__successfully_cstr),\
+    UT_CASE(test__basic_string_iterator_get_pointer__terminator),\
+    UT_CASE(test__basic_string_iterator_get_pointer__cstr_terminator),\
     UT_CASE_BEGIN(_basic_string_iterator_get_pointer_ignore_cstr, test__basic_string_iterator_get_pointer_ignore_cstr__invalid_iterator),\
     UT_CASE(test__basic_string_iterator_get_pointer_ignore_cstr__invalid_iterator_container_type),\
     UT_CASE(test__basic_string_iterator_get_pointer_ignore_cstr__invalid_iterator_iterator_type),\
@@ -198,6 +204,8 @@ void test__basic_string_iterator_minus__first_equal_to_second(void** state);
     UT_CASE(test__basic_string_iterator_get_pointer_ignore_cstr__basic_string_end),\
     UT_CASE(test__basic_string_iterator_get_pointer_ignore_cstr__successfully),\
     UT_CASE(test__basic_string_iterator_get_pointer_ignore_cstr__successfully_cstr),\
+    UT_CASE(test__basic_string_iterator_get_pointer_ignore_cstr__terminator),\
+    UT_CASE(test__basic_string_iterator_get_pointer_ignore_cstr__cstr_terminator),\
     UT_CASE_BEGIN(_basic_string_iterator_get_value, test__basic_string_iterator_get_value__invalid_iterator),\
     UT_CASE(test__basic_string_iterator_get_value__invalid_iterator_container_type),\
     UT_CASE(test__basic_string_iterator_get_value__invalid_iterator_iterator_type),\

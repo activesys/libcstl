@@ -123,23 +123,27 @@ void test__basic_string_rep_reduce_shared__fun_null(void** state)
 {
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     _basic_string_rep_set_sharable(prep);
-    expect_assert_failure(_basic_string_rep_reduce_shared(prep, NULL, _TYPE_C_BUILTIN));
+    expect_assert_failure(_basic_string_rep_reduce_shared(prep, NULL, NULL));
 }
 void test__basic_string_rep_reduce_shared__not_shared(void** state)
 {
+    basic_string_t* pbstr = create_basic_string(char);
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     _basic_string_rep_set_sharable(prep);
-    assert(_basic_string_rep_reduce_shared(prep, _type_destroy_default, _TYPE_CSTL_BUILTIN) == NULL);
+    assert(_basic_string_rep_reduce_shared(prep, _type_destroy_default, &pbstr->_t_typeinfo) == NULL);
+    basic_string_destroy(pbstr);
 }
 void test__basic_string_rep_reduce_shared__shared(void** state)
 {
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
     _basic_string_rep_t* prep_reduce = NULL;
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     prep->_n_refcount = 10;
-    prep_reduce = _basic_string_rep_reduce_shared(prep, _type_destroy_default, _TYPE_USER_DEFINE);
+    prep_reduce = _basic_string_rep_reduce_shared(prep, _type_destroy_default, &pbstr->_t_typeinfo);
     assert(prep == prep_reduce);
     assert(prep->_n_refcount == 9);
     free(prep);
+    basic_string_destroy(pbstr);
 }
 
 /*

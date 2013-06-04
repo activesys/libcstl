@@ -283,7 +283,7 @@ void _basic_string_detach(basic_string_t* pt_basic_string)
         _basic_string_rep_set_sharable(prep_clone);
         /* reduce shared */
         _basic_string_rep_reduce_shared(
-            prep, _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string), _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string));
+            prep, _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string), &pt_basic_string->_t_typeinfo);
         /* set new rep */
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep_clone);
     }
@@ -494,7 +494,8 @@ void _basic_string_copy_range_auxiliary(
      * when the type style is c built-in type, 
      * which improves efficiency.
      */
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
         for (it = it_begin; !iterator_equal(it, it_end); it = iterator_next(it)) {
             bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
@@ -538,7 +539,8 @@ void _basic_string_copy_elem_auxiliary(
          * when the type style is c built-in type, 
          * which improves efficiency.
          */
-        if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+        if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+            strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
             for (i = 0; i < t_count; ++i) {
                 bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
                 _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(pby_dest, pv_varg, &b_result);
@@ -637,8 +639,7 @@ void _basic_string_replace_preparation(
 
         _basic_string_rep_reduce_shared(
             _basic_string_rep_get_representation(pt_basic_string->_pby_string),
-            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string),
-            _GET_BASIC_STRING_TYPE_STYLE(pt_basic_string));
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string), &pt_basic_string->_t_typeinfo);
         pt_basic_string->_pby_string = _basic_string_rep_get_data(prep);
     } else {
         if (t_replacelen > t_len) {
