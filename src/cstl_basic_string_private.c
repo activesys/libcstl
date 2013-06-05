@@ -361,7 +361,8 @@ size_t _basic_string_find_elem_varg(const basic_string_t* cpt_basic_string, size
     pby_terminator = pby_string + t_len * t_typesize;
     t_findpos = t_pos;
 
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
         while (t_findpos != t_len) {
             b_less = b_greater = t_typesize;
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string + t_findpos * t_typesize, pv_varg, &b_less);
@@ -447,7 +448,8 @@ size_t _basic_string_rfind_elem_varg(const basic_string_t* cpt_basic_string, siz
     pby_terminator = pby_string + basic_string_size(cpt_basic_string) * t_typesize;
     t_findpos = t_pos < basic_string_size(cpt_basic_string) ? t_pos + 1 : basic_string_size(cpt_basic_string);
 
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
         while (t_findpos-- > 0) {
             /* The t_findpos is NPOS when underflow. */
             b_less = b_greater = t_typesize;
@@ -524,7 +526,8 @@ size_t _basic_string_find_first_not_of_elem_varg(const basic_string_t* cpt_basic
     t_len = basic_string_length(cpt_basic_string);
     pby_terminator = cpt_basic_string->_pby_string + t_len * t_typesize;
 
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
         for (; t_pos < t_len; ++t_pos) {
             pby_string = cpt_basic_string->_pby_string + t_pos * t_typesize;
             b_less = b_greater = t_typesize;
@@ -611,7 +614,8 @@ size_t _basic_string_find_last_not_of_elem_varg(const basic_string_t* cpt_basic_
         /* find elemen */
         pby_terminator = cpt_basic_string->_pby_string + t_len * t_typesize;
 
-        if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+        if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+            strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
             do {
                 b_less = b_greater = t_typesize;
                 pby_string = cpt_basic_string->_pby_string + t_pos * t_typesize;

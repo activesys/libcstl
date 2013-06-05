@@ -11,6 +11,7 @@
 #include "cstl/cstl_basic_string_private.h"
 #include "cstl/cstl_basic_string.h"
 #include "cstl_basic_string_aux.h"
+#include "cstl/cstring.h"
 
 #include "ut_def.h"
 #include "ut_cstl_basic_string_private.h"
@@ -494,7 +495,16 @@ void test__basic_string_init_elem__terminator_c(void** state)
 }
 void test__basic_string_init_elem__terminator_cstr(void** state)
 {
-    assert_true(false);
+    size_t i = 0;
+    basic_string_t* pbstr = create_basic_string(char*);
+
+    basic_string_init_elem(pbstr, 10, NULL);
+    assert_true(basic_string_size(pbstr) == 10);
+    for (i = 0; i < 10; ++i) {
+        assert_true(basic_string_at(pbstr, i) == NULL);
+    }
+
+    basic_string_destroy(pbstr);
 }
 void test__basic_string_init_elem__terminator_libcstl(void** state)
 {
@@ -741,20 +751,16 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__find_successful_
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failure(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
     assert_true(_basic_string_find_elem(pt_basic_string, 0, "9999") == NPOS);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failure_middle_pos(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 1, "9999");
@@ -764,16 +770,13 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_failur
     basic_string_push_back(pt_basic_string, "100");
     basic_string_push_back(pt_basic_string, "100");
     basic_string_push_back(pt_basic_string, "100");
-    assert_true(_basic_string_find_elem(pt_basic_string, 3, "9999") == NPOS);
+    assert_true(_basic_string_find_elem(pt_basic_string, 3, NULL) == NPOS);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -786,13 +789,10 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
     assert_true(_basic_string_find_elem(pt_basic_string, 0, "97") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -805,13 +805,10 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
     assert_true(_basic_string_find_elem(pt_basic_string, 0, "97") == 2);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_back(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -823,13 +820,10 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
     assert_true(_basic_string_find_elem(pt_basic_string, 0, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_successful_middle_pos(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -837,13 +831,11 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__cstr_find_succes
     basic_string_push_back(pt_basic_string, "400");
     basic_string_push_back(pt_basic_string, "97");
     basic_string_push_back(pt_basic_string, "-3");
-    basic_string_push_back(pt_basic_string, "97");
+    basic_string_push_back(pt_basic_string, NULL);
     basic_string_push_back(pt_basic_string, "700");
-    assert_true(_basic_string_find_elem(pt_basic_string, 3, "97") == 4);
+    assert_true(_basic_string_find_elem(pt_basic_string, 3, NULL) == 4);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_elem__basic_string_find_elem_varg__shared(void** state)
@@ -872,7 +864,12 @@ void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_c(voi
 }
 void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_cstr(void** state)
 {
-    assert_true(false);
+    basic_string_t* pbstr = create_basic_string(char*);
+    const char* elems[] = {"abc", "def", NULL, "xyz"};
+    basic_string_init_subcstr(pbstr, elems, 4);
+    assert_true(basic_string_find_elem(pbstr, NULL, 0) == 2);
+
+    basic_string_destroy(pbstr);
 }
 void test__basic_string_find_elem__basic_string_find_elem_varg__terminator_cstl(void** state)
 {
@@ -1070,20 +1067,16 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__pos_eq_size(vo
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_failure(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
     assert_true(_basic_string_rfind_elem(pt_basic_string, NPOS, "9999") == NPOS);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_failure_middle_pos(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1097,13 +1090,10 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_fail
     assert_true(_basic_string_rfind_elem(pt_basic_string, 3, "9999") == NPOS);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1116,13 +1106,10 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
     assert_true(_basic_string_rfind_elem(pt_basic_string, 0, "97") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1135,13 +1122,10 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
     assert_true(_basic_string_rfind_elem(pt_basic_string, 3, "97") == 2);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_back(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1153,13 +1137,10 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
     assert_true(_basic_string_rfind_elem(pt_basic_string, NPOS, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_successful_middle_pos(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1172,8 +1153,6 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__cstr_find_succ
     assert_true(_basic_string_rfind_elem(pt_basic_string, 4, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__shared(void** state)
@@ -1202,7 +1181,11 @@ void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_c(v
 }
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_cstr(void** state)
 {
-    assert_true(false);
+    basic_string_t* pbstr = create_basic_string(char*);
+    const char* elems[] = {"abc", "def", NULL, "xyz"};
+    basic_string_init_subcstr(pbstr, elems, 4);
+    assert_true(basic_string_rfind_elem(pbstr, NULL, NPOS) == 2);
+    basic_string_destroy(pbstr);
 }
 void test__basic_string_rfind_elem__basic_string_rfind_elem_varg__terminator_cstl(void** state)
 {
@@ -1381,20 +1364,16 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_failure(
     void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 0, "100") == NPOS);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_failure_middle_pos(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 1, "9999");
@@ -1407,14 +1386,11 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 3, "100") == NPOS);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful(
     void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1427,14 +1403,11 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 0, "97") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_middle(
     void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1448,14 +1421,11 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 0, "97") == 2);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_back(
     void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1467,13 +1437,10 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 0, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__cstr_find_first_not_of_successful_middle_pos(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1487,8 +1454,6 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
     assert_true(_basic_string_find_first_not_of_elem(pt_basic_string, 3, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_c(void** state)
 {
@@ -1502,7 +1467,11 @@ void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_e
 }
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_cstr(void** state)
 {
-    assert_true(false);
+    basic_string_t* pbstr = create_basic_string(char*);
+    const char* elems[] = {NULL, "abc", "def", NULL, "xyz"};
+    basic_string_init_subcstr(pbstr, elems, 5);
+    assert_true(basic_string_find_first_not_of_elem(pbstr, NULL, 0) == 1);
+    basic_string_destroy(pbstr);
 }
 void test__basic_string_find_first_not_of_elem__basic_string_find_first_not_of_elem_varg__terminator_cstl(void** state)
 {
@@ -1678,20 +1647,16 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
 
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_failure(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
     assert_true(_basic_string_find_last_not_of_elem(pt_basic_string, NPOS, "100") == NPOS);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_failure_middle_pos(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1708,13 +1673,10 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
     assert_true(_basic_string_find_last_not_of_elem(pt_basic_string, 3, "9999") == NPOS);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1727,13 +1689,10 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
     assert_true(_basic_string_find_last_not_of_elem(pt_basic_string, 0, "97") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_middle(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1746,13 +1705,10 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
     assert_true(_basic_string_find_last_not_of_elem(pt_basic_string, 3, "97") == 2);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_back(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1764,13 +1720,10 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
     assert_true(_basic_string_find_last_not_of_elem(pt_basic_string, NPOS, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__cstr_find_successful_middle_pos(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1783,8 +1736,6 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
     assert_true(_basic_string_find_last_not_of_elem(pt_basic_string, 4, "97") == 4);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__pos_gt_size(void** state)
@@ -1844,7 +1795,11 @@ void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_ele
 }
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_cstr(void** state)
 {
-    assert_true(false);
+    basic_string_t* pbstr = create_basic_string(char*);
+    const char* elems[] = {"abc", "def", NULL, "xyz"};
+    basic_string_init_subcstr(pbstr, elems, 4);
+    assert_true(basic_string_find_last_not_of_elem(pbstr, "xyz", NPOS) == 2);
+    basic_string_destroy(pbstr);
 }
 void test__basic_string_find_last_not_of_elem__basic_string_find_last_not_of_elem_varg__terminator_cstl(void** state)
 {
@@ -1920,7 +1875,6 @@ void test__basic_string_connect_elem__basic_string_connect_elem_varg__non_empty_
 
 void test__basic_string_connect_elem__basic_string_connect_elem_varg__cstr_empty_container(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -1929,23 +1883,18 @@ void test__basic_string_connect_elem__basic_string_connect_elem_varg__cstr_empty
     assert_true(strcmp((char*)basic_string_at(pt_basic_string, 0), "45") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_connect_elem__basic_string_connect_elem_varg__cstr_non_empty_container(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 3, "100");
-    _basic_string_connect_elem(pt_basic_string, "45");
+    _basic_string_connect_elem(pt_basic_string, NULL);
     assert_true(basic_string_size(pt_basic_string) == 4);
-    assert_true(strcmp((char*)basic_string_at(pt_basic_string, 3), "45") == 0);
+    assert_true(basic_string_at(pt_basic_string, 3) == NULL);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 /*
@@ -2054,7 +2003,6 @@ void test__basic_string_assign_elem__basic_string_assign_elem_varg__non_empty_co
 
 void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_empty_container_assign_empty(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -2062,13 +2010,10 @@ void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_empty_c
     assert_true(basic_string_size(pt_basic_string) == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_empty_container_assign_non_empty(void** state)
 {
-    /*
     int i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
@@ -2081,13 +2026,10 @@ void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_empty_c
     }
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_empty(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 4, "100");
@@ -2095,13 +2037,10 @@ void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_emp
     assert_true(basic_string_size(pt_basic_string) == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_less(void** state)
 {
-    /*
     int i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
@@ -2114,13 +2053,10 @@ void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_emp
     }
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_equal(void** state)
 {
-    /*
     int i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
@@ -2133,27 +2069,22 @@ void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_emp
     }
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_assign_elem__basic_string_assign_elem_varg__cstr_non_empty_container_assign_greater(void** state)
 {
-    /*
     int i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 4, "100");
-    _basic_string_assign_elem(pt_basic_string, 100, "700");
+    _basic_string_assign_elem(pt_basic_string, 100, NULL);
     assert_true(basic_string_size(pt_basic_string) == 100);
     for(i = 0; i < 100; ++i)
     {
-        assert_true(strcmp((char*)basic_string_at(pt_basic_string, i), "700") == 0);
+        assert_true(basic_string_at(pt_basic_string, i) == NULL);
     }
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_assign_elem__basic_string_assign_elem_varg__libcstl(void** state)
@@ -2306,32 +2237,29 @@ void test__basic_string_push_back__basic_string_push_back_varg__shared_non_empty
 
 void test__basic_string_push_back__basic_string_push_back_varg__cstr_empty(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
     _basic_string_push_back(pt_basic_string, "1");
     assert_true(basic_string_size(pt_basic_string) == 1);
-    assert_true(strcmp((char*)iterator_get_pointer(iterator_prev(basic_string_end(pt_basic_string))), "1") == 0);
+    assert_true(strcmp((char*)basic_string_at(pt_basic_string, 0), "1") == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_push_back__basic_string_push_back_varg__cstr_non_empty(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 100, "100");
     _basic_string_push_back(pt_basic_string, "1");
     assert_true(basic_string_size(pt_basic_string) == 101);
-    assert_true(strcmp((char*)iterator_get_pointer(iterator_prev(basic_string_end(pt_basic_string))), "1") == 0);
+    assert_true(strcmp((char*)basic_string_at(pt_basic_string, 100), "1") == 0);
+    basic_string_push_back(pt_basic_string, NULL);
+    assert_true(basic_string_size(pt_basic_string) == 102);
+    assert_true(basic_string_at(pt_basic_string, 101) == NULL);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_push_back__basic_string_push_back_varg__cstl_builtin_empty(void** state)
@@ -2798,7 +2726,6 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__non_empty_ap
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_empty(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init(pt_basic_string);
@@ -2806,13 +2733,10 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_a
     assert_true(basic_string_size(pt_basic_string) == 0);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_append_non_empty(void** state)
 {
-    /*
     size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
@@ -2825,13 +2749,10 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_empty_a
     }
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_empty(void** state)
 {
-    /*
     size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
@@ -2844,18 +2765,15 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_emp
     }
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_empty_append_non_empty(void** state)
 {
-    /*
     size_t i = 0;
     basic_string_t* pt_basic_string = create_basic_string(char*);
 
     basic_string_init_elem(pt_basic_string, 10, "100");
-    _basic_string_append_elem(pt_basic_string, 10, "900");
+    _basic_string_append_elem(pt_basic_string, 10, NULL);
     assert_true(basic_string_size(pt_basic_string) == 20);
     for(i = 0; i < basic_string_size(pt_basic_string); ++i)
     {
@@ -2865,13 +2783,11 @@ void test__basic_string_append_elem__basic_string_append_elem_varg__cstr_non_emp
         }
         else
         {
-            assert_true(strcmp((char*)basic_string_at(pt_basic_string, i), "900") == 0);
+            assert_true(basic_string_at(pt_basic_string, i) == NULL);
         }
     }
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_append_elem__basic_string_append_elem_varg__libcstl(void** state)
@@ -4452,16 +4368,16 @@ void test__basic_string_init_elem_auxiliary__successfully_int(void** state)
 
 void test__basic_string_init_elem_auxiliary__successfully_cstr(void** state)
 {
-    /*
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_init_elem(pt_basic_string, 10, "abcdefg");
+    string_t elem;
+    memset(&elem, 0x00, sizeof(string_t));
 
-    _basic_string_init_elem_auxiliary(pt_basic_string, pt_basic_string->_pby_string);
-    assert_true(strcmp((char*)basic_string_at(pt_basic_string, 0), "") == 0);
+    _basic_string_init_elem_auxiliary(pt_basic_string, &elem);
+    assert_true(strcmp(string_c_str(&elem), "") == 0);
+    _string_destroy_auxiliary(&elem);
 
     basic_string_destroy(pt_basic_string);
-    */
-    assert_true(false);
 }
 
 void test__basic_string_init_elem_auxiliary__successfully_iterator(void** state)
