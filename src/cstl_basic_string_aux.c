@@ -579,7 +579,8 @@ void _basic_string_destroy_elem_range_auxiliary(
     pby_terminator = cpt_basic_string->_pby_string +
         basic_string_size(cpt_basic_string) * _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
 
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
         for (i = 0; i < t_len; ++i) {
             bool_t b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(cpt_basic_string)(pby_del, &b_result);

@@ -203,12 +203,15 @@ size_t basic_string_copy(const basic_string_t* cpt_basic_string, void* pv_buffer
     pby_pos = cpt_basic_string->_pby_string + t_pos * t_typesize;
     pby_terminator = cpt_basic_string->_pby_string + basic_string_size(cpt_basic_string) * t_typesize;
 
-    /*
-     * It does not require judgment terminator,
-     * when the type style is c built-in type,
-     * which improves efficiency.
-     */
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        for (i = 0; i < t_size; ++i) {
+            if (memcmp(pby_terminator, pby_pos + i * t_typesize, t_typesize) != 0) {
+                *((const char**)pv_buffer + i) = string_c_str((string_t*)(pby_pos + i * t_typesize));
+            } else {
+                *((const char**)pv_buffer + i) = NULL;
+            }
+        }
+    } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
         for (i = 0; i < t_size; ++i) {
             b_result = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
             _GET_BASIC_STRING_TYPE_COPY_FUNCTION(cpt_basic_string)(
@@ -217,8 +220,11 @@ size_t basic_string_copy(const basic_string_t* cpt_basic_string, void* pv_buffer
         }
     } else {
         for (i = 0; i < t_size; ++i) {
-            _basic_string_copy_elem_with_terminator(
-                cpt_basic_string, (_byte_t*)pv_buffer + i * t_typesize, pby_pos + i * t_typesize, pby_terminator);
+            if (memcmp(pby_terminator, pby_pos + i * t_typesize, t_typesize) != 0) {
+                *((const _byte_t**)pv_buffer + i) = pby_pos + i * t_typesize;
+            } else {
+                *((const _byte_t**)pv_buffer + i) = NULL;
+            }
         }
     }
 
@@ -445,7 +451,8 @@ int basic_string_compare_substring_substring(
     pby_first = cpt_first->_pby_string + t_firstpos * t_typesize;
     pby_second = cpt_second->_pby_string + t_secondpos * t_typesize;
     pby_terminator = cpt_first->_pby_string + basic_string_size(cpt_first) * t_typesize;
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_first) == _TYPE_CSTL_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_first) == _TYPE_CSTL_BUILTIN ||
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_first), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         for (i = 0; i < t_cmplen; ++i) {
             int n_first = memcmp(pby_terminator, pby_first, t_typesize);
             int n_second = memcmp(pby_terminator, pby_second, t_typesize);
@@ -554,9 +561,18 @@ int basic_string_compare_substring_subcstr(
     /* char* */
     if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         for (i = 0; i < t_cmplen; ++i) {
-            int n_result = string_compare_cstr((string_t*)(pby_string + i * t_typesize), *((char**)cpv_value_string + i));
-            if (n_result != 0) {
-                return n_result;
+            int n_result = memcmp(pby_terminator, pby_string + i * t_typesize, t_typesize);
+
+            if (n_result == 0 && *((char**)cpv_value_string + i) != NULL) {
+                return -1;
+            } else if (n_result != 0 && *((char**)cpv_value_string + i) == NULL) {
+                return 1;
+            } else if (n_result != 0 && *((char**)cpv_value_string + i) != NULL) {
+                int n_cmp_result = string_compare_cstr(
+                    (string_t*)(pby_string + i * t_typesize), *((char**)cpv_value_string + i));
+                if (n_cmp_result != 0) {
+                    return n_cmp_result;
+                }
             }
         }
     } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
