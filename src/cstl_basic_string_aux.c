@@ -682,7 +682,8 @@ bool_t _basic_string_substring_find(
     pby_string = cpt_basic_string->_pby_string + t_pos * t_typesize;
     pby_index = cpt_find->_pby_string;
 
-    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
+    if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN &&
+        strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
         for (i = 0; i < basic_string_size(cpt_find); ++i) {
             b_less = b_greater = t_typesize;
             _GET_BASIC_STRING_TYPE_LESS_FUNCTION(cpt_basic_string)(pby_string, pby_index, &b_less);
@@ -738,8 +739,14 @@ bool_t _basic_string_value_string_find(
     /* char* */
     if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(cpt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
         for (i = 0; i < t_len; ++i) {
-            if (string_equal_cstr((string_t*)pby_string, *((char**)cpv_value_string + i))) {
+            int n_string_terminator = memcmp(pby_terminator, pby_string, t_typesize);
+
+            if (n_string_terminator == 0 && *((char**)cpv_value_string + i) == NULL) {
                 return true;
+            } else if (n_string_terminator != 0 && *((_byte_t**)cpv_value_string + i) != NULL) {
+                if (string_equal_cstr((string_t*)pby_string, *((char**)cpv_value_string + i))) {
+                    return true;
+                }
             }
         }
     } else if (_GET_BASIC_STRING_TYPE_STYLE(cpt_basic_string) == _TYPE_C_BUILTIN) {
