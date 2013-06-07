@@ -489,6 +489,67 @@ void test__basic_string_iterator_get_value__successfully_cstr(void** state)
 
     basic_string_destroy(pt_basic_string);
 }
+void test__basic_string_iterator_get_value__c_terminator(void** state)
+{
+    int value = 100;
+    basic_string_t* pbstr = create_basic_string(int);
+    iterator_t it;
+
+    basic_string_init_elem(pbstr, 1, 0);
+    it = basic_string_begin(pbstr);
+    _basic_string_iterator_get_value(it, &value);
+    assert_true(value == 0);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_iterator_get_value__cstr_terminator(void** state)
+{
+    char* str = 0x1111;
+    basic_string_t* pbstr = create_basic_string(char*);
+    iterator_t it;
+
+    basic_string_init_elem(pbstr, 1, NULL);
+    it = basic_string_begin(pbstr);
+    _basic_string_iterator_get_value(it, &str);
+    assert_true(str == NULL);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_iterator_get_value__cstl_terminator(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    list_t l;
+    list_t terminator;
+    iterator_t it;
+
+    basic_string_init_elem(pbstr, 1, NULL);
+    _create_list_auxiliary(&l, "int");
+    list_init(&l);
+    it = basic_string_begin(pbstr);
+    _basic_string_iterator_get_value(it, &l);
+    memset(&terminator, 0x00, sizeof(list_t));
+    assert_true(memcmp(&terminator, &l, sizeof(list_t)) == 0);
+    basic_string_destroy(pbstr);
+}
+typedef struct _tag_test__basic_string_iterator_get_value__user_define {
+    int n_elem;
+} _test__basic_string_iterator_get_value__user_define_t;
+void test__basic_string_iterator_get_value__user_define_terminator(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    _test__basic_string_iterator_get_value__user_define_t elem;
+    _test__basic_string_iterator_get_value__user_define_t terminator;
+    iterator_t it;
+
+    type_register(_test__basic_string_iterator_get_value__user_define_t, NULL, NULL, NULL, NULL);
+    pbstr = create_basic_string(_test__basic_string_iterator_get_value__user_define_t);
+    basic_string_init_elem(pbstr, 1, NULL);
+    elem.n_elem = 100;
+    memset(&terminator, 0x00, sizeof(_test__basic_string_iterator_get_value__user_define_t));
+    it = basic_string_begin(pbstr);
+    _basic_string_iterator_get_value(it, &elem);
+    assert_true(memcmp(&terminator, &elem, sizeof(_test__basic_string_iterator_get_value__user_define_t)) == 0);
+
+    basic_string_destroy(pbstr);
+}
 
 /*
  * test _basic_string_iterator_set_value
@@ -609,6 +670,98 @@ void test__basic_string_iterator_set_value__successfully_cstr(void** state)
     assert_true(strcmp(str, (char*)basic_string_at(pt_basic_string, 0)) == 0);
 
     basic_string_destroy(pt_basic_string);
+}
+void test__basic_string_iterator_set_value__c_terminator(void** state)
+{
+    int value = 0;
+    basic_string_t* pbstr = create_basic_string(int);
+    iterator_t it;
+
+    basic_string_init_elem(pbstr, 1, 100);
+    it = basic_string_begin(pbstr);
+    _basic_string_iterator_set_value(it, &value);
+    assert_true(*(int*)basic_string_at(pbstr, 0) == 0);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_iterator_set_value__cstr_terminator(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(char*);
+    iterator_t it;
+
+    basic_string_init(pbstr);
+    basic_string_push_back(pbstr, "abc");
+    basic_string_push_back(pbstr, NULL);
+    basic_string_push_back(pbstr, NULL);
+    it = basic_string_begin(pbstr);
+    _basic_string_iterator_set_value(it, NULL);
+    assert_true(basic_string_at(pbstr, 0) == NULL);
+    it = iterator_next(it);
+    _basic_string_iterator_set_value(it, "xyz");
+    assert_true(strcmp((char*)basic_string_at(pbstr, 1), "xyz") == 0);
+    it = iterator_next(it);
+    _basic_string_iterator_set_value(it, NULL);
+    assert_true(basic_string_at(pbstr, 2) == NULL);
+    basic_string_destroy(pbstr);
+}
+void test__basic_string_iterator_set_value__cstl_terminator(void** state)
+{
+    basic_string_t* pbstr = create_basic_string(list_t<int>);
+    iterator_t it;
+    list_t* plist = create_list(int);
+    list_t terminator;
+
+    list_init(plist);
+    basic_string_init(pbstr);
+    basic_string_push_back(pbstr, plist);
+    basic_string_push_back(pbstr, NULL);
+    basic_string_push_back(pbstr, NULL);
+
+    memset(&terminator, 0x00, sizeof(list_t));
+    it = basic_string_begin(pbstr);
+    _basic_string_iterator_set_value(it, NULL);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 0), sizeof(list_t)) == 0);
+    it = iterator_next(it);
+    list_push_back(plist, 100);
+    _basic_string_iterator_set_value(it, plist);
+    assert_true(*(int*)list_front((list_t*)basic_string_at(pbstr, 1)) == 100);
+    it = iterator_next(it);
+    _basic_string_iterator_set_value(it, NULL);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 2), sizeof(list_t)) == 0);
+
+    basic_string_destroy(pbstr);
+    list_destroy(plist);
+}
+typedef struct _tag_test__basic_string_iterator_set_value__user_define {
+    int n_elem;
+} _test__basic_string_iterator_set_value__user_define_t;
+void test__basic_string_iterator_set_value__user_define_terminator(void** state)
+{
+    basic_string_t* pbstr = NULL;
+    _test__basic_string_iterator_set_value__user_define_t elem;
+    _test__basic_string_iterator_set_value__user_define_t terminator;
+    iterator_t it;
+
+    elem.n_elem = 100;
+    type_register(_test__basic_string_iterator_set_value__user_define_t, NULL, NULL, NULL, NULL);
+    pbstr = create_basic_string(_test__basic_string_iterator_set_value__user_define_t);
+    basic_string_init(pbstr);
+    basic_string_push_back(pbstr, &elem);
+    basic_string_push_back(pbstr, NULL);
+    basic_string_push_back(pbstr, NULL);
+
+    it = basic_string_begin(pbstr);
+    _basic_string_iterator_set_value(it, NULL);
+    memset(&terminator, 0x00, sizeof(_test__basic_string_iterator_set_value__user_define_t));
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 0), sizeof(_test__basic_string_iterator_set_value__user_define_t)) == 0);
+    it = iterator_next(it);
+    elem.n_elem = 1111;
+    _basic_string_iterator_set_value(it, &elem);
+    assert_true(((_test__basic_string_iterator_set_value__user_define_t*)basic_string_at(pbstr, 1))->n_elem == 1111);
+    it = iterator_next(it);
+    _basic_string_iterator_set_value(it, NULL);
+    assert_true(memcmp(&terminator, basic_string_at(pbstr, 2), sizeof(_test__basic_string_iterator_set_value__user_define_t)) == 0);
+
+    basic_string_destroy(pbstr);
 }
 
 /*

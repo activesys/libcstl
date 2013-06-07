@@ -77,21 +77,44 @@ bool_t _basic_string_iterator_equal(basic_string_iterator_t it_first, basic_stri
  */
 void _basic_string_iterator_get_value(basic_string_iterator_t it_iter, void* pv_value)
 {
-    bool_t b_result = false;
+    bool_t          b_result = false;
+    basic_string_t* pt_basic_string = NULL;
+    _byte_t*        pby_terminator = NULL;
+    size_t          t_typesize = 0;
 
     assert(pv_value != NULL);
     assert(_basic_string_iterator_belong_to_basic_string(_BASIC_STRING_ITERATOR_CONTAINER(it_iter), it_iter));
     assert(!_basic_string_iterator_equal(it_iter, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_iter))));
 
+    pt_basic_string = _BASIC_STRING_ITERATOR_CONTAINER(it_iter);
+    t_typesize = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+    pby_terminator = pt_basic_string->_pby_string + basic_string_size(pt_basic_string) * t_typesize;
+
     /* char* */
-    if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(_BASIC_STRING_ITERATOR_CONTAINER(it_iter)),
-                _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
-        *(char**)pv_value = (char*)string_c_str((string_t*)_BASIC_STRING_ITERATOR_COREPOS(it_iter));
-    } else {
-        b_result = _GET_BASIC_STRING_TYPE_SIZE(_BASIC_STRING_ITERATOR_CONTAINER(it_iter));
-        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(_BASIC_STRING_ITERATOR_CONTAINER(it_iter))(
+    if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(pt_basic_string), _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+        if (memcmp(pby_terminator, _BASIC_STRING_ITERATOR_COREPOS(it_iter), t_typesize) != 0) {
+            *(char**)pv_value = (char*)string_c_str((string_t*)_BASIC_STRING_ITERATOR_COREPOS(it_iter));
+        } else {
+            *(char**)pv_value = NULL;
+        }
+    } else if (_GET_BASIC_STRING_TYPE_STYLE(pt_basic_string) == _TYPE_C_BUILTIN) {
+        b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
             pv_value, _BASIC_STRING_ITERATOR_COREPOS(it_iter), &b_result);
         assert(b_result);
+    } else {
+        if (memcmp(pby_terminator, _BASIC_STRING_ITERATOR_COREPOS(it_iter), t_typesize) != 0) {
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _GET_BASIC_STRING_TYPE_COPY_FUNCTION(pt_basic_string)(
+                pv_value, _BASIC_STRING_ITERATOR_COREPOS(it_iter), &b_result);
+            assert(b_result);
+        } else {
+            b_result = _GET_BASIC_STRING_TYPE_SIZE(pt_basic_string);
+            _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pt_basic_string)(pv_value, &b_result);
+            assert(b_result);
+
+            memcpy(pv_value, pby_terminator, t_typesize);
+        }
     }
 }
 
@@ -100,21 +123,16 @@ void _basic_string_iterator_get_value(basic_string_iterator_t it_iter, void* pv_
  */
 void _basic_string_iterator_set_value(basic_string_iterator_t it_iter, const void* cpv_value)
 {
-    bool_t b_result = false;
-
-    assert(cpv_value != NULL);
     assert(_basic_string_iterator_belong_to_basic_string(_BASIC_STRING_ITERATOR_CONTAINER(it_iter), it_iter));
     assert(!_basic_string_iterator_equal(it_iter, basic_string_end(_BASIC_STRING_ITERATOR_CONTAINER(it_iter))));
 
-    /* char* */
-    if (strncmp(_GET_BASIC_STRING_TYPE_BASENAME(_BASIC_STRING_ITERATOR_CONTAINER(it_iter)),
-                _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
-        string_assign_cstr((string_t*)_BASIC_STRING_ITERATOR_COREPOS(it_iter), (char*)cpv_value);
+    if (_iterator_get_typestyle(it_iter) == _TYPE_C_BUILTIN &&
+        strncmp(_iterator_get_typebasename(it_iter), _C_STRING_TYPE, _TYPE_NAME_SIZE) != 0) {
+        _basic_string_copy_subcstr_auxiliary(
+            _BASIC_STRING_ITERATOR_CONTAINER(it_iter), _BASIC_STRING_ITERATOR_COREPOS(it_iter), cpv_value, 1);
     } else {
-        b_result = _GET_BASIC_STRING_TYPE_SIZE(_BASIC_STRING_ITERATOR_CONTAINER(it_iter));
-        _GET_BASIC_STRING_TYPE_COPY_FUNCTION(_BASIC_STRING_ITERATOR_CONTAINER(it_iter))(
-            _BASIC_STRING_ITERATOR_COREPOS(it_iter), cpv_value, &b_result);
-        assert(b_result);
+        _basic_string_copy_subcstr_auxiliary(
+            _BASIC_STRING_ITERATOR_CONTAINER(it_iter), _BASIC_STRING_ITERATOR_COREPOS(it_iter), &cpv_value, 1);
     }
 }
 
