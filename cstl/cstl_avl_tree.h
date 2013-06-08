@@ -1,6 +1,6 @@
 /*
  *  The interface of avl tree.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,7 @@ extern _avl_tree_t* _create_avl_tree(const char* s_typename);
  * @remarks if pt_avl_tree == NULL, then the behavior is undefined, pt_avl_tree must be created by _create_avl_tree(),
  *          otherwise the behavior is undefined. if t_compare == NULL, then the default compare function is used.
  */
-extern void _avl_tree_init(_avl_tree_t* pt_avl_tree, binary_function_t t_compare);
+extern void _avl_tree_init(_avl_tree_t* pt_avl_tree, bfun_t t_compare);
 
 /**
  * Initialize avl tree container with avl tree.
@@ -123,7 +123,7 @@ extern void _avl_tree_init_copy_unique_array(_avl_tree_t* pt_dest, const void* c
  *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is
  *          undefined. if t_compare == NULL, then use default compare function.
  */
-extern void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
+extern void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, bfun_t t_compare);
 
 /**
  * Initialize avl tree container with specific array and compare function.
@@ -136,7 +136,7 @@ extern void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t 
  *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior is undefined. 
  *          if t_compare == NULL, then use default compare function.
  */
-extern void _avl_tree_init_copy_equal_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare);
+extern void _avl_tree_init_copy_equal_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, bfun_t t_compare);
 
 /**
  * Initialize avl tree container with specific range and compare function.
@@ -149,7 +149,7 @@ extern void _avl_tree_init_copy_equal_array_ex(_avl_tree_t* pt_dest, const void*
  *          the behavior is undefined. the type of [it_begin, it_end) and pt_dest must be same, otherwise the behavior is
  *          undefined. if t_compare == NULL, then use default compare function.
  */
-extern void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
+extern void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, bfun_t t_compare);
 
 /**
  * Initialize avl tree container with specific array and compare function.
@@ -162,7 +162,7 @@ extern void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t
  *          the behavior is undefined. the type of array and pt_dest must be same, otherwise the behavior is undefined. 
  *          if t_compare == NULL, then use default compare function.
  */
-extern void _avl_tree_init_copy_unique_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare);
+extern void _avl_tree_init_copy_unique_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, bfun_t t_compare);
 
 /**
  * Destroy avl tree.
@@ -238,7 +238,7 @@ extern _avl_tree_reverse_iterator_t _avl_tree_rend(const _avl_tree_t* cpt_avl_tr
  * @remarks if cpt_avl_tree == NULL, the behavior is undefined. cpt_avl_tree must be initialized, otherwise the behavior
  *          is undefined.
  */
-extern binary_function_t _avl_tree_key_comp(const _avl_tree_t* cpt_avl_tree);
+extern bfun_t _avl_tree_key_comp(const _avl_tree_t* cpt_avl_tree);
 
 /**
  * Find specific element.

@@ -1,6 +1,6 @@
 /*
  *  The interface of private sorting algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -56,8 +56,8 @@ extern forward_iterator_t _algo_lower_bound(forward_iterator_t it_first, forward
  * @return  A forward iterator at the position of the first element in an ordered range with a value that is greater than or equivalent to a specified value.
  * @remarks The sorted source range referenced must be valid, otherwise the behavior is undefined.
  */
-extern forward_iterator_t _algo_lower_bound_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, ...);
-extern forward_iterator_t _algo_lower_bound_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, va_list val_elemlist);
+extern forward_iterator_t _algo_lower_bound_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, ...);
+extern forward_iterator_t _algo_lower_bound_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, va_list val_elemlist);
 
 /**
  * Finds the position of the first element in an ordered range that has a value that is greater than a specified value.
@@ -79,8 +79,8 @@ extern forward_iterator_t _algo_upper_bound(forward_iterator_t it_first, forward
  * @return  A forward iterator to the position of the first element that has a value greater than a specified value.
  * @remarks The sorted source range referenced must be valid, otherwise the behavior is undefined.
  */
-extern forward_iterator_t _algo_upper_bound_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, ...);
-extern forward_iterator_t _algo_upper_bound_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, va_list val_elemlist);
+extern forward_iterator_t _algo_upper_bound_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, ...);
+extern forward_iterator_t _algo_upper_bound_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, va_list val_elemlist);
 
 /**
  * Finds a pair of positions in an ordered range, the first less than or equivalent to the position of a specified element and
@@ -112,8 +112,8 @@ extern range_t _algo_equal_range(forward_iterator_t it_first, forward_iterator_t
  *          may be specified by a binary predicate.
  * @remarks The sorted source range referenced must be valid, otherwise the behavior is undefined.
  */
-extern range_t _algo_equal_range_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, ...);
-extern range_t _algo_equal_range_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, va_list val_elemlist);
+extern range_t _algo_equal_range_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, ...);
+extern range_t _algo_equal_range_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, va_list val_elemlist);
 
 /**
  * Tests whether there is an element in a sorted range that is equal to a specified value.
@@ -134,8 +134,8 @@ extern bool_t _algo_binary_search(forward_iterator_t it_first, forward_iterator_
  * @return  true if an element is found in the range that is equal or equivalent to the specified value; otherwise, false.
  * @remarks The sorted source range referenced must be valid, otherwise the behavior is undefined.
  */
-extern bool_t _algo_binary_search_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, ...);
-extern bool_t _algo_binary_search_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, va_list val_elemlist);
+extern bool_t _algo_binary_search_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, ...);
+extern bool_t _algo_binary_search_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, va_list val_elemlist);
 
 #ifdef __cplusplus
 }

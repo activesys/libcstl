@@ -1,6 +1,6 @@
 /*
  *  The interface of hash_set.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -110,7 +110,7 @@ extern void hash_set_init(hash_set_t* phset_set);
  * @remarks if phset_set == NULL, then the behavior is undefined, phset_set must be created by create_hash_set(), otherwise
  *          the behavior is undefined. if bfun_compare == NULL, the default compare function is used.
  */
-extern void hash_set_init_ex(hash_set_t* phset_set, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+extern void hash_set_init_ex(hash_set_t* phset_set, size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hash_set container with hash_set.
@@ -158,7 +158,7 @@ extern void hash_set_init_copy_array(hash_set_t* phset_dest, const void* cpv_arr
  *          undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void hash_set_init_copy_range_ex(hash_set_t* phset_set, iterator_t it_begin, iterator_t it_end,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hash_set container with specific array and compare function.
@@ -172,7 +172,7 @@ extern void hash_set_init_copy_range_ex(hash_set_t* phset_set, iterator_t it_beg
  *          bfun_compare == NULL, then use default compare function.
  */
 extern void hash_set_init_copy_array_ex(hash_set_t* phset_set, const void* cpv_array, size_t t_count,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Destroy hash_set.
@@ -246,7 +246,7 @@ extern size_t hash_set_bucket_count(const hash_set_t* cphset_set);
  * @return hash function.
  * @remarks if cphset_set == NULL, the behavior is undefined. cphset_set must be initialized, otherwise the behavior is undefined.
  */
-extern unary_function_t hash_set_hash(const hash_set_t* cphset_set);
+extern ufun_t hash_set_hash(const hash_set_t* cphset_set);
 
 /**
  * Return the compare function of key.
@@ -254,7 +254,7 @@ extern unary_function_t hash_set_hash(const hash_set_t* cphset_set);
  * @return compare function.
  * @remarks if cphset_set == NULL, the behavior is undefined. cphset_set must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t hash_set_key_comp(const hash_set_t* cphset_set);
+extern bfun_t hash_set_key_comp(const hash_set_t* cphset_set);
 
 /**
  * Return the compare function of value.
@@ -262,7 +262,7 @@ extern binary_function_t hash_set_key_comp(const hash_set_t* cphset_set);
  * @return compare function.
  * @remarks if cphset_set == NULL, the behavior is undefined. cphset_set must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t hash_set_value_comp(const hash_set_t* cphset_set);
+extern bfun_t hash_set_value_comp(const hash_set_t* cphset_set);
 
 /**
  * Resize.

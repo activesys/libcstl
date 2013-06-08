@@ -488,7 +488,7 @@ void test_pair_equal__not_same_type(void** state)
     pair_init(pt_first);
     pair_init(pt_second);
 
-    assert_false(pair_equal(pt_first, pt_second));
+    expect_assert_failure(pair_equal(pt_first, pt_second));
 
     pair_destroy(pt_first);
     pair_destroy(pt_second);
@@ -632,7 +632,7 @@ void test_pair_not_equal__not_same_type(void** state)
     pair_init(pt_first);
     pair_init(pt_second);
 
-    assert_true(pair_not_equal(pt_first, pt_second));
+    expect_assert_failure(pair_not_equal(pt_first, pt_second));
 
     pair_destroy(pt_first);
     pair_destroy(pt_second);

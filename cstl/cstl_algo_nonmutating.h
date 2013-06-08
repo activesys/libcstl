@@ -1,6 +1,6 @@
 /*
  *  The interface of non-mutating algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -91,7 +91,7 @@ extern "C" {
  *          that do nothing will be used. the range must be not belong to relation container, when the unary function
  *          that modify element in the range is used in this alogrithm function.
  */
-extern void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op);
+extern void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, ufun_t ufun_op);
 
 /**
  * Locates the position of the first occurrence of an element in a range that satisfies a specified condition.
@@ -103,7 +103,7 @@ extern void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, u
  *          do nothing will be used. The predicate function must be not modify element of the range, otherwise the behavior is
  *          undefined.
  */
-extern input_iterator_t algo_find_if(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op);
+extern input_iterator_t algo_find_if(input_iterator_t it_first, input_iterator_t it_last, ufun_t ufun_op);
 
 /**
  * Searches for two adjacent elements that are equal.
@@ -125,7 +125,7 @@ extern forward_iterator_t algo_adjacent_find(forward_iterator_t it_first, forwar
  *          predicate. Otherwise, an iterator pointing to it_last is returned.
  * @remarks The range must be valid, otherwise the behavior is undefined.
  */
-extern forward_iterator_t algo_adjacent_find_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op);
+extern forward_iterator_t algo_adjacent_find_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Searches for the first occurrence of any of several values within a target range.
@@ -154,7 +154,7 @@ extern input_iterator_t algo_find_first_of(
 extern input_iterator_t algo_find_first_of_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     forward_iterator_t it_first2, forward_iterator_t it_last2,
-    binary_function_t bfun_op);
+    bfun_t bfun_op);
 
 /**
  * Returns the number of elements in a range whose values satisfy a specified condition.
@@ -164,7 +164,7 @@ extern input_iterator_t algo_find_first_of_if(
  * @return  The number of elements that satisfy the condition specified by the predicate.
  * @remarks The range must be valid, otherwise the behavior is undefined.
  */
-extern size_t algo_count_if(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op);
+extern size_t algo_count_if(input_iterator_t it_first, input_iterator_t it_last, ufun_t ufun_op);
 
 /**
  * Compares two ranges element by element either for equality and locates the first position where a difference occurs.
@@ -195,7 +195,7 @@ extern range_t algo_mismatch(input_iterator_t it_first1, input_iterator_t it_las
  *          input reange must be large enough, if its length is less then the first, the behavior is undefined.
  */
 extern range_t algo_mismatch_if(
-    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op);
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, bfun_t bfun_op);
 
 /**
  * Compares two ranges element by element either for equality.
@@ -219,7 +219,7 @@ extern bool_t algo_equal(input_iterator_t it_first1, input_iterator_t it_last1, 
  *          input range must be large enough, if its length is less then the first, the behavior is undefined.
  */
 extern bool_t algo_equal_if(
-    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op);
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, bfun_t bfun_op);
 
 /**
  * Searches for the first occurrence of a sequence within a target range whose elements are equal to those in a given sequence.
@@ -247,7 +247,7 @@ extern forward_iterator_t algo_search(
  */
 extern forward_iterator_t algo_search_if(
     forward_iterator_t it_first1, forward_iterator_t it_last1, forward_iterator_t it_first2, forward_iterator_t it_last2,
-    binary_function_t bfun_op);
+    bfun_t bfun_op);
 
 /**
  * Looks in a range for the last subsequence that is identical to a specified sequence.
@@ -275,10 +275,10 @@ extern forward_iterator_t algo_find_end(
  */
 extern forward_iterator_t algo_search_end_if(
     forward_iterator_t it_first1, forward_iterator_t it_last1, forward_iterator_t it_first2, forward_iterator_t it_last2,
-    binary_function_t bfun_op);
+    bfun_t bfun_op);
 extern forward_iterator_t algo_find_end_if(
     forward_iterator_t it_first1, forward_iterator_t it_last1, forward_iterator_t it_first2, forward_iterator_t it_last2,
-    binary_function_t bfun_op);
+    bfun_t bfun_op);
 
 #ifdef __cplusplus
 }

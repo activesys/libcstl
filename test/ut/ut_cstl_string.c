@@ -8135,9 +8135,14 @@ void test_string_end__non_empty(void** state)
     string_iterator_t it_end;
     string_t* pt_string = create_string();
     string_init_cstr(pt_string, "abc");
+    char c = '@';
 
     it_end = string_end(pt_string);
     assert_true(*(char*)_BASIC_STRING_ITERATOR_COREPOS(it_end) == '\0');
+    expect_assert_failure(iterator_next(it_end));
+    expect_assert_failure(iterator_get_pointer(it_end));
+    expect_assert_failure(iterator_set_value(it_end, &c));
+    expect_assert_failure(iterator_get_value(it_end, &c));
 
     string_destroy(pt_string);
 }
@@ -9936,13 +9941,17 @@ void test_string_append_subcstr__non_empty(void** state)
 void test_string_append_subcstr__total(void** state)
 {
     string_t* pt_string = create_string();
+    char elem[] = {'a', 'b', 'c', '\0', 'd', 'e'};
 
     string_init(pt_string);
-    string_append_subcstr(pt_string, "abc", 3);
-    assert_true(string_size(pt_string) == 3);
+    string_append_subcstr(pt_string, elem, 6);
+    assert_true(string_size(pt_string) == 6);
     assert_true(*(char*)string_at(pt_string, 0) == 'a');
     assert_true(*(char*)string_at(pt_string, 1) == 'b');
     assert_true(*(char*)string_at(pt_string, 2) == 'c');
+    assert_true(*(char*)string_at(pt_string, 3) == '\0');
+    assert_true(*(char*)string_at(pt_string, 4) == 'd');
+    assert_true(*(char*)string_at(pt_string, 5) == 'e');
 
     string_destroy(pt_string);
 }

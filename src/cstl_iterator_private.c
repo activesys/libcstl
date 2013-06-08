@@ -346,7 +346,7 @@ const char* _iterator_get_typename(iterator_t it_iter)
 /**
  * Get type copy function of iterator.
  */
-binary_function_t _iterator_get_typecopy(iterator_t it_iter)
+bfun_t _iterator_get_typecopy(iterator_t it_iter)
 {
     _typeinfo_t* pt_typeinfo = _iterator_get_typeinfo(it_iter);
     return pt_typeinfo != NULL ? pt_typeinfo->_pt_type->_t_typecopy : NULL;

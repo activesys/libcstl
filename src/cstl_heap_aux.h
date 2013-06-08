@@ -1,6 +1,6 @@
 /*
  *  The interface of auxiliary heap.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -46,7 +46,7 @@ extern "C" {
  * @remarks The referenced range must be valid, it_parent must belong to [it_first, it_last), otherwise the behavior is undefined.
  */
 extern void _algo_adjust_heap(
-    random_access_iterator_t it_first, random_access_iterator_t it_last, random_access_iterator_t it_parent, binary_function_t bfun_op);
+    random_access_iterator_t it_first, random_access_iterator_t it_last, random_access_iterator_t it_parent, bfun_t bfun_op);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 /*
  *  The private interface of hashtable.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -52,9 +52,9 @@ typedef struct _taghashtable
     size_t            _t_nodecount;
 
     /* hash function */
-    unary_function_t  _ufun_hash;
+    ufun_t            _ufun_hash;
     /* key compare function */
-    binary_function_t _bfun_compare;
+    bfun_t            _bfun_compare;
 }_hashtable_t;
 
 /* for the result of equal_range and insert_unique function */

@@ -1,6 +1,6 @@
 /*
  *  This header file declaration some type definition, micors for cstl.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -174,6 +174,8 @@ extern "C" {
  */
 typedef void (*unary_function_t)(const void*, void*);
 typedef void (*binary_function_t)(const void*, const void*, void*);
+typedef unary_function_t  ufun_t;
+typedef binary_function_t bfun_t;
 
 /* 
  * Type register hash table.
@@ -191,10 +193,10 @@ typedef struct _tagtype
     size_t               _t_typesize;                        /* type size */
     char                 _s_typename[_TYPE_NAME_SIZE + 1];   /* type name */
     _typestyle_t         _t_style;                           /* type style */
-    binary_function_t    _t_typecopy;                        /* type copy function */
-    binary_function_t    _t_typeless;                        /* type less function */
-    unary_function_t     _t_typeinit;                        /* type initialize function */
-    unary_function_t     _t_typedestroy;                     /* type destroy function */
+    bfun_t               _t_typecopy;                        /* type copy function */
+    bfun_t               _t_typeless;                        /* type less function */
+    ufun_t               _t_typeinit;                        /* type initialize function */
+    ufun_t               _t_typedestroy;                     /* type destroy function */
 }_type_t;
 
 /* type register node */
@@ -233,8 +235,8 @@ typedef struct _tagtypeinfo
 
 extern bool_t _type_register(
     size_t t_typesize, const char* s_typename,
-    unary_function_t t_typeinit, binary_function_t t_typecopy,
-    binary_function_t t_typeless, unary_function_t t_typedestroy);
+    ufun_t t_typeinit, bfun_t t_typecopy,
+    bfun_t t_typeless, ufun_t t_typedestroy);
 /*extern void _type_unregister(size_t t_typesize, const char* s_typename);*/
 extern bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,

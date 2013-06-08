@@ -61,7 +61,7 @@ bool_t _create_rb_tree_auxiliary(_rb_tree_t* pt_rb_tree, const char* s_typename)
     pt_rb_tree->_t_rbroot._pt_parent = NULL;
     pt_rb_tree->_t_rbroot._pt_left = NULL;
     pt_rb_tree->_t_rbroot._pt_right = NULL;
-    pt_rb_tree->_t_rbroot._t_color = RED;
+    pt_rb_tree->_t_rbroot._t_color = _COLOR_RED;
     pt_rb_tree->_t_nodecount = 0;
 
     pt_rb_tree->_t_compare = NULL;

@@ -1,6 +1,6 @@
 /*
  *  The implementation of private function.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -54,7 +54,7 @@
 /**
  * Select unary function accroding to unary function type.
  */
-unary_function_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type)
+ufun_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type)
 {
     const char* s_typename = NULL;
 
@@ -145,7 +145,7 @@ unary_function_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type)
 /**
  * Select binary function accroding to binary function type.
  */
-binary_function_t _fun_get_binary(iterator_t it_iter, fun_type_t ftype_type)
+bfun_t _fun_get_binary(iterator_t it_iter, fun_type_t ftype_type)
 {
     const char*  s_typename = NULL;
     _typeinfo_t* pt_typeinfo = NULL;

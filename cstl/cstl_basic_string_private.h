@@ -83,7 +83,7 @@ extern _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapa
  * @return new rep that reduced shared or NULL if the rep is deleted.
  * @remarks pt_rep and ufun_destroy, must not be NULL.
  */
-extern _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep, unary_function_t ufun_destroy, _typeinfo_t* pt_typeinfo);
+extern _basic_string_rep_t* _basic_string_rep_reduce_shared(_basic_string_rep_t* pt_rep, ufun_t ufun_destroy, _typeinfo_t* pt_typeinfo);
 
 /**
  * Increase shared.

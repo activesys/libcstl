@@ -1,6 +1,6 @@
 /*
  *  The implement of list auxiliary function.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -157,7 +157,7 @@ extern void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, lis
  *          range [pt_first, pt_last] must be valid range, otherwise the behavior is undefined. if bfun_less == NULL,
  *          then use default compare function.
  */
-extern void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt_last, binary_function_t bfun_less);
+extern void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt_last, bfun_t bfun_less);
 
 /**
  * Swap the two node content and don't change the pointer.

@@ -1,6 +1,6 @@
 /*
  *  The implementation of map.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -62,7 +62,7 @@ void map_init(map_t* pmap_map)
 /**
  * Initialize map container with user define compare function.
  */
-void map_init_ex(map_t* pmap_map, binary_function_t bfun_keycompare)
+void map_init_ex(map_t* pmap_map, bfun_t bfun_keycompare)
 {
     assert(pmap_map != NULL);
     assert(_pair_is_created(&pmap_map->_pair_temp));
@@ -140,7 +140,7 @@ void map_init_copy_array(map_t* pmap_dest, const void* cpv_array, size_t t_count
 /**
  * Initialize map container with specific range and compare function.
  */
-void map_init_copy_range_ex(map_t* pmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare)
+void map_init_copy_range_ex(map_t* pmap_dest, iterator_t it_begin, iterator_t it_end, bfun_t bfun_keycompare)
 {
     assert(pmap_dest != NULL);
     assert(_pair_is_created(&pmap_dest->_pair_temp));
@@ -154,7 +154,7 @@ void map_init_copy_range_ex(map_t* pmap_dest, iterator_t it_begin, iterator_t it
  * Initialize map container with specific array and compare function.
  */
 void map_init_copy_array_ex(
-    map_t* pmap_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_keycompare)
+    map_t* pmap_dest, const void* cpv_array, size_t t_count, bfun_t bfun_keycompare)
 {
     assert(pmap_dest != NULL);
     assert(_pair_is_created(&pmap_dest->_pair_temp));
@@ -249,7 +249,7 @@ size_t map_max_size(const map_t* cpmap_map)
 /**
  * Return the compare function of key.
  */
-binary_function_t map_key_comp(const map_t* cpmap_map)
+bfun_t map_key_comp(const map_t* cpmap_map)
 {
     assert(cpmap_map != NULL);
     assert(_pair_is_inited(&cpmap_map->_pair_temp));
@@ -264,7 +264,7 @@ binary_function_t map_key_comp(const map_t* cpmap_map)
 /**
  * Return the compare function of value.
  */
-binary_function_t map_value_comp(const map_t* cpmap_map)
+bfun_t map_value_comp(const map_t* cpmap_map)
 {
 #ifdef NDEBUG
     void* pv_avoidwarning = (void*)cpmap_map;

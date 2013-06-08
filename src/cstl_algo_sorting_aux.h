@@ -1,6 +1,6 @@
 /*
  *  The interface of auxiliary sorting algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,7 @@ extern size_t _algo_lg(size_t t_base);
  * @remarks This three iterator must be point element that have same type, otherwise the behavior is undefined.
  */
 extern random_access_iterator_t _algo_median_of_three_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op);
+    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Insertion sort for specify range.
@@ -64,7 +64,7 @@ extern random_access_iterator_t _algo_median_of_three_if(
  * @return  void.
  * @remarks This three iterator must be point element that have same type, otherwise the behavior is undefined.
  */
-extern void _algo_insertion_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op, void* pv_value);
+extern void _algo_insertion_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op, void* pv_value);
 
 /**
  * Quick sort or heap sort for specify range.
@@ -77,7 +77,7 @@ extern void _algo_insertion_sort_if(random_access_iterator_t it_first, random_ac
  * @remarks This three iterator must be point element that have same type, otherwise the behavior is undefined.
  */
 extern void _algo_intro_sort_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op, size_t t_depth, void* pv_value);
+    random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op, size_t t_depth, void* pv_value);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 /*
  *  The implementation of auxiliary mutating algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -75,7 +75,7 @@ void _algo_rotate_forward(forward_iterator_t it_first, forward_iterator_t it_mid
 /**
  * Classifies elements in a range into two disjoint sets, with those elements satisfying a unary predicate preceding those that fail to satisfy it.
  */
-bidirectional_iterator_t _algo_partition_biditer(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, unary_function_t ufun_op)
+bidirectional_iterator_t _algo_partition_biditer(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, ufun_t ufun_op)
 {
     bool_t b_result = false;
 

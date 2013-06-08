@@ -933,7 +933,7 @@ void test_list_equal__not_same_type(void** state)
 
     list_init(plist_first);
     list_init(plist_second);
-    assert_false(list_equal(plist_first, plist_second));
+    expect_assert_failure(list_equal(plist_first, plist_second));
 
     list_destroy(plist_first);
     list_destroy(plist_second);
@@ -1082,7 +1082,7 @@ void test_list_not_equal__not_same_type(void** state)
 
     list_init(plist_first);
     list_init(plist_second);
-    assert_true(list_not_equal(plist_first, plist_second));
+    expect_assert_failure(list_not_equal(plist_first, plist_second));
 
     list_destroy(plist_first);
     list_destroy(plist_second);

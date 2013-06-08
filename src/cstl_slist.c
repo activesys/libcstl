@@ -1,6 +1,6 @@
 /*
  *  The implementation of slist.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -1030,7 +1030,7 @@ void slist_splice_after_range(
 /**
  * Remove elements from a slist for which a specificed predicate is satisfied.
  */
-void slist_remove_if(slist_t* pslist_slist, unary_function_t ufun_op)
+void slist_remove_if(slist_t* pslist_slist, ufun_t ufun_op)
 {
     slist_iterator_t it_pos;
     bool_t           b_result = false;
@@ -1086,7 +1086,7 @@ void slist_unique(slist_t* pslist_slist)
 /**
  * Removes adjacent elements that satisfy some other binary predicate from a slist.
  */
-void slist_unique_if(slist_t* pslist_slist, binary_function_t bfun_op)
+void slist_unique_if(slist_t* pslist_slist, bfun_t bfun_op)
 {
     slist_iterator_t it_iter;
     slist_iterator_t it_next;
@@ -1151,7 +1151,7 @@ void slist_sort(slist_t* pslist_slist)
 /**
  * Sort elements of slist container with user-specifide order relation.
  */
-void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op)
+void slist_sort_if(slist_t* pslist_slist, bfun_t bfun_op)
 {
     /* 
      * sort the slist use insert sort algorithm (O(N^2))instead of 
@@ -1225,7 +1225,7 @@ void slist_merge(slist_t* pslist_dest, slist_t* pslist_src)
 /**
  * Merge two sorted slist.
  */
-void slist_merge_if(slist_t* pslist_dest, slist_t* pslist_src, binary_function_t bfun_op)
+void slist_merge_if(slist_t* pslist_dest, slist_t* pslist_src, bfun_t bfun_op)
 {
     slist_iterator_t it_dest;
     slist_iterator_t it_src;
@@ -1340,15 +1340,11 @@ bool_t slist_equal(const slist_t* cpslist_first, const slist_t* cpslist_second)
     assert(cpslist_second != NULL);
     assert(_slist_is_inited(cpslist_first));
     assert(_slist_is_inited(cpslist_second));
+    assert(_slist_same_type(cpslist_first, cpslist_second));
 
     /* same slist */
     if (cpslist_first == cpslist_second) {
         return true;
-    }
-
-    /* test element type */
-    if (!_slist_same_type(cpslist_first, cpslist_second)) {
-        return false;
     }
 
     /* test slist size */

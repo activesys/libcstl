@@ -471,13 +471,10 @@ bool_t deque_equal(const deque_t* cpdeq_first, const deque_t* cpdeq_second)
     assert(cpdeq_second != NULL);
     assert(_deque_is_inited(cpdeq_first));
     assert(_deque_is_inited(cpdeq_second));
+    assert(_deque_same_type(cpdeq_first, cpdeq_second));
 
     if (cpdeq_first == cpdeq_second) {
         return true;
-    }
-
-    if (!_deque_same_type(cpdeq_first, cpdeq_second)) {
-        return false;
     }
 
     if (deque_size(cpdeq_first) != deque_size(cpdeq_second)) {

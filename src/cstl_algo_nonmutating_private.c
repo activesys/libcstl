@@ -1,6 +1,6 @@
 /*
  *  The implementation of private non-mutating algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -64,7 +64,7 @@ input_iterator_t _algo_find_varg(input_iterator_t it_first, input_iterator_t it_
     bool_t            b_result = false;
     bool_t            b_less = false;
     bool_t            b_greater = false;
-    binary_function_t bfun_op;
+    bfun_t            bfun_op;
 
     assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
 
@@ -136,7 +136,7 @@ size_t _algo_count_varg(input_iterator_t it_first, input_iterator_t it_last, va_
     bool_t            b_less = false;
     bool_t            b_greater = false;
     size_t            t_count = 0;
-    binary_function_t bfun_op;
+    bfun_t            bfun_op;
 
     assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
 
@@ -202,7 +202,7 @@ forward_iterator_t _algo_search_n(forward_iterator_t it_first, forward_iterator_
  * Searches for the first subsequence in a range that of a specified number of elements having a relation to that value as specified by a binary predicate.
  */
 forward_iterator_t _algo_search_n_if(
-    forward_iterator_t it_first, forward_iterator_t it_last, size_t t_count, binary_function_t bfun_op, ...)
+    forward_iterator_t it_first, forward_iterator_t it_last, size_t t_count, bfun_t bfun_op, ...)
 {
     forward_iterator_t it_iter;
     va_list val_elemlist;
@@ -218,7 +218,7 @@ forward_iterator_t _algo_search_n_if(
  * Searches for the first subsequence in a range that of a specified number of elements having a relation to that value as specified by a binary predicate.
  */
 forward_iterator_t _algo_search_n_if_varg(
-    forward_iterator_t it_first, forward_iterator_t it_last, size_t t_count, binary_function_t bfun_op, va_list val_elemlist)
+    forward_iterator_t it_first, forward_iterator_t it_last, size_t t_count, bfun_t bfun_op, va_list val_elemlist)
 {
     void*      pv_value = NULL;
     bool_t     b_result = false;

@@ -2168,7 +2168,7 @@ void test_hash_multimap_equal__not_same_type(void** state)
     hash_multimap_init_ex(pt_first, 0, NULL, NULL);
     hash_multimap_init_ex(pt_second, 0, NULL, NULL);
 
-    assert_false(hash_multimap_equal(pt_first, pt_second));
+    expect_assert_failure(hash_multimap_equal(pt_first, pt_second));
 
     hash_multimap_destroy(pt_first);
     hash_multimap_destroy(pt_second);
@@ -2361,7 +2361,7 @@ void test_hash_multimap_equal__hash_not_equal(void** state)
         hash_multimap_insert(pt_second, pt_pair);
     }
 
-    assert_false(hash_multimap_equal(pt_first, pt_second));
+    expect_assert_failure(hash_multimap_equal(pt_first, pt_second));
 
     hash_multimap_destroy(pt_first);
     hash_multimap_destroy(pt_second);
@@ -2522,7 +2522,7 @@ void test_hash_multimap_not_equal__not_same_type(void** state)
     hash_multimap_init_ex(pt_first, 0, NULL, NULL);
     hash_multimap_init_ex(pt_second, 0, NULL, NULL);
 
-    assert_true(hash_multimap_not_equal(pt_first, pt_second));
+    expect_assert_failure(hash_multimap_not_equal(pt_first, pt_second));
 
     hash_multimap_destroy(pt_first);
     hash_multimap_destroy(pt_second);
@@ -2715,7 +2715,7 @@ void test_hash_multimap_not_equal__hash_not_equal(void** state)
         hash_multimap_insert(pt_second, pt_pair);
     }
 
-    assert_true(hash_multimap_not_equal(pt_first, pt_second));
+    expect_assert_failure(hash_multimap_not_equal(pt_first, pt_second));
 
     hash_multimap_destroy(pt_first);
     hash_multimap_destroy(pt_second);

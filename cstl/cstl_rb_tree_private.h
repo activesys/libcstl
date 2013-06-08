@@ -1,6 +1,6 @@
 /*
  *  The private interface of rb tree.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,7 @@ extern "C" {
 /** data type declaration and struct, union, enum section **/
 typedef enum _tagcolor
 {
-    RED, BLACK
+    _COLOR_RED, _COLOR_BLACK
 }_color_t;
 /*
  * +-----------+
@@ -73,7 +73,7 @@ typedef struct _tagrbtree
     size_t            _t_nodecount;
 
     /* compare function for the inserting order */
-    binary_function_t _t_compare;
+    bfun_t            _t_compare;
 }_rb_tree_t;
 
 /** exported global variable declaration section **/

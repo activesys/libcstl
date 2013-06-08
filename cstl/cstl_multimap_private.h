@@ -1,6 +1,6 @@
 /*
  *  The private interface of multimap.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -36,8 +36,8 @@ extern "C" {
 typedef struct _tagmultimap
 {
     pair_t            _pair_temp;
-    binary_function_t _bfun_keycompare; /* for init ex */
-    binary_function_t _bfun_valuecompare;
+    bfun_t            _bfun_keycompare; /* for init ex */
+    bfun_t            _bfun_valuecompare;
 
 #ifdef CSTL_MULTIMAP_AVL_TREE
     _avl_tree_t       _t_tree;

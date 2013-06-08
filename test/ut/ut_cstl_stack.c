@@ -423,7 +423,7 @@ void test_stack_equal__not_same_type(void** state)
 
     stack_init(psk_first);
     stack_init(psk_second);
-    assert_false(stack_equal(psk_first, psk_second));
+    expect_assert_failure(stack_equal(psk_first, psk_second));
 
     stack_destroy(psk_first);
     stack_destroy(psk_second);
@@ -588,7 +588,7 @@ void test_stack_not_equal__not_same_type(void** state)
 
     stack_init(psk_first);
     stack_init(psk_second);
-    assert_true(stack_not_equal(psk_first, psk_second));
+    expect_assert_failure(stack_not_equal(psk_first, psk_second));
 
     stack_destroy(psk_first);
     stack_destroy(psk_second);

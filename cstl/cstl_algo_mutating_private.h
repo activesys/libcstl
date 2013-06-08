@@ -1,6 +1,6 @@
 /*
  *  The interface of private mutating algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -55,8 +55,8 @@ extern void _algo_replace_once_varg(forward_iterator_t it_iter, va_list val_elem
  * @return  void.
  * @remarks The range referenced must be valid, otherwise the behavior is undefined.
  */
-extern void _algo_replace_if(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op, ...);
-extern void _algo_replace_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op, va_list val_elemlist);
+extern void _algo_replace_if(forward_iterator_t it_first, forward_iterator_t it_last, ufun_t ufun_op, ...);
+extern void _algo_replace_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, ufun_t ufun_op, va_list val_elemlist);
 
 /**
  * Examines each element in a source range and replaces it if it satisfies a specified predicate while copying the result into a new destination range.
@@ -69,9 +69,9 @@ extern void _algo_replace_if_varg(forward_iterator_t it_first, forward_iterator_
  * @remarks The source and destination ranges referenced must not overlap and must both be valid, otherwise the behavior is undefined.
  */
 extern output_iterator_t _algo_replace_copy_if(
-    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, unary_function_t ufun_op, ...);
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, ufun_t ufun_op, ...);
 extern output_iterator_t _algo_replace_copy_if_varg(
-    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, unary_function_t ufun_op, va_list val_elemlist);
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, ufun_t ufun_op, va_list val_elemlist);
 
 /**
  * Assigns the same new value to every element in a specified range.

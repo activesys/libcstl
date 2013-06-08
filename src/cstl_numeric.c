@@ -1,6 +1,6 @@
 /*
  *  The implementation of numeric.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -50,7 +50,7 @@ void algo_power(input_iterator_t it_iter, size_t t_power, void* pv_output)
 /**
  * Power is generalized exponentiation: it raises the value x to the power n, where n is a non-negative integer.
  */
-void algo_power_if(input_iterator_t it_iter, size_t t_power, binary_function_t bfun_op, void* pv_output)
+void algo_power_if(input_iterator_t it_iter, size_t t_power, bfun_t bfun_op, void* pv_output)
 {
     size_t i = 0;
     bool_t b_result = false;
@@ -83,7 +83,7 @@ output_iterator_t algo_adjacent_difference(input_iterator_t it_first, input_iter
 /**
  * Computes the result of a generalized procedure where the difference operation is replaced by another, specified binary operation.
  */
-output_iterator_t algo_adjacent_difference_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, binary_function_t bfun_op)
+output_iterator_t algo_adjacent_difference_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, bfun_t bfun_op)
 {
     iterator_t it_index;
     bool_t     b_typesize = false;
@@ -142,7 +142,7 @@ output_iterator_t algo_partial_sum(input_iterator_t it_first, input_iterator_t i
 /**
  * Computes the result of a generalized procedure where the sum operation is replaced by another specified binary operation.
  */
-output_iterator_t algo_partial_sum_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, binary_function_t bfun_op)
+output_iterator_t algo_partial_sum_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, bfun_t bfun_op)
 {
     iterator_t it_index;
     void*      pv_value = NULL;

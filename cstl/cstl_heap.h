@@ -1,6 +1,6 @@
 /*
  *  The interface of heap.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,7 @@ extern void algo_push_heap(random_access_iterator_t it_first, random_access_iter
  * @return  void.
  * @remarks The referenced range must be valid, otherwise the behavior is undefined.
  */
-extern void algo_push_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+extern void algo_push_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Removes the largest element from the front of a heap to the next-to-last position in the range and then forms a new heap from the remaining elements.
@@ -72,7 +72,7 @@ extern void algo_pop_heap(random_access_iterator_t it_first, random_access_itera
  * @return  void.
  * @remarks The referenced range must be valid, otherwise the behavior is undefined.
  */
-extern void algo_pop_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+extern void algo_pop_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Removes the largest element from the front of a heap to the next-to-last position in the range and then forms a new heap from the remaining elements.
@@ -91,7 +91,7 @@ extern void algo_sort_heap(random_access_iterator_t it_first, random_access_iter
  * @return  void.
  * @remarks The referenced range must be valid, otherwise the behavior is undefined.
  */
-extern void algo_sort_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+extern void algo_sort_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Converts elements from a specified range into a heap in which the first element is the largest.
@@ -110,7 +110,7 @@ extern void algo_make_heap(random_access_iterator_t it_first, random_access_iter
  * @return  void.
  * @remarks The referenced range must be valid, otherwise the behavior is undefined.
  */
-extern void algo_make_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+extern void algo_make_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Check the specified range is a heap.
@@ -129,7 +129,7 @@ extern bool_t algo_is_heap(random_access_iterator_t it_first, random_access_iter
  * @return  Is heap or not.
  * @remarks The referenced range must be valid, otherwise the behavior is undefined.
  */
-extern bool_t algo_is_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+extern bool_t algo_is_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op);
 
 #ifdef __cplusplus
 }

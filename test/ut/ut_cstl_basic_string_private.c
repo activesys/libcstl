@@ -35,6 +35,7 @@ void test__create_basic_string_representation__capacity_0(void** state)
     assert_true(prep->_t_length == 0);
     assert_true(prep->_t_capacity == 0);
     assert_true(prep->_n_refcount == -1);
+    free(prep);
 }
 
 void test__create_basic_string_representation__new_capacity_0(void** state)
@@ -45,6 +46,7 @@ void test__create_basic_string_representation__new_capacity_0(void** state)
     assert_true(prep->_t_length == 0);
     assert_true(prep->_t_capacity == 0);
     assert_true(prep->_n_refcount == -1);
+    free(prep);
 }
 
 void test__create_basic_string_representation__old_capacity_0(void** state)
@@ -55,6 +57,7 @@ void test__create_basic_string_representation__old_capacity_0(void** state)
     assert_true(prep->_t_length == 0);
     assert_true(prep->_t_capacity == 8);
     assert_true(prep->_n_refcount == -1);
+    free(prep);
 }
 
 void test__create_basic_string_representation__capacity_new_le_old(void** state)
@@ -65,6 +68,7 @@ void test__create_basic_string_representation__capacity_new_le_old(void** state)
     assert_true(prep->_t_length == 0);
     assert_true(prep->_t_capacity == 8);
     assert_true(prep->_n_refcount == -1);
+    free(prep);
 }
 
 void test__create_basic_string_representation__capacity_new_gt_old(void** state)
@@ -75,6 +79,7 @@ void test__create_basic_string_representation__capacity_new_gt_old(void** state)
     assert_true(prep->_t_length == 0);
     assert_true(prep->_t_capacity == 20);
     assert_true(prep->_n_refcount == -1);
+    free(prep);
 }
 
 void test__create_basic_string_representation__capacity_new_gt_old_twice(void** state)
@@ -85,6 +90,7 @@ void test__create_basic_string_representation__capacity_new_gt_old_twice(void** 
     assert_true(prep->_t_length == 0);
     assert_true(prep->_t_capacity == 48);
     assert_true(prep->_n_refcount == -1);
+    free(prep);
 }
 
 /*
@@ -161,6 +167,7 @@ void test__basic_string_rep_get_data__successfully(void** state)
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     void* pv_data = _basic_string_rep_get_data(prep);
     assert_true(pv_data == prep+1);
+    free(prep);
 }
 
 /*
@@ -177,6 +184,7 @@ void test__basic_string_rep_get_representation__successfully(void** state)
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     _basic_string_rep_t* prep_check = _basic_string_rep_get_representation(prep+1);
     assert_true(prep == prep_check);
+    free(prep);
 }
 
 /*
@@ -191,12 +199,14 @@ void test__basic_string_rep_get_length__0(void** state)
 {
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     assert_true(_basic_string_rep_get_length(prep) == 0);
+    free(prep);
 }
 void test__basic_string_rep_get_length__n(void** state)
 {
     _basic_string_rep_t* prep = _create_basic_string_representation(100, 0, 1);
     prep->_t_length = 10;
     assert_true(_basic_string_rep_get_length(prep) == 10);
+    free(prep);
 }
 /*
  * test _basic_string_rep_set_length

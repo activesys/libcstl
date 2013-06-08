@@ -1,6 +1,6 @@
 /*
  *  The interface of multiset.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -141,7 +141,7 @@ extern void multiset_init(multiset_t* pmset_mset);
  * @remarks if pmset_mset == NULL, then the behavior is undefined, pmset_mset must be created by create_set(), otherwise
  *          the behavior is undefined. if bfun_compare == NULL, the default compare function is used.
  */
-extern void multiset_init_ex(multiset_t* pmset_mset, binary_function_t bfun_compare);
+extern void multiset_init_ex(multiset_t* pmset_mset, bfun_t bfun_compare);
 
 /**
  * Initialize multiset container with multiset.
@@ -189,7 +189,7 @@ extern void multiset_init_copy_array(multiset_t* pmset_dest, const void* cpv_arr
  *          is undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void multiset_init_copy_range_ex(
-    multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_compare);
+    multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end, bfun_t bfun_compare);
 
 /**
  * Initialize multiset container with specific array and compare function.
@@ -203,7 +203,7 @@ extern void multiset_init_copy_range_ex(
  *          is undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void multiset_init_copy_array_ex(
-    multiset_t* pmset_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_compare);
+    multiset_t* pmset_dest, const void* cpv_array, size_t t_count, bfun_t bfun_compare);
 
 /**
  * Destroy multiset.
@@ -277,7 +277,7 @@ extern multiset_reverse_iterator_t multiset_rend(const multiset_t* cpmset_mset);
  * @return compare function.
  * @remarks if cpmset_mset == NULL, the behavior is undefined. cpmset_mset must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t multiset_key_comp(const multiset_t* cpmset_mset);
+extern bfun_t multiset_key_comp(const multiset_t* cpmset_mset);
 
 /**
  * Return the compare function of value.
@@ -285,7 +285,7 @@ extern binary_function_t multiset_key_comp(const multiset_t* cpmset_mset);
  * @return compare function.
  * @remarks if cpmset_mset == NULL, the behavior is undefined. cpmset_mset must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t multiset_value_comp(const multiset_t* cpmset_mset);
+extern bfun_t multiset_value_comp(const multiset_t* cpmset_mset);
 
 /**
  * Erases all the elements of an multiset.

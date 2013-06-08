@@ -1,6 +1,6 @@
 /*
  *  The private interface of pair.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -42,8 +42,8 @@ typedef struct _tagpair
     void*             _pv_second;
 
     /* this two members are only used for map key and value compare. */
-    binary_function_t _bfun_mapkeycompare;
-    binary_function_t _bfun_mapvaluecompare;
+    bfun_t            _bfun_mapkeycompare;
+    bfun_t            _bfun_mapvaluecompare;
 }pair_t;
 
 /** exported global variable declaration section **/

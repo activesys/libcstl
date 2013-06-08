@@ -1,6 +1,6 @@
 /*
  *  The implementation of avl tree.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -66,7 +66,7 @@ _avl_tree_t* _create_avl_tree(const char* s_typename)
 /**
  * Initialize avl tree container.
  */
-void _avl_tree_init(_avl_tree_t* pt_avl_tree, binary_function_t t_compare)
+void _avl_tree_init(_avl_tree_t* pt_avl_tree, bfun_t t_compare)
 {
     assert(pt_avl_tree != NULL);
     assert(_avl_tree_is_created(pt_avl_tree));
@@ -175,7 +175,7 @@ void _avl_tree_init_copy_unique_array(_avl_tree_t* pt_dest, const void* cpv_arra
 /**
  * Initialize avl tree container with specific range and compare function.
  */
-void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare)
+void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, bfun_t t_compare)
 {
     assert(pt_dest != NULL);
     assert(_avl_tree_is_created(pt_dest));
@@ -190,7 +190,7 @@ void _avl_tree_init_copy_equal_range_ex(_avl_tree_t* pt_dest, iterator_t it_begi
 /**
  * Initialize avl tree container with specific array and compare function.
  */
-void _avl_tree_init_copy_equal_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare)
+void _avl_tree_init_copy_equal_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, bfun_t t_compare)
 {
     assert(pt_dest != NULL);
     assert(_avl_tree_is_created(pt_dest));
@@ -203,7 +203,7 @@ void _avl_tree_init_copy_equal_array_ex(_avl_tree_t* pt_dest, const void* cpv_ar
 /**
  * Initialize avl tree container with specific range and compare function.
  */
-void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare)
+void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, bfun_t t_compare)
 {
     assert(pt_dest != NULL);
     assert(_avl_tree_is_created(pt_dest));
@@ -218,7 +218,7 @@ void _avl_tree_init_copy_unique_range_ex(_avl_tree_t* pt_dest, iterator_t it_beg
 /**
  * Initialize avl tree container with specific array and compare function.
  */
-void _avl_tree_init_copy_unique_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare)
+void _avl_tree_init_copy_unique_array_ex(_avl_tree_t* pt_dest, const void* cpv_array, size_t t_count, bfun_t t_compare)
 {
     assert(pt_dest != NULL);
     assert(_avl_tree_is_created(pt_dest));
@@ -344,7 +344,7 @@ _avl_tree_reverse_iterator_t _avl_tree_rend(const _avl_tree_t* cpt_avl_tree)
 /**
  * Return the compare function of key.
  */
-binary_function_t _avl_tree_key_comp(const _avl_tree_t* cpt_avl_tree)
+bfun_t _avl_tree_key_comp(const _avl_tree_t* cpt_avl_tree)
 {
     assert(cpt_avl_tree != NULL);
     assert(_avl_tree_is_inited(cpt_avl_tree));
@@ -534,15 +534,12 @@ bool_t _avl_tree_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_seco
     assert(cpt_second != NULL);
     assert(_avl_tree_is_inited(cpt_first));
     assert(_avl_tree_is_inited(cpt_second));
+    assert(_avl_tree_same_type_ex(cpt_first, cpt_second));
 
     if (cpt_first == cpt_second) {
         return true;
     }
-    
-    /* test type */
-    if (!_avl_tree_same_type_ex(cpt_first, cpt_second)) {
-        return false;
-    }
+
     /* test avl tree size */
     if (_avl_tree_size(cpt_first) != _avl_tree_size(cpt_second)) {
         return false;

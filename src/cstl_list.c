@@ -1,6 +1,6 @@
 /*
  *  The implement of list module.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -281,13 +281,10 @@ bool_t list_equal(const list_t* cplist_first, const list_t* cplist_second)
     assert(cplist_second != NULL);
     assert(_list_is_inited(cplist_first));
     assert(_list_is_inited(cplist_second));
+    assert(_list_same_type(cplist_first, cplist_second));
 
     if (cplist_first == cplist_second) {
         return true;
-    }
-    /* test type identification */
-    if (!_list_same_type(cplist_first, cplist_second)) {
-        return false;
     }
     /* test size */
     if (list_size(cplist_first) != list_size(cplist_second)) {
@@ -847,7 +844,7 @@ list_iterator_t list_erase_range(list_t* plist_list, list_iterator_t it_begin, l
 /**
  * Remove elements from a list for which a specificed predicate is satisfied.
  */
-void list_remove_if(list_t* plist_list, unary_function_t ufun_op)
+void list_remove_if(list_t* plist_list, ufun_t ufun_op)
 {
     list_iterator_t it_pos;    /* the delete position */
     bool_t          b_result = false;
@@ -942,7 +939,7 @@ void list_unique(list_t* plist_list)
 /**
  * Removes adjacent elements that satisfy some other binary predicate from a list.
  */
-void list_unique_if(list_t* plist_list, binary_function_t bfun_op)
+void list_unique_if(list_t* plist_list, bfun_t bfun_op)
 {
     list_iterator_t it_pos;
     list_iterator_t it_prev;
@@ -1053,7 +1050,7 @@ void list_sort(list_t* plist_list)
 /**
  * Sort elements of list container with user-specifide order relation.
  */
-void list_sort_if(list_t* plist_list, binary_function_t bfun_op)
+void list_sort_if(list_t* plist_list, bfun_t bfun_op)
 {
     assert(plist_list != NULL);
     assert(_list_is_inited(plist_list));
@@ -1078,7 +1075,7 @@ void list_merge(list_t* plist_dest, list_t* plist_src)
 /**
  * Merge two sorted list.
  */
-void list_merge_if(list_t* plist_dest, list_t* plist_src, binary_function_t bfun_op)
+void list_merge_if(list_t* plist_dest, list_t* plist_src, bfun_t bfun_op)
 {
     list_iterator_t it_dest;
     list_iterator_t it_src;

@@ -1,6 +1,6 @@
 /*
  *  The interface of set.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -141,7 +141,7 @@ extern void set_init(set_t* pset_set);
  * @remarks if pset_set == NULL, then the behavior is undefined, pset_set must be created by create_set(), otherwise
  *          the behavior is undefined. if bfun_compare == NULL, the default compare function is used.
  */
-extern void set_init_ex(set_t* pset_set, binary_function_t bfun_compare);
+extern void set_init_ex(set_t* pset_set, bfun_t bfun_compare);
 
 /**
  * Initialize set container with set.
@@ -190,7 +190,7 @@ extern void set_init_copy_array(set_t* pset_dest, const void* cpv_array, size_t 
  *          is undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void set_init_copy_range_ex(
-    set_t* pset_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_compare);
+    set_t* pset_dest, iterator_t it_begin, iterator_t it_end, bfun_t bfun_compare);
 
 /**
  * Initialize set container with specific array and compare function.
@@ -204,7 +204,7 @@ extern void set_init_copy_range_ex(
  *          is undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void set_init_copy_array_ex(
-    set_t* pset_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_compare);
+    set_t* pset_dest, const void* cpv_array, size_t t_count, bfun_t bfun_compare);
 
 /**
  * Destroy set.
@@ -278,7 +278,7 @@ extern set_reverse_iterator_t set_rend(const set_t* cpset_set);
  * @return compare function.
  * @remarks if cpset_set == NULL, the behavior is undefined. cpset_set must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t set_key_comp(const set_t* cpset_set);
+extern bfun_t set_key_comp(const set_t* cpset_set);
 
 /**
  * Return the compare function of value.
@@ -286,7 +286,7 @@ extern binary_function_t set_key_comp(const set_t* cpset_set);
  * @return compare function.
  * @remarks if cpset_set == NULL, the behavior is undefined. cpset_set must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t set_value_comp(const set_t* cpset_set);
+extern bfun_t set_value_comp(const set_t* cpset_set);
 
 /**
  * Erases all the elements of an set.

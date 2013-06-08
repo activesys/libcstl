@@ -2507,7 +2507,7 @@ void test__hashtable_equal__not_same_type(void** state)
     _hashtable_init(pt_first, 0, NULL, NULL);
     _hashtable_init(pt_second, 0, NULL, NULL);
 
-    assert_false(_hashtable_equal(pt_first, pt_second));
+    expect_assert_failure(_hashtable_equal(pt_first, pt_second));
 
     _hashtable_destroy(pt_first);
     _hashtable_destroy(pt_second);
@@ -2666,7 +2666,7 @@ void test__hashtable_equal__compare_not_equal(void** state)
         _hashtable_insert_unique(pt_second, &i);
     }
 
-    assert_false(_hashtable_equal(pt_first, pt_second));
+    expect_assert_failure(_hashtable_equal(pt_first, pt_second));
 
     _hashtable_destroy(pt_first);
     _hashtable_destroy(pt_second);
@@ -2751,7 +2751,7 @@ void test__hashtable_not_equal__not_same_type(void** state)
     _hashtable_init(pt_first, 0, NULL, NULL);
     _hashtable_init(pt_second, 0, NULL, NULL);
 
-    assert_true(_hashtable_not_equal(pt_first, pt_second));
+    expect_assert_failure(_hashtable_not_equal(pt_first, pt_second));
 
     _hashtable_destroy(pt_first);
     _hashtable_destroy(pt_second);
@@ -2910,7 +2910,7 @@ void test__hashtable_not_equal__compare_not_equal(void** state)
         _hashtable_insert_unique(pt_second, &i);
     }
 
-    assert_true(_hashtable_not_equal(pt_first, pt_second));
+    expect_assert_failure(_hashtable_not_equal(pt_first, pt_second));
 
     _hashtable_destroy(pt_first);
     _hashtable_destroy(pt_second);

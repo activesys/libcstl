@@ -1,6 +1,6 @@
 /*
  *  The implementation of auxiliary sorting algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -59,7 +59,7 @@ size_t _algo_lg(size_t t_base)
  * Return the median of three random_access_iterator_t
  */
 random_access_iterator_t _algo_median_of_three_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op)
+    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     bool_t b_result = false;
 
@@ -98,7 +98,7 @@ random_access_iterator_t _algo_median_of_three_if(
 /**
  * Insertion sort for specify range.
  */
-void _algo_insertion_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op, void* pv_value)
+void _algo_insertion_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op, void* pv_value)
 {
     iterator_t it_bound;
     iterator_t it_next;
@@ -166,7 +166,7 @@ void _algo_insertion_sort_if(random_access_iterator_t it_first, random_access_it
  * Quick sort or heap sort for specify range.
  */
 void _algo_intro_sort_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op, size_t t_depth, void* pv_value)
+    random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op, size_t t_depth, void* pv_value)
 {
     iterator_t it_pivot;
     iterator_t it_begin;

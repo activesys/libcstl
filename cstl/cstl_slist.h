@@ -1,6 +1,6 @@
 /*
  *  The slist interface.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -537,7 +537,7 @@ extern void slist_splice_after_range(
  *          element that satisfy the predicate, if no such element then does nothing. if ufun_op == NULL then use default
  *          unary predicate.
  */
-extern void slist_remove_if(slist_t* pslist_slist, unary_function_t ufun_op);
+extern void slist_remove_if(slist_t* pslist_slist, ufun_t ufun_op);
 
 /**
  * Removes adjacent duplicate elements from a slist.
@@ -558,7 +558,7 @@ extern void slist_unique(slist_t* pslist_slist);
  *          is undefined. this function removes adjacent elements that satisfy some other binary predicate, but elements
  *          that are not adjacent will not bt deleted. if bfun_op == NULL, then use default binary function.
  */
-extern void slist_unique_if(slist_t* pslist_slist, binary_function_t bfun_op);
+extern void slist_unique_if(slist_t* pslist_slist, bfun_t bfun_op);
 
 /**
  * Reverse the order of all elements.
@@ -586,7 +586,7 @@ extern void slist_sort(slist_t* pslist_slist);
  * @remarks if pslist_slist == NULL, then the behavior is undefined. the slist must be initialized, otherwise the behavior is
  *          undefined. if bfun_op == NULL, then use default type less function.
  */
-extern void slist_sort_if(slist_t* pslist_slist, binary_function_t bfun_op);
+extern void slist_sort_if(slist_t* pslist_slist, bfun_t bfun_op);
 
 /**
  * Merge two sorted slist.
@@ -610,7 +610,7 @@ extern void slist_merge(slist_t* pslist_dest, slist_t* pslist_src);
  *          the behavior is undefined. if pslist_dest == pslist_src then the function does nothing. if bfun_op == NULL then use
  *          type less compare function.
  */
-extern void slist_merge_if(slist_t* pslist_dest, slist_t* pslist_src, binary_function_t bfun_op);
+extern void slist_merge_if(slist_t* pslist_dest, slist_t* pslist_src, bfun_t bfun_op);
 
 /**
  * Specifies a new size of a slist.

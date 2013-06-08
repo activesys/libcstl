@@ -1,6 +1,6 @@
 /*
  *  The implementation of multimap.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -62,7 +62,7 @@ void multimap_init(multimap_t* pmmap_map)
 /**
  * Initialize multimap container with user define compare function.
  */
-void multimap_init_ex(multimap_t* pmmap_map, binary_function_t bfun_keycompare)
+void multimap_init_ex(multimap_t* pmmap_map, bfun_t bfun_keycompare)
 {
     assert(pmmap_map != NULL);
     assert(_pair_is_created(&pmmap_map->_pair_temp));
@@ -141,7 +141,7 @@ void multimap_init_copy_array(multimap_t* pmmap_dest, const void* cpv_array, siz
  * Initialize multimap container with specific range and compare function.
  */
 void multimap_init_copy_range_ex(
-    multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare)
+    multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end, bfun_t bfun_keycompare)
 {
     assert(pmmap_dest != NULL);
     assert(_pair_is_created(&pmmap_dest->_pair_temp));
@@ -155,7 +155,7 @@ void multimap_init_copy_range_ex(
  * Initialize multimap container with specific array and compare function.
  */
 void multimap_init_copy_array_ex(
-    multimap_t* pmmap_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_keycompare)
+    multimap_t* pmmap_dest, const void* cpv_array, size_t t_count, bfun_t bfun_keycompare)
 {
     assert(pmmap_dest != NULL);
     assert(_pair_is_created(&pmmap_dest->_pair_temp));
@@ -249,7 +249,7 @@ size_t multimap_max_size(const multimap_t* cpmmap_map)
 /**
  * Return the compare function of key.
  */
-binary_function_t multimap_key_comp(const multimap_t* cpmmap_map)
+bfun_t multimap_key_comp(const multimap_t* cpmmap_map)
 {
     assert(cpmmap_map != NULL);
     assert(_pair_is_inited(&cpmmap_map->_pair_temp));
@@ -264,7 +264,7 @@ binary_function_t multimap_key_comp(const multimap_t* cpmmap_map)
 /**
  * Return the compare function of value.
  */
-binary_function_t multimap_value_comp(const multimap_t* cpmmap_map)
+bfun_t multimap_value_comp(const multimap_t* cpmmap_map)
 {
 #ifdef NDEBUG
     void* pv_avoidwarning = (void*)cpmmap_map;

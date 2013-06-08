@@ -98,9 +98,9 @@ void test__rb_tree_destroy_auxiliary__non_created(void** state)
 {
     _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
 
-    pt_rb_tree->_t_rbroot._t_color = BLACK;
+    pt_rb_tree->_t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(_rb_tree_destroy_auxiliary(pt_rb_tree));
-    pt_rb_tree->_t_rbroot._t_color = RED;
+    pt_rb_tree->_t_rbroot._t_color = _COLOR_RED;
 
     _rb_tree_destroy(pt_rb_tree);
 }
@@ -110,9 +110,9 @@ void test__rb_tree_destroy_auxiliary__non_inited(void** state)
     _rb_tree_t* pt_rb_tree = _create_rb_tree("int");
     _rb_tree_init(pt_rb_tree, NULL);
 
-    pt_rb_tree->_t_rbroot._t_color = BLACK;
+    pt_rb_tree->_t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(_rb_tree_destroy_auxiliary(pt_rb_tree));
-    pt_rb_tree->_t_rbroot._t_color = RED;
+    pt_rb_tree->_t_rbroot._t_color = _COLOR_RED;
 
     _rb_tree_destroy(pt_rb_tree);
 }

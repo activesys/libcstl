@@ -421,7 +421,7 @@ void test_queue_equal__not_same_type(void** state)
 
     queue_init(pque_first);
     queue_init(pque_second);
-    assert_false(queue_equal(pque_first, pque_second));
+    expect_assert_failure(queue_equal(pque_first, pque_second));
 
     queue_destroy(pque_first);
     queue_destroy(pque_second);
@@ -586,7 +586,7 @@ void test_queue_not_equal__not_same_type(void** state)
 
     queue_init(pque_first);
     queue_init(pque_second);
-    assert_true(queue_not_equal(pque_first, pque_second));
+    expect_assert_failure(queue_not_equal(pque_first, pque_second));
 
     queue_destroy(pque_first);
     queue_destroy(pque_second);

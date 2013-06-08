@@ -1,6 +1,6 @@
 /*
  *  The interface of map.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -130,7 +130,7 @@ extern void map_init(map_t* pmap_map);
  * @remarks if pmap_map == NULL, then the behavior is undefined, pmap_map must be created by create_map(), otherwise
  *          the behavior is undefined. if t_compare == NULL, the default compare function is used.
  */
-extern void map_init_ex(map_t* pmap_map, binary_function_t bfun_keycompare);
+extern void map_init_ex(map_t* pmap_map, bfun_t bfun_keycompare);
 
 /**
  * Initialize map container with map.
@@ -179,7 +179,7 @@ extern void map_init_copy_array(map_t* pmap_dest, const void* cpv_array, size_t 
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void map_init_copy_range_ex(
-    map_t* pmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare);
+    map_t* pmap_dest, iterator_t it_begin, iterator_t it_end, bfun_t bfun_keycompare);
 
 /**
  * Initialize map container with specific array and compare function.
@@ -193,7 +193,7 @@ extern void map_init_copy_range_ex(
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void map_init_copy_array_ex(
-    map_t* pmap_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_keycompare);
+    map_t* pmap_dest, const void* cpv_array, size_t t_count, bfun_t bfun_keycompare);
 
 /**
  * Destroy map.
@@ -278,7 +278,7 @@ extern map_reverse_iterator_t map_rend(const map_t* cpmap_map);
  * @return compare function.
  * @remarks if cpmap_map == NULL, the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t map_key_comp(const map_t* cpmap_map);
+extern bfun_t map_key_comp(const map_t* cpmap_map);
 
 /**
  * Return the compare function of value.
@@ -286,7 +286,7 @@ extern binary_function_t map_key_comp(const map_t* cpmap_map);
  * @return compare function.
  * @remarks if cpmap_map == NULL, the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t map_value_comp(const map_t* cpmap_map);
+extern bfun_t map_value_comp(const map_t* cpmap_map);
 
 /**
  * Inserts an unique element into a map.

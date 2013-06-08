@@ -1,6 +1,6 @@
 /*
  *  The implementation of cstl types.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -96,8 +96,8 @@ void _type_debug(void)
 
 bool_t _type_register(
     size_t t_typesize, const char* s_typename,
-    unary_function_t t_typeinit, binary_function_t t_typecopy,
-    binary_function_t t_typeless, unary_function_t t_typedestroy)
+    ufun_t t_typeinit, bfun_t t_typecopy,
+    bfun_t t_typeless, ufun_t t_typedestroy)
 {
     char         s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
     _typestyle_t t_style = _TYPE_INVALID;

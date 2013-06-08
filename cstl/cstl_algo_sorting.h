@@ -1,6 +1,6 @@
 /*
  *  The interface of sorting algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -150,7 +150,7 @@ extern bool_t algo_is_sorted(forward_iterator_t it_first, forward_iterator_t it_
  * @return  If the range is sorted or not.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern bool_t algo_is_sorted_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op);
+extern bool_t algo_is_sorted_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Arranges a specified number of the smaller elements in a range into a nondescending order.
@@ -173,7 +173,7 @@ extern void algo_partial_sort(
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
 extern void algo_partial_sort_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op);
+    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Copies elements from a source range into a destination range where the source elements are ordered by less than.
@@ -198,7 +198,7 @@ extern random_access_iterator_t algo_partial_sort_copy(
  * @remarks The source and destination ranges must not overlap and must be valid, otherwise the behavior is undefined.
  */
 extern random_access_iterator_t algo_partial_sort_copy_if(
-    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, binary_function_t bfun_op);
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, bfun_t bfun_op);
 
 /**
  * Arranges the elements in a specified range into a nondescending order.
@@ -217,7 +217,7 @@ extern void algo_sort(random_access_iterator_t it_first, random_access_iterator_
  * @return  void.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern void algo_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+extern void algo_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Combines all of the elements from two sorted source ranges into a single, sorted destination range.
@@ -261,7 +261,7 @@ extern output_iterator_t algo_merge(
 extern output_iterator_t algo_merge_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op);
+    output_iterator_t it_result, bfun_t bfun_op);
 
 /**
  * Combines the elements from two consecutive sorted ranges into a single sorted range.
@@ -290,7 +290,7 @@ extern void algo_inplace_merge(
  * @remarks The sorted consecutive ranges referenced must be valid, otherwsie the behavior is undefined.
  */
 extern void algo_inplace_merge_if(
-    bidirectional_iterator_t it_first, bidirectional_iterator_t it_middle, bidirectional_iterator_t it_last, binary_function_t bfun_op);
+    bidirectional_iterator_t it_first, bidirectional_iterator_t it_middle, bidirectional_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Arranges the elements in a specified range into a nondescending order.
@@ -310,7 +310,7 @@ extern void algo_stable_sort(random_access_iterator_t it_first, random_access_it
  * @return  void.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern void algo_stable_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op);
+extern void algo_stable_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Partitions a range of elements, correctly locating the nth element of the sequence in the range so that all the elements in front of it are less than or equal to it and
@@ -333,7 +333,7 @@ extern void algo_nth_element(random_access_iterator_t it_first, random_access_it
  * @return  void.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern void algo_nth_element_if(random_access_iterator_t it_first, random_access_iterator_t it_nth, random_access_iterator_t it_last, binary_function_t bfun_op);
+extern void algo_nth_element_if(random_access_iterator_t it_first, random_access_iterator_t it_nth, random_access_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Tests whether one sorted range contains all the elements contained in a second sorted range.
@@ -364,7 +364,7 @@ extern bool_t algo_includes(input_iterator_t it_first1, input_iterator_t it_last
  * @return  true if the first sorted range contains all the elements in the second sorted range; otherwise, false.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern bool_t algo_includes_if(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, input_iterator_t it_last2, binary_function_t bfun_op);
+extern bool_t algo_includes_if(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, input_iterator_t it_last2, bfun_t bfun_op);
 
 /**
  * Unites all of the elements that belong to at least one of two sorted source ranges into a single, sorted destination range.
@@ -406,7 +406,7 @@ extern output_iterator_t algo_set_union(
 extern output_iterator_t algo_set_union_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op);
+    output_iterator_t it_result, bfun_t bfun_op);
 
 /**
  * Unites all of the elements that belong to both sorted source ranges into a single, sorted destination range.
@@ -448,7 +448,7 @@ extern output_iterator_t algo_set_intersection(
 extern output_iterator_t algo_set_intersection_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op);
+    output_iterator_t it_result, bfun_t bfun_op);
 
 /**
  * Unites all of the elements that belong to one sorted source range, but not to a second sorted source range, into a single, sorted destination range.
@@ -489,7 +489,7 @@ extern output_iterator_t algo_set_difference(
 extern output_iterator_t algo_set_difference_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op);
+    output_iterator_t it_result, bfun_t bfun_op);
 
 /**
  * Unites all of the elements that belong to one, but not both, of the sorted source ranges into a single, sorted destination range.
@@ -531,7 +531,7 @@ extern output_iterator_t algo_set_symmetric_difference(
 extern output_iterator_t algo_set_symmetric_difference_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op);
+    output_iterator_t it_result, bfun_t bfun_op);
 
 /**
  * Compares two elements and returns the larger of the two.
@@ -550,7 +550,7 @@ extern input_iterator_t algo_max(input_iterator_t it_first, input_iterator_t it_
  * @return  An input iterator addressing the larger element.
  * @remarks The two iterators must be have same element type.
  */
-extern input_iterator_t algo_max_if(input_iterator_t it_first, input_iterator_t it_second, binary_function_t bfun_op);
+extern input_iterator_t algo_max_if(input_iterator_t it_first, input_iterator_t it_second, bfun_t bfun_op);
 
 /**
  * Compares two elements and returns the lesser of the two.
@@ -569,7 +569,7 @@ extern input_iterator_t algo_min(input_iterator_t it_first, input_iterator_t it_
  * @return  An input iterator addressing the lesser element.
  * @remarks The two iterators must be have same element type.
  */
-extern input_iterator_t algo_min_if(input_iterator_t it_first, input_iterator_t it_second, binary_function_t bfun_op);
+extern input_iterator_t algo_min_if(input_iterator_t it_first, input_iterator_t it_second, bfun_t bfun_op);
 
 /**
  * Finds the first occurrence of largest element in a specified range.
@@ -588,7 +588,7 @@ extern forward_iterator_t algo_max_element(forward_iterator_t it_first, forward_
  * @return  A forward iterator addressing the position of the first occurrence of the largest element in the range searched.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern forward_iterator_t algo_max_element_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op);
+extern forward_iterator_t algo_max_element_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Finds the first occurrence of smallest element in a specified range.
@@ -607,7 +607,7 @@ extern forward_iterator_t algo_min_element(forward_iterator_t it_first, forward_
  * @return  A forward iterator addressing the position of the first occurrence of the smallest element in the range searched.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern forward_iterator_t algo_min_element_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op);
+extern forward_iterator_t algo_min_element_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Compares element by element between two sequences to determine which is lesser of the two.
@@ -635,7 +635,7 @@ extern bool_t algo_lexicographical_compare(
 extern bool_t algo_lexicographical_compare_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    binary_function_t bfun_op);
+    bfun_t bfun_op);
 
 /**
  * Compares element by element between two sequences to determine the relation is less or equal or greater.
@@ -667,7 +667,7 @@ extern int algo_lexicographical_compare_3way(
 extern int algo_lexicographical_compare_3way_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    binary_function_t bfun_op);
+    bfun_t bfun_op);
 
 /**
  * Reorders the elements in a range so that the original ordering is replaced by the lexicographically next greater permutation if it exists.
@@ -689,7 +689,7 @@ extern bool_t algo_next_permutation(bidirectional_iterator_t it_first, bidirecti
  *          in which case the ordering is transformed into the lexicographically smallest permutation.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern bool_t algo_next_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, binary_function_t bfun_op);
+extern bool_t algo_next_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Reorders the elements in a range so that the original ordering is replaced by the lexicographically previous permutation if it exists.
@@ -711,7 +711,7 @@ extern bool_t algo_prev_permutation(bidirectional_iterator_t it_first, bidirecti
  *          in which case the ordering is transformed into the lexicographically largest permutation.
  * @remarks The range referened must be valid, otherwise the behavior is undefined.
  */
-extern bool_t algo_prev_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, binary_function_t bfun_op);
+extern bool_t algo_prev_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, bfun_t bfun_op);
 
 #ifdef __cplusplus
 }

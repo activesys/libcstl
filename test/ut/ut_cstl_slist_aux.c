@@ -896,6 +896,7 @@ void test__slist_init_node_auxiliary__cstr(void** state)
     _slist_init_node_auxiliary(pslist, pt_node);
     assert_true(strcmp(string_c_str((string_t*)pt_node->_pby_data), "") == 0);
 
+    _slist_destroy_varg_value_auxiliary(pslist, pt_node);
     free(pt_node);
     slist_destroy(pslist);
 }

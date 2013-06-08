@@ -3104,7 +3104,7 @@ void test__avl_tree_equal__not_same_type(void** state)
     _avl_tree_init(pt_first, NULL);
     _avl_tree_init(pt_second, NULL);
 
-    assert_false(_avl_tree_equal(pt_first, pt_second));
+    expect_assert_failure(_avl_tree_equal(pt_first, pt_second));
 
     _avl_tree_destroy(pt_first);
     _avl_tree_destroy(pt_second);
@@ -3249,7 +3249,7 @@ void test__avl_tree_equal__compare_not_equal(void** state)
         _avl_tree_insert_unique(pt_second, &i);
     }
 
-    assert_false(_avl_tree_equal(pt_first, pt_second));
+    expect_assert_failure(_avl_tree_equal(pt_first, pt_second));
 
     _avl_tree_destroy(pt_first);
     _avl_tree_destroy(pt_second);
@@ -3340,7 +3340,7 @@ void test__avl_tree_not_equal__not_same_type(void** state)
     _avl_tree_init(pt_first, NULL);
     _avl_tree_init(pt_second, NULL);
 
-    assert_true(_avl_tree_not_equal(pt_first, pt_second));
+    expect_assert_failure(_avl_tree_not_equal(pt_first, pt_second));
 
     _avl_tree_destroy(pt_first);
     _avl_tree_destroy(pt_second);
@@ -3485,7 +3485,7 @@ void test__avl_tree_not_equal__compare_not_equal(void** state)
         _avl_tree_insert_unique(pt_second, &i);
     }
 
-    assert_true(_avl_tree_not_equal(pt_first, pt_second));
+    expect_assert_failure(_avl_tree_not_equal(pt_first, pt_second));
 
     _avl_tree_destroy(pt_first);
     _avl_tree_destroy(pt_second);

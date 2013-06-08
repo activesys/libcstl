@@ -1,6 +1,6 @@
 /*
  *  The interface of hash_multimap.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -100,7 +100,7 @@ extern void hash_multimap_init(hash_multimap_t* phmmap_map);
  * @remarks if phmmap_map == NULL, then the behavior is undefined, phmmap_map must be created by create_map(), otherwise
  *          the behavior is undefined. if bfun_compare == NULL, the default compare function is used.
  */
-extern void hash_multimap_init_ex(hash_multimap_t* phmmap_map, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+extern void hash_multimap_init_ex(hash_multimap_t* phmmap_map, size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hash_multimap container with hash_multimap.
@@ -148,7 +148,7 @@ extern void hash_multimap_init_copy_array(hash_multimap_t* phmmap_dest, const vo
  *          is undefined. if bfun_compare == NULL, then use default compare function.
  */
 extern void hash_multimap_init_copy_range_ex(hash_multimap_t* phmmap_dest, iterator_t it_begin, iterator_t it_end,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hash_multimap container with specific array and compare function.
@@ -162,7 +162,7 @@ extern void hash_multimap_init_copy_range_ex(hash_multimap_t* phmmap_dest, itera
  *          if bfun_compare == NULL, then use default compare function.
  */
 extern void hash_multimap_init_copy_array_ex(hash_multimap_t* phmmap_dest, const void* cpv_array, size_t t_count,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Destroy hash_multimap.
@@ -236,7 +236,7 @@ extern size_t hash_multimap_bucket_count(const hash_multimap_t* cphmmap_map);
  * @return compare function.
  * @remarks if cphmmap_map == NULL, the behavior is undefined. cphmmap_map must be initialized, otherwise the behavior is undefined.
  */
-extern unary_function_t hash_multimap_hash(const hash_multimap_t* cphmmap_map);
+extern ufun_t hash_multimap_hash(const hash_multimap_t* cphmmap_map);
 
 /**
  * Return the compare function of key.
@@ -244,7 +244,7 @@ extern unary_function_t hash_multimap_hash(const hash_multimap_t* cphmmap_map);
  * @return compare function.
  * @remarks if cphmmap_map == NULL, the behavior is undefined. cphmmap_map must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t hash_multimap_key_comp(const hash_multimap_t* cphmmap_map);
+extern bfun_t hash_multimap_key_comp(const hash_multimap_t* cphmmap_map);
 
 /**
  * Return the compare function of value.
@@ -252,7 +252,7 @@ extern binary_function_t hash_multimap_key_comp(const hash_multimap_t* cphmmap_m
  * @return compare function.
  * @remarks if cphmmap_map == NULL, the behavior is undefined. cphmmap_map must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t hash_multimap_value_comp(const hash_multimap_t* cphmmap_map);
+extern bfun_t hash_multimap_value_comp(const hash_multimap_t* cphmmap_map);
 
 /**
  * Resize bucket count of hash map.

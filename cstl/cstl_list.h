@@ -1,6 +1,6 @@
 /*
  *  The user interface of list.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -457,7 +457,7 @@ extern list_iterator_t list_erase_range(list_t* plist_list, list_iterator_t it_b
  *          element that satisfy the predicate, if no such element then does nothing. if ufun_op == NULL then use default
  *          unary predicate.
  */
-extern void list_remove_if(list_t* pt_list, unary_function_t ufun_op);
+extern void list_remove_if(list_t* pt_list, ufun_t ufun_op);
 
 /**
  * Specifies a new size of a list.
@@ -498,7 +498,7 @@ extern void list_unique(list_t* plist_list);
  *          is undefined. this function removes adjacent elements that satisfy some other binary predicate, but elements
  *          that are not adjacent will not bt deleted. if bfun_op == NULL, then use default binary function.
  */
-extern void list_unique_if(list_t* plist_list, binary_function_t bfun_op);
+extern void list_unique_if(list_t* plist_list, bfun_t bfun_op);
 
 /**
  * Removes elements from the source list and insert into the target list.
@@ -562,7 +562,7 @@ extern void list_sort(list_t* plist_list);
  * @remarks if plist_list == NULL, then the behavior is undefined. the list must be initialized, otherwise the behavior is
  *          undefined. if bfun_op == NULL, then use default type less function.
  */
-extern void list_sort_if(list_t* plist_list, binary_function_t bfun_op);
+extern void list_sort_if(list_t* plist_list, bfun_t bfun_op);
 
 /**
  * Merge two sorted list.
@@ -586,7 +586,7 @@ extern void list_merge(list_t* plist_dest, list_t* plist_src);
  *          the behavior is undefined. if plist_dest == plist_src then the function does nothing. if bfun_op == NULL then use
  *          type less compare function.
  */
-extern void list_merge_if(list_t* plist_dest, list_t* plist_src, binary_function_t bfun_op);
+extern void list_merge_if(list_t* plist_dest, list_t* plist_src, bfun_t bfun_op);
 
 /**
  * Reverse the order of all elements.

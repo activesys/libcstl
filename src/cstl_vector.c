@@ -310,14 +310,11 @@ bool_t vector_equal(const vector_t* cpvec_first, const vector_t* cpvec_second)
     assert(cpvec_second != NULL);
     assert(_vector_is_inited(cpvec_first));
     assert(_vector_is_inited(cpvec_second));
+    assert(_vector_same_type(cpvec_first, cpvec_second));
 
     /* same vector container */
     if (cpvec_first == cpvec_second) {
         return true;
-    }
-    /* the element type is equal */
-    if (!_vector_same_type(cpvec_first, cpvec_second)) {
-        return false;
     }
     /* the element count is equal */
     if (vector_size(cpvec_first) != vector_size(cpvec_second)) {

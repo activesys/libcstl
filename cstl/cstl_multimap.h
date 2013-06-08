@@ -1,6 +1,6 @@
 /*
  *  The interface of multimap.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -120,7 +120,7 @@ extern void multimap_init(multimap_t* pmmap_map);
  * @remarks if pmap_map == NULL, then the behavior is undefined, pmap_map must be created by create_map(), otherwise
  *          the behavior is undefined. if t_compare == NULL, the default compare function is used.
  */
-extern void multimap_init_ex(multimap_t* pmmap_map, binary_function_t bfun_keycompare);
+extern void multimap_init_ex(multimap_t* pmmap_map, bfun_t bfun_keycompare);
 
 /**
  * Initialize multimap container with multimap.
@@ -169,7 +169,7 @@ extern void multimap_init_copy_array(multimap_t* pmmap_dest, const void* cpv_arr
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void multimap_init_copy_range_ex(
-    multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_keycompare);
+    multimap_t* pmmap_dest, iterator_t it_begin, iterator_t it_end, bfun_t bfun_keycompare);
 
 /**
  * Initialize multimap container with specific array and compare function.
@@ -183,7 +183,7 @@ extern void multimap_init_copy_range_ex(
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void multimap_init_copy_array_ex(
-    multimap_t* pmmap_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_keycompare);
+    multimap_t* pmmap_dest, const void* cpv_array, size_t t_count, bfun_t bfun_keycompare);
 
 /**
  * Destroy multimap.
@@ -248,7 +248,7 @@ extern size_t multimap_max_size(const multimap_t* cpmmap_map);
  * @return compare function.
  * @remarks if cpmap_map == NULL, the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t multimap_key_comp(const multimap_t* cpmmap_map);
+extern bfun_t multimap_key_comp(const multimap_t* cpmmap_map);
 
 /**
  * Return the compare function of value.
@@ -256,7 +256,7 @@ extern binary_function_t multimap_key_comp(const multimap_t* cpmmap_map);
  * @return compare function.
  * @remarks if cpmap_map == NULL, the behavior is undefined. cpmap_map must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t multimap_value_comp(const multimap_t* cpmmap_map);
+extern bfun_t multimap_value_comp(const multimap_t* cpmmap_map);
 
 /**
  * Erases all the elements of an multimap.

@@ -1,6 +1,6 @@
 /*
  *  The implementation of hashtable.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -67,7 +67,7 @@ _hashtable_t* _create_hashtable(const char* s_typename)
 /**
  * Initialize hashtable container.
  */
-void _hashtable_init(_hashtable_t* pt_hashtable, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+void _hashtable_init(_hashtable_t* pt_hashtable, size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(pt_hashtable != NULL);
     assert(_hashtable_is_created(pt_hashtable));
@@ -114,7 +114,7 @@ void _hashtable_init_copy(_hashtable_t* pt_dest, const _hashtable_t* cpt_src)
  */
 void _hashtable_init_copy_equal_range(
     _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
-    unary_function_t ufun_hash, binary_function_t bfun_compare)
+    ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(pt_dest != NULL);
     assert(_hashtable_is_created(pt_dest));
@@ -131,7 +131,7 @@ void _hashtable_init_copy_equal_range(
  */
 void _hashtable_init_copy_equal_array(
     _hashtable_t* pt_dest, const void* cpv_array, size_t t_count, size_t t_bucketcount,
-    unary_function_t ufun_hash, binary_function_t bfun_compare)
+    ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(pt_dest != NULL);
     assert(_hashtable_is_created(pt_dest));
@@ -146,7 +146,7 @@ void _hashtable_init_copy_equal_array(
  */
 void _hashtable_init_copy_unique_range(
     _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
-    unary_function_t ufun_hash, binary_function_t bfun_compare)
+    ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(pt_dest != NULL);
     assert(_hashtable_is_created(pt_dest));
@@ -163,7 +163,7 @@ void _hashtable_init_copy_unique_range(
  */
 void _hashtable_init_copy_unique_array(
     _hashtable_t* pt_dest, const void* cpv_array, size_t t_count, size_t t_bucketcount,
-    unary_function_t ufun_hash, binary_function_t bfun_compare)
+    ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(pt_dest != NULL);
     assert(_hashtable_is_created(pt_dest));
@@ -693,7 +693,7 @@ _hashtable_iterator_t _hashtable_end(const _hashtable_t* cpt_hashtable)
 /**
  * Return the hash function.
  */
-unary_function_t _hashtable_hash(const _hashtable_t* cpt_hashtable)
+ufun_t _hashtable_hash(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
     assert(_hashtable_is_inited(cpt_hashtable));
@@ -704,7 +704,7 @@ unary_function_t _hashtable_hash(const _hashtable_t* cpt_hashtable)
 /**
  * Return the compare function of key.
  */
-binary_function_t _hashtable_key_comp(const _hashtable_t* cpt_hashtable)
+bfun_t _hashtable_key_comp(const _hashtable_t* cpt_hashtable)
 {
     assert(cpt_hashtable != NULL);
     assert(_hashtable_is_inited(cpt_hashtable));
@@ -763,15 +763,14 @@ bool_t _hashtable_equal(const _hashtable_t* cpt_first, const _hashtable_t* cpt_s
     assert(cpt_second != NULL);
     assert(_hashtable_is_inited(cpt_first));
     assert(_hashtable_is_inited(cpt_second));
+    assert(_hashtable_same_type(cpt_first, cpt_second));
+    assert(cpt_first->_ufun_hash == cpt_second->_ufun_hash);
+    assert(cpt_first->_bfun_compare == cpt_second->_bfun_compare);
 
     if (cpt_first == cpt_second) {
         return true;
     }
 
-    /* check type */
-    if (!_hashtable_same_type_ex(cpt_first, cpt_second)) {
-        return false;
-    }
     /* check size or bucket count*/
     if (_hashtable_size(cpt_first) != _hashtable_size(cpt_second) ||
         _hashtable_bucket_count(cpt_first) != _hashtable_bucket_count(cpt_second)) {

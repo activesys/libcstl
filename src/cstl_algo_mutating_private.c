@@ -1,6 +1,6 @@
 /*
  *  The implementation of private mutating algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -77,7 +77,7 @@ void _algo_replace_once_varg(forward_iterator_t it_iter, va_list val_elemlist)
 /**
  * Examines each element in a range and replaces it if it satisfies a specified predicate.
  */
-void _algo_replace_if(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op, ...)
+void _algo_replace_if(forward_iterator_t it_first, forward_iterator_t it_last, ufun_t ufun_op, ...)
 {
     va_list val_elemlist;
 
@@ -89,7 +89,7 @@ void _algo_replace_if(forward_iterator_t it_first, forward_iterator_t it_last, u
 /**
  * Examines each element in a range and replaces it if it satisfies a specified predicate.
  */
-void _algo_replace_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, unary_function_t ufun_op, va_list val_elemlist)
+void _algo_replace_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, ufun_t ufun_op, va_list val_elemlist)
 {
     void*  pv_value = NULL;
     bool_t b_result = false;
@@ -127,7 +127,7 @@ void _algo_replace_if_varg(forward_iterator_t it_first, forward_iterator_t it_la
  * Examines each element in a source range and replaces it if it satisfies a specified predicate while copying the result into a new destination range.
  */
 output_iterator_t _algo_replace_copy_if(
-    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, unary_function_t ufun_op, ...)
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, ufun_t ufun_op, ...)
 {
     output_iterator_t it_iter;
     va_list val_elemlist;
@@ -143,7 +143,7 @@ output_iterator_t _algo_replace_copy_if(
  * Examines each element in a source range and replaces it if it satisfies a specified predicate while copying the result into a new destination range.
  */
 output_iterator_t _algo_replace_copy_if_varg(
-    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, unary_function_t ufun_op, va_list val_elemlist)
+    input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, ufun_t ufun_op, va_list val_elemlist)
 {
     void*  pv_value = NULL;
     bool_t b_cmp = false;
@@ -331,7 +331,7 @@ output_iterator_t _algo_remove_copy_varg(input_iterator_t it_first, input_iterat
     bool_t            b_cmp = false;
     bool_t            b_less = false;
     bool_t            b_greater = false;
-    binary_function_t bfun_op = NULL;
+    bfun_t            bfun_op = NULL;
 
     assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
     assert(_iterator_same_elem_type(it_first, it_result));

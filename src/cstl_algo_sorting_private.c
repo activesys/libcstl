@@ -1,6 +1,6 @@
 /*
  *  The implementation of private sorting algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -59,7 +59,7 @@ forward_iterator_t _algo_lower_bound(forward_iterator_t it_first, forward_iterat
  * Finds the position of the first element in an ordered range that has a value greater than or equivalent to a specified value,
  * where the ordering criterion may be specified by a binary predicate.
  */
-forward_iterator_t _algo_lower_bound_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, ...)
+forward_iterator_t _algo_lower_bound_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, ...)
 {
     forward_iterator_t it_iter;
     va_list val_elemlist;
@@ -75,7 +75,7 @@ forward_iterator_t _algo_lower_bound_if(forward_iterator_t it_first, forward_ite
  * Finds the position of the first element in an ordered range that has a value greater than or equivalent to a specified value,
  * where the ordering criterion may be specified by a binary predicate.
  */
-forward_iterator_t _algo_lower_bound_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, va_list val_elemlist)
+forward_iterator_t _algo_lower_bound_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, va_list val_elemlist)
 {
     void*      pv_value = NULL;
     bool_t     b_result = false;
@@ -147,7 +147,7 @@ forward_iterator_t _algo_upper_bound(forward_iterator_t it_first, forward_iterat
  * Finds the position of the first element in an ordered range that has a value that is greater than a specified value,
  * where the ordering criterion may be specified by a binary predicate.
  */
-forward_iterator_t _algo_upper_bound_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, ...)
+forward_iterator_t _algo_upper_bound_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, ...)
 {
     forward_iterator_t it_iter;
     va_list val_elemlist;
@@ -163,7 +163,7 @@ forward_iterator_t _algo_upper_bound_if(forward_iterator_t it_first, forward_ite
  * Finds the position of the first element in an ordered range that has a value that is greater than a specified value,
  * where the ordering criterion may be specified by a binary predicate.
  */
-forward_iterator_t _algo_upper_bound_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, va_list val_elemlist)
+forward_iterator_t _algo_upper_bound_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, va_list val_elemlist)
 {
     void*      pv_value = NULL;
     bool_t     b_result = false;
@@ -237,7 +237,7 @@ range_t _algo_equal_range(forward_iterator_t it_first, forward_iterator_t it_las
  * the second greater than the element's position, where the sense of equivalence or ordering used to establish the positions
  * in the sequence may be specified by a binary predicate.
  */
-range_t _algo_equal_range_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, ...)
+range_t _algo_equal_range_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, ...)
 {
     range_t r_result;
     va_list val_elemlist;
@@ -254,7 +254,7 @@ range_t _algo_equal_range_if(forward_iterator_t it_first, forward_iterator_t it_
  * the second greater than the element's position, where the sense of equivalence or ordering used to establish the positions
  * in the sequence may be specified by a binary predicate.
  */
-range_t _algo_equal_range_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, va_list val_elemlist)
+range_t _algo_equal_range_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, va_list val_elemlist)
 {
     void*      pv_value = NULL;
     bool_t     b_result = false;
@@ -380,7 +380,7 @@ bool_t _algo_binary_search(forward_iterator_t it_first, forward_iterator_t it_la
 /**
  * Tests whether there is an element in a sorted range that is equivalent to it in a sense specified by a binary predicate.
  */
-bool_t _algo_binary_search_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, ...)
+bool_t _algo_binary_search_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, ...)
 {
     bool_t b_result = false;
     va_list val_elemlist;
@@ -395,7 +395,7 @@ bool_t _algo_binary_search_if(forward_iterator_t it_first, forward_iterator_t it
 /**
  * Tests whether there is an element in a sorted range that is equivalent to it in a sense specified by a binary predicate.
  */
-bool_t _algo_binary_search_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op, va_list val_elemlist)
+bool_t _algo_binary_search_if_varg(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op, va_list val_elemlist)
 {
     void*      pv_value = NULL;
     iterator_t it_lower;

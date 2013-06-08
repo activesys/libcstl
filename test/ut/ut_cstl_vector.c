@@ -782,7 +782,7 @@ void test_vector_init_copy_array__successfully_cstr(void** state)
     vector_init_copy_array(pvec_dest, as_array, 10);
     assert_true(vector_size(pvec_dest) == 10);
     assert_true(vector_capacity(pvec_dest) == 26);
-    for(i = 0; i < vector_size(pvec_dest); ++i)
+    for(i = 0; i < vector_size(pvec_dest)-1; ++i)
     {
         assert_true(strcmp((char*)vector_at(pvec_dest, i), "abcdefg") == 0);
     }
@@ -1163,7 +1163,7 @@ void test_vector_equal__not_same_type(void** state)
 
     vector_init(pvec_first);
     vector_init(pvec_second);
-    assert_false(vector_equal(pvec_first, pvec_second));
+    expect_assert_failure(vector_equal(pvec_first, pvec_second));
 
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);
@@ -1316,7 +1316,7 @@ void test_vector_not_equal__not_same_type(void** state)
 
     vector_init(pvec_first);
     vector_init(pvec_second);
-    assert_true(vector_not_equal(pvec_first, pvec_second));
+    expect_assert_failure(vector_not_equal(pvec_first, pvec_second));
 
     vector_destroy(pvec_first);
     vector_destroy(pvec_second);

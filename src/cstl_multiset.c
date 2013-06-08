@@ -1,6 +1,6 @@
 /*
  *  The implementation of multiset.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -57,7 +57,7 @@ void multiset_init(multiset_t* pmset_mset)
 /**
  * Initialize multiset container with user define compare function.
  */
-void multiset_init_ex(multiset_t* pmset_mset, binary_function_t bfun_compare)
+void multiset_init_ex(multiset_t* pmset_mset, bfun_t bfun_compare)
 {
     assert(pmset_mset != NULL);
 
@@ -131,7 +131,7 @@ void multiset_init_copy_array(multiset_t* pmset_dest, const void* cpv_array, siz
  * Initialize multiset container with specific range and compare function.
  */
 void multiset_init_copy_range_ex(
-    multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end, binary_function_t bfun_compare)
+    multiset_t* pmset_dest, iterator_t it_begin, iterator_t it_end, bfun_t bfun_compare)
 {
     assert(pmset_dest != NULL);
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
@@ -147,7 +147,7 @@ void multiset_init_copy_range_ex(
  * Initialize multiset container with specific array and compare function.
  */
 void multiset_init_copy_array_ex(
-    multiset_t* pmset_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_compare)
+    multiset_t* pmset_dest, const void* cpv_array, size_t t_count, bfun_t bfun_compare)
 {
     assert(pmset_dest != NULL);
     assert(cpv_array != NULL);
@@ -301,7 +301,7 @@ multiset_iterator_t multiset_rend(const multiset_t* cpmset_mset)
 /**
  * Return the compare function of key.
  */
-binary_function_t multiset_key_comp(const multiset_t* cpmset_mset)
+bfun_t multiset_key_comp(const multiset_t* cpmset_mset)
 {
     assert(cpmset_mset != NULL);
 
@@ -315,7 +315,7 @@ binary_function_t multiset_key_comp(const multiset_t* cpmset_mset)
 /**
  * Return the compare function of value.
  */
-binary_function_t multiset_value_comp(const multiset_t* cpmset_mset)
+bfun_t multiset_value_comp(const multiset_t* cpmset_mset)
 {
     return multiset_key_comp(cpmset_mset);
 }

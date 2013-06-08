@@ -1,6 +1,6 @@
 /*
  *  The interface of priority queue.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -71,7 +71,7 @@ extern void priority_queue_init(priority_queue_t* ppque_pqueue);
  * @remarks if ppque_pqueue == NULL, then the behavior is undefined. pque_queue must be created by create_priority_queue(), otherwise
  *          the behavior is undefine.
  */
-extern void priority_queue_init_ex(priority_queue_t* ppque_pqueue, binary_function_t bfun_op);
+extern void priority_queue_init_ex(priority_queue_t* ppque_pqueue, bfun_t bfun_op);
 
 /**
  * Initialize an priority queue adaptor from an exist priority queue.
@@ -101,7 +101,7 @@ extern void priority_queue_init_copy_range(priority_queue_t* ppque_dest, input_i
  * @return void.
  * @remarks destination priority queue adaptor and source range must be valid, and must be have same element type, otherwise the behavior is undefined.
  */
-extern void priority_queue_init_copy_range_ex(priority_queue_t* ppque_dest, input_iterator_t it_first, input_iterator_t it_last, binary_function_t bfun_op);
+extern void priority_queue_init_copy_range_ex(priority_queue_t* ppque_dest, input_iterator_t it_first, input_iterator_t it_last, bfun_t bfun_op);
 
 /**
  * Initialize an priority queue adaptor from an exist array.
@@ -122,7 +122,7 @@ extern void priority_queue_init_copy_array(priority_queue_t* ppque_dest, const v
  * @return void.
  * @remarks destination priority queue adaptor and source array must be valid, and must be have same element type, otherwise the behavior is undefined.
  */
-extern void priority_queue_init_copy_array_ex(priority_queue_t* ppque_dest, const void* cpv_array, size_t t_count, binary_function_t bfun_op);
+extern void priority_queue_init_copy_array_ex(priority_queue_t* ppque_dest, const void* cpv_array, size_t t_count, bfun_t bfun_op);
 
 /**
  * Destroy priority queue adaptor.

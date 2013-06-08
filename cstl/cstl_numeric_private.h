@@ -1,6 +1,6 @@
 /*
  *  The private interface of numeric.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -70,8 +70,8 @@ extern void _algo_accumulate(input_iterator_t it_first, input_iterator_t it_last
  * @return  void.
  * @remarks The referenced range must be valid, otherwise the behavior is undefined.
  */
-extern void _algo_accumulate_if(input_iterator_t it_first, input_iterator_t it_last, binary_function_t bfun_op, void* pv_output, ...);
-extern void _algo_accumulate_if_varg(input_iterator_t it_first, input_iterator_t it_last, binary_function_t bfun_op, void* pv_output, va_list val_elemlist);
+extern void _algo_accumulate_if(input_iterator_t it_first, input_iterator_t it_last, bfun_t bfun_op, void* pv_output, ...);
+extern void _algo_accumulate_if_varg(input_iterator_t it_first, input_iterator_t it_last, bfun_t bfun_op, void* pv_output, va_list val_elemlist);
 
 /**
  * Computes the sum of the element-wise product of two ranges and adds it to a specified initial value.
@@ -106,10 +106,10 @@ extern void _algo_inner_product(
  */
 extern void _algo_inner_product_if(
     input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2,
-    binary_function_t bfun_op1, binary_function_t bfun_op2, void* pv_output, ...);
+    bfun_t bfun_op1, bfun_t bfun_op2, void* pv_output, ...);
 extern void _algo_inner_product_if_varg(
     input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2,
-    binary_function_t bfun_op1, binary_function_t bfun_op2, void* pv_output, va_list val_elemlist);
+    bfun_t bfun_op1, bfun_t bfun_op2, void* pv_output, va_list val_elemlist);
 
 #ifdef __cplusplus
 }

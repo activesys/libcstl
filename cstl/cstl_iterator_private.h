@@ -1,6 +1,6 @@
 /*
  *  The private interface of iterator.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -283,7 +283,7 @@ extern const char* _iterator_get_typename(iterator_t it_iter);
  * @return type copy function of iterator.
  * @remarks iterator must be valid, otherwise behavior is undefined.
  */
-extern binary_function_t _iterator_get_typecopy(iterator_t it_iter);
+extern bfun_t _iterator_get_typecopy(iterator_t it_iter);
 
 /**
  * Get type size of iterator.

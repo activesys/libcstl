@@ -1,6 +1,6 @@
 /*
  *  The interface of hash_multiset.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -111,7 +111,7 @@ extern void hash_multiset_init(hash_multiset_t* phmset_set);
  *          the behavior is undefined. if bfun_compare == NULL, the default compare function is used.
  */
 extern void hash_multiset_init_ex(
-    hash_multiset_t* phmset_set, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+    hash_multiset_t* phmset_set, size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hash_multiset container with hash_multiset.
@@ -158,7 +158,7 @@ extern void hash_multiset_init_copy_array(hash_multiset_t* phmset_dest, const vo
  *          bfun_compare == NULL, then use default compare function.
  */
 extern void hash_multiset_init_copy_range_ex(hash_multiset_t* phmset_dest, iterator_t it_begin, iterator_t it_end,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hash_multiset container with specific array and compare function.
@@ -172,7 +172,7 @@ extern void hash_multiset_init_copy_range_ex(hash_multiset_t* phmset_dest, itera
  *          bfun_compare == NULL, then use default compare function.
  */
 extern void hash_multiset_init_copy_array_ex(hash_multiset_t* phmset_dest, const void* cpv_array, size_t t_count,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Destroy hash_multiset.
@@ -246,7 +246,7 @@ extern size_t hash_multiset_bucket_count(const hash_multiset_t* cphmset_set);
  * @return hash function.
  * @remarks if cphmset_set == NULL, the behavior is undefined. cphmset_set must be initialized, otherwise the behavior is undefined.
  */
-extern unary_function_t hash_multiset_hash(const hash_multiset_t* cphmset_set);
+extern ufun_t hash_multiset_hash(const hash_multiset_t* cphmset_set);
 
 /**
  * Return the compare function of key.
@@ -254,7 +254,7 @@ extern unary_function_t hash_multiset_hash(const hash_multiset_t* cphmset_set);
  * @return compare function.
  * @remarks if cphmset_set == NULL, the behavior is undefined. cphmset_set must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t hash_multiset_key_comp(const hash_multiset_t* cphmset_set);
+extern bfun_t hash_multiset_key_comp(const hash_multiset_t* cphmset_set);
 
 /**
  * Return the compare function of value.
@@ -262,7 +262,7 @@ extern binary_function_t hash_multiset_key_comp(const hash_multiset_t* cphmset_s
  * @return compare function.
  * @remarks if cphmset_set == NULL, the behavior is undefined. cphmset_set must be initialized, otherwise the behavior is undefined.
  */
-extern binary_function_t hash_multiset_value_comp(const hash_multiset_t* cphmset_set);
+extern bfun_t hash_multiset_value_comp(const hash_multiset_t* cphmset_set);
 
 /**
  * Resize.

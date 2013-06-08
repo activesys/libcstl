@@ -1,6 +1,6 @@
 /*
  *  The implementation of heap.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -52,7 +52,7 @@ void algo_push_heap(random_access_iterator_t it_first, random_access_iterator_t 
 /**
  * Adds an element that is at the end of a range to an existing heap consisting of the prior elements in the range.
  */
-void algo_push_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
+void algo_push_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     bool_t                   b_result = false;
     size_t                   t_pos = 0;
@@ -98,7 +98,7 @@ void algo_pop_heap(random_access_iterator_t it_first, random_access_iterator_t i
 /**
  * Removes the largest element from the front of a heap to the next-to-last position in the range and then forms a new heap from the remaining elements.
  */
-void algo_pop_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
+void algo_pop_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
 
@@ -126,7 +126,7 @@ void algo_sort_heap(random_access_iterator_t it_first, random_access_iterator_t 
 /**
  * Removes the largest element from the front of a heap to the next-to-last position in the range and then forms a new heap from the remaining elements.
  */
-void algo_sort_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
+void algo_sort_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     assert(_iterator_valid_range(it_first, it_last, _RANDOM_ACCESS_ITERATOR));
 
@@ -150,7 +150,7 @@ void algo_make_heap(random_access_iterator_t it_first, random_access_iterator_t 
 /**
  * Converts elements from a specified range into a heap in which the first element is for which a sorting criterion may be specified with a binary predicate.
  */
-void algo_make_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
+void algo_make_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     size_t                   t_pos = 0;
     size_t                   t_len = 0;
@@ -191,7 +191,7 @@ bool_t algo_is_heap(random_access_iterator_t it_first, random_access_iterator_t 
 /**
  * Check the specified range is a heap with user-defined predicate function.
  */
-bool_t algo_is_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
+bool_t algo_is_heap_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     bool_t                   b_result = false;
     size_t                   t_len = 0;

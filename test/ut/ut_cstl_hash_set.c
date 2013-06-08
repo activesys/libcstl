@@ -1652,7 +1652,7 @@ void test_hash_set_equal__not_same_type(void** state)
     hash_set_init_ex(pt_first, 0, NULL, NULL);
     hash_set_init_ex(pt_second, 0, NULL, NULL);
 
-    assert_false(hash_set_equal(pt_first, pt_second));
+    expect_assert_failure(hash_set_equal(pt_first, pt_second));
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1804,7 +1804,7 @@ void test_hash_set_equal__not_same_hash(void** state)
     hash_set_init_ex(pt_first, 0, _test_hash_set_equal__not_same_hash, NULL);
     hash_set_init_ex(pt_second, 0, NULL, NULL);
 
-    assert_false(hash_set_equal(pt_first, pt_second));
+    expect_assert_failure(hash_set_equal(pt_first, pt_second));
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1829,7 +1829,7 @@ void test_hash_set_equal__compare_not_equal(void** state)
         hash_set_insert(pt_second, i);
     }
 
-    assert_false(hash_set_equal(pt_first, pt_second));
+    expect_assert_failure(hash_set_equal(pt_first, pt_second));
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -1920,7 +1920,7 @@ void test_hash_set_not_equal__not_same_type(void** state)
     hash_set_init(pt_first);
     hash_set_init(pt_second);
 
-    assert_true(hash_set_not_equal(pt_first, pt_second));
+    expect_assert_failure(hash_set_not_equal(pt_first, pt_second));
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2086,7 +2086,7 @@ void test_hash_set_not_equal__not_same_hash(void** state)
         hash_set_insert(pt_second, i);
     }
 
-    assert_true(hash_set_not_equal(pt_first, pt_second));
+    expect_assert_failure(hash_set_not_equal(pt_first, pt_second));
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);
@@ -2111,7 +2111,7 @@ void test_hash_set_not_equal__compare_not_equal(void** state)
         hash_set_insert(pt_second, i);
     }
 
-    assert_true(hash_set_not_equal(pt_first, pt_second));
+    expect_assert_failure(hash_set_not_equal(pt_first, pt_second));
 
     hash_set_destroy(pt_first);
     hash_set_destroy(pt_second);

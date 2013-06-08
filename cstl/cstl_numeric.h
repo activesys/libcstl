@@ -1,6 +1,6 @@
 /*
  *  The interface of numeric.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -133,7 +133,7 @@ extern void algo_power(input_iterator_t it_iter, size_t t_power, void* pv_output
  * @return  void.
  * remarks  The iterator must be valid, otherwise the behavior is undefined.
  */
-extern void algo_power_if(input_iterator_t it_iter, size_t t_power, binary_function_t bfun_op, void* pv_output);
+extern void algo_power_if(input_iterator_t it_iter, size_t t_power, bfun_t bfun_op, void* pv_output);
 
 /**
  * Computes the successive differences between each element and its predecessor in an input range and outputs the results to a destination range.
@@ -154,7 +154,7 @@ extern output_iterator_t algo_adjacent_difference(input_iterator_t it_first, inp
  * @return  An output iterator addressing the end of the destination range: it_result + (it_last - it_first).
  * @remarks The referenced range must be valid, otherwise the behavior is undefined.
  */
-extern output_iterator_t algo_adjacent_difference_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, binary_function_t bfun_op);
+extern output_iterator_t algo_adjacent_difference_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, bfun_t bfun_op);
 
 /**
  * Computes a series of sums in an input range from the first element through the ith element and stores the result of each such sum in the ith element of a destination range.
@@ -177,7 +177,7 @@ extern output_iterator_t algo_partial_sum(input_iterator_t it_first, input_itera
  * @return  An output iterator addressing the end of the destination range: it_result + (it_last - it_first).
  * @remarks The referenced range must be valid, otherwise the behavior is undefined.
  */
-extern output_iterator_t algo_partial_sum_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, binary_function_t bfun_op);
+extern output_iterator_t algo_partial_sum_if(input_iterator_t it_first, input_iterator_t it_last, output_iterator_t it_result, bfun_t bfun_op);
 
 #ifdef __cplusplus
 }

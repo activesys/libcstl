@@ -38,9 +38,9 @@ void test_set_init__non_created(void** state)
     expect_assert_failure(set_init(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_init(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -78,9 +78,9 @@ void test_set_init_ex__non_created(void** state)
     expect_assert_failure(set_init_ex(pt_set, NULL));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_init_ex(pt_set, NULL));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -153,9 +153,9 @@ void test_set_init_copy__non_created_dest(void** state)
     expect_assert_failure(set_init_copy(pt_dest, pt_src));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_init_copy(pt_dest, pt_src));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);
@@ -173,9 +173,9 @@ void test_set_init_copy__non_inited_src(void** state)
     expect_assert_failure(set_init_copy(pt_dest, pt_src));
     pt_src->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_src->_t_tree._t_rbroot._t_color = BLACK;
+    pt_src->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_init_copy(pt_dest, pt_src));
-    pt_src->_t_tree._t_rbroot._t_color = RED;
+    pt_src->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);
@@ -285,9 +285,9 @@ void test_set_init_copy_range__non_created_set(void** state)
     expect_assert_failure(set_init_copy_range(pt_dest, set_begin(pt_set), set_end(pt_set)));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_init_copy_range(pt_dest, set_begin(pt_set), set_end(pt_set)));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -474,9 +474,9 @@ void test_set_init_copy_array__non_created_set(void** state)
     expect_assert_failure(set_init_copy_array(pt_dest, an_array, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_init_copy_array(pt_dest, an_array, 10));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);
@@ -568,9 +568,9 @@ void test_set_init_copy_range_ex__non_created_set(void** state)
     expect_assert_failure(set_init_copy_range_ex(pt_dest, set_begin(pt_set), set_end(pt_set), NULL));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_init_copy_range_ex(pt_dest, set_begin(pt_set), set_end(pt_set), NULL));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -786,9 +786,9 @@ void test_set_init_copy_array_ex__non_created_set(void** state)
     expect_assert_failure(set_init_copy_array_ex(pt_dest, an_array, 10, NULL));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_init_copy_array_ex(pt_dest, an_array, 10, NULL));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);
@@ -894,9 +894,9 @@ void test_set_destroy__non_created(void** state)
     expect_assert_failure(set_destroy(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_destroy(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -952,9 +952,9 @@ void test_set_assign__non_created_dest(void** state)
     expect_assert_failure(set_assign(pt_dest, pt_src));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_assign(pt_dest, pt_src));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);
@@ -973,9 +973,9 @@ void test_set_assign__non_init_src(void** state)
     expect_assert_failure(set_assign(pt_dest, pt_src));
     pt_src->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_src->_t_tree._t_rbroot._t_color = BLACK;
+    pt_src->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_assign(pt_dest, pt_src));
-    pt_src->_t_tree._t_rbroot._t_color = RED;
+    pt_src->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);
@@ -1141,9 +1141,9 @@ void test_set_size__non_inited(void** state)
     expect_assert_failure(set_size(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_size(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -1191,9 +1191,9 @@ void test_set_empty__non_inited(void** state)
     expect_assert_failure(set_empty(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_empty(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -1241,9 +1241,9 @@ void test_set_max_size__non_inited(void** state)
     expect_assert_failure(set_max_size(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_max_size(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -1291,9 +1291,9 @@ void test_set_begin__non_inited(void** state)
     expect_assert_failure(set_begin(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_begin(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -1341,9 +1341,9 @@ void test_set_end__non_inited(void** state)
     expect_assert_failure(set_end(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_end(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -1394,9 +1394,9 @@ void test_set_key_comp__non_inited(void** state)
     expect_assert_failure(set_key_comp(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_key_comp(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -1446,9 +1446,9 @@ void test_set_clear__non_inited(void** state)
     expect_assert_failure(set_clear(pt_set));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_clear(pt_set));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -1517,9 +1517,9 @@ void test_set_equal__non_inited_first(void** state)
     expect_assert_failure(set_equal(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_equal(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -1539,9 +1539,9 @@ void test_set_equal__non_inited_second(void** state)
     expect_assert_failure(set_equal(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_equal(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -1556,7 +1556,7 @@ void test_set_equal__not_same_type(void** state)
     set_init_ex(pt_first, NULL);
     set_init_ex(pt_second, NULL);
 
-    assert_false(set_equal(pt_first, pt_second));
+    expect_assert_failure(set_equal(pt_first, pt_second));
 
     set_destroy(pt_first);
     set_destroy(pt_second);
@@ -1701,7 +1701,7 @@ void test_set_equal__compare_not_equal(void** state)
         set_insert(pt_second, i);
     }
 
-    assert_false(set_equal(pt_first, pt_second));
+    expect_assert_failure(set_equal(pt_first, pt_second));
 
     set_destroy(pt_first);
     set_destroy(pt_second);
@@ -1765,9 +1765,9 @@ void test_set_not_equal__non_inited_first(void** state)
     expect_assert_failure(set_not_equal(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_not_equal(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -1787,9 +1787,9 @@ void test_set_not_equal__non_inited_second(void** state)
     expect_assert_failure(set_not_equal(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_not_equal(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -1804,7 +1804,7 @@ void test_set_not_equal__not_same_type(void** state)
     set_init_ex(pt_first, NULL);
     set_init_ex(pt_second, NULL);
 
-    assert_true(set_not_equal(pt_first, pt_second));
+    expect_assert_failure(set_not_equal(pt_first, pt_second));
 
     set_destroy(pt_first);
     set_destroy(pt_second);
@@ -1949,7 +1949,7 @@ void test_set_not_equal__compare_not_equal(void** state)
         set_insert(pt_second, i);
     }
 
-    assert_true(set_not_equal(pt_first, pt_second));
+    expect_assert_failure(set_not_equal(pt_first, pt_second));
 
     set_destroy(pt_first);
     set_destroy(pt_second);
@@ -2013,9 +2013,9 @@ void test_set_less__non_inited_first(void** state)
     expect_assert_failure(set_less(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_less(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -2035,9 +2035,9 @@ void test_set_less__non_inited_second(void** state)
     expect_assert_failure(set_less(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_less(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -2261,9 +2261,9 @@ void test_set_less_equal__non_inited_first(void** state)
     expect_assert_failure(set_less_equal(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_less_equal(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -2283,9 +2283,9 @@ void test_set_less_equal__non_inited_second(void** state)
     expect_assert_failure(set_less_equal(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_less_equal(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -2509,9 +2509,9 @@ void test_set_greater__non_inited_first(void** state)
     expect_assert_failure(set_greater(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_greater(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -2531,9 +2531,9 @@ void test_set_greater__non_inited_second(void** state)
     expect_assert_failure(set_greater(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_greater(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -2757,9 +2757,9 @@ void test_set_greater_equal__non_inited_first(void** state)
     expect_assert_failure(set_greater_equal(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_greater_equal(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -2779,9 +2779,9 @@ void test_set_greater_equal__non_inited_second(void** state)
     expect_assert_failure(set_greater_equal(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_greater_equal(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -3005,9 +3005,9 @@ void test_set_swap__non_inited_first(void** state)
     expect_assert_failure(set_swap(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_swap(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -3027,9 +3027,9 @@ void test_set_swap__non_inited_second(void** state)
     expect_assert_failure(set_swap(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_swap(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_first);
@@ -3194,11 +3194,11 @@ void test_set_insert_range__non_inited(void** state)
     expect_assert_failure(set_insert_range(pt_dest, it_begin, it_end));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     it_begin = set_begin(pt_src);
     it_end = set_end(pt_src);
     expect_assert_failure(set_insert_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);
@@ -3447,9 +3447,9 @@ void test_set_insert_array__non_inited(void** state)
     expect_assert_failure(set_insert_array(pt_dest, an_array, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_insert_array(pt_dest, an_array, 10));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);
@@ -3576,9 +3576,9 @@ void test_set_erase_pos__non_inited(void** state)
     expect_assert_failure(set_erase_pos(pt_set, it_pos));
     pt_set->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_set->_t_tree._t_rbroot._t_color = BLACK;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_erase_pos(pt_set, it_pos));
-    pt_set->_t_tree._t_rbroot._t_color = RED;
+    pt_set->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_set);
@@ -3722,9 +3722,9 @@ void test_set_erase_range__non_inited(void** state)
     expect_assert_failure(set_erase_range(pt_dest, it_begin, it_end));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(set_erase_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     set_destroy(pt_dest);

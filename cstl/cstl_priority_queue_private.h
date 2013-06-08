@@ -1,6 +1,6 @@
 /*
  *  The private struct and private function of priority queue.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,7 @@ extern "C" {
 typedef struct _tagpriority_queue
 {
     vector_t          _vec_base;
-    binary_function_t _bfun_priority;
+    bfun_t            _bfun_priority;
 }priority_queue_t;
 
 /** exported global variable declaration section **/

@@ -1,6 +1,6 @@
 /*
  *  The implement of list auxiliary functions.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -204,7 +204,7 @@ void _list_transfer(list_iterator_t it_pos, list_iterator_t it_begin, list_itera
 /**
  * Sort the range [pt_first, pt_last] use the quick sort algorithm.
  */
-void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt_last, binary_function_t bfun_op)
+void _list_quick_sort(list_t* plist_list, _listnode_t* pt_first, _listnode_t* pt_last, bfun_t bfun_op)
 {
     _listnode_t* pt_beforefirst = NULL;
     _listnode_t* pt_afterlast = NULL;

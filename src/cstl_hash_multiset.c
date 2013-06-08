@@ -1,6 +1,6 @@
 /*
  *  The implementation of hash_multiset.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -54,7 +54,7 @@ void hash_multiset_init(hash_multiset_t* phmset_set)
  * Initialize hash_multiset container with user define compare function.
  */
 void hash_multiset_init_ex(
-    hash_multiset_t* phmset_set, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+    hash_multiset_t* phmset_set, size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(phmset_set != NULL);
 
@@ -101,7 +101,7 @@ void hash_multiset_init_copy_array(hash_multiset_t* phmset_dest, const void* cpv
  * Initialize hash_multiset container with specific range and compare function.
  */
 void hash_multiset_init_copy_range_ex(hash_multiset_t* phmset_dest, iterator_t it_begin, iterator_t it_end,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(phmset_dest != NULL);
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
@@ -113,7 +113,7 @@ void hash_multiset_init_copy_range_ex(hash_multiset_t* phmset_dest, iterator_t i
  * Initialize hash_multiset container with specific array and compare function.
  */
 void hash_multiset_init_copy_array_ex(hash_multiset_t* phmset_dest, const void* cpv_array, size_t t_count,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(phmset_dest != NULL);
     assert(cpv_array != NULL);
@@ -186,7 +186,7 @@ size_t hash_multiset_bucket_count(const hash_multiset_t* cphmset_set)
 /**
  * Return the hash function.
  */
-unary_function_t hash_multiset_hash(const hash_multiset_t* cphmset_set)
+ufun_t hash_multiset_hash(const hash_multiset_t* cphmset_set)
 {
     assert(cphmset_set != NULL);
 
@@ -196,7 +196,7 @@ unary_function_t hash_multiset_hash(const hash_multiset_t* cphmset_set)
 /**
  * Return the compare function of key.
  */
-binary_function_t hash_multiset_key_comp(const hash_multiset_t* cphmset_set)
+bfun_t hash_multiset_key_comp(const hash_multiset_t* cphmset_set)
 {
     assert(cphmset_set != NULL);
 
@@ -206,7 +206,7 @@ binary_function_t hash_multiset_key_comp(const hash_multiset_t* cphmset_set)
 /**
  * Return the compare function of value.
  */
-binary_function_t hash_multiset_value_comp(const hash_multiset_t* cphmset_set)
+bfun_t hash_multiset_value_comp(const hash_multiset_t* cphmset_set)
 {
     assert(cphmset_set != NULL);
 

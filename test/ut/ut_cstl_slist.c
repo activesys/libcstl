@@ -923,7 +923,7 @@ void test_slist_equal__not_same_type(void** state)
 
     slist_init(pslist_first);
     slist_init(pslist_second);
-    assert_false(slist_equal(pslist_first, pslist_second));
+    expect_assert_failure(slist_equal(pslist_first, pslist_second));
 
     slist_destroy(pslist_first);
     slist_destroy(pslist_second);
@@ -1076,7 +1076,7 @@ void test_slist_not_equal__not_same_type(void** state)
 
     slist_init(pslist_first);
     slist_init(pslist_second);
-    assert_true(slist_not_equal(pslist_first, pslist_second));
+    expect_assert_failure(slist_not_equal(pslist_first, pslist_second));
 
     slist_destroy(pslist_first);
     slist_destroy(pslist_second);

@@ -38,9 +38,9 @@ void test_multiset_init__non_created(void** state)
     expect_assert_failure(multiset_init(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_init(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -78,9 +78,9 @@ void test_multiset_init_ex__non_created(void** state)
     expect_assert_failure(multiset_init_ex(pt_multiset, NULL));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_init_ex(pt_multiset, NULL));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -155,9 +155,9 @@ void test_multiset_init_copy__non_created_dest(void** state)
     expect_assert_failure(multiset_init_copy(pt_dest, pt_src));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_init_copy(pt_dest, pt_src));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);
@@ -176,9 +176,9 @@ void test_multiset_init_copy__non_inited_src(void** state)
     expect_assert_failure(multiset_init_copy(pt_dest, pt_src));
     pt_src->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_src->_t_tree._t_rbroot._t_color = BLACK;
+    pt_src->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_init_copy(pt_dest, pt_src));
-    pt_src->_t_tree._t_rbroot._t_color = RED;
+    pt_src->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);
@@ -291,9 +291,9 @@ void test_multiset_init_copy_range__non_created_multiset(void** state)
     expect_assert_failure(multiset_init_copy_range(pt_dest, multiset_begin(pt_multiset), multiset_end(pt_multiset)));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_init_copy_range(pt_dest, multiset_begin(pt_multiset), multiset_end(pt_multiset)));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -482,9 +482,9 @@ void test_multiset_init_copy_array__non_created_multiset(void** state)
     expect_assert_failure(multiset_init_copy_array(pt_dest, an_array, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_init_copy_array(pt_dest, an_array, 10));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);
@@ -578,9 +578,9 @@ void test_multiset_init_copy_range_ex__non_created_multiset(void** state)
     expect_assert_failure(multiset_init_copy_range_ex(pt_dest, multiset_begin(pt_multiset), multiset_end(pt_multiset), NULL));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_init_copy_range_ex(pt_dest, multiset_begin(pt_multiset), multiset_end(pt_multiset), NULL));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -797,9 +797,9 @@ void test_multiset_init_copy_array_ex__non_created_multiset(void** state)
     expect_assert_failure(multiset_init_copy_array_ex(pt_dest, an_array, 10, NULL));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_init_copy_array_ex(pt_dest, an_array, 10, NULL));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);
@@ -902,9 +902,9 @@ void test_multiset_destroy__non_created(void** state)
     expect_assert_failure(multiset_destroy(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_destroy(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -961,9 +961,9 @@ void test_multiset_assign__non_created_dest(void** state)
     expect_assert_failure(multiset_assign(pt_dest, pt_src));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_assign(pt_dest, pt_src));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);
@@ -983,9 +983,9 @@ void test_multiset_assign__non_init_src(void** state)
     expect_assert_failure(multiset_assign(pt_dest, pt_src));
     pt_src->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_src->_t_tree._t_rbroot._t_color = BLACK;
+    pt_src->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_assign(pt_dest, pt_src));
-    pt_src->_t_tree._t_rbroot._t_color = RED;
+    pt_src->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);
@@ -1151,9 +1151,9 @@ void test_multiset_size__non_inited(void** state)
     expect_assert_failure(multiset_size(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_size(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -1201,9 +1201,9 @@ void test_multiset_empty__non_inited(void** state)
     expect_assert_failure(multiset_empty(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_empty(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -1251,9 +1251,9 @@ void test_multiset_max_size__non_inited(void** state)
     expect_assert_failure(multiset_max_size(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_max_size(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -1301,9 +1301,9 @@ void test_multiset_begin__non_inited(void** state)
     expect_assert_failure(multiset_begin(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_begin(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -1351,9 +1351,9 @@ void test_multiset_end__non_inited(void** state)
     expect_assert_failure(multiset_end(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_end(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -1404,9 +1404,9 @@ void test_multiset_key_comp__non_inited(void** state)
     expect_assert_failure(multiset_key_comp(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_key_comp(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -1456,9 +1456,9 @@ void test_multiset_clear__non_inited(void** state)
     expect_assert_failure(multiset_clear(pt_multiset));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_clear(pt_multiset));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -1527,9 +1527,9 @@ void test_multiset_equal__non_inited_first(void** state)
     expect_assert_failure(multiset_equal(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_equal(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -1549,9 +1549,9 @@ void test_multiset_equal__non_inited_second(void** state)
     expect_assert_failure(multiset_equal(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_equal(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -1566,7 +1566,7 @@ void test_multiset_equal__not_same_type(void** state)
     multiset_init_ex(pt_first, NULL);
     multiset_init_ex(pt_second, NULL);
 
-    assert_false(multiset_equal(pt_first, pt_second));
+    expect_assert_failure(multiset_equal(pt_first, pt_second));
 
     multiset_destroy(pt_first);
     multiset_destroy(pt_second);
@@ -1711,7 +1711,7 @@ void test_multiset_equal__compare_not_equal(void** state)
         multiset_insert(pt_second, i);
     }
 
-    assert_false(multiset_equal(pt_first, pt_second));
+    expect_assert_failure(multiset_equal(pt_first, pt_second));
 
     multiset_destroy(pt_first);
     multiset_destroy(pt_second);
@@ -1775,9 +1775,9 @@ void test_multiset_not_equal__non_inited_first(void** state)
     expect_assert_failure(multiset_not_equal(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_not_equal(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -1797,9 +1797,9 @@ void test_multiset_not_equal__non_inited_second(void** state)
     expect_assert_failure(multiset_not_equal(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_not_equal(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -1814,7 +1814,7 @@ void test_multiset_not_equal__not_same_type(void** state)
     multiset_init_ex(pt_first, NULL);
     multiset_init_ex(pt_second, NULL);
 
-    assert_true(multiset_not_equal(pt_first, pt_second));
+    expect_assert_failure(multiset_not_equal(pt_first, pt_second));
 
     multiset_destroy(pt_first);
     multiset_destroy(pt_second);
@@ -1959,7 +1959,7 @@ void test_multiset_not_equal__compare_not_equal(void** state)
         multiset_insert(pt_second, i);
     }
 
-    assert_true(multiset_not_equal(pt_first, pt_second));
+    expect_assert_failure(multiset_not_equal(pt_first, pt_second));
 
     multiset_destroy(pt_first);
     multiset_destroy(pt_second);
@@ -2023,9 +2023,9 @@ void test_multiset_less__non_inited_first(void** state)
     expect_assert_failure(multiset_less(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_less(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -2045,9 +2045,9 @@ void test_multiset_less__non_inited_second(void** state)
     expect_assert_failure(multiset_less(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_less(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -2271,9 +2271,9 @@ void test_multiset_less_equal__non_inited_first(void** state)
     expect_assert_failure(multiset_less_equal(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_less_equal(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -2293,9 +2293,9 @@ void test_multiset_less_equal__non_inited_second(void** state)
     expect_assert_failure(multiset_less_equal(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_less_equal(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -2519,9 +2519,9 @@ void test_multiset_greater__non_inited_first(void** state)
     expect_assert_failure(multiset_greater(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_greater(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -2541,9 +2541,9 @@ void test_multiset_greater__non_inited_second(void** state)
     expect_assert_failure(multiset_greater(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_greater(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -2767,9 +2767,9 @@ void test_multiset_greater_equal__non_inited_first(void** state)
     expect_assert_failure(multiset_greater_equal(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_greater_equal(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -2789,9 +2789,9 @@ void test_multiset_greater_equal__non_inited_second(void** state)
     expect_assert_failure(multiset_greater_equal(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_greater_equal(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -3015,9 +3015,9 @@ void test_multiset_swap__non_inited_first(void** state)
     expect_assert_failure(multiset_swap(pt_first, pt_second));
     pt_first->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_first->_t_tree._t_rbroot._t_color = BLACK;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_swap(pt_first, pt_second));
-    pt_first->_t_tree._t_rbroot._t_color = RED;
+    pt_first->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -3037,9 +3037,9 @@ void test_multiset_swap__non_inited_second(void** state)
     expect_assert_failure(multiset_swap(pt_first, pt_second));
     pt_second->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_second->_t_tree._t_rbroot._t_color = BLACK;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_swap(pt_first, pt_second));
-    pt_second->_t_tree._t_rbroot._t_color = RED;
+    pt_second->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_first);
@@ -3204,11 +3204,11 @@ void test_multiset_insert_range__non_inited(void** state)
     expect_assert_failure(multiset_insert_range(pt_dest, it_begin, it_end));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     it_begin = multiset_begin(pt_src);
     it_end = multiset_end(pt_src);
     expect_assert_failure(multiset_insert_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);
@@ -3456,9 +3456,9 @@ void test_multiset_insert_array__non_inited(void** state)
     expect_assert_failure(multiset_insert_array(pt_dest, an_array, 10));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_insert_array(pt_dest, an_array, 10));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);
@@ -3586,9 +3586,9 @@ void test_multiset_erase_pos__non_inited(void** state)
     expect_assert_failure(multiset_erase_pos(pt_multiset, it_pos));
     pt_multiset->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_multiset->_t_tree._t_rbroot._t_color = BLACK;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_erase_pos(pt_multiset, it_pos));
-    pt_multiset->_t_tree._t_rbroot._t_color = RED;
+    pt_multiset->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_multiset);
@@ -3733,9 +3733,9 @@ void test_multiset_erase_range__non_inited(void** state)
     expect_assert_failure(multiset_erase_range(pt_dest, it_begin, it_end));
     pt_dest->_t_tree._t_avlroot._un_height = 0;
 #else
-    pt_dest->_t_tree._t_rbroot._t_color = BLACK;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_BLACK;
     expect_assert_failure(multiset_erase_range(pt_dest, it_begin, it_end));
-    pt_dest->_t_tree._t_rbroot._t_color = RED;
+    pt_dest->_t_tree._t_rbroot._t_color = _COLOR_RED;
 #endif
 
     multiset_destroy(pt_dest);

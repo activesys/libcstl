@@ -1,6 +1,6 @@
 /*
  *  The interface of auxiliary mutating algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -55,7 +55,7 @@ extern void _algo_rotate_forward(forward_iterator_t it_first, forward_iterator_t
  * @return  A bidirectional iterator addressing the position of the first element in the range to not satisfy the predicate condition.
  * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
  */
-extern bidirectional_iterator_t _algo_partition_biditer(bidirectional_iterator_t t_first, bidirectional_iterator_t t_last, unary_function_t t_unary_op);
+extern bidirectional_iterator_t _algo_partition_biditer(bidirectional_iterator_t t_first, bidirectional_iterator_t t_last, ufun_t t_unary_op);
 
 #ifdef __cplusplus
 }

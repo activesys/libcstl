@@ -1128,6 +1128,7 @@ void test__list_init_elem_auxiliary__successfully_container(void** state)
     assert_true(_list_is_inited(&list));
 
     list_destroy(plist);
+    _list_destroy_auxiliary(&list);
 }
 
 typedef struct _tag_test__list_init_elem_auxiliary__successfully_user_defined

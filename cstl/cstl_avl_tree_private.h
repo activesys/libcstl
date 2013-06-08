@@ -1,6 +1,6 @@
 /*
  *  The private interface of avl tree.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -69,7 +69,7 @@ typedef struct _tagavltree
     size_t            _t_nodecount;
 
     /* compare function for the inserting order */
-    binary_function_t _t_compare;
+    bfun_t            _t_compare;
 }_avl_tree_t;
 
 /** exported global variable declaration section **/

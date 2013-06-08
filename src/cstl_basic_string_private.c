@@ -74,7 +74,7 @@ _basic_string_rep_t* _create_basic_string_representation(size_t t_newcapacity, s
  * Reduce shared and delete rep if necessary.
  */
 _basic_string_rep_t* _basic_string_rep_reduce_shared(
-    _basic_string_rep_t* pt_rep, unary_function_t ufun_destroy, _typeinfo_t* pt_typeinfo)
+    _basic_string_rep_t* pt_rep, ufun_t ufun_destroy, _typeinfo_t* pt_typeinfo)
 {
     assert(pt_rep != NULL);
     assert(ufun_destroy != NULL);

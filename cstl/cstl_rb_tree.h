@@ -1,6 +1,6 @@
 /*
  *  The interface of rb tree.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,7 @@ extern _rb_tree_t* _create_rb_tree(const char* s_typename);
  * @remarks if pt_rb_tree == NULL, then the behavior is undefined, pt_rb_tree must be created by _create_rb_tree(),
  *          otherwise the behavior is undefined. if t_compare == NULL, then the default compare function is used.
  */
-extern void _rb_tree_init(_rb_tree_t* pt_rb_tree, binary_function_t t_compare);
+extern void _rb_tree_init(_rb_tree_t* pt_rb_tree, bfun_t t_compare);
 
 /**
  * Initialize rb tree container with rb tree.
@@ -138,7 +138,7 @@ extern void _rb_tree_init_copy_unique_array(_rb_tree_t* pt_dest, const void* cpv
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void _rb_tree_init_copy_equal_range_ex(
-    _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
+    _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, bfun_t t_compare);
 
 /**
  * Initialize rb tree container with specific range and compare function.
@@ -152,7 +152,7 @@ extern void _rb_tree_init_copy_equal_range_ex(
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void _rb_tree_init_copy_unique_range_ex(
-    _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, binary_function_t t_compare);
+    _rb_tree_t* pt_dest, iterator_t it_begin, iterator_t it_end, bfun_t t_compare);
 
 /**
  * Initialize rb tree container with specific array and compare function.
@@ -166,7 +166,7 @@ extern void _rb_tree_init_copy_unique_range_ex(
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void _rb_tree_init_copy_equal_array_ex(
-    _rb_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare);
+    _rb_tree_t* pt_dest, const void* cpv_array, size_t t_count, bfun_t t_compare);
 
 /**
  * Initialize rb tree container with specific array and compare function.
@@ -180,7 +180,7 @@ extern void _rb_tree_init_copy_equal_array_ex(
  *          is undefined. if t_compare == NULL, then use default compare function.
  */
 extern void _rb_tree_init_copy_unique_array_ex(
-    _rb_tree_t* pt_dest, const void* cpv_array, size_t t_count, binary_function_t t_compare);
+    _rb_tree_t* pt_dest, const void* cpv_array, size_t t_count, bfun_t t_compare);
 
 /**
  * Destroy rb tree.
@@ -255,7 +255,7 @@ extern _rb_tree_reverse_iterator_t _rb_tree_rend(const _rb_tree_t* cpt_rb_tree);
  * @remarks if cpt_rb_tree == NULL, the behavior is undefined. cpt_rb_tree must be initialized, otherwise the behavior
  *          is undefined.
  */
-extern binary_function_t _rb_tree_key_comp(const _rb_tree_t* cpt_rb_tree);
+extern bfun_t _rb_tree_key_comp(const _rb_tree_t* cpt_rb_tree);
 
 /**
  * Find specific element.

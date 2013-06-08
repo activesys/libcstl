@@ -1,6 +1,6 @@
 /*
  *  The private interface of function.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -74,7 +74,7 @@ typedef enum _tag_fun_type {
  * @return  Unary function.
  * @remarks The iterator and unary function type must be valid, otherwise the behavior is undefine.
  */
-extern unary_function_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type);
+extern ufun_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type);
 
 /**
  * Select binary function accroding to binary function type.
@@ -83,7 +83,7 @@ extern unary_function_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type
  * @return  Binary function.
  * @remarks The iterator and binary function type must be valid, otherwise the behavior is undefine.
  */
-extern binary_function_t _fun_get_binary(iterator_t it_iter, fun_type_t ftype_type);
+extern bfun_t _fun_get_binary(iterator_t it_iter, fun_type_t ftype_type);
 
 /**
  * Increase.

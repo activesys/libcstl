@@ -1,6 +1,6 @@
 /*
  *  The implementation of non-mutating algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@
 /**
  * Applies a unary function to each element in a range.
  */
-void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op)
+void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, ufun_t ufun_op)
 {
     assert(_iterator_valid_range(it_first, it_last, _INPUT_ITERATOR));
 
@@ -59,7 +59,7 @@ void algo_for_each(input_iterator_t it_first, input_iterator_t it_last, unary_fu
 /**
  * Locates the position of the first occurrence of an element in a range that satisfies a specified condition.
  */
-input_iterator_t algo_find_if(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op)
+input_iterator_t algo_find_if(input_iterator_t it_first, input_iterator_t it_last, ufun_t ufun_op)
 {
     bool_t b_result = false;
 
@@ -89,7 +89,7 @@ forward_iterator_t algo_adjacent_find(forward_iterator_t it_first, forward_itera
 /**
  * Searches for two adjacent elements that satisfy a specificed condition.
  */
-forward_iterator_t algo_adjacent_find_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op)
+forward_iterator_t algo_adjacent_find_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op)
 {
     forward_iterator_t it_next;
     bool_t             b_result = false;
@@ -154,7 +154,7 @@ input_iterator_t algo_find_first_of(
 input_iterator_t algo_find_first_of_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     forward_iterator_t it_first2, forward_iterator_t it_last2,
-    binary_function_t bfun_op)
+    bfun_t bfun_op)
 {
     iterator_t it_index;
     bool_t     b_result = false;
@@ -203,7 +203,7 @@ input_iterator_t algo_find_first_of_if(
 /**
  * Returns the number of elements in a range whose values satisfy a specified condition.
  */
-size_t algo_count_if(input_iterator_t it_first, input_iterator_t it_last, unary_function_t ufun_op)
+size_t algo_count_if(input_iterator_t it_first, input_iterator_t it_last, ufun_t ufun_op)
 {
     bool_t b_result = false;
     size_t t_count = 0;
@@ -236,7 +236,7 @@ range_t algo_mismatch(input_iterator_t it_first1, input_iterator_t it_last1, inp
  * the first position where a difference occurs.
  */
 range_t algo_mismatch_if(
-    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op)
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, bfun_t bfun_op)
 {
     bool_t  b_result = false;
     bool_t  b_less = false;
@@ -293,7 +293,7 @@ bool_t algo_equal(input_iterator_t it_first1, input_iterator_t it_last1, input_i
  * Compares two ranges element by element either for equivalence in a sense specified by a binary predicate.
  */
 bool_t algo_equal_if(
-    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, binary_function_t bfun_op)
+    input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, bfun_t bfun_op)
 {
     bool_t b_result = false;
     bool_t b_less = false;
@@ -346,7 +346,7 @@ forward_iterator_t algo_search(
 forward_iterator_t algo_search_if(
     forward_iterator_t it_first1, forward_iterator_t it_last1,
     forward_iterator_t it_first2, forward_iterator_t it_last2,
-    binary_function_t bfun_op)
+    bfun_t bfun_op)
 {
     bool_t     b_result = false;
     bool_t     b_less = false;
@@ -448,7 +448,7 @@ forward_iterator_t algo_search_end(
 forward_iterator_t algo_search_end_if(
     forward_iterator_t it_first1, forward_iterator_t it_last1,
     forward_iterator_t it_first2, forward_iterator_t it_last2,
-    binary_function_t bfun_op)
+    bfun_t bfun_op)
 {
     forward_iterator_t it_tmp;
     forward_iterator_t it_result;
@@ -489,7 +489,7 @@ forward_iterator_t algo_find_end(
 forward_iterator_t algo_find_end_if(
     forward_iterator_t it_first1, forward_iterator_t it_last1,
     forward_iterator_t it_first2, forward_iterator_t it_last2,
-    binary_function_t bfun_op)
+    bfun_t bfun_op)
 {
     return algo_search_end_if(it_first1, it_last1, it_first2, it_last2, bfun_op);
 }

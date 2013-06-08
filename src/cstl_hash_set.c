@@ -1,6 +1,6 @@
 /*
  *  The implementation of hash_set.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,7 @@ void hash_set_init(hash_set_t* phset_set)
 /**
  * Initialize hash_set container with user define compare function.
  */
-void hash_set_init_ex(hash_set_t* phset_set, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+void hash_set_init_ex(hash_set_t* phset_set, size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(phset_set != NULL);
 
@@ -100,7 +100,7 @@ void hash_set_init_copy_array(hash_set_t* phset_dest, const void* cpv_array, siz
  * Initialize hash_set container with specific range and compare function.
  */
 void hash_set_init_copy_range_ex(hash_set_t* phset_set, iterator_t it_begin, iterator_t it_end,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(phset_set != NULL);
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
@@ -112,7 +112,7 @@ void hash_set_init_copy_range_ex(hash_set_t* phset_set, iterator_t it_begin, ite
  * Initialize hash_set container with specific array and compare function.
  */
 void hash_set_init_copy_array_ex(hash_set_t* phset_set, const void* cpv_array, size_t t_count,
-    size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare)
+    size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare)
 {
     assert(phset_set != NULL);
     assert(cpv_array != NULL);
@@ -185,7 +185,7 @@ size_t hash_set_bucket_count(const hash_set_t* cphset_set)
 /**
  * Return the hash function.
  */
-unary_function_t hash_set_hash(const hash_set_t* cphset_set)
+ufun_t hash_set_hash(const hash_set_t* cphset_set)
 {
     assert(cphset_set != NULL);
 
@@ -195,7 +195,7 @@ unary_function_t hash_set_hash(const hash_set_t* cphset_set)
 /**
  * Return the compare function of key.
  */
-binary_function_t hash_set_key_comp(const hash_set_t* cphset_set)
+bfun_t hash_set_key_comp(const hash_set_t* cphset_set)
 {
     assert(cphset_set != NULL);
 
@@ -205,7 +205,7 @@ binary_function_t hash_set_key_comp(const hash_set_t* cphset_set)
 /**
  * Return the compare function of value.
  */
-binary_function_t hash_set_value_comp(const hash_set_t* cphset_set)
+bfun_t hash_set_value_comp(const hash_set_t* cphset_set)
 {
     assert(cphset_set != NULL);
 

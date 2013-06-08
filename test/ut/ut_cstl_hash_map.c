@@ -2170,7 +2170,7 @@ void test_hash_map_equal__not_same_type(void** state)
     hash_map_init_ex(pt_first, 0, NULL, NULL);
     hash_map_init_ex(pt_second, 0, NULL, NULL);
 
-    assert_false(hash_map_equal(pt_first, pt_second));
+    expect_assert_failure(hash_map_equal(pt_first, pt_second));
 
     hash_map_destroy(pt_first);
     hash_map_destroy(pt_second);
@@ -2363,7 +2363,7 @@ void test_hash_map_equal__hash_not_equal(void** state)
         hash_map_insert(pt_second, pt_pair);
     }
 
-    assert_false(hash_map_equal(pt_first, pt_second));
+    expect_assert_failure(hash_map_equal(pt_first, pt_second));
 
     hash_map_destroy(pt_first);
     hash_map_destroy(pt_second);
@@ -2524,7 +2524,7 @@ void test_hash_map_not_equal__not_same_type(void** state)
     hash_map_init_ex(pt_first, 0, NULL, NULL);
     hash_map_init_ex(pt_second, 0, NULL, NULL);
 
-    assert_true(hash_map_not_equal(pt_first, pt_second));
+    expect_assert_failure(hash_map_not_equal(pt_first, pt_second));
 
     hash_map_destroy(pt_first);
     hash_map_destroy(pt_second);
@@ -2717,7 +2717,7 @@ void test_hash_map_not_equal__hash_not_equal(void** state)
         hash_map_insert(pt_second, pt_pair);
     }
 
-    assert_true(hash_map_not_equal(pt_first, pt_second));
+    expect_assert_failure(hash_map_not_equal(pt_first, pt_second));
 
     hash_map_destroy(pt_first);
     hash_map_destroy(pt_second);

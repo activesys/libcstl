@@ -1,6 +1,6 @@
 /*
  *  The implementation of private numeric.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -58,7 +58,7 @@ void _algo_iota_varg(forward_iterator_t it_first, forward_iterator_t it_last, va
 {
     iterator_t       it_iter;
     void*            pv_value = NULL;
-    unary_function_t ufun_op;
+    ufun_t           ufun_op;
 
     assert(_iterator_valid_range(it_first, it_last, _FORWARD_ITERATOR));
 
@@ -93,7 +93,7 @@ void _algo_accumulate(input_iterator_t it_first, input_iterator_t it_last, void*
 /**
  * Computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
  */
-void _algo_accumulate_if(input_iterator_t it_first, input_iterator_t it_last, binary_function_t bfun_op, void* pv_output, ...)
+void _algo_accumulate_if(input_iterator_t it_first, input_iterator_t it_last, bfun_t bfun_op, void* pv_output, ...)
 {
     va_list val_elemlist;
 
@@ -105,7 +105,7 @@ void _algo_accumulate_if(input_iterator_t it_first, input_iterator_t it_last, bi
 /**
  * Computes the result of successive partial results similarly obtained from using a specified binary operation other than the sum.
  */
-void _algo_accumulate_if_varg(input_iterator_t it_first, input_iterator_t it_last, binary_function_t bfun_op, void* pv_output, va_list val_elemlist)
+void _algo_accumulate_if_varg(input_iterator_t it_first, input_iterator_t it_last, bfun_t bfun_op, void* pv_output, va_list val_elemlist)
 {
     iterator_t it_iter;
 
@@ -145,7 +145,7 @@ void _algo_inner_product(
  */
 void _algo_inner_product_if(
     input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2,
-    binary_function_t bfun_op1, binary_function_t bfun_op2, void* pv_output, ...)
+    bfun_t bfun_op1, bfun_t bfun_op2, void* pv_output, ...)
 {
     va_list val_elemlist;
 
@@ -159,7 +159,7 @@ void _algo_inner_product_if(
  */
 void _algo_inner_product_if_varg(
     input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2,
-    binary_function_t bfun_op1, binary_function_t bfun_op2, void* pv_output, va_list val_elemlist)
+    bfun_t bfun_op1, bfun_t bfun_op2, void* pv_output, va_list val_elemlist)
 {
     iterator_t it_index1;
     iterator_t it_index2;

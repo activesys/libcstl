@@ -1,6 +1,6 @@
 /*
  *  The implementation of sorting algorithm.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -55,7 +55,7 @@ bool_t algo_is_sorted(forward_iterator_t it_first, forward_iterator_t it_last)
 /**
  * Check a specificed range is sorted or not according to an ordering critierion specified by a binary predicate.
  */
-bool_t algo_is_sorted_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op)
+bool_t algo_is_sorted_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op)
 {
     bool_t     b_result = false;
     iterator_t it_next;
@@ -95,7 +95,7 @@ void algo_partial_sort(
  * Arranges a specified number of the smaller elements in a range according to an ordering criterion specified by a binary predicate.
  */
 void algo_partial_sort_if(
-    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, binary_function_t bfun_op)
+    random_access_iterator_t it_first, random_access_iterator_t it_middle, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     iterator_t it_prev;
     iterator_t it_iter;
@@ -138,7 +138,7 @@ random_access_iterator_t algo_partial_sort_copy(
  * Copies elements from a source range into a destination range where the source elements are ordered by specified binary predicate.
  */
 random_access_iterator_t algo_partial_sort_copy_if(
-    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, binary_function_t bfun_op)
+    input_iterator_t it_first1, input_iterator_t it_last1, random_access_iterator_t it_first2, random_access_iterator_t it_last2, bfun_t bfun_op)
 {
     iterator_t it_iter;
     iterator_t it_prev;
@@ -187,7 +187,7 @@ void algo_sort(random_access_iterator_t it_first, random_access_iterator_t it_la
 /**
  * Arranges the elements in a specified range according to an ordering criterion specified by a binary predicate.
  */
-void algo_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
+void algo_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     void*  pv_value = NULL;
     size_t t_len = 0;
@@ -231,7 +231,7 @@ output_iterator_t algo_merge(
 output_iterator_t algo_merge_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op)
+    output_iterator_t it_result, bfun_t bfun_op)
 {
     bool_t b_cmp = false;
 
@@ -274,7 +274,7 @@ void algo_inplace_merge(
  * Combines the elements from two consecutive sorted ranges into a single sorted range, where the ordering criterion may be specified by a binary predicate.
  */
 void algo_inplace_merge_if(
-    bidirectional_iterator_t it_first, bidirectional_iterator_t it_middle, bidirectional_iterator_t it_last, binary_function_t bfun_op)
+    bidirectional_iterator_t it_first, bidirectional_iterator_t it_middle, bidirectional_iterator_t it_last, bfun_t bfun_op)
 {
     iterator_t it_iter;
     list_t*    plist_buffer = NULL;
@@ -316,7 +316,7 @@ void algo_stable_sort(random_access_iterator_t it_first, random_access_iterator_
  * Arranges the elements in a specified range into a nondescending order or according to an ordering criterion
  * specified by a binary predicate and preserves the relative ordering of equivalent elements.
  */
-void algo_stable_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, binary_function_t bfun_op)
+void algo_stable_sort_if(random_access_iterator_t it_first, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     size_t t_len = 0;
     void*  pv_value = NULL;
@@ -356,7 +356,7 @@ void algo_nth_element(random_access_iterator_t it_first, random_access_iterator_
  * Partitions a range of elements, correctly locating the nth element of the sequence in the range so that all the elements in front of it are less than or equal to it and
  * all the elements that follow it in the sequence are greater than or equal to it.
  */
-void algo_nth_element_if(random_access_iterator_t it_first, random_access_iterator_t it_nth, random_access_iterator_t it_last, binary_function_t bfun_op)
+void algo_nth_element_if(random_access_iterator_t it_first, random_access_iterator_t it_nth, random_access_iterator_t it_last, bfun_t bfun_op)
 {
     iterator_t it_pivot;
     iterator_t it_begin;
@@ -474,7 +474,7 @@ bool_t algo_includes(input_iterator_t it_first1, input_iterator_t it_last1, inpu
  * Tests whether one sorted range contains all the elements contained in a second sorted range, where the ordering or
  * equivalence criterion between elements may be specified by a binary predicate.
  */
-bool_t algo_includes_if(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, input_iterator_t it_last2, binary_function_t bfun_op)
+bool_t algo_includes_if(input_iterator_t it_first1, input_iterator_t it_last1, input_iterator_t it_first2, input_iterator_t it_last2, bfun_t bfun_op)
 {
     bool_t b_result = false;
 
@@ -522,7 +522,7 @@ output_iterator_t algo_set_union(
 output_iterator_t algo_set_union_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op)
+    output_iterator_t it_result, bfun_t bfun_op)
 {
     bool_t b_cmp = false;
 
@@ -576,7 +576,7 @@ output_iterator_t algo_set_intersection(
 output_iterator_t algo_set_intersection_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op)
+    output_iterator_t it_result, bfun_t bfun_op)
 {
     bool_t b_cmp = false;
 
@@ -628,7 +628,7 @@ output_iterator_t algo_set_difference(
 output_iterator_t algo_set_difference_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op)
+    output_iterator_t it_result, bfun_t bfun_op)
 {
     bool_t b_cmp = false;
 
@@ -680,7 +680,7 @@ output_iterator_t algo_set_symmetric_difference(
 output_iterator_t algo_set_symmetric_difference_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    output_iterator_t it_result, binary_function_t bfun_op)
+    output_iterator_t it_result, bfun_t bfun_op)
 {
     bool_t b_cmp = false;
 
@@ -727,7 +727,7 @@ input_iterator_t algo_max(input_iterator_t it_first, input_iterator_t it_second)
 /**
  * Compares two elements and returns the larger of the two, where the ordering criterion may be specified by a binary predicate.
  */
-input_iterator_t algo_max_if(input_iterator_t it_first, input_iterator_t it_second, binary_function_t bfun_op)
+input_iterator_t algo_max_if(input_iterator_t it_first, input_iterator_t it_second, bfun_t bfun_op)
 {
     bool_t b_result = false;
 
@@ -754,7 +754,7 @@ input_iterator_t algo_min(input_iterator_t it_first, input_iterator_t it_second)
 /**
  * Compares two elements and returns the lesser of the two, where the ordering criterion may be specified by a binary predicate.
  */
-input_iterator_t algo_min_if(input_iterator_t it_first, input_iterator_t it_second, binary_function_t bfun_op)
+input_iterator_t algo_min_if(input_iterator_t it_first, input_iterator_t it_second, bfun_t bfun_op)
 {
     bool_t b_result = false;
 
@@ -781,7 +781,7 @@ forward_iterator_t algo_max_element(forward_iterator_t it_first, forward_iterato
 /**
  * Finds the first occurrence of largest element in a specified range where the ordering criterion specified by a binary predicate.
  */
-forward_iterator_t algo_max_element_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op)
+forward_iterator_t algo_max_element_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op)
 {
     iterator_t it_result;
     bool_t     b_cmp = false;
@@ -821,7 +821,7 @@ forward_iterator_t algo_min_element(forward_iterator_t it_first, forward_iterato
 /**
  * Finds the first occurrence of smallest element in a specified range where the ordering criterion specified by a binary predicate.
  */
-forward_iterator_t algo_min_element_if(forward_iterator_t it_first, forward_iterator_t it_last, binary_function_t bfun_op)
+forward_iterator_t algo_min_element_if(forward_iterator_t it_first, forward_iterator_t it_last, bfun_t bfun_op)
 {
     iterator_t it_result;
     bool_t     b_cmp = false;
@@ -866,7 +866,7 @@ bool_t algo_lexicographical_compare(
 bool_t algo_lexicographical_compare_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    binary_function_t bfun_op)
+    bfun_t bfun_op)
 {
     bool_t b_result = false;
 
@@ -909,7 +909,7 @@ int algo_lexicographical_compare_3way(
 int algo_lexicographical_compare_3way_if(
     input_iterator_t it_first1, input_iterator_t it_last1,
     input_iterator_t it_first2, input_iterator_t it_last2,
-    binary_function_t bfun_op)
+    bfun_t bfun_op)
 {
     bool_t b_result = false;
 
@@ -954,7 +954,7 @@ bool_t algo_next_permutation(bidirectional_iterator_t it_first, bidirectional_it
  * Reorders the elements in a range so that the original ordering is replaced by the lexicographically next greater permutation if it exists,
  * where the sense of next specified with a binary predicate.
  */
-bool_t algo_next_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, binary_function_t bfun_op)
+bool_t algo_next_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, bfun_t bfun_op)
 {
     iterator_t it_begin;
     iterator_t it_next;
@@ -1012,7 +1012,7 @@ bool_t algo_prev_permutation(bidirectional_iterator_t it_first, bidirectional_it
  * Reorders the elements in a range so that the original ordering is replaced by the lexicographically previous permutation if it exists,
  * where the sense of next specified with a binary predicate.
  */
-bool_t algo_prev_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, binary_function_t bfun_op)
+bool_t algo_prev_permutation_if(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, bfun_t bfun_op)
 {
     iterator_t it_begin;
     iterator_t it_next;

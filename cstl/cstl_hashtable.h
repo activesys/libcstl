@@ -1,6 +1,6 @@
 /*
  *  The interface of hashtable.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -58,7 +58,7 @@ extern _hashtable_t* _create_hashtable(const char* s_typename);
  *          otherwise the behavior is undefined. if ufun_hash == NULL or bfun_compare == NULL, then the default hash function is used,
  *          and the default compare function is used.
  */
-extern void _hashtable_init(_hashtable_t* pt_hashtable, size_t t_bucketcount, unary_function_t ufun_hash, binary_function_t bfun_compare);
+extern void _hashtable_init(_hashtable_t* pt_hashtable, size_t t_bucketcount, ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hashtable container with hashtable.
@@ -87,7 +87,7 @@ extern void _hashtable_init_copy(_hashtable_t* pt_dest, const _hashtable_t* cpt_
  */
 extern void _hashtable_init_copy_equal_range(
     _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
-    unary_function_t ufun_hash, binary_function_t bfun_compare);
+    ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hashtable container with specific array.
@@ -105,7 +105,7 @@ extern void _hashtable_init_copy_equal_range(
  */
 extern void _hashtable_init_copy_equal_array(
     _hashtable_t* pt_dest, const void* cpv_array, size_t t_count, size_t t_bucketcount,
-    unary_function_t ufun_hash, binary_function_t bfun_compare);
+    ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hashtable container with specific range.
@@ -123,7 +123,7 @@ extern void _hashtable_init_copy_equal_array(
  */
 extern void _hashtable_init_copy_unique_range(
     _hashtable_t* pt_dest, iterator_t it_begin, iterator_t it_end, size_t t_bucketcount,
-    unary_function_t ufun_hash, binary_function_t bfun_compare);
+    ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Initialize hashtable container with specific array.
@@ -141,7 +141,7 @@ extern void _hashtable_init_copy_unique_range(
  */
 extern void _hashtable_init_copy_unique_array(
     _hashtable_t* pt_dest, const void* cpv_array, size_t t_count, size_t t_bucketcount,
-    unary_function_t ufun_hash, binary_function_t bfun_compare);
+    ufun_t ufun_hash, bfun_t bfun_compare);
 
 /**
  * Destroy hashtable.
@@ -223,7 +223,7 @@ extern _hashtable_iterator_t _hashtable_end(const _hashtable_t* cpt_hashtable);
  * @remarks if cpt_hashtable == NULL, the behavior is undefined. cpt_hashtable must be initialized, otherwise the behavior
  *          is undefined.
  */
-extern unary_function_t _hashtable_hash(const _hashtable_t* cpt_hashtable);
+extern ufun_t _hashtable_hash(const _hashtable_t* cpt_hashtable);
 
 /**
  * Return the compare function of key.
@@ -232,7 +232,7 @@ extern unary_function_t _hashtable_hash(const _hashtable_t* cpt_hashtable);
  * @remarks if cpt_hashtable == NULL, the behavior is undefined. cpt_hashtable must be initialized, otherwise the behavior
  *          is undefined.
  */
-extern binary_function_t _hashtable_key_comp(const _hashtable_t* cpt_hashtable);
+extern bfun_t _hashtable_key_comp(const _hashtable_t* cpt_hashtable);
 
 /**
  * Find specific element.

@@ -1886,7 +1886,7 @@ void test_deque_equal__not_same_type(void** state)
 
     deque_init(pdeq_first);
     deque_init(pdeq_second);
-    assert_false(deque_equal(pdeq_first, pdeq_second));
+    expect_assert_failure(deque_equal(pdeq_first, pdeq_second));
 
     deque_destroy(pdeq_first);
     deque_destroy(pdeq_second);
@@ -2035,7 +2035,7 @@ void test_deque_not_equal__not_same_type(void** state)
 
     deque_init(pdeq_first);
     deque_init(pdeq_second);
-    assert_true(deque_not_equal(pdeq_first, pdeq_second));
+    expect_assert_failure(deque_not_equal(pdeq_first, pdeq_second));
 
     deque_destroy(pdeq_first);
     deque_destroy(pdeq_second);
