@@ -8132,10 +8132,10 @@ void test_string_end__empty(void** state)
 
 void test_string_end__non_empty(void** state)
 {
+    char c = '@';
     string_iterator_t it_end;
     string_t* pt_string = create_string();
     string_init_cstr(pt_string, "abc");
-    char c = '@';
 
     it_end = string_end(pt_string);
     assert_true(*(char*)_BASIC_STRING_ITERATOR_COREPOS(it_end) == '\0');

@@ -4378,9 +4378,9 @@ void test__basic_string_init_elem_auxiliary__successfully_int(void** state)
 
 void test__basic_string_init_elem_auxiliary__successfully_cstr(void** state)
 {
+    string_t elem;
     basic_string_t* pt_basic_string = create_basic_string(char*);
     basic_string_init_elem(pt_basic_string, 10, "abcdefg");
-    string_t elem;
     memset(&elem, 0x00, sizeof(string_t));
 
     _basic_string_init_elem_auxiliary(pt_basic_string, &elem);

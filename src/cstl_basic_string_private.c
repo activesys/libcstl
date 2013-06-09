@@ -503,9 +503,6 @@ size_t _basic_string_find_first_not_of_elem(const basic_string_t* cpt_basic_stri
  */
 size_t _basic_string_find_first_not_of_elem_varg(const basic_string_t* cpt_basic_string, size_t t_pos, va_list val_elemlist)
 {
-    assert(cpt_basic_string != NULL);
-    assert(_basic_string_is_inited(cpt_basic_string));
-
     size_t   t_typesize = 0;
     size_t   t_findpos = NPOS;
     size_t   t_len = 0;
@@ -515,6 +512,8 @@ size_t _basic_string_find_first_not_of_elem_varg(const basic_string_t* cpt_basic
     bool_t   b_less = false;
     bool_t   b_greater = false;
 
+    assert(cpt_basic_string != NULL);
+    assert(_basic_string_is_inited(cpt_basic_string));
 
     /* get element */
     t_typesize = _GET_BASIC_STRING_TYPE_SIZE(cpt_basic_string);
