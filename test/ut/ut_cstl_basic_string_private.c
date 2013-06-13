@@ -230,6 +230,7 @@ void test__basic_string_rep_set_lenght__0(void** state)
     assert_true(_basic_string_rep_get_length(prep) == 0);
     pv_data = _basic_string_rep_get_data(prep);
     assert_true(memcmp(pv_data, &elem, sizeof(int)) == 0);
+    free(prep);
 }
 void test__basic_string_rep_set_lenght__n(void** state)
 {
@@ -240,6 +241,7 @@ void test__basic_string_rep_set_lenght__n(void** state)
     assert_true(_basic_string_rep_get_length(prep) == 6);
     pv_data = _basic_string_rep_get_data(prep);
     assert_true(memcmp(((char*)pv_data) + prep->_t_elemsize * 6, &elem, prep->_t_elemsize) == 0);
+    free(prep);
 }
 
 /*
@@ -255,11 +257,13 @@ void test__basic_string_rep_is_shared__true(void** state)
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     prep->_n_refcount = 1;
     assert_true(_basic_string_rep_is_shared(prep));
+    free(prep);
 }
 void test__basic_string_rep_is_shared__false(void** state)
 {
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     assert_false(_basic_string_rep_is_shared(prep));
+    free(prep);
 }
 /*
  * test _basic_string_rep_set_sharable
@@ -274,6 +278,7 @@ void test__basic_string_rep_set_sharable__successfully(void** state)
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     _basic_string_rep_set_sharable(prep);
     assert_true(prep->_n_refcount == 0);
+    free(prep);
 }
 
 /*
@@ -288,12 +293,14 @@ void test__basic_string_rep_is_leaked__true(void** state)
 {
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     assert_true(_basic_string_rep_is_leaked(prep));
+    free(prep);
 }
 void test__basic_string_rep_is_leaked__false(void** state)
 {
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     prep->_n_refcount = 1;
     assert_false(_basic_string_rep_is_leaked(prep));
+    free(prep);
 }
 /*
  * test _basic_string_rep_set_leaked
@@ -308,6 +315,7 @@ void test__basic_string_rep_set_leaked__successfully(void** state)
     _basic_string_rep_t* prep = _create_basic_string_representation(0, 0, 1);
     _basic_string_rep_set_leaked(prep);
     assert_true(prep->_n_refcount == -1);
+    free(prep);
 }
 
 

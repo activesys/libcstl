@@ -386,6 +386,7 @@ EXPORTS
     string_input                            @10106
     string_getline                          @10107
     string_getline_delimiter                @10108
+    string_resize_char                      @10109
 
 ; pair_t interfaces
     _create_pair                            @11000

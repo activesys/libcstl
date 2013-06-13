@@ -888,7 +888,8 @@ void test__basic_string_clone_representation__cstr_length_not_0(void** state)
     for (i = 0; i < prep->_t_length; ++i) {
         assert_true(string_compare_cstr((string_t*)(_basic_string_rep_get_data(prep) + i * prep->_t_elemsize), "abc") == 0);
     }
-    free(prep);
+    /*free(prep);*/
+    _basic_string_rep_reduce_shared(prep, _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pbstr), &pbstr->_t_typeinfo);
     basic_string_destroy(pbstr);
 }
 void test__basic_string_clone_representation__cstl_builtin_length_0(void** state)
@@ -923,9 +924,10 @@ void test__basic_string_clone_representation__cstl_builtin_length_not_0(void** s
     for (i = 0; i < prep->_t_length; ++i) {
         assert_true(*(int*)list_front((list_t*)(_basic_string_rep_get_data(prep) + i * prep->_t_elemsize)) == 111);
     }
-    free(prep);
     basic_string_destroy(pbstr);
     list_destroy(plist);
+    _basic_string_rep_reduce_shared(prep, _GET_BASIC_STRING_TYPE_DESTROY_FUNCTION(pbstr), &pbstr->_t_typeinfo);
+    /*free(prep);*/
 }
 typedef struct _tag_basic_string_clone_representation
 {

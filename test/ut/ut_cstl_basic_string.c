@@ -40205,6 +40205,7 @@ void test_basic_string_replace_substring__terminator_cstl(void** state)
 
     basic_string_destroy(pbstr1);
     basic_string_destroy(pbstr2);
+    list_destroy(plist);
 }
 void test_basic_string_replace_substring__terminator_user_define(void** state)
 {
