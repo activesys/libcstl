@@ -975,14 +975,17 @@ void test__hashtable_init_elem_auxiliary__cstr(void** state)
     _hashtable_iterator_t it_iter;
     _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init_cstr(pt_str, "abc");
+    _hashnode_t* p = malloc(_HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)));
 
     _hashtable_insert_unique(pt_hashtable, pt_str);
     it_iter = _hashtable_begin(pt_hashtable);
-    _hashtable_init_elem_auxiliary(pt_hashtable, (_hashnode_t*)it_iter._t_pos._t_hashpos._pby_corepos);
-    assert_true(strcmp(string_c_str((string_t*)((_hashnode_t*)it_iter._t_pos._t_hashpos._pby_corepos)->_pby_data), "") == 0);
+    _hashtable_init_elem_auxiliary(pt_hashtable, p);
+    assert_true(strcmp(string_c_str(p->_pby_data), "") == 0);
 
     _hashtable_destroy(pt_hashtable);
     string_destroy(pt_str);
+    _string_destroy_auxiliary(p->_pby_data);
+    free(p);
 }
 
 void test__hashtable_init_elem_auxiliary__cstl_builtin(void** state)

@@ -752,6 +752,7 @@ void test__slist_get_varg_value_auxiliary__cstr(void** state)
     _wrapper_slist_get_varg_value_auxiliary(pslist, pt_node, "abcdefg");
     assert_true(strcmp(string_c_str((string_t*)pt_node->_pby_data), "abcdefg") == 0);
 
+    _string_destroy_auxiliary((string_t*)pt_node->_pby_data);
     free(pt_node);
     slist_destroy(pslist);
 }

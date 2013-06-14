@@ -1099,10 +1099,12 @@ void test__list_init_elem_auxiliary__successfully_cstr(void** state)
 {
     list_t* plist = create_list(char*);
     list_init_elem(plist, 10, "abcdefg");
+    string_t elem;
 
-    _list_init_elem_auxiliary(plist, plist->_pt_node->_pt_next->_pby_data);
-    assert_true(strcmp((char*)list_front(plist), "") == 0);
+    _list_init_elem_auxiliary(plist, &elem);
+    assert_true(strcmp(string_c_str(&elem), "") == 0);
 
+    _string_destroy_auxiliary(&elem);
     list_destroy(plist);
 }
 

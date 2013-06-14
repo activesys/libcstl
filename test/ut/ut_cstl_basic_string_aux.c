@@ -644,17 +644,21 @@ void test__basic_string_init_elem_range_auxiliary__successfully_cstr(void** stat
     size_t i = 0;
     basic_string_t* pbstr = create_basic_string(char*);
     basic_string_init_elem(pbstr, 10, "abcdefg");
+    string_t elems[10] = {0};
 
     for(i = 0; i < basic_string_size(pbstr); ++i)
     {
         assert_true(strcmp((char*)basic_string_at(pbstr, i), "abcdefg") == 0);
     }
-    _basic_string_init_elem_range_auxiliary(pbstr, pbstr->_pby_string, 10);
-    for(i = 0; i < basic_string_size(pbstr); ++i)
+    _basic_string_init_elem_range_auxiliary(pbstr, elems, 10);
+    for(i = 0; i < 10; ++i)
     {
-        assert_true(strcmp((char*)basic_string_at(pbstr, i), "") == 0);
+        assert_true(strcmp(string_c_str(elems+i), "") == 0);
     }
 
+    for (i = 0; i < 10; ++i) {
+        _string_destroy_auxiliary(elems+i);
+    }
     basic_string_destroy(pbstr);
 }
 

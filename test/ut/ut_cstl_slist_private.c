@@ -822,10 +822,12 @@ void test__slist_init_elem_auxiliary__successfully_cstr(void** state)
 {
     slist_t* pslist = create_slist(char*);
     slist_init_elem(pslist, 10, "abcdefg");
+    string_t elem;
 
-    _slist_init_elem_auxiliary(pslist, pslist->_t_head._pt_next->_pby_data);
-    assert_true(strcmp((char*)slist_front(pslist), "") == 0);
+    _slist_init_elem_auxiliary(pslist, &elem);
+    assert_true(strcmp(string_c_str(&elem), "") == 0);
 
+    _string_destroy_auxiliary(&elem);
     slist_destroy(pslist);
 }
 

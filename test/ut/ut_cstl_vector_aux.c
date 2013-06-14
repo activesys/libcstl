@@ -9,6 +9,7 @@
 #include "cstl/cvector.h"
 #include "cstl/clist.h"
 #include "cstl_vector_aux.h"
+#include "cstl/cstring.h"
 
 #include "ut_def.h"
 #include "ut_cstl_vector_aux.h"
@@ -653,17 +654,21 @@ void test__vector_init_elem_range_auxiliary__successfully_cstr(void** state)
     size_t i = 0;
     vector_t* pvec = create_vector(char*);
     vector_init_elem(pvec, 10, "abcdefg");
+    string_t elems[10] = {0};
 
     for(i = 0; i < vector_size(pvec); ++i)
     {
         assert_true(strcmp((char*)vector_at(pvec, i), "abcdefg") == 0);
     }
-    _vector_init_elem_range_auxiliary(pvec, pvec->_pby_start, pvec->_pby_finish);
-    for(i = 0; i < vector_size(pvec); ++i)
+    _vector_init_elem_range_auxiliary(pvec, elems, elems+10);
+    for(i = 0; i < 10; ++i)
     {
-        assert_true(strcmp((char*)vector_at(pvec, i), "") == 0);
+        assert_true(strcmp(string_c_str(elems + i), "") == 0);
     }
 
+    for (i = 0; i < 10; ++i) {
+        _string_destroy_auxiliary(elems + i);
+    }
     vector_destroy(pvec);
 }
 

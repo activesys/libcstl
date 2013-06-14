@@ -2112,18 +2112,20 @@ void test__set_init_elem_auxiliary__successfully_int(void** state)
 
 void test__set_init_elem_auxiliary__successfully_cstr(void** state)
 {
+    string_t elem;
     set_t* pset = create_set(char*);
     set_init_ex(pset, NULL);
 
     set_insert(pset, "abc");
     set_insert(pset, "def");
 #ifdef CSTL_SET_AVL_TREE
-    _set_init_elem_auxiliary(pset, pset->_t_tree._t_avlroot._pt_left->_pby_data);
+    _set_init_elem_auxiliary(pset, &elem);
 #else
-    _set_init_elem_auxiliary(pset, pset->_t_tree._t_rbroot._pt_left->_pby_data); 
+    _set_init_elem_auxiliary(pset, &elem);
 #endif
-    assert_true(strcmp((char*)iterator_get_pointer(set_begin(pset)), "") == 0);
+    assert_true(strcmp(string_c_str(&elem), "") == 0);
 
+    _string_destroy_auxiliary(&elem);
     set_destroy(pset);
 }
 

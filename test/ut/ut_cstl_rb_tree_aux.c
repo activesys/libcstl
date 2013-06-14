@@ -5786,11 +5786,14 @@ void test__rb_tree_init_elem_auxiliary__cstr(void** state)
     string_t* pt_str = create_string();
     _rb_tree_init(pt_rb_tree, NULL);
     string_init_cstr(pt_str, "abc");
+    _rbnode_t* p = malloc(_RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)));
 
     _rb_tree_insert_unique(pt_rb_tree, pt_str);
-    _rb_tree_init_elem_auxiliary(pt_rb_tree, pt_rb_tree->_t_rbroot._pt_parent);
-    assert_true(strcmp(string_c_str((string_t*)pt_rb_tree->_t_rbroot._pt_parent->_pby_data), "") == 0);
+    _rb_tree_init_elem_auxiliary(pt_rb_tree, p);
+    assert_true(strcmp(string_c_str(p->_pby_data), "") == 0);
 
+    _string_destroy_auxiliary(p->_pby_data);
+    free(p);
     _rb_tree_destroy(pt_rb_tree);
     string_destroy(pt_str);
 }

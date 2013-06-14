@@ -1884,13 +1884,16 @@ void test__avl_tree_init_elem_auxiliary__cstr(void** state)
     string_t* pt_str = create_string();
     _avl_tree_init(pt_avl_tree, NULL);
     string_init_cstr(pt_str, "abc");
+    _avlnode_t* p = malloc(_AVL_TREE_NODE_SIZE(_GET_AVL_TREE_TYPE_SIZE(pt_avl_tree)));
 
     _avl_tree_insert_unique(pt_avl_tree, pt_str);
-    _avl_tree_init_elem_auxiliary(pt_avl_tree, pt_avl_tree->_t_avlroot._pt_parent);
-    assert_true(strcmp(string_c_str((string_t*)pt_avl_tree->_t_avlroot._pt_parent->_pby_data), "") == 0);
+    _avl_tree_init_elem_auxiliary(pt_avl_tree, p);
+    assert_true(strcmp(string_c_str(p->_pby_data), "") == 0);
 
-    _avl_tree_destroy(pt_avl_tree);
+    _string_destroy_auxiliary(p->_pby_data);
+    free(p);
     string_destroy(pt_str);
+    _avl_tree_destroy(pt_avl_tree);
 }
 
 void test__avl_tree_init_elem_auxiliary__cstl_builtin(void** state)
