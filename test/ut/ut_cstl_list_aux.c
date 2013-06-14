@@ -808,6 +808,7 @@ void test__list_get_varg_value_auxiliary__libcstl_builtin(void** state)
     _wrapper_list_get_varg_value_auxiliary(plist, pt_node, pvec);
     assert_true(vector_equal((vector_t*)pt_node->_pby_data, pvec));
 
+    _vector_destroy_auxiliary((vector_t*)pt_node->_pby_data);
     free(pt_node);
     list_destroy(plist);
     vector_destroy(pvec);

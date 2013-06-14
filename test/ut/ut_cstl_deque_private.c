@@ -1108,6 +1108,7 @@ void test__deque_init_elem_auxiliary__successfully_container(void** state)
     _deque_init_elem_auxiliary(pdeq, &deque);
     assert_true(_deque_is_inited(&deque));
 
+    _deque_destroy_auxiliary(&deque);
     deque_destroy(pdeq);
 }
 
