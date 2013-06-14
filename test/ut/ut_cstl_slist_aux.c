@@ -768,6 +768,7 @@ void test__slist_get_varg_value_auxiliary__libcstl_builtin(void** state)
     _wrapper_slist_get_varg_value_auxiliary(pslist, pt_node, pvec);
     assert_true(vector_equal((vector_t*)pt_node->_pby_data, pvec));
 
+    _vector_destroy_auxiliary((vector_t*)pt_node->_pby_data);
     free(pt_node);
     slist_destroy(pslist);
     vector_destroy(pvec);
