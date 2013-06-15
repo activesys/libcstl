@@ -57,7 +57,7 @@ void _hash_set_get_varg_value_auxiliary(hash_set_t* phset_set, va_list val_eleml
  */
 void _hash_set_destroy_varg_value_auxiliary(hash_set_t* phset_set, void* pv_varg)
 {
-	bool_t b_result = false;
+    bool_t b_result = false;
 
     assert(phset_set != NULL);
     assert(pv_varg != NULL);

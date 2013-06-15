@@ -57,7 +57,7 @@ void _multiset_get_varg_value_auxiliary(multiset_t* pmset_mset, va_list val_elem
  */
 void _multiset_destroy_varg_value_auxiliary(multiset_t* pmset_mset, void* pv_varg)
 {
-	bool_t b_result = false;
+    bool_t b_result = false;
 
     assert(pmset_mset != NULL);
     assert(pv_varg != NULL);

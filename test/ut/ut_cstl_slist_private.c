@@ -820,9 +820,9 @@ void test__slist_init_elem_auxiliary__successfully_int(void** state)
 
 void test__slist_init_elem_auxiliary__successfully_cstr(void** state)
 {
+    string_t elem;
     slist_t* pslist = create_slist(char*);
     slist_init_elem(pslist, 10, "abcdefg");
-    string_t elem;
 
     _slist_init_elem_auxiliary(pslist, &elem);
     assert_true(strcmp(string_c_str(&elem), "") == 0);

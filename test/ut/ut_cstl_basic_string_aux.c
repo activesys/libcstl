@@ -641,10 +641,10 @@ void test__basic_string_init_elem_range_auxiliary__successfully_int(void** state
 
 void test__basic_string_init_elem_range_auxiliary__successfully_cstr(void** state)
 {
+    string_t elems[10] = {0};
     size_t i = 0;
     basic_string_t* pbstr = create_basic_string(char*);
     basic_string_init_elem(pbstr, 10, "abcdefg");
-    string_t elems[10] = {0};
 
     for(i = 0; i < basic_string_size(pbstr); ++i)
     {

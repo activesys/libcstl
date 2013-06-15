@@ -5782,11 +5782,12 @@ void test__rb_tree_init_elem_auxiliary__c_builtin(void** state)
 
 void test__rb_tree_init_elem_auxiliary__cstr(void** state)
 {
+    _rbnode_t* p = NULL;
     _rb_tree_t* pt_rb_tree = _create_rb_tree("char*");
     string_t* pt_str = create_string();
     _rb_tree_init(pt_rb_tree, NULL);
     string_init_cstr(pt_str, "abc");
-    _rbnode_t* p = malloc(_RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)));
+    p = malloc(_RB_TREE_NODE_SIZE(_GET_RB_TREE_TYPE_SIZE(pt_rb_tree)));
 
     _rb_tree_insert_unique(pt_rb_tree, pt_str);
     _rb_tree_init_elem_auxiliary(pt_rb_tree, p);

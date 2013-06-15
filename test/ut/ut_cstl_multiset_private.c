@@ -1895,7 +1895,7 @@ void test__multiset_insert_hint_varg__non_inited(void** state)
 void test__multiset_insert_hint_varg__c_builtin_equal(void** state)
 {
     multiset_t* pt_multiset = _create_multiset("int");
-	multiset_iterator_t it_iter = create_multiset_iterator();
+    multiset_iterator_t it_iter = create_multiset_iterator();
     int elem;
     int i;
 
@@ -1937,7 +1937,7 @@ void test__multiset_insert_hint_varg__c_builtin_not_equal(void** state)
 void test__multiset_insert_hint_varg__cstr_equal(void** state)
 {
     multiset_t* pt_multiset = _create_multiset("char*");
-	multiset_iterator_t it_iter = create_multiset_iterator();
+    multiset_iterator_t it_iter = create_multiset_iterator();
 
     multiset_init_ex(pt_multiset, NULL);
     _multiset_insert_hint(pt_multiset, it_iter, "aaa");
@@ -2002,7 +2002,7 @@ void test__multiset_insert_hint_varg__libcstl_builtin_equal(void** state)
 void test__multiset_insert_hint_varg__libcstl_builtin_not_equal(void** state)
 {
     multiset_t* pt_multiset = _create_multiset("list_t<int>");
-	multiset_iterator_t it_iter = create_multiset_iterator();
+    multiset_iterator_t it_iter = create_multiset_iterator();
     list_t* plist = create_list(int);
     int i = 0;
 
@@ -2033,7 +2033,7 @@ typedef struct _tag_test__multiset_insert_hint_varg__user_define
 void test__multiset_insert_hint_varg__user_define_equal(void** state)
 {
     multiset_t* pt_multiset = NULL;
-	multiset_iterator_t it_iter = create_multiset_iterator();
+    multiset_iterator_t it_iter = create_multiset_iterator();
     _test__multiset_insert_hint_varg__user_define_t elem;
     int i = 0;
 
@@ -2059,7 +2059,7 @@ void test__multiset_insert_hint_varg__user_define_equal(void** state)
 void test__multiset_insert_hint_varg__user_define_not_equal(void** state)
 {
     multiset_t* pt_multiset =  _create_multiset("_test__multiset_insert_hint_varg__user_define_t");
-	multiset_iterator_t it_iter = create_multiset_iterator();
+    multiset_iterator_t it_iter = create_multiset_iterator();
     _test__multiset_insert_hint_varg__user_define_t elem;
     int i = 0;
 

@@ -1078,9 +1078,9 @@ void test__deque_init_elem_auxiliary__successfully_int(void** state)
 
 void test__deque_init_elem_auxiliary__successfully_cstr(void** state)
 {
+    string_t elem;
     deque_t* pdeq = create_deque(char*);
     deque_init_elem(pdeq, 10, "abcdefg");
-    string_t elem;
 
     _deque_init_elem_auxiliary(pdeq, &elem);
     assert_true(strcmp(string_c_str(&elem), "") == 0);

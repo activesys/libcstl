@@ -1916,7 +1916,7 @@ void test__set_insert_hint_varg__c_builtin_equal(void** state)
 void test__set_insert_hint_varg__c_builtin_not_equal(void** state)
 {
     set_t* pt_set = _create_set("int");
-	set_iterator_t it_iter = create_set_iterator();
+    set_iterator_t it_iter = create_set_iterator();
     int elem;
     int i;
 

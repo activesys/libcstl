@@ -1097,9 +1097,9 @@ void test__list_init_elem_auxiliary__successfully_int(void** state)
 
 void test__list_init_elem_auxiliary__successfully_cstr(void** state)
 {
+    string_t elem;
     list_t* plist = create_list(char*);
     list_init_elem(plist, 10, "abcdefg");
-    string_t elem;
 
     _list_init_elem_auxiliary(plist, &elem);
     assert_true(strcmp(string_c_str(&elem), "") == 0);

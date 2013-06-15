@@ -1157,9 +1157,9 @@ void test__vector_init_elem_auxiliary__successfully_int(void** state)
 
 void test__vector_init_elem_auxiliary__successfully_cstr(void** state)
 {
+    string_t elem;
     vector_t* pvec = create_vector(char*);
     vector_init_elem(pvec, 10, "abcdefg");
-    string_t elem;
 
     _vector_init_elem_auxiliary(pvec, &elem);
     assert_true(strcmp(string_c_str(&elem), "") == 0);

@@ -56,9 +56,9 @@ extern "C" {
 #   define calloc(num, size)  _test_calloc((num), (size), __FILE__, __LINE__)
 #   define free(ptr)          _test_free((ptr), __FILE__, __LINE__)
 */
-#	ifdef NDEBUG
-#		undef NDEBUG
-#	endif
+#    ifdef NDEBUG
+#        undef NDEBUG
+#    endif
 #endif /* _CSTL_UNIT_TESTING */
 
 #ifdef _MSC_VER

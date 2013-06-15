@@ -83,7 +83,7 @@ extern "C" {
 /** exported function prototype section **/
 /**
  * Applies a unary function to each element in a range.
- * @param it_first		An input iterator addressing the position of the first element in the range to be operated on.
+ * @param it_first        An input iterator addressing the position of the first element in the range to be operated on.
  * @param it_last       An input iterator addressing the position one past the final element in the range operated on.
  * @param ufun_op       User-defined unary function that is applied to each element in the range.
  * @return void.

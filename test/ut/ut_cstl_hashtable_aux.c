@@ -970,12 +970,13 @@ void test__hashtable_init_elem_auxiliary__c_builtin(void** state)
 
 void test__hashtable_init_elem_auxiliary__cstr(void** state)
 {
+    _hashnode_t* p = NULL;
     _hashtable_t* pt_hashtable = _create_hashtable("char*");
     string_t* pt_str = create_string();
     _hashtable_iterator_t it_iter;
     _hashtable_init(pt_hashtable, 0, NULL, NULL);
     string_init_cstr(pt_str, "abc");
-    _hashnode_t* p = malloc(_HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)));
+    p = malloc(_HASHTABLE_NODE_SIZE(_GET_HASHTABLE_TYPE_SIZE(pt_hashtable)));
 
     _hashtable_insert_unique(pt_hashtable, pt_str);
     it_iter = _hashtable_begin(pt_hashtable);

@@ -651,10 +651,10 @@ void test__vector_init_elem_range_auxiliary__successfully_int(void** state)
 
 void test__vector_init_elem_range_auxiliary__successfully_cstr(void** state)
 {
+    string_t elems[10] = {0};
     size_t i = 0;
     vector_t* pvec = create_vector(char*);
     vector_init_elem(pvec, 10, "abcdefg");
-    string_t elems[10] = {0};
 
     for(i = 0; i < vector_size(pvec); ++i)
     {
