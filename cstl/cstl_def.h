@@ -1,6 +1,6 @@
 /*
  *  The common define.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2013  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -68,9 +68,9 @@ extern "C" {
 /**
  * libcstl version macro.
  */
-#define CSTL_VERSION             20200 /* libcstl version 2.2.0 */
+#define CSTL_VERSION             20300 /* libcstl version 2.2.0 */
 #define CSTL_MAJOR_VERSION       2
-#define CSTL_MINOR_VERSION       2
+#define CSTL_MINOR_VERSION       3
 #define CSTL_REVISION_VERSION    0
 
 /**
