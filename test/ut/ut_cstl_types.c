@@ -22,7 +22,7 @@
 #include "ut_def.h"
 #include "ut_cstl_types.h"
 
-UT_SUIT_DEFINATION(cstl_types, _type_init_default)
+UT_SUIT_DEFINATION(cstl_types, all_types)
 
 /*
  * test _type_init_default
@@ -1032,5 +1032,497 @@ void test__type_register__register(void** state)
     assert_true(pt_type->_t_typeless == _test__type_register2_less);
     assert_true(pt_type->_t_typecopy == _test__type_register2_copy);
     assert_true(pt_type->_t_typedestroy == _test__type_register2_destroy);
+}
+
+/*
+ * test all_types
+ */
+UT_CASE_DEFINATION(all_types)
+void test__all_types__char(void** state)
+{
+    vector_t* pvec = create_vector(char);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed_char(void** state)
+{
+    vector_t* pvec = create_vector(signed char);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned_char(void** state)
+{
+    vector_t* pvec = create_vector(unsigned char);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__short(void** state)
+{
+    vector_t* pvec = create_vector(short);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed_short(void** state)
+{
+    vector_t* pvec = create_vector(signed short);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__short_int(void** state)
+{
+    vector_t* pvec = create_vector(short int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed_short_int(void** state)
+{
+    vector_t* pvec = create_vector(signed short int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned_short(void** state)
+{
+    vector_t* pvec = create_vector(unsigned short);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned_short_int(void** state)
+{
+    vector_t* pvec = create_vector(unsigned short int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__int(void** state)
+{
+    vector_t* pvec = create_vector(int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed(void** state)
+{
+    vector_t* pvec = create_vector(signed );
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed_int(void** state)
+{
+    vector_t* pvec = create_vector(signed int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned(void** state)
+{
+    vector_t* pvec = create_vector(unsigned);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned_int(void** state)
+{
+    vector_t* pvec = create_vector(unsigned int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__long(void** state)
+{
+    vector_t* pvec = create_vector(long);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed_long(void** state)
+{
+    vector_t* pvec = create_vector(signed long);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__long_int(void** state)
+{
+    vector_t* pvec = create_vector(long int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed_long_int(void** state)
+{
+    vector_t* pvec = create_vector(signed long int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned_long(void** state)
+{
+    vector_t* pvec = create_vector( unsigned  long );
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned_long_int(void** state)
+{
+    vector_t* pvec = create_vector(unsigned long int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__float(void** state)
+{
+    vector_t* pvec = create_vector(float);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__double(void** state)
+{
+    vector_t* pvec = create_vector(double);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__long_double(void** state)
+{
+    vector_t* pvec = create_vector(long double);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__cstr(void** state)
+{
+    vector_t* pvec = create_vector(char*);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__pointer(void** state)
+{
+    vector_t* pvec = create_vector(void*);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+struct abc {
+    int a;
+    int b;
+};
+void test__all_types__struct(void** state)
+{
+    vector_t* pvec = NULL;
+    type_register(struct abc, NULL, NULL, NULL, NULL);
+    pvec = create_vector(struct abc);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+enum def {
+    AAA, BBB
+};
+void test__all_types__enum(void** state)
+{
+    vector_t* pvec = NULL;
+    type_register(enum def, NULL, NULL, NULL, NULL);
+    pvec = create_vector(enum def);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+union hij {
+    int a;
+    struct xyz {
+        short b;
+        short c;
+    } xxx;
+};
+void test__all_types__union(void** state)
+{
+    vector_t* pvec = NULL;
+    type_register(union hij, NULL, NULL, NULL, NULL);
+    pvec = create_vector(union hij);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+typedef struct ooo {
+    int a;
+    int b;
+} ooo_t;
+void test__all_types__id(void** state)
+{
+    vector_t* pvec = NULL;
+    type_register(ooo_t, NULL, NULL, NULL, NULL);
+    pvec = create_vector(ooo_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__vector(void** state)
+{
+    vector_t* pvec = create_vector(vector_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__list(void** state)
+{
+    vector_t* pvec = create_vector(list_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__slist(void** state)
+{
+    vector_t* pvec = create_vector(slist_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__deque(void** state)
+{
+    vector_t* pvec = create_vector(deque_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__queue(void** state)
+{
+    vector_t* pvec = create_vector(queue_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__stack(void** state)
+{
+    vector_t* pvec = create_vector(stack_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__priority_queue(void** state)
+{
+    vector_t* pvec = create_vector(priority_queue_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__set(void** state)
+{
+    vector_t* pvec = create_vector(set_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__multiset(void** state)
+{
+    vector_t* pvec = create_vector(multiset_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__hash_set(void** state)
+{
+    vector_t* pvec = create_vector(hash_set_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__hash_multiset(void** state)
+{
+    vector_t* pvec = create_vector(hash_multiset_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__map(void** state)
+{
+    vector_t* pvec = create_vector(map_t<int, int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__multimap(void** state)
+{
+    vector_t* pvec = create_vector(multimap_t<int, int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__hash_map(void** state)
+{
+    vector_t* pvec = create_vector(hash_map_t<int, int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__hash_multimap(void** state)
+{
+    vector_t* pvec = create_vector(hash_multimap_t<int, int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__pair(void** state)
+{
+    vector_t* pvec = create_vector(pair_t<int, int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__string(void** state)
+{
+    vector_t* pvec = create_vector(string_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__bool(void** state)
+{
+    vector_t* pvec = create_vector(bool_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__iterator(void** state)
+{
+    vector_t* pvec = create_vector(iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__vector_iterator(void** state)
+{
+    vector_t* pvec = create_vector(vector_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__list_iterator(void** state)
+{
+    vector_t* pvec = create_vector(list_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__slist_iterator(void** state)
+{
+    vector_t* pvec = create_vector(slist_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__deque_iterator(void** state)
+{
+    vector_t* pvec = create_vector(deque_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__set_iterator(void** state)
+{
+    vector_t* pvec = create_vector(set_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__map_iterator(void** state)
+{
+    vector_t* pvec = create_vector(map_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__multiset_iterator(void** state)
+{
+    vector_t* pvec = create_vector(multiset_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__multimap_iterator(void** state)
+{
+    vector_t* pvec = create_vector(multimap_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__hash_set_iterator(void** state)
+{
+    vector_t* pvec = create_vector(hash_set_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__hash_map_iterator(void** state)
+{
+    vector_t* pvec = create_vector(hash_map_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__hash_multiset_iterator(void** state)
+{
+    vector_t* pvec = create_vector(hash_multiset_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__hash_multimap_iterator(void** state)
+{
+    vector_t* pvec = create_vector(hash_multimap_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__string_iterator(void** state)
+{
+    vector_t* pvec = create_vector(string_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__input_iterator(void** state)
+{
+    vector_t* pvec = create_vector(input_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__output_iterator(void** state)
+{
+    vector_t* pvec = create_vector(output_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__forward_iterator(void** state)
+{
+    vector_t* pvec = create_vector(forward_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__bidirectional_iterator(void** state)
+{
+    vector_t* pvec = create_vector(bidirectional_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__random_access_iterator(void** state)
+{
+    vector_t* pvec = create_vector(random_access_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
 }
 
