@@ -1,6 +1,6 @@
 /*
  *  The implementation of hashtable private interface.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -55,11 +55,7 @@ bool_t _create_hashtable_auxiliary(_hashtable_t* pt_hashtable, const char* s_typ
 
     /* create new vector */
     /* register _hashnode_t* type for vecotr */
-    /*
-    _type_register(sizeof(_hashnode_t*), _HASHTABLE_NODE_NAME,
-        _hashnode_init, _hashnode_copy, _hashnode_less, _hashnode_destroy);
-        */
-    _type_register(sizeof(_hashnode_t*), _HASHTABLE_NODE_NAME, NULL, NULL, NULL, NULL);
+    _type_register(sizeof(_hashnode_pointer_t), _HASHTABLE_NODE_NAME, NULL, NULL, NULL, NULL);
     if (!_create_vector_auxiliary(&pt_hashtable->_vec_bucket, _HASHTABLE_NODE_NAME)) {
         return false;
     }

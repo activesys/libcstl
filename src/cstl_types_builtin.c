@@ -342,27 +342,53 @@ void _type_destroy_long_double(const void* cpv_input, void* pv_output)
 }
 
 /* bool_t */
-void _type_init_bool(const void* cpv_input, void* pv_output)
+void _type_init_cstl_bool(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
     *(bool_t*)cpv_input = false;
     *(bool_t*)pv_output = true;
 }
 
-void _type_copy_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
+void _type_copy_cstl_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     *(bool_t*)cpv_first = *(bool_t*)cpv_second;
     *(bool_t*)pv_output = true;
 }
 
-void _type_less_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
+void _type_less_cstl_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
     *(bool_t*)pv_output = *(bool_t*)cpv_first < *(bool_t*)cpv_second ? true : false;
 }
 
-void _type_destroy_bool(const void* cpv_input, void* pv_output)
+void _type_destroy_cstl_bool(const void* cpv_input, void* pv_output)
+{
+    _type_destroy_default(cpv_input, pv_output);
+}
+
+/* void* */
+void _type_init_pointer(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(void**)cpv_input = NULL;
+    *(bool_t*)pv_output = true;
+}
+
+void _type_copy_pointer(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(void**)cpv_first = *(void**)cpv_second;
+    *(bool_t*)pv_output = true;
+}
+
+void _type_less_pointer(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = *(void**)cpv_first < *(void**)cpv_second ? true : false;
+}
+
+void _type_destroy_pointer(const void* cpv_input, void* pv_output)
 {
     _type_destroy_default(cpv_input, pv_output);
 }

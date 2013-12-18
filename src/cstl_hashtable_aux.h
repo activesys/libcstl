@@ -1,6 +1,6 @@
 /*
  *  The interface of hashtable auxiliary function.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -40,7 +40,9 @@ extern "C" {
 #define _GET_HASHTABLE_TYPE_DESTROY_FUNCTION(pt_hashtable) ((pt_hashtable)->_t_typeinfo._pt_type->_t_typedestroy)
 #define _GET_HASHTABLE_TYPE_STYLE(pt_hashtable)            ((pt_hashtable)->_t_typeinfo._t_style)
 
-#define _HASHTABLE_NODE_NAME            "_hashnode_t*"
+typedef _hashnode_t*                    _hashnode_pointer_t;
+
+#define _HASHTABLE_NODE_NAME            "_hashnode_pointer_t"
 #define _HASHTABLE_DEFAULT_BUCKET_COUNT 50
 #define _HASHTABLE_PRIME_LIST_COUNT     28
 

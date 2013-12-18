@@ -239,11 +239,14 @@ void _type_register_c_builtin(void)
     _TYPE_REGISTER_TYPE(long double, _LONG_DOUBLE_TYPE, long_double, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(long double, _LONG_DOUBLE_TYPE);
     /* register bool_t */
-    _TYPE_REGISTER_TYPE(bool_t, _BOOL_TYPE, bool, _TYPE_C_BUILTIN);
-    _TYPE_REGISTER_TYPE_NODE(bool_t, _BOOL_TYPE);
+    _TYPE_REGISTER_TYPE(bool_t, _CSTL_BOOL_TYPE, cstl_bool, _TYPE_C_BUILTIN);
+    _TYPE_REGISTER_TYPE_NODE(bool_t, _CSTL_BOOL_TYPE);
     /* register char* */
     _TYPE_REGISTER_TYPE(string_t, _C_STRING_TYPE, cstr, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(string_t, _C_STRING_TYPE);
+    /* register void* */
+    _TYPE_REGISTER_TYPE(void*, _POINTER_TYPE, pointer, _TYPE_C_BUILTIN);
+    _TYPE_REGISTER_TYPE_NODE(void*, _POINTER_TYPE);
 
     _TYPE_REGISTER_END();
 }

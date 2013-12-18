@@ -1078,9 +1078,9 @@ EXPORTS
     fun_less_equal_hash_map                 @24218
     fun_less_equal_hash_multiset            @24219
     fun_less_equal_hash_multimap            @24220
-    fun_logical_and_bool                    @24221
-    fun_logical_or_bool                     @24222
-    fun_logical_not_bool                    @24223
+    fun_logical_and_cstl_bool               @24221
+    fun_logical_or_cstl_bool                @24222
+    fun_logical_not_cstl_bool               @24223
     fun_random_number                       @24224
     fun_default_unary                       @24225
     fun_default_binary                      @24226

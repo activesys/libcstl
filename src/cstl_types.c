@@ -1,6 +1,6 @@
 /*
  *  The implementation of cstl types.
- *  Copyright (C)  2008 - 2013  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -136,61 +136,6 @@ bool_t _type_register(
         return true;
     }
 }
-
-/*
- This code will be come valid in future.
-void _type_unregister(size_t t_typesize, const char* s_typename)
-{
-    _type_t*     pt_type = NULL;
-    size_t       t_avoidwarning = 0;
-    char         s_formalname[_TYPE_NAME_SIZE + 1];
-
-    t_avoidwarning = t_typesize;
-    if (strlen(s_typename) > _TYPE_NAME_SIZE) {
-        return;
-    }
-
-    if (_type_get_style(s_typename, s_formalname) != _TYPE_USER_DEFINE) {
-        return;
-    }
-    pt_type = _type_is_registered(s_formalname);
-
-    if (pt_type != NULL) {
-        _typenode_t* pt_curnode = NULL;
-        _typenode_t* pt_prevnode = NULL;
-        size_t       i = 0;
-
-        for (i = 0; i < _TYPE_REGISTER_BUCKET_COUNT; ++i) {
-            pt_curnode = pt_prevnode = _gt_typeregister._apt_bucket[i];
-            while (pt_curnode != NULL) {
-                if (pt_curnode->_pt_type == pt_type) {
-                    if (pt_curnode == _gt_typeregister._apt_bucket[i]) {
-                        _gt_typeregister._apt_bucket[i] = pt_curnode->_pt_next;
-                        _alloc_deallocate(&_gt_typeregister._t_allocator, pt_curnode, sizeof(_typenode_t), 1);
-                        pt_curnode = pt_prevnode = _gt_typeregister._apt_bucket[i];
-                    } else {
-                        assert(pt_prevnode->_pt_next == pt_curnode);
-                        pt_prevnode->_pt_next = pt_curnode->_pt_next;
-                        _alloc_deallocate(&_gt_typeregister._t_allocator, pt_curnode, sizeof(_typenode_t), 1);
-                        pt_curnode = pt_prevnode->_pt_next;
-                    }
-                } else {
-                    if (pt_curnode == _gt_typeregister._apt_bucket[i]) {
-                        assert(pt_curnode == pt_prevnode);
-                        pt_curnode = pt_curnode->_pt_next;
-                    } else {
-                        assert(pt_curnode == pt_prevnode->_pt_next);
-                        pt_prevnode = pt_curnode;
-                        pt_curnode = pt_curnode->_pt_next;
-                    }
-                }
-            }
-        }
-
-        _alloc_deallocate(&_gt_typeregister._t_allocator, pt_type, sizeof(_type_t), 1);
-    }
-}
-*/
 
 bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
@@ -343,7 +288,7 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
         } else {
             char* pc_leftbracket = strchr(pt_typeinfo->_s_typename, _CSTL_LEFT_BRACKET);
             assert(pc_leftbracket != NULL);
-            strncpy(s_registeredname, pt_typeinfo->_s_typename, pc_leftbracket-pt_typeinfo->_s_typename);
+            strncpy(s_registeredname, pt_typeinfo->_s_typename, pc_leftbracket - pt_typeinfo->_s_typename);
         }
     }
 
@@ -586,7 +531,7 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
             /* long double */
             assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long double));
             *(long double*)pv_output = va_arg(val_elemlist, double);
-        } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0) {
+        } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _CSTL_BOOL_TYPE, _TYPE_NAME_SIZE) == 0) {
             /* bool_t */
             assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(bool_t));
             *(bool_t*)pv_output = va_arg(val_elemlist, bool_t);

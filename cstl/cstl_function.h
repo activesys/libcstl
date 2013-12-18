@@ -381,7 +381,7 @@ extern void fun_less_equal_hash_multimap(const void* cpv_first, const void* cpv_
  * @return  void.
  * @remarks The input and output must not be NULL, otherwise the behavior is undefined.
  */
-extern void fun_logical_and_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_logical_and_cstl_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /**
  * Logical or.
@@ -391,7 +391,7 @@ extern void fun_logical_and_bool(const void* cpv_first, const void* cpv_second, 
  * @return  void.
  * @remarks The input and output must not be NULL, otherwise the behavior is undefined.
  */
-extern void fun_logical_or_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_logical_or_cstl_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
 
 /**
  * Logical not.
@@ -400,7 +400,7 @@ extern void fun_logical_or_bool(const void* cpv_first, const void* cpv_second, v
  * @return  void.
  * @remarks The input and output must not be NULL, otherwise the behavior is undefined.
  */
-extern void fun_logical_not_bool(const void* cpv_input, void* pv_output);
+extern void fun_logical_not_cstl_bool(const void* cpv_input, void* pv_output);
 
 /**
  * Random number.

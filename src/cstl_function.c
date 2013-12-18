@@ -1788,7 +1788,7 @@ void fun_less_equal_hash_multimap(const void* cpv_first, const void* cpv_second,
 /**
  * Logical and.
  */
-void fun_logical_and_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_logical_and_cstl_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1798,7 +1798,7 @@ void fun_logical_and_bool(const void* cpv_first, const void* cpv_second, void* p
 /**
  * Logical or.
  */
-void fun_logical_or_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
+void fun_logical_or_cstl_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
@@ -1808,7 +1808,7 @@ void fun_logical_or_bool(const void* cpv_first, const void* cpv_second, void* pv
 /**
  * Logical not.
  */
-void fun_logical_not_bool(const void* cpv_input, void* pv_output)
+void fun_logical_not_cstl_bool(const void* cpv_input, void* pv_output)
 {
     assert(cpv_input != NULL && pv_output != NULL);
 

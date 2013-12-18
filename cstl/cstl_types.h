@@ -1,6 +1,6 @@
 /*
  *  This header file declaration some type definition, micors for cstl.
- *  Copyright (C)  2008 - 2013  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -65,8 +65,9 @@ extern "C" {
 #define _LONG_DOUBLE_TYPE            "long double"
 
 #define _C_STRING_TYPE               "char*"
+#define _POINTER_TYPE                "void*"
 
-#define _BOOL_TYPE                   "bool_t"
+#define _CSTL_BOOL_TYPE              "bool_t"
 /* cstl type */
 #define _VECTOR_TYPE                 "vector_t"
 #define _LIST_TYPE                   "list_t"
@@ -111,60 +112,11 @@ extern "C" {
 #define _UNION_TYPE                  "union"
 #define _ENUM_TYPE                   "enum"
 
-
 /* cstl container type */
 #define _CSTL_LEFT_BRACKET           '<'
 #define _CSTL_RIGHT_BRACKET          '>'
 #define _CSTL_COMMA                  ','
-/* set */
-#define _SET_IDENTIFY                "set"
-#define _SET_LEFT_BRACKET            "<"
-#define _SET_RIGHT_BRACKET           ">"
-#define _SET_ITERATOR_NAME           "set_iterator_t"
-/* multiset */
-#define _MULTISET_IDENTIFY           "multiset"
-#define _MULTISET_LEFT_BRACKET       "<"
-#define _MULTISET_RIGHT_BRACKET      ">"
-#define _MULTISET_ITERATOR_NAME      "multiset_iterator_t"
-/* map */
-#define _MAP_IDENTIFY                "map"
-#define _MAP_LEFT_BRACKET            "<"
-#define _MAP_RIGHT_BRACKET           ">"
-#define _MAP_COMMA                   ","
-#define _MAP_ITERATOR_NAME           "map_iterator_t"
-/* multimap */
-#define _MULTIMAP_IDENTIFY           "multimap"
-#define _MULTIMAP_LEFT_BRACKET       "<"
-#define _MULTIMAP_RIGHT_BRACKET      ">"
-#define _MULTIMAP_COMMA              ","
-#define _MULTIMAP_ITERATOR_NAME      "multimap_iterator_t"
-/* hash_set */
-#define _HASH_SET_IDENTIFY           "hash_set"
-#define _HASH_SET_LEFT_BRACKET       "<"
-#define _HASH_SET_RIGHT_BRACKET      ">"
-#define _HASH_SET_ITERATOR_NAME      "hash_set_iterator_t"
-/* hash_multiset */
-#define _HASH_MULTISET_IDENTIFY      "hash_multiset"
-#define _HASH_MULTISET_LEFT_BRACKET  "<"
-#define _HASH_MULTISET_RIGHT_BRACKET ">"
-#define _HASH_MULTISET_ITERATOR_NAME "hash_multiset_iterator_t"
-/* hash_map */
-#define _HASH_MAP_IDENTIFY           "hash_map"
-#define _HASH_MAP_LEFT_BRACKET       "<"
-#define _HASH_MAP_RIGHT_BRACKET      ">"
-#define _HASH_MAP_COMMA              ","
-#define _HASH_MAP_ITERATOR_NAME      "hash_map_iterator_t"
-/* hash_multimap */
-#define _HASH_MULTIMAP_IDENTIFY      "hash_multimap"
-#define _HASH_MULTIMAP_LEFT_BRACKET  "<"
-#define _HASH_MULTIMAP_RIGHT_BRACKET ">"
-#define _HASH_MULTIMAP_COMMA         ","
-#define _HASH_MULTIMAP_ITERATOR_NAME "hash_multimap_iterator_t"
-/* basic_string */
-#define _BASIC_STRING_IDENTIFY       "basic_string"
-#define _BASIC_STRING_LEFT_BRACKET   "<"
-#define _BASIC_STRING_RIGHT_BRACKET  ">"
-#define _BASIC_STRING_ITERATOR_NAME  "basic_string_iterator_t"
+#define _CSTL_POINTER                '*'
 
 /** data type declaration and struct, union, enum section **/
 
@@ -237,7 +189,6 @@ extern bool_t _type_register(
     size_t t_typesize, const char* s_typename,
     ufun_t t_typeinit, bfun_t t_typecopy,
     bfun_t t_typeless, ufun_t t_typedestroy);
-/*extern void _type_unregister(size_t t_typesize, const char* s_typename);*/
 extern bool_t _type_duplicate(
     size_t t_typesize1, const char* s_typename1,
     size_t t_typesize2, const char* s_typename2);

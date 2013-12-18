@@ -1201,7 +1201,7 @@ void test__all_types__long_double(void** state)
 
 void test__all_types__cstr(void** state)
 {
-    vector_t* pvec = create_vector(char*);
+    vector_t* pvec = create_vector(char *);
     assert_true(pvec != NULL);
     vector_destroy(pvec);
 }

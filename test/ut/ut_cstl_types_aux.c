@@ -144,9 +144,11 @@ void test__type_register_c_builtin__all(void** state)
     /* long double */
     TEST__TYPE_REGISTER_TYPE(long double, _LONG_DOUBLE_TYPE, long_double, _TYPE_C_BUILTIN);
     /* bool_t */
-    TEST__TYPE_REGISTER_TYPE(bool_t, _BOOL_TYPE, bool, _TYPE_C_BUILTIN);
+    TEST__TYPE_REGISTER_TYPE(bool_t, _CSTL_BOOL_TYPE, cstl_bool, _TYPE_C_BUILTIN);
     /* char* */
     TEST__TYPE_REGISTER_TYPE(string_t, _C_STRING_TYPE, cstr, _TYPE_C_BUILTIN);
+    /* void* */
+    TEST__TYPE_REGISTER_TYPE(void*, _POINTER_TYPE, pointer, _TYPE_C_BUILTIN);
 
     TEST__TYPE_REGISTER_END();
 }

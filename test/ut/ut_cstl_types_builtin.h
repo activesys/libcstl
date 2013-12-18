@@ -356,37 +356,69 @@ void test__type_destroy_long_double__null_input(void** state);
 void test__type_destroy_long_double__null_output(void** state);
 void test__type_destroy_long_double__ok(void** state);
 /*
- * test _type_init_bool
+ * test _type_init_cstl_bool
  */
-UT_CASE_DECLARATION(_type_init_bool)
-void test__type_init_bool__null_input(void** state);
-void test__type_init_bool__null_output(void** state);
-void test__type_init_bool__ok(void** state);
+UT_CASE_DECLARATION(_type_init_cstl_bool)
+void test__type_init_cstl_bool__null_input(void** state);
+void test__type_init_cstl_bool__null_output(void** state);
+void test__type_init_cstl_bool__ok(void** state);
 /*
- * test _type_copy_bool
+ * test _type_copy_cstl_bool
  */
-UT_CASE_DECLARATION(_type_copy_bool)
-void test__type_copy_bool__null_first(void** state);
-void test__type_copy_bool__null_second(void** state);
-void test__type_copy_bool__null_output(void** state);
-void test__type_copy_bool__ok(void** state);
+UT_CASE_DECLARATION(_type_copy_cstl_bool)
+void test__type_copy_cstl_bool__null_first(void** state);
+void test__type_copy_cstl_bool__null_second(void** state);
+void test__type_copy_cstl_bool__null_output(void** state);
+void test__type_copy_cstl_bool__ok(void** state);
 /*
- * test _type_less_bool
+ * test _type_less_cstl_bool
  */
-UT_CASE_DECLARATION(_type_less_bool)
-void test__type_less_bool__null_first(void** state);
-void test__type_less_bool__null_second(void** state);
-void test__type_less_bool__null_output(void** state);
-void test__type_less_bool__less(void** state);
-void test__type_less_bool__equal(void** state);
-void test__type_less_bool__greater(void** state);
+UT_CASE_DECLARATION(_type_less_cstl_bool)
+void test__type_less_cstl_bool__null_first(void** state);
+void test__type_less_cstl_bool__null_second(void** state);
+void test__type_less_cstl_bool__null_output(void** state);
+void test__type_less_cstl_bool__less(void** state);
+void test__type_less_cstl_bool__equal(void** state);
+void test__type_less_cstl_bool__greater(void** state);
 /*
- * test _type_destroy_bool
+ * test _type_destroy_cstl_bool
  */
-UT_CASE_DECLARATION(_type_destroy_bool)
-void test__type_destroy_bool__null_input(void** state);
-void test__type_destroy_bool__null_output(void** state);
-void test__type_destroy_bool__ok(void** state);
+UT_CASE_DECLARATION(_type_destroy_cstl_bool)
+void test__type_destroy_cstl_bool__null_input(void** state);
+void test__type_destroy_cstl_bool__null_output(void** state);
+void test__type_destroy_cstl_bool__ok(void** state);
+/*
+ * test _type_init_pointer
+ */
+UT_CASE_DECLARATION(_type_init_pointer)
+void test__type_init_pointer__null_input(void** state);
+void test__type_init_pointer__null_output(void** state);
+void test__type_init_pointer__ok(void** state);
+/*
+ * test _type_copy_pointer
+ */
+UT_CASE_DECLARATION(_type_copy_pointer)
+void test__type_copy_pointer__null_first(void** state);
+void test__type_copy_pointer__null_second(void** state);
+void test__type_copy_pointer__null_output(void** state);
+void test__type_copy_pointer__ok(void** state);
+/*
+ * test _type_less_pointer
+ */
+UT_CASE_DECLARATION(_type_less_pointer)
+void test__type_less_pointer__null_first(void** state);
+void test__type_less_pointer__null_second(void** state);
+void test__type_less_pointer__null_output(void** state);
+void test__type_less_pointer__less(void** state);
+void test__type_less_pointer__equal(void** state);
+void test__type_less_pointer__greater(void** state);
+/*
+ * test _type_destroy_pointer
+ */
+UT_CASE_DECLARATION(_type_destroy_pointer)
+void test__type_destroy_pointer__null_input(void** state);
+void test__type_destroy_pointer__null_output(void** state);
+void test__type_destroy_pointer__ok(void** state);
 /*
  * test _type_init_cstr
  */
@@ -1173,22 +1205,22 @@ void test__type_destroy_iterator__ok(void** state);
     UT_CASE_BEGIN(_type_destroy_long_double, test__type_destroy_long_double__null_input),\
     UT_CASE(test__type_destroy_long_double__null_output),\
     UT_CASE(test__type_destroy_long_double__ok),\
-    UT_CASE_BEGIN(_type_init_bool, test__type_init_bool__null_input),\
-    UT_CASE(test__type_init_bool__null_output),\
-    UT_CASE(test__type_init_bool__ok),\
-    UT_CASE_BEGIN(_type_copy_bool, test__type_copy_bool__null_first),\
-    UT_CASE(test__type_copy_bool__null_second),\
-    UT_CASE(test__type_copy_bool__null_output),\
-    UT_CASE(test__type_copy_bool__ok),\
-    UT_CASE_BEGIN(_type_less_bool, test__type_less_bool__null_first),\
-    UT_CASE(test__type_less_bool__null_second),\
-    UT_CASE(test__type_less_bool__null_output),\
-    UT_CASE(test__type_less_bool__less),\
-    UT_CASE(test__type_less_bool__equal),\
-    UT_CASE(test__type_less_bool__greater),\
-    UT_CASE_BEGIN(_type_destroy_bool, test__type_destroy_bool__null_input),\
-    UT_CASE(test__type_destroy_bool__null_output),\
-    UT_CASE(test__type_destroy_bool__ok),\
+    UT_CASE_BEGIN(_type_init_cstl_bool, test__type_init_cstl_bool__null_input),\
+    UT_CASE(test__type_init_cstl_bool__null_output),\
+    UT_CASE(test__type_init_cstl_bool__ok),\
+    UT_CASE_BEGIN(_type_copy_cstl_bool, test__type_copy_cstl_bool__null_first),\
+    UT_CASE(test__type_copy_cstl_bool__null_second),\
+    UT_CASE(test__type_copy_cstl_bool__null_output),\
+    UT_CASE(test__type_copy_cstl_bool__ok),\
+    UT_CASE_BEGIN(_type_less_cstl_bool, test__type_less_cstl_bool__null_first),\
+    UT_CASE(test__type_less_cstl_bool__null_second),\
+    UT_CASE(test__type_less_cstl_bool__null_output),\
+    UT_CASE(test__type_less_cstl_bool__less),\
+    UT_CASE(test__type_less_cstl_bool__equal),\
+    UT_CASE(test__type_less_cstl_bool__greater),\
+    UT_CASE_BEGIN(_type_destroy_cstl_bool, test__type_destroy_cstl_bool__null_input),\
+    UT_CASE(test__type_destroy_cstl_bool__null_output),\
+    UT_CASE(test__type_destroy_cstl_bool__ok),\
     UT_CASE_BEGIN(_type_init_cstr, test__type_init_cstr__null_input),\
     UT_CASE(test__type_init_cstr__null_output),\
     UT_CASE(test__type_init_cstr__ok),\
@@ -1492,7 +1524,23 @@ void test__type_destroy_iterator__ok(void** state);
     UT_CASE(test__type_less_iterator__greater),\
     UT_CASE_BEGIN(_type_destroy_iterator, test__type_destroy_iterator__null_input),\
     UT_CASE(test__type_destroy_iterator__null_output),\
-    UT_CASE(test__type_destroy_iterator__ok)
+    UT_CASE(test__type_destroy_iterator__ok),\
+    UT_CASE_BEGIN(_type_init_pointer, test__type_init_pointer__null_input),\
+    UT_CASE(test__type_init_pointer__null_output),\
+    UT_CASE(test__type_init_pointer__ok),\
+    UT_CASE_BEGIN(_type_copy_pointer, test__type_copy_pointer__null_first),\
+    UT_CASE(test__type_copy_pointer__null_second),\
+    UT_CASE(test__type_copy_pointer__null_output),\
+    UT_CASE(test__type_copy_pointer__ok),\
+    UT_CASE_BEGIN(_type_less_pointer, test__type_less_pointer__null_first),\
+    UT_CASE(test__type_less_pointer__null_second),\
+    UT_CASE(test__type_less_pointer__null_output),\
+    UT_CASE(test__type_less_pointer__less),\
+    UT_CASE(test__type_less_pointer__equal),\
+    UT_CASE(test__type_less_pointer__greater),\
+    UT_CASE_BEGIN(_type_destroy_pointer, test__type_destroy_pointer__null_input),\
+    UT_CASE(test__type_destroy_pointer__null_output),\
+    UT_CASE(test__type_destroy_pointer__ok)
 
 #endif /* _UT_CSTL_TYPES_BUILTIN_H_ */
 

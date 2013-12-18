@@ -510,7 +510,7 @@ void test__fun_get_unary__bool_LOGICAL_NOT(void** state)
     fun_type_t ftype = _LOGICAL_NOT_FUN;
 
     deque_init(pdeq);
-    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_logical_not_bool);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_logical_not_cstl_bool);
     deque_destroy(pdeq);
 }
 
@@ -2053,7 +2053,7 @@ void test__fun_get_binary__bool_LOGICAL_AND(void** state)
     deque_t* pdeq = create_deque(bool_t);
 
     deque_init(pdeq);
-    assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_AND_FUN) == fun_logical_and_bool);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_AND_FUN) == fun_logical_and_cstl_bool);
     deque_destroy(pdeq);
 }
 
@@ -2062,7 +2062,7 @@ void test__fun_get_binary__bool_LOGICAL_OR(void** state)
     deque_t* pdeq = create_deque(bool_t);
 
     deque_init(pdeq);
-    assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_OR_FUN) == fun_logical_or_bool);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_OR_FUN) == fun_logical_or_cstl_bool);
     deque_destroy(pdeq);
 }
 

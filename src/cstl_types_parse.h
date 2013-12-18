@@ -1,6 +1,6 @@
 /*
  *  The implement of cstl type parse functions.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -45,8 +45,8 @@ typedef enum _tagtypetoken
     _TOKEN_END_OF_INPUT,
     /* c builtin */
     _TOKEN_KEY_CHAR, _TOKEN_KEY_SHORT, _TOKEN_KEY_INT, _TOKEN_KEY_LONG, _TOKEN_KEY_FLOAT,
-    _TOKEN_KEY_DOUBLE, _TOKEN_KEY_SIGNED, _TOKEN_KEY_UNSIGNED, _TOKEN_KEY_CHAR_POINTER,
-    _TOKEN_KEY_BOOL,
+    _TOKEN_KEY_DOUBLE, _TOKEN_KEY_SIGNED, _TOKEN_KEY_UNSIGNED, _TOKEN_KEY_VOID,
+    _TOKEN_KEY_CSTL_BOOL,
     /* user define */
     _TOKEN_KEY_STRUCT, _TOKEN_KEY_ENUM, _TOKEN_KEY_UNION, _TOKEN_IDENTIFIER,
     /* cstl container */
@@ -64,7 +64,7 @@ typedef enum _tagtypetoken
     _TOKEN_KEY_FORWARD_ITERATOR, _TOKEN_KEY_BIDIRECTIONAL_ITERATOR,
     _TOKEN_KEY_RANDOM_ACCESS_ITERATOR,
     /* sign */
-    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_SPACE,
+    _TOKEN_SIGN_LEFT_BRACKET, _TOKEN_SIGN_RIGHT_BRACKET, _TOKEN_SIGN_COMMA, _TOKEN_SIGN_POINTER, _TOKEN_SIGN_SPACE,
     /* ROLLBACK */
     _TOKEN_ROLLBACK
 }_typetoken_t;
@@ -107,6 +107,8 @@ extern void _type_token_rollback(void);
  * @remarks s_formalname must be not NULL.
  */
 extern bool_t _type_parse_c_builtin(char* s_formalname);
+extern bool_t _type_parse_pointer_builtin(char* s_formalname);
+extern bool_t _type_parse_pointer_suffix(char* s_formalname);
 extern bool_t _type_parse_common_suffix(char* s_formalname);
 extern bool_t _type_parse_simple_long_suffix(char* s_formalname);
 extern bool_t _type_parse_simple_builtin(char* s_formalname);

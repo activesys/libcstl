@@ -1,6 +1,6 @@
 /*
  *  The implement of cstl type builtin functions.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -102,15 +102,20 @@ extern void _type_copy_long_double(const void* cpv_first, const void* cpv_second
 extern void _type_less_long_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _type_destroy_long_double(const void* cpv_input, void* pv_output);
 /* bool_t */
-extern void _type_init_bool(const void* cpv_input, void* pv_output);
-extern void _type_copy_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void _type_less_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
-extern void _type_destroy_bool(const void* cpv_input, void* pv_output);
+extern void _type_init_cstl_bool(const void* cpv_input, void* pv_output);
+extern void _type_copy_cstl_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_less_cstl_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_destroy_cstl_bool(const void* cpv_input, void* pv_output);
 /* char* */
 extern void _type_init_cstr(const void* cpv_input, void* pv_output);
 extern void _type_copy_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _type_less_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _type_destroy_cstr(const void* cpv_input, void* pv_output);
+/* void* */
+extern void _type_init_pointer(const void* cpv_input, void* pv_output);
+extern void _type_copy_pointer(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_less_pointer(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_destroy_pointer(const void* cpv_input, void* pv_output);
 /* cstl container */
 /* vector_t */
 extern void _type_init_vector(const void* cpv_input, void* pv_output);
