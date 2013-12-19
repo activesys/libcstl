@@ -232,6 +232,18 @@ void test__all_types__output_iterator(void** state);
 void test__all_types__forward_iterator(void** state);
 void test__all_types__bidirectional_iterator(void** state);
 void test__all_types__random_access_iterator(void** state);
+/*
+ * test void* usage
+ */
+UT_CASE_DECLARATION(pointer_usage)
+void test__pointer_usage__create(void** state);
+void test__pointer_usage__init_n(void** state);
+void test__pointer_usage__init_elem(void** state);
+void test__pointer_usage__iterator(void** state);
+void test__pointer_usage__at(void** state);
+void test__pointer_usage__copy(void** state);
+void test__pointer_usage__less(void** state);
+void test__pointer_usage__duplicate(void** state);
 
 #define UT_CSTL_TYPES_CASE\
     UT_SUIT_BEGIN(cstl_types, test__all_types__char),\
@@ -299,7 +311,7 @@ void test__all_types__random_access_iterator(void** state);
     UT_CASE(test__all_types__output_iterator),\
     UT_CASE(test__all_types__forward_iterator),\
     UT_CASE(test__all_types__bidirectional_iterator),\
-    UT_CASE(test__all_types__random_access_iterator)/*,\
+    UT_CASE(test__all_types__random_access_iterator),\
     UT_CASE_BEGIN(_type_init_default, test__type_init_default__null_input),\
     UT_CASE(test__type_init_default__null_output),\
     UT_CASE(test__type_init_default__ok),\
@@ -405,8 +417,15 @@ void test__all_types__random_access_iterator(void** state);
     UT_CASE_BEGIN(_type_register, test__type_register__null_typename),\
     UT_CASE(test__type_register__registered),\
     UT_CASE(test__type_register__register_default),\
-    UT_CASE(test__type_register__register)
-    */
+    UT_CASE(test__type_register__register),\
+    UT_CASE_BEGIN(pointer_usage, test__pointer_usage__create),\
+    UT_CASE(test__pointer_usage__init_n),\
+    UT_CASE(test__pointer_usage__init_elem),\
+    UT_CASE(test__pointer_usage__at),\
+    UT_CASE(test__pointer_usage__iterator),\
+    UT_CASE(test__pointer_usage__copy),\
+    UT_CASE(test__pointer_usage__less),\
+    UT_CASE(test__pointer_usage__duplicate)
 
 #endif /* _UT_CSTL_TYPES_H_ */
 

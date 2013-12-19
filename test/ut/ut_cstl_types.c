@@ -1526,3 +1526,105 @@ void test__all_types__random_access_iterator(void** state)
     vector_destroy(pvec);
 }
 
+/*
+ * test void* usage
+ */
+UT_CASE_DEFINATION(pointer_usage)
+void test__pointer_usage__create(void** state)
+{
+    vector_t* pvec = create_vector(void*);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__pointer_usage__init_n(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(void *);
+    vector_init_n(pvec, 10);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(void**)vector_at(pvec, i) == NULL);
+    }
+    vector_destroy(pvec);
+}
+
+void test__pointer_usage__init_elem(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(void*);
+    vector_init_elem(pvec, 10, 0xffff);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(void**)vector_at(pvec, i) == 0xffff);
+    }
+    vector_destroy(pvec);
+}
+
+void test__pointer_usage__at(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(void*);
+    vector_init_elem(pvec, 10, 0x1111);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(void**)vector_at(pvec, i) == 0x1111);
+        *(void**)vector_at(pvec, i) = 0xffff;
+    }
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(void**)vector_at(pvec, i) == 0xffff);
+    }
+    vector_destroy(pvec);
+}
+
+void test__pointer_usage__iterator(void** state)
+{
+    iterator_t it;
+    vector_t* pvec = create_vector(void*);
+    vector_init_elem(pvec, 10, 0xffff);
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec));
+         it = iterator_next(it)) {
+        void* p = NULL;
+        assert_true(*(void**)iterator_get_pointer(it) == 0xffff);
+        iterator_get_value(it, &p);
+        assert_true(p == 0xffff);
+    }
+    vector_destroy(pvec);
+}
+
+void test__pointer_usage__copy(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec1 = create_vector(void*);
+    vector_t* pvec2 = create_vector(void*);
+    vector_init_elem(pvec1, 10, 0xffff);
+    vector_init_copy_range(pvec2, vector_begin(pvec1), vector_end(pvec1));
+
+    for (i = 0; i < vector_size(pvec1); ++i) {
+        assert_true(*(void**)vector_at(pvec1, i) == *(void**)vector_at(pvec2, i));
+    }
+
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+void test__pointer_usage__less(void** state)
+{
+    vector_t* pvec1 = create_vector(void*);
+    vector_t* pvec2 = create_vector(void*);
+    vector_init_elem(pvec1, 10, 0x1111);
+    vector_init_elem(pvec2, 10, 0xffff);
+    assert_true(vector_less(pvec1, pvec2));
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+typedef void* pointer;
+void test__pointer_usage__duplicate(void** state)
+{
+    vector_t* pvec = NULL;
+
+    type_duplicate(pointer, void*);
+    pvec = create_vector(pointer);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+

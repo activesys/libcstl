@@ -108,7 +108,6 @@
 int main(int argc, char* argv[])
 {
     const UnitTest tests[] = {
-        /*
         UT_CSTL_ALLOC_AUX_CASE,
         UT_CSTL_ALLOC_CASE,
         UT_CSTL_VECTOR_ITERATOR_CASE,
@@ -185,11 +184,11 @@ int main(int argc, char* argv[])
         UT_CSTL_HASH_MULTIMAP_ITERATOR_CASE,
         UT_CSTL_HASH_MULTIMAP_CASE,
         UT_CSTL_ITERATOR_PRIVATE_CASE,
-        UT_CSTL_ITERATOR_CASE,*/
+        UT_CSTL_ITERATOR_CASE,
         UT_CSTL_TYPES_BUILTIN_CASE,
         UT_CSTL_TYPES_PARSE_CASE,
         UT_CSTL_TYPES_AUX_CASE,
-        UT_CSTL_TYPES_CASE/*,
+        UT_CSTL_TYPES_CASE,
         UT_CSTL_ALGO_NONMUTATING_PRIVATE_CASE,
         UT_CSTL_ALGO_NONMUTATING_CASE,
         UT_CSTL_ALGO_MUTATING_AUX_CASE,
@@ -203,9 +202,9 @@ int main(int argc, char* argv[])
         UT_CSTL_NUMERIC_PRIVATE_CASE,
         UT_CSTL_NUMERIC_CASE,
         UT_CSTL_FUNCTION_PRIVATE_CASE,
+        UT_CASE_FUNCTION_CASE,
         UT_CSTL_PRIORITY_QUEUE_PRIVATE_CASE,
         UT_CSTL_PRIORITY_QUEUE_CASE
-        */
     };
 
     return run_tests(tests);

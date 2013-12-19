@@ -535,6 +535,10 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
             /* bool_t */
             assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(bool_t));
             *(bool_t*)pv_output = va_arg(val_elemlist, bool_t);
+        } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _POINTER_TYPE, _TYPE_NAME_SIZE) == 0) {
+            /* void* */
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(void*));
+            *(void**)pv_output = va_arg(val_elemlist, void*);
         } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _C_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
             /* char* */
             char* s_str = va_arg(val_elemlist, char*);

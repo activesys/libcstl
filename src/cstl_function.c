@@ -1,6 +1,6 @@
 /*
  *  The implementation of function.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -611,6 +611,13 @@ void fun_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_outp
     *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) == 0 ? true : false;
 }
 
+void fun_equal_pointer(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(void**)cpv_first == *(void**)cpv_second ? true : false;
+}
+
 void fun_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -828,6 +835,13 @@ void fun_not_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_
     *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) != 0 ? true : false;
 }
 
+void fun_not_equal_pointer(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(void**)cpv_first != *(void**)cpv_second ? true : false;
+}
+
 void fun_not_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -1037,6 +1051,13 @@ void fun_greater_cstr(const void* cpv_first, const void* cpv_second, void* pv_ou
     t_len = t_firstlen > t_secondlen ? t_firstlen : t_secondlen;
 
     *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) > 0 ? true : false;
+}
+
+void fun_greater_pointer(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(void**)cpv_first > *(void**)cpv_second ? true : false;
 }
 
 void fun_greater_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
@@ -1250,6 +1271,13 @@ void fun_greater_equal_cstr(const void* cpv_first, const void* cpv_second, void*
     *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) >= 0 ? true : false;
 }
 
+void fun_greater_equal_pointer(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(void**)cpv_first >= *(void**)cpv_second ? true : false;
+}
+
 void fun_greater_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -1461,6 +1489,13 @@ void fun_less_cstr(const void* cpv_first, const void* cpv_second, void* pv_outpu
     *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) < 0 ? true : false;
 }
 
+void fun_less_pointer(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(void**)cpv_first < *(void**)cpv_second ? true : false;
+}
+
 void fun_less_vector(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
@@ -1670,6 +1705,13 @@ void fun_less_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv
     t_len = t_firstlen > t_secondlen ? t_firstlen : t_secondlen;
 
     *(bool_t*)pv_output = strncmp(s_first, s_second, t_len) <= 0 ? true : false;
+}
+
+void fun_less_equal_pointer(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(void**)cpv_first <= *(void**)cpv_second ? true : false;
 }
 
 void fun_less_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output)

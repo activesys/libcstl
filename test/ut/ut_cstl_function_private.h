@@ -453,6 +453,12 @@ void test__fun_get_binary__user_define_GREATER(void** state);
 void test__fun_get_binary__user_define_GREATER_EQUAL(void** state);
 void test__fun_get_binary__user_define_LOGICAL_AND(void** state);
 void test__fun_get_binary__user_define_LOGICAL_OR(void** state);
+void test__fun_get_binary__pointer_EQUAL(void** state);
+void test__fun_get_binary__pointer_NOT_EQUAL(void** state);
+void test__fun_get_binary__pointer_GREATER(void** state);
+void test__fun_get_binary__pointer_GREATER_EQUAL(void** state);
+void test__fun_get_binary__pointer_LESS(void** state);
+void test__fun_get_binary__pointer_LESS_EQUAL(void** state);
 
 #define UT_CSTL_FUNCTION_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_function_private, test__fun_get_unary__invalid_iter),\
@@ -896,7 +902,13 @@ void test__fun_get_binary__user_define_LOGICAL_OR(void** state);
     UT_CASE(test__fun_get_binary__user_define_GREATER),\
     UT_CASE(test__fun_get_binary__user_define_GREATER_EQUAL),\
     UT_CASE(test__fun_get_binary__user_define_LOGICAL_AND),\
-    UT_CASE(test__fun_get_binary__user_define_LOGICAL_OR)
+    UT_CASE(test__fun_get_binary__user_define_LOGICAL_OR),\
+    UT_CASE(test__fun_get_binary__pointer_EQUAL),\
+    UT_CASE(test__fun_get_binary__pointer_NOT_EQUAL),\
+    UT_CASE(test__fun_get_binary__pointer_GREATER),\
+    UT_CASE(test__fun_get_binary__pointer_GREATER_EQUAL),\
+    UT_CASE(test__fun_get_binary__pointer_LESS),\
+    UT_CASE(test__fun_get_binary__pointer_LESS_EQUAL)
 
 #endif /* _UT_CSTL_FUNCTION_PRIVATE_H_ */
 

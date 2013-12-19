@@ -4066,3 +4066,57 @@ void test__fun_get_binary__user_define_LOGICAL_OR(void** state)
     deque_destroy(pdeq);
 }
 
+/* pointer */
+void test__fun_get_binary__pointer_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(void*);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _EQUAL_FUN) == fun_equal_pointer);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__pointer_NOT_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(void*);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _NOT_EQUAL_FUN) == fun_not_equal_pointer);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__pointer_GREATER(void** state)
+{
+    deque_t* pdeq = create_deque(void*);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _GREATER_FUN) == fun_greater_pointer);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__pointer_GREATER_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(void*);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _GREATER_EQUAL_FUN) == fun_greater_equal_pointer);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__pointer_LESS(void** state)
+{
+    deque_t* pdeq = create_deque(void*);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LESS_FUN) == fun_less_pointer);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__pointer_LESS_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(void*);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LESS_EQUAL_FUN) == fun_less_equal_pointer);
+    deque_destroy(pdeq);
+}

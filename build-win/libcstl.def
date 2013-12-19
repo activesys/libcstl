@@ -1090,3 +1090,9 @@ EXPORTS
     fun_less_equal_cstr                     @24230
     fun_equal_cstr                          @24231
     fun_not_equal_cstr                      @24232
+    fun_equal_pointer                       @24233
+    fun_not_equal_pointer                   @24234
+    fun_greater_pointer                     @24235
+    fun_greater_equal_pointer               @24236
+    fun_less_pointer                        @24237
+    fun_less_equal_pointer                  @24238

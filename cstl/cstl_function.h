@@ -1,6 +1,6 @@
 /*
  *  The interface of function.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -170,6 +170,7 @@ extern void fun_equal_float(const void* cpv_first, const void* cpv_second, void*
 extern void fun_equal_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_equal_long_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_equal_pointer(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -207,6 +208,7 @@ extern void fun_not_equal_float(const void* cpv_first, const void* cpv_second, v
 extern void fun_not_equal_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_not_equal_long_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_not_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_not_equal_pointer(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_not_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_not_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_not_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -244,6 +246,7 @@ extern void fun_greater_float(const void* cpv_first, const void* cpv_second, voi
 extern void fun_greater_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_long_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_greater_pointer(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_deque(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_list(const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -281,6 +284,7 @@ extern void fun_greater_equal_float(const void* cpv_first, const void* cpv_secon
 extern void fun_greater_equal_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_equal_long_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_greater_equal_pointer(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_greater_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -318,6 +322,7 @@ extern void fun_less_float(const void* cpv_first, const void* cpv_second, void* 
 extern void fun_less_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_long_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_less_pointer(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_deque(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_list(const void* cpv_first, const void* cpv_second, void* pv_output);
@@ -355,6 +360,7 @@ extern void fun_less_equal_float(const void* cpv_first, const void* cpv_second, 
 extern void fun_less_equal_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_equal_long_double(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_equal_cstr(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void fun_less_equal_pointer(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_equal_vector(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_equal_deque(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void fun_less_equal_list(const void* cpv_first, const void* cpv_second, void* pv_output);
