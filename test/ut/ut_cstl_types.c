@@ -1386,7 +1386,7 @@ void test__all_types__string(void** state)
     vector_destroy(pvec);
 }
 
-void test__all_types__bool(void** state)
+void test__all_types__cstl_bool(void** state)
 {
     vector_t* pvec = create_vector(bool_t);
     assert_true(pvec != NULL);
@@ -1526,6 +1526,15 @@ void test__all_types__random_access_iterator(void** state)
     vector_destroy(pvec);
 }
 
+#ifndef _MSC_VER
+void test__all_types__bool(void** state)
+{
+    vector_t* pvec = create_vector(_Bool);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+#endif
+
 /*
  * test void* usage
  */
@@ -1628,3 +1637,106 @@ void test__pointer_usage__duplicate(void** state)
     vector_destroy(pvec);
 }
 
+#ifndef _MSC_VER
+/*
+ * test _Bool usage
+ */
+UT_CASE_DEFINATION(bool_usage)
+void test__bool_usage__create(void** state)
+{
+    vector_t* pvec = create_vector(_Bool);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__bool_usage__init_n(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(_Bool);
+    vector_init_n(pvec, 10);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(_Bool*)vector_at(pvec, i) == false);
+    }
+    vector_destroy(pvec);
+}
+
+void test__bool_usage__init_elem(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(_Bool);
+    vector_init_elem(pvec, 10, true);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(_Bool*)vector_at(pvec, i) == true);
+    }
+    vector_destroy(pvec);
+}
+
+void test__bool_usage__at(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(_Bool);
+    vector_init_elem(pvec, 10, true);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(_Bool*)vector_at(pvec, i) == true);
+        *(_Bool*)vector_at(pvec, i) = false;
+    }
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(_Bool*)vector_at(pvec, i) == false);
+    }
+    vector_destroy(pvec);
+}
+
+void test__bool_usage__iterator(void** state)
+{
+    iterator_t it;
+    vector_t* pvec = create_vector(_Bool);
+    vector_init_elem(pvec, 10, true);
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec));
+         it = iterator_next(it)) {
+        _Bool b = false;
+        assert_true(*(_Bool*)iterator_get_pointer(it) == true);
+        iterator_get_value(it, &b);
+        assert_true(b);
+    }
+    vector_destroy(pvec);
+}
+
+void test__bool_usage__copy(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec1 = create_vector(_Bool);
+    vector_t* pvec2 = create_vector(_Bool);
+    vector_init_elem(pvec1, 10, true);
+    vector_init_copy_range(pvec2, vector_begin(pvec1), vector_end(pvec1));
+
+    for (i = 0; i < vector_size(pvec1); ++i) {
+        assert_true(*(_Bool*)vector_at(pvec1, i) == *(_Bool*)vector_at(pvec2, i));
+    }
+
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+void test__bool_usage__less(void** state)
+{
+    vector_t* pvec1 = create_vector(_Bool);
+    vector_t* pvec2 = create_vector(_Bool);
+    vector_init_elem(pvec1, 10, false);
+    vector_init_elem(pvec2, 10, true);
+    assert_true(vector_less(pvec1, pvec2));
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+typedef _Bool my_bool;
+void test__bool_usage__duplicate(void** state)
+{
+    vector_t* pvec = NULL;
+
+    type_duplicate(my_bool, _Bool);
+    pvec = create_vector(my_bool);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+#endif

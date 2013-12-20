@@ -137,6 +137,12 @@ ufun_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type)
         if (ftype_type == _LOGICAL_NOT_FUN) {
             return fun_logical_not_cstl_bool;
         }
+#ifndef _MSC_VER
+    } else if (strncmp(s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0) {                 /* _Bool */
+        if (ftype_type == _LOGICAL_NOT_FUN) {
+            return fun_logical_not_bool;
+        }
+#endif
     }
 
     return fun_default_unary;
@@ -359,6 +365,14 @@ bfun_t _fun_get_binary(iterator_t it_iter, fun_type_t ftype_type)
             case _LOGICAL_OR_FUN:       return fun_logical_or_cstl_bool;        break;
             default: break;
         }
+#ifndef _MSC_VER
+    } else if (strncmp(s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0) {                 /* _Bool */
+        switch (ftype_type) {
+            case _LOGICAL_AND_FUN:      return fun_logical_and_bool;            break;
+            case _LOGICAL_OR_FUN:       return fun_logical_or_bool;             break;
+            default: break;
+        }
+#endif
     } else if (strncmp(s_typename, _VECTOR_TYPE, _TYPE_NAME_SIZE) == 0) {               /* vector_t */
         switch (ftype_type) {
             case _EQUAL_FUN:            return fun_equal_vector;                break;

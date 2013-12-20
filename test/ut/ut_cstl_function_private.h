@@ -53,10 +53,16 @@ void test__fun_get_unary__long_double_NEGATE(void** state);
 void test__fun_get_unary__long_double_LOGICAL_NOT(void** state);
 void test__fun_get_unary__long_double_INCREASE(void** state);
 void test__fun_get_unary__long_double_RANDOM_NUMBER(void** state);
+void test__fun_get_unary__cstl_bool_NEGATE(void** state);
+void test__fun_get_unary__cstl_bool_LOGICAL_NOT(void** state);
+void test__fun_get_unary__cstl_bool_INCREASE(void** state);
+void test__fun_get_unary__cstl_bool_RANDOM_NUMBER(void** state);
+#ifndef _MSC_VER
 void test__fun_get_unary__bool_NEGATE(void** state);
 void test__fun_get_unary__bool_LOGICAL_NOT(void** state);
 void test__fun_get_unary__bool_INCREASE(void** state);
 void test__fun_get_unary__bool_RANDOM_NUMBER(void** state);
+#endif
 /*
  * test _fun_get_binary
  */
@@ -219,19 +225,19 @@ void test__fun_get_binary__cstr_GREATER(void** state);
 void test__fun_get_binary__cstr_GREATER_EQUAL(void** state);
 void test__fun_get_binary__cstr_LOGICAL_AND(void** state);
 void test__fun_get_binary__cstr_LOGICAL_OR(void** state);
-void test__fun_get_binary__bool_PLUS(void** state);
-void test__fun_get_binary__bool_MINUS(void** state);
-void test__fun_get_binary__bool_MULTIPLIES(void** state);
-void test__fun_get_binary__bool_DIVIDES(void** state);
-void test__fun_get_binary__bool_MODULUS(void** state);
-void test__fun_get_binary__bool_EQUAL(void** state);
-void test__fun_get_binary__bool_NOT_EQUAL(void** state);
-void test__fun_get_binary__bool_LESS(void** state);
-void test__fun_get_binary__bool_LESS_EQUAL(void** state);
-void test__fun_get_binary__bool_GREATER(void** state);
-void test__fun_get_binary__bool_GREATER_EQUAL(void** state);
-void test__fun_get_binary__bool_LOGICAL_AND(void** state);
-void test__fun_get_binary__bool_LOGICAL_OR(void** state);
+void test__fun_get_binary__cstl_bool_PLUS(void** state);
+void test__fun_get_binary__cstl_bool_MINUS(void** state);
+void test__fun_get_binary__cstl_bool_MULTIPLIES(void** state);
+void test__fun_get_binary__cstl_bool_DIVIDES(void** state);
+void test__fun_get_binary__cstl_bool_MODULUS(void** state);
+void test__fun_get_binary__cstl_bool_EQUAL(void** state);
+void test__fun_get_binary__cstl_bool_NOT_EQUAL(void** state);
+void test__fun_get_binary__cstl_bool_LESS(void** state);
+void test__fun_get_binary__cstl_bool_LESS_EQUAL(void** state);
+void test__fun_get_binary__cstl_bool_GREATER(void** state);
+void test__fun_get_binary__cstl_bool_GREATER_EQUAL(void** state);
+void test__fun_get_binary__cstl_bool_LOGICAL_AND(void** state);
+void test__fun_get_binary__cstl_bool_LOGICAL_OR(void** state);
 void test__fun_get_binary__vector_PLUS(void** state);
 void test__fun_get_binary__vector_MINUS(void** state);
 void test__fun_get_binary__vector_MULTIPLIES(void** state);
@@ -459,6 +465,21 @@ void test__fun_get_binary__pointer_GREATER(void** state);
 void test__fun_get_binary__pointer_GREATER_EQUAL(void** state);
 void test__fun_get_binary__pointer_LESS(void** state);
 void test__fun_get_binary__pointer_LESS_EQUAL(void** state);
+#ifndef _MSC_VER
+void test__fun_get_binary__bool_PLUS(void** state);
+void test__fun_get_binary__bool_MINUS(void** state);
+void test__fun_get_binary__bool_MULTIPLIES(void** state);
+void test__fun_get_binary__bool_DIVIDES(void** state);
+void test__fun_get_binary__bool_MODULUS(void** state);
+void test__fun_get_binary__bool_EQUAL(void** state);
+void test__fun_get_binary__bool_NOT_EQUAL(void** state);
+void test__fun_get_binary__bool_LESS(void** state);
+void test__fun_get_binary__bool_LESS_EQUAL(void** state);
+void test__fun_get_binary__bool_GREATER(void** state);
+void test__fun_get_binary__bool_GREATER_EQUAL(void** state);
+void test__fun_get_binary__bool_LOGICAL_AND(void** state);
+void test__fun_get_binary__bool_LOGICAL_OR(void** state);
+#endif
 
 #define UT_CSTL_FUNCTION_PRIVATE_CASE\
     UT_SUIT_BEGIN(cstl_function_private, test__fun_get_unary__invalid_iter),\
@@ -507,10 +528,10 @@ void test__fun_get_binary__pointer_LESS_EQUAL(void** state);
     UT_CASE(test__fun_get_unary__long_double_LOGICAL_NOT),\
     UT_CASE(test__fun_get_unary__long_double_INCREASE),\
     UT_CASE(test__fun_get_unary__long_double_RANDOM_NUMBER),\
-    UT_CASE(test__fun_get_unary__bool_NEGATE),\
-    UT_CASE(test__fun_get_unary__bool_LOGICAL_NOT),\
-    UT_CASE(test__fun_get_unary__bool_INCREASE),\
-    UT_CASE(test__fun_get_unary__bool_RANDOM_NUMBER),\
+    UT_CASE(test__fun_get_unary__cstl_bool_NEGATE),\
+    UT_CASE(test__fun_get_unary__cstl_bool_LOGICAL_NOT),\
+    UT_CASE(test__fun_get_unary__cstl_bool_INCREASE),\
+    UT_CASE(test__fun_get_unary__cstl_bool_RANDOM_NUMBER),\
     UT_CASE_BEGIN(_fun_get_binary, test__fun_get_binary__invalid_iter),\
     UT_CASE(test__fun_get_binary__invalid_type),\
     UT_CASE(test__fun_get_binary__char_PLUS),\
@@ -669,19 +690,19 @@ void test__fun_get_binary__pointer_LESS_EQUAL(void** state);
     UT_CASE(test__fun_get_binary__cstr_GREATER_EQUAL),\
     UT_CASE(test__fun_get_binary__cstr_LOGICAL_AND),\
     UT_CASE(test__fun_get_binary__cstr_LOGICAL_OR),\
-    UT_CASE(test__fun_get_binary__bool_PLUS),\
-    UT_CASE(test__fun_get_binary__bool_MINUS),\
-    UT_CASE(test__fun_get_binary__bool_MULTIPLIES),\
-    UT_CASE(test__fun_get_binary__bool_DIVIDES),\
-    UT_CASE(test__fun_get_binary__bool_MODULUS),\
-    UT_CASE(test__fun_get_binary__bool_EQUAL),\
-    UT_CASE(test__fun_get_binary__bool_NOT_EQUAL),\
-    UT_CASE(test__fun_get_binary__bool_LESS),\
-    UT_CASE(test__fun_get_binary__bool_LESS_EQUAL),\
-    UT_CASE(test__fun_get_binary__bool_GREATER),\
-    UT_CASE(test__fun_get_binary__bool_GREATER_EQUAL),\
-    UT_CASE(test__fun_get_binary__bool_LOGICAL_AND),\
-    UT_CASE(test__fun_get_binary__bool_LOGICAL_OR),\
+    UT_CASE(test__fun_get_binary__cstl_bool_PLUS),\
+    UT_CASE(test__fun_get_binary__cstl_bool_MINUS),\
+    UT_CASE(test__fun_get_binary__cstl_bool_MULTIPLIES),\
+    UT_CASE(test__fun_get_binary__cstl_bool_DIVIDES),\
+    UT_CASE(test__fun_get_binary__cstl_bool_MODULUS),\
+    UT_CASE(test__fun_get_binary__cstl_bool_EQUAL),\
+    UT_CASE(test__fun_get_binary__cstl_bool_NOT_EQUAL),\
+    UT_CASE(test__fun_get_binary__cstl_bool_LESS),\
+    UT_CASE(test__fun_get_binary__cstl_bool_LESS_EQUAL),\
+    UT_CASE(test__fun_get_binary__cstl_bool_GREATER),\
+    UT_CASE(test__fun_get_binary__cstl_bool_GREATER_EQUAL),\
+    UT_CASE(test__fun_get_binary__cstl_bool_LOGICAL_AND),\
+    UT_CASE(test__fun_get_binary__cstl_bool_LOGICAL_OR),\
     UT_CASE(test__fun_get_binary__vector_PLUS),\
     UT_CASE(test__fun_get_binary__vector_MINUS),\
     UT_CASE(test__fun_get_binary__vector_MULTIPLIES),\
@@ -909,6 +930,27 @@ void test__fun_get_binary__pointer_LESS_EQUAL(void** state);
     UT_CASE(test__fun_get_binary__pointer_GREATER_EQUAL),\
     UT_CASE(test__fun_get_binary__pointer_LESS),\
     UT_CASE(test__fun_get_binary__pointer_LESS_EQUAL)
+
+#ifndef _MSC_VER
+#define UT_CSTL_FUNCTION_PRIVATE_CASE_C99\
+    UT_SUIT_BEGIN(cstl_function_private, test__fun_get_unary__bool_NEGATE),\
+    UT_CASE(test__fun_get_unary__bool_LOGICAL_NOT),\
+    UT_CASE(test__fun_get_unary__bool_INCREASE),\
+    UT_CASE(test__fun_get_unary__bool_RANDOM_NUMBER),\
+    UT_CASE_BEGIN(_fun_get_binary, test__fun_get_binary__cstl_bool_PLUS),\
+    UT_CASE(test__fun_get_binary__cstl_bool_MINUS),\
+    UT_CASE(test__fun_get_binary__cstl_bool_MULTIPLIES),\
+    UT_CASE(test__fun_get_binary__cstl_bool_DIVIDES),\
+    UT_CASE(test__fun_get_binary__cstl_bool_MODULUS),\
+    UT_CASE(test__fun_get_binary__cstl_bool_EQUAL),\
+    UT_CASE(test__fun_get_binary__cstl_bool_NOT_EQUAL),\
+    UT_CASE(test__fun_get_binary__cstl_bool_LESS),\
+    UT_CASE(test__fun_get_binary__cstl_bool_LESS_EQUAL),\
+    UT_CASE(test__fun_get_binary__cstl_bool_GREATER),\
+    UT_CASE(test__fun_get_binary__cstl_bool_GREATER_EQUAL),\
+    UT_CASE(test__fun_get_binary__cstl_bool_LOGICAL_AND),\
+    UT_CASE(test__fun_get_binary__cstl_bool_LOGICAL_OR)
+#endif
 
 #endif /* _UT_CSTL_FUNCTION_PRIVATE_H_ */
 

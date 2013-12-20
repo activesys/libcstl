@@ -29,7 +29,7 @@ space : ' ' | '\t' | '\v' | '\f' | '\r' | '\n'
 
 keyword:
 void
-char, int, short, long, float, double, signed, unsigned, bool_t,
+char, int, short, long, float, double, signed, unsigned, bool_t, _Bool
 struct, enum, union,
 vector_t, list_t, slist_t, deque_t, stack_t, queue_t, priority_queue_t,
 set_t, map_t, multiset_t, multimap_t,
@@ -65,7 +65,7 @@ C_BUILTIN -> char | signed char |
              long double |
              char* |
              void* |
-             bool_t
+             bool_t | _Bool
 USER_DEFINE -> USER_DEFINE_TYPE identifier | identifier
 USER_DEFINE_TYPE -> struct | enum | union
 CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | ITERATOR
@@ -81,7 +81,7 @@ RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >
 RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
 ========================================================================
 C_BUILTIN -> SIMPLE_BUILTIN | SIGNED_BUILTIN | UNSIGNED_BUILTIN | POINTER_BUILTIN
-SIMPLE_BUILTIN -> char  | short | short int | int | long | long int | bool_t
+SIMPLE_BUILTIN -> char  | short | short int | int | long | long int | bool_t | _Bool
                   float | double | long double
 SIGNED_BUILTIN -> signed char |
                   signed short | signed short int |
@@ -97,7 +97,7 @@ POINTER_BUILTIN -> char * | void *
 TYPE_DESCRIPT -> C_BUILTIN | USER_DEFINE | CSTL_BUILTIN
 
 C_BUILTIN -> SIMPLE_BUILTIN | SIGNED_BUILTIN | UNSIGNED_BUILTIN | POINTER_BUILTIN
-SIMPLE_BUILTIN -> char POINTER_SUFFIX | short COMMON_SUFFIX | int | long SIMPLE_LONG_SUFFIX | float | double | bool_t
+SIMPLE_BUILTIN -> char POINTER_SUFFIX | short COMMON_SUFFIX | int | long SIMPLE_LONG_SUFFIX | float | double | bool_t | _Bool
 SIGNED_BUILTIN -> signed COMPLEX_SUFFIX
 UNSIGNED_BUILTIN -> unsigned COMPLEX_SUFFIX
 POINTER_BUILTIN -> void *
@@ -121,7 +121,7 @@ SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | queue_t | stack_t | pri
 RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >
 RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
 ---------------------------------------------------------------------------
-first(TYPE_DESCRIPT) = {char, short, int, long, float, double, signed, unsigned, void, bool_t,
+first(TYPE_DESCRIPT) = {char, short, int, long, float, double, signed, unsigned, void, bool_t, _Bool,
                         struct, enum, union, identifier,
                         vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
                         set_t, map_t, multiset_t, multimap_t, hash_set_t, hash_map_t, hash_multiset_t,
@@ -132,8 +132,8 @@ first(TYPE_DESCRIPT) = {char, short, int, long, float, double, signed, unsigned,
                         string_iterator_t,
                         input_iterator_t, output_iterator_t, forward_iterator_t, bidirectional_iterator_t,
                         random_access_iterator_t}
-first(C_BUILTIN) = {char, short, int, long, float, double, signed, unsigned, void, bool_t}
-first(SIMPLE_BUILTIN) = {char, short, int, long, float, double, bool_t}
+first(C_BUILTIN) = {char, short, int, long, float, double, signed, unsigned, void, bool_t, _Bool}
+first(SIMPLE_BUILTIN) = {char, short, int, long, float, double, bool_t, _Bool}
 first(SIGNED_BUILTIN) = {signed}
 first(UNSIGNED_BUILTIN) = {unsigned}
 first(POINTER_BUILTIN) = {void}
@@ -203,7 +203,7 @@ select(TYPE_DESCRIPT -> CSTL_BUILTIN) = {vector_t, list_t, slist_t, deque_t, que
                                          input_iterator_t, output_iterator_t, forward_iterator_t, bidirectional_iterator_t,
                                          random_access_iterator_t}
 
-select(C_BUILTIN -> SIMPLE_BUILTIN) = {char, short, int, long, float, double, bool_t}
+select(C_BUILTIN -> SIMPLE_BUILTIN) = {char, short, int, long, float, double, bool_t, _Bool}
 select(C_BUILTIN -> SIGNED_BUILTIN) = {signed}
 select(C_BUILTIN -> UNSIGNED_BUILTIN) = {unsigned}
 select(C_BUILTIN -> POINTER_BUILTIN) = {void}
@@ -215,6 +215,7 @@ select(SIMPLE_BUILTIN -> long SIMPLE_LONG_SUFFIX) = {long}
 select(SIMPLE_BUILTIN -> float) = {float}
 select(SIMPLE_BUILTIN -> double) = {double}
 select(SIMPLE_BUILTIN -> bool_t) = {bool_t}
+select(SIMPLE_BUILTIN -> _Bool) = {_Bool}
 
 selcet(SIGNED_BUILTIN -> signed COMPLEX_SUFFIX) = {signed}
 select(UNSIGNED_BUILTIN -> unsigned COMPLEX_SUFFIX) = {unsigned}

@@ -7394,3 +7394,149 @@ void test__type_destroy_pointer__ok(void** state)
     assert_true(b_output);
     assert_true(p == 0x1234);
 }
+
+#ifndef _MSC_VER
+/*
+ * test _type_init_bool
+ */
+UT_CASE_DEFINATION(_type_init_bool)
+void test__type_init_bool__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_init_bool(NULL, &b_output));
+}
+
+void test__type_init_bool__null_output(void** state)
+{
+    bool_t b_input = false;
+    expect_assert_failure(_type_init_bool(&b_input, NULL));
+}
+
+void test__type_init_bool__ok(void** state)
+{
+    _Bool b_input = true;
+    bool_t b_output = false;
+    _type_init_bool(&b_input, &b_output);
+    assert_false(b_input);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_copy_bool
+ */
+UT_CASE_DEFINATION(_type_copy_bool)
+void test__type_copy_bool__null_first(void** state)
+{
+    _Bool b_second = true;
+    bool_t b_output = false;
+    expect_assert_failure(_type_copy_bool(NULL, &b_second, &b_output));
+}
+
+void test__type_copy_bool__null_second(void** state)
+{
+    _Bool b_first = true;
+    bool_t b_output = false;
+    expect_assert_failure(_type_copy_bool(&b_first, NULL, &b_output));
+}
+
+void test__type_copy_bool__null_output(void** state)
+{
+    _Bool b_first = true;
+    _Bool b_second = false;
+    expect_assert_failure(_type_copy_bool(&b_first, &b_second, NULL));
+}
+
+void test__type_copy_bool__ok(void** state)
+{
+    _Bool b_first = true;
+    _Bool b_second = false;
+    bool_t b_output = false;
+    _type_copy_bool(&b_first, &b_second, &b_output);
+    assert_false(b_first);
+    assert_false(b_second);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_less_bool
+ */
+UT_CASE_DEFINATION(_type_less_bool)
+void test__type_less_bool__null_first(void** state)
+{
+    _Bool b_second = true;
+    bool_t b_output = false;
+    expect_assert_failure(_type_less_bool(NULL, &b_second, &b_output));
+}
+
+void test__type_less_bool__null_second(void** state)
+{
+    _Bool b_first = true;
+    bool_t b_output = false;
+    expect_assert_failure(_type_less_bool(&b_first, NULL, &b_output));
+}
+
+void test__type_less_bool__null_output(void** state)
+{
+    _Bool b_first = true;
+    _Bool b_second = false;
+    expect_assert_failure(_type_less_bool(&b_first, &b_second, NULL));
+}
+
+void test__type_less_bool__less(void** state)
+{
+    _Bool b_first = false;
+    _Bool b_second = true;
+    bool_t b_output = false;
+    _type_less_bool(&b_first, &b_second, &b_output);
+    assert_false(b_first);
+    assert_true(b_second);
+    assert_true(b_output);
+}
+
+void test__type_less_bool__equal(void** state)
+{
+    _Bool b_first = false;
+    _Bool b_second = false;
+    bool_t b_output = false;
+    _type_less_bool(&b_first, &b_second, &b_output);
+    assert_false(b_first);
+    assert_false(b_second);
+    assert_false(b_output);
+}
+
+void test__type_less_bool__greater(void** state)
+{
+    _Bool b_first = true;
+    _Bool b_second = false;
+    bool_t b_output = false;
+    _type_less_bool(&b_first, &b_second, &b_output);
+    assert_true(b_first);
+    assert_false(b_second);
+    assert_false(b_output);
+}
+
+/*
+ * test _type_destroy_bool
+ */
+UT_CASE_DEFINATION(_type_destroy_bool)
+void test__type_destroy_bool__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_destroy_bool(NULL, &b_output));
+}
+
+void test__type_destroy_bool__null_output(void** state)
+{
+    _Bool b_input = false;
+    expect_assert_failure(_type_destroy_bool(&b_input, NULL));
+}
+
+void test__type_destroy_bool__ok(void** state)
+{
+    _Bool b_input = false;
+    bool_t b_output = false;
+    _type_destroy_bool(&b_input, &b_output);
+    assert_false(b_input);
+    assert_true(b_output);
+}
+#endif

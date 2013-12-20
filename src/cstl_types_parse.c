@@ -50,6 +50,7 @@
 #define _TOKEN_TEXT_UNSIGNED                       "unsigned"
 #define _TOKEN_TEXT_VOID                           "void"
 #define _TOKEN_TEXT_CSTL_BOOL                      "bool_t"
+#define _TOKEN_TEXT_BOOL                           "_Bool"
 #define _TOKEN_TEXT_STRUCT                         "struct"
 #define _TOKEN_TEXT_ENUM                           "enum"
 #define _TOKEN_TEXT_UNION                          "union"
@@ -127,6 +128,7 @@ static keytable_t _sgt_table[] = {
     {_TOKEN_KEY_UNSIGNED,               _TOKEN_TEXT_UNSIGNED},
     {_TOKEN_KEY_VOID,                   _TOKEN_TEXT_VOID},
     {_TOKEN_KEY_CSTL_BOOL,              _TOKEN_TEXT_CSTL_BOOL},
+    {_TOKEN_KEY_BOOL,                   _TOKEN_TEXT_BOOL},
     {_TOKEN_KEY_STRUCT,                 _TOKEN_TEXT_STRUCT},
     {_TOKEN_KEY_ENUM,                   _TOKEN_TEXT_ENUM},
     {_TOKEN_KEY_UNION,                  _TOKEN_TEXT_UNION},
@@ -214,6 +216,7 @@ _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
         case _TOKEN_KEY_UNSIGNED:
         case _TOKEN_KEY_VOID:
         case _TOKEN_KEY_CSTL_BOOL:
+        case _TOKEN_KEY_BOOL:
             t_style = _type_parse_c_builtin(s_formalname) ? _TYPE_C_BUILTIN : _TYPE_INVALID;
             break;
         /* TYPE_DESCRIPT -> USER_DEFINE */
@@ -397,6 +400,7 @@ bool_t _type_parse_c_builtin(char* s_formalname)
         case _TOKEN_KEY_FLOAT:
         case _TOKEN_KEY_DOUBLE:
         case _TOKEN_KEY_CSTL_BOOL:
+        case _TOKEN_KEY_BOOL:
             return _type_parse_simple_builtin(s_formalname);
             break;
         /* C_BUILTIN -> SIGNED_BUILTIN */
@@ -510,7 +514,7 @@ bool_t _type_parse_simple_builtin(char* s_formalname)
     assert(s_formalname != NULL);
     /* 
      * SIMPLE_BUILTIN -> char POINTER_SUFFIX | short COMMON_SUFFIX | int |
-     *                   long SIMPLE_LONG_SUFFIX | float | double | bool_t
+     *                   long SIMPLE_LONG_SUFFIX | float | double | bool_t | _Bool
      */
     switch (_gt_typeanalysis._t_token) {
         /* SIMPLE_BUILTIN -> char POINTER_SUFFIX */
@@ -549,6 +553,11 @@ bool_t _type_parse_simple_builtin(char* s_formalname)
         /* SIMPLE_BUILTIN -> bool_t */
         case _TOKEN_KEY_CSTL_BOOL:
             _TOKEN_MATCH(_TOKEN_TEXT_CSTL_BOOL, s_formalname);
+            return true;
+            break;
+        /* SIMPLE_BUILTIN -> _Bool */
+        case _TOKEN_KEY_BOOL:
+            _TOKEN_MATCH(_TOKEN_TEXT_BOOL, s_formalname);
             return true;
             break;
         default:
@@ -1025,6 +1034,7 @@ bool_t _type_parse_type_descript(char* s_formalname)
         case _TOKEN_KEY_UNSIGNED:
         case _TOKEN_KEY_VOID:
         case _TOKEN_KEY_CSTL_BOOL:
+        case _TOKEN_KEY_BOOL:
             return _type_parse_c_builtin(s_formalname);
             break;
         /* TYPE_DESCRIPT -> USER_DEFINE */

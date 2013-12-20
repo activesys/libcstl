@@ -552,6 +552,12 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
                 assert(b_result);
                 memset(pv_output, 0x00, pt_typeinfo->_pt_type->_t_typesize);
             }
+#ifndef _MSC_VER
+        } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _BOOL_TYPE, _TYPE_NAME_SIZE) == 0) {
+            /* _Bool */
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(_Bool));
+            *(_Bool*)pv_output = va_arg(val_elemlist, int);
+#endif
         } else {
             /* invalid c builtin style */
             assert(false);

@@ -1837,6 +1837,15 @@ void fun_logical_and_cstl_bool(const void* cpv_first, const void* cpv_second, vo
     *(bool_t*)pv_output = *(bool_t*)cpv_first && *(bool_t*)cpv_second;
 }
 
+#ifndef _MSC_VER
+void fun_logical_and_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(_Bool*)cpv_first && *(_Bool*)cpv_second;
+}
+#endif
+
 /**
  * Logical or.
  */
@@ -1847,6 +1856,15 @@ void fun_logical_or_cstl_bool(const void* cpv_first, const void* cpv_second, voi
     *(bool_t*)pv_output = *(bool_t*)cpv_first || *(bool_t*)cpv_second;
 }
 
+#ifndef _MSC_VER
+void fun_logical_or_bool(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(_Bool*)cpv_first || *(_Bool*)cpv_second;
+}
+#endif
+
 /**
  * Logical not.
  */
@@ -1856,6 +1874,15 @@ void fun_logical_not_cstl_bool(const void* cpv_input, void* pv_output)
 
     *(bool_t*)pv_output = !*(bool_t*)cpv_input;
 }
+
+#ifndef _MSC_VER
+void fun_logical_not_bool(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = !*(_Bool*)cpv_input;
+}
+#endif
 
 /**
  * Random number.

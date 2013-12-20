@@ -1,6 +1,6 @@
 /*
  *  The implementation of cstl types auxiliary functions.
- *  Copyright (C)  2008 - 2012  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -247,6 +247,12 @@ void _type_register_c_builtin(void)
     /* register void* */
     _TYPE_REGISTER_TYPE(void*, _POINTER_TYPE, pointer, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(void*, _POINTER_TYPE);
+
+#ifndef _MSC_VER
+    /* register _Bool */
+    _TYPE_REGISTER_TYPE(_Bool, _BOOL_TYPE, bool, _TYPE_C_BUILTIN);
+    _TYPE_REGISTER_TYPE_NODE(_Bool, _BOOL_TYPE);
+#endif
 
     _TYPE_REGISTER_END();
 }

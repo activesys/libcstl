@@ -211,7 +211,7 @@ void test__all_types__hash_multimap(void** state);
 void test__all_types__pair(void** state);
 /* string_t, bool_t */
 void test__all_types__string(void** state);
-void test__all_types__bool(void** state);
+void test__all_types__cstl_bool(void** state);
 /* ITERATOR */
 void test__all_types__iterator(void** state);
 void test__all_types__vector_iterator(void** state);
@@ -232,6 +232,9 @@ void test__all_types__output_iterator(void** state);
 void test__all_types__forward_iterator(void** state);
 void test__all_types__bidirectional_iterator(void** state);
 void test__all_types__random_access_iterator(void** state);
+#ifndef _MSC_VER
+void test__all_types__bool(void** state);
+#endif
 /*
  * test void* usage
  */
@@ -244,6 +247,20 @@ void test__pointer_usage__at(void** state);
 void test__pointer_usage__copy(void** state);
 void test__pointer_usage__less(void** state);
 void test__pointer_usage__duplicate(void** state);
+#ifndef _MSC_VER
+/*
+ * test _Bool usage
+ */
+UT_CASE_DECLARATION(bool_usage)
+void test__bool_usage__create(void** state);
+void test__bool_usage__init_n(void** state);
+void test__bool_usage__init_elem(void** state);
+void test__bool_usage__iterator(void** state);
+void test__bool_usage__at(void** state);
+void test__bool_usage__copy(void** state);
+void test__bool_usage__less(void** state);
+void test__bool_usage__duplicate(void** state);
+#endif
 
 #define UT_CSTL_TYPES_CASE\
     UT_SUIT_BEGIN(cstl_types, test__all_types__char),\
@@ -292,7 +309,7 @@ void test__pointer_usage__duplicate(void** state);
     UT_CASE(test__all_types__hash_multimap),\
     UT_CASE(test__all_types__pair),\
     UT_CASE(test__all_types__string),\
-    UT_CASE(test__all_types__bool),\
+    UT_CASE(test__all_types__cstl_bool),\
     UT_CASE(test__all_types__iterator),\
     UT_CASE(test__all_types__vector_iterator),\
     UT_CASE(test__all_types__list_iterator),\
@@ -426,6 +443,19 @@ void test__pointer_usage__duplicate(void** state);
     UT_CASE(test__pointer_usage__copy),\
     UT_CASE(test__pointer_usage__less),\
     UT_CASE(test__pointer_usage__duplicate)
+
+#ifndef _MSC_VER
+#define UT_CSTL_TYPES_CASE_C99\
+    UT_SUIT_BEGIN(cstl_types, test__all_types__bool),\
+    UT_CASE_BEGIN(bool_usage, test__bool_usage__create),\
+    UT_CASE(test__bool_usage__init_n),\
+    UT_CASE(test__bool_usage__init_elem),\
+    UT_CASE(test__bool_usage__at),\
+    UT_CASE(test__bool_usage__iterator),\
+    UT_CASE(test__bool_usage__copy),\
+    UT_CASE(test__bool_usage__less),\
+    UT_CASE(test__bool_usage__duplicate)
+#endif
 
 #endif /* _UT_CSTL_TYPES_H_ */
 

@@ -23,3 +23,7 @@ is libcstl unit testing execute file. You will need cmockery.lib
 and google\*.h, the header files of cmockery libaray, in vc8/vc9
 directory.
 
+NOTE
+-----------------------------------------
+LIBCSTL WILL BE CANCEL MSVS SUPPORT IN FURTER VERSION,
+BECAUSE THE MSVS DOES NOT SUPPORT C99 FULLY.

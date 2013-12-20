@@ -208,6 +208,14 @@ extern void _type_copy_iterator(const void* cpv_first, const void* cpv_second, v
 extern void _type_less_iterator(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _type_destroy_iterator(const void* cpv_input, void* pv_output);
 
+#ifndef _MSC_VER
+/* _Bool */
+extern void _type_init_bool(const void* cpv_input, void* pv_output);
+extern void _type_copy_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_less_bool(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_destroy_bool(const void* cpv_input, void* pv_output);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

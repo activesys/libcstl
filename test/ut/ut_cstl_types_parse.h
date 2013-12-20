@@ -24,7 +24,7 @@ void test__type_get_token__key_double(void** state);
 void test__type_get_token__key_float(void** state);
 void test__type_get_token__key_signed(void** state);
 void test__type_get_token__key_unsigned(void** state);
-void test__type_get_token__key_bool(void** state);
+void test__type_get_token__key_cstl_bool(void** state);
 void test__type_get_token__key_struct(void** state);
 void test__type_get_token__key_enum(void** state);
 void test__type_get_token__key_union(void** state);
@@ -64,6 +64,9 @@ void test__type_get_token__key_output_iterator(void** state);
 void test__type_get_token__key_forward_iterator(void** state);
 void test__type_get_token__key_bidirectional_iterator(void** state);
 void test__type_get_token__key_random_access_iterator(void** state);
+#ifndef _MSC_VER
+void test__type_get_token__key_bool(void** state);
+#endif
 /*
  * test _type_token_rollback
  */
@@ -230,9 +233,12 @@ void test__type_parse_simple_builtin__long_double(void** state);
 void test__type_parse_simple_builtin__float(void** state);
 void test__type_parse_simple_builtin__double(void** state);
 void test__type_parse_simple_builtin__char_pointer(void** state);
-void test__type_parse_simple_builtin__bool(void** state);
+void test__type_parse_simple_builtin__cstl_bool(void** state);
 void test__type_parse_simple_builtin__invalid_token(void** state);
 void test__type_parse_simple_builtin__null(void** state);
+#ifndef _MSC_VER
+void test__type_parse_simple_builtin__bool(void** state);
+#endif
 /*
  * test _type_parse_c_builtin
  */
@@ -319,7 +325,7 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_get_token__key_float),\
     UT_CASE(test__type_get_token__key_signed),\
     UT_CASE(test__type_get_token__key_unsigned),\
-    UT_CASE(test__type_get_token__key_bool),\
+    UT_CASE(test__type_get_token__key_cstl_bool),\
     UT_CASE(test__type_get_token__key_struct),\
     UT_CASE(test__type_get_token__key_enum),\
     UT_CASE(test__type_get_token__key_union),\
@@ -469,7 +475,7 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_parse_simple_builtin__float),\
     UT_CASE(test__type_parse_simple_builtin__double),\
     UT_CASE(test__type_parse_simple_builtin__char_pointer),\
-    UT_CASE(test__type_parse_simple_builtin__bool),\
+    UT_CASE(test__type_parse_simple_builtin__cstl_bool),\
     UT_CASE(test__type_parse_simple_builtin__invalid_token),\
     UT_CASE(test__type_parse_simple_builtin__null),\
     UT_CASE_BEGIN(_type_parse_c_builtin, test__type_parse_c_builtin__simple_builtin),\
@@ -515,6 +521,12 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_get_style__cstl_builtin),\
     UT_CASE(test__type_get_style__cstl_builtin_invalid),\
     UT_CASE(test__type_get_style__invalid)
+
+#ifndef _MSC_VER
+#define UT_CSTL_TYPES_PARSE_CASE_C99\
+    UT_SUIT_BEGIN(cstl_types_parse, test__type_get_token__key_bool),\
+    UT_CASE_BEGIN(_type_parse_simple_builtin, test__type_parse_simple_builtin__bool)
+#endif
 
 #endif /* _UT_CSTL_TYPES_PARSE_H_ */
 

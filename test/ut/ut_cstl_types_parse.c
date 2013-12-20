@@ -191,7 +191,7 @@ void test__type_get_token__key_unsigned(void** state)
     assert_true(strncmp(_gt_typeanalysis._s_tokentext, "unsigned", _TYPE_NAME_SIZE) == 0);
 }
 
-void test__type_get_token__key_bool(void** state)
+void test__type_get_token__key_cstl_bool(void** state)
 {
     test_parse_setup("bool_t");
     _type_get_token();
@@ -550,6 +550,17 @@ void test__type_get_token__key_random_access_iterator(void** state)
     assert_true(_gt_typeanalysis._t_index == 24);
     assert_true(strncmp(_gt_typeanalysis._s_tokentext, "random_access_iterator_t", _TYPE_NAME_SIZE) == 0);
 }
+
+#ifndef _MSC_VER
+void test__type_get_token__key_bool(void** state)
+{
+    test_parse_setup("_Bool");
+    _type_get_token();
+    assert_true(_gt_typeanalysis._t_token == _TOKEN_KEY_BOOL);
+    assert_true(_gt_typeanalysis._t_index == 5);
+    assert_true(strncmp(_gt_typeanalysis._s_tokentext, "_Bool", _TYPE_NAME_SIZE) == 0);
+}
+#endif
 
 /*
  * test _type_token_rollback
@@ -1662,7 +1673,7 @@ void test__type_parse_simple_builtin__char_pointer(void** state)
     assert_true(strncmp(s_formalname, "char*", _TYPE_NAME_SIZE) == 0);
 }
 
-void test__type_parse_simple_builtin__bool(void** state)
+void test__type_parse_simple_builtin__cstl_bool(void** state)
 {
     const char* str = "bool_t";
     char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
@@ -1681,6 +1692,18 @@ void test__type_parse_simple_builtin__invalid_token(void** state)
     assert_false(_type_parse_simple_builtin(s_formalname));
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
 }
+
+#ifndef _MSC_VER
+void test__type_parse_simple_builtin__bool(void** state)
+{
+    const char* str = "_Bool";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_BOOL, strlen(str), str);
+
+    assert_true(_type_parse_simple_builtin(s_formalname));
+    assert_true(strncmp(s_formalname, "_Bool", _TYPE_NAME_SIZE) == 0);
+}
+#endif
 
 /*
  * test _type_parse_c_builtin

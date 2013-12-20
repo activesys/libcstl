@@ -68,6 +68,7 @@ extern "C" {
 #define _POINTER_TYPE                "void*"
 
 #define _CSTL_BOOL_TYPE              "bool_t"
+#define _BOOL_TYPE                   "_Bool"
 /* cstl type */
 #define _VECTOR_TYPE                 "vector_t"
 #define _LIST_TYPE                   "list_t"

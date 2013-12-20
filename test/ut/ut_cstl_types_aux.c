@@ -149,6 +149,10 @@ void test__type_register_c_builtin__all(void** state)
     TEST__TYPE_REGISTER_TYPE(string_t, _C_STRING_TYPE, cstr, _TYPE_C_BUILTIN);
     /* void* */
     TEST__TYPE_REGISTER_TYPE(void*, _POINTER_TYPE, pointer, _TYPE_C_BUILTIN);
+#ifndef _MSC_VER
+    /* _Bool */
+    TEST__TYPE_REGISTER_TYPE(_Bool, _BOOL_TYPE, bool, _TYPE_C_BUILTIN);
+#endif
 
     TEST__TYPE_REGISTER_END();
 }

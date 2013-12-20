@@ -1028,6 +1028,41 @@ void test__type_destroy_iterator__null_input(void** state);
 void test__type_destroy_iterator__null_output(void** state);
 void test__type_destroy_iterator__ok(void** state);
 
+#ifndef _MSC_VER
+/*
+ * test _type_init_bool
+ */
+UT_CASE_DECLARATION(_type_init_bool)
+void test__type_init_bool__null_input(void** state);
+void test__type_init_bool__null_output(void** state);
+void test__type_init_bool__ok(void** state);
+/*
+ * test _type_copy_bool
+ */
+UT_CASE_DECLARATION(_type_copy_bool)
+void test__type_copy_bool__null_first(void** state);
+void test__type_copy_bool__null_second(void** state);
+void test__type_copy_bool__null_output(void** state);
+void test__type_copy_bool__ok(void** state);
+/*
+ * test _type_less_bool
+ */
+UT_CASE_DECLARATION(_type_less_bool)
+void test__type_less_bool__null_first(void** state);
+void test__type_less_bool__null_second(void** state);
+void test__type_less_bool__null_output(void** state);
+void test__type_less_bool__less(void** state);
+void test__type_less_bool__equal(void** state);
+void test__type_less_bool__greater(void** state);
+/*
+ * test _type_destroy_bool
+ */
+UT_CASE_DECLARATION(_type_destroy_bool)
+void test__type_destroy_bool__null_input(void** state);
+void test__type_destroy_bool__null_output(void** state);
+void test__type_destroy_bool__ok(void** state);
+#endif
+
 #define UT_CSTL_TYPES_BUILTIN_CASE\
     UT_SUIT_BEGIN(cstl_types_builtin, test__type_init_char__null_input),\
     UT_CASE(test__type_init_char__null_output),\
@@ -1541,6 +1576,26 @@ void test__type_destroy_iterator__ok(void** state);
     UT_CASE_BEGIN(_type_destroy_pointer, test__type_destroy_pointer__null_input),\
     UT_CASE(test__type_destroy_pointer__null_output),\
     UT_CASE(test__type_destroy_pointer__ok)
+
+#ifndef _MSC_VER
+#define UT_CSTL_TYPES_BUILTIN_CASE_C99\
+    UT_SUIT_BEGIN(cstl_types_builtin, test__type_init_bool__null_input),\
+    UT_CASE(test__type_init_bool__null_output),\
+    UT_CASE(test__type_init_bool__ok),\
+    UT_CASE_BEGIN(_type_copy_bool, test__type_copy_bool__null_first),\
+    UT_CASE(test__type_copy_bool__null_second),\
+    UT_CASE(test__type_copy_bool__null_output),\
+    UT_CASE(test__type_copy_bool__ok),\
+    UT_CASE_BEGIN(_type_less_bool, test__type_less_bool__null_first),\
+    UT_CASE(test__type_less_bool__null_second),\
+    UT_CASE(test__type_less_bool__null_output),\
+    UT_CASE(test__type_less_bool__less),\
+    UT_CASE(test__type_less_bool__equal),\
+    UT_CASE(test__type_less_bool__greater),\
+    UT_CASE_BEGIN(_type_destroy_bool, test__type_destroy_bool__null_input),\
+    UT_CASE(test__type_destroy_bool__null_output),\
+    UT_CASE(test__type_destroy_bool__ok)
+#endif
 
 #endif /* _UT_CSTL_TYPES_BUILTIN_H_ */
 
