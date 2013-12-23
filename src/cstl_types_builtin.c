@@ -1025,6 +1025,58 @@ void _type_destroy_bool(const void* cpv_input, void* pv_output)
 {
     _type_destroy_default(cpv_input, pv_output);
 }
+
+/* long long */
+void _type_init_long_long(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(long long*)cpv_input = false;
+    *(bool_t*)pv_output = true;
+}
+
+void _type_copy_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(long long*)cpv_first = *(long long*)cpv_second;
+    *(bool_t*)pv_output = true;
+}
+
+void _type_less_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = *(long long*)cpv_first < *(long long*)cpv_second ? true : false;
+}
+
+void _type_destroy_long_long(const void* cpv_input, void* pv_output)
+{
+    _type_destroy_default(cpv_input, pv_output);
+}
+
+/* unsigned long long */
+void _type_init_ulong_long(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+    *(unsigned long long*)cpv_input = false;
+    *(bool_t*)pv_output = true;
+}
+
+void _type_copy_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(unsigned long long*)cpv_first = *(unsigned long long*)cpv_second;
+    *(bool_t*)pv_output = true;
+}
+
+void _type_less_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = *(unsigned long long*)cpv_first < *(unsigned long long*)cpv_second ? true : false;
+}
+
+void _type_destroy_ulong_long(const void* cpv_input, void* pv_output)
+{
+    _type_destroy_default(cpv_input, pv_output);
+}
 #endif
 
 /** local function implementation section **/

@@ -485,10 +485,36 @@ bool_t _type_parse_common_suffix(char* s_formalname)
     }
 }
 
+
+bool_t _type_parse_complex_long_suffix(char* s_formalname)
+{
+    assert(s_formalname != NULL);
+    /* COMPLEX_LONG_SUFFIX -> {+' '}long COMMON_SUFFIX | COMMON_SUFFIX */
+    switch (_gt_typeanalysis._t_token) {
+        /* COMPLEX_LONG_SUFFIX -> {+' '}long COMMON_SUFFIX */
+        case _TOKEN_KEY_LONG:
+            _TOKEN_MATCH_SPACE(s_formalname);
+            _TOKEN_MATCH(_TOKEN_TEXT_LONG, s_formalname);
+            _type_get_token();
+            return _type_parse_common_suffix(s_formalname);
+            break;
+        /* COMPLEX_LONG_SUFFIX -> COMMON_SUFFIX */
+        case _TOKEN_KEY_INT:
+        case _TOKEN_END_OF_INPUT:
+        case _TOKEN_SIGN_RIGHT_BRACKET:
+        case _TOKEN_SIGN_COMMA:
+            return _type_parse_common_suffix(s_formalname);
+            break;
+        default:
+            return false;
+            break;
+    }
+}
+
 bool_t _type_parse_simple_long_suffix(char* s_formalname)
 {
     assert(s_formalname != NULL);
-    /* SIMPLE_LONG_SUFFIX -> {+' '}double | COMMON_SUFFIX */
+    /* SIMPLE_LONG_SUFFIX -> {+' '}double | COMPLEX_LONG_SUFFIX */
     switch (_gt_typeanalysis._t_token) {
         /* SIMPLE_LONG_SUFFIX -> {+' '}double */
         case _TOKEN_KEY_DOUBLE:
@@ -496,12 +522,13 @@ bool_t _type_parse_simple_long_suffix(char* s_formalname)
             _TOKEN_MATCH(_TOKEN_TEXT_DOUBLE, s_formalname);
             return true;
             break;
-        /* SIMPLE_LONG_SUFFIX -> COMMON_SUFFIX */
+        /* SIMPLE_LONG_SUFFIX -> COMPLEX_LONG_SUFFIX */
+        case _TOKEN_KEY_LONG:
         case _TOKEN_KEY_INT:
         case _TOKEN_END_OF_INPUT:
         case _TOKEN_SIGN_RIGHT_BRACKET:
         case _TOKEN_SIGN_COMMA:
-            return _type_parse_common_suffix(s_formalname);
+            return _type_parse_complex_long_suffix(s_formalname);
             break;
         default:
             return false;
@@ -587,7 +614,7 @@ bool_t _type_parse_complex_suffix(char* s_formalname)
     assert(s_formalname != NULL);
     /* 
      * COMPLEX_SUFFIX -> {+' '}char | {+' '}short COMMON_SUFFIX |
-     *                   {+' '}int | {+' '}long COMMON_SUFFIX | $
+     *                   {+' '}int | {+' '}long COMPLEX_LONG_SUFFIX | $
      */
     switch (_gt_typeanalysis._t_token) {
         /* COMPLEX_SUFFIX -> {+' '}char */
@@ -609,12 +636,12 @@ bool_t _type_parse_complex_suffix(char* s_formalname)
             _TOKEN_MATCH(_TOKEN_TEXT_INT, s_formalname);
             return true;
             break;
-        /* COMPLEX_SUFFIX -> {+' '}long COMMON_SUFFIX */
+        /* COMPLEX_SUFFIX -> {+' '}long COMPLEX_LONG_SUFFIX */
         case _TOKEN_KEY_LONG:
             _TOKEN_MATCH_SPACE(s_formalname);
             _TOKEN_MATCH(_TOKEN_TEXT_LONG, s_formalname);
             _type_get_token();
-            return _type_parse_common_suffix(s_formalname);
+            return _type_parse_complex_long_suffix(s_formalname);
             break;
         /* COMPLEX_SUFFIX -> $ */
         case _TOKEN_END_OF_INPUT:

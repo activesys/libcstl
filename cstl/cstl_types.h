@@ -69,6 +69,14 @@ extern "C" {
 
 #define _CSTL_BOOL_TYPE              "bool_t"
 #define _BOOL_TYPE                   "_Bool"
+
+#define _LONG_LONG_TYPE              "long long"
+#define _LONG_LONG_INT_TYPE          "long long int"
+#define _SIGNED_LONG_LONG_TYPE       "signed long long"
+#define _SIGNED_LONG_LONG_INT_TYPE   "signed long long int"
+
+#define _UNSIGNED_LONG_LONG_TYPE     "unsigned long long"
+#define _UNSIGNED_LONG_LONG_INT_TYPE "unsigned long long int"
 /* cstl type */
 #define _VECTOR_TYPE                 "vector_t"
 #define _LIST_TYPE                   "list_t"

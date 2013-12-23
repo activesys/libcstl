@@ -142,6 +142,20 @@ ufun_t _fun_get_unary(iterator_t it_iter, fun_type_t ftype_type)
         if (ftype_type == _LOGICAL_NOT_FUN) {
             return fun_logical_not_bool;
         }
+    } else if (strncmp(s_typename, _LONG_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+               strncmp(s_typename, _LONG_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+               strncmp(s_typename, _SIGNED_LONG_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+               strncmp(s_typename, _SIGNED_LONG_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0) {      /* long */
+        if (ftype_type == _NEGATE_FUN) {
+            return fun_negate_long_long;
+        } else if (ftype_type == _INCREASE_FUN) {
+            return _fun_increase_long_long;
+        }
+    } else if (strncmp(s_typename, _UNSIGNED_LONG_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+               strncmp(s_typename, _UNSIGNED_LONG_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0) {    /* unsigned long */
+        if (ftype_type == _INCREASE_FUN) {
+            return _fun_increase_ulong_long;
+        }
 #endif
     }
 
@@ -370,6 +384,40 @@ bfun_t _fun_get_binary(iterator_t it_iter, fun_type_t ftype_type)
         switch (ftype_type) {
             case _LOGICAL_AND_FUN:      return fun_logical_and_bool;            break;
             case _LOGICAL_OR_FUN:       return fun_logical_or_bool;             break;
+            default: break;
+        }
+    } else if (strncmp(s_typename, _LONG_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+               strncmp(s_typename, _LONG_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0 ||
+               strncmp(s_typename, _SIGNED_LONG_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+               strncmp(s_typename, _SIGNED_LONG_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0) { /* long long */
+        switch (ftype_type) {
+            case _PLUS_FUN:             return fun_plus_long_long;              break;
+            case _MINUS_FUN:            return fun_minus_long_long;             break;
+            case _MULTIPLIES_FUN:       return fun_multiplies_long_long;        break;
+            case _DIVIDES_FUN:          return fun_divides_long_long;           break;
+            case _MODULUS_FUN:          return fun_modulus_long_long;           break;
+            case _EQUAL_FUN:            return fun_equal_long_long;             break;
+            case _NOT_EQUAL_FUN:        return fun_not_equal_long_long;         break;
+            case _GREATER_FUN:          return fun_greater_long_long;           break;
+            case _GREATER_EQUAL_FUN:    return fun_greater_equal_long_long;     break;
+            case _LESS_FUN:             return fun_less_long_long;              break;
+            case _LESS_EQUAL_FUN:       return fun_less_equal_long_long;        break;
+            default: break;
+        }
+    } else if (strncmp(s_typename, _UNSIGNED_LONG_LONG_TYPE, _TYPE_NAME_SIZE) == 0 ||
+               strncmp(s_typename, _UNSIGNED_LONG_LONG_INT_TYPE, _TYPE_NAME_SIZE) == 0) {/* unsigned long long */
+        switch (ftype_type) {
+            case _PLUS_FUN:             return fun_plus_ulong_long;             break;
+            case _MINUS_FUN:            return fun_minus_ulong_long;            break;
+            case _MULTIPLIES_FUN:       return fun_multiplies_ulong_long;       break;
+            case _DIVIDES_FUN:          return fun_divides_ulong_long;          break;
+            case _MODULUS_FUN:          return fun_modulus_ulong_long;          break;
+            case _EQUAL_FUN:            return fun_equal_ulong_long;            break;
+            case _NOT_EQUAL_FUN:        return fun_not_equal_ulong_long;        break;
+            case _GREATER_FUN:          return fun_greater_ulong_long;          break;
+            case _GREATER_EQUAL_FUN:    return fun_greater_equal_ulong_long;    break;
+            case _LESS_FUN:             return fun_less_ulong_long;             break;
+            case _LESS_EQUAL_FUN:       return fun_less_equal_ulong_long;       break;
             default: break;
         }
 #endif
@@ -616,6 +664,22 @@ void _fun_increase_double(const void* cpv_input, void* pv_output)
 
     *(double*)pv_output = *(double*)cpv_input + 1.0;
 }
+
+#ifndef _MSC_VER
+void _fun_increase_long_long(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    *(long long*)pv_output = *(long long*)cpv_input + 1;
+}
+
+void _fun_increase_ulong_long(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    *(unsigned long long*)pv_output = *(unsigned long long*)cpv_input + 1;
+}
+#endif
 
 /** local function implementation section **/
 

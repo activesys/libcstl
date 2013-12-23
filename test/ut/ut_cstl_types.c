@@ -1533,6 +1533,48 @@ void test__all_types__bool(void** state)
     assert_true(pvec != NULL);
     vector_destroy(pvec);
 }
+
+void test__all_types__long_long(void** state)
+{
+    vector_t* pvec = create_vector(long long);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__long_long_int(void** state)
+{
+    vector_t* pvec = create_vector(long long int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed_long_long(void** state)
+{
+    vector_t* pvec = create_vector(signed long long);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__signed_long_long_int(void** state)
+{
+    vector_t* pvec = create_vector(signed long long int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned_long_long(void** state)
+{
+    vector_t* pvec = create_vector(unsigned long long);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__all_types__unsigned_long_long_int(void** state)
+{
+    vector_t* pvec = create_vector(unsigned long long int);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
 #endif
 
 /*
@@ -1736,6 +1778,210 @@ void test__bool_usage__duplicate(void** state)
 
     type_duplicate(my_bool, _Bool);
     pvec = create_vector(my_bool);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+/*
+ * test long long usage
+ */
+UT_CASE_DEFINATION(long_long_usage)
+void test__long_long_usage__create(void** state)
+{
+    vector_t* pvec = create_vector(long long);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__long_long_usage__init_n(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(long long int);
+    vector_init_n(pvec, 10);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(long long*)vector_at(pvec, i) == 0ll);
+    }
+    vector_destroy(pvec);
+}
+
+void test__long_long_usage__init_elem(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(signed long long);
+    vector_init_elem(pvec, 10, 100ll);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(long long*)vector_at(pvec, i) == 100ll);
+    }
+    vector_destroy(pvec);
+}
+
+void test__long_long_usage__at(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(signed long long int);
+    vector_init_elem(pvec, 10, 100ll);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(long long*)vector_at(pvec, i) == 100ll);
+        *(long long*)vector_at(pvec, i) = 200ll;
+    }
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(long long*)vector_at(pvec, i) == 200ll);
+    }
+    vector_destroy(pvec);
+}
+
+void test__long_long_usage__iterator(void** state)
+{
+    iterator_t it;
+    vector_t* pvec = create_vector(long long);
+    vector_init_elem(pvec, 10, 100ll);
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec));
+         it = iterator_next(it)) {
+        long long b = 0ll;
+        assert_true(*(long long*)iterator_get_pointer(it) == 100ll);
+        iterator_get_value(it, &b);
+        assert_true(b == 100ll);
+    }
+    vector_destroy(pvec);
+}
+
+void test__long_long_usage__copy(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec1 = create_vector(long long);
+    vector_t* pvec2 = create_vector(long long);
+    vector_init_elem(pvec1, 10, 88ll);
+    vector_init_copy_range(pvec2, vector_begin(pvec1), vector_end(pvec1));
+
+    for (i = 0; i < vector_size(pvec1); ++i) {
+        assert_true(*(long long*)vector_at(pvec1, i) == *(long long*)vector_at(pvec2, i));
+    }
+
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+void test__long_long_usage__less(void** state)
+{
+    vector_t* pvec1 = create_vector(long long);
+    vector_t* pvec2 = create_vector(long long);
+    vector_init_elem(pvec1, 10, 1234ll);
+    vector_init_elem(pvec2, 10, 9939393ll);
+    assert_true(vector_less(pvec1, pvec2));
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+typedef long long my_ll;
+void test__long_long_usage__duplicate(void** state)
+{
+    vector_t* pvec = NULL;
+
+    type_duplicate(my_ll, long long);
+    pvec = create_vector(my_ll);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+/*
+ * test unsigned long long usage
+ */
+UT_CASE_DEFINATION(ulong_long_usage)
+void test__ulong_long_usage__create(void** state)
+{
+    vector_t* pvec = create_vector(unsigned long long);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__ulong_long_usage__init_n(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(unsigned long long int);
+    vector_init_n(pvec, 10);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(unsigned long long*)vector_at(pvec, i) == 0ll);
+    }
+    vector_destroy(pvec);
+}
+
+void test__ulong_long_usage__init_elem(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector( unsigned long long);
+    vector_init_elem(pvec, 10, 100ll);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(unsigned long long*)vector_at(pvec, i) == 100ll);
+    }
+    vector_destroy(pvec);
+}
+
+void test__ulong_long_usage__at(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector( unsigned long long int);
+    vector_init_elem(pvec, 10, 100ll);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(unsigned long long*)vector_at(pvec, i) == 100ll);
+        *(unsigned long long*)vector_at(pvec, i) = 200ll;
+    }
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(*(unsigned long long*)vector_at(pvec, i) == 200ll);
+    }
+    vector_destroy(pvec);
+}
+
+void test__ulong_long_usage__iterator(void** state)
+{
+    iterator_t it;
+    vector_t* pvec = create_vector(unsigned long long);
+    vector_init_elem(pvec, 10, 100ll);
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec));
+         it = iterator_next(it)) {
+        unsigned long long b = false;
+        assert_true(*(unsigned long long*)iterator_get_pointer(it) == 100ll);
+        iterator_get_value(it, &b);
+        assert_true(b == 100ll);
+    }
+    vector_destroy(pvec);
+}
+
+void test__ulong_long_usage__copy(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec1 = create_vector(unsigned long long);
+    vector_t* pvec2 = create_vector(unsigned long long);
+    vector_init_elem(pvec1, 10, 88ll);
+    vector_init_copy_range(pvec2, vector_begin(pvec1), vector_end(pvec1));
+
+    for (i = 0; i < vector_size(pvec1); ++i) {
+        assert_true(*(unsigned long long*)vector_at(pvec1, i) == *(unsigned long long*)vector_at(pvec2, i));
+    }
+
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+void test__ulong_long_usage__less(void** state)
+{
+    vector_t* pvec1 = create_vector(unsigned long long);
+    vector_t* pvec2 = create_vector(unsigned long long);
+    vector_init_elem(pvec1, 10, 1234ll);
+    vector_init_elem(pvec2, 10, 9939393ll);
+    assert_true(vector_less(pvec1, pvec2));
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+typedef unsigned long long my_ull;
+void test__ulong_long_usage__duplicate(void** state)
+{
+    vector_t* pvec = NULL;
+
+    type_duplicate(my_ull, unsigned long long);
+    pvec = create_vector(my_ull);
     assert_true(pvec != NULL);
     vector_destroy(pvec);
 }

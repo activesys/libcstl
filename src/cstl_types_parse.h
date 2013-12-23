@@ -109,6 +109,7 @@ extern void _type_token_rollback(void);
 extern bool_t _type_parse_c_builtin(char* s_formalname);
 extern bool_t _type_parse_pointer_builtin(char* s_formalname);
 extern bool_t _type_parse_pointer_suffix(char* s_formalname);
+extern bool_t _type_parse_complex_long_suffix(char* s_formalname);
 extern bool_t _type_parse_common_suffix(char* s_formalname);
 extern bool_t _type_parse_simple_long_suffix(char* s_formalname);
 extern bool_t _type_parse_simple_builtin(char* s_formalname);

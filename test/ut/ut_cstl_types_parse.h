@@ -196,6 +196,10 @@ void test__type_parse_complex_suffix__comma(void** state);
 void test__type_parse_complex_suffix__right_bracket(void** state);
 void test__type_parse_complex_suffix__invalid_token(void** state);
 void test__type_parse_complex_suffix__null(void** state);
+#ifndef _MSC_VER
+void test__type_parse_complex_suffix__long_long(void** state);
+void test__type_parse_complex_suffix__long_long_int(void** state);
+#endif
 /*
  * test _type_parse_signed_builtin
  */
@@ -203,6 +207,9 @@ UT_CASE_DECLARATION(_type_parse_signed_builtin)
 void test__type_parse_signed_builtin__valid(void** state);
 void test__type_parse_signed_builtin__invalid(void** state);
 void test__type_parse_signed_builtin__null(void** state);
+#ifndef _MSC_VER
+void test__type_parse_signed_builtin__signed_long_long_int(void** state);
+#endif
 /*
  * test _type_parse_unsigned_builtin
  */
@@ -210,6 +217,9 @@ UT_CASE_DECLARATION(_type_parse_unsigned_builtin)
 void test__type_parse_unsigned_builtin__valid(void** state);
 void test__type_parse_unsigned_builtin__invalid(void** state);
 void test__type_parse_unsigned_builtin__null(void** state);
+#ifndef _MSC_VER
+void test__type_parse_unsigned_builtin__unsigned_long_long_int(void** state);
+#endif
 /*
  * test _type_parse_simple_long_suffix
  */
@@ -219,6 +229,9 @@ void test__type_parse_simple_long_suffix__common_suffix(void** state);
 void test__type_parse_simple_long_suffix__common_suffix_comma(void** state);
 void test__type_parse_simple_long_suffix__invalid_token(void** state);
 void test__type_parse_simple_long_suffix__null(void** state);
+#ifndef _MSC_VER
+void test__type_parse_simple_long_suffix__complex_long_suffix(void** state);
+#endif
 /*
  * test _type_parse_simple_builtin
  */
@@ -238,6 +251,7 @@ void test__type_parse_simple_builtin__invalid_token(void** state);
 void test__type_parse_simple_builtin__null(void** state);
 #ifndef _MSC_VER
 void test__type_parse_simple_builtin__bool(void** state);
+void test__type_parse_simple_builtin__long_long_int(void** state);
 #endif
 /*
  * test _type_parse_c_builtin
@@ -290,6 +304,17 @@ void test__type_parse_type_descript__user_define(void** state);
 void test__type_parse_type_descript__cstl_builtin(void** state);
 void test__type_parse_type_descript__invalid_token(void** state);
 void test__type_parse_type_descript__null(void** state);
+#ifndef _MSC_VER
+/*
+ * test _type_parse_complex_long_suffix
+ */
+UT_CASE_DECLARATION(_type_parse_complex_long_suffix)
+void test__type_parse_complex_long_suffix__long(void** state);
+void test__type_parse_complex_long_suffix__common_suffix(void** state);
+void test__type_parse_complex_long_suffix__common_suffix_comma(void** state);
+void test__type_parse_complex_long_suffix__invalid_token(void** state);
+void test__type_parse_complex_long_suffix__null(void** state);
+#endif
 /*
  * test _type_get_style
  */
@@ -525,7 +550,18 @@ void test__type_get_style__invalid(void** state);
 #ifndef _MSC_VER
 #define UT_CSTL_TYPES_PARSE_CASE_C99\
     UT_SUIT_BEGIN(cstl_types_parse, test__type_get_token__key_bool),\
-    UT_CASE_BEGIN(_type_parse_simple_builtin, test__type_parse_simple_builtin__bool)
+    UT_CASE_BEGIN(_type_parse_simple_builtin, test__type_parse_simple_builtin__bool),\
+    UT_CASE(test__type_parse_simple_builtin__long_long_int),\
+    UT_CASE_BEGIN(_type_parse_complex_long_suffix, test__type_parse_complex_long_suffix__long),\
+    UT_CASE(test__type_parse_complex_long_suffix__common_suffix),\
+    UT_CASE(test__type_parse_complex_long_suffix__common_suffix_comma),\
+    UT_CASE(test__type_parse_complex_long_suffix__invalid_token),\
+    UT_CASE(test__type_parse_complex_long_suffix__null),\
+    UT_CASE_BEGIN(_type_parse_simple_long_suffix, test__type_parse_simple_long_suffix__complex_long_suffix),\
+    UT_CASE_BEGIN(_type_parse_complex_suffix, test__type_parse_complex_suffix__long_long),\
+    UT_CASE(test__type_parse_complex_suffix__long_long_int),\
+    UT_CASE_BEGIN(_type_parse_signed_builtin, test__type_parse_signed_builtin__signed_long_long_int),\
+    UT_CASE_BEGIN(_type_parse_unsigned_builtin, test__type_parse_unsigned_builtin__unsigned_long_long_int)
 #endif
 
 #endif /* _UT_CSTL_TYPES_PARSE_H_ */

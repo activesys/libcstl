@@ -1,6 +1,6 @@
 /*
  *  The private interface of function.
- *  Copyright (C)  2008 - 2013  Wangbo
+ *  Copyright (C)  2008 - 2014  Wangbo
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -102,6 +102,10 @@ extern void _fun_increase_long(const void* cpv_input, void* pv_output);
 extern void _fun_increase_ulong(const void* cpv_input, void* pv_output);
 extern void _fun_increase_float(const void* cpv_input, void* pv_output);
 extern void _fun_increase_double(const void* cpv_input, void* pv_output);
+#ifndef _MSC_VER
+extern void _fun_increase_long_long(const void* cpv_input, void* pv_output);
+extern void _fun_increase_ulong_long(const void* cpv_input, void* pv_output);
+#endif
 
 #ifdef __cplusplus
 }

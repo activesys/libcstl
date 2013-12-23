@@ -62,6 +62,14 @@ void test__fun_get_unary__bool_NEGATE(void** state);
 void test__fun_get_unary__bool_LOGICAL_NOT(void** state);
 void test__fun_get_unary__bool_INCREASE(void** state);
 void test__fun_get_unary__bool_RANDOM_NUMBER(void** state);
+void test__fun_get_unary__long_long_NEGATE(void** state);
+void test__fun_get_unary__long_long_INCREASE(void** state);
+void test__fun_get_unary__long_long_LOGICAL_NOT(void** state);
+void test__fun_get_unary__long_long_RANDOM_NUMBER(void** state);
+void test__fun_get_unary__ulong_long_NEGATE(void** state);
+void test__fun_get_unary__ulong_long_LOGICAL_NOT(void** state);
+void test__fun_get_unary__ulong_long_INCREASE(void** state);
+void test__fun_get_unary__ulong_long_RANDOM_NUMBER(void** state);
 #endif
 /*
  * test _fun_get_binary
@@ -479,6 +487,32 @@ void test__fun_get_binary__bool_GREATER(void** state);
 void test__fun_get_binary__bool_GREATER_EQUAL(void** state);
 void test__fun_get_binary__bool_LOGICAL_AND(void** state);
 void test__fun_get_binary__bool_LOGICAL_OR(void** state);
+void test__fun_get_binary__long_long_PLUS(void** state);
+void test__fun_get_binary__long_long_MINUS(void** state);
+void test__fun_get_binary__long_long_MULTIPLIES(void** state);
+void test__fun_get_binary__long_long_DIVIDES(void** state);
+void test__fun_get_binary__long_long_MODULUS(void** state);
+void test__fun_get_binary__long_long_EQUAL(void** state);
+void test__fun_get_binary__long_long_NOT_EQUAL(void** state);
+void test__fun_get_binary__long_long_LESS(void** state);
+void test__fun_get_binary__long_long_LESS_EQUAL(void** state);
+void test__fun_get_binary__long_long_GREATER(void** state);
+void test__fun_get_binary__long_long_GREATER_EQUAL(void** state);
+void test__fun_get_binary__long_long_LOGICAL_AND(void** state);
+void test__fun_get_binary__long_long_LOGICAL_OR(void** state);
+void test__fun_get_binary__ulong_long_PLUS(void** state);
+void test__fun_get_binary__ulong_long_MINUS(void** state);
+void test__fun_get_binary__ulong_long_MULTIPLIES(void** state);
+void test__fun_get_binary__ulong_long_DIVIDES(void** state);
+void test__fun_get_binary__ulong_long_MODULUS(void** state);
+void test__fun_get_binary__ulong_long_EQUAL(void** state);
+void test__fun_get_binary__ulong_long_NOT_EQUAL(void** state);
+void test__fun_get_binary__ulong_long_LESS(void** state);
+void test__fun_get_binary__ulong_long_LESS_EQUAL(void** state);
+void test__fun_get_binary__ulong_long_GREATER(void** state);
+void test__fun_get_binary__ulong_long_GREATER_EQUAL(void** state);
+void test__fun_get_binary__ulong_long_LOGICAL_AND(void** state);
+void test__fun_get_binary__ulong_long_LOGICAL_OR(void** state);
 #endif
 
 #define UT_CSTL_FUNCTION_PRIVATE_CASE\
@@ -937,19 +971,53 @@ void test__fun_get_binary__bool_LOGICAL_OR(void** state);
     UT_CASE(test__fun_get_unary__bool_LOGICAL_NOT),\
     UT_CASE(test__fun_get_unary__bool_INCREASE),\
     UT_CASE(test__fun_get_unary__bool_RANDOM_NUMBER),\
-    UT_CASE_BEGIN(_fun_get_binary, test__fun_get_binary__cstl_bool_PLUS),\
-    UT_CASE(test__fun_get_binary__cstl_bool_MINUS),\
-    UT_CASE(test__fun_get_binary__cstl_bool_MULTIPLIES),\
-    UT_CASE(test__fun_get_binary__cstl_bool_DIVIDES),\
-    UT_CASE(test__fun_get_binary__cstl_bool_MODULUS),\
-    UT_CASE(test__fun_get_binary__cstl_bool_EQUAL),\
-    UT_CASE(test__fun_get_binary__cstl_bool_NOT_EQUAL),\
-    UT_CASE(test__fun_get_binary__cstl_bool_LESS),\
-    UT_CASE(test__fun_get_binary__cstl_bool_LESS_EQUAL),\
-    UT_CASE(test__fun_get_binary__cstl_bool_GREATER),\
-    UT_CASE(test__fun_get_binary__cstl_bool_GREATER_EQUAL),\
-    UT_CASE(test__fun_get_binary__cstl_bool_LOGICAL_AND),\
-    UT_CASE(test__fun_get_binary__cstl_bool_LOGICAL_OR)
+    UT_CASE(test__fun_get_unary__long_long_NEGATE),\
+    UT_CASE(test__fun_get_unary__long_long_INCREASE),\
+    UT_CASE(test__fun_get_unary__long_long_LOGICAL_NOT),\
+    UT_CASE(test__fun_get_unary__long_long_RANDOM_NUMBER),\
+    UT_CASE(test__fun_get_unary__ulong_long_NEGATE),\
+    UT_CASE(test__fun_get_unary__ulong_long_LOGICAL_NOT),\
+    UT_CASE(test__fun_get_unary__ulong_long_INCREASE),\
+    UT_CASE(test__fun_get_unary__ulong_long_RANDOM_NUMBER),\
+    UT_CASE_BEGIN(_fun_get_binary, test__fun_get_binary__bool_PLUS),\
+    UT_CASE(test__fun_get_binary__bool_MINUS),\
+    UT_CASE(test__fun_get_binary__bool_MULTIPLIES),\
+    UT_CASE(test__fun_get_binary__bool_DIVIDES),\
+    UT_CASE(test__fun_get_binary__bool_MODULUS),\
+    UT_CASE(test__fun_get_binary__bool_EQUAL),\
+    UT_CASE(test__fun_get_binary__bool_NOT_EQUAL),\
+    UT_CASE(test__fun_get_binary__bool_LESS),\
+    UT_CASE(test__fun_get_binary__bool_LESS_EQUAL),\
+    UT_CASE(test__fun_get_binary__bool_GREATER),\
+    UT_CASE(test__fun_get_binary__bool_GREATER_EQUAL),\
+    UT_CASE(test__fun_get_binary__bool_LOGICAL_AND),\
+    UT_CASE(test__fun_get_binary__bool_LOGICAL_OR),\
+    UT_CASE(test__fun_get_binary__long_long_PLUS),\
+    UT_CASE(test__fun_get_binary__long_long_MINUS),\
+    UT_CASE(test__fun_get_binary__long_long_MULTIPLIES),\
+    UT_CASE(test__fun_get_binary__long_long_DIVIDES),\
+    UT_CASE(test__fun_get_binary__long_long_MODULUS),\
+    UT_CASE(test__fun_get_binary__long_long_EQUAL),\
+    UT_CASE(test__fun_get_binary__long_long_NOT_EQUAL),\
+    UT_CASE(test__fun_get_binary__long_long_LESS),\
+    UT_CASE(test__fun_get_binary__long_long_LESS_EQUAL),\
+    UT_CASE(test__fun_get_binary__long_long_GREATER),\
+    UT_CASE(test__fun_get_binary__long_long_GREATER_EQUAL),\
+    UT_CASE(test__fun_get_binary__long_long_LOGICAL_AND),\
+    UT_CASE(test__fun_get_binary__long_long_LOGICAL_OR),\
+    UT_CASE(test__fun_get_binary__ulong_long_PLUS),\
+    UT_CASE(test__fun_get_binary__ulong_long_MINUS),\
+    UT_CASE(test__fun_get_binary__ulong_long_MULTIPLIES),\
+    UT_CASE(test__fun_get_binary__ulong_long_DIVIDES),\
+    UT_CASE(test__fun_get_binary__ulong_long_MODULUS),\
+    UT_CASE(test__fun_get_binary__ulong_long_EQUAL),\
+    UT_CASE(test__fun_get_binary__ulong_long_NOT_EQUAL),\
+    UT_CASE(test__fun_get_binary__ulong_long_LESS),\
+    UT_CASE(test__fun_get_binary__ulong_long_LESS_EQUAL),\
+    UT_CASE(test__fun_get_binary__ulong_long_GREATER),\
+    UT_CASE(test__fun_get_binary__ulong_long_GREATER_EQUAL),\
+    UT_CASE(test__fun_get_binary__ulong_long_LOGICAL_AND),\
+    UT_CASE(test__fun_get_binary__ulong_long_LOGICAL_OR)
 #endif
 
 #endif /* _UT_CSTL_FUNCTION_PRIVATE_H_ */

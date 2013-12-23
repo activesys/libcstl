@@ -564,6 +564,86 @@ void test__fun_get_unary__bool_RANDOM_NUMBER(void** state)
     assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_default_unary);
     deque_destroy(pdeq);
 }
+
+void test__fun_get_unary__long_long_NEGATE(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+    fun_type_t ftype = _NEGATE_FUN;
+
+    deque_init(pdeq);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_negate_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_unary__long_long_INCREASE(void** state)
+{
+    deque_t* pdeq = create_deque(signed long long);
+    fun_type_t ftype = _INCREASE_FUN;
+
+    deque_init(pdeq);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == _fun_increase_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_unary__long_long_LOGICAL_NOT(void** state)
+{
+    deque_t* pdeq = create_deque(signed long long int);
+    fun_type_t ftype = _LOGICAL_NOT_FUN;
+
+    deque_init(pdeq);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_default_unary);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_unary__long_long_RANDOM_NUMBER(void** state)
+{
+    deque_t* pdeq = create_deque(signed long long);
+    fun_type_t ftype = _RANDOM_NUMBER_FUN;
+
+    deque_init(pdeq);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_default_unary);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_unary__ulong_long_NEGATE(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+    fun_type_t ftype = _NEGATE_FUN;
+
+    deque_init(pdeq);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_default_unary);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_unary__ulong_long_INCREASE(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long int);
+    fun_type_t ftype = _INCREASE_FUN;
+
+    deque_init(pdeq);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == _fun_increase_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_unary__ulong_long_LOGICAL_NOT(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long );
+    fun_type_t ftype = _LOGICAL_NOT_FUN;
+
+    deque_init(pdeq);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_default_unary);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_unary__ulong_long_RANDOM_NUMBER(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+    fun_type_t ftype = _RANDOM_NUMBER_FUN;
+
+    deque_init(pdeq);
+    assert_true(_fun_get_unary(deque_begin(pdeq), ftype) == fun_default_unary);
+    deque_destroy(pdeq);
+}
 #endif
 
 /*
@@ -4278,6 +4358,240 @@ void test__fun_get_binary__bool_LOGICAL_OR(void** state)
 
     deque_init(pdeq);
     assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_OR_FUN) == fun_logical_or_bool);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_PLUS(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _PLUS_FUN) == fun_plus_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_MINUS(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _MINUS_FUN) == fun_minus_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_MULTIPLIES(void** state)
+{
+    deque_t* pdeq = create_deque(long long int);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _MULTIPLIES_FUN) == fun_multiplies_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_DIVIDES(void** state)
+{
+    deque_t* pdeq = create_deque(signed long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _DIVIDES_FUN) == fun_divides_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_MODULUS(void** state)
+{
+    deque_t* pdeq = create_deque(signed long long int);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _MODULUS_FUN) == fun_modulus_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _EQUAL_FUN) == fun_equal_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_NOT_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _NOT_EQUAL_FUN) == fun_not_equal_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_LESS(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LESS_FUN) == fun_less_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_LESS_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LESS_EQUAL_FUN) == fun_less_equal_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_GREATER(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _GREATER_FUN) == fun_greater_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_GREATER_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _GREATER_EQUAL_FUN) == fun_greater_equal_long_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_LOGICAL_AND(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_AND_FUN) == fun_default_binary);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__long_long_LOGICAL_OR(void** state)
+{
+    deque_t* pdeq = create_deque(long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_OR_FUN) == fun_default_binary);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_PLUS(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _PLUS_FUN) == fun_plus_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_MINUS(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _MINUS_FUN) == fun_minus_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_MULTIPLIES(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long int);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _MULTIPLIES_FUN) == fun_multiplies_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_DIVIDES(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _DIVIDES_FUN) == fun_divides_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_MODULUS(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long int);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _MODULUS_FUN) == fun_modulus_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _EQUAL_FUN) == fun_equal_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_NOT_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _NOT_EQUAL_FUN) == fun_not_equal_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_LESS(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LESS_FUN) == fun_less_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_LESS_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LESS_EQUAL_FUN) == fun_less_equal_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_GREATER(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _GREATER_FUN) == fun_greater_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_GREATER_EQUAL(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _GREATER_EQUAL_FUN) == fun_greater_equal_ulong_long);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_LOGICAL_AND(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_AND_FUN) == fun_default_binary);
+    deque_destroy(pdeq);
+}
+
+void test__fun_get_binary__ulong_long_LOGICAL_OR(void** state)
+{
+    deque_t* pdeq = create_deque(unsigned long long);
+
+    deque_init(pdeq);
+    assert_true(_fun_get_binary(deque_begin(pdeq), _LOGICAL_OR_FUN) == fun_default_binary);
     deque_destroy(pdeq);
 }
 #endif

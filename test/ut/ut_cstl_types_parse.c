@@ -1456,6 +1456,28 @@ void test__type_parse_complex_suffix__invalid_token(void** state)
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
 }
 
+#ifndef _MSC_VER
+void test__type_parse_complex_suffix__long_long(void** state)
+{
+    const char* str = "long long";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_LONG, strlen("long"), "long");
+
+    assert_true(_type_parse_complex_suffix(s_formalname));
+    assert_true(strncmp(s_formalname, " long long", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_complex_suffix__long_long_int(void** state)
+{
+    const char* str = "long long int";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_LONG, strlen("long"), "long");
+
+    assert_true(_type_parse_complex_suffix(s_formalname));
+    assert_true(strncmp(s_formalname, " long long int", _TYPE_NAME_SIZE) == 0);
+}
+#endif
+
 /*
  * test _type_parse_signed_builtin
  */
@@ -1563,6 +1585,18 @@ void test__type_parse_simple_long_suffix__invalid_token(void** state)
     assert_false(_type_parse_simple_long_suffix(s_formalname));
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
 }
+
+#ifndef _MSC_VER
+void test__type_parse_simple_long_suffix__complex_long_suffix(void** state)
+{
+    const char* str = "long int";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_LONG, strlen("long"), "long");
+
+    assert_true(_type_parse_simple_long_suffix(s_formalname));
+    assert_true(strncmp(s_formalname, " long int", _TYPE_NAME_SIZE) == 0);
+}
+#endif
 
 /*
  * test _type_parse_simple_builtin
@@ -1702,6 +1736,16 @@ void test__type_parse_simple_builtin__bool(void** state)
 
     assert_true(_type_parse_simple_builtin(s_formalname));
     assert_true(strncmp(s_formalname, "_Bool", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_simple_builtin__long_long_int(void** state)
+{
+    const char* str = "long long int";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_LONG, strlen("long"), "long");
+
+    assert_true(_type_parse_simple_builtin(s_formalname));
+    assert_true(strncmp(s_formalname, "long long int", _TYPE_NAME_SIZE) == 0);
 }
 #endif
 
@@ -2117,3 +2161,74 @@ void test__type_get_style__invalid(void** state)
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
 }
 
+#ifndef _MSC_VER
+/*
+ * test _type_parse_complex_long_suffix
+ */
+UT_CASE_DEFINATION(_type_parse_complex_long_suffix)
+void test__type_parse_complex_long_suffix__null(void** state)
+{
+    expect_assert_failure(_type_parse_complex_long_suffix(NULL));
+}
+
+void test__type_parse_complex_long_suffix__long(void** state)
+{
+    const char* str = "long";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_LONG, strlen(str), str);
+
+    assert_true(_type_parse_complex_long_suffix(s_formalname));
+    assert_true(strncmp(s_formalname, " long", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_complex_long_suffix__common_suffix(void** state)
+{
+    const char* str = "int";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_INT, strlen(str), str);
+
+    assert_true(_type_parse_complex_long_suffix(s_formalname));
+    assert_true(strncmp(s_formalname, " int", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_complex_long_suffix__common_suffix_comma(void** state)
+{
+    const char* str = ",";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_SIGN_COMMA, strlen(str), str);
+
+    assert_true(_type_parse_complex_long_suffix(s_formalname));
+    assert_true(_gt_typeanalysis._t_index == 0);
+    assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_complex_long_suffix__invalid_token(void** state)
+{
+    const char* str = "struct";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_STRUCT, strlen(str), str);
+
+    assert_false(_type_parse_complex_long_suffix(s_formalname));
+    assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_signed_builtin__signed_long_long_int(void** state)
+{
+    const char* str = "signed long long int";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_SIGNED, strlen("signed"), "signed");
+
+    assert_true(_type_parse_signed_builtin(s_formalname));
+    assert_true(strncmp(s_formalname, "signed long long int", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_unsigned_builtin__unsigned_long_long_int(void** state)
+{
+    const char* str = "unsigned long long int";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_UNSIGNED, strlen("unsigned"), "unsigned");
+
+    assert_true(_type_parse_unsigned_builtin(s_formalname));
+    assert_true(strncmp(s_formalname, "unsigned long long int", _TYPE_NAME_SIZE) == 0);
+}
+#endif

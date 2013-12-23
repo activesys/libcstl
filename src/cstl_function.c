@@ -135,6 +135,22 @@ void fun_plus_long_double(const void* cpv_first, const void* cpv_second, void* p
     *(long double*)pv_output = *(long double*)cpv_first + *(long double*)cpv_second;
 }
 
+#ifndef _MSC_VER
+void fun_plus_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(long long*)pv_output = *(long long*)cpv_first + *(long long*)cpv_second;
+}
+
+void fun_plus_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(unsigned long long*)pv_output = *(unsigned long long*)cpv_first + *(unsigned long long*)cpv_second;
+}
+#endif
+
 /**
  * Minus.
  */
@@ -215,6 +231,22 @@ void fun_minus_long_double(const void* cpv_first, const void* cpv_second, void* 
     *(long double*)pv_output = *(long double*)cpv_first - *(long double*)cpv_second;
 }
 
+#ifndef _MSC_VER
+void fun_minus_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(long long*)pv_output = *(long long*)cpv_first - *(long long*)cpv_second;
+}
+
+void fun_minus_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(unsigned long long*)pv_output = *(unsigned long long*)cpv_first - *(unsigned long long*)cpv_second;
+}
+#endif
+
 /**
  * Multiplies.
  */
@@ -294,6 +326,22 @@ void fun_multiplies_long_double(const void* cpv_first, const void* cpv_second, v
 
     *(long double*)pv_output = *(long double*)cpv_first * *(long double*)cpv_second;
 }
+
+#ifndef _MSC_VER
+void fun_multiplies_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(long long*)pv_output = *(long long*)cpv_first * *(long long*)cpv_second;
+}
+
+void fun_multiplies_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(unsigned long long*)pv_output = *(unsigned long long*)cpv_first * *(unsigned long long*)cpv_second;
+}
+#endif
 
 /**
  * Divides.
@@ -386,6 +434,24 @@ void fun_divides_long_double(const void* cpv_first, const void* cpv_second, void
     *(long double*)pv_output = *(long double*)cpv_first / *(long double*)cpv_second;
 }
 
+#ifndef _MSC_VER
+void fun_divides_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    assert(*(long long*)cpv_second != 0);
+    *(long long*)pv_output = *(long long*)cpv_first / *(long long*)cpv_second;
+}
+
+void fun_divides_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    assert(*(unsigned long long*)cpv_second != 0);
+    *(unsigned long long*)pv_output = *(unsigned long long*)cpv_first / *(unsigned long long*)cpv_second;
+}
+#endif
+
 /**
  * Modulus.
  */
@@ -453,6 +519,24 @@ void fun_modulus_ulong(const void* cpv_first, const void* cpv_second, void* pv_o
     *(unsigned long*)pv_output = *(unsigned long*)cpv_first % *(unsigned long*)cpv_second;
 }
 
+#ifndef _MSC_VER
+void fun_modulus_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    assert(*(long long*)cpv_second != 0);
+    *(long long*)pv_output = *(long long*)cpv_first % *(long long*)cpv_second;
+}
+
+void fun_modulus_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    assert(*(unsigned long long*)cpv_second != 0);
+    *(unsigned long long*)pv_output = *(unsigned long long*)cpv_first % *(unsigned long long*)cpv_second;
+}
+#endif
+
 /**
  * Negate.
  */
@@ -504,6 +588,15 @@ void fun_negate_long_double(const void* cpv_input, void* pv_output)
 
     *(long double*)pv_output = -*(long double*)cpv_input;
 }
+
+#ifndef _MSC_VER
+void fun_negate_long_long(const void* cpv_input, void* pv_output)
+{
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    *(long long*)pv_output = -*(long long*)cpv_input;
+}
+#endif
 
 /* comparisons */
 /**
@@ -730,6 +823,22 @@ void fun_equal_hash_multimap(const void* cpv_first, const void* cpv_second, void
     *(bool_t*)pv_output = hash_multimap_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
+#ifndef _MSC_VER
+void fun_equal_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(long long*)cpv_first == *(long long*)cpv_second ? true : false;
+}
+
+void fun_equal_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(unsigned long long*)cpv_first == *(unsigned long long*)cpv_second ? true : false;
+}
+#endif
+
 /**
  * Not equal.
  */
@@ -954,6 +1063,22 @@ void fun_not_equal_hash_multimap(const void* cpv_first, const void* cpv_second, 
     *(bool_t*)pv_output = hash_multimap_not_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
+#ifndef _MSC_VER
+void fun_not_equal_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(long long*)cpv_first != *(long long*)cpv_second ? true : false;
+}
+
+void fun_not_equal_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(unsigned long long*)cpv_first != *(unsigned long long*)cpv_second ? true : false;
+}
+#endif
+
 /**
  * Greater.
  */
@@ -1171,6 +1296,22 @@ void fun_greater_hash_multimap(const void* cpv_first, const void* cpv_second, vo
 
     *(bool_t*)pv_output = hash_multimap_greater((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
+
+#ifndef _MSC_VER
+void fun_greater_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(long long*)cpv_first > *(long long*)cpv_second ? true : false;
+}
+
+void fun_greater_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(unsigned long long*)cpv_first > *(unsigned long long*)cpv_second ? true : false;
+}
+#endif
 
 /**
  * Greater or equal.
@@ -1390,6 +1531,22 @@ void fun_greater_equal_hash_multimap(const void* cpv_first, const void* cpv_seco
     *(bool_t*)pv_output = hash_multimap_greater_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
+#ifndef _MSC_VER
+void fun_greater_equal_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(long long*)cpv_first >= *(long long*)cpv_second ? true : false;
+}
+
+void fun_greater_equal_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(unsigned long long*)cpv_first >= *(unsigned long long*)cpv_second ? true : false;
+}
+#endif
+
 /**
  * Less.
  */
@@ -1608,6 +1765,22 @@ void fun_less_hash_multimap(const void* cpv_first, const void* cpv_second, void*
     *(bool_t*)pv_output = hash_multimap_less((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
+#ifndef _MSC_VER
+void fun_less_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(long long*)cpv_first < *(long long*)cpv_second ? true : false;
+}
+
+void fun_less_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(unsigned long long*)cpv_first < *(unsigned long long*)cpv_second ? true : false;
+}
+#endif
+
 /**
  * Less or equal.
  */
@@ -1825,6 +1998,22 @@ void fun_less_equal_hash_multimap(const void* cpv_first, const void* cpv_second,
 
     *(bool_t*)pv_output = hash_multimap_less_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
+
+#ifndef _MSC_VER
+void fun_less_equal_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(long long*)cpv_first <= *(long long*)cpv_second ? true : false;
+}
+
+void fun_less_equal_ulong_long(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = *(unsigned long long*)cpv_first <= *(unsigned long long*)cpv_second ? true : false;
+}
+#endif
 
 /* logical */
 /**

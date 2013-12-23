@@ -252,6 +252,16 @@ void _type_register_c_builtin(void)
     /* register _Bool */
     _TYPE_REGISTER_TYPE(_Bool, _BOOL_TYPE, bool, _TYPE_C_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(_Bool, _BOOL_TYPE);
+    /* register long long */
+    _TYPE_REGISTER_TYPE(long long, _LONG_LONG_TYPE, long_long, _TYPE_C_BUILTIN);
+    _TYPE_REGISTER_TYPE_NODE(long long, _LONG_LONG_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(long long int, _LONG_LONG_INT_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed long long, _SIGNED_LONG_LONG_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(signed long long int, _SIGNED_LONG_LONG_INT_TYPE);
+    /* register unsigned long long */
+    _TYPE_REGISTER_TYPE(unsigned long long, _UNSIGNED_LONG_LONG_TYPE, ulong_long, _TYPE_C_BUILTIN);
+    _TYPE_REGISTER_TYPE_NODE(unsigned long long, _UNSIGNED_LONG_LONG_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(unsigned long long int, _UNSIGNED_LONG_LONG_INT_TYPE);
 #endif
 
     _TYPE_REGISTER_END();

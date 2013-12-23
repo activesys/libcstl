@@ -7408,7 +7408,7 @@ void test__type_init_bool__null_input(void** state)
 
 void test__type_init_bool__null_output(void** state)
 {
-    bool_t b_input = false;
+    _Bool b_input = false;
     expect_assert_failure(_type_init_bool(&b_input, NULL));
 }
 
@@ -7537,6 +7537,278 @@ void test__type_destroy_bool__ok(void** state)
     bool_t b_output = false;
     _type_destroy_bool(&b_input, &b_output);
     assert_false(b_input);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_init_long_long
+ */
+UT_CASE_DEFINATION(_type_init_long_long)
+void test__type_init_long_long__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_init_long_long(NULL, &b_output));
+}
+
+void test__type_init_long_long__null_output(void** state)
+{
+    long long ll_input = 10ll;
+    expect_assert_failure(_type_init_long_long(&ll_input, NULL));
+}
+
+void test__type_init_long_long__ok(void** state)
+{
+    long long ll_input = 100ll;
+    bool_t b_output = false;
+    _type_init_long_long(&ll_input, &b_output);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_copy_long_long
+ */
+UT_CASE_DEFINATION(_type_copy_long_long)
+void test__type_copy_long_long__null_first(void** state)
+{
+    long long ll_second = 100ll;
+    bool_t b_output = false;
+    expect_assert_failure(_type_copy_long_long(NULL, &ll_second, &b_output));
+}
+
+void test__type_copy_long_long__null_second(void** state)
+{
+    long long ll_first = 100ll;
+    bool_t b_output = false;
+    expect_assert_failure(_type_copy_long_long(&ll_first, NULL, &b_output));
+}
+
+void test__type_copy_long_long__null_output(void** state)
+{
+    long long ll_first = 100ll;
+    long long ll_second = 100ll;
+    expect_assert_failure(_type_copy_long_long(&ll_first, &ll_second, NULL));
+}
+
+void test__type_copy_long_long__ok(void** state)
+{
+    long long ll_first = 100ll;
+    long long ll_second = 19999ll;
+    bool_t b_output = false;
+    _type_copy_long_long(&ll_first, &ll_second, &b_output);
+    assert_true(ll_first == 19999ll);
+    assert_true(ll_second == 19999ll);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_less_long_long
+ */
+UT_CASE_DEFINATION(_type_less_long_long)
+void test__type_less_long_long__null_first(void** state)
+{
+    long long ll_second = 100ll;
+    bool_t b_output = false;
+    expect_assert_failure(_type_less_long_long(NULL, &ll_second, &b_output));
+}
+
+void test__type_less_long_long__null_second(void** state)
+{
+    long long ll_first = 100ll;
+    bool_t b_output = false;
+    expect_assert_failure(_type_less_long_long(&ll_first, NULL, &b_output));
+}
+
+void test__type_less_long_long__null_output(void** state)
+{
+    long long ll_first = 100ll;
+    long long ll_second = 100ll;
+    expect_assert_failure(_type_less_long_long(&ll_first, &ll_second, NULL));
+}
+
+void test__type_less_long_long__less(void** state)
+{
+    long long ll_first = -9923ll;
+    long long ll_second = 100ll;
+    bool_t b_output = false;
+    _type_less_long_long(&ll_first, &ll_second, &b_output);
+    assert_true(b_output);
+}
+
+void test__type_less_long_long__equal(void** state)
+{
+    long long ll_first = 199ll;
+    long long ll_second = 199ll;
+    bool_t b_output = false;
+    _type_less_long_long(&ll_first, &ll_second, &b_output);
+    assert_false(b_output);
+}
+
+void test__type_less_long_long__greater(void** state)
+{
+    long long ll_first = 100ll;
+    long long ll_second = -19ll;
+    bool_t b_output = false;
+    _type_less_long_long(&ll_first, &ll_second, &b_output);
+    assert_false(b_output);
+}
+
+/*
+ * test _type_destroy_long_long
+ */
+UT_CASE_DEFINATION(_type_destroy_long_long)
+void test__type_destroy_long_long__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_destroy_long_long(NULL, &b_output));
+}
+
+void test__type_destroy_long_long__null_output(void** state)
+{
+    long long ll_input = 100ll;
+    expect_assert_failure(_type_destroy_long_long(&ll_input, NULL));
+}
+
+void test__type_destroy_long_long__ok(void** state)
+{
+    long long ll_input = 100ll;
+    bool_t b_output = false;
+    _type_destroy_long_long(&ll_input, &b_output);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_init_ulong_long
+ */
+UT_CASE_DEFINATION(_type_init_ulong_long)
+void test__type_init_ulong_long__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_init_ulong_long(NULL, &b_output));
+}
+
+void test__type_init_ulong_long__null_output(void** state)
+{
+    unsigned long long ull_input = 10ll;
+    expect_assert_failure(_type_init_ulong_long(&ull_input, NULL));
+}
+
+void test__type_init_ulong_long__ok(void** state)
+{
+    unsigned long long ull_input = 100ll;
+    bool_t b_output = false;
+    _type_init_ulong_long(&ull_input, &b_output);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_copy_ulong_long
+ */
+UT_CASE_DEFINATION(_type_copy_ulong_long)
+void test__type_copy_ulong_long__null_first(void** state)
+{
+    unsigned long long ull_second = 100ll;
+    bool_t b_output = false;
+    expect_assert_failure(_type_copy_ulong_long(NULL, &ull_second, &b_output));
+}
+
+void test__type_copy_ulong_long__null_second(void** state)
+{
+    unsigned long long ull_first = 100ll;
+    bool_t b_output = false;
+    expect_assert_failure(_type_copy_ulong_long(&ull_first, NULL, &b_output));
+}
+
+void test__type_copy_ulong_long__null_output(void** state)
+{
+    unsigned long long ull_first = 100ll;
+    unsigned long long ull_second = 100ll;
+    expect_assert_failure(_type_copy_ulong_long(&ull_first, &ull_second, NULL));
+}
+
+void test__type_copy_ulong_long__ok(void** state)
+{
+    unsigned long long ull_first = 100ll;
+    unsigned long long ull_second = 19999ll;
+    bool_t b_output = false;
+    _type_copy_ulong_long(&ull_first, &ull_second, &b_output);
+    assert_true(ull_first == 19999ll);
+    assert_true(ull_second == 19999ll);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_less_ulong_long
+ */
+UT_CASE_DEFINATION(_type_less_ulong_long)
+void test__type_less_ulong_long__null_first(void** state)
+{
+    unsigned long long ull_second = 100ll;
+    bool_t b_output = false;
+    expect_assert_failure(_type_less_ulong_long(NULL, &ull_second, &b_output));
+}
+
+void test__type_less_ulong_long__null_second(void** state)
+{
+    unsigned long long ull_first = 100ll;
+    bool_t b_output = false;
+    expect_assert_failure(_type_less_ulong_long(&ull_first, NULL, &b_output));
+}
+
+void test__type_less_ulong_long__null_output(void** state)
+{
+    unsigned long long ull_first = 100ll;
+    unsigned long long ull_second = 100ll;
+    expect_assert_failure(_type_less_ulong_long(&ull_first, &ull_second, NULL));
+}
+
+void test__type_less_ulong_long__less(void** state)
+{
+    unsigned long long ull_first = 9923ll;
+    unsigned long long ull_second = 11111100ll;
+    bool_t b_output = false;
+    _type_less_ulong_long(&ull_first, &ull_second, &b_output);
+    assert_true(b_output);
+}
+
+void test__type_less_ulong_long__equal(void** state)
+{
+    unsigned long long ull_first = 199ll;
+    unsigned long long ull_second = 199ll;
+    bool_t b_output = false;
+    _type_less_ulong_long(&ull_first, &ull_second, &b_output);
+    assert_false(b_output);
+}
+
+void test__type_less_ulong_long__greater(void** state)
+{
+    unsigned long long ull_first = 100ll;
+    unsigned long long ull_second = 19ll;
+    bool_t b_output = false;
+    _type_less_ulong_long(&ull_first, &ull_second, &b_output);
+    assert_false(b_output);
+}
+
+/*
+ * test _type_destroy_ulong_long
+ */
+UT_CASE_DEFINATION(_type_destroy_ulong_long)
+void test__type_destroy_ulong_long__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_destroy_ulong_long(NULL, &b_output));
+}
+
+void test__type_destroy_ulong_long__null_output(void** state)
+{
+    unsigned long long ull_input = 100ll;
+    expect_assert_failure(_type_destroy_ulong_long(&ull_input, NULL));
+}
+
+void test__type_destroy_ulong_long__ok(void** state)
+{
+    unsigned long long ull_input = 100ll;
+    bool_t b_output = false;
+    _type_destroy_ulong_long(&ull_input, &b_output);
     assert_true(b_output);
 }
 #endif

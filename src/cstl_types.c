@@ -557,6 +557,14 @@ void _type_get_varg_value(_typeinfo_t* pt_typeinfo, va_list val_elemlist, void* 
             /* _Bool */
             assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(_Bool));
             *(_Bool*)pv_output = va_arg(val_elemlist, int);
+        } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _LONG_LONG_TYPE, _TYPE_NAME_SIZE) == 0) {
+            /* long long */
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(long long));
+            *(long long*)pv_output = va_arg(val_elemlist, long long);
+        } else if (strncmp(pt_typeinfo->_pt_type->_s_typename, _UNSIGNED_LONG_LONG_TYPE, _TYPE_NAME_SIZE) == 0) {
+            /* unsigned long long */
+            assert(pt_typeinfo->_pt_type->_t_typesize == sizeof(unsigned long long));
+            *(unsigned long long*)pv_output = va_arg(val_elemlist, unsigned long long);
 #endif
         } else {
             /* invalid c builtin style */
