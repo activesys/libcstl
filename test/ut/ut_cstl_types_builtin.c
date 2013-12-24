@@ -7395,6 +7395,148 @@ void test__type_destroy_pointer__ok(void** state)
     assert_true(p == 0x1234);
 }
 
+/*
+ * test _type_init_range
+ */
+UT_CASE_DEFINATION(_type_init_range)
+void test__type_init_range__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_init_range(NULL, &b_output));
+}
+
+void test__type_init_range__null_output(void** state)
+{
+    range_t r_input;
+    expect_assert_failure(_type_init_range(&r_input, NULL));
+}
+
+void test__type_init_range__ok(void** state)
+{
+    range_t r_input;
+    bool_t b_output = false;
+    _type_init_range(&r_input, &b_output);
+}
+
+/*
+ * test _type_copy_range
+ */
+UT_CASE_DEFINATION(_type_copy_range)
+void test__type_copy_range__null_first(void** state)
+{
+    range_t r_second;
+    bool_t b_output = false;
+    
+    expect_assert_failure(_type_copy_range(NULL, &r_second, &b_output));
+}
+
+void test__type_copy_range__null_second(void** state)
+{
+    range_t r_first;
+    bool_t b_output = false;
+    expect_assert_failure(_type_copy_range(&r_first, NULL, &b_output));
+}
+
+void test__type_copy_range__null_output(void** state)
+{
+    range_t r_first;
+    range_t r_second;
+    expect_assert_failure(_type_copy_range(&r_first, &r_second, NULL));
+}
+
+void test__type_copy_range__ok(void** state)
+{
+    range_t r_first;
+    range_t r_second;
+    bool_t b_output = false;
+    memset(&r_second, 0x11, sizeof(range_t));
+    _type_copy_range(&r_first, &r_second, &b_output);
+    assert_true(memcmp(&r_first, &r_second, sizeof(range_t)) == 0);
+    assert_true(b_output);
+}
+
+/*
+ * test _type_less_range
+ */
+UT_CASE_DEFINATION(_type_less_range)
+void test__type_less_range__null_first(void** state)
+{
+    range_t r_second;
+    bool_t b_output = false;
+    expect_assert_failure(_type_less_range(NULL, &r_second, &b_output));
+}
+
+void test__type_less_range__null_second(void** state)
+{
+    range_t r_first;
+    bool_t b_output = false;
+    expect_assert_failure(_type_less_range(&r_first, NULL, &b_output));
+}
+
+void test__type_less_range__null_output(void** state)
+{
+    range_t r_first;
+    range_t r_second;
+    expect_assert_failure(_type_less_range(&r_first, &r_second, NULL));
+}
+
+void test__type_less_range__less(void** state)
+{
+    range_t r_first;
+    range_t r_second;
+    bool_t b_output = false;
+    memset(&r_first, 0x00, sizeof(range_t));
+    memset(&r_second, 0x11, sizeof(range_t));
+    _type_less_range(&r_first, &r_second, &b_output);
+    assert_true(b_output);
+}
+
+void test__type_less_range__equal(void** state)
+{
+    range_t r_first;
+    range_t r_second;
+    bool_t b_output = false;
+    memset(&r_first, 0x11, sizeof(range_t));
+    memset(&r_second, 0x11, sizeof(range_t));
+    _type_less_range(&r_first, &r_second, &b_output);
+    assert_false(b_output);
+}
+
+void test__type_less_range__greater(void** state)
+{
+    range_t r_first;
+    range_t r_second;
+    bool_t b_output = false;
+    memset(&r_first, 0x11, sizeof(range_t));
+    memset(&r_second, 0x00, sizeof(range_t));
+    _type_less_range(&r_first, &r_second, &b_output);
+    assert_false(b_output);
+}
+
+/*
+ * test _type_destroy_range
+ */
+UT_CASE_DEFINATION(_type_destroy_range)
+void test__type_destroy_range__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_destroy_range(NULL, &b_output));
+}
+
+void test__type_destroy_range__null_output(void** state)
+{
+    range_t r_input;
+    expect_assert_failure(_type_destroy_range(&r_input, NULL));
+}
+
+void test__type_destroy_range__ok(void** state)
+{
+    bool_t b_output = false;
+    range_t r_input;
+    _type_destroy_range(&r_input, &b_output);
+    assert_true(b_output);
+}
+
 #ifndef _MSC_VER
 /*
  * test _type_init_bool

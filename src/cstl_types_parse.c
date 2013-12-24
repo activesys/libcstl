@@ -71,6 +71,7 @@
 #define _TOKEN_TEXT_HASH_MULTIMAP                  "hash_multimap_t"
 #define _TOKEN_TEXT_PAIR                           "pair_t"
 #define _TOKEN_TEXT_STRING                         "string_t"
+#define _TOKEN_TEXT_RANGE                          "range_t"
 #define _TOKEN_TEXT_ITERATOR                       "iterator_t"
 #define _TOKEN_TEXT_VECTOR_ITERATOR                "vector_iterator_t"
 #define _TOKEN_TEXT_LIST_ITERATOR                  "list_iterator_t"
@@ -149,6 +150,7 @@ static keytable_t _sgt_table[] = {
     {_TOKEN_KEY_HASH_MULTIMAP,          _TOKEN_TEXT_HASH_MULTIMAP},
     {_TOKEN_KEY_PAIR,                   _TOKEN_TEXT_PAIR},
     {_TOKEN_KEY_STRING,                 _TOKEN_TEXT_STRING},
+    {_TOKEN_KEY_RANGE,                  _TOKEN_TEXT_RANGE},
     {_TOKEN_KEY_ITERATOR,               _TOKEN_TEXT_ITERATOR},
     {_TOKEN_KEY_VECTOR_ITERATOR,        _TOKEN_TEXT_VECTOR_ITERATOR},
     {_TOKEN_KEY_LIST_ITERATOR,          _TOKEN_TEXT_LIST_ITERATOR},
@@ -249,6 +251,7 @@ _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
         case _TOKEN_KEY_HASH_MULTIMAP:
         case _TOKEN_KEY_PAIR:
         case _TOKEN_KEY_STRING:
+        case _TOKEN_KEY_RANGE:
         case _TOKEN_KEY_ITERATOR:
         case _TOKEN_KEY_VECTOR_ITERATOR:
         case _TOKEN_KEY_LIST_ITERATOR:
@@ -984,7 +987,7 @@ bool_t _type_parse_relation(char* s_formalname)
 bool_t _type_parse_cstl_builtin(char* s_formalname)
 {
     assert(s_formalname != NULL);
-    /* CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | ITERATOR */
+    /* CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | range_t | ITERATOR */
     switch (_gt_typeanalysis._t_token) {
         /* CSTL_BUILTIN -> SEQUENCE */
         case _TOKEN_KEY_VECTOR:
@@ -1011,6 +1014,11 @@ bool_t _type_parse_cstl_builtin(char* s_formalname)
         /* CSTL_BUILTIN -> string_t */
         case _TOKEN_KEY_STRING:
             _TOKEN_MATCH(_TOKEN_TEXT_STRING, s_formalname);
+            return true;
+            break;
+        /* CSTL_BUILTIN -> range_t */
+        case _TOKEN_KEY_RANGE:
+            _TOKEN_MATCH(_TOKEN_TEXT_RANGE, s_formalname);
             return true;
             break;
         /* CSTL_BUILTIN -> ITERATOR */
@@ -1094,6 +1102,7 @@ bool_t _type_parse_type_descript(char* s_formalname)
         case _TOKEN_KEY_HASH_MULTIMAP:
         case _TOKEN_KEY_PAIR:
         case _TOKEN_KEY_STRING:
+        case _TOKEN_KEY_RANGE:
         case _TOKEN_KEY_ITERATOR:
         case _TOKEN_KEY_VECTOR_ITERATOR:
         case _TOKEN_KEY_LIST_ITERATOR:

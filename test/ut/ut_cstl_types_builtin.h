@@ -1027,6 +1027,38 @@ UT_CASE_DECLARATION(_type_destroy_iterator)
 void test__type_destroy_iterator__null_input(void** state);
 void test__type_destroy_iterator__null_output(void** state);
 void test__type_destroy_iterator__ok(void** state);
+/*
+ * test _type_init_range
+ */
+UT_CASE_DECLARATION(_type_init_range)
+void test__type_init_range__null_input(void** state);
+void test__type_init_range__null_output(void** state);
+void test__type_init_range__ok(void** state);
+/*
+ * test _type_copy_range
+ */
+UT_CASE_DECLARATION(_type_copy_range)
+void test__type_copy_range__null_first(void** state);
+void test__type_copy_range__null_second(void** state);
+void test__type_copy_range__null_output(void** state);
+void test__type_copy_range__ok(void** state);
+/*
+ * test _type_less_range
+ */
+UT_CASE_DECLARATION(_type_less_range)
+void test__type_less_range__null_first(void** state);
+void test__type_less_range__null_second(void** state);
+void test__type_less_range__null_output(void** state);
+void test__type_less_range__less(void** state);
+void test__type_less_range__equal(void** state);
+void test__type_less_range__greater(void** state);
+/*
+ * test _type_destroy_range
+ */
+UT_CASE_DECLARATION(_type_destroy_range)
+void test__type_destroy_range__null_input(void** state);
+void test__type_destroy_range__null_output(void** state);
+void test__type_destroy_range__ok(void** state);
 
 #ifndef _MSC_VER
 /*
@@ -1639,7 +1671,23 @@ void test__type_destroy_ulong_long__ok(void** state);
     UT_CASE(test__type_less_pointer__greater),\
     UT_CASE_BEGIN(_type_destroy_pointer, test__type_destroy_pointer__null_input),\
     UT_CASE(test__type_destroy_pointer__null_output),\
-    UT_CASE(test__type_destroy_pointer__ok)
+    UT_CASE(test__type_destroy_pointer__ok),\
+    UT_CASE_BEGIN(_type_init_range, test__type_init_range__null_input),\
+    UT_CASE(test__type_init_range__null_output),\
+    UT_CASE(test__type_init_range__ok),\
+    UT_CASE_BEGIN(_type_copy_range, test__type_copy_range__null_first),\
+    UT_CASE(test__type_copy_range__null_second),\
+    UT_CASE(test__type_copy_range__null_output),\
+    UT_CASE(test__type_copy_range__ok),\
+    UT_CASE_BEGIN(_type_less_range, test__type_less_range__null_first),\
+    UT_CASE(test__type_less_range__null_second),\
+    UT_CASE(test__type_less_range__null_output),\
+    UT_CASE(test__type_less_range__less),\
+    UT_CASE(test__type_less_range__equal),\
+    UT_CASE(test__type_less_range__greater),\
+    UT_CASE_BEGIN(_type_destroy_range, test__type_destroy_range__null_input),\
+    UT_CASE(test__type_destroy_range__null_output),\
+    UT_CASE(test__type_destroy_range__ok)
 
 #ifndef _MSC_VER
 #define UT_CSTL_TYPES_BUILTIN_CASE_C99\

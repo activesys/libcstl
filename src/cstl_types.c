@@ -263,8 +263,9 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
                pt_typeinfo->_t_style == _TYPE_USER_DEFINE) {
         strncpy(s_registeredname, pt_typeinfo->_s_typename, _TYPE_NAME_SIZE);
     } else {
-        /* the string_t and iterator types are special codition */
+        /* the string_t , range_t and iterator types are special codition */
         if (strncmp(pt_typeinfo->_s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(pt_typeinfo->_s_typename, _RANGE_TYPE, _TYPE_NAME_SIZE) == 0 ||
             strncmp(pt_typeinfo->_s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
             strncmp(pt_typeinfo->_s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
             strncmp(pt_typeinfo->_s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
@@ -444,6 +445,7 @@ void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
 
     /* the string_t and iterator types are special condition */
     if (strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
+        strncmp(s_typename, _RANGE_TYPE, _TYPE_NAME_SIZE) == 0 ||
         strncmp(s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
         strncmp(s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
         strncmp(s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
@@ -466,8 +468,8 @@ void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
         strncpy(s_elemtypename, s_typename, _TYPE_NAME_SIZE);
     } else {
         /* e.g. "vector_t<map_t<int,long>>" */
-        pc_left = strchr(s_typename, '<');
-        pc_right = strrchr(s_typename, '>');
+        pc_left = strchr(s_typename, _CSTL_LEFT_BRACKET);
+        pc_right = strrchr(s_typename, _CSTL_RIGHT_BRACKET);
         assert(pc_left != NULL && pc_right != NULL && pc_left < pc_right &&
                pc_right == s_typename + strlen(s_typename) - 1);
 

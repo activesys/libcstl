@@ -1393,6 +1393,13 @@ void test__all_types__cstl_bool(void** state)
     vector_destroy(pvec);
 }
 
+void test__all_types__range(void** state)
+{
+    vector_t* pvec = create_vector(range_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
 void test__all_types__iterator(void** state)
 {
     vector_t* pvec = create_vector(iterator_t);
@@ -1675,6 +1682,123 @@ void test__pointer_usage__duplicate(void** state)
 
     type_duplicate(pointer, void*);
     pvec = create_vector(pointer);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+/*
+ * test range_t usage
+ */
+UT_CASE_DEFINATION(range_usage)
+void test__range_usage__create(void** state)
+{
+    vector_t* pvec = create_vector(range_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__range_usage__init_n(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(range_t);
+    range_t r;
+    memset(&r, 0x00, sizeof(range_t));
+    vector_init_n(pvec, 10);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(memcmp((range_t*)vector_at(pvec, i), &r, sizeof(range_t)) == 0);
+    }
+    vector_destroy(pvec);
+}
+
+void test__range_usage__init_elem(void** state)
+{
+    size_t i = 0;
+    range_t r;
+    vector_t* pvec = create_vector(range_t);
+    memset(&r, 0xcc, sizeof(range_t));
+    vector_init_elem(pvec, 10, &r);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(memcmp((range_t*)vector_at(pvec, i), &r, sizeof(range_t)) == 0);
+    }
+    vector_destroy(pvec);
+}
+
+void test__range_usage__at(void** state)
+{
+    size_t i = 0;
+    range_t r1;
+    range_t r2;
+    vector_t* pvec = create_vector(range_t);
+    memset(&r1, 0x00, sizeof(range_t));
+    memset(&r2, 0xcc, sizeof(range_t));
+    vector_init_elem(pvec, 10, &r1);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(memcmp((range_t*)vector_at(pvec, i), &r1, sizeof(range_t)) == 0);
+        memcpy((range_t*)vector_at(pvec, i), &r2, sizeof(range_t));
+    }
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(memcmp((range_t*)vector_at(pvec, i), &r2, sizeof(range_t)) == 0);
+    }
+    vector_destroy(pvec);
+}
+
+void test__range_usage__iterator(void** state)
+{
+    iterator_t it;
+    range_t r;
+    vector_t* pvec = create_vector(range_t);
+    memset(&r, 0x11, sizeof(range_t));
+    vector_init_elem(pvec, 10, &r);
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec));
+         it = iterator_next(it)) {
+        range_t rr;
+        assert_true(memcmp((range_t*)iterator_get_pointer(it), &r, sizeof(range_t)) == 0);
+        iterator_get_value(it, &rr);
+        assert_true(memcmp(&r, &rr, sizeof(range_t)) == 0);
+    }
+    vector_destroy(pvec);
+}
+
+void test__range_usage__copy(void** state)
+{
+    size_t i = 0;
+    range_t r;
+    vector_t* pvec1 = create_vector(range_t);
+    vector_t* pvec2 = create_vector(range_t);
+    vector_init_elem(pvec1, 10, &r);
+    vector_init_copy_range(pvec2, vector_begin(pvec1), vector_end(pvec1));
+
+    for (i = 0; i < vector_size(pvec1); ++i) {
+        assert_true(memcmp((range_t*)vector_at(pvec1, i), (range_t*)vector_at(pvec2, i), sizeof(range_t)) == 0);
+    }
+
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+void test__range_usage__less(void** state)
+{
+    vector_t* pvec1 = create_vector(range_t);
+    vector_t* pvec2 = create_vector(range_t);
+    range_t r1;
+    range_t r2;
+    memset(&r1, 0x11, sizeof(range_t));
+    memset(&r2, 0x22, sizeof(range_t));
+    vector_init_elem(pvec1, 10, &r1);
+    vector_init_elem(pvec2, 10, &r2);
+    assert_true(vector_less(pvec1, pvec2));
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+}
+
+typedef range_t my_range;
+void test__range_usage__duplicate(void** state)
+{
+    vector_t* pvec = NULL;
+
+    type_duplicate(my_range, range_t);
+    pvec = create_vector(my_range);
     assert_true(pvec != NULL);
     vector_destroy(pvec);
 }

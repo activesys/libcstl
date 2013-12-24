@@ -551,6 +551,15 @@ void test__type_get_token__key_random_access_iterator(void** state)
     assert_true(strncmp(_gt_typeanalysis._s_tokentext, "random_access_iterator_t", _TYPE_NAME_SIZE) == 0);
 }
 
+void test__type_get_token__key_range(void** state)
+{
+    test_parse_setup("range_t");
+    _type_get_token();
+    assert_true(_gt_typeanalysis._t_token == _TOKEN_KEY_RANGE);
+    assert_true(_gt_typeanalysis._t_index == 7);
+    assert_true(strncmp(_gt_typeanalysis._s_tokentext, "range_t", _TYPE_NAME_SIZE) == 0);
+}
+
 #ifndef _MSC_VER
 void test__type_get_token__key_bool(void** state)
 {
@@ -1993,6 +2002,26 @@ void test__type_parse_cstl_builtin__invalid_token(void** state)
 
     assert_false(_type_parse_sequence(s_formalname));
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_cstl_builtin__string(void** state)
+{
+    const char* str = "string_t";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_STRING, strlen("string_t"), "string_t");
+
+    assert_true(_type_parse_cstl_builtin(s_formalname));
+    assert_true(strncmp(s_formalname, "string_t", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_cstl_builtin__range(void** state)
+{
+    const char* str = "range_t";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_RANGE, strlen("range_t"), "range_t");
+
+    assert_true(_type_parse_cstl_builtin(s_formalname));
+    assert_true(strncmp(s_formalname, "range_t", _TYPE_NAME_SIZE) == 0);
 }
 
 /*

@@ -64,6 +64,7 @@ void test__type_get_token__key_output_iterator(void** state);
 void test__type_get_token__key_forward_iterator(void** state);
 void test__type_get_token__key_bidirectional_iterator(void** state);
 void test__type_get_token__key_random_access_iterator(void** state);
+void test__type_get_token__key_range(void** state);
 #ifndef _MSC_VER
 void test__type_get_token__key_bool(void** state);
 #endif
@@ -294,6 +295,8 @@ void test__type_parse_cstl_builtin__relation(void** state);
 void test__type_parse_cstl_builtin__iterator(void** state);
 void test__type_parse_cstl_builtin__invalid_token(void** state);
 void test__type_parse_cstl_builtin__null(void** state);
+void test__type_parse_cstl_builtin__string(void** state);
+void test__type_parse_cstl_builtin__range(void** state);
 /*
  * test _type_parse_type_descript
  */
@@ -390,6 +393,7 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_get_token__key_forward_iterator),\
     UT_CASE(test__type_get_token__key_bidirectional_iterator),\
     UT_CASE(test__type_get_token__key_random_access_iterator),\
+    UT_CASE(test__type_get_token__key_range),\
     UT_CASE_BEGIN(_type_parse_pointer_suffix, test__type_parse_pointer_suffix__null),\
     UT_CASE(test__type_parse_pointer_suffix__pointer),\
     UT_CASE(test__type_parse_pointer_suffix__eof),\
@@ -528,6 +532,8 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_parse_cstl_builtin__iterator),\
     UT_CASE(test__type_parse_cstl_builtin__invalid_token),\
     UT_CASE(test__type_parse_cstl_builtin__null),\
+    UT_CASE(test__type_parse_cstl_builtin__string),\
+    UT_CASE(test__type_parse_cstl_builtin__range),\
     UT_CASE_BEGIN(_type_parse_type_descript, test__type_parse_type_descript__c_builtin),\
     UT_CASE(test__type_parse_type_descript__user_define_invalid),\
     UT_CASE(test__type_parse_type_descript__user_define),\

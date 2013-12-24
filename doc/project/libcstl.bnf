@@ -34,7 +34,7 @@ struct, enum, union,
 vector_t, list_t, slist_t, deque_t, stack_t, queue_t, priority_queue_t,
 set_t, map_t, multiset_t, multimap_t,
 hash_set_t, hash_map_t, hash_multiset_t, hash_multimap_t,
-pair_t, string_t,
+pair_t, string_t, range_t
 iterator_t, vector_iterator_t, list_iterator_t, slist_iterator_t, deque_iterator_t,
 set_iterator_t, map_iterator_t, multiset_iterator_t, multimap_iterator_t,
 hash_set_iterator_t, hash_map_iterator_t, hash_multiset_iterator_t, hash_multimap_iterator_t,
@@ -70,7 +70,7 @@ C_BUILTIN -> char | signed char |
              bool_t | _Bool
 USER_DEFINE -> USER_DEFINE_TYPE identifier | identifier
 USER_DEFINE_TYPE -> struct | enum | union
-CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | ITERATOR
+CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | range_t | ITERATOR
 ITERATOR -> iterator_t | vector_iterator_t | list_iterator_t | slist_iterator_t | deque_iterator_t |
             set_iterator_t | map_iterator_t | multiset_iterator_t | multimap_iterator_t |
             hash_set_iterator_t | hash_map_iterator_t | hash_multiset_iterator_t | hash_multimap_iterator_t |
@@ -115,7 +115,7 @@ COMPLEX_LONG_SUFFIX -> {+' '}long COMMON_SUFFIX | COMMON_SUFFIX
 USER_DEFINE -> USER_DEFINE_TYPE {+' '}identifier | identifier
 USER_DEFINE_TYPE -> struct | enum | union
 
-CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | ITERATOR
+CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | range_t | ITERATOR
 ITERATOR -> iterator_t | vector_iterator_t | list_iterator_t | slist_iterator_t | deque_iterator_t |
             set_iterator_t | map_iterator_t | multiset_iterator_t | multimap_iterator_t |
             hash_set_iterator_t | hash_map_iterator_t | hash_multiset_iterator_t | hash_multimap_iterator_t |
@@ -154,7 +154,7 @@ first(USER_DEFINE_TYPE) = {struct, enum, union}
 
 first(CSTL_BUILTIN) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
                        set_t, map_t, multiset_t, multimap_t, hash_set_t, hash_map_t, hash_multiset_t,
-                       hash_multimap_t, pair_t, string_t,
+                       hash_multimap_t, pair_t, string_t, range_t,
                        iterator_t, vector_iterator_t, list_iterator_t, slist_iterator_t, deque_iterator_t,
                        set_iterator_t, map_iterator_t, multiset_iterator_t, multimap_iterator_t,
                        hash_set_iterator_t, hash_map_iterator_t, hash_multiset_iterator_t, hash_multimap_iterator_t,
@@ -264,6 +264,7 @@ select(CSTL_BUILTIN -> ITERATOR) = {iterator_t, vector_iterator_t, list_iterator
                                     input_iterator_t, output_iterator_t, forward_iterator_t, bidirectional_iterator_t,
                                     random_access_iterator_t}
 select(CSTL_BUILTIN -> string_t) = {string_t}
+select(CSTL_BUILTIN -> range_t) = {range_t}
 
 select(SEQUENCE -> SEQUENCE_NAME < TYPE_DESCRIPT >) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, 
                                                        priority_queue_t, set_t, multiset_t, hash_set_t, hash_multiset_t}
@@ -393,370 +394,3 @@ vector_t                            vector_t
 list_t<struct _tagabc>              list_t<abc_t>
 list_t                              list_t
 struct _tagabc                      abc_t
-
-bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
-{
-    char s_elemname1[_TYPE_NAME_SIZE+1];
-    char s_prefix1[_TYPE_NAME_SIZE+1];
-    char s_elemname2[_TYPE_NAME_SIZE+1];
-    char s_prefix2[_TYPE_NAME_SIZE+1];
-    char* pc_index1 = NULL;
-    char* pc_leftbracket1 = NULL;
-    char* pc_rightbracket1 = NULL;
-    char* pc_comma1 = NULL;
-    char* pc_index2 = NULL;
-    char* pc_leftbracket2 = NULL;
-    char* pc_rightbracket2 = NULL;
-    char* pc_comma2 = NULL;
-
-    memset(s_elemname1, '\0', _TYPE_NAME_SIZE+1);
-    memset(s_elemname2, '\0', _TYPE_NAME_SIZE+1);
-    memset(s_prefix1, '\0', _TYPE_NAME_SIZE+1);
-    memset(s_prefix2, '\0', _TYPE_NAME_SIZE+1);
-    strncpy(s_elemname1, "vector_t<long>", _TYPE_NAME_SIZE);
-    strncpy(s_elemname2, "vector_t<signed long int>", _TYPE_NAME_SIZE);
-
-    do{
-        pc_leftbracket1 = strchr(s_elemname1, '<');
-        pc_comma1 = strchr(s_elemname1, ',');
-        pc_rightbracket1 = strchr(s_elemname1, '>');
-        pc_leftbracket2 = strchr(s_elemname2, '<');
-        pc_comma2 = strchr(s_elemname2, ',');
-        pc_rightbracket2 = strchr(s_elemname2, '>');
-
-        if(pc_leftbracket1 != NULL)
-        {
-            if(pc_comma1 != NULL)
-            {
-                if(pc_rightbracket1 != NULL)
-                {
-                    pc_index1 = pc_leftbracket1 - s_elemname1 < pc_comma1 - s_elemname1 ?
-                                pc_leftbracket1 - s_elemname1 < pc_rightbracket1 - s_elemname1 ?
-                                pc_leftbracket1 : pc_rightbracket1 :
-                                pc_comma1 - s_elemname1 < pc_rightbracket1 - s_elemname1 ?
-                                pc_comma1 : pc_rightbracket1;
-                }
-                else
-                {
-                    pc_index1 = pc_leftbracket1 - s_elemname1 < pc_comma1 - s_elemname1 ?
-                                pc_leftbracket1 : pc_comma1;
-                }
-            }
-            else
-            {
-                if(pc_rightbracket1 != NULL)
-                {
-                    pc_index1 = pc_leftbracket1 - s_elemname1 < pc_rightbracket1 - s_elemname1 ?
-                                pc_leftbracket1 : pc_rightbracket1;
-                }
-                else
-                {
-                    pc_index1 = pc_leftbracket1;
-                }
-            }
-        }
-        else
-        {
-            if(pc_comma1 != NULL)
-            {
-                if(pc_rightbracket1 != NULL)
-                {
-                    pc_index1 = pc_comma1 - s_elemname1 < pc_rightbracket1 - s_elemname1 ?
-                                pc_comma1 : pc_rightbracket1;
-                }
-                else
-                {
-                    pc_index1 = pc_comma1;
-                }
-            }
-            else
-            {
-                pc_index1 = pc_rightbracket1;
-            }
-        }
-
-        if(pc_leftbracket2 != NULL)
-        {
-            if(pc_comma2 != NULL)
-            {
-                if(pc_rightbracket2 != NULL)
-                {
-                    pc_index2 = pc_leftbracket2 - s_elemname2 < pc_comma2 - s_elemname2 ?
-                                pc_leftbracket2 - s_elemname2 < pc_rightbracket2 - s_elemname2 ?
-                                pc_leftbracket2 : pc_rightbracket2 :
-                                pc_comma2 - s_elemname2 < pc_rightbracket2 - s_elemname2 ?
-                                pc_comma2 : pc_rightbracket2;
-                }
-                else
-                {
-                    pc_index2 = pc_leftbracket2 - s_elemname2 < pc_comma2 - s_elemname2 ?
-                                pc_leftbracket2 : pc_comma2;
-                }
-            }
-            else
-            {
-                if(pc_rightbracket2 != NULL)
-                {
-                    pc_index2 = pc_leftbracket2 - s_elemname2 < pc_rightbracket2 - s_elemname2 ?
-                                pc_leftbracket2 : pc_rightbracket2;
-                }
-                else
-                {
-                    pc_index2 = pc_leftbracket2;
-                }
-            }
-        }
-        else
-        {
-            if(pc_comma2 != NULL)
-            {
-                if(pc_rightbracket2 != NULL)
-                {
-                    pc_index2 = pc_comma2 - s_elemname2 < pc_rightbracket2 - s_elemname2 ?
-                                pc_comma2 : pc_rightbracket2;
-                }
-                else
-                {
-                    pc_index2 = pc_comma2;
-                }
-            }
-            else
-            {
-                pc_index2 = pc_rightbracket2;
-            }
-        }
-
-        if(pc_index1 != NULL && pc_index2 != NULL)
-        {
-            memset(s_prefix1, '\0', _TYPE_NAME_SIZE+1);
-            memset(s_prefix2, '\0', _TYPE_NAME_SIZE+1);
-            strncpy(s_prefix1, s_elemname1, pc_index1 - s_elemname1);
-            strncpy(s_prefix2, s_elemname2, pc_index2 - s_elemname2);
-
-            if(strncmp(s_prefix1, s_prefix2, _TYPE_NAME_SIZE) != 0)
-            {
-                std::cout << s_prefix1 << std::endl << s_prefix2 << std::endl;
-            }
-
-            memset(s_prefix1, '\0', _TYPE_NAME_SIZE+1);
-            memset(s_prefix2, '\0', _TYPE_NAME_SIZE+1);
-            strncpy(s_prefix1, pc_index1+1, _TYPE_NAME_SIZE);
-            strncpy(s_prefix2, pc_index2+1, _TYPE_NAME_SIZE);
-            memset(s_elemname1, '\0', _TYPE_NAME_SIZE+1);
-            memset(s_elemname2, '\0', _TYPE_NAME_SIZE+1);
-            strncpy(s_elemname1, s_prefix1, _TYPE_NAME_SIZE);
-            strncpy(s_elemname2, s_prefix2, _TYPE_NAME_SIZE);
-        }
-        else
-        {
-            assert(pc_index1 == NULL && pc_index2 == NULL);
-            if(strncmp(s_elemname1, s_elemname2, _TYPE_NAME_SIZE) != 0)
-            {
-                std::cout << s_elemname1 << std::endl << s_elemname2 << std::endl;
-            }
-        }
-    }while((pc_leftbracket1 != NULL || pc_comma1 != NULL || pc_rightbracket1 != NULL) &&
-           (pc_leftbracket2 != NULL || pc_comma2 != NULL || pc_rightbracket2 != NULL));
-
-    assert(pc_leftbracket1 == NULL && pc_comma1 == NULL && pc_rightbracket1 == NULL &&
-           pc_leftbracket2 == NULL && pc_comma2 == NULL && pc_rightbracket2 == NULL);
-}
-
-map_t<set_t<int,double>,deque_t<struct _tagabc>>        map_t<set_t<myint,double>,deque_t<abc_t>>
-
-=================================================================
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-TYPE_DESCRIPT -> CSTL_BUILTIN | NON_CSTL_BUILTIN
-NON_CSTL_BUILTIN -> VOID_POINTER | GENERAL_TYPE
-GENERAL_TYPE -> USER_DEFINE POINTER_SYMBOL | C_BUILTIN POINTER_SYMBOL
-POINTER_SYMBOL -> POINTER | $
-
-C_BUILTIN -> SIMPLE_BUILTIN | SIGNED_BUILTIN | UNSIGNED_BUILTIN
-SIMPLE_BUILTIN -> char | short COMMON_SUFFIX | int | long SIMPLE_LONG_SUFFIX | float | double | char* | bool_t
-SIGNED_BUILTIN -> signed COMPLEX_SUFFIX
-UNSIGNED_BUILTIN -> unsigned COMPLEX_SUFFIX
-COMPLEX_SUFFIX -> {+' '}char | {+' '}short COMMON_SUFFIX | {+' '}int | {+' '}long COMMON_SUFFIX | $
-COMMON_SUFFIX -> {+' '}int | $
-SIMPLE_LONG_SUFFIX -> {+' '}double | COMMON_SUFFIX
-
-USER_DEFINE -> USER_DEFINE_TYPE {+' '}identifier | identifier
-USER_DEFINE_TYPE -> struct | enum | union
-
-CSTL_BUILTIN -> SEQUENCE | RELATION | string_t | ITERATOR
-ITERATOR -> iterator_t | vector_iterator_t | list_iterator_t | slist_iterator_t | deque_iterator_t |
-            set_iterator_t | map_iterator_t | multiset_iterator_t | multimap_iterator_t |
-            hash_set_iterator_t | hash_map_iterator_t | hash_multiset_iterator_t | hash_multimap_iterator_t |
-            string_iterator_t |
-            input_iterator_t | output_iterator_t | forward_iterator_t | bidirectional_iterator_t | random_access_iterator_t
-SEQUENCE -> SEQUENCE_NAME < TYPE_DESCRIPT >
-SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | queue_t | stack_t | priority_queue_t |
-                 set_t | multiset_t | hash_set_t | hash_multiset_t
-RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >
-RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
-
-VOID_POINTER -> void POINTER
-POINTER -> * POINTER_EX
-POINTER_EX -> * POINTER_EX | $
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-first(TYPE_DESCRIPT) = {
-    vector_t list_t slist_t deque_t queue_t stack_t priority_queue_t set_t multiset_t hash_set_t hash_multiset_t
-    map_t multimap_t hash_map_t hash_multimap_t pair_t
-    string_t
-    iterator_t vector_iterator_t list_iterator_t slist_iterator_t deque_iterator_t set_iterator_t map_iterator_t multiset_iterator_t multimap_iterator_t hash_set_iterator_t hash_map_iterator_t hash_multiset_iterator_t hash_multimap_iterator_t string_iterator_t input_iterator_t output_iterator_t forward_iterator_t bidirectional_iterator_t random_access_iterator_t
-    void
-    struct enum union identifier
-    char short int long float double char* bool_t signed unsigned
-}
-first(CSTL_BUILTIN) = {
-    vector_t list_t slist_t deque_t queue_t stack_t priority_queue_t set_t multiset_t hash_set_t hash_multiset_t
-    map_t multimap_t hash_map_t hash_multimap_t pair_t
-    string_t
-    iterator_t vector_iterator_t list_iterator_t slist_iterator_t deque_iterator_t set_iterator_t map_iterator_t multiset_iterator_t multimap_iterator_t hash_set_iterator_t hash_map_iterator_t hash_multiset_iterator_t hash_multimap_iterator_t string_iterator_t input_iterator_t output_iterator_t forward_iterator_t bidirectional_iterator_t random_access_iterator_t
-}
-first(SEQUENCE) = {vector_t list_t slist_t deque_t queue_t stack_t priority_queue_t set_t multiset_t hash_set_t hash_multiset_t}
-first(SEQUENCE_NAME) = {vector_t list_t slist_t deque_t queue_t stack_t priority_queue_t set_t multiset_t hash_set_t hash_multiset_t}
-first(RELATION) = {map_t multimap_t hash_map_t hash_multimap_t pair_t}
-first(RELATION_NAME) = {map_t multimap_t hash_map_t hash_multimap_t pair_t}
-first(ITERATOR) = {iterator_t vector_iterator_t list_iterator_t slist_iterator_t deque_iterator_t set_iterator_t map_iterator_t multiset_iterator_t multimap_iterator_t hash_set_iterator_t hash_map_iterator_t hash_multiset_iterator_t hash_multimap_iterator_t string_iterator_t input_iterator_t output_iterator_t forward_iterator_t bidirectional_iterator_t random_access_iterator_t}
-
-first(NON_CSTL_BUILTIN) = {
-    void
-    struct enum union identifier
-    char short int long float double char* bool_t signed unsigned
-}
-first(VOID_POINTER) = {void}
-first(GENERAL_TYPE) = {
-    struct enum union identifier
-    char short int long float double char* bool_t signed unsigned
-}
-first(USER_DEFINE) = {struct enum union identifier}
-first(USER_DEFINE_TYPE) = {struct enum union}
-first(C_BUILTIN) = {char short int long float double char* bool_t signed unsigned}
-first(SIMPLE_BUILTIN) = {char short int long float double char* bool_t}
-first(SIGNED_BUILTIN) = {signed}
-first(UNSIGNED_BUILTIN) = {unsigned}
-
-first(COMMON_SUFFIX) = {int $}
-first(SIMPLE_LONG_SUFFIX) = {double int $}
-first(COMPLEX_SUFFIX) = {char short int long $}
-
-first(POINTER_SYMBOL) = {* $}
-first(POINTER) = {*}
-first(POINTER_EX) = {* $}
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-follow(TYPE_DESCRIPT) = {# > ,}
-follow(CSTL_BUILTIN) = {# > ,}
-follow(NON_CSTL_BUILTIN) = {# > ,}
-follow(VOID_POINTER) = {# > ,}
-follow(GENERAL_TYPE) = {# > ,}
-follow(USER_DEFINE) = {* # > ,}
-follow(C_BUILTIN) = {* # > ,}
-follow(POINTER_SYMBOL) = {# > ,}
-follow(POINTER) = {# > ,}
-follow(POINTER_EX) = {# > ,}
-follow(SIMPLE_BUILTIN) = {* # > ,}
-follow(SIGNED_BUILTIN) = {* # > ,}
-follow(UNSIGNED_BUILTIN) = {* # > ,}
-follow(COMMON_SUFFIX) = {* # > ,}
-follow(SIMPLE_LONG_SUFFIX) = {* # > ,}
-follow(COMPLEX_SUFFIX) = {* # > ,}
-follow(USER_DEFINE_TYPE) = {identifier}
-follow(SEQUENCE) = {# > ,}
-follow(RELATION) = {# > ,}
-follow(ITERATOR) = {# > ,}
-follow(SEQUENCE_NAME) = {<}
-follow(RELATION_NAME) = {<}
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-select(TYPE_DESCRIPT -> CSTL_BUILTIN) = {
-    vector_t list_t slist_t deque_t queue_t stack_t priority_queue_t set_t multiset_t hash_set_t hash_multiset_t
-    map_t multimap_t hash_map_t hash_multimap_t pair_t
-    string_t
-    iterator_t vector_iterator_t list_iterator_t slist_iterator_t deque_iterator_t set_iterator_t map_iterator_t multiset_iterator_t multimap_iterator_t hash_set_iterator_t hash_map_iterator_t hash_multiset_iterator_t hash_multimap_iterator_t string_iterator_t input_iterator_t output_iterator_t forward_iterator_t bidirectional_iterator_t random_access_iterator_t
-}
-select(TYPE_DESCRIPT -> NON_CSTL_BUILTIN) = {
-    void
-    struct enum union identifier
-    char short int long float double char* bool_t signed unsigned
-}
-select(NON_CSTL_BUILTIN -> VOID_POINTER) = {void}
-select(NON_CSTL_BUILTIN -> GENERAL_TYPE) = {
-    struct enum union identifier
-    char short int long float double char* bool_t signed unsigned
-}
-select(GENERAL_TYPE -> USER_DEFINE POINTER_SYMBOL) = {struct enum union identifier}
-select(GENERAL_TYPE -> C_BUILTIN POINTER_SYMBOL) = {char short int long float double char* bool_t signed unsigned}
-select(POINTER_SYMBOL -> POINTER) = {*}
-select(POINTER_SYMBOL -> $) = {# > ,}
-select(VOID_POINTER -> void POINTER) = {void}
-select(POINTER -> * POINTER_EX) = {*}
-select(POINTER_EX -> * POINTER_EX) = {*}
-select(POINTER_EX -> $) = {# > ,}
-select(C_BUILTIN -> SIMPLE_BUILTIN) = {char short int long float double char* bool_t}
-select(C_BUILTIN -> SIGNED_BUILTIN) = {signed}
-select(C_BUILTIN -> UNSIGNED_BUILTIN) = {unsigned}
-select(SIMPLE_BUILTIN -> char) = {char}
-select(SIMPLE_BUILTIN -> short COMMON_SUFFIX) = {short}
-select(SIMPLE_BUILTIN -> int) = {int}
-select(SIMPLE_BUILTIN -> long SIMPLE_LONG_SUFFIX) = {long}
-select(SIMPLE_BUILTIN -> float) = {float}
-select(SIMPLE_BUILTIN -> double) = {double}
-select(SIMPLE_BUILTIN -> char*) = {char*}
-select(SIMPLE_BUILTIN -> bool_t) = {bool_t}
-select(SIGNED_BUILTIN -> signed COMPLEX_SUFFIX) = {signed}
-select(UNSIGNED_BUILTIN -> unsigned COMPLEX_SUFFIX) = {unsigned}
-select(COMPLEX_SUFFIX -> {+' '}char) = {char}
-select(COMPLEX_SUFFIX -> {+' '}short COMMON_SUFFIX) = {short}
-select(COMPLEX_SUFFIX -> {+' '}int) = {int}
-select(COMPLEX_SUFFIX -> {+' '}long COMMON_SUFFIX) = {long}
-select(COMPLEX_SUFFIX -> $) = {* # > ,}
-select(COMMON_SUFFIX -> {+' '}int) = {int}
-select(COMMON_SUFFIX -> $) = {* # > ,}
-select(SIMPLE_LONG_SUFFIX -> {+' '}double) = {double}
-select(SIMPLE_LONG_SUFFIX -> COMMON_SUFFIX) = {int * # > ,}
-select(USER_DEFINE -> USER_DEFINE_TYPE {+' '}identifier) = {struct enum union}
-select(USER_DEFINE -> identifier) = {identifier}
-select(USER_DEFINE_TYPE -> struct) = {struct}
-select(USER_DEFINE_TYPE -> enum) = {enum}
-select(USER_DEFINE_TYPE -> union) = {union}
-select(CSTL_BUILTIN -> SEQUENCE) = {vector_t list_t slist_t deque_t queue_t stack_t priority_queue_t set_t multiset_t hash_set_t hash_multiset_t}
-select(CSTL_BUILTIN -> string_t) = {string_t}
-select(CSTL_BUILTIN -> RELATION) = {map_t multimap_t hash_map_t hash_multimap_t pair_t}
-select(CSTL_BUILTIN -> ITERATOR) = {iterator_t vector_iterator_t list_iterator_t slist_iterator_t deque_iterator_t set_iterator_t map_iterator_t multiset_iterator_t multimap_iterator_t hash_set_iterator_t hash_map_iterator_t hash_multiset_iterator_t hash_multimap_iterator_t string_iterator_t input_iterator_t output_iterator_t forward_iterator_t bidirectional_iterator_t random_access_iterator_t}
-select(ITERATOR -> iterator_t) = {iterator_t}
-select(ITERATOR -> vector_iterator_t) = {vector_iterator_t}
-select(ITERATOR -> list_iterator_t) = {list_iterator_t}
-select(ITERATOR -> slist_iterator_t) = {slist_iterator_t}
-select(ITERATOR -> deque_iterator_t) = {deque_iterator_t}
-select(ITERATOR -> set_iterator_t) = {set_iterator_t}
-select(ITERATOR -> map_iterator_t) = {map_iterator_t}
-select(ITERATOR -> multiset_iterator_t) = {multiset_iterator_t}
-select(ITERATOR -> multimap_iterator_t) = {multimap_iterator_t}
-select(ITERATOR -> hash_set_iterator_t) = {hash_set_iterator_t}
-select(ITERATOR -> hash_map_iterator_t) = {hash_map_iterator_t}
-select(ITERATOR -> hash_multiset_iterator_t) = {hash_multiset_iterator_t}
-select(ITERATOR -> hash_multimap_iterator_t) = {hash_multimap_iterator_t}
-select(ITERATOR -> string_iterator_t) = {string_iterator_t}
-select(ITERATOR -> input_iterator_t) = {input_iterator_t}
-select(ITERATOR -> output_iterator_t) = {output_iterator_t}
-select(ITERATOR -> forward_iterator_t) = {forward_iterator_t}
-select(ITERATOR -> bidirectional_iterator_t) = {bidirectional_iterator_t}
-select(ITERATOR -> random_access_iterator_t) = {random_access_iterator_t}
-select(SEQUENCE -> SEQUENCE_NAME < TYPE_DESCRIPT >) = {vector_t list_t slist_t deque_t queue_t stack_t priority_queue_t set_t multiset_t hash_set_t hash_multiset_t}
-select(SEQUENCE_NAME -> vector_t) = {vector_t}
-select(SEQUENCE_NAME -> list_t) = {list_t}
-select(SEQUENCE_NAME -> slist_t) = {slist_t}
-select(SEQUENCE_NAME -> deque_t) = {deque_t}
-select(SEQUENCE_NAME -> queue_t) = {queue_t}
-select(SEQUENCE_NAME -> stack_t) = {stack_t}
-select(SEQUENCE_NAME -> priority_queue_t) = {priority_queue_t}
-select(SEQUENCE_NAME -> set_t) = {set_t}
-select(SEQUENCE_NAME -> multiset_t) = {multiset_t}
-select(SEQUENCE_NAME -> hash_set_t) = {hash_set_t}
-select(SEQUENCE_NAME -> hash_multiset_t) = {hash_multiset_t}
-select(RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >) = {map_t multimap_t hash_map_t hash_multimap_t pair_t}
-select(RELATION_NAME -> map_t) = {map_t}
-select(RELATION_NAME -> multimap_t) = {multimap_t}
-select(RELATION_NAME -> hash_map_t) = {hash_map_t}
-select(RELATION_NAME -> hash_multimap_t) = {hash_multimap_t}
-select(RELATION_NAME -> pair_t) = {pair_t}
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

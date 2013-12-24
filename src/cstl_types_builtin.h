@@ -207,6 +207,11 @@ extern void _type_init_iterator(const void* cpv_input, void* pv_output);
 extern void _type_copy_iterator(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _type_less_iterator(const void* cpv_first, const void* cpv_second, void* pv_output);
 extern void _type_destroy_iterator(const void* cpv_input, void* pv_output);
+/* range_t */
+extern void _type_init_range(const void* cpv_input, void* pv_output);
+extern void _type_copy_range(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_less_range(const void* cpv_first, const void* cpv_second, void* pv_output);
+extern void _type_destroy_range(const void* cpv_input, void* pv_output);
 
 #ifndef _MSC_VER
 /* _Bool */

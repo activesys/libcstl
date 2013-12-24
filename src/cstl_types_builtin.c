@@ -999,6 +999,37 @@ void _type_destroy_iterator(const void* cpv_input, void* pv_output)
     _type_destroy_default(cpv_input, pv_output);
 }
 
+/* range_t */
+void _type_init_range(const void* cpv_input, void* pv_output)
+{
+    void* pv_avoidwarning = NULL;
+    bool_t b_result = sizeof(range_t);
+
+    assert(cpv_input != NULL && pv_output != NULL);
+
+    _type_init_default(cpv_input, &b_result);
+    pv_avoidwarning = (void*)pv_output;
+}
+
+void _type_copy_range(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    memcpy((range_t*)cpv_first, (range_t*)cpv_second, sizeof(range_t));
+    *(bool_t*)pv_output = true;
+}
+
+void _type_less_range(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+    *(bool_t*)pv_output = memcmp((range_t*)cpv_first, (range_t*)cpv_second,
+        sizeof(range_t)) < 0 ? true : false;
+}
+
+void _type_destroy_range(const void* cpv_input, void* pv_output)
+{
+    _type_destroy_default(cpv_input, pv_output);
+}
+
 #ifndef _MSC_VER
 /* _Bool */
 void _type_init_bool(const void* cpv_input, void* pv_output)
