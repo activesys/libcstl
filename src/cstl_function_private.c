@@ -581,6 +581,16 @@ bfun_t _fun_get_binary(iterator_t it_iter, fun_type_t ftype_type)
             case _LESS_EQUAL_FUN:       return fun_less_equal_string;           break;
             default: break;
         }
+    } else if (strncmp(s_typename, _BASIC_STRING_TYPE, _TYPE_NAME_SIZE) == 0) {          /* basic_string_t */
+        switch (ftype_type) {
+            case _EQUAL_FUN:            return fun_equal_basic_string;          break;
+            case _NOT_EQUAL_FUN:        return fun_not_equal_basic_string;      break;
+            case _GREATER_FUN:          return fun_greater_basic_string;        break;
+            case _GREATER_EQUAL_FUN:    return fun_greater_equal_basic_string;  break;
+            case _LESS_FUN:             return fun_less_basic_string;           break;
+            case _LESS_EQUAL_FUN:       return fun_less_equal_basic_string;     break;
+            default: break;
+        }
     }
 
     if (pt_typeinfo != NULL && pt_typeinfo->_pt_type != NULL &&

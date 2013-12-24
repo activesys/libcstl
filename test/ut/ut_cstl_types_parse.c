@@ -560,6 +560,15 @@ void test__type_get_token__key_range(void** state)
     assert_true(strncmp(_gt_typeanalysis._s_tokentext, "range_t", _TYPE_NAME_SIZE) == 0);
 }
 
+void test__type_get_token__key_basic_string(void** state)
+{
+    test_parse_setup("basic_string_t");
+    _type_get_token();
+    assert_true(_gt_typeanalysis._t_token == _TOKEN_KEY_BASIC_STRING);
+    assert_true(_gt_typeanalysis._t_index == 14);
+    assert_true(strncmp(_gt_typeanalysis._s_tokentext, "basic_string_t", _TYPE_NAME_SIZE) == 0);
+}
+
 #ifndef _MSC_VER
 void test__type_get_token__key_bool(void** state)
 {
@@ -1073,6 +1082,16 @@ void test__type_parse_sequence_name__invalid_token(void** state)
 
     assert_false(_type_parse_sequence_name(s_formalname));
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_sequence_name__basic_string(void** state)
+{
+    const char* str = "basic_string_t";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_BASIC_STRING, strlen(str), str);
+
+    assert_true(_type_parse_sequence_name(s_formalname));
+    assert_true(strncmp(s_formalname, "basic_string_t", _TYPE_NAME_SIZE) == 0);
 }
 
 /*
@@ -1955,6 +1974,16 @@ void test__type_parse_sequence__invalid_token(void** state)
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
 }
 
+void test__type_parse_sequence__basic_string(void** state)
+{
+    const char* str = "basic_string_t < unsigned long   long    >";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_BASIC_STRING, strlen("basic_string_t"), "basic_string_t");
+
+    assert_true(_type_parse_sequence(s_formalname));
+    assert_true(strncmp(s_formalname, "basic_string_t<unsigned long long>", _TYPE_NAME_SIZE) == 0);
+}
+
 /*
  * test _type_parse_cstl_builtin
  */
@@ -2022,6 +2051,16 @@ void test__type_parse_cstl_builtin__range(void** state)
 
     assert_true(_type_parse_cstl_builtin(s_formalname));
     assert_true(strncmp(s_formalname, "range_t", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_cstl_builtin__basic_string(void** state)
+{
+    const char* str = "basic_string_t <map_t<long, long long int>>";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_BASIC_STRING, strlen("basic_string_t"), "basic_string_t");
+
+    assert_true(_type_parse_cstl_builtin(s_formalname));
+    assert_true(strncmp(s_formalname, "basic_string_t<map_t<long,long long int>>", _TYPE_NAME_SIZE) == 0);
 }
 
 /*
@@ -2188,6 +2227,15 @@ void test__type_get_style__invalid(void** state)
 
     assert_true(_type_get_style(s_typename, s_formalname) == _TYPE_INVALID);
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_get_style__basic_string(void** state)
+{
+    const char* s_typename = "basic_string_t   <basic_string_t<    basic_string_t   <int>>    >";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+
+    assert_true(_type_get_style(s_typename, s_formalname) == _TYPE_CSTL_BUILTIN);
+    assert_true(strncmp(s_formalname, "basic_string_t<basic_string_t<basic_string_t<int>>>", _TYPE_NAME_SIZE) == 0);
 }
 
 #ifndef _MSC_VER

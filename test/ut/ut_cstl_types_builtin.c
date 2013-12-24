@@ -21,6 +21,7 @@
 #include "cstl_list_aux.h"
 #include "cstl_slist_aux.h"
 #include "cstl_deque_aux.h"
+#include "cstl_basic_string_aux.h"
 
 #include "ut_def.h"
 #include "ut_cstl_types_builtin.h"
@@ -7535,6 +7536,270 @@ void test__type_destroy_range__ok(void** state)
     range_t r_input;
     _type_destroy_range(&r_input, &b_output);
     assert_true(b_output);
+}
+
+/*
+ * test _type_init_basic_string
+ */
+UT_CASE_DEFINATION(_type_init_basic_string)
+void test__type_init_basic_string__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_init_basic_string(NULL, &b_output));
+}
+
+void test__type_init_basic_string__null_output(void** state)
+{
+    basic_string_t* pbstr_input = malloc(sizeof(basic_string_t));
+    if (pbstr_input == NULL) {
+        assert_true(false);
+        return;
+    }
+    expect_assert_failure(_type_init_basic_string(pbstr_input, NULL));
+    free(pbstr_input);
+}
+
+void test__type_init_basic_string__ok(void** state)
+{
+    basic_string_t* pbstr_input = malloc(sizeof(basic_string_t));
+    const char* b_output = "int";
+    if (pbstr_input == NULL) {
+        assert_true(false);
+        return;
+    }
+    _type_init_basic_string(pbstr_input, (void*)b_output);
+    assert_true(_basic_string_is_inited(pbstr_input));
+    basic_string_destroy(pbstr_input);
+}
+
+/*
+ * test _type_copy_basic_string
+ */
+UT_CASE_DEFINATION(_type_copy_basic_string)
+void test__type_copy_basic_string__null_first(void** state)
+{
+    basic_string_t* pbstr_second = NULL;
+    bool_t b_output = false;
+    
+    if ((pbstr_second = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        return;
+    }
+    basic_string_init(pbstr_second);
+    expect_assert_failure(_type_copy_basic_string(NULL, pbstr_second, &b_output));
+    basic_string_destroy(pbstr_second);
+}
+
+void test__type_copy_basic_string__null_second(void** state)
+{
+    basic_string_t* pbstr_first = NULL;
+    bool_t b_output = false;
+    if ((pbstr_first = create_basic_string(int)) == NULL) {
+        assert_true(pbstr_first);
+        return;
+    }
+    basic_string_init(pbstr_first);
+    expect_assert_failure(_type_copy_basic_string(pbstr_first, NULL, &b_output));
+    basic_string_destroy(pbstr_first);
+}
+
+void test__type_copy_basic_string__null_output(void** state)
+{
+    basic_string_t* pbstr_first = NULL;
+    basic_string_t* pbstr_second = NULL;
+    if ((pbstr_first = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        return;
+    }
+    if ((pbstr_second = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        basic_string_destroy(pbstr_first);
+        return;
+    }
+    basic_string_init(pbstr_first);
+    basic_string_init(pbstr_second);
+    expect_assert_failure(_type_copy_basic_string(pbstr_first, pbstr_second, NULL));
+    basic_string_destroy(pbstr_first);
+    basic_string_destroy(pbstr_second);
+}
+
+void test__type_copy_basic_string__ok(void** state)
+{
+    basic_string_t* pbstr_first = NULL;
+    basic_string_t* pbstr_second = NULL;
+    bool_t b_output = false;
+    if ((pbstr_first = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        return;
+    }
+    if ((pbstr_second = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        basic_string_destroy(pbstr_first);
+        return;
+    }
+    basic_string_init(pbstr_first);
+    basic_string_init_elem(pbstr_second, 10, 0);
+    _type_copy_basic_string(pbstr_first, pbstr_second, &b_output);
+    assert_true(basic_string_equal(pbstr_first, pbstr_second));
+    assert_true(b_output);
+    basic_string_destroy(pbstr_first);
+    basic_string_destroy(pbstr_second);
+}
+
+/*
+ * test _type_less_basic_string
+ */
+UT_CASE_DEFINATION(_type_less_basic_string)
+void test__type_less_basic_string__null_first(void** state)
+{
+    basic_string_t* pbstr_second = NULL;
+    bool_t b_output = false;
+    
+    if ((pbstr_second = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        return;
+    }
+    basic_string_init(pbstr_second);
+    expect_assert_failure(_type_less_basic_string(NULL, pbstr_second, &b_output));
+    basic_string_destroy(pbstr_second);
+}
+
+void test__type_less_basic_string__null_second(void** state)
+{
+    basic_string_t* pbstr_first = NULL;
+    bool_t b_output = false;
+    if ((pbstr_first = create_basic_string(int)) == NULL) {
+        assert_true(pbstr_first);
+        return;
+    }
+    basic_string_init(pbstr_first);
+    expect_assert_failure(_type_less_basic_string(pbstr_first, NULL, &b_output));
+    basic_string_destroy(pbstr_first);
+}
+
+void test__type_less_basic_string__null_output(void** state)
+{
+    basic_string_t* pbstr_first = NULL;
+    basic_string_t* pbstr_second = NULL;
+    if ((pbstr_first = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        return;
+    }
+    if ((pbstr_second = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        basic_string_destroy(pbstr_first);
+        return;
+    }
+    basic_string_init(pbstr_first);
+    basic_string_init(pbstr_second);
+    expect_assert_failure(_type_less_basic_string(pbstr_first, pbstr_second, NULL));
+    basic_string_destroy(pbstr_first);
+    basic_string_destroy(pbstr_second);
+}
+
+void test__type_less_basic_string__less(void** state)
+{
+    basic_string_t* pbstr_first = NULL;
+    basic_string_t* pbstr_second = NULL;
+    bool_t b_output = false;
+    if ((pbstr_first = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        return;
+    }
+    if ((pbstr_second = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        basic_string_destroy(pbstr_first);
+        return;
+    }
+    basic_string_init(pbstr_first);
+    basic_string_init_elem(pbstr_second, 10, 0);
+    _type_less_basic_string(pbstr_first, pbstr_second, &b_output);
+    assert_true(b_output);
+    basic_string_destroy(pbstr_first);
+    basic_string_destroy(pbstr_second);
+}
+
+void test__type_less_basic_string__equal(void** state)
+{
+    basic_string_t* pbstr_first = NULL;
+    basic_string_t* pbstr_second = NULL;
+    bool_t b_output = false;
+    if ((pbstr_first = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        return;
+    }
+    if ((pbstr_second = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        basic_string_destroy(pbstr_first);
+        return;
+    }
+    basic_string_init_elem(pbstr_first, 10, 0);
+    basic_string_init_elem(pbstr_second, 10, 0);
+    _type_less_basic_string(pbstr_first, pbstr_second, &b_output);
+    assert_true(basic_string_equal(pbstr_first, pbstr_second));
+    assert_false(b_output);
+    basic_string_destroy(pbstr_first);
+    basic_string_destroy(pbstr_second);
+}
+
+void test__type_less_basic_string__greater(void** state)
+{
+    basic_string_t* pbstr_first = NULL;
+    basic_string_t* pbstr_second = NULL;
+    bool_t b_output = false;
+    if ((pbstr_first = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        return;
+    }
+    if ((pbstr_second = create_basic_string(int)) == NULL) {
+        assert_true(false);
+        basic_string_destroy(pbstr_first);
+        return;
+    }
+    basic_string_init_elem(pbstr_first, 10, 0);
+    basic_string_init_elem(pbstr_second, 4, 0);
+    _type_less_basic_string(pbstr_first, pbstr_second, &b_output);
+    assert_true(basic_string_size(pbstr_first) == 10);
+    assert_true(basic_string_size(pbstr_second) == 4);
+    assert_false(b_output);
+    basic_string_destroy(pbstr_first);
+    basic_string_destroy(pbstr_second);
+}
+
+/*
+ * test _type_destroy_basic_string
+ */
+UT_CASE_DEFINATION(_type_destroy_basic_string)
+void test__type_destroy_basic_string__null_input(void** state)
+{
+    bool_t b_output = false;
+    expect_assert_failure(_type_destroy_basic_string(NULL, &b_output));
+}
+
+void test__type_destroy_basic_string__null_output(void** state)
+{
+    basic_string_t* pbstr_input = create_basic_string(int);
+    if (pbstr_input == NULL) {
+        assert_true(false);
+        return;
+    }
+    basic_string_init(pbstr_input);
+    expect_assert_failure(_type_destroy_basic_string(pbstr_input, NULL));
+    basic_string_destroy(pbstr_input);
+}
+
+void test__type_destroy_basic_string__ok(void** state)
+{
+    bool_t b_output = false;
+    basic_string_t* pbstr_input = create_basic_string(int);
+    if (pbstr_input == NULL) {
+        assert_true(false);
+        return;
+    }
+    basic_string_init_elem(pbstr_input, 10, 0);
+    _type_destroy_basic_string(pbstr_input, &b_output);
+    assert_true(b_output);
+    free(pbstr_input);
 }
 
 #ifndef _MSC_VER

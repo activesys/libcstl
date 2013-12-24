@@ -65,6 +65,7 @@ void test__type_get_token__key_forward_iterator(void** state);
 void test__type_get_token__key_bidirectional_iterator(void** state);
 void test__type_get_token__key_random_access_iterator(void** state);
 void test__type_get_token__key_range(void** state);
+void test__type_get_token__key_basic_string(void** state);
 #ifndef _MSC_VER
 void test__type_get_token__key_bool(void** state);
 #endif
@@ -135,6 +136,7 @@ void test__type_parse_sequence_name__hash_multiset(void** state);
 void test__type_parse_sequence_name__invalid_tokentext(void** state);
 void test__type_parse_sequence_name__invalid_token(void** state);
 void test__type_parse_sequence_name__null(void** state);
+void test__type_parse_sequence_name__basic_string(void** state);
 /*
  * test _type_parse_user_define_type
  */
@@ -286,6 +288,7 @@ void test__type_parse_sequence__invalid_right_bracket(void** state);
 void test__type_parse_sequence__valid(void** state);
 void test__type_parse_sequence__invalid_token(void** state);
 void test__type_parse_sequence__null(void** state);
+void test__type_parse_sequence__basic_string(void** state);
 /*
  * test _type_parse_cstl_builtin
  */
@@ -297,6 +300,7 @@ void test__type_parse_cstl_builtin__invalid_token(void** state);
 void test__type_parse_cstl_builtin__null(void** state);
 void test__type_parse_cstl_builtin__string(void** state);
 void test__type_parse_cstl_builtin__range(void** state);
+void test__type_parse_cstl_builtin__basic_string(void** state);
 /*
  * test _type_parse_type_descript
  */
@@ -334,6 +338,7 @@ void test__type_get_style__user_define_invalid(void** state);
 void test__type_get_style__cstl_builtin(void** state);
 void test__type_get_style__cstl_builtin_invalid(void** state);
 void test__type_get_style__invalid(void** state);
+void test__type_get_style__basic_string(void** state);
 
 #define UT_CSTL_TYPES_PARSE_CASE\
     UT_SUIT_BEGIN(cstl_types_parse, test__type_get_token__sign_left_bracket),\
@@ -394,6 +399,7 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_get_token__key_bidirectional_iterator),\
     UT_CASE(test__type_get_token__key_random_access_iterator),\
     UT_CASE(test__type_get_token__key_range),\
+    UT_CASE(test__type_get_token__key_basic_string),\
     UT_CASE_BEGIN(_type_parse_pointer_suffix, test__type_parse_pointer_suffix__null),\
     UT_CASE(test__type_parse_pointer_suffix__pointer),\
     UT_CASE(test__type_parse_pointer_suffix__eof),\
@@ -454,6 +460,7 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_parse_sequence_name__invalid_tokentext),\
     UT_CASE(test__type_parse_sequence_name__invalid_token),\
     UT_CASE(test__type_parse_sequence_name__null),\
+    UT_CASE(test__type_parse_sequence_name__basic_string),\
     UT_CASE_BEGIN(_type_parse_user_define_type, test__type_parse_user_define_type__struct),\
     UT_CASE(test__type_parse_user_define_type__enum),\
     UT_CASE(test__type_parse_user_define_type__union),\
@@ -527,6 +534,7 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_parse_sequence__valid),\
     UT_CASE(test__type_parse_sequence__invalid_token),\
     UT_CASE(test__type_parse_sequence__null),\
+    UT_CASE(test__type_parse_sequence__basic_string),\
     UT_CASE_BEGIN(_type_parse_cstl_builtin, test__type_parse_cstl_builtin__sequence),\
     UT_CASE(test__type_parse_cstl_builtin__relation),\
     UT_CASE(test__type_parse_cstl_builtin__iterator),\
@@ -534,6 +542,7 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_parse_cstl_builtin__null),\
     UT_CASE(test__type_parse_cstl_builtin__string),\
     UT_CASE(test__type_parse_cstl_builtin__range),\
+    UT_CASE(test__type_parse_cstl_builtin__basic_string),\
     UT_CASE_BEGIN(_type_parse_type_descript, test__type_parse_type_descript__c_builtin),\
     UT_CASE(test__type_parse_type_descript__user_define_invalid),\
     UT_CASE(test__type_parse_type_descript__user_define),\
@@ -551,7 +560,8 @@ void test__type_get_style__invalid(void** state);
     UT_CASE(test__type_get_style__user_define_invalid),\
     UT_CASE(test__type_get_style__cstl_builtin),\
     UT_CASE(test__type_get_style__cstl_builtin_invalid),\
-    UT_CASE(test__type_get_style__invalid)
+    UT_CASE(test__type_get_style__invalid),\
+    UT_CASE(test__type_get_style__basic_string)
 
 #ifndef _MSC_VER
 #define UT_CSTL_TYPES_PARSE_CASE_C99\

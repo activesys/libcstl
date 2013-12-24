@@ -203,6 +203,7 @@ void test__all_types__set(void** state);
 void test__all_types__multiset(void** state);
 void test__all_types__hash_set(void** state);
 void test__all_types__hash_multiset(void** state);
+void test__all_types__basic_string(void** state);
 /* RELATION */
 void test__all_types__map(void** state);
 void test__all_types__multimap(void** state);
@@ -266,6 +267,19 @@ void test__range_usage__at(void** state);
 void test__range_usage__copy(void** state);
 void test__range_usage__less(void** state);
 void test__range_usage__duplicate(void** state);
+/*
+ * test basic_string_t usage
+ */
+UT_CASE_DECLARATION(basic_string_usage)
+void test__basic_string_usage__create(void** state);
+void test__basic_string_usage__init_n(void** state);
+void test__basic_string_usage__init_elem(void** state);
+void test__basic_string_usage__iterator(void** state);
+void test__basic_string_usage__at(void** state);
+void test__basic_string_usage__copy(void** state);
+void test__basic_string_usage__less(void** state);
+void test__basic_string_usage__duplicate(void** state);
+
 #ifndef _MSC_VER
 /*
  * test _Bool usage
@@ -354,6 +368,7 @@ void test__ulong_long_usage__duplicate(void** state);
     UT_CASE(test__all_types__string),\
     UT_CASE(test__all_types__cstl_bool),\
     UT_CASE(test__all_types__range),\
+    UT_CASE(test__all_types__basic_string),\
     UT_CASE(test__all_types__iterator),\
     UT_CASE(test__all_types__vector_iterator),\
     UT_CASE(test__all_types__list_iterator),\
@@ -494,7 +509,15 @@ void test__ulong_long_usage__duplicate(void** state);
     UT_CASE(test__range_usage__iterator),\
     UT_CASE(test__range_usage__copy),\
     UT_CASE(test__range_usage__less),\
-    UT_CASE(test__range_usage__duplicate)
+    UT_CASE(test__range_usage__duplicate),\
+    UT_CASE_BEGIN(basic_string_usage, test__basic_string_usage__create),\
+    UT_CASE(test__basic_string_usage__init_n),\
+    UT_CASE(test__basic_string_usage__init_elem),\
+    UT_CASE(test__basic_string_usage__at),\
+    UT_CASE(test__basic_string_usage__iterator),\
+    UT_CASE(test__basic_string_usage__copy),\
+    UT_CASE(test__basic_string_usage__less),\
+    UT_CASE(test__basic_string_usage__duplicate)
 
 #ifndef _MSC_VER
 #define UT_CSTL_TYPES_CASE_C99\

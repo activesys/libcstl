@@ -473,6 +473,19 @@ void test__fun_get_binary__pointer_GREATER(void** state);
 void test__fun_get_binary__pointer_GREATER_EQUAL(void** state);
 void test__fun_get_binary__pointer_LESS(void** state);
 void test__fun_get_binary__pointer_LESS_EQUAL(void** state);
+void test__fun_get_binary__basic_string_PLUS(void** state);
+void test__fun_get_binary__basic_string_MINUS(void** state);
+void test__fun_get_binary__basic_string_MULTIPLIES(void** state);
+void test__fun_get_binary__basic_string_DIVIDES(void** state);
+void test__fun_get_binary__basic_string_MODULUS(void** state);
+void test__fun_get_binary__basic_string_EQUAL(void** state);
+void test__fun_get_binary__basic_string_NOT_EQUAL(void** state);
+void test__fun_get_binary__basic_string_LESS(void** state);
+void test__fun_get_binary__basic_string_LESS_EQUAL(void** state);
+void test__fun_get_binary__basic_string_GREATER(void** state);
+void test__fun_get_binary__basic_string_GREATER_EQUAL(void** state);
+void test__fun_get_binary__basic_string_LOGICAL_AND(void** state);
+void test__fun_get_binary__basic_string_LOGICAL_OR(void** state);
 #ifndef _MSC_VER
 void test__fun_get_binary__bool_PLUS(void** state);
 void test__fun_get_binary__bool_MINUS(void** state);
@@ -963,7 +976,20 @@ void test__fun_get_binary__ulong_long_LOGICAL_OR(void** state);
     UT_CASE(test__fun_get_binary__pointer_GREATER),\
     UT_CASE(test__fun_get_binary__pointer_GREATER_EQUAL),\
     UT_CASE(test__fun_get_binary__pointer_LESS),\
-    UT_CASE(test__fun_get_binary__pointer_LESS_EQUAL)
+    UT_CASE(test__fun_get_binary__pointer_LESS_EQUAL),\
+    UT_CASE(test__fun_get_binary__basic_string_PLUS),\
+    UT_CASE(test__fun_get_binary__basic_string_MINUS),\
+    UT_CASE(test__fun_get_binary__basic_string_MULTIPLIES),\
+    UT_CASE(test__fun_get_binary__basic_string_DIVIDES),\
+    UT_CASE(test__fun_get_binary__basic_string_MODULUS),\
+    UT_CASE(test__fun_get_binary__basic_string_EQUAL),\
+    UT_CASE(test__fun_get_binary__basic_string_NOT_EQUAL),\
+    UT_CASE(test__fun_get_binary__basic_string_LESS),\
+    UT_CASE(test__fun_get_binary__basic_string_LESS_EQUAL),\
+    UT_CASE(test__fun_get_binary__basic_string_GREATER),\
+    UT_CASE(test__fun_get_binary__basic_string_GREATER_EQUAL),\
+    UT_CASE(test__fun_get_binary__basic_string_LOGICAL_AND),\
+    UT_CASE(test__fun_get_binary__basic_string_LOGICAL_OR)
 
 #ifndef _MSC_VER
 #define UT_CSTL_FUNCTION_PRIVATE_CASE_C99\

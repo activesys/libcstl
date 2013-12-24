@@ -1533,6 +1533,13 @@ void test__all_types__random_access_iterator(void** state)
     vector_destroy(pvec);
 }
 
+void test__all_types__basic_string(void** state)
+{
+    vector_t* pvec = create_vector(basic_string_t<basic_string_t<int>>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
 #ifndef _MSC_VER
 void test__all_types__bool(void** state)
 {
@@ -1799,6 +1806,129 @@ void test__range_usage__duplicate(void** state)
 
     type_duplicate(my_range, range_t);
     pvec = create_vector(my_range);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+/*
+ * test basic_string_t usage
+ */
+UT_CASE_DEFINATION(basic_string_usage)
+void test__basic_string_usage__create(void** state)
+{
+    vector_t* pvec = create_vector(basic_string_t<int>);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
+void test__basic_string_usage__init_n(void** state)
+{
+    size_t i = 0;
+    vector_t* pvec = create_vector(basic_string_t<int>);
+    vector_init_n(pvec, 10);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(basic_string_empty((basic_string_t*)vector_at(pvec, i)));
+    }
+    vector_destroy(pvec);
+}
+
+void test__basic_string_usage__init_elem(void** state)
+{
+    size_t i = 0;
+    basic_string_t* pbstr = create_basic_string(int);
+    vector_t* pvec = create_vector(basic_string_t<int>);
+    basic_string_init_elem(pbstr, 10, 0);
+    vector_init_elem(pvec, 10, pbstr);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(basic_string_size((basic_string_t*)vector_at(pvec, i)) == 10);
+    }
+    vector_destroy(pvec);
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_usage__at(void** state)
+{
+    size_t i = 0;
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+    vector_t* pvec = create_vector(basic_string_t<int>);
+    basic_string_init_elem(pbstr1, 10, 0);
+    basic_string_init_elem(pbstr2, 3, 0);
+    vector_init_elem(pvec, 10, pbstr1);
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(basic_string_size((basic_string_t*)vector_at(pvec, i)) == 10);
+        basic_string_assign((basic_string_t*)vector_at(pvec, i), pbstr2);
+    }
+    for (i = 0; i < vector_size(pvec); ++i) {
+        assert_true(basic_string_size((basic_string_t*)vector_at(pvec, i)) == 3);
+    }
+    vector_destroy(pvec);
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+
+void test__basic_string_usage__iterator(void** state)
+{
+    iterator_t it;
+    basic_string_t* pbstr = create_basic_string(int);
+    vector_t* pvec = create_vector(basic_string_t<int>);
+    basic_string_init_elem(pbstr, 10, 0);
+    vector_init_elem(pvec, 10, pbstr);
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec));
+         it = iterator_next(it)) {
+        basic_string_t* pbstr1 = create_basic_string(int);
+        basic_string_init(pbstr1);
+        assert_true(basic_string_size((basic_string_t*)iterator_get_pointer(it)) == 10);
+        iterator_get_value(it, pbstr1);
+        assert_true(basic_string_size(pbstr1) == 10);
+        basic_string_destroy(pbstr1);
+    }
+    vector_destroy(pvec);
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_usage__copy(void** state)
+{
+    size_t i = 0;
+    basic_string_t* pbstr = create_basic_string(int);
+    vector_t* pvec1 = create_vector(basic_string_t<int>);
+    vector_t* pvec2 = create_vector(basic_string_t<int>);
+    basic_string_init_elem(pbstr, 10, 10);
+    vector_init_elem(pvec1, 10, pbstr);
+    vector_init_copy_range(pvec2, vector_begin(pvec1), vector_end(pvec1));
+
+    assert_true(vector_equal(pvec1, pvec2));
+
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+    basic_string_destroy(pbstr);
+}
+
+void test__basic_string_usage__less(void** state)
+{
+    vector_t* pvec1 = create_vector(basic_string_t<int>);
+    vector_t* pvec2 = create_vector(basic_string_t<int>);
+    basic_string_t* pbstr1 = create_basic_string(int);
+    basic_string_t* pbstr2 = create_basic_string(int);
+    basic_string_init_elem(pbstr1, 10, 10);
+    basic_string_init_elem(pbstr2, 10, 20);
+    vector_init_elem(pvec1, 10, pbstr1);
+    vector_init_elem(pvec2, 10, pbstr2);
+    assert_true(vector_less(pvec1, pvec2));
+    vector_destroy(pvec1);
+    vector_destroy(pvec2);
+    basic_string_destroy(pbstr1);
+    basic_string_destroy(pbstr2);
+}
+
+typedef basic_string_t my_basic_string;
+void test__basic_string_usage__duplicate(void** state)
+{
+    vector_t* pvec = NULL;
+
+    type_duplicate(my_basic_string, basic_string_t);
+    pvec = create_vector(my_basic_string);
     assert_true(pvec != NULL);
     vector_destroy(pvec);
 }

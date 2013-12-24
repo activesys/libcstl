@@ -201,6 +201,10 @@ void test__type_register_cstl_builtin__all(void** state)
     TEST__TYPE_REGISTER_TYPE(pair_t, _PAIR_TYPE, pair, _TYPE_CSTL_BUILTIN);
     /* string_t */
     TEST__TYPE_REGISTER_TYPE(string_t, _STRING_TYPE, string, _TYPE_CSTL_BUILTIN);
+    /* range_t */
+    TEST__TYPE_REGISTER_TYPE(range_t, _RANGE_TYPE, range, _TYPE_CSTL_BUILTIN);
+    /* basic_string_t */
+    TEST__TYPE_REGISTER_TYPE(basic_string_t, _BASIC_STRING_TYPE, basic_string, _TYPE_CSTL_BUILTIN);
 
     /* iterator_t */
     TEST__TYPE_REGISTER_TYPE(iterator_t, _ITERATOR_TYPE, iterator, _TYPE_CSTL_BUILTIN);

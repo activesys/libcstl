@@ -823,6 +823,13 @@ void fun_equal_hash_multimap(const void* cpv_first, const void* cpv_second, void
     *(bool_t*)pv_output = hash_multimap_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
+void fun_equal_basic_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = basic_string_equal((basic_string_t*)cpv_first, (basic_string_t*)cpv_second);
+}
+
 #ifndef _MSC_VER
 void fun_equal_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -1063,6 +1070,13 @@ void fun_not_equal_hash_multimap(const void* cpv_first, const void* cpv_second, 
     *(bool_t*)pv_output = hash_multimap_not_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
+void fun_not_equal_basic_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = basic_string_not_equal((basic_string_t*)cpv_first, (basic_string_t*)cpv_second);
+}
+
 #ifndef _MSC_VER
 void fun_not_equal_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -1295,6 +1309,13 @@ void fun_greater_hash_multimap(const void* cpv_first, const void* cpv_second, vo
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = hash_multimap_greater((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+}
+
+void fun_greater_basic_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = basic_string_greater((basic_string_t*)cpv_first, (basic_string_t*)cpv_second);
 }
 
 #ifndef _MSC_VER
@@ -1531,6 +1552,13 @@ void fun_greater_equal_hash_multimap(const void* cpv_first, const void* cpv_seco
     *(bool_t*)pv_output = hash_multimap_greater_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
+void fun_greater_equal_basic_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = basic_string_greater_equal((basic_string_t*)cpv_first, (basic_string_t*)cpv_second);
+}
+
 #ifndef _MSC_VER
 void fun_greater_equal_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -1765,6 +1793,13 @@ void fun_less_hash_multimap(const void* cpv_first, const void* cpv_second, void*
     *(bool_t*)pv_output = hash_multimap_less((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
 }
 
+void fun_less_basic_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = basic_string_less((basic_string_t*)cpv_first, (basic_string_t*)cpv_second);
+}
+
 #ifndef _MSC_VER
 void fun_less_long_long(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
@@ -1997,6 +2032,13 @@ void fun_less_equal_hash_multimap(const void* cpv_first, const void* cpv_second,
     assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
 
     *(bool_t*)pv_output = hash_multimap_less_equal((hash_multimap_t*)cpv_first, (hash_multimap_t*)cpv_second);
+}
+
+void fun_less_equal_basic_string(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    assert(cpv_first != NULL && cpv_second != NULL && pv_output != NULL);
+
+    *(bool_t*)pv_output = basic_string_less_equal((basic_string_t*)cpv_first, (basic_string_t*)cpv_second);
 }
 
 #ifndef _MSC_VER

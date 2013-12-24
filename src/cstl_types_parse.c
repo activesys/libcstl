@@ -72,6 +72,7 @@
 #define _TOKEN_TEXT_PAIR                           "pair_t"
 #define _TOKEN_TEXT_STRING                         "string_t"
 #define _TOKEN_TEXT_RANGE                          "range_t"
+#define _TOKEN_TEXT_BASIC_STRING                   "basic_string_t"
 #define _TOKEN_TEXT_ITERATOR                       "iterator_t"
 #define _TOKEN_TEXT_VECTOR_ITERATOR                "vector_iterator_t"
 #define _TOKEN_TEXT_LIST_ITERATOR                  "list_iterator_t"
@@ -151,6 +152,7 @@ static keytable_t _sgt_table[] = {
     {_TOKEN_KEY_PAIR,                   _TOKEN_TEXT_PAIR},
     {_TOKEN_KEY_STRING,                 _TOKEN_TEXT_STRING},
     {_TOKEN_KEY_RANGE,                  _TOKEN_TEXT_RANGE},
+    {_TOKEN_KEY_BASIC_STRING,           _TOKEN_TEXT_BASIC_STRING},
     {_TOKEN_KEY_ITERATOR,               _TOKEN_TEXT_ITERATOR},
     {_TOKEN_KEY_VECTOR_ITERATOR,        _TOKEN_TEXT_VECTOR_ITERATOR},
     {_TOKEN_KEY_LIST_ITERATOR,          _TOKEN_TEXT_LIST_ITERATOR},
@@ -252,6 +254,7 @@ _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
         case _TOKEN_KEY_PAIR:
         case _TOKEN_KEY_STRING:
         case _TOKEN_KEY_RANGE:
+        case _TOKEN_KEY_BASIC_STRING:
         case _TOKEN_KEY_ITERATOR:
         case _TOKEN_KEY_VECTOR_ITERATOR:
         case _TOKEN_KEY_LIST_ITERATOR:
@@ -737,7 +740,7 @@ bool_t _type_parse_sequence_name(char* s_formalname)
     /* 
      * SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | stack_t | 
      *                  queue_t | priority_queue_t | set_t | multiset_t |
-     *                  hash_set_t | hash_multiset_t
+     *                  hash_set_t | hash_multiset_t | basic_string_t
      */
     switch (_gt_typeanalysis._t_token) {
         case _TOKEN_KEY_VECTOR:
@@ -782,6 +785,10 @@ bool_t _type_parse_sequence_name(char* s_formalname)
             break;
         case _TOKEN_KEY_HASH_MULTISET:
             _TOKEN_MATCH(_TOKEN_TEXT_HASH_MULTISET, s_formalname);
+            return true;
+            break;
+        case _TOKEN_KEY_BASIC_STRING:
+            _TOKEN_MATCH(_TOKEN_TEXT_BASIC_STRING, s_formalname);
             return true;
             break;
         default:
@@ -1001,6 +1008,7 @@ bool_t _type_parse_cstl_builtin(char* s_formalname)
         case _TOKEN_KEY_MULTISET:
         case _TOKEN_KEY_HASH_SET:
         case _TOKEN_KEY_HASH_MULTISET:
+        case _TOKEN_KEY_BASIC_STRING:
             return _type_parse_sequence(s_formalname);
             break;
         /* CSTL_BUILTIN -> RELATION */
@@ -1103,6 +1111,7 @@ bool_t _type_parse_type_descript(char* s_formalname)
         case _TOKEN_KEY_PAIR:
         case _TOKEN_KEY_STRING:
         case _TOKEN_KEY_RANGE:
+        case _TOKEN_KEY_BASIC_STRING:
         case _TOKEN_KEY_ITERATOR:
         case _TOKEN_KEY_VECTOR_ITERATOR:
         case _TOKEN_KEY_LIST_ITERATOR:

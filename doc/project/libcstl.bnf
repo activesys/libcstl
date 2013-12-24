@@ -32,7 +32,7 @@ void
 char, int, short, long, float, double, signed, unsigned, bool_t, _Bool
 struct, enum, union,
 vector_t, list_t, slist_t, deque_t, stack_t, queue_t, priority_queue_t,
-set_t, map_t, multiset_t, multimap_t,
+set_t, map_t, multiset_t, multimap_t, basic_string_t,
 hash_set_t, hash_map_t, hash_multiset_t, hash_multimap_t,
 pair_t, string_t, range_t
 iterator_t, vector_iterator_t, list_iterator_t, slist_iterator_t, deque_iterator_t,
@@ -78,7 +78,7 @@ ITERATOR -> iterator_t | vector_iterator_t | list_iterator_t | slist_iterator_t 
             input_iterator_t | output_iterator_t | forward_iterator_t | bidirectional_iterator_t | random_access_iterator_t
 SEQUENCE -> SEQUENCE_NAME < TYPE_DESCRIPT >
 SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | queue_t | stack_t | priority_queue_t |
-                 set_t | multiset_t | hash_set_t | hash_multiset_t
+                 set_t | multiset_t | hash_set_t | hash_multiset_t | basic_string_t
 RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >
 RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
 ========================================================================
@@ -123,7 +123,7 @@ ITERATOR -> iterator_t | vector_iterator_t | list_iterator_t | slist_iterator_t 
             input_iterator_t | output_iterator_t | forward_iterator_t | bidirectional_iterator_t | random_access_iterator_t
 SEQUENCE -> SEQUENCE_NAME < TYPE_DESCRIPT >
 SEQUENCE_NAME -> vector_t | list_t | slist_t | deque_t | queue_t | stack_t | priority_queue_t |
-                 set_t | multiset_t | hash_set_t | hash_multiset_t
+                 set_t | multiset_t | hash_set_t | hash_multiset_t | basic_string_t
 RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >
 RELATION_NAME -> map_t | multimap_t | hash_map_t | hash_multimap_t | pair_t
 ---------------------------------------------------------------------------
@@ -131,7 +131,7 @@ first(TYPE_DESCRIPT) = {char, short, int, long, float, double, signed, unsigned,
                         struct, enum, union, identifier,
                         vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
                         set_t, map_t, multiset_t, multimap_t, hash_set_t, hash_map_t, hash_multiset_t,
-                        hash_multimap_t, pair_t, string_t,
+                        hash_multimap_t, pair_t, string_t, range_t, basic_string_t,
                         iterator_t, vector_iterator_t, list_iterator_t, slist_iterator_t, deque_iterator_t,
                         set_iterator_t, map_iterator_t, multiset_iterator_t, multimap_iterator_t,
                         hash_set_iterator_t, hash_map_iterator_t, hash_multiset_iterator_t, hash_multimap_iterator_t,
@@ -154,7 +154,7 @@ first(USER_DEFINE_TYPE) = {struct, enum, union}
 
 first(CSTL_BUILTIN) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
                        set_t, map_t, multiset_t, multimap_t, hash_set_t, hash_map_t, hash_multiset_t,
-                       hash_multimap_t, pair_t, string_t, range_t,
+                       hash_multimap_t, pair_t, string_t, range_t, basic_string_t,
                        iterator_t, vector_iterator_t, list_iterator_t, slist_iterator_t, deque_iterator_t,
                        set_iterator_t, map_iterator_t, multiset_iterator_t, multimap_iterator_t,
                        hash_set_iterator_t, hash_map_iterator_t, hash_multiset_iterator_t, hash_multimap_iterator_t,
@@ -162,9 +162,9 @@ first(CSTL_BUILTIN) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, pri
                        input_iterator_t, output_iterator_t, forward_iterator_t, bidirectional_iterator_t,
                        random_access_iterator_t}
 first(SEQUENCE) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
-                   set_t, multiset_t, hash_set_t, hash_multiset_t}
+                   set_t, multiset_t, hash_set_t, hash_multiset_t, basic_string_t}
 first(SEQUENCE_NAME) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
-                        set_t, multiset_t, hash_set_t, hash_multiset_t}
+                        set_t, multiset_t, hash_set_t, hash_multiset_t, basic_string_t}
 first(RELATION) = {map_t, multimap_t, hash_map_t, hash_multimap_t, pair_t}
 first(RELATION_NAME) = {map_t, multimap_t, hash_map_t, hash_multimap_t, pair_t}
 first(ITERATOR) = {iterator_t, vector_iterator_t, list_iterator_t, slist_iterator_t, deque_iterator_t,
@@ -203,7 +203,7 @@ select(TYPE_DESCRIPT -> C_BUILTIN) = {char, short, int, long, float, double, sig
 select(TYPE_DESCRIPT -> USER_DEFINE) = {struct, enum, union, identifier}
 select(TYPE_DESCRIPT -> CSTL_BUILTIN) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
                                          set_t, map_t, multiset_t, multimap_t, hash_set_t, hash_map_t,
-                                         hash_multiset_t, hash_multimap_t, pair_t, string_t,
+                                         hash_multiset_t, hash_multimap_t, pair_t, string_t, range_t, basic_string_t,
                                          iterator_t, vector_iterator_t, list_iterator_t, slist_iterator_t, deque_iterator_t,
                                          set_iterator_t, map_iterator_t, multiset_iterator_t, multimap_iterator_t,
                                          hash_set_iterator_t, hash_map_iterator_t, hash_multiset_iterator_t, hash_multimap_iterator_t,
@@ -255,7 +255,7 @@ select(USER_DEFINE_TYPE -> enum) = {enum}
 select(USER_DEFINE_TYPE -> union) = {union}
 
 select(CSTL_BUILTIN -> SEQUENCE) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, priority_queue_t,
-                                    set_t, multiset_t, hash_set_t, hash_multiset_t}
+                                    set_t, multiset_t, hash_set_t, hash_multiset_t, basic_string_t}
 select(CSTL_BUILTIN -> RELATION) = {map_t, multimap_t, hash_map_t, hash_multimap_t, pair_t}
 select(CSTL_BUILTIN -> ITERATOR) = {iterator_t, vector_iterator_t, list_iterator_t, slist_iterator_t, deque_iterator_t,
                                     set_iterator_t, map_iterator_t, multiset_iterator_t, multimap_iterator_t,
@@ -267,7 +267,7 @@ select(CSTL_BUILTIN -> string_t) = {string_t}
 select(CSTL_BUILTIN -> range_t) = {range_t}
 
 select(SEQUENCE -> SEQUENCE_NAME < TYPE_DESCRIPT >) = {vector_t, list_t, slist_t, deque_t, queue_t, stack_t, 
-                                                       priority_queue_t, set_t, multiset_t, hash_set_t, hash_multiset_t}
+                                                       priority_queue_t, set_t, multiset_t, hash_set_t, hash_multiset_t, basic_string_t}
 
 select(SEQUENCE_NAME -> vector_t) = {vector_t}
 select(SEQUENCE_NAME -> list_t) = {list_t}
@@ -280,6 +280,7 @@ select(SEQUENCE_NAME -> set_t) = {set_t}
 select(SEQUENCE_NAME -> multiset_t) = {multiset_t}
 select(SEQUENCE_NAME -> hash_set_t) = {hash_set_t}
 select(SEQUENCE_NAME -> hash_multiset_t) = {hash_multiset_t}
+select(SEQUENCE_NAME -> basic_string_t) = {basic_string_t}
 
 select(RELATION -> RELATION_NAME < TYPE_DESCRIPT , TYPE_DESCRIPT >) = {map_t, multimap_t, hash_map_t, 
                                                                        hash_multimap_t, pair_t}

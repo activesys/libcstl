@@ -96,6 +96,7 @@ extern "C" {
 #define _STRING_TYPE                    "string_t"
 #define _PAIR_TYPE                      "pair_t"
 #define _RANGE_TYPE                     "range_t"
+#define _BASIC_STRING_TYPE              "basic_string_t"
 /* cstl iterator type */
 #define _ITERATOR_TYPE                  "iterator_t"
 #define _VECTOR_ITERATOR_TYPE           "vector_iterator_t"

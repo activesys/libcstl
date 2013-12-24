@@ -325,6 +325,9 @@ void _type_register_cstl_builtin(void)
     /* register range_t */
     _TYPE_REGISTER_TYPE(range_t, _RANGE_TYPE, range, _TYPE_CSTL_BUILTIN);
     _TYPE_REGISTER_TYPE_NODE(range_t, _RANGE_TYPE);
+    /* register basic_string_t */
+    _TYPE_REGISTER_TYPE(basic_string_t, _BASIC_STRING_TYPE, basic_string, _TYPE_CSTL_BUILTIN);
+    _TYPE_REGISTER_TYPE_NODE(basic_string_t, _BASIC_STRING_TYPE);
 
     /* register iterator_t */
     _TYPE_REGISTER_TYPE(iterator_t, _ITERATOR_TYPE, iterator, _TYPE_CSTL_BUILTIN);
