@@ -117,6 +117,7 @@ extern "C" {
 #define _FORWARD_ITERATOR_TYPE          "forward_iterator_t"
 #define _BIDIRECTIONAL_ITERATOR_TYPE    "bidirectional_iterator_t"
 #define _RANDOM_ACCESS_ITERATOR_TYPE    "random_access_iterator_t"
+#define _BASIC_STRING_ITERATOR_TYPE     "basic_string_iterator_t"
 
 /* structure type */
 #define _STRUCT_TYPE                    "struct"

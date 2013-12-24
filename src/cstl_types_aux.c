@@ -350,6 +350,7 @@ void _type_register_cstl_builtin(void)
     _TYPE_REGISTER_TYPE_NODE(forward_iterator_t, _FORWARD_ITERATOR_TYPE);
     _TYPE_REGISTER_TYPE_NODE(bidirectional_iterator_t, _BIDIRECTIONAL_ITERATOR_TYPE);
     _TYPE_REGISTER_TYPE_NODE(random_access_iterator_t, _RANDOM_ACCESS_ITERATOR_TYPE);
+    _TYPE_REGISTER_TYPE_NODE(basic_string_iterator_t, _BASIC_STRING_ITERATOR_TYPE);
 
     _TYPE_REGISTER_END();
 }

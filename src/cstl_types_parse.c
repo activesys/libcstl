@@ -92,6 +92,7 @@
 #define _TOKEN_TEXT_FORWARD_ITERATOR               "forward_iterator_t"
 #define _TOKEN_TEXT_BIDIRECTIONAL_ITERATOR         "bidirectional_iterator_t"
 #define _TOKEN_TEXT_RANDOM_ACCESS_ITERATOR         "random_access_iterator_t"
+#define _TOKEN_TEXT_BASIC_STRING_ITERATOR          "basic_string_iterator_t"
 #define _TOKEN_TEXT_SPACE                          " "
 #define _TOKEN_TEXT_LEFT_BRACKET                   "<"
 #define _TOKEN_TEXT_RIGHT_BRACKET                  ">"
@@ -172,6 +173,7 @@ static keytable_t _sgt_table[] = {
     {_TOKEN_KEY_FORWARD_ITERATOR,       _TOKEN_TEXT_FORWARD_ITERATOR},
     {_TOKEN_KEY_BIDIRECTIONAL_ITERATOR, _TOKEN_TEXT_BIDIRECTIONAL_ITERATOR},
     {_TOKEN_KEY_RANDOM_ACCESS_ITERATOR, _TOKEN_TEXT_RANDOM_ACCESS_ITERATOR},
+    {_TOKEN_KEY_BASIC_STRING_ITERATOR,  _TOKEN_TEXT_BASIC_STRING_ITERATOR},
     {_TOKEN_IDENTIFIER,                 NULL}
 };
 
@@ -274,6 +276,7 @@ _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
         case _TOKEN_KEY_FORWARD_ITERATOR:
         case _TOKEN_KEY_BIDIRECTIONAL_ITERATOR:
         case _TOKEN_KEY_RANDOM_ACCESS_ITERATOR:
+        case _TOKEN_KEY_BASIC_STRING_ITERATOR:
             t_style = _type_parse_cstl_builtin(s_formalname) ? _TYPE_CSTL_BUILTIN : _TYPE_INVALID;
             break;
         default:
@@ -867,7 +870,7 @@ bool_t _type_parse_iterator(char* s_formalname)
      *             multimap_iterator_t | hash_set_iterator_t | hash_map_iterator_t |
      *             hash_multiset_iterator_t | hash_multimap_iterator_t |
      *             string_iterator_t | input_iterator_t | output_iterator_t | forward_iterator_t |
-     *             bidirectional_iterator_t | random_access_iterator_t
+     *             bidirectional_iterator_t | random_access_iterator_t | basic_string_iterator_t
      */
     switch (_gt_typeanalysis._t_token) {
         case _TOKEN_KEY_ITERATOR:
@@ -944,6 +947,10 @@ bool_t _type_parse_iterator(char* s_formalname)
             break;
         case _TOKEN_KEY_RANDOM_ACCESS_ITERATOR:
             _TOKEN_MATCH(_TOKEN_TEXT_RANDOM_ACCESS_ITERATOR, s_formalname);
+            return true;
+            break;
+        case _TOKEN_KEY_BASIC_STRING_ITERATOR:
+            _TOKEN_MATCH(_TOKEN_TEXT_BASIC_STRING_ITERATOR, s_formalname);
             return true;
             break;
         default:
@@ -1049,6 +1056,7 @@ bool_t _type_parse_cstl_builtin(char* s_formalname)
         case _TOKEN_KEY_FORWARD_ITERATOR:
         case _TOKEN_KEY_BIDIRECTIONAL_ITERATOR:
         case _TOKEN_KEY_RANDOM_ACCESS_ITERATOR:
+        case _TOKEN_KEY_BASIC_STRING_ITERATOR:
             return _type_parse_iterator(s_formalname);
             break;
         default:
@@ -1131,6 +1139,7 @@ bool_t _type_parse_type_descript(char* s_formalname)
         case _TOKEN_KEY_FORWARD_ITERATOR:
         case _TOKEN_KEY_BIDIRECTIONAL_ITERATOR:
         case _TOKEN_KEY_RANDOM_ACCESS_ITERATOR:
+        case _TOKEN_KEY_BASIC_STRING_ITERATOR:
             return _type_parse_cstl_builtin(s_formalname);
             break;
         default:

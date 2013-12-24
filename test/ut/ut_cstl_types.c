@@ -1540,6 +1540,13 @@ void test__all_types__basic_string(void** state)
     vector_destroy(pvec);
 }
 
+void test__all_types__basic_string_iterator(void** state)
+{
+    vector_t* pvec = create_vector(basic_string_iterator_t);
+    assert_true(pvec != NULL);
+    vector_destroy(pvec);
+}
+
 #ifndef _MSC_VER
 void test__all_types__bool(void** state)
 {

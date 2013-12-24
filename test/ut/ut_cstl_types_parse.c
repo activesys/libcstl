@@ -569,6 +569,15 @@ void test__type_get_token__key_basic_string(void** state)
     assert_true(strncmp(_gt_typeanalysis._s_tokentext, "basic_string_t", _TYPE_NAME_SIZE) == 0);
 }
 
+void test__type_get_token__key_basic_string_iterator(void** state)
+{
+    test_parse_setup("basic_string_iterator_t");
+    _type_get_token();
+    assert_true(_gt_typeanalysis._t_token == _TOKEN_KEY_BASIC_STRING_ITERATOR);
+    assert_true(_gt_typeanalysis._t_index == 23);
+    assert_true(strncmp(_gt_typeanalysis._s_tokentext, "basic_string_iterator_t", _TYPE_NAME_SIZE) == 0);
+}
+
 #ifndef _MSC_VER
 void test__type_get_token__key_bool(void** state)
 {
@@ -866,6 +875,16 @@ void test__type_parse_iterator__invalid_token(void** state)
 
     assert_false(_type_parse_iterator(s_formalname));
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_iterator__basic_string_iterator(void** state)
+{
+    const char* str = "basic_string_iterator_t";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_BASIC_STRING_ITERATOR, strlen(str), str);
+
+    assert_true(_type_parse_iterator(s_formalname));
+    assert_true(strncmp(s_formalname, str, _TYPE_NAME_SIZE) == 0);
 }
 
 /*
@@ -2063,6 +2082,16 @@ void test__type_parse_cstl_builtin__basic_string(void** state)
     assert_true(strncmp(s_formalname, "basic_string_t<map_t<long,long long int>>", _TYPE_NAME_SIZE) == 0);
 }
 
+void test__type_parse_cstl_builtin__basic_string_iterator(void** state)
+{
+    const char* str = "basic_string_iterator_t";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_BASIC_STRING_ITERATOR, strlen("basic_string_iterator_t"), "basic_string_iterator_t");
+
+    assert_true(_type_parse_cstl_builtin(s_formalname));
+    assert_true(strncmp(s_formalname, "basic_string_iterator_t", _TYPE_NAME_SIZE) == 0);
+}
+
 /*
  * test _type_parse_type_descript
  */
@@ -2109,7 +2138,7 @@ void test__type_parse_type_descript__cstl_builtin(void** state)
     char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
     test_parse_setup_ex(str, _TOKEN_KEY_VECTOR, strlen("vector_t"), "vector_t");
 
-    assert_true(_type_parse_sequence(s_formalname));
+    assert_true(_type_parse_type_descript(s_formalname));
     assert_true(strncmp(s_formalname, "vector_t<type_abc_t>", _TYPE_NAME_SIZE) == 0);
 }
 
@@ -2119,8 +2148,18 @@ void test__type_parse_type_descript__invalid_token(void** state)
     char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
     test_parse_setup_ex(str, _TOKEN_INVALID, strlen("vector_t"), "vector_t");
 
-    assert_false(_type_parse_sequence(s_formalname));
+    assert_false(_type_parse_type_descript(s_formalname));
     assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_parse_type_descript__basic_string_iterator(void** state)
+{
+    const char* str = "basic_string_iterator_t";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    test_parse_setup_ex(str, _TOKEN_KEY_BASIC_STRING_ITERATOR, strlen("basic_string_iterator_t"), "basic_string_iterator_t");
+
+    assert_true(_type_parse_type_descript(s_formalname));
+    assert_true(strncmp(s_formalname, "basic_string_iterator_t", _TYPE_NAME_SIZE) == 0);
 }
 
 /*
@@ -2236,6 +2275,15 @@ void test__type_get_style__basic_string(void** state)
 
     assert_true(_type_get_style(s_typename, s_formalname) == _TYPE_CSTL_BUILTIN);
     assert_true(strncmp(s_formalname, "basic_string_t<basic_string_t<basic_string_t<int>>>", _TYPE_NAME_SIZE) == 0);
+}
+
+void test__type_get_style__basic_string_iterator(void** state)
+{
+    const char* s_typename = "basic_string_iterator_t";
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+
+    assert_true(_type_get_style(s_typename, s_formalname) == _TYPE_CSTL_BUILTIN);
+    assert_true(strncmp(s_formalname, "basic_string_iterator_t", _TYPE_NAME_SIZE) == 0);
 }
 
 #ifndef _MSC_VER

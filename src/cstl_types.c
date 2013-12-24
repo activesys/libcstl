@@ -284,7 +284,8 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
             strncmp(pt_typeinfo->_s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
             strncmp(pt_typeinfo->_s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
             strncmp(pt_typeinfo->_s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+            strncmp(pt_typeinfo->_s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+            strncmp(pt_typeinfo->_s_typename, _BASIC_STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
             strncpy(s_registeredname, pt_typeinfo->_s_typename, _TYPE_NAME_SIZE);
         } else {
             char* pc_leftbracket = strchr(pt_typeinfo->_s_typename, _CSTL_LEFT_BRACKET);
@@ -464,7 +465,8 @@ void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
         strncmp(s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
         strncmp(s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
         strncmp(s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+        strncmp(s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+        strncmp(s_typename, _BASIC_STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
         strncpy(s_elemtypename, s_typename, _TYPE_NAME_SIZE);
     } else {
         /* e.g. "vector_t<map_t<int,long>>" */

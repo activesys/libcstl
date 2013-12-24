@@ -234,6 +234,7 @@ void test__all_types__output_iterator(void** state);
 void test__all_types__forward_iterator(void** state);
 void test__all_types__bidirectional_iterator(void** state);
 void test__all_types__random_access_iterator(void** state);
+void test__all_types__basic_string_iterator(void** state);
 #ifndef _MSC_VER
 void test__all_types__bool(void** state);
 void test__all_types__long_long(void** state);
@@ -388,6 +389,7 @@ void test__ulong_long_usage__duplicate(void** state);
     UT_CASE(test__all_types__forward_iterator),\
     UT_CASE(test__all_types__bidirectional_iterator),\
     UT_CASE(test__all_types__random_access_iterator),\
+    UT_CASE(test__all_types__basic_string_iterator),\
     UT_CASE_BEGIN(_type_init_default, test__type_init_default__null_input),\
     UT_CASE(test__type_init_default__null_output),\
     UT_CASE(test__type_init_default__ok),\
