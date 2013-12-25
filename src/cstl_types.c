@@ -244,9 +244,95 @@ void _type_get_type_pair(_typeinfo_t* pt_typeinfofirst, _typeinfo_t* pt_typeinfo
     }
 }
 
+static inline bool_t _type_cstl_builtin_special(const char* s_typename)
+{
+    /*
+     * Judging the special cstl-builtin type.
+     */
+    size_t t_length = 0;
+    bool_t b_result = false;
+
+    assert(s_typename != NULL);
+
+    t_length = strlen(s_typename);
+    switch (t_length) {
+        case 7:
+            if (strncmp(s_typename, _RANGE_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 8:
+            if (strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 10:
+            if (strncmp(s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 14:
+            if (strncmp(s_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 15:
+            if (strncmp(s_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 16:
+            if (strncmp(s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 17:
+            if (strncmp(s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 18:
+            if (strncmp(s_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 19:
+            if (strncmp(s_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 23:
+            if (strncmp(s_typename, _BASIC_STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        case 24:
+            if (strncmp(s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
+                strncmp(s_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+                b_result = true;
+            }
+            break;
+        default:
+            b_result = false;
+            break;
+    }
+
+    return b_result;
+}
+
 void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
 {
-    char s_registeredname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    char s_registeredname[_TYPE_NAME_SIZE + 1];
 
     assert(pt_typeinfo != NULL);
     assert(s_typename != NULL);
@@ -255,6 +341,7 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
         _type_init();
     }
 
+    s_registeredname[0] = s_registeredname[_TYPE_NAME_SIZE] = '\0';
     pt_typeinfo->_t_style = _type_get_style(s_typename, pt_typeinfo->_s_typename);
     if (pt_typeinfo->_t_style == _TYPE_INVALID) {
         pt_typeinfo->_pt_type = NULL;
@@ -264,33 +351,16 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
         strncpy(s_registeredname, pt_typeinfo->_s_typename, _TYPE_NAME_SIZE);
     } else {
         /* the string_t , range_t and iterator types are special codition */
-        if (strncmp(pt_typeinfo->_s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _RANGE_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-            strncmp(pt_typeinfo->_s_typename, _BASIC_STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+        if (_type_cstl_builtin_special(pt_typeinfo->_s_typename)) {
             strncpy(s_registeredname, pt_typeinfo->_s_typename, _TYPE_NAME_SIZE);
         } else {
+            size_t t_length = 0;
             char* pc_leftbracket = strchr(pt_typeinfo->_s_typename, _CSTL_LEFT_BRACKET);
             assert(pc_leftbracket != NULL);
-            strncpy(s_registeredname, pt_typeinfo->_s_typename, pc_leftbracket - pt_typeinfo->_s_typename);
+            t_length = pc_leftbracket - pt_typeinfo->_s_typename;
+            assert(t_length <= _TYPE_NAME_SIZE);
+            strncpy(s_registeredname, pt_typeinfo->_s_typename, t_length);
+            s_registeredname[t_length] = '\0';
         }
     }
 
@@ -445,28 +515,7 @@ void _type_get_elem_typename(const char* s_typename, char* s_elemtypename)
     memset(s_elemtypename, '\0', _TYPE_NAME_SIZE + 1);
 
     /* the string_t and iterator types are special condition */
-    if (strncmp(s_typename, _STRING_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _RANGE_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _INPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _OUTPUT_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _FORWARD_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _BIDIRECTIONAL_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _RANDOM_ACCESS_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _VECTOR_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _LIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _SLIST_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _DEQUE_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _HASH_SET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _HASH_MAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _HASH_MULTISET_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _HASH_MULTIMAP_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0 ||
-        strncmp(s_typename, _BASIC_STRING_ITERATOR_TYPE, _TYPE_NAME_SIZE) == 0) {
+    if (_type_cstl_builtin_special(s_typename)) {
         strncpy(s_elemtypename, s_typename, _TYPE_NAME_SIZE);
     } else {
         /* e.g. "vector_t<map_t<int,long>>" */

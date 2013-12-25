@@ -186,22 +186,23 @@ _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
     /*
      * this parser algorithm is associated with BNF in file doc/project/libcstl.bnf.
      */
-    char   s_tokentext[_TYPE_NAME_SIZE + 1];
-    char   s_userdefine[_TYPE_NAME_SIZE + 1];
-    _typestyle_t t_style = _TYPE_INVALID;
+    char            s_userdefine[_TYPE_NAME_SIZE + 1];
+    _typestyle_t    t_style = _TYPE_INVALID;
 
     assert(s_typename != NULL);
     assert(s_formalname != NULL);
+    assert(strlen(s_typename) <= _TYPE_NAME_SIZE);
 
-    if (strlen(s_typename) > _TYPE_NAME_SIZE) {
-        return _TYPE_INVALID;
+    /* initialize an array efficently */
+    s_formalname[0] = s_formalname[_TYPE_NAME_SIZE] = '\0';
+
+    /* find type style cache */
+    if ((t_style = _type_cache_find(s_typename, s_formalname)) != _TYPE_INVALID) {
+        return t_style;
     }
 
-    memset(s_formalname, '\0', _TYPE_NAME_SIZE+1);
-    memset(s_tokentext, '\0', _TYPE_NAME_SIZE+1);
-    memset(s_userdefine, '\0', _TYPE_NAME_SIZE+1);
-
     /* initialize the type analysis */
+    s_userdefine[0] = s_userdefine[_TYPE_NAME_SIZE] = '\0';
     memset(_gt_typeanalysis._s_typename, '\0', _TYPE_NAME_SIZE+1);
     memset(_gt_typeanalysis._s_tokentext, '\0', _TYPE_NAME_SIZE+1);
     _gt_typeanalysis._t_index = 0;
@@ -285,7 +286,14 @@ _typestyle_t _type_get_style(const char* s_typename, char* s_formalname)
     }
 
     _type_get_token();
-    return _gt_typeanalysis._t_token == _TOKEN_END_OF_INPUT ? t_style : _TYPE_INVALID;
+    t_style = _gt_typeanalysis._t_token == _TOKEN_END_OF_INPUT ? t_style : _TYPE_INVALID;
+
+    /* update type style cache */
+    if (t_style != _TYPE_INVALID) {
+        _type_cache_update(s_typename, s_formalname, t_style);
+    }
+
+    return t_style;
 }
 
 /**

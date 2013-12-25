@@ -2183,8 +2183,7 @@ void test__type_get_style__name_too_long(void** state)
     char s_typename[1024] = {'\0'};
     char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
     memset(s_typename, 'a', 1023);
-    assert_true(_type_get_style(s_typename, s_formalname) == _TYPE_INVALID);
-    assert_true(strncmp(s_formalname, "", _TYPE_NAME_SIZE) == 0);
+    expect_assert_failure(_type_get_style(s_typename, s_formalname));
 }
 
 void test__type_get_style__c_builtin(void** state)

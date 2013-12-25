@@ -34,6 +34,25 @@ void test__type_is_registered__null_typename(void** state);
 void test__type_is_registered__long_typename(void** state);
 void test__type_is_registered__not_register(void** state);
 void test__type_is_registered__register(void** state);
+/*
+ * test _type_cache_find
+ */
+UT_CASE_DECLARATION(_type_cache_find)
+void test__type_cache_find__typename_null(void** state);
+void test__type_cache_find__formalname_null(void** state);
+void test__type_cache_find__not_find_empty(void** state);
+void test__type_cache_find__not_find(void** state);
+void test__type_cache_find__find(void** state);
+/*
+ * test _type_cache_update
+ */
+UT_CASE_DECLARATION(_type_cache_update)
+void test__type_cache_update__typename_null(void** state);
+void test__type_cache_update__formalname_null(void** state);
+void test__type_cache_update__invalid_style(void** state);
+void test__type_cache_update__empty(void** state);
+void test__type_cache_update__not_empty(void** state);
+void test__type_cache_update__round(void** state);
 
 #define UT_CSTL_TYPES_AUX_CASE\
     UT_SUIT_BEGIN(cstl_types_aux, test__type_hash__null_typename),\
@@ -47,7 +66,18 @@ void test__type_is_registered__register(void** state);
     UT_CASE_BEGIN(_type_is_registered, test__type_is_registered__null_typename),\
     UT_CASE(test__type_is_registered__long_typename),\
     UT_CASE(test__type_is_registered__not_register),\
-    UT_CASE(test__type_is_registered__register)
+    UT_CASE(test__type_is_registered__register),\
+    UT_CASE_BEGIN(_type_cache_find, test__type_cache_find__typename_null),\
+    UT_CASE(test__type_cache_find__formalname_null),\
+    UT_CASE(test__type_cache_find__not_find_empty),\
+    UT_CASE(test__type_cache_find__not_find),\
+    UT_CASE(test__type_cache_find__find),\
+    UT_CASE_BEGIN(_type_cache_update, test__type_cache_update__typename_null),\
+    UT_CASE(test__type_cache_update__formalname_null),\
+    UT_CASE(test__type_cache_update__invalid_style),\
+    UT_CASE(test__type_cache_update__empty),\
+    UT_CASE(test__type_cache_update__not_empty),\
+    UT_CASE(test__type_cache_update__round)
 
 #endif /* _UT_CSTL_TYPES_AUX_H_ */
 

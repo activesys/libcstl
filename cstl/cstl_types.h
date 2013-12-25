@@ -149,7 +149,7 @@ typedef binary_function_t bfun_t;
 /* type style */
 typedef enum _tagtypestley
 {
-    _TYPE_INVALID, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN
+    _TYPE_INVALID = 0, _TYPE_C_BUILTIN, _TYPE_USER_DEFINE, _TYPE_CSTL_BUILTIN
 }_typestyle_t;
 
 typedef struct _tagtype

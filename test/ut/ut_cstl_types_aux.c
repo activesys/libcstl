@@ -45,12 +45,12 @@ void test__type_hash__lessthan_bucketcount(void** state)
 
 void test__type_hash__equalto_bucketcount(void** state)
 {
-    assert_true(_type_hash("aaaaaaaaa>>") == 0);
+    assert_true(_type_hash("aaaaaaaaa>>") == 829);
 }
 
 void test__type_hash__greaterthan_bucketcount(void** state)
 {
-    assert_true(_type_hash("abcabcabcabcabc") == 473);
+    assert_true(_type_hash("abcabcabcabcabc") == 118);
 }
 
 #define TEST__TYPE_REGISTER_BEGIN()\
@@ -236,6 +236,10 @@ void test__type_register_cstl_builtin__all(void** state)
 UT_CASE_DEFINATION(_type_init)
 void test__type_init__all(void** state)
 {
+    typedef struct _tag_test_type_init {
+        int a;
+    } _test_type_init_t;
+    type_register(_test_type_init_t, NULL, NULL, NULL, NULL);
     assert_true(_gt_typeregister._t_isinit == true);
     test__type_register_c_builtin__all(state);
     test__type_register_cstl_builtin__all(state);
@@ -252,7 +256,7 @@ void test__type_is_registered__null_typename(void** state)
 
 void test__type_is_registered__long_typename(void** state)
 {
-    assert_true(_type_is_registered("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz") == NULL);
+    expect_assert_failure(_type_is_registered("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"));
 }
 
 void test__type_is_registered__not_register(void** state)
@@ -270,5 +274,153 @@ void test__type_is_registered__register(void** state)
     assert_true(pt_type->_t_typeless == _type_less_int);
     assert_true(pt_type->_t_typecopy == _type_copy_int);
     assert_true(pt_type->_t_typedestroy == _type_destroy_int);
+}
+
+/*
+ * test _type_cache_find
+ */
+UT_CASE_DEFINATION(_type_cache_find)
+void test__type_cache_find__typename_null(void** state)
+{
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    expect_assert_failure(_type_cache_find(NULL, s_formalname));
+}
+
+void test__type_cache_find__formalname_null(void** state)
+{
+    char s_typename[_TYPE_NAME_SIZE + 1] = {'\0'};
+    expect_assert_failure(_type_cache_find(s_typename, NULL));
+}
+
+void test__type_cache_find__not_find_empty(void** state)
+{
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+
+    _gt_typecache_index = 0;
+    memset(_gt_typecache, 0x00, sizeof(_typecache_t) * _TYPE_CACHE_COUNT);
+    assert_true(_type_cache_find("vector_t<int>", s_formalname) == _TYPE_INVALID);
+}
+
+void test__type_cache_find__not_find(void** state)
+{
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+
+    _gt_typecache_index = 0;
+    memset(_gt_typecache, 0x00, sizeof(_typecache_t) * _TYPE_CACHE_COUNT);
+    _type_cache_update("vector_t <int  >", "vector_t<int>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("vector_t<  int>", "vector_t<int>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("int", "int", _TYPE_C_BUILTIN);
+    _type_cache_update("abc_t", "abc_t", _TYPE_USER_DEFINE);
+
+    assert_true(_type_cache_find("vector_t < int >", s_formalname) == _TYPE_INVALID);
+    assert_true(strlen(s_formalname) == 0);
+}
+
+void test__type_cache_find__find(void** state)
+{
+    char s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+
+    _gt_typecache_index = 0;
+    memset(_gt_typecache, 0x00, sizeof(_typecache_t) * _TYPE_CACHE_COUNT);
+    _type_cache_update("vector_t <int  >", "vector_t<int>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("vector_t<  int>", "vector_t<int>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("int", "int", _TYPE_C_BUILTIN);
+    _type_cache_update("abc_t", "abc_t", _TYPE_USER_DEFINE);
+
+    assert_true(_type_cache_find("vector_t <int  >", s_formalname) == _TYPE_CSTL_BUILTIN);
+    assert_true(strncmp(s_formalname, "vector_t<int>", _TYPE_NAME_SIZE) == 0);
+}
+
+/*
+ * test _type_cache_update
+ */
+UT_CASE_DEFINATION(_type_cache_update)
+void test__type_cache_update__typename_null(void** state)
+{
+    expect_assert_failure(_type_cache_update(NULL, "int", _TYPE_C_BUILTIN));
+}
+
+void test__type_cache_update__formalname_null(void** state)
+{
+    expect_assert_failure(_type_cache_update("int", NULL, _TYPE_C_BUILTIN));
+}
+
+void test__type_cache_update__invalid_style(void** state)
+{
+    expect_assert_failure(_type_cache_update("int", "int", _TYPE_INVALID));
+}
+
+void test__type_cache_update__empty(void** state)
+{
+    _gt_typecache_index = 0;
+    memset(_gt_typecache, 0x00, sizeof(_typecache_t) * _TYPE_CACHE_COUNT);
+
+    _type_cache_update("vector_t <int  >", "vector_t<int>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("vector_t<  int>", "vector_t<int>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("int", "int", _TYPE_C_BUILTIN);
+    _type_cache_update("abc_t", "abc_t", _TYPE_USER_DEFINE);
+
+    assert_true(strncmp(_gt_typecache[0]._s_typename, "vector_t <int  >", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[0]._s_formalname, "vector_t<int>", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[0]._t_style == _TYPE_CSTL_BUILTIN);
+    assert_true(strncmp(_gt_typecache[1]._s_typename, "vector_t<  int>", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[1]._s_formalname, "vector_t<int>", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[1]._t_style == _TYPE_CSTL_BUILTIN);
+    assert_true(strncmp(_gt_typecache[2]._s_typename, "int", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[2]._s_formalname, "int", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[2]._t_style == _TYPE_C_BUILTIN);
+    assert_true(strncmp(_gt_typecache[3]._s_typename, "abc_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[3]._s_formalname, "abc_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[3]._t_style == _TYPE_USER_DEFINE);
+    assert_true(_gt_typecache_index == 4);
+}
+
+void test__type_cache_update__not_empty(void** state)
+{
+    _gt_typecache_index = 0;
+    memset(_gt_typecache, 0x00, sizeof(_typecache_t) * _TYPE_CACHE_COUNT);
+    _type_cache_update("vector_t <int  >", "vector_t<int>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("vector_t<  int>", "vector_t<int>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("int", "int", _TYPE_C_BUILTIN);
+    _type_cache_update("abc_t", "abc_t", _TYPE_USER_DEFINE);
+
+    assert_true(_gt_typecache_index == 4);
+    _type_cache_update("deque_t<   map_t<int, long long int>>", "deque_t<map_t<int,long long int>>", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("basic_string_iterator_t", "basic_string_iterator_t", _TYPE_CSTL_BUILTIN);
+    _type_cache_update("_Bool", "_Bool", _TYPE_C_BUILTIN);
+    _type_cache_update("bool_t", "bool_t", _TYPE_C_BUILTIN);
+
+    assert_true(strncmp(_gt_typecache[4]._s_typename, "deque_t<   map_t<int, long long int>>", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[4]._s_formalname, "deque_t<map_t<int,long long int>>", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[4]._t_style == _TYPE_CSTL_BUILTIN);
+    assert_true(strncmp(_gt_typecache[5]._s_typename, "basic_string_iterator_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[5]._s_formalname, "basic_string_iterator_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[5]._t_style == _TYPE_CSTL_BUILTIN);
+    assert_true(strncmp(_gt_typecache[6]._s_typename, "_Bool", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[6]._s_formalname, "_Bool", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[6]._t_style == _TYPE_C_BUILTIN);
+    assert_true(strncmp(_gt_typecache[7]._s_typename, "bool_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[7]._s_formalname, "bool_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[7]._t_style == _TYPE_C_BUILTIN);
+    assert_true(_gt_typecache_index == 8);
+}
+
+void test__type_cache_update__round(void** state)
+{
+    char s_name[_TYPE_NAME_SIZE + 1] = {'\0'};
+    size_t i = 0;
+
+    _gt_typecache_index = 0;
+    memset(_gt_typecache, 0x00, sizeof(_typecache_t) * _TYPE_CACHE_COUNT);
+    for (i = 0; i < 300; ++i) {
+        memset(s_name, '\0', _TYPE_NAME_SIZE);
+        sprintf(s_name, "abc_%u_t", i);
+        _type_cache_update(s_name, s_name, _TYPE_USER_DEFINE);
+    }
+
+    assert_true(strncmp(_gt_typecache[0]._s_typename, "abc_256_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(strncmp(_gt_typecache[0]._s_formalname, "abc_256_t", _TYPE_NAME_SIZE) == 0);
+    assert_true(_gt_typecache[0]._t_style == _TYPE_USER_DEFINE);
+    assert_true(_gt_typecache_index == 44);
 }
 

@@ -30,11 +30,22 @@ extern "C" {
 /** include section **/
 
 /** constant declaration and macro section **/
+#define _TYPE_CACHE_COUNT       256
 
 /** data type declaration and struct, union, enum section **/
+/**
+ * type style cache
+ */
+typedef struct _tagtypecache {
+    char                _s_typename[_TYPE_NAME_SIZE + 1];
+    char                _s_formalname[_TYPE_NAME_SIZE + 1];
+    _typestyle_t        _t_style;
+}_typecache_t;
 
 /** exported global variable declaration section **/
-extern _typeregister_t _gt_typeregister;
+extern _typeregister_t  _gt_typeregister;
+extern _typecache_t     _gt_typecache[_TYPE_CACHE_COUNT];
+extern size_t           _gt_typecache_index;
 
 /** exported function prototype section **/
 /**
@@ -57,6 +68,11 @@ extern _type_t* _type_is_registered(const char* s_typename);
 extern void _type_init(void);
 extern void _type_register_c_builtin(void);
 extern void _type_register_cstl_builtin(void);
+/**
+ * Find in type style cache and update cache.
+ */
+extern _typestyle_t _type_cache_find(const char* s_typename, char* s_formalname);
+extern void _type_cache_update(const char* s_typename, const char* s_formalname, _typestyle_t t_style);
 
 #ifdef __cplusplus
 }
