@@ -99,7 +99,7 @@ bool_t _type_register(
     ufun_t t_typeinit, bfun_t t_typecopy,
     bfun_t t_typeless, ufun_t t_typedestroy)
 {
-    char         s_formalname[_TYPE_NAME_SIZE + 1] = {'\0'};
+    char         s_formalname[_TYPE_NAME_SIZE + 1];
     _typestyle_t t_style = _TYPE_INVALID;
 
     if (!_gt_typeregister._t_isinit) {
@@ -143,8 +143,8 @@ bool_t _type_duplicate(
 {
     _type_t* pt_registered1 = NULL;
     _type_t* pt_registered2 = false;
-    char     s_formalname1[_TYPE_NAME_SIZE + 1] = {'\0'};
-    char     s_formalname2[_TYPE_NAME_SIZE + 1] = {'\0'};
+    char     s_formalname1[_TYPE_NAME_SIZE + 1];
+    char     s_formalname2[_TYPE_NAME_SIZE + 1];
 
     assert(s_typename1 != NULL);
     assert(s_typename2 != NULL);
@@ -206,8 +206,8 @@ bool_t _type_duplicate(
 void _type_get_type_pair(_typeinfo_t* pt_typeinfofirst, _typeinfo_t* pt_typeinfosecond, const char* s_typename)
 {
     /* this function get type information for pair_t and relation container */
-    char  s_firsttypename[_TYPE_NAME_SIZE + 1] = {'\0'};
-    char  s_secondtypename[_TYPE_NAME_SIZE + 1] = {'\0'};
+    char  s_firsttypename[_TYPE_NAME_SIZE + 1];
+    char  s_secondtypename[_TYPE_NAME_SIZE + 1];
     char* pc_commapos = NULL;
     char* pc_newstart = NULL;
 
@@ -223,9 +223,10 @@ void _type_get_type_pair(_typeinfo_t* pt_typeinfofirst, _typeinfo_t* pt_typeinfo
     /* the type name is separated in two section by comma */
     pc_newstart = (char*)s_typename;
     while ((pc_commapos = strchr(pc_newstart, _CSTL_COMMA)) != NULL) {
-        memset(s_firsttypename, '\0', _TYPE_NAME_SIZE + 1);
-        memset(s_secondtypename, '\0', _TYPE_NAME_SIZE + 1);
+        s_firsttypename[0] = s_firsttypename[_TYPE_NAME_SIZE] = '\0';
+        s_secondtypename[0] = s_secondtypename[_TYPE_NAME_SIZE] = '\0';
         strncpy(s_firsttypename, s_typename, pc_commapos - s_typename);
+        s_firsttypename[pc_commapos - s_typename] = '\0';
         strncpy(s_secondtypename, pc_commapos + 1, _TYPE_NAME_SIZE);
 
         _type_get_type(pt_typeinfofirst, s_firsttypename);
@@ -377,10 +378,10 @@ void _type_get_type(_typeinfo_t* pt_typeinfo, const char* s_typename)
 bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
 {
     /* s_typename1 and s_typename2 is formal name */
-    char  s_elemname1[_TYPE_NAME_SIZE + 1] = {'\0'};
-    char  s_prefix1[_TYPE_NAME_SIZE + 1] = {'\0'};
-    char  s_elemname2[_TYPE_NAME_SIZE + 1] = {'\0'};
-    char  s_prefix2[_TYPE_NAME_SIZE + 1] = {'\0'};
+    char  s_elemname1[_TYPE_NAME_SIZE + 1];
+    char  s_prefix1[_TYPE_NAME_SIZE + 1];
+    char  s_elemname2[_TYPE_NAME_SIZE + 1];
+    char  s_prefix2[_TYPE_NAME_SIZE + 1];
     char* pc_index1 = NULL;
     char* pc_leftbracket1 = NULL;
     char* pc_rightbracket1 = NULL;
@@ -393,6 +394,8 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
     assert(s_typename1 != NULL);
     assert(s_typename2 != NULL);
 
+    s_elemname1[0] = s_elemname1[_TYPE_NAME_SIZE] = '\0';
+    s_elemname2[0] = s_elemname2[_TYPE_NAME_SIZE] = '\0';
     strncpy(s_elemname1, s_typename1, _TYPE_NAME_SIZE);
     strncpy(s_elemname2, s_typename2, _TYPE_NAME_SIZE);
 
@@ -459,21 +462,23 @@ bool_t _type_is_same(const char* s_typename1, const char* s_typename2)
                     pc_rightbracket2;
 
         if (pc_index1 != NULL && pc_index2 != NULL) {
-            memset(s_prefix1, '\0', _TYPE_NAME_SIZE + 1);
-            memset(s_prefix2, '\0', _TYPE_NAME_SIZE + 1);
+            s_prefix1[0] = s_prefix1[_TYPE_NAME_SIZE] = '\0';
+            s_prefix2[0] = s_prefix2[_TYPE_NAME_SIZE] = '\0';
             strncpy(s_prefix1, s_elemname1, pc_index1 - s_elemname1);
+            s_prefix1[pc_index1 - s_elemname1] = '\0';
             strncpy(s_prefix2, s_elemname2, pc_index2 - s_elemname2);
+            s_prefix2[pc_index2 - s_elemname2] = '\0';
 
             if (_type_is_registered(s_prefix1) != _type_is_registered(s_prefix2)) {
                 return false;
             }
 
-            memset(s_prefix1, '\0', _TYPE_NAME_SIZE + 1);
-            memset(s_prefix2, '\0', _TYPE_NAME_SIZE + 1);
+            s_prefix1[0] = s_prefix1[_TYPE_NAME_SIZE] = '\0';
+            s_prefix2[0] = s_prefix2[_TYPE_NAME_SIZE] = '\0';
             strncpy(s_prefix1, pc_index1 + 1, _TYPE_NAME_SIZE);
             strncpy(s_prefix2, pc_index2 + 1, _TYPE_NAME_SIZE);
-            memset(s_elemname1, '\0', _TYPE_NAME_SIZE + 1);
-            memset(s_elemname2, '\0', _TYPE_NAME_SIZE + 1);
+            s_elemname1[0] = s_elemname1[_TYPE_NAME_SIZE] = '\0';
+            s_elemname2[0] = s_elemname2[_TYPE_NAME_SIZE] = '\0';
             strncpy(s_elemname1, s_prefix1, _TYPE_NAME_SIZE);
             strncpy(s_elemname2, s_prefix2, _TYPE_NAME_SIZE);
         } else {

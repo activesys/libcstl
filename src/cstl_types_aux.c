@@ -143,7 +143,7 @@ size_t _type_hash(const char* s_typename)
         t_hash = t_hash * _TYPE_HASH_BKDR_SEED + (*s_typename++);
     }
 
-    return t_hash % _TYPE_REGISTER_BUCKET_COUNT;
+    return (t_hash & 0x7fffffff) % _TYPE_REGISTER_BUCKET_COUNT;
 }
 
 /**
