@@ -105,6 +105,8 @@ void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_e
     void*             pv_varg = NULL;
     bool_t            b_result = false;
     vector_iterator_t it_iter;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
 
     assert(pvec_vector != NULL);
     assert(_vector_is_created(pvec_vector));
@@ -118,9 +120,9 @@ void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_e
         _vector_get_varg_value_auxiliary(pvec_vector, val_elemlist, pv_varg);
 
         /* copy varg value to each element */
-        for (it_iter = vector_begin(pvec_vector);
-             !iterator_equal(it_iter, vector_end(pvec_vector));
-             it_iter = iterator_next(it_iter)) {
+        it_begin = vector_begin(pvec_vector);
+        it_end = vector_end(pvec_vector);
+        for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
             /* copy from varg */
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), pv_varg, &b_result);
@@ -139,15 +141,17 @@ void _vector_init_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_e
 void _vector_destroy_auxiliary(vector_t* pvec_vector)
 {
     vector_iterator_t it_iter;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
     bool_t            b_result = false;
 
     assert(pvec_vector != NULL);
     assert(_vector_is_inited(pvec_vector) || _vector_is_created(pvec_vector));
 
     /* destroy all elements */
-    for (it_iter = vector_begin(pvec_vector);
-         !iterator_equal(it_iter, vector_end(pvec_vector));
-         it_iter = iterator_next(it_iter)) {
+    it_begin = vector_begin(pvec_vector);
+    it_end = vector_end(pvec_vector);
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _GET_VECTOR_TYPE_DESTROY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), &b_result);
         assert(b_result);
@@ -185,6 +189,8 @@ void _vector_assign_elem(vector_t* pvec_vector, size_t t_count, ...)
 void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val_elemlist)
 {
     iterator_t it_iter;
+    iterator_t it_begin;
+    iterator_t it_end;
     bool_t     b_result = false;
     void*      pv_varg = NULL;
 
@@ -198,9 +204,9 @@ void _vector_assign_elem_varg(vector_t* pvec_vector, size_t t_count, va_list val
 
     /* copy value from varg for each element */
     vector_resize(pvec_vector, t_count);
-    for (it_iter = vector_begin(pvec_vector);
-         !iterator_equal(it_iter, vector_end(pvec_vector));
-         it_iter = iterator_next(it_iter)) {
+    it_begin = vector_begin(pvec_vector);
+    it_end = vector_end(pvec_vector);
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_iter), pv_varg, &b_result);
         assert(b_result);
@@ -270,7 +276,7 @@ void _vector_resize_elem(vector_t* pvec_vector, size_t t_resize, ...)
  */
 void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list val_elemlist)
 {
-    vector_iterator_t t_cutpos;     /* the cut position */
+    vector_iterator_t it_cutpos;     /* the cut position */
     size_t            t_expsize = 0;
     size_t            i = 0;
     void*             pv_varg = NULL;
@@ -283,9 +289,9 @@ void _vector_resize_elem_varg(vector_t* pvec_vector, size_t t_resize, va_list va
     if (t_resize == vector_size(pvec_vector)) {
         return;
     } else if (t_resize < vector_size(pvec_vector)) {
-        t_cutpos = vector_begin(pvec_vector);
-        t_cutpos = iterator_next_n(t_cutpos, t_resize);
-        vector_erase_range(pvec_vector, t_cutpos, vector_end(pvec_vector));
+        it_cutpos = vector_begin(pvec_vector);
+        it_cutpos = iterator_next_n(it_cutpos, t_resize);
+        vector_erase_range(pvec_vector, it_cutpos, vector_end(pvec_vector));
     } else {
         t_expsize = t_resize - vector_size(pvec_vector);
         if (t_resize > vector_capacity(pvec_vector)) {

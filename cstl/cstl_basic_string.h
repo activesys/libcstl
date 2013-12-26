@@ -1394,8 +1394,8 @@ extern void basic_string_range_replace_subcstr(
  *          belong to pt_basic_string, otherwise the behavior is undefined.
  */
 extern void basic_string_replace_range(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_begin, basic_string_iterator_t t_end,
-    basic_string_iterator_t t_first, basic_string_iterator_t t_last);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_begin, basic_string_iterator_t it_end,
+    basic_string_iterator_t it_first, basic_string_iterator_t it_last);
 
 /**
  * Reset the size of basic_string elements.

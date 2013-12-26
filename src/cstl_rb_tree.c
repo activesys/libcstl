@@ -96,6 +96,8 @@ void _rb_tree_destroy(_rb_tree_t* pt_rb_tree)
 void _rb_tree_init_copy(_rb_tree_t* pt_dest, const _rb_tree_t* cpt_src)
 {
     _rb_tree_iterator_t it_iter;
+    _rb_tree_iterator_t it_begin;
+    _rb_tree_iterator_t it_end;
 
     assert(pt_dest != NULL);
     assert(cpt_src != NULL);
@@ -104,8 +106,11 @@ void _rb_tree_init_copy(_rb_tree_t* pt_dest, const _rb_tree_t* cpt_src)
     assert(_rb_tree_same_type(pt_dest, cpt_src));
 
     _rb_tree_init(pt_dest, cpt_src->_t_compare);
-    for (it_iter = _rb_tree_begin(cpt_src);
-         !_rb_tree_iterator_equal(it_iter, _rb_tree_end(cpt_src));
+    it_begin = _rb_tree_begin(cpt_src);
+    it_end = _rb_tree_end(cpt_src);
+
+    for (it_iter = it_begin;
+         !_rb_tree_iterator_equal(it_iter, it_end);
          it_iter = _rb_tree_iterator_next(it_iter)) {
         _rb_tree_insert_equal(pt_dest, _rb_tree_iterator_get_pointer_ignore_cstr(it_iter));
     }
@@ -240,11 +245,17 @@ void _rb_tree_assign(_rb_tree_t* pt_dest, const _rb_tree_t* cpt_src)
 
     if (!_rb_tree_equal(pt_dest, cpt_src)) {
         _rb_tree_iterator_t it_iter;
+        _rb_tree_iterator_t it_begin;
+        _rb_tree_iterator_t it_end;
+
         /* clear dest rb tree */
         _rb_tree_clear(pt_dest);
+        it_begin = _rb_tree_begin(cpt_src);
+        it_end = _rb_tree_end(cpt_src);
+
         /* insert all elements of src into dest */
-        for (it_iter = _rb_tree_begin(cpt_src);
-             !_rb_tree_iterator_equal(it_iter, _rb_tree_end(cpt_src));
+        for (it_iter = it_begin;
+             !_rb_tree_iterator_equal(it_iter, it_end);
              it_iter = _rb_tree_iterator_next(it_iter)) {
             _rb_tree_insert_equal(pt_dest, _rb_tree_iterator_get_pointer_ignore_cstr(it_iter));
         }
@@ -318,26 +329,26 @@ _rb_tree_iterator_t _rb_tree_end(const _rb_tree_t* cpt_rb_tree)
 
 _rb_tree_iterator_t _rb_tree_rend(const _rb_tree_t* cpt_rb_tree)
 {
-    _rb_tree_iterator_t t_newiterator = _create_rb_tree_iterator();
+    _rb_tree_iterator_t it_newiterator = _create_rb_tree_iterator();
 
     assert(cpt_rb_tree != NULL);
 
-    _RB_TREE_ITERATOR_TREE_POINTER(t_newiterator) = (void*)cpt_rb_tree;
-    _RB_TREE_ITERATOR_COREPOS(t_newiterator) = (_byte_t*)&cpt_rb_tree->_t_rbroot;
+    _RB_TREE_ITERATOR_TREE_POINTER(it_newiterator) = (void*)cpt_rb_tree;
+    _RB_TREE_ITERATOR_COREPOS(it_newiterator) = (_byte_t*)&cpt_rb_tree->_t_rbroot;
 
-    return t_newiterator;
+    return it_newiterator;
 }
 
 _rb_tree_iterator_t _rb_tree_rbegin(const _rb_tree_t* cpt_rb_tree)
 {
-    _rb_tree_iterator_t t_newiterator = _create_rb_tree_iterator();
+    _rb_tree_iterator_t it_newiterator = _create_rb_tree_iterator();
 
     assert(cpt_rb_tree != NULL);
 
-    _RB_TREE_ITERATOR_TREE_POINTER(t_newiterator) = (void*)cpt_rb_tree;
-    _RB_TREE_ITERATOR_COREPOS(t_newiterator) = (_byte_t*)cpt_rb_tree->_t_rbroot._pt_right;
+    _RB_TREE_ITERATOR_TREE_POINTER(it_newiterator) = (void*)cpt_rb_tree;
+    _RB_TREE_ITERATOR_COREPOS(it_newiterator) = (_byte_t*)cpt_rb_tree->_t_rbroot._pt_right;
 
-    return t_newiterator;
+    return it_newiterator;
 }
 
 /**
@@ -392,8 +403,12 @@ void _rb_tree_clear(_rb_tree_t* pt_rb_tree)
  */
 bool_t _rb_tree_equal(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second)
 {
-    _rb_tree_iterator_t t_first;
-    _rb_tree_iterator_t t_second;
+    _rb_tree_iterator_t it_first;
+    _rb_tree_iterator_t it_first_begin;
+    _rb_tree_iterator_t it_first_end;
+    _rb_tree_iterator_t it_second;
+    _rb_tree_iterator_t it_second_begin;
+    _rb_tree_iterator_t it_second_end;
     bool_t              b_less = false;
     bool_t              b_greater = false;
 
@@ -411,27 +426,29 @@ bool_t _rb_tree_equal(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second)
     if (_rb_tree_size(cpt_first) != _rb_tree_size(cpt_second)) {
         return false;
     }
+
+    it_first_begin = _rb_tree_begin(cpt_first);
+    it_first_end = _rb_tree_end(cpt_first);
+    it_second_begin = _rb_tree_begin(cpt_second);
+    it_second_end = _rb_tree_end(cpt_second);
+
     /* test each element */
-    for (t_first = _rb_tree_begin(cpt_first), 
-         t_second = _rb_tree_begin(cpt_second);
-         !_rb_tree_iterator_equal(t_first, _rb_tree_end(cpt_first)) &&
-         !_rb_tree_iterator_equal(t_second, _rb_tree_end(cpt_second));
-         t_first = _rb_tree_iterator_next(t_first),
-         t_second = _rb_tree_iterator_next(t_second)) {
+    for (it_first = it_first_begin, it_second = it_second_begin;
+         !_rb_tree_iterator_equal(it_first, it_first_end) && !_rb_tree_iterator_equal(it_second, it_second_end);
+         it_first = _rb_tree_iterator_next(it_first), it_second = _rb_tree_iterator_next(it_second)) {
         b_less = b_greater = _GET_RB_TREE_TYPE_SIZE(cpt_first);
         _GET_RB_TREE_TYPE_LESS_FUNCTION(cpt_first)(
-            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(t_first))->_pby_data,
-            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(t_second))->_pby_data, &b_less);
+            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_first))->_pby_data,
+            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_second))->_pby_data, &b_less);
         _GET_RB_TREE_TYPE_LESS_FUNCTION(cpt_first)(
-            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(t_second))->_pby_data,
-            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(t_first))->_pby_data, &b_greater);
+            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_second))->_pby_data,
+            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_first))->_pby_data, &b_greater);
         if (b_less || b_greater) {
             return false;
         }
     }
 
-    assert(_rb_tree_iterator_equal(t_first, _rb_tree_end(cpt_first)) &&
-           _rb_tree_iterator_equal(t_second, _rb_tree_end(cpt_second)));
+    assert(_rb_tree_iterator_equal(it_first, it_first_end) && _rb_tree_iterator_equal(it_second, it_second_end));
 
     return true;
 }
@@ -449,8 +466,12 @@ bool_t _rb_tree_not_equal(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_sec
  */
 bool_t _rb_tree_less(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second)
 {
-    _rb_tree_iterator_t t_first;
-    _rb_tree_iterator_t t_second;
+    _rb_tree_iterator_t it_first;
+    _rb_tree_iterator_t it_first_begin;
+    _rb_tree_iterator_t it_first_end;
+    _rb_tree_iterator_t it_second;
+    _rb_tree_iterator_t it_second_begin;
+    _rb_tree_iterator_t it_second_end;
     bool_t              b_result = false;
 
     assert(cpt_first != NULL);
@@ -459,25 +480,27 @@ bool_t _rb_tree_less(const _rb_tree_t* cpt_first, const _rb_tree_t* cpt_second)
     assert(_rb_tree_is_inited(cpt_second));
     assert(_rb_tree_same_type_ex(cpt_first, cpt_second));
 
+    it_first_begin = _rb_tree_begin(cpt_first);
+    it_first_end = _rb_tree_end(cpt_first);
+    it_second_begin = _rb_tree_begin(cpt_second);
+    it_second_end = _rb_tree_end(cpt_second);
+
     /* test each element */
-    for (t_first = _rb_tree_begin(cpt_first), 
-         t_second = _rb_tree_begin(cpt_second);
-         !_rb_tree_iterator_equal(t_first, _rb_tree_end(cpt_first)) &&
-         !_rb_tree_iterator_equal(t_second, _rb_tree_end(cpt_second));
-         t_first = _rb_tree_iterator_next(t_first),
-         t_second = _rb_tree_iterator_next(t_second)) {
+    for (it_first = it_first_begin, it_second = it_second_begin;
+         !_rb_tree_iterator_equal(it_first, it_first_end) && !_rb_tree_iterator_equal(it_second, it_second_end);
+         it_first = _rb_tree_iterator_next(it_first), it_second = _rb_tree_iterator_next(it_second)) {
         b_result = _GET_RB_TREE_TYPE_SIZE(cpt_first);
         _GET_RB_TREE_TYPE_LESS_FUNCTION(cpt_first)(
-            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(t_first))->_pby_data,
-            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(t_second))->_pby_data, &b_result);
+            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_first))->_pby_data,
+            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_second))->_pby_data, &b_result);
         if (b_result) {
             return true;
         }
 
         b_result = _GET_RB_TREE_TYPE_SIZE(cpt_first);
         _GET_RB_TREE_TYPE_LESS_FUNCTION(cpt_first)(
-            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(t_second))->_pby_data,
-            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(t_first))->_pby_data, &b_result);
+            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_second))->_pby_data,
+            ((_rbnode_t*)_RB_TREE_ITERATOR_COREPOS(it_first))->_pby_data, &b_result);
         if (b_result) {
             return false;
         }

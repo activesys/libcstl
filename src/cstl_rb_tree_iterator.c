@@ -231,6 +231,7 @@ int _rb_tree_iterator_distance(_rb_tree_iterator_t it_first, _rb_tree_iterator_t
 bool_t _rb_tree_iterator_before(_rb_tree_iterator_t it_first, _rb_tree_iterator_t it_second)
 {
     _rb_tree_iterator_t it_iter;
+    _rb_tree_iterator_t it_end;
     _rb_tree_t*         pt_rb_tree = NULL;
 
     assert(_rb_tree_iterator_belong_to_rb_tree(_RB_TREE_ITERATOR_TREE(it_first), it_first));
@@ -243,15 +244,16 @@ bool_t _rb_tree_iterator_before(_rb_tree_iterator_t it_first, _rb_tree_iterator_
     }
     /* else travel subtree for search second iterator */
     pt_rb_tree = _RB_TREE_ITERATOR_TREE(it_first);
+    it_end = _rb_tree_end(pt_rb_tree);
     for (it_iter = it_first;
-         !_rb_tree_iterator_equal(it_iter, _rb_tree_end(pt_rb_tree));
+         !_rb_tree_iterator_equal(it_iter, it_end);
          it_iter = _rb_tree_iterator_next(it_iter)) {
         if (_rb_tree_iterator_equal(it_iter, it_second)) {
             return true;
         }
     }
 
-    return _rb_tree_iterator_equal(it_second, _rb_tree_end(pt_rb_tree)) ? true : false;
+    return _rb_tree_iterator_equal(it_second, it_end) ? true : false;
 }
 
 /** local function implementation section **/

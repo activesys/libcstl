@@ -341,7 +341,7 @@ extern void map_insert_array(map_t* pmap_map, const void* cpv_array, size_t t_co
  * @remarks if pmap_map == NULL then the behavior is undefined. pmap_map must be initialized, otherwise the behavior
  *          is undefined. it_pos must be valid iterator, otherwise the behavior is undefined.
  */
-extern void map_erase_pos(map_t* pmap_map, map_iterator_t t_pos);
+extern void map_erase_pos(map_t* pmap_map, map_iterator_t it_pos);
 
 /*
  * Erase a range of element in an map.

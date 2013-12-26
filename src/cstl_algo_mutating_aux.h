@@ -55,7 +55,7 @@ extern void _algo_rotate_forward(forward_iterator_t it_first, forward_iterator_t
  * @return  A bidirectional iterator addressing the position of the first element in the range to not satisfy the predicate condition.
  * @remarks The ranges referenced must be valid, otherwise the behavior is undefined.
  */
-extern bidirectional_iterator_t _algo_partition_biditer(bidirectional_iterator_t t_first, bidirectional_iterator_t t_last, ufun_t t_unary_op);
+extern bidirectional_iterator_t _algo_partition_biditer(bidirectional_iterator_t it_first, bidirectional_iterator_t it_last, ufun_t t_unary_op);
 
 #ifdef __cplusplus
 }

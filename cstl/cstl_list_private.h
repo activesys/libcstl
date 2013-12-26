@@ -249,7 +249,7 @@ extern void _list_remove_varg(list_t* plist_list, va_list val_elemlist);
  *          element type must be same, otherwise the behavior is undefined. the first specificed is in use, others are not
  *          in use.
  */
-extern list_iterator_t _list_insert_n(list_t* plist_list, list_iterator_t t_pos, size_t t_count, ...);
+extern list_iterator_t _list_insert_n(list_t* plist_list, list_iterator_t it_pos, size_t t_count, ...);
 
 /**
  * Insert multiple copys of element befor specificed position, the element is from variable argument list.
@@ -263,7 +263,7 @@ extern list_iterator_t _list_insert_n(list_t* plist_list, list_iterator_t t_pos,
  *          element type must be same, otherwise the behavior is undefined. the first specificed is in use, others are not
  *          in use. the inserted element is from variable argument list.
  */
-extern list_iterator_t _list_insert_n_varg(list_t* plist_list, list_iterator_t t_pos, size_t t_count, va_list val_elemlist);
+extern list_iterator_t _list_insert_n_varg(list_t* plist_list, list_iterator_t it_pos, size_t t_count, va_list val_elemlist);
 
 /**
  * Initialize element with list element type auxiliary function.

@@ -139,6 +139,8 @@ void _deque_init_elem_varg(deque_t* pdeq_deque, size_t t_count, va_list val_elem
     void*      pv_varg = NULL;
     bool_t     b_result = false;
     iterator_t it_iter;
+    iterator_t it_begin;
+    iterator_t it_end;
     
     assert(pdeq_deque != NULL);
     assert(_deque_is_created(pdeq_deque));
@@ -203,9 +205,9 @@ void _deque_init_elem_varg(deque_t* pdeq_deque, size_t t_count, va_list val_elem
     assert(pv_varg != NULL);
     _deque_get_varg_value_auxiliary(pdeq_deque, val_elemlist, pv_varg);
 
-    for (it_iter = deque_begin(pdeq_deque);
-         !iterator_equal(it_iter, deque_end(pdeq_deque));
-         it_iter = iterator_next(it_iter)) {
+    it_begin = deque_begin(pdeq_deque);
+    it_end = deque_end(pdeq_deque);
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         /* initialize all elements */
         _deque_init_elem_auxiliary(pdeq_deque, _deque_iterator_get_pointer_auxiliary(it_iter));
 
@@ -227,14 +229,17 @@ void _deque_destroy_auxiliary(deque_t* pdeq_deque)
     _mappointer_t    ppby_mappos = NULL;
     bool_t           b_result = false;
     deque_iterator_t it_iter;
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
 
     assert(pdeq_deque != NULL);
 
     if (_deque_is_inited(pdeq_deque)) {
         /* destroy all elements */
-        for (it_iter = deque_begin(pdeq_deque);
-             !iterator_equal(it_iter, deque_end(pdeq_deque));
-             it_iter = iterator_next(it_iter)) {
+        it_begin = deque_begin(pdeq_deque);
+        it_end = deque_end(pdeq_deque);
+
+        for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
             b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
             _GET_DEQUE_TYPE_DESTROY_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_iter), &b_result);
             assert(b_result);
@@ -291,6 +296,8 @@ void _deque_assign_elem(deque_t* pdeq_deque, size_t t_count, ...)
 void _deque_assign_elem_varg(deque_t* pdeq_deque, size_t t_count, va_list val_elemlist)
 {
     deque_iterator_t it_iter;   /* the iterator of dest deque for iterate */
+    deque_iterator_t it_begin;
+    deque_iterator_t it_end;
     void*            pv_varg = NULL;
     bool_t           b_result = false;
 
@@ -305,9 +312,9 @@ void _deque_assign_elem_varg(deque_t* pdeq_deque, size_t t_count, va_list val_el
         _deque_get_varg_value_auxiliary(pdeq_deque, val_elemlist, pv_varg);
 
         /* copy the elements from src range to dest deque */
-        for (it_iter = deque_begin(pdeq_deque);
-             !iterator_equal(it_iter, deque_end(pdeq_deque));
-             it_iter = iterator_next(it_iter)) {
+        it_begin = deque_begin(pdeq_deque);
+        it_end = deque_end(pdeq_deque);
+        for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
             b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
             _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_iter), pv_varg, &b_result);
             assert(b_result);
@@ -480,18 +487,18 @@ void _deque_resize_elem_varg(deque_t* pdeq_deque, size_t t_resize, va_list val_e
     if (t_resize < deque_size(pdeq_deque)) {
         _deque_shrink_at_end(pdeq_deque, deque_size(pdeq_deque) - t_resize);
     } else if (t_resize > deque_size(pdeq_deque)) {
-        deque_iterator_t t_oldend = _deque_expand_at_end(pdeq_deque, t_resize - deque_size(pdeq_deque), NULL);
+        deque_iterator_t it_oldend = _deque_expand_at_end(pdeq_deque, t_resize - deque_size(pdeq_deque), NULL);
+        deque_iterator_t it_end;
 
         /* get varg value only once */
         pv_varg = _alloc_allocate(&pdeq_deque->_t_allocator, _GET_DEQUE_TYPE_SIZE(pdeq_deque), 1);
         assert(pv_varg != NULL);
         _deque_get_varg_value_auxiliary(pdeq_deque, val_elemlist, pv_varg);
 
-        for (;
-             !iterator_equal(t_oldend, deque_end(pdeq_deque)); 
-             t_oldend = iterator_next(t_oldend)) {
+        it_end = deque_end(pdeq_deque);
+        for (; !iterator_equal(it_oldend, it_end); it_oldend = iterator_next(it_oldend)) {
             b_result = _GET_DEQUE_TYPE_SIZE(pdeq_deque);
-            _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(t_oldend), pv_varg, &b_result);
+            _GET_DEQUE_TYPE_COPY_FUNCTION(pdeq_deque)(_deque_iterator_get_pointer_auxiliary(it_oldend), pv_varg, &b_result);
             assert(b_result);
         }
 

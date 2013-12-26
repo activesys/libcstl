@@ -476,7 +476,7 @@ extern void _rb_tree_insert_equal_array(_rb_tree_t* pt_rb_tree, const void* cpv_
  * @remarks if pt_rb_tree == NULL then the behavior is undefined. pt_rb_tree must be initialized, otherwise the behavior
  *          is undefined. it_pos must be valid iterator, otherwise the behavior is undefined.
  */
-extern void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t t_pos);
+extern void _rb_tree_erase_pos(_rb_tree_t* pt_rb_tree, _rb_tree_iterator_t it_pos);
 
 /*
  * Erase a range of element in an rb tree.

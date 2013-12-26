@@ -87,7 +87,7 @@ extern const void* _list_iterator_get_pointer_ignore_cstr(list_iterator_t it_ite
  * @return next iterator.
  * @remarks it_iter and next iterator must be valid iterator, otherwise the behavior is undefined.
  */
-extern list_iterator_t _list_iterator_next(list_iterator_t t_iter);
+extern list_iterator_t _list_iterator_next(list_iterator_t it_iter);
 
 /**
  * Return iterator reference previous element.

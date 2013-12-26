@@ -92,6 +92,8 @@ void vector_init_copy(vector_t* pvec_dest, const vector_t* cpvec_src)
  */
 void vector_init_copy_range(vector_t* pvec_dest, iterator_t it_begin, iterator_t it_end)
 {
+    iterator_t it_dest_begin;
+    iterator_t it_dest_end;
     iterator_t it_dest;
     iterator_t it_src;
     bool_t     b_result = false;
@@ -106,8 +108,10 @@ void vector_init_copy_range(vector_t* pvec_dest, iterator_t it_begin, iterator_t
     vector_init_n(pvec_dest, iterator_distance(it_begin, it_end));
 
     /* copy values for range */
-    for (it_dest = vector_begin(pvec_dest), it_src = it_begin;
-         !iterator_equal(it_dest, vector_end(pvec_dest)) && !iterator_equal(it_src, it_end);
+    it_dest_begin = vector_begin(pvec_dest);
+    it_dest_end = vector_end(pvec_dest);
+    for (it_dest = it_dest_begin, it_src = it_begin;
+         !iterator_equal(it_dest, it_dest_end) && !iterator_equal(it_src, it_end);
          it_dest = iterator_next(it_dest), it_src = iterator_next(it_src)) {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_dest);
         _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_dest)(
@@ -115,7 +119,7 @@ void vector_init_copy_range(vector_t* pvec_dest, iterator_t it_begin, iterator_t
             _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
-    assert(iterator_equal(it_dest, vector_end(pvec_dest)) && iterator_equal(it_src, it_end));
+    assert(iterator_equal(it_dest, it_dest_end) && iterator_equal(it_src, it_end));
 }
 
 /**
@@ -124,6 +128,8 @@ void vector_init_copy_range(vector_t* pvec_dest, iterator_t it_begin, iterator_t
 void vector_init_copy_array(vector_t* pvec_dest, const void* cpv_array, size_t t_count)
 {
     iterator_t it_dest;
+    iterator_t it_begin;
+    iterator_t it_end;
     bool_t     b_result = false;
     size_t     i = 0;
 
@@ -133,6 +139,8 @@ void vector_init_copy_array(vector_t* pvec_dest, const void* cpv_array, size_t t
 
     /* initialize all elements with default value */
     vector_init_n(pvec_dest, t_count);
+    it_begin = vector_begin(pvec_dest);
+    it_end = vector_end(pvec_dest);
 
     /*
      * Copy the elements from src array to dest vector.
@@ -147,8 +155,9 @@ void vector_init_copy_array(vector_t* pvec_dest, const void* cpv_array, size_t t
         string_t* pstr_elem = create_string();
         assert(pstr_elem != NULL);
         string_init(pstr_elem);
-        for (it_dest = vector_begin(pvec_dest), i = 0;
-             !iterator_equal(it_dest, vector_end(pvec_dest)) && i < t_count;
+
+        for (it_dest = it_begin, i = 0;
+             !iterator_equal(it_dest, it_end) && i < t_count;
              it_dest = iterator_next(it_dest), ++i) {
             string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_dest);
@@ -158,8 +167,8 @@ void vector_init_copy_array(vector_t* pvec_dest, const void* cpv_array, size_t t
         }
         string_destroy(pstr_elem);
     } else if (_GET_VECTOR_TYPE_STYLE(pvec_dest) == _TYPE_C_BUILTIN) {
-        for (it_dest = vector_begin(pvec_dest), i = 0;
-             !iterator_equal(it_dest, vector_end(pvec_dest)) && i < t_count;
+        for (it_dest = it_begin, i = 0;
+             !iterator_equal(it_dest, it_end) && i < t_count;
              it_dest = iterator_next(it_dest), ++i) {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_dest);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_dest)(
@@ -168,8 +177,8 @@ void vector_init_copy_array(vector_t* pvec_dest, const void* cpv_array, size_t t
             assert(b_result);
         }
     } else {
-        for (it_dest = vector_begin(pvec_dest), i = 0;
-             !iterator_equal(it_dest, vector_end(pvec_dest)) && i < t_count;
+        for (it_dest = it_begin, i = 0;
+             !iterator_equal(it_dest, it_end) && i < t_count;
              it_dest = iterator_next(it_dest), ++i) {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_dest);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_dest)(
@@ -177,7 +186,7 @@ void vector_init_copy_array(vector_t* pvec_dest, const void* cpv_array, size_t t
             assert(b_result);
         }
     }
-    assert(iterator_equal(it_dest, vector_end(pvec_dest)) && i == t_count);
+    assert(iterator_equal(it_dest, it_end) && i == t_count);
 }
 
 /**
@@ -302,7 +311,11 @@ void vector_reserve(vector_t* pvec_vector, size_t t_reservesize)
 bool_t vector_equal(const vector_t* cpvec_first, const vector_t* cpvec_second)
 {
     vector_iterator_t it_first;
+    vector_iterator_t it_first_begin;
+    vector_iterator_t it_first_end;
     vector_iterator_t it_second;
+    vector_iterator_t it_second_begin;
+    vector_iterator_t it_second_end;
     bool_t            b_less = false;
     bool_t            b_greater = false;
 
@@ -321,9 +334,14 @@ bool_t vector_equal(const vector_t* cpvec_first, const vector_t* cpvec_second)
         return false;
     }
 
+    it_first_begin = vector_begin(cpvec_first);
+    it_first_end = vector_end(cpvec_first);
+    it_second_begin = vector_begin(cpvec_second);
+    it_second_end = vector_end(cpvec_second);
+
     /* each element is equal */
-    for (it_first = vector_begin(cpvec_first), it_second = vector_begin(cpvec_second);
-         !iterator_equal(it_first, vector_end(cpvec_first)) && !iterator_equal(it_second, vector_end(cpvec_second));
+    for (it_first = it_first_begin, it_second = it_second_begin;
+         !iterator_equal(it_first, it_first_end) && !iterator_equal(it_second, it_second_end);
          it_first = iterator_next(it_first), it_second = iterator_next(it_second)) {
         b_less = _GET_VECTOR_TYPE_SIZE(cpvec_first);
         b_greater = _GET_VECTOR_TYPE_SIZE(cpvec_second);
@@ -333,8 +351,7 @@ bool_t vector_equal(const vector_t* cpvec_first, const vector_t* cpvec_second)
             return false;
         }
     }
-    assert(iterator_equal(it_first, vector_end(cpvec_first)) &&
-           iterator_equal(it_second, vector_end(cpvec_second)));
+    assert(iterator_equal(it_first, it_first_end) && iterator_equal(it_second, it_second_end));
 
     return true;
 }
@@ -355,7 +372,11 @@ bool_t vector_less(const vector_t* cpvec_first, const vector_t* cpvec_second)
 {
     bool_t b_result = false;
     vector_iterator_t it_first;
+    vector_iterator_t it_first_begin;
+    vector_iterator_t it_first_end;
     vector_iterator_t it_second;
+    vector_iterator_t it_second_begin;
+    vector_iterator_t it_second_end;
 
     assert(cpvec_first != NULL);
     assert(cpvec_second != NULL);
@@ -363,8 +384,13 @@ bool_t vector_less(const vector_t* cpvec_first, const vector_t* cpvec_second)
     assert(_vector_is_inited(cpvec_second));
     assert(_vector_same_type(cpvec_first, cpvec_second));
 
-    for (it_first = vector_begin(cpvec_first), it_second = vector_begin(cpvec_second);
-         !iterator_equal(it_first, vector_end(cpvec_first)) && !iterator_equal(it_second, vector_end(cpvec_second));
+    it_first_begin = vector_begin(cpvec_first);
+    it_first_end = vector_end(cpvec_first);
+    it_second_begin = vector_begin(cpvec_second);
+    it_second_end = vector_end(cpvec_second);
+
+    for (it_first = it_first_begin, it_second = it_second_begin;
+         !iterator_equal(it_first, it_first_end) && !iterator_equal(it_second, it_second_end);
          it_first = iterator_next(it_first), it_second = iterator_next(it_second)) {
         b_result = _GET_VECTOR_TYPE_SIZE(cpvec_first);
         _GET_VECTOR_TYPE_LESS_FUNCTION(cpvec_first)(_VECTOR_ITERATOR_COREPOS(it_first), _VECTOR_ITERATOR_COREPOS(it_second), &b_result);
@@ -431,6 +457,8 @@ void vector_assign(vector_t* pvec_dest, const vector_t* cpvec_src)
  */
 void vector_assign_range(vector_t* pvec_vector, iterator_t it_begin, iterator_t it_end)
 {
+    iterator_t it_dest_begin;
+    iterator_t it_dest_end;
     iterator_t it_dest;
     iterator_t it_src;
     bool_t     b_result = false;
@@ -446,8 +474,10 @@ void vector_assign_range(vector_t* pvec_vector, iterator_t it_begin, iterator_t 
 
     /* copy value from range [it_begin, it_end) for each element */
     vector_resize(pvec_vector, iterator_distance(it_begin, it_end));
-    for (it_dest = vector_begin(pvec_vector), it_src = it_begin;
-         !iterator_equal(it_dest, vector_end(pvec_vector)) && !iterator_equal(it_src, it_end);
+    it_dest_begin = vector_begin(pvec_vector);
+    it_dest_end = vector_end(pvec_vector);
+    for (it_dest = it_dest_begin, it_src = it_begin;
+         !iterator_equal(it_dest, it_dest_end) && !iterator_equal(it_src, it_end);
          it_dest = iterator_next(it_dest), it_src = iterator_next(it_src)) {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
@@ -455,7 +485,7 @@ void vector_assign_range(vector_t* pvec_vector, iterator_t it_begin, iterator_t 
             _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
-    assert(iterator_equal(it_dest, vector_end(pvec_vector)) && iterator_equal(it_src, it_end));
+    assert(iterator_equal(it_dest, it_dest_end) && iterator_equal(it_src, it_end));
 }
 
 /**
@@ -464,6 +494,8 @@ void vector_assign_range(vector_t* pvec_vector, iterator_t it_begin, iterator_t 
 void vector_assign_array(vector_t* pvec_vector, const void* cpv_array, size_t t_count)
 {
     iterator_t it_dest;
+    iterator_t it_begin;
+    iterator_t it_end;
     bool_t     b_result = false;
     size_t     i = 0;
 
@@ -474,6 +506,8 @@ void vector_assign_array(vector_t* pvec_vector, const void* cpv_array, size_t t_
 
     /* copy value from array for each element */
     vector_resize(pvec_vector, t_count);
+    it_begin = vector_begin(pvec_vector);
+    it_end = vector_end(pvec_vector);
 
     /*
      * Copy the elements from src array to dest vector.
@@ -488,8 +522,9 @@ void vector_assign_array(vector_t* pvec_vector, const void* cpv_array, size_t t_
         string_t* pstr_elem = create_string();
         assert(pstr_elem != NULL);
         string_init(pstr_elem);
-        for (it_dest = vector_begin(pvec_vector), i = 0;
-             !iterator_equal(it_dest, vector_end(pvec_vector)) && i < t_count;
+
+        for (it_dest = it_begin, i = 0;
+             !iterator_equal(it_dest, it_end) && i < t_count;
              it_dest = iterator_next(it_dest), ++i) {
             string_assign_cstr(pstr_elem, *((const char**)cpv_array + i));
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
@@ -499,8 +534,8 @@ void vector_assign_array(vector_t* pvec_vector, const void* cpv_array, size_t t_
         }
         string_destroy(pstr_elem);
     } else if (_GET_VECTOR_TYPE_STYLE(pvec_vector) == _TYPE_C_BUILTIN) {
-        for (it_dest = vector_begin(pvec_vector), i = 0;
-             !iterator_equal(it_dest, vector_end(pvec_vector)) && i < t_count;
+        for (it_dest = it_begin, i = 0;
+             !iterator_equal(it_dest, it_end) && i < t_count;
              it_dest = iterator_next(it_dest), ++i) {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
@@ -509,8 +544,8 @@ void vector_assign_array(vector_t* pvec_vector, const void* cpv_array, size_t t_
             assert(b_result);
         }
     } else {
-        for (it_dest = vector_begin(pvec_vector), i = 0;
-             !iterator_equal(it_dest, vector_end(pvec_vector)) && i < t_count;
+        for (it_dest = it_begin, i = 0;
+             !iterator_equal(it_dest, it_end) && i < t_count;
              it_dest = iterator_next(it_dest), ++i) {
             b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
             _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(
@@ -518,7 +553,7 @@ void vector_assign_array(vector_t* pvec_vector, const void* cpv_array, size_t t_
             assert(b_result);
         }
     }
-    assert(iterator_equal(it_dest, vector_end(pvec_vector)) && i == t_count);
+    assert(iterator_equal(it_dest, it_end) && i == t_count);
 }
 
 /**
@@ -830,6 +865,7 @@ vector_iterator_t vector_erase_range(vector_t* pvec_vector, vector_iterator_t it
     size_t            t_erasesize = 0;
     bool_t            b_result = false;
     vector_iterator_t it_iter;
+    vector_iterator_t it_vec_end;
 
     assert(pvec_vector != NULL);
     assert(_vector_is_inited(pvec_vector));
@@ -842,9 +878,10 @@ vector_iterator_t vector_erase_range(vector_t* pvec_vector, vector_iterator_t it
     }
 
     it_iter = it_begin;
+    it_vec_end = vector_end(pvec_vector);
     t_erasesize = iterator_distance(it_begin, it_end);
 
-    for (; !iterator_equal(it_end, vector_end(pvec_vector)); it_begin = iterator_next(it_begin), it_end = iterator_next(it_end)) {
+    for (; !iterator_equal(it_end, it_vec_end); it_begin = iterator_next(it_begin), it_end = iterator_next(it_end)) {
         b_result = _GET_VECTOR_TYPE_SIZE(pvec_vector);
         _GET_VECTOR_TYPE_COPY_FUNCTION(pvec_vector)(_VECTOR_ITERATOR_COREPOS(it_begin), _VECTOR_ITERATOR_COREPOS(it_end), &b_result);
         assert(b_result);

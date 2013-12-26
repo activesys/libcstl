@@ -193,6 +193,8 @@ void _slist_assign_elem(slist_t* pslist_slist, size_t t_count, ...)
 void _slist_assign_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_elemlist)
 {
     slist_iterator_t it_iter;
+    slist_iterator_t it_begin;
+    slist_iterator_t it_end;
     _slistnode_t*    pt_varg = NULL;
     bool_t           b_result = false;
 
@@ -206,10 +208,11 @@ void _slist_assign_elem_varg(slist_t* pslist_slist, size_t t_count, va_list val_
     assert(pt_varg != NULL);
     _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
+    it_begin = slist_begin(pslist_slist);
+    it_end = slist_end(pslist_slist);
+
     /* copy value from varg */
-    for (it_iter = slist_begin(pslist_slist);
-         !iterator_equal(it_iter, slist_end(pslist_slist));
-         it_iter = iterator_next(it_iter)) {
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         b_result = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_COPY_FUNCTION(pslist_slist)(
             ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, pt_varg->_pby_data, &b_result);
@@ -411,6 +414,7 @@ void _slist_remove(slist_t* pslist_slist, ...)
 void _slist_remove_varg(slist_t* pslist_slist, va_list val_elemlist)
 {
     slist_iterator_t it_iter; /* for iterate */
+    slist_iterator_t it_end;
     _slistnode_t*    pt_varg = NULL;
     bool_t           b_less = false;
     bool_t           b_greater = false;
@@ -424,7 +428,8 @@ void _slist_remove_varg(slist_t* pslist_slist, va_list val_elemlist)
     _slist_get_varg_value_auxiliary(pslist_slist, val_elemlist, pt_varg);
 
     it_iter = slist_begin(pslist_slist);
-    while (!iterator_equal(it_iter, slist_end(pslist_slist))) {
+    it_end = slist_end(pslist_slist);
+    while (!iterator_equal(it_iter, it_end)) {
         b_less = b_greater = _GET_SLIST_TYPE_SIZE(pslist_slist);
         _GET_SLIST_TYPE_LESS_FUNCTION(pslist_slist)(
             pt_varg->_pby_data, ((_slistnode_t*)_SLIST_ITERATOR_COREPOS(it_iter))->_pby_data, &b_less);

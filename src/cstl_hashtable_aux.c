@@ -118,6 +118,8 @@ bool_t _hashtable_is_inited(const _hashtable_t* cpt_hashtable)
 bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_hashtable, _hashtable_iterator_t it_iter)
 {
     vector_iterator_t it_bucket;
+    vector_iterator_t it_begin;
+    vector_iterator_t it_end;
 
     assert(cpt_hashtable != NULL);
     assert(_hashtable_is_inited(cpt_hashtable));
@@ -131,9 +133,9 @@ bool_t _hashtable_iterator_belong_to_hashtable(const _hashtable_t* cpt_hashtable
         return true;
     } else {
         _hashnode_t* pt_node = NULL;
-        for (it_bucket = vector_begin(&cpt_hashtable->_vec_bucket);
-             !iterator_equal(it_bucket, vector_end(&cpt_hashtable->_vec_bucket));
-             it_bucket = iterator_next(it_bucket)) {
+        it_begin = vector_begin(&cpt_hashtable->_vec_bucket);
+        it_end = vector_end(&cpt_hashtable->_vec_bucket);
+        for (it_bucket = it_begin; !iterator_equal(it_bucket, it_end); it_bucket = iterator_next(it_bucket)) {
             if (_HASHTABLE_ITERATOR_BUCKETPOS(it_iter) == _VECTOR_ITERATOR_COREPOS(it_bucket)) {
                 pt_node = *(_hashnode_t**)_VECTOR_ITERATOR_COREPOS(it_bucket);
                 while (pt_node != NULL) {

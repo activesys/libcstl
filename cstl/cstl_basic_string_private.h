@@ -431,7 +431,7 @@ extern basic_string_iterator_t _basic_string_insert(basic_string_t* pt_basic_str
  *          others are not in use.
  */
 extern basic_string_iterator_t _basic_string_insert_n(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, ...);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_pos, size_t t_count, ...);
 
 /**
  * Insert multiple copys of element befor specificed position, the element is from variable argument list.
@@ -446,7 +446,7 @@ extern basic_string_iterator_t _basic_string_insert_n(
  *          others are not in use. the inserted element is from variable argument list.
  */
 extern basic_string_iterator_t _basic_string_insert_n_varg(
-    basic_string_t* pt_basic_string, basic_string_iterator_t t_pos, size_t t_count, va_list val_elemlist);
+    basic_string_t* pt_basic_string, basic_string_iterator_t it_pos, size_t t_count, va_list val_elemlist);
 
 /**
  * Insert multiple copys of element befor specificed position.

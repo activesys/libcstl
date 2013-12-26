@@ -286,6 +286,7 @@ int _avl_tree_iterator_distance(_avl_tree_iterator_t it_first, _avl_tree_iterato
 bool_t _avl_tree_iterator_before(_avl_tree_iterator_t it_first, _avl_tree_iterator_t it_second)
 {
     _avl_tree_iterator_t it_iter;
+    _avl_tree_iterator_t it_end;
     _avl_tree_t*         pt_avl_tree = NULL;
 
     assert(_avl_tree_iterator_belong_to_avl_tree(_AVL_TREE_ITERATOR_TREE(it_first), it_first));
@@ -298,15 +299,16 @@ bool_t _avl_tree_iterator_before(_avl_tree_iterator_t it_first, _avl_tree_iterat
     }
     /* else travel subtree for search second iterator */
     pt_avl_tree = _AVL_TREE_ITERATOR_TREE(it_first);
+    it_end = _avl_tree_end(pt_avl_tree);
     for (it_iter = it_first;
-         !_avl_tree_iterator_equal(it_iter, _avl_tree_end(pt_avl_tree));
+         !_avl_tree_iterator_equal(it_iter, it_end);
          it_iter = _avl_tree_iterator_next(it_iter)) {
         if (_avl_tree_iterator_equal(it_iter, it_second)) {
             return true;
         }
     }
 
-    return _avl_tree_iterator_equal(it_second, _avl_tree_end(pt_avl_tree)) ? true : false;
+    return _avl_tree_iterator_equal(it_second, it_end) ? true : false;
 }
 
 /** local function implementation section **/

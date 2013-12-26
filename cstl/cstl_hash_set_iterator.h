@@ -52,7 +52,7 @@ extern hash_set_iterator_t create_hash_set_iterator(void);
  * @remarks it_iter must be valid hash_set iterator, otherwise the behavior is undefined. if pv_value == NULL, then the
  *          behavior is undefined.
  */
-extern void _hash_set_iterator_get_value(hash_set_iterator_t t_iter, void* pv_value);
+extern void _hash_set_iterator_get_value(hash_set_iterator_t it_iter, void* pv_value);
 
 /**
  * Get data value pointer referenced by iterator.
@@ -60,7 +60,7 @@ extern void _hash_set_iterator_get_value(hash_set_iterator_t t_iter, void* pv_va
  * @return void.
  * @remarks it_iter must be valid hash_set iterator, otherwise the behavior is undefined.
  */
-extern const void* _hash_set_iterator_get_pointer(hash_set_iterator_t t_iter); 
+extern const void* _hash_set_iterator_get_pointer(hash_set_iterator_t it_iter); 
 
 /**
  * Get data value pointer referenced by iterator, but ignore char*.
@@ -68,7 +68,7 @@ extern const void* _hash_set_iterator_get_pointer(hash_set_iterator_t t_iter);
  * @return void.
  * @remarks it_iter must be valid hash_set iterator, otherwise the behavior is undefined.
  */
-extern const void* _hash_set_iterator_get_pointer_ignore_cstr(hash_set_iterator_t t_iter); 
+extern const void* _hash_set_iterator_get_pointer_ignore_cstr(hash_set_iterator_t it_iter); 
 
 /**
  * Return iterator reference next element.
@@ -76,7 +76,7 @@ extern const void* _hash_set_iterator_get_pointer_ignore_cstr(hash_set_iterator_
  * @return next iterator.
  * @remarks it_iter and next iterator must be valid iterator, otherwise the behavior is undefined.
  */
-extern hash_set_iterator_t _hash_set_iterator_next(hash_set_iterator_t t_iter);
+extern hash_set_iterator_t _hash_set_iterator_next(hash_set_iterator_t it_iter);
 
 /**
  * Return iterator reference previous element.
@@ -84,7 +84,7 @@ extern hash_set_iterator_t _hash_set_iterator_next(hash_set_iterator_t t_iter);
  * @return previous iterator.
  * @remarks it_iter and previous iterator must be valid iterator, otherwise the behavior is undefined.
  */
-extern hash_set_iterator_t _hash_set_iterator_prev(hash_set_iterator_t t_iter);
+extern hash_set_iterator_t _hash_set_iterator_prev(hash_set_iterator_t it_iter);
 
 /**
  * Test the two hash_set iterator are equal.

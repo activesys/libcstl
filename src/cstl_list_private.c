@@ -212,8 +212,10 @@ void _list_assign_elem(list_t* plist_list, size_t t_count, ...)
 void _list_assign_elem_varg(list_t* plist_list, size_t t_count, va_list val_elemlist)
 {
     _listnode_t*    pt_varg = NULL;
-    list_iterator_t it_iter;
     bool_t          b_result = false;
+    list_iterator_t it_iter;
+    list_iterator_t it_begin;
+    list_iterator_t it_end;
 
     assert(plist_list != NULL);
     assert(_list_is_inited(plist_list));
@@ -225,10 +227,11 @@ void _list_assign_elem_varg(list_t* plist_list, size_t t_count, va_list val_elem
     assert(pt_varg != NULL);
     _list_get_varg_value_auxiliary(plist_list, val_elemlist, pt_varg);
 
+    it_begin = list_begin(plist_list);
+    it_end = list_end(plist_list);
+
     /* copy value form varg */
-    for (it_iter = list_begin(plist_list);
-         !iterator_equal(it_iter, list_end(plist_list));
-         it_iter = iterator_next(it_iter)) {
+    for (it_iter = it_begin; !iterator_equal(it_iter, it_end); it_iter = iterator_next(it_iter)) {
         b_result = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_COPY_FUNCTION(plist_list)(((_listnode_t*)_LIST_ITERATOR_COREPOS(it_iter))->_pby_data, pt_varg->_pby_data, &b_result);
         assert(b_result);
@@ -400,6 +403,7 @@ void _list_remove(list_t* plist_list, ...)
 void _list_remove_varg(list_t* plist_list, va_list val_elemlist)
 {
     list_iterator_t it_pos;    /* the remove element position */
+    list_iterator_t it_end;
     _listnode_t*    pt_varg = NULL;
     bool_t          b_less = false;
     bool_t          b_greater = false;
@@ -412,7 +416,8 @@ void _list_remove_varg(list_t* plist_list, va_list val_elemlist)
     _list_get_varg_value_auxiliary(plist_list, val_elemlist, pt_varg);
 
     it_pos = list_begin(plist_list);
-    while (!iterator_equal(it_pos, list_end(plist_list))) {
+    it_end = list_end(plist_list);
+    while (!iterator_equal(it_pos, it_end)) {
         b_less = b_greater = _GET_LIST_TYPE_SIZE(plist_list);
         _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pby_data, pt_varg->_pby_data, &b_less);
         _GET_LIST_TYPE_LESS_FUNCTION(plist_list)(pt_varg->_pby_data, ((_listnode_t*)_LIST_ITERATOR_COREPOS(it_pos))->_pby_data, &b_greater);

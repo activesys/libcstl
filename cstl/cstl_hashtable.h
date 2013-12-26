@@ -430,7 +430,7 @@ extern void _hashtable_insert_equal_array(_hashtable_t* pt_hashtable, const void
  * @remarks if pt_hashtable == NULL then the behavior is undefined. pt_hashtable must be initialized, otherwise the behavior
  *          is undefined. it_pos must be valid iterator, otherwise the behavior is undefined.
  */
-extern void _hashtable_erase_pos(_hashtable_t* pt_hashtable, _hashtable_iterator_t t_pos);
+extern void _hashtable_erase_pos(_hashtable_t* pt_hashtable, _hashtable_iterator_t it_pos);
 
 /*
  * Erase a range of element in an hashtable.
