@@ -50,7 +50,7 @@ void test__type_hash__equalto_bucketcount(void** state)
 
 void test__type_hash__greaterthan_bucketcount(void** state)
 {
-    assert_true(_type_hash("abcabcabcabcabc") == 118);
+    assert_true(_type_hash("abcdefghijklmnopqrstuvwxyzz") == 278);
 }
 
 #define TEST__TYPE_REGISTER_BEGIN()\
