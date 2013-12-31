@@ -9,8 +9,6 @@ UT_CASE_DECLARATION(_type_hash)
 void test__type_hash__null_typename(void** state);
 void test__type_hash__null_empty(void** state);
 void test__type_hash__lessthan_bucketcount(void** state);
-void test__type_hash__equalto_bucketcount(void** state);
-void test__type_hash__greaterthan_bucketcount(void** state);
 /*
  * test _type_register_c_builtin
  */
@@ -58,8 +56,6 @@ void test__type_cache_update__round(void** state);
     UT_SUIT_BEGIN(cstl_types_aux, test__type_hash__null_typename),\
     UT_CASE(test__type_hash__null_empty),\
     UT_CASE(test__type_hash__lessthan_bucketcount),\
-    UT_CASE(test__type_hash__equalto_bucketcount),\
-    UT_CASE(test__type_hash__greaterthan_bucketcount),\
     UT_CASE_BEGIN(_type_register_c_builtin, test__type_register_c_builtin__all),\
     UT_CASE_BEGIN(_type_register_cstl_builtin, test__type_register_cstl_builtin__all),\
     UT_CASE_BEGIN(_type_init, test__type_init__all),\

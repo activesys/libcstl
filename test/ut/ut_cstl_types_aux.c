@@ -43,16 +43,6 @@ void test__type_hash__lessthan_bucketcount(void** state)
     assert_true(_type_hash("0") == 48);
 }
 
-void test__type_hash__equalto_bucketcount(void** state)
-{
-    assert_true(_type_hash("aaaaaaaaa>>") == 829);
-}
-
-void test__type_hash__greaterthan_bucketcount(void** state)
-{
-    assert_true(_type_hash("abcdefghijklmnopqrstuvwxyzz") == 278);
-}
-
 #define TEST__TYPE_REGISTER_BEGIN()\
     _typenode_t* pt_node = NULL;\
     _type_t*     pt_type = NULL;\
