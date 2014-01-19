@@ -77,6 +77,7 @@ a, p, h1, h2, h3, h4, h5, h6 {
     padding: 4px;
     text-align: center;
     text-decoration: none;
+    outline: none;
 }
 #navi a:hover, a:active {
     background-color: #0000ff;
