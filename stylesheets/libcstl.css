@@ -1,0 +1,133 @@
+/*
+ * style sheet for libcstl.org
+ */
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Lucida Grande", Verdana, Lucida, 宋体, sans-serif;
+    font-size: 18px;
+    background-color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+a, p, h1, h2, h3, h4, h5, h6 {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* page */
+#page {
+    margin: 0px;
+    padding: 0px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* header */
+#header {
+    margin: 0px;
+    padding: 0px;
+    height: 100px;
+}
+#logo a, h1 {
+    float: left;
+}
+#logo h1 {
+    margin-top: 30px;
+    font-style: italic;
+    font-weight: bold;
+    margin-left: 30px;
+}
+#logo a {
+    outline: none;
+    text-decoration: none;
+    background-color: #ffffff;
+}
+
+/* navigation */
+#navi {
+    margin: 0px;
+    padding: 0px;
+    background-color: #3465a4;
+    clear: left;
+}
+#navi ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+#navi li {
+    float: left;
+}
+#navi a {
+    display: block;
+    width: 120px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #3465a4;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+#navi a:hover, a:active {
+    background-color: #0000ff;
+    color: #ffff00;
+}
+
+/* content */
+#content {
+    margin: 0px;
+    padding: 0px;
+    clear: both;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+#content p {
+    margin-top: 8px;
+}
+#main_content {
+    float: left;
+    width: 49%;
+}
+#main_content h2 {
+    text-align: center;
+    background-color: #bd0000;
+    color: #ffffff;
+}
+#news {
+    float: right;
+    width: 49%;
+}
+#news h2 {
+    text-align: center;
+    background-color: #aacb50;
+    color: #ffffff;
+}
+
+/* footer */
+#footer {
+    height: 50px;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: #3465a4;
+    font-size: 14px;
+    clear: both;
+}
+#github {
+    float: left;
+    margin: 10px;
+}
+#copyright {
+    float: right;
+    margin: 10px;
+}
+
