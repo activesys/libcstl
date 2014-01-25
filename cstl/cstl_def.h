@@ -71,7 +71,7 @@ extern "C" {
 /**
  * libcstl version macro.
  */
-#define CSTL_VERSION             20300 /* libcstl version 2.2.0 */
+#define CSTL_VERSION             20300 /* libcstl version 2.3.0 */
 #define CSTL_MAJOR_VERSION       2
 #define CSTL_MINOR_VERSION       3
 #define CSTL_REVISION_VERSION    0

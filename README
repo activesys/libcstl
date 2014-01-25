@@ -13,29 +13,5 @@ feature requests may also be submitted on the GitHub sit for libcstl at
 https://github.com/activesys/libcstl or GoogleCode site for 
 libcstl at http://code.google.com/p/libcstl/issues/list
 
-The source files of libcstl are:
-
-ChangLog        - description of differences between releases
-AUTHORS         - people that have helped libcstl along
-INSTALL         - description of installation
-COPYING.LESSER  - the license under which libcstl is distributed
-Makefile.in     - compilation rules (input to the configure script)
-Makefile.am     - compilation rules source
-README          - this file
-README.Win32    - notes on using libcstl on Win32 systems
-VERSION         - version of this release
-aclocal.m4      - autoconf macros
-config.guess    - autoconf support
-config.h.in     - autoconf input
-config.sub      - autoconf support
-configure       - configure script (run this first)
-configure.ac    - configure script source
-install-sh      - BSD style install script
-ltmain.sh       - libtool script
-missing         - common stub for missing library functions
-build-win/*     - MSVS project
-cstl/*          - libcstl header files
-src/*           - libcstl source files
-doc/*           - libcstl documents
-test/ut/*       - unit testing files
+The project home page http://libcstl.org/
 

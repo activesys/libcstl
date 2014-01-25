@@ -1,3 +1,10 @@
+2014-01-25    Bo Wang <activesys.wb@gmail.com>
+    * Release libcstl-2.3.0
+    * Update type mechnanism for supporting generic pointer type. 
+    * Support c99 builtin type(unix only).
+    * Add type cache for improving efficiency.
+    * Fixup bug 5, 24, 26
+
 2013-06-15    Bo Wang <activesys.wb@gmail.com>
     * Release libcstl-2.2.0
     * Fixup bug 3, 9, 25.
