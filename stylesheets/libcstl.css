@@ -27,6 +27,7 @@ a, p, h1, h2, h3, h4, h5, h6, div {
     margin: 0px;
     padding: 0px;
     width: 60%;
+    min-width: 960px;
     height: 100px;
     margin-left: auto;
     margin-right: auto;
@@ -50,6 +51,7 @@ a, p, h1, h2, h3, h4, h5, h6, div {
 #menu {
     background-color: #3465a4;
     width: 100%;
+    min-width: 960px;
     height: 32px;
     border-bottom: 3px solid #000000;
     clear: both;
@@ -59,6 +61,7 @@ a, p, h1, h2, h3, h4, h5, h6, div {
     margin: 0px;
     padding: 0px;
     width: 60%;
+    min-width: 960px;
     margin-left: auto;
     margin-right: auto;
     background-color: #3465a4;
@@ -94,6 +97,7 @@ a, p, h1, h2, h3, h4, h5, h6, div {
     margin: 0px;
     padding: 0px;
     width: 60%;
+    min-width: 960px;
     clear: both;
     margin-left: auto;
     margin-right: auto;
@@ -151,12 +155,14 @@ a, p, h1, h2, h3, h4, h5, h6, div {
 
 /* separator */
 #separator {
+    min-width: 960px;
     clear: both;
     height: 30px;
     border-bottom: solid 3px #3465a4;
 }
 /* footer */
 #footer {
+    min-width: 960px;
     height: 50px;
     font-size: 14px;
     clear: both;
