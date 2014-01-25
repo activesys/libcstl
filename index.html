@@ -13,55 +13,159 @@
         <link rel="stylesheet" type="text/css" href="stylesheets/libcstl.css">
     </head>
     <body>
-        <div id="page">
-            <div id="header">
-                <div id="logo">
-                    <a href="http://libcstl.org/">
-                        <img src="images/libcstl_logo.jpg" />
-                    </a>
-                    <h1>libcstl</h1>
-                </div>
+        <div id="header">
+            <div id="logo">
+                <a href="http://libcstl.org/">
+                    <img src="images/libcstl_logo.jpg" />
+                </a>
+                <h1>libcstl</h1>
             </div>
+        </div>
+        <div id="menu">
             <div id="navi">
                 <ul>
                     <li><a href="http://libcstl.org/">首页</a></li>
-                    <li><a href="documents.html">文档</a></li>
+                    <li><a href="docs.html">文档</a></li>
                     <li><a href="download.html">下载</a></li>
-                    <li><a href="development.html">开发</a></li>
-                    <li><a href="about.html">关于</a></li>
+                    <li><a href="devel.html">开发</a></li>
+                    <li><a href="community.html">社区</a></li>
+                    <li><a href="license.html">许可</a></li>
+                    <li><a href="contributors.html">贡献者</a></li>
                 </ul>
             </div>
-            <div id="content">
-                <div id="main_content">
-                    <div id="about">
-                        <h2>What is libcstl?</h2>
-                        <p>
-                            libcstl是使用标准C语言编写的通用的数据结构和常用算法的库，
-                            它模仿STL的接口形式，包括序列容器，关联容器，容器适配器，
-                            迭代器，函数和算法。libcstl为C编程中的数据管理提供了方便简易的程序库。
-                        </p>
-                        <p>
-                            libcstl除了包括容器，迭代器，函数和算法四部分外，还包括类型机制以及内存管理。
-                            类型机制允许用户在容器中保存任何类型的数据，这起中包括C内建的类型，libcstl
-                            内建的类型以及用户自定义的类型。内存管理采用内存池的方式帮助用户减少内存分
-                            配带来的碎片。
-                        </p>
-                    </div>
+        </div>
+        <div id="content">
+            <div id="master_content">
+                <div id="what_is_libcstl">
+                    <h2>What is libcstl?</h2>
+                    <h3>libcstl是使用标准C语言编写的通用的数据结构和常用算法的库。</h3>
+                    <p>
+                        libcstl模仿STL的接口形式，包括序列容器，关联容器，容器适配器，
+                        迭代器，函数和算法。libcstl为C编程中的数据管理提供了方便简易的程序库。
+                    </p>
+                    <p>
+                        libcstl除了包括容器，迭代器，函数和算法四部分外，还包括类型机制以及内存管理。
+                        类型机制允许用户在容器中保存任何类型的数据，这起中包括C内建的类型，
+                        libcstl内建的类型以及用户自定义的类型。内存管理采用内存池的方式帮助用户减少内存分配带来的碎片。
+                    </p>
+                    <p>
+                        libcstl可以很好的运行在类Unix系统上，如Linux, FreeBSD等。
+                        运行在Windows上时由于VC对C99的某些特性不支持，所以一些功能会收到限制。
+                    </p>
+                    <p>
+                        接下来让我们学学如何使用libcstl吧!
+                    </p>
                 </div>
+                <div id="learning">
+                    <h2>Learning libcstl</h2>
+                    <h3>欢迎使用libcstl！</h3>
+                    <p>
+                        学习使用libcstl并不难，首先你要对它有个整体的认识，
+                        <a href="docs/gettingstartedguide.html">入门指南</a>可以帮助你。
+                    </p>
+                    <p>
+                        对libcstl有了整体的认识之后，您就可以进一步学习libcstl的各种容器，迭代器，算法等等。
+                        在<a href="docs.html">这里</a>可以找到您使用的libcstl版本对应的教程。
+                    </p>
+                    <p>
+                        libcstl中组件和接口函数众多，您可能不时的需要参考一些接口的声明以及用法细节。
+                        在<a href="docs.html">这里</a>可以找到您使用的libcstl版本对应的参考手册。
+                    </p>
+                    <p>
+                        OK，您已经了libcstl的使用，现在可以试着修改libcstl了！
+                    </p>
+                </div>
+                <div id="devel">
+                    <h2>Development</h2>
+                    <h3>欢迎Hacking libcstl！</h3>
+                    <p>
+                        libcstl的代码都托管在<a href="https://github.com/activesys/libcstl">GitHub</a>，
+                        您可以随时到<a href="https://github.com/activesys/libcstl">GitHub</a>上fork代码。
+                    </p>
+                    <p>
+                        如果您非常想参与进来，我们非常欢迎。您可以从测试开始，如果发现libcstl的bug，
+                        请提交到<a href="https://github.com/activesys/libcstl/issues">这里</a>并且注明版本，
+                        我们非常感谢。
+                    </p>
+                    <p>
+                        如果您对libcstl的代码有了一些了解，可以尝试修改一些bug，
+                        它们都在<a href="https://github.com/activesys/libcstl/issues">这里</a>。
+                        修改bug的同时要添加测试代码，同时要保证以前的测试用例全部通过。然后就可以Pull Request了。
+                    </p>
+                    <p>
+                        您还可以参与到新功能的开发上来，<a href="devel.html#todo">这里</a>有一些新功能的列表，
+                        您可以在其中选择一些功能，然后在自己的分支中进行开发。同时不要忘记了位新代码添加测试用例。
+                    </p>
+                    <p>
+                        好了，您可以开始工作了。Come on!
+                    </p>
+                </div>
+            </div>
+            <div id="slave_content">
                 <div id="news">
                     <h2>News</h2>
+                    <h3>libcstl最新版本2.3.0已经发布：</h3>
+                    <p>
+                        更新类型机制，支持通用指针类型。
+                        支持所有的C99内建类型。
+                        对libcstl进行了优化，性能提供了50%。
+                    </p>
+                    <p>
+                        下载<a href="http://ishare.iask.sina.com.cn/download/explain.php?fileid=66640323">libcstl-2.3.0</a>。
+                    </p>
+                    <p>
+                        libcstl-2.3.0的<a href="download.html#releasenote">发布声明</a>。
+                    </p>
+                    <p>
+                        libcstl-2.3.0相关的<a href="docs.html">文档</a>。
+                    </p>
+                    <p>
+                        关于libcstl-2.3.0的<a href="download.html#v2.3.0">更多信息</a>。
+                    </p>
+                </div>
+                <div id="license">
+                    <h2>License</h2>
+                    <h3>libcstl采用LGPL v2.1开源协议。</h3>
+                    <p>
+                        libcstl采用LGPL v2.1开源协议来发布，希望用户能够遵守该协议。
+                        每一份libcstl的源代码中都包含一个COPYING.LESSER的文件，这个文件就是开源协议的副本。
+                        此外您也可以在<a href="license.html">这里</a>找到这份开源协议的副本。
+                    </p>
+                </div>
+                <div id="thanks">
+                    <h2>Thanks</h2>
+                    <h3>感谢所后关心和支持libcstl项目的朋友！</h3>
+                    <p>
+                        首先要感谢项目的贡献者，没有<a href="contributors.html">你们</a>就没有整个项目。
+                    </p>
+                    <p>
+                        其次要感谢很多默默无闻的支持者，你们虽然没有直接的参与到项目的开发和维护中，
+                        但是也通过报告问题，提出意见等方式给了这个项目很大的帮助，其中好多的人都不知道名字，
+                        <a href="contributors.html">这里</a>列举的只是其中的一部份。
+                    </p>
+                </div>
+                <div id="community">
+                    <h2>Community</h2>
+                    <h3>欢迎加入我们！</h3>
+                    <p>
+                        官方QQ群:63779856。
+                    </p>
+                    <p>
+                        官方微博:新浪微博搜索libcstl。
+                    </p>
                 </div>
             </div>
-            <div id="footer">
-                <p id="github">
-                    Published with
-                    <a href="http://pages.github.com">Github Pages</a>
-                </p>
-                <p id="copyright">
-                    &copy; 2008 - 2014
-                    <a href="http://libcstl.org/">libcstl.org</a>
-                </p>
-            </div>
+        </div>
+        <div id="separator"></div>
+        <div id="footer">
+            <p id="copyright">
+                Copyright &copy; 2008 2009 2010 2011 2012 2013 2014
+                <a href="http://libcstl.org/">libcstl.org</a>
+            </p>
+            <p id="github">
+                Published with
+                <a href="http://pages.github.com">Github Pages</a>
+            </p>
         </div>
     </body>
 </html>

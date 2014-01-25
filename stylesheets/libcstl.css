@@ -17,25 +17,19 @@ a:hover {
     text-decoration: underline;
 }
 
-a, p, h1, h2, h3, h4, h5, h6 {
+a, p, h1, h2, h3, h4, h5, h6, div {
     margin: 0px;
     padding: 0px;
-}
-
-/* page */
-#page {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* header */
 #header {
     margin: 0px;
     padding: 0px;
+    width: 60%;
     height: 100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 #logo a, h1 {
     float: left;
@@ -52,10 +46,21 @@ a, p, h1, h2, h3, h4, h5, h6 {
     background-color: #ffffff;
 }
 
+/* menu */
+#menu {
+    background-color: #3465a4;
+    width: 100%;
+    height: 32px;
+    border-bottom: 3px solid #000000;
+    clear: both;
+}
 /* navigation */
 #navi {
     margin: 0px;
     padding: 0px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #3465a4;
     clear: left;
 }
@@ -88,47 +93,79 @@ a, p, h1, h2, h3, h4, h5, h6 {
 #content {
     margin: 0px;
     padding: 0px;
+    width: 60%;
     clear: both;
-    margin-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#content h2 {
+    margin-top: 15px;
     margin-bottom: 8px;
 }
 #content p {
     margin-top: 8px;
 }
-#main_content {
+#master_content {
     float: left;
-    width: 49%;
+    width: 59%;
 }
-#main_content h2 {
+#what_is_libcstl h2 {
     text-align: center;
     background-color: #bd0000;
     color: #ffffff;
 }
-#news {
+#learning h2 {
+    text-align: center;
+    background-color: #2f4f4f;
+    color: #ffffff;
+}
+#devel h2 {
+    text-align: center;
+    background-color: #8b008b;
+    color: #ffffff;
+}
+#slave_content {
     float: right;
-    width: 49%;
+    width: 39%;
 }
 #news h2 {
     text-align: center;
     background-color: #aacb50;
     color: #ffffff;
 }
+#license h2 {
+    text-align: center;
+    background-color: #1e90ff;
+    color: #ffffff;
+}
+#thanks h2 {
+    text-align: center;
+    background-color: #458b00;
+    color: #ffffff;
+}
+#community h2 {
+    text-align: center;
+    background-color: #f08080;
+    color: #ffffff;
+}
 
+/* separator */
+#separator {
+    clear: both;
+    height: 30px;
+    border-bottom: solid 3px #3465a4;
+}
 /* footer */
 #footer {
     height: 50px;
-    border-top-style: solid;
-    border-top-width: 2px;
-    border-top-color: #3465a4;
     font-size: 14px;
     clear: both;
 }
 #github {
-    float: left;
-    margin: 10px;
-}
-#copyright {
     float: right;
     margin: 10px;
 }
-
+#copyright {
+    float: left;
+    margin: 10px;
+}
