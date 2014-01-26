@@ -5,7 +5,7 @@
 body {
     margin: 0px;
     padding: 0px;
-    font-family: "Lucida Grande", Verdana, Lucida, 宋体, sans-serif;
+    font-family: 微软雅黑, "Lucida Grande", Verdana, Lucida, 宋体, sans-serif;
     font-size: 18px;
     background-color: #ffffff;
 }
@@ -20,6 +20,10 @@ a:hover {
 a, p, h1, h2, h3, h4, h5, h6, div {
     margin: 0px;
     padding: 0px;
+}
+
+p {
+    line-height: 150%;
 }
 
 /* header */
@@ -169,3 +173,36 @@ a, p, h1, h2, h3, h4, h5, h6, div {
     float: left;
     margin: 10px;
 }
+
+/* heros */
+#heros {
+    margin: 0px;
+    padding: 0px;
+    width: 60%;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+#heros h2 {
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+#heros p {
+    margin-top: 8px;
+}
+#maintainer h2 {
+    text-align: center;
+    background-color: #1e90ff;
+    color: #ffffff;
+}
+#contributors h2 {
+    text-align: center;
+    background-color: #458b00;
+    color: #ffffff;
+}
+#supporters h2 {
+    text-align: center;
+    background-color: #f08080;
+    color: #ffffff;
+}
+
