@@ -185,6 +185,7 @@ p {
     margin: 0px;
     padding: 0px;
     width: 60%;
+    min-width: 960px;
     clear: both;
     margin-left: auto;
     margin-right: auto;
@@ -192,23 +193,83 @@ p {
 #heros h2 {
     margin-top: 15px;
     margin-bottom: 8px;
-}
-#heros p {
-    margin-top: 8px;
-}
-#maintainer h2 {
-    text-align: center;
-    background-color: #1e90ff;
-    color: #ffffff;
-}
-#contributors h2 {
     text-align: center;
     background-color: #458b00;
     color: #ffffff;
 }
-#supporters h2 {
+#heros p {
+    margin-top: 8px;
+}
+#heros td {
+    width: 300px;
+    padding-left: 30px;
+}
+
+/* community */
+#community_page {
+    margin: 0px;
+    padding: 0px;
+    width: 60%;
+    min-width: 960px;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+#community_page h2 {
+    margin-top: 15px;
+    margin-bottom: 8px;
     text-align: center;
     background-color: #f08080;
     color: #ffffff;
+}
+
+/* development_page */
+#development_page {
+    margin: 0px;
+    padding: 0px;
+    width: 60%;
+    min-width: 960px;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+#development_page h2 {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    text-align: center;
+    background-color: #8b008b;
+    color: #ffffff;
+}
+
+/* license_page */
+#license_page {
+    margin: 0px;
+    padding: 0px;
+    width: 60%;
+    min-width: 960px;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* download_page */
+#download_page {
+    margin: 0px;
+    padding: 0px;
+    width: 60%;
+    min-width: 960px;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+#download_page h2 {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    text-align: center;
+    background-color: #aacb50;
+    color: #ffffff;
+}
+#download_page h3, ul {
+    margin-left: 30px;
 }
 
