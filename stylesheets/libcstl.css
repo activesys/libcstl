@@ -273,3 +273,24 @@ p {
     margin-left: 30px;
 }
 
+/* documents_page */
+#documents_page {
+    margin: 0px;
+    padding: 0px;
+    width: 60%;
+    min-width: 960px;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+#documents_page h2 {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    text-align: center;
+    background-color: #2f4f4f;
+    color: #ffffff;
+}
+#documents_page h3, ul {
+    margin-left: 30px;
+}
+
