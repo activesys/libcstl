@@ -30,7 +30,7 @@
             <a href="gettingstartedguide.html">入门指南</a>
         </div>
         <div id="docs">
-            <a id="title">入门指南</a>
+            <h1 id="title">入门指南</h1>
             <div id="menu">
                 <ul>
                     <li><a href="#what_is_libcstl">1. libcstl是什么？</a></li>
@@ -45,24 +45,64 @@
                     </li>
                     <li><a href="#libcstl_type">4. libcstl数据类型</a>
                         <ul>
-                            <li><a href="#builtin_type">4.1. 内建类型</a></li>
-                            <li><a href="#user_define_type">4.2. 用户自定义类型</a></li>
+                            <li><a href="#user_define_type">4.1. 用户自定义类型</a></li>
+                            <li><a href="#libcstl_builtin_type">4.2. libcstl内建类型</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
             <div id="text">
-                <h1 class="section" id="what_is_libcstl">1. libcstl是什么？</h1>
-                <h1 class="section" id="install_libcstl">2. 安装libcstl</h1>
+                <h2 class="section" id="what_is_libcstl">1. libcstl是什么？</h2>
+		<p>
+		    libcstl是使用C语言编写的函数库，它将C语言编程过程中经常使用的数据结构如向量、链表、集合、
+		    树等封装成相应的容器，并且提供一系列的操作函数来操作保存在这些容器中的数据。
+		    同时libcstl还提供了常用的算法操作，例如排序、查找、划分等。通过迭代器可以将算法应用于容器，
+		    迭代器就是容器和算法之间沟通的桥梁。libcstl的接口和实现都模仿了SGI STL。
+		</p>
+                <h2 class="section" id="install_libcstl">2. 安装libcstl</h2>
+		<p>
+		    libcstl安装很简单，在linux上使用如下的命令就可以完成libcstl的安装：
+		</p>
                 <p class="kbd">
-                <kbd>$ ./configure</kbd>
-                <br />
-                <kbd>$ make </kbd>
-                <br />
-                <kbd># make install</kbd>
+		    <kbd>$ ./configure</kbd>
+		    <br />
+		    <kbd>$ make </kbd>
+		    <br />
+		    <kbd># make install</kbd>
                 </p>
-                <h1 class="section" id="libcstl_concept">3. libcstl基本概念</h1>
-                <h2 class="section" id="container">3.1. 容器</h2>
+                <h2 class="section" id="libcstl_concept">3. libcstl基本概念</h2>
+		<p>
+		    libcstl由容器、迭代器、算法和函数组成。容器是都特定数据结构的封装，每一种容器都有自己的特点。
+		    迭代器与容器关联，应用于整个容器或者容器的子集，它为容器操作提供了统一的接口。
+		    算法是对数据集合进行的某种操作，算法主要是通过迭代器提供的统一接口来对容器进行操作。
+		    函数为算法提供特定的操作规则。
+		</p>
+                <h3 class="subsection" id="container">3.1. 容器</h3>
+		<p>
+		    容器是对特定数据结构的封装，容器负责存储和管理数据。针对不同的目的libcstl提供的容器分为：
+		    序列容器、关联容器、容器适配器以及字符串。
+		</p>
+		<br />
+		<p>
+		    序列容器中存储的数据的顺序与数据插入到容器中的次序有关，与数据本身的值无关。
+		    libcstl提供的序列容器包括：vector_t、list_t、deque_t、slist_t。
+		</p>
+		<p>
+		    关联容器中存储的数据的顺序与数据插入到容器中的次序无关，与数据本身的值有关。
+		    libcstl提供的关联容器包括：set_t、multiset_t、map_t、multimap_t、hash_set_t、hash_multiset_t、hash_map_t、hash_multimap_t。
+		</p>
+		<p>
+		    容器适配器是对一些常用的数据结构的封装，它们是使用容器实现的，libcstl提供的容器适配器包括：
+		    stack_t、queue_t、priority_queue_t。
+		</p>
+		<p>
+		    字符串string_t是libcstl为字符操作提供的容器，它可以方便的对字符进行操作。
+		    string_t支持动态曾找，方便插入和删除字符或者子串，易于比较和替换。
+		</p>
+		<br />
+		<p>
+		    以vector_t为例来展示一下如何使用libcstl容器类型：
+		</p>
                 <code>
 <pre class="code">
 #include &lt;stdio.h&gt;
@@ -70,20 +110,563 @@
 
 int main(int argc, char* argv[])
 {
+    vector_t* pvec = create_vector(int);
+    size_t    i = 0;
+
+    if (pvec == NULL) {
+        return -1;
+    }
+
+    vector_init(pvec);
+    for (i = 0; i &lt; 10; ++i) {
+        vector_push_back(pvec, i * 100);
+    }
+
+    for (i = 0; i &lt; vector_size(pvec); ++i) {
+        printf("%d, ", *(int*)vector_at(pvec, i));
+    }
+    printf("\n");
+
+    vector_destroy(pvec);
+
     return 0;
 }
 </pre>
                 </code>
-                <h2 class="section" id="iterator">3.2. 迭代器</h2>
-                <h2 class="section" id="algorithm">3.3. 算法</h2>
-                <h2 class="section" id="function">3.4. 函数</h2>
-                <h1 class="section" id="libcstl_type">4. libcstl数据类型</h1>
-                <h2 class="section" id="builtin_type">4.1. 内建类型</h2>
-                <h2 class="section" id="user_define_type">4.2. 用户自定义类型</h2>
+		<p>
+		    首先，使用任何容器类型都要包含相应的头文件，使用vector_t需要包含头文件cvector.h。
+		</p>
+		<p>
+		    接下来要创建容器，这里要指明容器中保存的数据类型。例子中创建的vector_t容器保存的是int类型的数据：
+		</p>
+                <code>
+<pre class="code">
+    vector_t* pvec = create_vector(int);
+
+    if (pvec == NULL) {
+        return -1;
+    }
+</pre>
+                </code>
+		<p>
+		    创建容器之后返回容器类型的指针，如果创建失败返回NULL，所以在创建容器之后一定要检查一下容器创建是否成功。
+		    在使用容器之前一定要进行初始化，使用之后一定要销毁容器：
+		</p>
+                <code>
+<pre class="code">
+    vector_init(pvec);
+    ...
+    vector_destroy(pvec);
+</pre>
+                </code>
+		<p>
+		    使用容器的过程就是调用容器的处理函数对容器中的数据进行操作的过程，上边的例子就是在vector_t容器的末尾依次添加数据，
+		    然后将整个容器中的数据打印出来。程序的结果是：
+		</p>
+                <p class="kbd">
+		    <kbd>0, 100, 200, 300, 400, 500, 600, 700, 800, 900, </kbd>
+                </p>
+		<br />
+		<p>
+		    容器是要求按照“创建”-&gt;“初始化”-&gt;“使用”-&gt;“销毁”这样的流程来使用的。
+		</p>
+                <h3 class="subsection" id="iterator">3.2. 迭代器</h3>
+		<p>
+		    迭代器是对位置的抽象，是表示容器中数据位置的概念。它为各种容器提供统一的接口，
+		    各种容器都可以通过迭代器来表示容器中数据的位置，而与容器的实现无关，这样就做到了接口和实现分离。
+		    算法也通过迭代器提供的统一的接口来实现对各种容器进行相同的操作。
+		</p>
+		<br />
+		<p>
+		    沿用上面的vector_t的例子来展示如何使用迭代器：
+		</p>
+                <code>
+<pre class="code">
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cvector.h&gt;
+
+int main(int argc, char* argv[])
+{
+    vector_t*   pvec = create_vector(int);
+    iterator_t  it;
+    size_t      i = 0;
+
+    if (pvec == NULL) {
+        return -1;
+    }
+
+    vector_init(pvec);
+    for (i = 0; i &lt; 10; ++i) {
+        vector_push_back(pvec, i * 100);
+    }
+
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec)); 
+         it = iterator_next(it)) {
+        printf("%d, ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    vector_destroy(pvec);
+
+    return 0;
+}
+</pre>
+                </code>
+		<p>
+		    使用迭代器的时候不需要包含额外的头文件，使用前也不需要创建和初始化，使用后也不需要销毁。
+		    这个例子中使用了迭代器来遍历容器中的数据并实现打印：
+		</p>
+                <code>
+<pre class="code">
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec)); 
+         it = iterator_next(it)) {
+        printf("%d, ", *(int*)iterator_get_pointer(it));
+    }
+</pre>
+                </code>
+		<p>
+		    vector_begin返回的是容器中第一个数据的位置，vector_end返回容器中最后一个数据的下一个位置，
+		    iterator_next是将当前迭代器向下移动一个位置，iterator_get_pointer是取出迭代器位置的数据的指针。
+		    这个例子的输出结果和上个例子的结果相同：
+		</p>
+                <p class="kbd">
+		    <kbd>0, 100, 200, 300, 400, 500, 600, 700, 800, 900, </kbd>
+                </p>
+                <h3 class="subsection" id="algorithm">3.3. 算法</h3>
+		<p>
+		    libcstl为数据处理提供了多种算法，如排序、查找、拷贝以及算法操作等等。算法不属于任何一种容器，
+		    它通过迭代器提供的统一接口来操作数据，所以算法可以对任何容器中的数据实施相同的操作。
+		</p>
+		<br />
+		<p>
+		    下面的例子使用排序算法对容器中的数据进行排序：
+		</p>
+                <code>
+<pre class="code">
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cvector.h&gt;
+#include &lt;cstl/calgorithm.h&gt;
+
+int main(int argc, char* argv[])
+{
+    vector_t*   pvec = create_vector(int);
+    iterator_t  it;
+
+    if (pvec == NULL) {
+        return -1;
+    }
+
+    vector_init(pvec);
+    vector_push_back(pvec, 500);
+    vector_push_back(pvec, 300);
+    vector_push_back(pvec, 0);
+    vector_push_back(pvec, 600);
+    vector_push_back(pvec, 900);
+    vector_push_back(pvec, 100);
+    vector_push_back(pvec, 800);
+    vector_push_back(pvec, 400);
+    vector_push_back(pvec, 700);
+    vector_push_back(pvec, 200);
+
+    printf("before sorting: ");
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec)); 
+         it = iterator_next(it)) {
+        printf("%d, ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    algo_sort(vector_begin(pvec), vector_end(pvec));
+
+    printf("after sorting: ");
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec)); 
+         it = iterator_next(it)) {
+        printf("%d, ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    vector_destroy(pvec);
+
+    return 0;
+}
+</pre>
+                </code>
+		<p>
+		    要使用算法就需要包含头文件calgorithm.h。这个例子中保存在vector_t容器中的数据是无序的，
+		    经过algo_sort算法排序之后就变成有序的了。algo_sort算法需要两个参数，分别是被排序区间的开始和结尾，
+		    这个例子中就是vector_begin以及vector_end。结果如下：
+		</p>
+                <p class="kbd">
+		    <kbd>before sorting: 500, 300, 0, 600, 900, 100, 800, 400, 700, 200, </kbd>
+		    <br />
+		    <kbd>after sorting: 0, 100, 200, 300, 400, 500, 600, 700, 800, 900, </kbd>
+                </p>
+                <h3 class="subsection" id="function">3.4. 函数</h3>
+		<p>
+		    libcstl提供了大量的函数，这些函数主要作为算法的扩展功能。每一种算法都有一个带有_if后缀的版本，
+		    这个版本可以结构函数作为算法操作的规则，此外用户也可以自定义函数来扩展算法的功能。
+		</p>
+		<br />
+		<p>
+		    仍然沿用上面的例子，这次按照从大到小的顺序排序容器中的数据：
+		</p>
+                <code>
+<pre class="code">
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cvector.h&gt;
+#include &lt;cstl/calgorithm.h&gt;
+#include &lt;cstl/cfunctional.h&gt;
+
+int main(int argc, char* argv[])
+{
+    vector_t*   pvec = create_vector(int);
+    iterator_t  it;
+
+    if (pvec == NULL) {
+        return -1;
+    }
+
+    vector_init(pvec);
+    vector_push_back(pvec, 500);
+    vector_push_back(pvec, 300);
+    vector_push_back(pvec, 0);
+    vector_push_back(pvec, 600);
+    vector_push_back(pvec, 900);
+    vector_push_back(pvec, 100);
+    vector_push_back(pvec, 800);
+    vector_push_back(pvec, 400);
+    vector_push_back(pvec, 700);
+    vector_push_back(pvec, 200);
+
+    printf("before sorting: ");
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec)); 
+         it = iterator_next(it)) {
+        printf("%d, ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    algo_sort_if(vector_begin(pvec), vector_end(pvec), fun_greater_int);
+
+    printf("after sorting: ");
+    for (it = vector_begin(pvec);
+         !iterator_equal(it, vector_end(pvec)); 
+         it = iterator_next(it)) {
+        printf("%d, ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    vector_destroy(pvec);
+
+    return 0;
+}
+</pre>
+                </code>
+		<p>
+		    使用算法需要包含cfunctional.h。默认的排序算法是从小到大排序数据的，要想按照从大到小的顺序排序数据，
+		    就要将fun_greater_int函数作为规则传递给algo_sort_if算法。排序结果如下：
+		</p>
+                <p class="kbd">
+		    <kbd>before sorting: 500, 300, 0, 600, 900, 100, 800, 400, 700, 200, </kbd>
+		    <br />
+		    <kbd>after sorting: 900, 800, 700, 600, 500, 400, 300, 200, 100, 0, </kbd>
+                </p>
+                <h2 class="section" id="libcstl_type">4. libcstl数据类型</h2>
+		<p>
+		    上面的例子中容器中保存的数据类型都是C语言内建的数据类型，但是实际编程的过程中经常使用的是用户自定义的类型，
+		    libcstl-2.0的主要改进就是增加了类型机制，让容器可以保存任意类型的数据。
+		    libcstl-2.0以后的版本类型机制成为了libcstl的基本功能。
+		</p>
+		<br />
+		<p>
+		    libcstl类型机制将容器中保存的类型分为三种：
+		    <ol>
+			<li>C语言内建类型，如：int，long，double等。</li>
+			<li>libcstl内建类型，如：vector_t，set_t，hash_multimap_t等。</li>
+			<li>用户自定义类型，如：用户自己定义的结构体等。</li>
+		    </ol>
+		    其中libcstl内建类型是用户自定义类型的特例，只是libcstl对libcstl内建类型进行了默认的支持。
+		</p>
+                <h3 class="subsection" id="user_define_type">4.1. 用户自定义类型</h3>
+		<p>
+		    首先看看下面的例子来了解一下libcstl如何使用用户自定义类型：
+		</p>
+                <code>
+<pre class="code">
+#include &lt;stdio.h&gt;
+#include &lt;cstl/clist.h&gt;
+
+typedef struct _user {
+    int n_first;
+    int n_second;
+} user_t;
+
+static void _user_init(const void* cpv_input, void* pv_output)
+{
+    ((user_t*)cpv_input)-&gt;n_first = 0;
+    ((user_t*)cpv_input)-&gt;n_second = 0;
+    *(bool_t*)pv_output = true;
+}
+
+static void _user_destroy(const void* cpv_input, void* pv_output)
+{
+    ((user_t*)cpv_input)-&gt;n_first = 0;
+    ((user_t*)cpv_input)-&gt;n_second = 0;
+    *(bool_t*)pv_output = true;
+}
+
+static void _user_copy(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    ((user_t*)cpv_first)-&gt;n_first = ((user_t*)cpv_second)-&gt;n_first;
+    ((user_t*)cpv_first)-&gt;n_second = ((user_t*)cpv_second)-&gt;n_second;
+    *(bool_t*)pv_output = true;
+}
+
+static void _user_less(const void* cpv_first, const void* cpv_second, void* pv_output)
+{
+    *(bool_t*)pv_output = 
+	((user_t*)cpv_first)-&gt;n_first &lt; ((user_t*)cpv_second)-&gt;n_first ? true : false;
+}
+
+int main(int argc, char* argv[])
+{
+    list_t*     plist = NULL;
+    iterator_t  it;
+    user_t      t_sample;
+
+    type_register(user_t, _user_init, _user_copy, _user_less, _user_destroy);
+
+    plist = create_list(user_t);
+    if (plist == NULL) {
+        return -1;
+    }
+
+    list_init(plist);
+    t_sample.n_first = 100;
+    t_sample.n_second = 45;
+    list_push_back(plist, &amp;t_sample);
+    t_sample.n_first = 400;
+    t_sample.n_second = -234;
+    list_push_back(plist, &amp;t_sample);
+    t_sample.n_first = 0;
+    t_sample.n_second = 1024;
+    list_push_back(plist, &amp;t_sample);
+    t_sample.n_first = 300;
+    t_sample.n_second = -444;
+    list_push_back(plist, &amp;t_sample);
+    t_sample.n_first = 200;
+    t_sample.n_second = 0;
+    list_push_back(plist, &amp;t_sample);
+
+    printf("before sorting: ");
+    for (it = list_begin(plist);
+         !iterator_equal(it, list_end(plist));
+         it = iterator_next(it)) {
+        iterator_get_value(it, &amp;t_sample);
+        printf("(%d, %d), ", t_sample.n_first, t_sample.n_second);
+    }
+    printf("\n");
+
+    list_sort(plist);
+
+    printf("after sorting: ");
+    for (it = list_begin(plist);
+         !iterator_equal(it, list_end(plist));
+         it = iterator_next(it)) {
+        iterator_get_value(it, &amp;t_sample);
+        printf("(%d, %d), ", t_sample.n_first, t_sample.n_second);
+    }
+    printf("\n");
+
+    return 0;
+}
+</pre>
+                </code>
+		<p>
+		    想要在libcstl的容器中保存user_t这样的用户自定义类型，必须在创建容器以前使用type_register函数来注册这个类型。
+		    一旦注册成功之后，当前进程中的任何容器都可以使用这个用户自定义类型而不需要重复注册了。
+		</p>
+		<br />
+		<p>
+		    type_register函数需要5个参数，第一个参数是用户自定义类型的名字，后面4个参数是用户自定义类型的初始化函数、
+		    拷贝函数、比较函数和销毁函数。这4个函数是libcstl在保存和操作用户自定义类型过程中需要用到的函数。
+		</p>
+		<br />
+		<p>
+		    类型注册成功之后，在容器中保存user_t类型就和使用其他类型是一样的，
+		    例子代码中使用create_list(user_t);来创建一个保存user_t类型链表，然后向链表中添加了数据，并且排序。结果如下：
+		</p>
+                <p class="kbd">
+		    <kbd>before sorting: (100, 45), (400, -234), (0, 1024), (300, -444), (200, 0), </kbd>
+		    <br />
+		    <kbd>after sorting: (0, 1024), (100, 45), (200, 0), (300, -444), (400, -234), </kbd>
+                </p>
+		<p>
+		    从输出结果中可以看出list_sort在排序链表中的数据的时候应用到了_user_less比较规则。
+		</p>
+                <h3 class="subsection" id="libcstl_builtin_type">4.2. libcstl内建类型</h3>
+		<p>
+		    libcstl内建类型是用户自定义类型的特例，区别在于libcstl对于自己内建类型提供了默认的支持，
+		    所以使用之前不需要再进行注册，此外容器的创建方式也有些变化，下面的例子展示了list_t容器中保存vector_t容器：
+		</p>
+                <code>
+<pre class="code">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;cstl/clist.h&gt;
+#include &lt;cstl/cvector.h&gt;
+
+int main(int argc, char* argv[])
+{
+    list_t*     plist = NULL;
+    vector_t*   pvec = NULL;
+    iterator_t  it_list;
+    iterator_t  it_vec;
+    size_t      i = 0;
+    size_t      j = 0;
+    size_t      count = 0;
+
+    pvec = create_vector(int);
+    if (pvec == NULL) {
+        return -1;
+    }
+    plist = create_list(vector_t&lt;int&gt;);
+    if (plist == NULL) {
+        vector_destroy(pvec);
+        return -1;
+    }
+
+    list_init(plist);
+    vector_init(pvec);
+
+    srand((unsigned)time(NULL));
+    for (i = 0; i &lt; 10; ++i) {
+        count = rand() % 10;
+        vector_clear(pvec);
+        for (j = 0; j &lt; count; ++j) {
+            vector_push_back(pvec, rand() - rand());
+        }
+        list_push_back(plist, pvec);
+    }
+
+    printf("before sorting:\n");
+    for (it_list = list_begin(plist);
+         !iterator_equal(it_list, list_end(plist));
+         it_list = iterator_next(it_list)) {
+        printf("[");
+        for (it_vec = vector_begin(iterator_get_pointer(it_list));
+             !iterator_equal(it_vec, vector_end(iterator_get_pointer(it_list)));
+             it_vec = iterator_next(it_vec)) {
+            printf("%d, ", *(int*)iterator_get_pointer(it_vec));
+        }
+        printf("]\n");
+    }
+
+    list_sort(plist);
+
+    printf("after sorting:\n");
+    for (it_list = list_begin(plist);
+         !iterator_equal(it_list, list_end(plist));
+         it_list = iterator_next(it_list)) {
+        printf("[");
+        for (it_vec = vector_begin(iterator_get_pointer(it_list));
+             !iterator_equal(it_vec, vector_end(iterator_get_pointer(it_list)));
+             it_vec = iterator_next(it_vec)) {
+            printf("%d, ", *(int*)iterator_get_pointer(it_vec));
+        }
+        printf("]\n");
+    }
+
+    return 0;
+}
+</pre>
+                </code>
+		<p>
+		    在容器中保存libcstl内建类型的时候是有些特殊的声明语法的：
+		</p>
+                <code>
+<pre class="code">
+    plist1 = create_list(vector_t&lt;int&gt;);
+    plist2 = create_list(vector_t&lt;double&gt;);
+</pre>
+                </code>
+		<p>
+		    plist1和plist2中保存的都是vector_t类型的数据，但是它们却是不同的类型，因为vector_t容器中的数据类型不同，
+		    一个是int一个是double，所以plist1和plist2是不兼容类型。
+		</p>
+		<br />
+		<p>
+		    上面的例子在list_t中保存了vector_t类型的数据，而vector_t中的数据个数和数据都是随机的，
+		    这个例子的结果取决于运行时的计算结果，但是不会影响list_sort的计算结果，这里的结果如下：
+		</p>
+                <p class="kbd">
+		    <kbd>before sorting:</kbd>
+		    <br />
+		    <kbd>[-310254357, 988815093, -199502315, 1311554416, 380844030, 156891865, 959353255, 260583610, -686773197, ]</kbd>
+		    <br />
+		    <kbd>[-1034796356, -205400291, ]</kbd>
+		    <br />
+		    <kbd>[-558702079, 780473311, 689668434, -1323858498, -921890545, -1126102858, ]</kbd>
+		    <br />
+		    <kbd>[185451557, 812293680, -1260361667, 1058002591, 38567618, 1539094429, -698526181, -162684422, -100866513, ]</kbd>
+		    <br />
+		    <kbd>[]</kbd>
+		    <br />
+		    <kbd>[-1772968559, -1494202176, 496944665, ]</kbd>
+		    <br />
+		    <kbd>[161901261, 1771376897, 92044249, -741839057, ]</kbd>
+		    <br />
+		    <kbd>[-963855049, -827854325, 38551545, 313548468, 1215538176, -1563901109, -255094175, 1078284702, -1205726497, ]</kbd>
+		    <br />
+		    <kbd>[-708781832, 384400031, 523370767, 46470340, ]</kbd>
+		    <br />
+		    <kbd>[-695368717, -543821658, -92678871, -437027547, -660435879, ]<kbd>
+		    <br />
+		    <kbd>after sorting:</kbd>
+		    <br />
+		    <kbd>[]</kbd>
+		    <br />
+		    <kbd>[-1772968559, -1494202176, 496944665, ]</kbd>
+		    <br />
+		    <kbd>[-1034796356, -205400291, ]</kbd>
+		    <br />
+		    <kbd>[-963855049, -827854325, 38551545, 313548468, 1215538176, -1563901109, -255094175, 1078284702, -1205726497, ]</kbd>
+		    <br />
+		    <kbd>[-708781832, 384400031, 523370767, 46470340, ]</kbd>
+		    <br />
+		    <kbd>[-695368717, -543821658, -92678871, -437027547, -660435879, ]</kbd>
+		    <br />
+		    <kbd>[-558702079, 780473311, 689668434, -1323858498, -921890545, -1126102858, ]</kbd>
+		    <br />
+		    <kbd>[-310254357, 988815093, -199502315, 1311554416, 380844030, 156891865, 959353255, 260583610, -686773197, ]</kbd>
+		    <br />
+		    <kbd>[161901261, 1771376897, 92044249, -741839057, ]</kbd>
+		    <br />
+		    <kbd>[185451557, 812293680, -1260361667, 1058002591, 38567618, 1539094429, -698526181, -162684422, -100866513, ]</kbd>
+                </p>
+		<p>
+		    从结果中可以看出，list_sort将vector_less作为排序规则，这些都是对libcstl内建类型的默认支持。
+		</p>
+		<br />
+		<p>
+		    想要深入了解libcstl的用法可以在<a href="../docs.html">这里</a>查找对应版本的教程和参考手册。
+		</p>
+		<br />
             </div>
         </div>
-        <div id="footer">
-            <a href="#title">UP</a>
+        <div class="navi">
+	    <div class="navi_prev">
+		<pre>    </pre>
+	    </div>
+	    <div class="navi_up">
+		<a href="#title">UP</a>
+	    </div>
+	    <div class="navi_next">
+		<pre>    </pre>
+	    </div>
         </div>
     </body>
 </html>
