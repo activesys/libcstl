@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>deque_assign_array</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="libcstl开源项目" />
+        <meta name="keywords" content"stl, c, c++, data structure, algorithm, SGI, container, iterator" />
+        <meta name="keywords" content"数据结构, 算法, 容器, 迭代器" lang="zh" />
+        <meta name="robots" content="all" />
+        <meta name="author" content="activesys.wb@gmail.com" />
+        <meta name="copyright" content="http://libcstl.org" />
+        <link rel="stylesheet" type="text/css" href="../../../stylesheets/docs.css">
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="http://libcstl.org/">
+                    <img src="../../../images/libcstl_logo.jpg" />
+                </a>
+                <h1>libcstl</h1>
+                <h1 id="docs_text">DOCUMENTS</h1>
+            </div>
+        </div>
+        <div id="navi">
+            <a href="http://libcstl.org">首页</a>
+            &gt;&gt;
+            <a href="../../../docs.html">文档</a>
+            &gt;&gt;
+            <a href="manual.html">参考手册</a>
+            &gt;&gt;
+            <a href="container.html">2. 容器</a>
+            &gt;&gt;
+            <a href="deque.html">2.2. 双端队列deque_t</a>
+            &gt;&gt;
+            <a href="deque_assign_array.html">2.2.6. deque_assign_array</a>
+        </div>
+        <div id="docs">
+            <div id="text">
+		<h2 id="title">2.2.6. deque_assign_array</h2>
+        <ul class="subtitle"><li>函数描述</li></ul>
+		<p>
+            使用指定的数组对双端队列容器赋值。
+		</p>
+        <ul class="subtitle"><li>函数原型</li></ul>
+        <code>
+<pre class="code">
+void deque_assign_array(deque_t* pdeq_deque, const void* cpv_array, size_t t_count);
+</pre>
+        </code>
+		<ul class="subtitle"><li>参数说明</li></ul>
+        <table class="parameter">
+            <tr>
+                <th>pdeq_deque:</th>
+                <td>被赋值的双端队列容器。</td>
+            </tr>
+            <tr>
+                <th>cpv_array:</th>
+                <td>赋值的数组。</td>
+            </tr>
+            <tr>
+                <th>t_count:</th>
+                <td>数组元素个数。</td>
+            </tr>
+        </table>
+		<ul class="subtitle"><li>备注</li></ul>
+		<p>
+            pdeq_deque必须已经初始化，否则函数的行为未定义。
+            cpv_array中包含的数据类型必须与pdeq_deque中的数据类型一致，否则函数的行为未定义。
+		</p>
+		<ul class="subtitle"><li>前提条件</li></ul>
+		<p>
+		    包含头文件&lt;cstl/cdeque.h&gt;
+		</p>
+		<ul class="subtitle"><li>示例代码</li></ul>
+        <code>
+<pre class="code">
+/*
+ * deque_assign_array.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cdeque.h&gt;
+
+int main(int argc, char* argv[])
+{
+    deque_t*            pdeq = create_deque(int);
+    deque_iterator_t    it;
+    int                 an_array[] = {3, 90, -88, 2, 764, -92, 0, 1234, -2367, 4};
+
+    if (pdeq == NULL) {
+        return -1;
+    }
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 100);
+    deque_push_back(pdeq, 200);
+    deque_push_back(pdeq, 300);
+
+    printf("deq = ");
+    for (it = deque_begin(pdeq);
+         !iterator_equal(it, deque_end(pdeq));
+         it = iterator_next(it)) {
+        printf("%d ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    deque_assign_array(pdeq, an_array, 10);
+
+    printf("deq = ");
+    for (it = deque_begin(pdeq);
+         !iterator_equal(it, deque_end(pdeq));
+         it = iterator_next(it)) {
+        printf("%d ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    deque_destroy(pdeq);
+
+    return 0;
+}
+</pre>
+        </code>
+		<ul class="subtitle"><li>结果输出</li></ul>
+        <p class="kbd">
+            <kbd>deq = 100 200 300 </kbd>
+            <br />
+            <kbd>deq = 3 90 -88 2 764 -92 0 1234 -2367 4 </kbd>
+        </p>
+		<br />
+            </div>
+        </div>
+        <div class="navi">
+	    <div class="navi_prev">
+		<a href="deque_assign.html">&lt;&lt;Prev</a>
+	    </div>
+	    <div class="navi_up">
+		<a href="#title">UP</a>
+	    </div>
+	    <div class="navi_next">
+		<a href="deque_assign_elem.html">Next&gt;&gt;</a>
+	    </div>
+        </div>
+    </body>
+</html>
+

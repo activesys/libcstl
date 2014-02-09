@@ -131,6 +131,9 @@ p {
     float: right;
     text-align: right;
 }
+.navi a {
+    padding-bottom: 20px;
+}
 
 /* table */
 .table {
@@ -147,5 +150,13 @@ p {
 }
 .table tr.alt {
     background-color: #eaf2d3;
+}
+/* subtitle */
+.subtitle {
+    font-size: 24px;
+}
+/* parameter */
+.parameter {
+    text-align: left;
 }
 
