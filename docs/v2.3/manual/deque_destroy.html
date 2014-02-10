@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>deque_destroy</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="libcstl开源项目" />
+        <meta name="keywords" content"stl, c, c++, data structure, algorithm, SGI, container, iterator" />
+        <meta name="keywords" content"数据结构, 算法, 容器, 迭代器" lang="zh" />
+        <meta name="robots" content="all" />
+        <meta name="author" content="activesys.wb@gmail.com" />
+        <meta name="copyright" content="http://libcstl.org" />
+        <link rel="stylesheet" type="text/css" href="../../../stylesheets/docs.css">
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="http://libcstl.org/">
+                    <img src="../../../images/libcstl_logo.jpg" />
+                </a>
+                <h1>libcstl</h1>
+                <h1 id="docs_text">DOCUMENTS</h1>
+            </div>
+        </div>
+        <div id="navi">
+            <a href="http://libcstl.org">首页</a>
+            &gt;&gt;
+            <a href="../../../docs.html">文档</a>
+            &gt;&gt;
+            <a href="manual.html">参考手册</a>
+            &gt;&gt;
+            <a href="container.html">2. 容器</a>
+            &gt;&gt;
+            <a href="deque.html">2.2. 双端队列deque_t</a>
+            &gt;&gt;
+            <a href="deque_destroy.html">2.2.13. deque_destroy</a>
+        </div>
+        <div id="docs">
+            <div id="text">
+		<h2 id="title">2.2.13. deque_destroy</h2>
+        <ul class="subtitle"><li>函数描述</li></ul>
+		<p>
+            销毁双端队列容器，释放资源。
+		</p>
+        <ul class="subtitle"><li>函数原型</li></ul>
+        <code>
+<pre class="code">
+void deque_destroy(deque_t* pdeq_deque);
+</pre>
+        </code>
+		<ul class="subtitle"><li>参数说明</li></ul>
+        <table class="parameter">
+            <tr>
+                <th>pdeq_deque:</th>
+                <td>双端队列容器。</td>
+            </tr>
+        </table>
+		<ul class="subtitle"><li>备注</li></ul>
+		<p>
+            pdeq_deque创建之后必须销毁，否则申请的资源不会得到释放。
+		</p>
+		<ul class="subtitle"><li>前提条件</li></ul>
+		<p>
+		    包含头文件&lt;cstl/cdeque.h&gt;
+		</p>
+		<ul class="subtitle"><li>示例代码</li></ul>
+		<p>
+		    请参考其他deque_t其他操作函数。
+		</p>
+		<br />
+            </div>
+        </div>
+        <div class="navi">
+	    <div class="navi_prev">
+		<a href="deque_begin.html">&lt;&lt;Prev</a>
+	    </div>
+	    <div class="navi_up">
+		<a href="#title">UP</a>
+	    </div>
+	    <div class="navi_next">
+		<a href="deque_destroy.html">Next&gt;&gt;</a>
+	    </div>
+        </div>
+    </body>
+</html>
+
