@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>deque_greater_equal</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="libcstl开源项目" />
+        <meta name="keywords" content"stl, c, c++, data structure, algorithm, SGI, container, iterator" />
+        <meta name="keywords" content"数据结构, 算法, 容器, 迭代器" lang="zh" />
+        <meta name="robots" content="all" />
+        <meta name="author" content="activesys.wb@gmail.com" />
+        <meta name="copyright" content="http://libcstl.org" />
+        <link rel="stylesheet" type="text/css" href="../../../stylesheets/docs.css">
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="http://libcstl.org/">
+                    <img src="../../../images/libcstl_logo.jpg" />
+                </a>
+                <h1>libcstl</h1>
+                <h1 id="docs_text">DOCUMENTS</h1>
+            </div>
+        </div>
+        <div id="navi">
+            <a href="http://libcstl.org">首页</a>
+            &gt;&gt;
+            <a href="../../../docs.html">文档</a>
+            &gt;&gt;
+            <a href="manual.html">参考手册</a>
+            &gt;&gt;
+            <a href="container.html">2. 容器</a>
+            &gt;&gt;
+            <a href="deque.html">2.2. 双端队列deque_t</a>
+            &gt;&gt;
+            <a href="deque_greater_equal.html">2.2.21. deque_greater_equal</a>
+        </div>
+        <div id="docs">
+            <div id="text">
+                <h2 id="title">2.2.21. deque_greater_equal</h2>
+                <ul class="subtitle"><li>函数描述</li></ul>
+                <p>
+                    测试第一个双端队列容器是否大于等于第二个。
+                </p>
+                <ul class="subtitle"><li>函数原型</li></ul>
+                <code>
+<pre class="code">
+bool_t deque_greater_equal(const deque_t* cpdeq_first, const deque_t* cpdeq_second);
+</pre>
+                </code>
+                <ul class="subtitle"><li>参数说明</li></ul>
+                <table class="parameter">
+                    <tr>
+                        <th>cpdeq_first:</th>
+                        <td>第一个双端队列容器。</td>
+                    </tr>
+                    <tr>
+                        <th>cpdeq_second:</th>
+                        <td>第二个双端队列容器。</td>
+                    </tr>
+                </table>
+                <ul class="subtitle"><li>备注</li></ul>
+                <p>
+                    如果第一个双端队列容器大于等于第二个双端队列容器，返回true，否则返回false。
+                    两个双端队列容器必须是已经初始化的有效的容器，否则函数的行为是未定义的。
+                    两个双端队列容器包含的数据类型必须相同，否则函数的行为是未定义的。
+                </p>
+                <ul class="subtitle"><li>前提条件</li></ul>
+                <p>
+                    包含头文件&lt;cstl/cdeque.h&gt;
+                </p>
+                <ul class="subtitle"><li>示例代码</li></ul>
+                <code>
+<pre class="code">
+/*
+ * deque_greater_equal.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cdeque.h&gt;
+
+int main(int argc, char* argv[])
+{
+    deque_t* pdeq_q1 = NULL;
+    deque_t* pdeq_q2 = NULL;
+
+    if ((pdeq_q1 = create_deque(int)) == NULL) {
+        return -1;
+    }
+    if ((pdeq_q2 = create_deque(int)) == NULL) {
+        deque_destroy(pdeq_q1);
+        return -1;
+    }
+
+    deque_init(pdeq_q1);
+    deque_push_back(pdeq_q1, 1);
+    deque_push_back(pdeq_q1, 3);
+
+    deque_init(pdeq_q2);
+    deque_push_back(pdeq_q2, 1);
+
+    if (deque_greater_equal(pdeq_q1, pdeq_q2)) {
+        printf("Deque q1 is greater than or equal to deque q2.\n");
+    } else {
+        printf("Deque q1 is not greater than or equal to deque q2.\n");
+    }
+
+    deque_push_back(pdeq_q2, 3);
+    if (deque_greater_equal(pdeq_q1, pdeq_q2)) {
+        printf("Deque q1 is greater than or equal to deque q2.\n");
+    } else {
+        printf("Deque q1 is not greater than or equal to deque q2.\n");
+    }
+
+    deque_push_back(pdeq_q2, 0);
+    if (deque_greater_equal(pdeq_q1, pdeq_q2)) {
+        printf("Deque q1 is greater than or equal to deque q2.\n");
+    } else {
+        printf("Deque q1 is not greater than or equal to deque q2.\n");
+    }
+
+    deque_destroy(pdeq_q1);
+    deque_destroy(pdeq_q2);
+
+    return 0;
+}
+</pre>
+                </code>
+                <ul class="subtitle"><li>结果输出</li></ul>
+                <p class="kbd">
+                    <kbd>Deque q1 is greater than or equal to deque q2.</kbd>
+                    <br />
+                    <kbd>Deque q1 is greater than or equal to deque q2.</kbd>
+                    <br />
+                    <kbd>Deque q1 is not greater than or equal to deque q2.</kbd>
+                </p>
+                <br />
+            </div>
+        </div>
+        <div class="navi">
+            <div class="navi_prev">
+                <a href="deque_greater.html">&lt;&lt;Prev</a>
+            </div>
+            <div class="navi_up">
+                <a href="#title">UP</a>
+            </div>
+            <div class="navi_next">
+                <a href="deque_init.html">Next&gt;&gt;</a>
+            </div>
+        </div>
+    </body>
+</html>
+
