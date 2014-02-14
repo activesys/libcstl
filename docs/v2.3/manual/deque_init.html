@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>deque_init</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="libcstl开源项目" />
+        <meta name="keywords" content"stl, c, c++, data structure, algorithm, SGI, container, iterator" />
+        <meta name="keywords" content"数据结构, 算法, 容器, 迭代器" lang="zh" />
+        <meta name="robots" content="all" />
+        <meta name="author" content="activesys.wb@gmail.com" />
+        <meta name="copyright" content="http://libcstl.org" />
+        <link rel="stylesheet" type="text/css" href="../../../stylesheets/docs.css">
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="http://libcstl.org/">
+                    <img src="../../../images/libcstl_logo.jpg" />
+                </a>
+                <h1>libcstl</h1>
+                <h1 id="docs_text">DOCUMENTS</h1>
+            </div>
+        </div>
+        <div id="navi">
+            <a href="http://libcstl.org">首页</a>
+            &gt;&gt;
+            <a href="../../../docs.html">文档</a>
+            &gt;&gt;
+            <a href="manual.html">参考手册</a>
+            &gt;&gt;
+            <a href="container.html">2. 容器</a>
+            &gt;&gt;
+            <a href="deque.html">2.2. 双端队列deque_t</a>
+            &gt;&gt;
+            <a href="deque_init.html">2.2.22. deque_init</a>
+        </div>
+        <div id="docs">
+            <div id="text">
+                <h2 id="title">2.2.22. deque_init</h2>
+                <ul class="subtitle"><li>函数描述</li></ul>
+                <p>
+                    初始化一个空的双端队列容器。
+                </p>
+                <ul class="subtitle"><li>函数原型</li></ul>
+                <code>
+<pre class="code">
+void deque_init(deque_t* pdeq_deque);
+</pre>
+                </code>
+                <ul class="subtitle"><li>参数说明</li></ul>
+                <table class="parameter">
+                    <tr>
+                        <th>pdeq_deque:</th>
+                        <td>双端队列容器。</td>
+                    </tr>
+                </table>
+                <ul class="subtitle"><li>备注</li></ul>
+                <p>
+                    pdeq_deque必须是未初始化的双端队列容器，否则函数的行为是未定义的。
+                </p>
+                <ul class="subtitle"><li>前提条件</li></ul>
+                <p>
+                    包含头文件&lt;cstl/cdeque.h&gt;
+                </p>
+                <ul class="subtitle"><li>示例代码</li></ul>
+                <code>
+<pre class="code">
+/*
+ * deque_init.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cdeque.h&gt;
+
+int main(int argc, char* argv[])
+{
+    deque_t* pdeq = create_deque(int);
+
+    if (pdeq == NULL) {
+        return -1;
+    }
+
+    deque_init(pdeq);
+    if (deque_empty(pdeq)) {
+        printf("The pdeq is empty.\n");
+    } else {
+        printf("The pdeq is not empty.\n");
+    }
+
+    deque_destroy(pdeq);
+
+    return 0;
+}
+</pre>
+                </code>
+                <ul class="subtitle"><li>结果输出</li></ul>
+                <p class="kbd">
+                    <kbd>The pdeq is empty.</kbd>
+                </p>
+                <br />
+            </div>
+        </div>
+        <div class="navi">
+            <div class="navi_prev">
+                <a href="deque_greater_equal.html">&lt;&lt;Prev</a>
+            </div>
+            <div class="navi_up">
+                <a href="#title">UP</a>
+            </div>
+            <div class="navi_next">
+                <a href="deque_init_copy.html">Next&gt;&gt;</a>
+            </div>
+        </div>
+    </body>
+</html>
+
