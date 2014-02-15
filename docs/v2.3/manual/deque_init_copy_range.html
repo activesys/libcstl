@@ -45,13 +45,13 @@
                 <ul class="subtitle"><li>函数原型</li></ul>
                 <code>
 <pre class="code">
-void deque_init_copy_range(deque_t* pdeq_dest, iterator_t it_begin, iterator_t it_end);
+void deque_init_copy_range(deque_t* pdeq_deque, iterator_t it_begin, iterator_t it_end);
 </pre>
                 </code>
                 <ul class="subtitle"><li>参数说明</li></ul>
                 <table class="parameter">
                     <tr>
-                        <th>pdeq_dest:</th>
+                        <th>pdeq_deque:</th>
                         <td>被初始化的双端队列容器。</td>
                     </tr>
                     <tr>
@@ -65,9 +65,9 @@ void deque_init_copy_range(deque_t* pdeq_dest, iterator_t it_begin, iterator_t i
                 </table>
                 <ul class="subtitle"><li>备注</li></ul>
                 <p>
-                    pdeq_dest必须是未初始化的双端队列容器，否则函数的行为是未定义的。
+                    pdeq_deque必须是未初始化的双端队列容器，否则函数的行为是未定义的。
                     [it_begin, it_end)必须是有效的数据区间，否则函数的行为是未定义的。
-                    pdeq_dest和[it_begin, it_end)中包含的数据类型必须相同，否则函数的行为是未定义的。
+                    pdeq_deque和[it_begin, it_end)中包含的数据类型必须相同，否则函数的行为是未定义的。
                 </p>
                 <ul class="subtitle"><li>前提条件</li></ul>
                 <p>
