@@ -3,294 +3,39 @@
  */
 
 body {
-    margin: 0px;
-    padding: 0px;
-    font-family: 微软雅黑, "Lucida Grande", Verdana, Lucida, 宋体, sans-serif;
-    font-size: 18px;
-    background-color: #ffffff;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 }
 
-a {
-    text-decoration: none;
+/* Change the docs' brand */
+body > .navbar .brand {
+  font-weight: bold;
 }
-a:hover {
-    text-decoration: underline;
-}
-
-a, p, h1, h2, h3, h4, h5, h6, div {
-    margin: 0px;
-    padding: 0px;
-}
-
-p {
-    line-height: 150%;
-}
-
-/* header */
-#header {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    height: 100px;
-    margin-left: auto;
-    margin-right: auto;
-}
-#logo a, h1 {
-    float: left;
-}
-#logo h1 {
-    margin-top: 30px;
-    font-style: italic;
-    font-weight: bold;
-    margin-left: 30px;
-}
-#logo a {
-    outline: none;
-    text-decoration: none;
-    background-color: #ffffff;
+/*
+body > .navbar .brand {
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: 20px;
+  float: right;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+  -webkit-transition: all .2s linear;
+     -moz-transition: all .2s linear;
+          transition: all .2s linear;
 }
 
-/* menu */
-#menu {
-    background-color: #3465a4;
-    width: 100%;
-    min-width: 960px;
-    height: 32px;
-    border-bottom: 3px solid #000000;
-    clear: both;
+body > .navbar .brand:hover {
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
 }
-/* navigation */
-#navi {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #3465a4;
-    clear: left;
-}
-#navi ul {
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-    overflow: hidden;
-}
-#navi li {
-    float: left;
-}
-#navi a {
-    display: block;
-    width: 120px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #3465a4;
-    padding: 4px;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-}
-#navi a:hover, a:active {
-    background-color: #0000ff;
-    color: #ffff00;
-}
+*/
 
-/* content */
-#content {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    clear: both;
-    margin-left: auto;
-    margin-right: auto;
-}
-#content h2 {
-    margin-top: 15px;
-    margin-bottom: 8px;
-}
-#content p {
-    margin-top: 8px;
-}
-#master_content {
-    float: left;
-    width: 59%;
-}
-#what_is_libcstl h2 {
-    text-align: center;
-    background-color: #bd0000;
-    color: #ffffff;
-}
-#learning h2 {
-    text-align: center;
-    background-color: #2f4f4f;
-    color: #ffffff;
-}
-#devel h2 {
-    text-align: center;
-    background-color: #8b008b;
-    color: #ffffff;
-}
-#slave_content {
-    float: right;
-    width: 39%;
-}
-#news h2 {
-    text-align: center;
-    background-color: #aacb50;
-    color: #ffffff;
-}
-#license h2 {
-    text-align: center;
-    background-color: #1e90ff;
-    color: #ffffff;
-}
-#thanks h2 {
-    text-align: center;
-    background-color: #458b00;
-    color: #ffffff;
-}
-#community h2 {
-    text-align: center;
-    background-color: #f08080;
-    color: #ffffff;
-}
-
-/* separator */
-#separator {
-    min-width: 960px;
-    clear: both;
-    height: 30px;
-    border-bottom: solid 3px #3465a4;
-}
-/* footer */
-#footer {
-    min-width: 960px;
-    height: 50px;
-    font-size: 14px;
-    clear: both;
+#copyright {
+  float: left;
 }
 #github {
-    float: right;
-    margin: 10px;
-}
-#copyright {
-    float: left;
-    margin: 10px;
-}
-
-/* heros */
-#heros {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    clear: both;
-    margin-left: auto;
-    margin-right: auto;
-}
-#heros h2 {
-    margin-top: 15px;
-    margin-bottom: 8px;
-    text-align: center;
-    background-color: #458b00;
-    color: #ffffff;
-}
-#heros p {
-    margin-top: 8px;
-}
-#heros td {
-    width: 300px;
-    padding-left: 30px;
-}
-
-/* community */
-#community_page {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    clear: both;
-    margin-left: auto;
-    margin-right: auto;
-}
-#community_page h2 {
-    margin-top: 15px;
-    margin-bottom: 8px;
-    text-align: center;
-    background-color: #f08080;
-    color: #ffffff;
-}
-
-/* development_page */
-#development_page {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    clear: both;
-    margin-left: auto;
-    margin-right: auto;
-}
-#development_page h2 {
-    margin-top: 15px;
-    margin-bottom: 8px;
-    text-align: center;
-    background-color: #8b008b;
-    color: #ffffff;
-}
-
-/* license_page */
-#license_page {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    clear: both;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* download_page */
-#download_page {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    clear: both;
-    margin-left: auto;
-    margin-right: auto;
-}
-#download_page h2 {
-    margin-top: 15px;
-    margin-bottom: 8px;
-    text-align: center;
-    background-color: #aacb50;
-    color: #ffffff;
-}
-#download_page h3, ul {
-    margin-left: 30px;
-}
-
-/* documents_page */
-#documents_page {
-    margin: 0px;
-    padding: 0px;
-    width: 60%;
-    min-width: 960px;
-    clear: both;
-    margin-left: auto;
-    margin-right: auto;
-}
-#documents_page h2 {
-    margin-top: 15px;
-    margin-bottom: 8px;
-    text-align: center;
-    background-color: #2f4f4f;
-    color: #ffffff;
-}
-#documents_page h3, ul {
-    margin-left: 30px;
+  float: right;
 }
 
