@@ -104,3 +104,16 @@ body > .navbar .brand {
   list-style: none;
 }
 
+/* community */
+.community-title {
+  color: #ee1289;
+}
+.community-subtitle {
+  color: #cd6839;
+}
+
+/* contributors */
+.contributors-title {
+  color: #388e8e;
+}
+
