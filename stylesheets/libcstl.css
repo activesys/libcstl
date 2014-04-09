@@ -93,3 +93,14 @@ body > .navbar .brand {
   bottom: 270px;
 }
 
+/* download */
+.download-title {
+  color: #1c86ee;
+}
+.download-subtitle {
+  color: #666666;
+}
+.download-check {
+  list-style: none;
+}
+
