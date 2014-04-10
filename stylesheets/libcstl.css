@@ -20,6 +20,16 @@ body > .navbar .brand {
   float: right;
 }
 
+section {
+  padding-top: 30px;
+}
+
+.bs-docs-title {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
 /* Sidenav for Docs */
 .bs-docs-sidenav {
   width: 258px;
@@ -34,6 +44,13 @@ body > .navbar .brand {
           box-shadow: 0 1px 4px rgba(0,0,0,.065);
 }
 
+.bs-docs-subsidenav {
+  width: 258px;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
 .bs-docs-sidenav > li > a {
   display: block;
   width: 190px \9;
@@ -42,12 +59,23 @@ body > .navbar .brand {
   border: 1px solid #e5e5e5;
 }
 
-.bs-docs-sidenav > li:first-child > a {
+.bs-docs-subsidenav > li > a {
+  display: block;
+  width: 190px \9;
+  margin: 0 0 -1px;
+  padding: 8px 14px;
+  padding-left: 28px;
+  border: 1px solid #e5e5e5;
+}
+
+.bs-docs-sidenav > .bs-docs-first-item > a ,
+.bs-docs-subsidenav > .bs-docs-first-item > a {
   -webkit-border-radius: 6px 6px 0 0;
      -moz-border-radius: 6px 6px 0 0;
           border-radius: 6px 6px 0 0;
 }
-.bs-docs-sidenav > li:last-child > a {
+.bs-docs-sidenav > .bs-docs-last-item > a ,
+.bs-docs-subsidenav > .bs-docs-last-item > a {
   -webkit-border-radius: 0 0 6px 6px;
      -moz-border-radius: 0 0 6px 6px;
           border-radius: 0 0 6px 6px;
