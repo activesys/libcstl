@@ -125,6 +125,10 @@ $ make
             <p>
                 以vector_t为例来展示一下如何使用libcstl容器类型：
             </p>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/guide/container.c">
+                <i class="icon-download-alt"></i>
+              </a>
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;
 #include &lt;cstl/cvector.h&gt;
@@ -153,6 +157,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 </pre>
+            </div>
             <p>
               首先，使用任何容器类型都要包含相应的头文件，使用vector_t需要包含头文件cvector.h。
             </p>
@@ -202,6 +207,10 @@ int main(int argc, char* argv[])
             <p>
               沿用上面的vector_t的例子来展示如何使用迭代器：
             </p>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/guide/iterator.c">
+                <i class="icon-download-alt"></i>
+              </a>
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;
 #include &lt;cstl/cvector.h&gt;
@@ -233,6 +242,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 </pre>
+            </div>
             <p>
               使用迭代器的时候不需要包含额外的头文件，使用前也不需要创建和初始化，使用后也不需要销毁。
               这个例子中使用了迭代器来遍历容器中的数据并实现打印：
@@ -267,6 +277,10 @@ int main(int argc, char* argv[])
             <p>
               下面的例子使用排序算法对容器中的数据进行排序：
             </p>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/guide/algorithm.c">
+                <i class="icon-download-alt"></i>
+              </a>
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;
 #include &lt;cstl/cvector.h&gt;
@@ -316,6 +330,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 </pre>
+            </div>
             <p>
               要使用算法就需要包含头文件calgorithm.h。这个例子中保存在vector_t容器中的数据是无序的，
               经过algo_sort算法排序之后就变成有序的了。algo_sort算法需要两个参数，分别是被排序区间的开始和结尾，
@@ -340,6 +355,10 @@ after sorting: 0, 100, 200, 300, 400, 500, 600, 700, 800, 900,
             <p>
               仍然沿用上面的例子，这次按照从大到小的顺序排序容器中的数据：
             </p>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/guide/function.c">
+                <i class="icon-download-alt"></i>
+              </a>
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;
 #include &lt;cstl/cvector.h&gt;
@@ -390,6 +409,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 </pre>
+            </div>
             <p>
               使用算法需要包含cfunctional.h。默认的排序算法是从小到大排序数据的，要想按照从大到小的顺序排序数据，
               就要将fun_greater_int函数作为规则传递给algo_sort_if算法。排序结果如下：
@@ -430,6 +450,10 @@ after sorting: 900, 800, 700, 600, 500, 400, 300, 200, 100, 0,
             <p>
               首先看看下面的例子来了解一下libcstl如何使用用户自定义类型：
             </p>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/guide/userdef.c">
+                <i class="icon-download-alt"></i>
+              </a>
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;
 #include &lt;cstl/clist.h&gt;
@@ -463,7 +487,7 @@ static void _user_copy(const void* cpv_first, const void* cpv_second, void* pv_o
 static void _user_less(const void* cpv_first, const void* cpv_second, void* pv_output)
 {
     *(bool_t*)pv_output = 
-  ((user_t*)cpv_first)-&gt;n_first &lt; ((user_t*)cpv_second)-&gt;n_first ? true : false;
+        ((user_t*)cpv_first)-&gt;n_first &lt; ((user_t*)cpv_second)-&gt;n_first ? true : false;
 }
 
 int main(int argc, char* argv[])
@@ -519,6 +543,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 </pre>
+            </div>
             <p>
               想要在libcstl的容器中保存user_t这样的用户自定义类型，必须在创建容器以前使用type_register函数来注册这个类型。
               一旦注册成功之后，当前进程中的任何容器都可以使用这个用户自定义类型而不需要重复注册了。
@@ -551,6 +576,10 @@ after sorting: (0, 1024), (100, 45), (200, 0), (300, -444), (400, -234),
               libcstl内建类型是用户自定义类型的特例，区别在于libcstl对于自己内建类型提供了默认的支持，
               所以使用之前不需要再进行注册，此外容器的创建方式也有些变化，下面的例子展示了list_t容器中保存vector_t容器：
             </p>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/guide/builtin.c">
+                <i class="icon-download-alt"></i>
+              </a>
 <pre class="prettyprint linenums">
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -621,6 +650,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 </pre>
+            </div>
             <p>
               在容器中保存libcstl内建类型的时候是有些特殊的声明语法的：
             </p>
