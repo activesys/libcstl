@@ -40,6 +40,11 @@ section {
   margin-bottom: 30px;
 }
 
+.bs-docs-subtitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 .bs-docs-sidenav {
   width: 258px;
   margin: 30px 0 0;
