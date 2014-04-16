@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="../../google-code-prettify/desert.css">
   </head>
   <body data-spy="scroll" data-target=".bs-docs-sidebar" onload="prettyPrint()">
+    <div id="bs-docs-top"></div>
+
     <div class="navbar-fixed-top">
         <div class="container">
           <ul class="breadcrumb">
@@ -24,6 +26,7 @@
             <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
             <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
             <li class="active">deque_t</li>
+            <li class="bs-docs-top"><a title="to top" href="#bs-docs-top"><i class="icon-arrow-up"></i></a></li>
           </ul>
         </div>
     </div>
@@ -534,7 +537,7 @@ void deque_assign_range(deque_t* pdeq_deque, iterator_t it_begin, iterator_t it_
             </p>
             <ul class="bs-docs-subtitle"><li>示例代码</li></ul>
             <div class="code-example">
-              <a title="download sample code" href="/codes/manual/deque_assign.c">
+              <a title="download sample code" href="/codes/manual/deque_assign_range.c">
                 <i class="icon-download-alt"></i>
               </a>
 <pre class="prettyprint linenums">
@@ -626,31 +629,251 @@ pdeq = -10 -9 -8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8 9 10
 </pre>
           </section>
 
-          <!-- TODO -->
-          <section id="TODO">
+          <!-- deque_at -->
+          <section id="deque_at">
             <div class="page-header">
-              <h1>TODO</h1>
+              <h1>deque_at</h1>
             </div>
+            <ul class="bs-docs-subtitle"><li>函数描述</li></ul>
             <p>
+              使用下标对双端队列容器中的数据进行访问。
             </p>
+            <ul class="bs-docs-subtitle"><li>函数原型</li></ul>
+<pre class="prettyprint">
+void* deque_at(const deque_t* cpdeq_deque, size_t t_pos);
+</pre>
+            <ul class="bs-docs-subtitle"><li>参数说明</li></ul>
+            <table class="table table-condensed">
+              <tr>
+                <th>cpdeq_deque:</th>
+                <td>被访问的双端队列容器。</td>
+              </tr>
+              <tr>
+                <th>t_pos:</th>
+                <td>访问的数据下标。</td>
+              </tr>
+            </table>
+            <ul class="bs-docs-subtitle"><li>备注</li></ul>
+            <p>
+              deque_at返回指向被访问的数据的指针。
+              cpdeq_deque必须已经初始化，否则函数的行为未定义。
+              t_pos必须是有效的下标，否则函数的行为是未定义的。
+            </p>
+            <ul class="bs-docs-subtitle"><li>前提条件</li></ul>
+            <p>
+              包含头文件&lt;cstl/cdeque.h&gt;
+            </p>
+            <ul class="bs-docs-subtitle"><li>版本</li></ul>
+            <p>
+              所有版本。
+            </p>
+            <ul class="bs-docs-subtitle"><li>示例代码</li></ul>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/manual/deque_at.c">
+                <i class="icon-download-alt"></i>
+              </a>
+<pre class="prettyprint linenums">
+/*
+ * deque_at.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cdeque.h&gt;
+
+int main(int argc, char* argv[])
+{
+    deque_t*    pdeq = create_deque(int);
+    int         i = 0;
+
+    if (pdeq == NULL) {
+        return -1;
+    }
+
+    deque_init_n(pdeq, 10);
+
+    printf("pdeq = ");
+    for (i = 0; i &lt; deque_size(pdeq); ++i) {
+        printf("%d ", *(int*)deque_at(pdeq, i));
+    }
+    printf("\n");
+
+    for (i = 0; i &lt; deque_size(pdeq); ++i) {
+        *(int*)deque_at(pdeq, i) += 100 * i;
+    }
+
+    printf("pdeq = ");
+    for (i = 0; i &lt; deque_size(pdeq); ++i) {
+        printf("%d ", *(int*)deque_at(pdeq, i));
+    }
+    printf("\n");
+
+    deque_destroy(pdeq);
+
+    return 0;
+}
+</pre>
+            <ul class="bs-docs-subtitle"><li>结果输出</li></ul>
+<pre class="prettyprint">
+pdeq = 0 0 0 0 0 0 0 0 0 0 
+pdeq = 0 100 200 300 400 500 600 700 800 900 
+</pre>
           </section>
 
-          <!-- TODO -->
-          <section id="TODO">
+          <!-- deque_back -->
+          <section id="deque_back">
             <div class="page-header">
-              <h1>TODO</h1>
+              <h1>deque_back</h1>
             </div>
+            <ul class="bs-docs-subtitle"><li>函数描述</li></ul>
             <p>
+              访问双向队列容器中的最后一个数据。
             </p>
+            <ul class="bs-docs-subtitle"><li>函数原型</li></ul>
+<pre class="prettyprint">
+void* deque_back(const deque_t* cpdeq_deque);
+</pre>
+            <ul class="bs-docs-subtitle"><li>参数说明</li></ul>
+            <table class="table table-condensed">
+              <tr>
+                <th>cpdeq_deque:</th>
+                <td>双端队列容器。</td>
+              </tr>
+            </table>
+            <ul class="bs-docs-subtitle"><li>备注</li></ul>
+            <p>
+              deque_back返回指向容器中最后一个数据的指针。
+              cpdeq_deque必须已经初始化，否则函数的行为未定义。
+              cpdeq_deque必须不能为空，否则函数的行为是未定义的。
+            </p>
+            <ul class="bs-docs-subtitle"><li>前提条件</li></ul>
+            <p>
+              包含头文件&lt;cstl/cdeque.h&gt;
+            </p>
+            <ul class="bs-docs-subtitle"><li>版本</li></ul>
+            <p>
+              所有版本。
+            </p>
+            <ul class="bs-docs-subtitle"><li>示例代码</li></ul>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/manual/deque_back.c">
+                <i class="icon-download-alt"></i>
+              </a>
+<pre class="prettyprint linenums">
+/*
+ * deque_back.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cdeque.h&gt;
+
+int main(int argc, char* argv[])
+{
+    deque_t* pdeq = create_deque(int);
+    int*     pn_i = NULL;
+    int*     pn_j = NULL;
+
+    if (pdeq == NULL) {
+        return -1;
+    }
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 10);
+    deque_push_back(pdeq, 11);
+
+    pn_i = (int*)deque_back(pdeq);
+    pn_j = (int*)deque_back(pdeq);
+
+    printf("The last integer of pdeq is %d\n", *pn_i);
+    (*pn_i)++;
+    printf("The modified last integer of pdeq is %d\n", *pn_j);
+
+    deque_destroy(pdeq);
+
+    return 0;
+}
+</pre>
+            <ul class="bs-docs-subtitle"><li>结果输出</li></ul>
+<pre class="prettyprint">
+The last integer of pdeq is 11
+The modified last integer of pdeq is 12
+</pre>
           </section>
 
-          <!-- TODO -->
-          <section id="TODO">
+          <!-- deque_begin -->
+          <section id="deque_begin">
             <div class="page-header">
-              <h1>TODO</h1>
+              <h1>deque_begin</h1>
             </div>
+            <ul class="bs-docs-subtitle"><li>函数描述</li></ul>
             <p>
+              返回指向双端队列容器中第一个数据的迭代器。
             </p>
+            <ul class="bs-docs-subtitle"><li>函数原型</li></ul>
+<pre class="prettyprint">
+deque_iterator_t deque_begin(const deque_t* cpdeq_deque);
+</pre>
+            <ul class="bs-docs-subtitle"><li>参数说明</li></ul>
+            <table class="parameter">
+              <tr>
+                <th>cpdeq_deque:</th>
+                <td>双端队列容器。</td>
+              </tr>
+            </table>
+            <ul class="bs-docs-subtitle"><li>备注</li></ul>
+            <p>
+              deque_begin返回指向容器中第一个数据的迭代器。
+              cpdeq_deque必须已经初始化，否则函数的行为未定义。
+              如果cpdeq_deque为空，返回值与deque_end(cpdeq_deque)相等。
+            </p>
+            <ul class="bs-docs-subtitle"><li>前提条件</li></ul>
+            <p>
+              包含头文件&lt;cstl/cdeque.h&gt;
+            </p>
+            <ul class="bs-docs-subtitle"><li>版本</li></ul>
+            <p>
+              所有版本。
+            </p>
+            <ul class="bs-docs-subtitle"><li>示例代码</li></ul>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/manual/deque_begin.c">
+                <i class="icon-download-alt"></i>
+              </a>
+<pre class="prettyprint linenums">
+/*
+ * deque_begin.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cdeque.h&gt;
+
+int main(int argc, char* argv[])
+{
+    deque_t*            pdeq = create_deque(int);
+    deque_iterator_t    it;
+
+    if (pdeq == NULL) {
+        return -1;
+    }
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 1);
+    deque_push_back(pdeq, 2);
+
+    it = deque_begin(pdeq);
+    printf("The first element in pdeq is %d\n", *(int*)iterator_get_pointer(it));
+    *(int*)iterator_get_pointer(it) = 20;
+    printf("The first element in pdeq is now %d\n", *(int*)iterator_get_pointer(it));
+
+    deque_destroy(pdeq);
+
+    return 0;
+}
+</pre>
+            <ul class="bs-docs-subtitle"><li>结果输出</li></ul>
+<pre class="prettyprint">
+The first element in pdeq is 1
+The first element in pdeq is now 20
+</pre>
           </section>
 
           <!-- TODO -->
