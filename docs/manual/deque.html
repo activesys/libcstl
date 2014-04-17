@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>libcstl | manual</title>
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="description" content="libcstl开源项目" />
+    <meta name="keywords" content="stl, c, c++, data structure, algorithm, SGI, container, iterator" />
+    <meta name="keywords" content="数据结构, 算法, 容器, 迭代器" lang="zh" />
+    <meta name="robots" content="all" />
+    <meta name="author" content="activesys.wb@gmail.com" />
+    <meta name="copyright" content="http://libcstl.org" />
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/libcstl.css">
+    <link rel="stylesheet" type="text/css" href="../../google-code-prettify/desert.css">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar" onload="prettyPrint()">
+    <div class="navbar-fixed-top">
+        <div class="container">
+          <ul class="breadcrumb">
+            <li><a class="brand" href="http://libcstl.org/">libcstl</a> <span class="divider">/</span></li>
+            <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
+            <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
+            <li class="active">deque_t</li>
+          </ul>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix">
+            <li class="bs-docs-first-item"><a href="#introduce"><i class="icon-chevron-right"></i>简介</a></li>
+            <li><a href="#type-definition"><i class="icon-chevron-right"></i>类型定义</a></li>
+            <li class="bs-docs-last-item"><a href="#operations"><i class="icon-chevron-right"></i>操作函数</a></li>
+          </ul>
+        </div>
+
+        <div class="span9">
+          <h1>
+            双端队列容器deque_t 
+          </h1>
+
+          <!-- introduce -->
+          <section id="introduce">
+            <div class="page-header">
+              <h2>简介</h2>
+            </div>
+            <p>
+              双端队列容器deque_t使用线性的方式保存数据，它允许对数据的随机访问，以及在队列的两端高效的插入或删除数据。
+            </p>
+          </section>
+
+          <!-- type-definition -->
+          <section id="type-definition">
+            <div class="page-header">
+              <h2>类型定义</h2>
+            </div>
+            <table class="table table-striped table-bordered">
+              <caption>表2-1-1 双端队列deque_t容器类型定义</caption>
+              <thead>
+                <tr>
+                  <th>类型定义</th>
+                  <th>简要描述</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="deque_t.html">deque_t</a></td>
+                  <td>双端队列容器类型</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_iterator_t.html">deque_iterator_t</a></td>
+                  <td>双端队列容器对应的迭代器类型</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- operations -->
+          <section id="operations">
+            <div class="page-header">
+              <h2>操作函数</h2>
+            </div>
+            <table class="table table-striped table-bordered">
+              <caption>表2-1-2 双端队列deque_t容器操作函数</caption>
+              <thead>
+                <tr>
+                  <th>操作函数</th>
+                  <th>简要描述</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="create_deque.html">create_deque</a></td>
+                  <td>创建一个双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_assign.html">deque_assign</a></td>
+                  <td>给双端队列容器赋值</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_assign_array.html">deque_assign_array</a></td>
+                  <td>使用指定的数组给双端队列容器赋值</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_assign_elem.html">deque_assign_elem</a></td>
+                  <td>使用指定数据给双端队列容器赋值</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_assign_range.html">deque_assign_range</a></td>
+                  <td>使用指定范围的数据给双端队列容器赋值</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_at.html">deque_at</a></td>
+                  <td>使用下标访问双端队列容器中的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_back.html">deque_back</a></td>
+                  <td>访问双端队列容器的最后一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_begin.html">deque_begin</a></td>
+                  <td>返回指向双端队列容器中的第一个数据的迭代器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_clear.html">deque_clear</a></td>
+                  <td>删除双端队列容器中的所有数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_destroy.html">deque_destroy</a></td>
+                  <td>销毁双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_empty.html">deque_empty</a></td>
+                  <td>测试双端队列容器是否为空</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_end.html">deque_end</a></td>
+                  <td>返回指向双端队列容器末尾的迭代器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_equal.html">deque_equal</a></td>
+                  <td>测试两个双端队列容器是否相等</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_erase.html">deque_erase</a></td>
+                  <td>删除双端队列容器中指定位置的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_erase_range.html">deque_erase_range</a></td>
+                  <td>删除双端队列容器中指定范围的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_front.html">deque_front</a></td>
+                  <td>访问双端队列容器中的第一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_greater.html">deque_greater</a></td>
+                  <td>测试第一个双端队列容器是否大于第二个双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_greater_equal.html">deque_greater_equal</a></td>
+                  <td>测试第一个双端队列容器是否大于等于第二个双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_init.html">deque_init</a></td>
+                  <td>初始化一个空的双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_init_copy.html">deque_init_copy</a></td>
+                  <td>双端队列容器拷贝初始化函数</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_init_copy_array.html">deque_init_copy_array</a></td>
+                  <td>使用数组初始化双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_init_copy_range.html">deque_init_copy_range</a></td>
+                  <td>使用指定范围初始化双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_init_elem.html">deque_init_elem</a></td>
+                  <td>使用指定数据初始化双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_init_n.html">deque_init_n</a></td>
+                  <td>使用指定个数的默认数据初始化双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_insert.html">deque_insert</a></td>
+                  <td>在指定的位置插入数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_insert_array.html">deque_insert_array</a></td>
+                  <td>在指定的位置插入数组中的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_insert_range.html">deque_insert_range</a></td>
+                  <td>在指定的位置插入指定区间的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_insert_n.html">deque_insert_n</a></td>
+                  <td>在指定的位置插入多个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_less.html">deque_less</a></td>
+                  <td>测试第一个双端队列容器是否小于第二个双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_less_equal.html">deque_less_equal</a></td>
+                  <td>测试第一个双端队列容器是否小于等于第二个双端队列容器</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_max_size.html">deque_max_size</a></td>
+                  <td>返回双端队列容器的最大可能长度</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_not_equal.html">deque_not_equal</a></td>
+                  <td>测试两个双端队列容器是否不等</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_pop_back.html">deque_pop_back</a></td>
+                  <td>删除双端队列容器的最后一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_pop_front.html">deque_pop_front</a></td>
+                  <td>删除双端队列容器的第一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_push_back.html">deque_push_back</a></td>
+                  <td>在双端队列容器的末尾添加一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_push_front.html">deque_push_front</a></td>
+                  <td>在双端队列容器的开头添加一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_resize.html">deque_resize</a></td>
+                  <td>指定双端队列容器的长度，使用默认数据填充</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_resize_elem.html">deque_resize_elem</a></td>
+                  <td>指定双端队列容器的长度，使用指定数据填充</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_size.html">deque_size</a></td>
+                  <td>返回双端队列容器中数据的个数</td>
+                </tr>
+                <tr>
+                  <td><a href="deque_swap.html">deque_swap</a></td>
+                  <td>交换两个双端队列容器中的数据</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+
+      <hr>
+      <footer>
+        <p id="copyright">
+          &copy; 2008 - 2014
+          <a href="http://libcstl.org/">libcstl.org</a>
+        </p>
+        <p id="github">
+          Published with
+          <a href="http://pages.github.com">Github Pages</a>
+        </p>
+      </footer>
+    </div>
+
+    <script src="../../javascripts/jquery-1.11.0.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../google-code-prettify/prettify.js"></script>
+  </body>
+</html>
+

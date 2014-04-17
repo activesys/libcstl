@@ -24,7 +24,7 @@
             <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
             <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
             <li><a href="deque.html">deque_t</a> <span class="divider">/</span></li>
-            <li class="active">deque_t</li>
+            <li class="active">deque_iterator_t</li>
           </ul>
         </div>
     </div>
@@ -34,6 +34,7 @@
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix">
             <li class="bs-docs-first-item"><a href="#type-description"><i class="icon-chevron-right"></i>类型描述</a></li>
+            <li><a href="#remarks"><i class="icon-chevron-right"></i>备注</a></li>
             <li><a href="#prerequisite"><i class="icon-chevron-right"></i>前提条件</a></li>
             <li><a href="#version"><i class="icon-chevron-right"></i>版本</a></li>
             <li class="bs-docs-last-item"><a href="#code-example"><i class="icon-chevron-right"></i>示例代码</a></li>
@@ -42,7 +43,7 @@
 
         <div class="span9">
           <h1>
-            deque_t 
+            deque_iterator_t 
           </h1>
 
           <!-- type-description -->
@@ -51,7 +52,17 @@
               <h2>类型描述</h2>
             </div>
             <p>
-              deque_t是双端队列容器类型。
+              deque_iterator_t是双端队列容器的迭代器类型。
+            </p>
+          </section>
+
+          <!-- remarks -->
+          <section id="remarks">
+            <div class="page-header">
+              <h2>备注</h2>
+            </div>
+            <p>
+              deque_iterator_t是随机访问迭代器类型，可以通过迭代器类修改容器中的数据。
             </p>
           </section>
 

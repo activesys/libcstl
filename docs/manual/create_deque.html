@@ -24,7 +24,7 @@
             <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
             <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
             <li><a href="deque.html">deque_t</a> <span class="divider">/</span></li>
-            <li class="active">deque_t</li>
+            <li class="active">create_deque</li>
           </ul>
         </div>
     </div>
@@ -34,6 +34,9 @@
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix">
             <li class="bs-docs-first-item"><a href="#type-description"><i class="icon-chevron-right"></i>类型描述</a></li>
+            <li><a href="#prototype"><i class="icon-chevron-right"></i>函数原型</a></li>
+            <li><a href="#parameters"><i class="icon-chevron-right"></i>参数说明</a></li>
+            <li><a href="#remarks"><i class="icon-chevron-right"></i>备注</a></li>
             <li><a href="#prerequisite"><i class="icon-chevron-right"></i>前提条件</a></li>
             <li><a href="#version"><i class="icon-chevron-right"></i>版本</a></li>
             <li class="bs-docs-last-item"><a href="#code-example"><i class="icon-chevron-right"></i>示例代码</a></li>
@@ -42,7 +45,7 @@
 
         <div class="span9">
           <h1>
-            deque_t 
+            create_deque 
           </h1>
 
           <!-- type-description -->
@@ -51,7 +54,41 @@
               <h2>类型描述</h2>
             </div>
             <p>
-              deque_t是双端队列容器类型。
+              创建一个双端队列容器。
+            </p>
+          </section>
+
+          <!-- prototype -->
+          <section id="prototype">
+            <div class="page-header">
+              <h2>函数原型</h2>
+            </div>
+<pre class="prettyprint">
+deque_t* create_deque(type);
+</pre>
+          </section>
+
+          <!-- parameters -->
+          <section id="parameters">
+            <div class="page-header">
+              <h2>参数说明</h2>
+            </div>
+            <table class="table table-condensed">
+              <tr>
+                <th>type:</th>
+                <td>数据类型描述。</td>
+              </tr>
+            </table>
+          </section>
+
+          <!-- remarks -->
+          <section id="remarks">
+            <div class="page-header">
+              <h2>备注</h2>
+            </div>
+            <p>
+              type必须是有效的数据类型描述，否则创建失败。
+              创建成功返回指向deque_t类型的指针，失败返回NULL。
             </p>
           </section>
 

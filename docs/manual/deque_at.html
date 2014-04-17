@@ -24,7 +24,7 @@
             <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
             <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
             <li><a href="deque.html">deque_t</a> <span class="divider">/</span></li>
-            <li class="active">deque_t</li>
+            <li class="active">deque_at</li>
           </ul>
         </div>
     </div>
@@ -34,15 +34,19 @@
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix">
             <li class="bs-docs-first-item"><a href="#type-description"><i class="icon-chevron-right"></i>类型描述</a></li>
+            <li><a href="#prototype"><i class="icon-chevron-right"></i>函数原型</a></li>
+            <li><a href="#parameters"><i class="icon-chevron-right"></i>参数说明</a></li>
+            <li><a href="#remarks"><i class="icon-chevron-right"></i>备注</a></li>
             <li><a href="#prerequisite"><i class="icon-chevron-right"></i>前提条件</a></li>
             <li><a href="#version"><i class="icon-chevron-right"></i>版本</a></li>
-            <li class="bs-docs-last-item"><a href="#code-example"><i class="icon-chevron-right"></i>示例代码</a></li>
+            <li><a href="#code-example"><i class="icon-chevron-right"></i>示例代码</a></li>
+            <li class="bs-docs-last-item"><a href="#output-result"><i class="icon-chevron-right"></i>输出结果</a></li>
           </ul>
         </div>
 
         <div class="span9">
           <h1>
-            deque_t 
+            deque_at 
           </h1>
 
           <!-- type-description -->
@@ -51,7 +55,46 @@
               <h2>类型描述</h2>
             </div>
             <p>
-              deque_t是双端队列容器类型。
+              使用下标对双端队列容器中的数据进行访问。
+            </p>
+          </section>
+
+          <!-- prototype -->
+          <section id="prototype">
+            <div class="page-header">
+              <h2>函数原型</h2>
+            </div>
+<pre class="prettyprint">
+void* deque_at(const deque_t* cpdeq_deque, size_t t_pos);
+</pre>
+          </section>
+
+          <!-- parameters -->
+          <section id="parameters">
+            <div class="page-header">
+              <h2>参数说明</h2>
+            </div>
+            <table class="table table-condensed">
+              <tr>
+                <th>cpdeq_deque:</th>
+                <td>被访问的双端队列容器。</td>
+              </tr>
+              <tr>
+                <th>t_pos:</th>
+                <td>访问的数据下标。</td>
+              </tr>
+            </table>
+          </section>
+
+          <!-- remarks -->
+          <section id="remarks">
+            <div class="page-header">
+              <h2>备注</h2>
+            </div>
+            <p>
+              deque_at返回指向被访问的数据的指针。
+              cpdeq_deque必须已经初始化，否则函数的行为未定义。
+              t_pos必须是有效的下标，否则函数的行为是未定义的。
             </p>
           </section>
 
@@ -80,9 +123,62 @@
             <div class="page-header">
               <h2>示例代码</h2>
             </div>
-            <p>
-              请参考其他deque_t其他操作函数。
-            </p>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/manual/deque_at.c">
+                <i class="icon-download-alt"></i>
+              </a>
+<pre class="prettyprint linenums">
+/*
+ * deque_at.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cdeque.h&gt;
+
+int main(int argc, char* argv[])
+{
+    deque_t*    pdeq = create_deque(int);
+    int         i = 0;
+
+    if (pdeq == NULL) {
+        return -1;
+    }
+
+    deque_init_n(pdeq, 10);
+
+    printf("pdeq = ");
+    for (i = 0; i &lt; deque_size(pdeq); ++i) {
+        printf("%d ", *(int*)deque_at(pdeq, i));
+    }
+    printf("\n");
+
+    for (i = 0; i &lt; deque_size(pdeq); ++i) {
+        *(int*)deque_at(pdeq, i) += 100 * i;
+    }
+
+    printf("pdeq = ");
+    for (i = 0; i &lt; deque_size(pdeq); ++i) {
+        printf("%d ", *(int*)deque_at(pdeq, i));
+    }
+    printf("\n");
+
+    deque_destroy(pdeq);
+
+    return 0;
+}
+</pre>
+            </div>
+          </section>
+
+          <!-- output-result -->
+          <section id="output-result">
+            <div class="page-header">
+              <h2>输出结果</h2>
+            </div>
+<pre class="prettyprint">
+pdeq = 0 0 0 0 0 0 0 0 0 0 
+pdeq = 0 100 200 300 400 500 600 700 800 900 
+</pre>
           </section>
         </div>
       </div>

@@ -24,7 +24,7 @@
             <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
             <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
             <li><a href="deque.html">deque_t</a> <span class="divider">/</span></li>
-            <li class="active">deque_t</li>
+            <li class="active">deque_assign_array</li>
           </ul>
         </div>
     </div>
@@ -34,15 +34,19 @@
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix">
             <li class="bs-docs-first-item"><a href="#type-description"><i class="icon-chevron-right"></i>类型描述</a></li>
+            <li><a href="#prototype"><i class="icon-chevron-right"></i>函数原型</a></li>
+            <li><a href="#parameters"><i class="icon-chevron-right"></i>参数说明</a></li>
+            <li><a href="#remarks"><i class="icon-chevron-right"></i>备注</a></li>
             <li><a href="#prerequisite"><i class="icon-chevron-right"></i>前提条件</a></li>
             <li><a href="#version"><i class="icon-chevron-right"></i>版本</a></li>
-            <li class="bs-docs-last-item"><a href="#code-example"><i class="icon-chevron-right"></i>示例代码</a></li>
+            <li><a href="#code-example"><i class="icon-chevron-right"></i>示例代码</a></li>
+            <li class="bs-docs-last-item"><a href="#output-result"><i class="icon-chevron-right"></i>输出结果</a></li>
           </ul>
         </div>
 
         <div class="span9">
           <h1>
-            deque_t 
+            deque_assign_array 
           </h1>
 
           <!-- type-description -->
@@ -51,7 +55,49 @@
               <h2>类型描述</h2>
             </div>
             <p>
-              deque_t是双端队列容器类型。
+              使用指定的数组对双端队列容器赋值。
+            </p>
+          </section>
+
+          <!-- prototype -->
+          <section id="prototype">
+            <div class="page-header">
+              <h2>函数原型</h2>
+            </div>
+<pre class="prettyprint">
+void deque_assign_array(deque_t* pdeq_deque, const void* cpv_array, size_t t_count);
+</pre>
+          </section>
+
+          <!-- parameters -->
+          <section id="parameters">
+            <div class="page-header">
+              <h2>参数说明</h2>
+            </div>
+            <table class="table table-condensed">
+              <tr>
+                <th>pdeq_deque:</th>
+                <td>被赋值的双端队列容器。</td>
+              </tr>
+              <tr>
+                <th>cpv_array:</th>
+                <td>赋值的数组。</td>
+              </tr>
+              <tr>
+                <th>t_count:</th>
+                <td>数组元素个数。</td>
+              </tr>
+            </table>
+          </section>
+
+          <!-- remarks -->
+          <section id="remarks">
+            <div class="page-header">
+              <h2>备注</h2>
+            </div>
+            <p>
+              pdeq_deque必须已经初始化，否则函数的行为未定义。
+              cpv_array中包含的数据类型必须与pdeq_deque中的数据类型一致，否则函数的行为未定义。
             </p>
           </section>
 
@@ -71,7 +117,7 @@
               <h2>版本</h2>
             </div>
             <p>
-              所有版本。
+              2.1+
             </p>
           </section>
 
@@ -80,9 +126,68 @@
             <div class="page-header">
               <h2>示例代码</h2>
             </div>
-            <p>
-              请参考其他deque_t其他操作函数。
-            </p>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/manual/deque_assign_array.c">
+                <i class="icon-download-alt"></i>
+              </a>
+<pre class="prettyprint linenums">
+/*
+ * deque_assign_array.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/cdeque.h&gt;
+
+int main(int argc, char* argv[])
+{
+    deque_t*            pdeq = create_deque(int);
+    deque_iterator_t    it;
+    int                 an_array[] = {3, 90, -88, 2, 764, -92, 0, 1234, -2367, 4};
+
+    if (pdeq == NULL) {
+        return -1;
+    }
+
+    deque_init(pdeq);
+    deque_push_back(pdeq, 100);
+    deque_push_back(pdeq, 200);
+    deque_push_back(pdeq, 300);
+
+    printf("deq = ");
+    for (it = deque_begin(pdeq);
+         !iterator_equal(it, deque_end(pdeq));
+         it = iterator_next(it)) {
+        printf("%d ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    deque_assign_array(pdeq, an_array, 10);
+
+    printf("deq = ");
+    for (it = deque_begin(pdeq);
+         !iterator_equal(it, deque_end(pdeq));
+         it = iterator_next(it)) {
+        printf("%d ", *(int*)iterator_get_pointer(it));
+    }
+    printf("\n");
+
+    deque_destroy(pdeq);
+
+    return 0;
+}
+</pre>
+            </div>
+          </section>
+
+          <!-- output-result -->
+          <section id="output-result">
+            <div class="page-header">
+              <h2>输出结果</h2>
+            </div>
+<pre class="prettyprint">
+deq = 100 200 300 
+deq = 3 90 -88 2 764 -92 0 1234 -2367 4 
+</pre>
           </section>
         </div>
       </div>
