@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>libcstl | manual</title>
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="description" content="libcstl开源项目" />
+    <meta name="keywords" content="stl, c, c++, data structure, algorithm, SGI, container, iterator" />
+    <meta name="keywords" content="数据结构, 算法, 容器, 迭代器" lang="zh" />
+    <meta name="robots" content="all" />
+    <meta name="author" content="activesys.wb@gmail.com" />
+    <meta name="copyright" content="http://libcstl.org" />
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/libcstl.css">
+    <link rel="stylesheet" type="text/css" href="../../google-code-prettify/desert.css">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar" onload="prettyPrint()">
+    <div class="navbar-fixed-top">
+        <div class="container">
+          <ul class="breadcrumb">
+            <li><a class="brand" href="http://libcstl.org/">libcstl</a> <span class="divider">/</span></li>
+            <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
+            <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
+            <li class="active">list_t</li>
+          </ul>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix">
+            <li class="bs-docs-first-item"><a href="#introduce"><i class="icon-chevron-right"></i>简介</a></li>
+            <li><a href="#type-definition"><i class="icon-chevron-right"></i>类型定义</a></li>
+            <li class="bs-docs-last-item"><a href="#operations"><i class="icon-chevron-right"></i>操作函数</a></li>
+          </ul>
+        </div>
+
+        <div class="span9">
+          <h1>
+            双向链表容器list_t 
+          </h1>
+
+          <!-- introduce -->
+          <section id="introduce">
+            <div class="page-header">
+              <h2>简介</h2>
+            </div>
+            <p>
+              双向链表容器list_t是序列容器的一种，它以线性的方式保存数据，同时允许在任意位置高效的插入和删除数据，
+              但是不能够随机访问链表中的数据。从list_t中删除数据的时候，指向被删除数据的迭代器失效。
+            </p>
+          </section>
+
+          <!-- type-definition -->
+          <section id="type-definition">
+            <div class="page-header">
+              <h2>类型定义</h2>
+            </div>
+            <table class="table table-striped table-bordered">
+              <caption>表2-2-1 双向链表list_t容器类型定义</caption>
+              <thead>
+                <tr>
+                  <th>类型定义</th>
+                  <th>简要描述</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="list_t.html">list_t</a></td>
+                  <td>双向链表容器类型</td>
+                </tr>
+                <tr>
+                  <td><a href="list_iterator_t.html">list_iterator_t</a></td>
+                  <td>双向链表容器对应的迭代器类型</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- operations -->
+          <section id="operations">
+            <div class="page-header">
+              <h2>操作函数</h2>
+            </div>
+            <table class="table table-striped table-bordered">
+              <caption>表2-2-2 双向链表list_t容器操作函数</caption>
+              <thead>
+                <tr>
+                  <th>操作函数</th>
+                  <th>简要描述</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="create_list.html">create_list</a></td>
+                  <td>创建一个双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_assign.html">list_assign</a></td>
+                  <td>给双向链表容器赋值</td>
+                </tr>
+                <tr>
+                  <td><a href="list_assign_array.html">list_assign_array</a></td>
+                  <td>使用指定的数组给双向链表容器赋值</td>
+                </tr>
+                <tr>
+                  <td><a href="list_assign_elem.html">list_assign_elem</a></td>
+                  <td>使用指定数据给双向链表容器赋值</td>
+                </tr>
+                <tr>
+                  <td><a href="list_assign_range.html">list_assign_range</a></td>
+                  <td>使用指定范围的数据给双向链表容器赋值</td>
+                </tr>
+                <tr>
+                  <td><a href="list_back.html">list_back</a></td>
+                  <td>访问双向链表容器的最后一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_begin.html">list_begin</a></td>
+                  <td>返回指向双向链表容器中的第一个数据的迭代器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_clear.html">list_clear</a></td>
+                  <td>删除双向链表容器中的所有数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_destroy.html">list_destroy</a></td>
+                  <td>销毁双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_empty.html">list_empty</a></td>
+                  <td>测试双向链表容器是否为空</td>
+                </tr>
+                <tr>
+                  <td><a href="list_end.html">list_end</a></td>
+                  <td>返回指向双向链表容器末尾的迭代器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_equal.html">list_equal</a></td>
+                  <td>测试两个双向链表容器是否相等</td>
+                </tr>
+                <tr>
+                  <td><a href="list_erase.html">list_erase</a></td>
+                  <td>删除双向链表容器中指定位置的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_erase_range.html">list_erase_range</a></td>
+                  <td>删除双向链表容器中指定范围的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_front.html">list_front</a></td>
+                  <td>访问双向链表容器中的第一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_greater.html">list_greater</a></td>
+                  <td>测试第一个双向链表容器是否大于第二个双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_greater_equal.html">list_greater_equal</a></td>
+                  <td>测试第一个双向链表容器是否大于等于第二个双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_init.html">list_init</a></td>
+                  <td>初始化一个空的双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_init_copy.html">list_init_copy</a></td>
+                  <td>双向链表容器拷贝初始化函数</td>
+                </tr>
+                <tr>
+                  <td><a href="list_init_copy_array.html">list_init_copy_array</a></td>
+                  <td>使用数组初始化双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_init_copy_range.html">list_init_copy_range</a></td>
+                  <td>使用指定范围初始化双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_init_elem.html">list_init_elem</a></td>
+                  <td>使用指定数据初始化双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_init_n.html">list_init_n</a></td>
+                  <td>使用指定个数的默认数据初始化双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_insert.html">list_insert</a></td>
+                  <td>在指定的位置插入数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_insert_array.html">list_insert_array</a></td>
+                  <td>在指定的位置插入数组中的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_insert_n.html">list_insert_n</a></td>
+                  <td>在指定的位置插入多个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_insert_range.html">list_insert_range</a></td>
+                  <td>在指定的位置插入指定区间的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_less.html">list_less</a></td>
+                  <td>测试第一个双向链表容器是否小于第二个双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_less_equal.html">list_less_equal</a></td>
+                  <td>测试第一个双向链表容器是否小于等于第二个双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_max_size.html">list_max_size</a></td>
+                  <td>返回双向链表容器的最大可能长度</td>
+                </tr>
+                <tr>
+                  <td><a href="list_merge.html">list_merge</a></td>
+                  <td>合并两个有序的双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_merge_if.html">list_merge_if</a></td>
+                  <td>按照指定的规则合并两个有序的双向链表容器</td>
+                </tr>
+                <tr>
+                  <td><a href="list_not_equal.html">list_not_equal</a></td>
+                  <td>测试两个双向链表容器是否不等</td>
+                </tr>
+                <tr>
+                  <td><a href="list_pop_back.html">list_pop_back</a></td>
+                  <td>删除双向链表容器的最后一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_pop_front.html">list_pop_front</a></td>
+                  <td>删除双向链表容器的第一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_push_back.html">list_push_back</a></td>
+                  <td>在双向链表容器的末尾添加一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_push_front.html">list_push_front</a></td>
+                  <td>在双向链表容器的开头添加一个数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_remove.html">list_remove</a></td>
+                  <td>删除双向链表容器中的指定数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_remove_if.html">list_remove_if</a></td>
+                  <td>删除双向链表容器中符合规则的指定数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_resize.html">list_resize</a></td>
+                  <td>指定双向链表容器的长度，使用默认数据填充</td>
+                </tr>
+                <tr>
+                  <td><a href="list_resize_elem.html">list_resize_elem</a></td>
+                  <td>指定双向链表容器的长度，使用指定数据填充</td>
+                </tr>
+                <tr>
+                  <td><a href="list_reverse.html">list_reverse</a></td>
+                  <td>把双向链表容器中的数据逆序</td>
+                </tr>
+                <tr>
+                  <td><a href="list_size.html">list_size</a></td>
+                  <td>返回双向链表容器中数据的个数</td>
+                </tr>
+                <tr>
+                  <td><a href="list_sort.html">list_sort</a></td>
+                  <td>排序双向链表容器中的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_sort_if.html">list_sort_if</a></td>
+                  <td>按照指定规则排序双向链表容器中的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_splice.html">list_splice</a></td>
+                  <td>剪接双向链表容器中的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_splice_pos.html">list_splice_pos</a></td>
+                  <td>剪接双向链表容器中指定位置的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_splice_range.html">list_splice_range</a></td>
+                  <td>剪接双向链表容器中指定范围的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_swap.html">list_swap</a></td>
+                  <td>交换两个双向链表容器中的数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_unique.html">list_unique</a></td>
+                  <td>删除双向链表容器中相邻的重复数据</td>
+                </tr>
+                <tr>
+                  <td><a href="list_unique_if.html">list_unique_if</a></td>
+                  <td>删除双向链表容器中相邻的符合指定规则的数据</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+
+      <hr>
+      <footer>
+        <p id="copyright">
+          &copy; 2008 - 2014
+          <a href="http://libcstl.org/">libcstl.org</a>
+        </p>
+        <p id="github">
+          Published with
+          <a href="http://pages.github.com">Github Pages</a>
+        </p>
+      </footer>
+    </div>
+
+    <script src="../../javascripts/jquery-1.11.0.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../google-code-prettify/prettify.js"></script>
+  </body>
+</html>
+
