@@ -23,8 +23,8 @@
             <li><a class="brand" href="http://libcstl.org/">libcstl</a> <span class="divider">/</span></li>
             <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
             <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
-            <li><a href="deque.html">deque_t</a> <span class="divider">/</span></li>
-            <li class="active">deque_pop_back</li>
+            <li><a href="list.html">list_t</a> <span class="divider">/</span></li>
+            <li class="active">list_begin</li>
           </ul>
         </div>
     </div>
@@ -46,7 +46,7 @@
 
         <div class="span9">
           <h1>
-            deque_pop_back 
+            list_begin 
           </h1>
 
           <!-- type-description -->
@@ -55,7 +55,7 @@
               <h2>类型描述</h2>
             </div>
             <p>
-              删除双端队列容器中的最后一个数据。
+              返回指定双向链表容器中第一个数据的迭代器。
             </p>
           </section>
 
@@ -65,7 +65,7 @@
               <h2>函数原型</h2>
             </div>
 <pre class="prettyprint">
-void deque_pop_back(deque_t* pdeq_deque);
+list_iterator_t list_begin(const list_t* cplist_list);
 </pre>
           </section>
 
@@ -76,8 +76,8 @@ void deque_pop_back(deque_t* pdeq_deque);
             </div>
             <table class="table table-condensed">
               <tr>
-                <th>pdeq_deque:</th>
-                <td>双端队列容器。</td>
+                <th>cplist_list:</th>
+                <td>双向链表容器。</td>
               </tr>
             </table>
           </section>
@@ -88,8 +88,8 @@ void deque_pop_back(deque_t* pdeq_deque);
               <h2>备注</h2>
             </div>
             <p>
-              pdeq_deque必须有效的双端队列容器，否则函数行为未定义。
-              pdeq_deque不能为空，否则函数的行为是未定义的。
+              cplist_list必须已经初始化，否则函数的行为未定义。
+              cplist_list必须不能为空，否则函数的行为是未定义的。
             </p>
           </section>
 
@@ -99,7 +99,7 @@ void deque_pop_back(deque_t* pdeq_deque);
               <h2>前提条件</h2>
             </div>
             <p>
-              包含头文件&lt;cstl/cdeque.h&gt;。
+              包含头文件&lt;cstl/clist.h&gt;。
             </p>
           </section>
 
@@ -109,7 +109,7 @@ void deque_pop_back(deque_t* pdeq_deque);
               <h2>版本</h2>
             </div>
             <p>
-              所有版本。
+              所有版本
             </p>
           </section>
 
@@ -119,38 +119,38 @@ void deque_pop_back(deque_t* pdeq_deque);
               <h2>示例代码</h2>
             </div>
             <div class="code-example">
-              <a title="download sample code" href="/codes/manual/deque_pop_back.c">
+              <a title="download sample code" href="/codes/manual/list_begin.c">
                 <i class="icon-download-alt"></i>
               </a>
 <pre class="prettyprint linenums">
 /*
- * deque_pop_back.c
+ * list_begin.c
  */
 
 #include &lt;stdio.h&gt;
-#include &lt;cstl/cdeque.h&gt;
+#include &lt;cstl/clist.h&gt;
 
 int main(int argc, char* argv[])
 {
-    deque_t* pdeq = create_deque(int);
+    list_t*         plist = create_list(int);
+    list_iterator_t it;
 
-    if (pdeq == NULL) {
+    if (plist == NULL) {
         return -1;
     }
 
-    deque_init(pdeq);
+    list_init(plist);
 
-    deque_push_back(pdeq, 1);
-    deque_push_back(pdeq, 2);
+    list_push_back(plist, 1);
+    list_push_back(plist, 2);
 
-    printf("The first element is: %d\n", *(int*)deque_front(pdeq));
-    printf("The last element is: %d\n", *(int*)deque_back(pdeq));
+    it = list_begin(plist);
+    printf("The first element of l1 is %d\n", *(int*)iterator_get_pointer(it));
 
-    deque_pop_back(pdeq);
-    printf("After deleting the element at the end of the deque, the last element is %d\n",
-        *(int*)deque_back(pdeq));
+    *(int*)iterator_get_pointer(it) = 20;
+    printf("The first element of l1 is now %d\n", *(int*)iterator_get_pointer(it));
 
-    deque_destroy(pdeq);
+    list_destroy(plist);
 
     return 0;
 }
@@ -164,9 +164,8 @@ int main(int argc, char* argv[])
               <h2>输出结果</h2>
             </div>
 <pre class="prettyprint">
-The first element is: 1
-The last element is: 2
-After deleting the element at the end of the deque, the last element is 1
+The first element of l1 is 1
+The first element of l1 is now 20
 </pre>
           </section>
         </div>
