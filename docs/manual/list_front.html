@@ -24,7 +24,7 @@
             <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
             <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
             <li><a href="list.html">list_t</a> <span class="divider">/</span></li>
-            <li class="active">list_begin</li>
+            <li class="active">list_front</li>
           </ul>
         </div>
     </div>
@@ -46,7 +46,7 @@
 
         <div class="span9">
           <h1>
-            list_begin 
+            list_front 
           </h1>
 
           <!-- type-description -->
@@ -55,7 +55,7 @@
               <h2>类型描述</h2>
             </div>
             <p>
-              返回指定双向链表容器中第一个数据的迭代器。
+              删除双向链表容器中指定位置的数据。
             </p>
           </section>
 
@@ -65,7 +65,7 @@
               <h2>函数原型</h2>
             </div>
 <pre class="prettyprint">
-list_iterator_t list_begin(const list_t* cplist_list);
+void* list_front(const list_t* cplist_list);
 </pre>
           </section>
 
@@ -88,8 +88,9 @@ list_iterator_t list_begin(const list_t* cplist_list);
               <h2>备注</h2>
             </div>
             <p>
-              cplist_list必须已经初始化，否则函数的行为未定义。
-              cplist_list如果为空，list_begin和list_end返回值相同。
+              双向链表容器必须已经初始化，否则函数的行为未定义。
+              容器不能为空，否则函数行为未定义。
+              函数返回指向第一个数据的指针。
             </p>
           </section>
 
@@ -119,12 +120,12 @@ list_iterator_t list_begin(const list_t* cplist_list);
               <h2>示例代码</h2>
             </div>
             <div class="code-example">
-              <a title="download sample code" href="/codes/manual/list_begin.c">
+              <a title="download sample code" href="/codes/manual/list_front.c">
                 <i class="icon-download-alt"></i>
               </a>
 <pre class="prettyprint linenums">
 /*
- * list_begin.c
+ * list_front.c
  */
 
 #include &lt;stdio.h&gt;
@@ -132,8 +133,9 @@ list_iterator_t list_begin(const list_t* cplist_list);
 
 int main(int argc, char* argv[])
 {
-    list_t*         plist = create_list(int);
-    list_iterator_t it;
+    list_t* plist = create_list(int);
+    int*    pi = NULL;
+    int*    pj = NULL;
 
     if (plist == NULL) {
         return -1;
@@ -141,14 +143,14 @@ int main(int argc, char* argv[])
 
     list_init(plist);
 
-    list_push_back(plist, 1);
-    list_push_back(plist, 2);
+    list_push_back(plist, 10);
 
-    it = list_begin(plist);
-    printf("The first element of l1 is %d\n", *(int*)iterator_get_pointer(it));
+    pi = (int*)list_front(plist);
+    pj = (int*)list_front(plist);
 
-    *(int*)iterator_get_pointer(it) = 20;
-    printf("The first element of l1 is now %d\n", *(int*)iterator_get_pointer(it));
+    printf("The first integer of l1 is %d\n", *pi);
+    (*pi)++;
+    printf("The modified first integer of l1 is %d\n", *pj);
 
     list_destroy(plist);
 
@@ -164,8 +166,8 @@ int main(int argc, char* argv[])
               <h2>输出结果</h2>
             </div>
 <pre class="prettyprint">
-The first element of l1 is 1
-The first element of l1 is now 20
+The first integer of l1 is 10
+The modified first integer of l1 is 11
 </pre>
           </section>
         </div>
