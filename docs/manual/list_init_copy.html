@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>libcstl | manual</title>
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="description" content="libcstl开源项目" />
+    <meta name="keywords" content="stl, c, c++, data structure, algorithm, SGI, container, iterator" />
+    <meta name="keywords" content="数据结构, 算法, 容器, 迭代器" lang="zh" />
+    <meta name="robots" content="all" />
+    <meta name="author" content="activesys.wb@gmail.com" />
+    <meta name="copyright" content="http://libcstl.org" />
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/libcstl.css">
+    <link rel="stylesheet" type="text/css" href="../../google-code-prettify/desert.css">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar" onload="prettyPrint()">
+    <div class="navbar-fixed-top">
+        <div class="container">
+          <ul class="breadcrumb">
+            <li><a class="brand" href="http://libcstl.org/">libcstl</a> <span class="divider">/</span></li>
+            <li><a href="../../docs.html">文档</a> <span class="divider">/</span></li>
+            <li><a href="manual.html">参考手册</a> <span class="divider">/</span></li>
+            <li><a href="list.html">list_t</a> <span class="divider">/</span></li>
+            <li class="active">list_init_copy</li>
+          </ul>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix">
+            <li class="bs-docs-first-item"><a href="#type-description"><i class="icon-chevron-right"></i>类型描述</a></li>
+            <li><a href="#prototype"><i class="icon-chevron-right"></i>函数原型</a></li>
+            <li><a href="#parameters"><i class="icon-chevron-right"></i>参数说明</a></li>
+            <li><a href="#remarks"><i class="icon-chevron-right"></i>备注</a></li>
+            <li><a href="#prerequisite"><i class="icon-chevron-right"></i>前提条件</a></li>
+            <li><a href="#version"><i class="icon-chevron-right"></i>版本</a></li>
+            <li><a href="#code-example"><i class="icon-chevron-right"></i>示例代码</a></li>
+            <li class="bs-docs-last-item"><a href="#output-result"><i class="icon-chevron-right"></i>输出结果</a></li>
+          </ul>
+        </div>
+
+        <div class="span9">
+          <h1>
+            list_init_copy 
+          </h1>
+
+          <!-- type-description -->
+          <section id="type-description">
+            <div class="page-header">
+              <h2>类型描述</h2>
+            </div>
+            <p>
+              使用现有的双向链表容器进行初始化。
+            </p>
+          </section>
+
+          <!-- prototype -->
+          <section id="prototype">
+            <div class="page-header">
+              <h2>函数原型</h2>
+            </div>
+<pre class="prettyprint">
+void list_init_copy(list_t* plist_list, const list_t* cplist_src);
+</pre>
+          </section>
+
+          <!-- parameters -->
+          <section id="parameters">
+            <div class="page-header">
+              <h2>参数说明</h2>
+            </div>
+            <table class="table table-condensed">
+              <tr>
+                <th>plist_list:</th>
+                <td>被初始化的双向链表容器。</td>
+              </tr>
+              <tr>
+                <th>cplist_src:</th>
+                <td>源双向链表容器。</td>
+              </tr>
+            </table>
+          </section>
+
+          <!-- remarks -->
+          <section id="remarks">
+            <div class="page-header">
+              <h2>备注</h2>
+            </div>
+            <p>
+              两个双向链表容器包含的元素类型必须相同，否则函数的行为是未定义的。
+              源双向链表容器必须是已经初始化的，否则函数的行为是未定义的。
+              已经被初始化过的双向链表容器不能够再次被初始化，否则函数的行为是未定义的。
+            </p>
+          </section>
+
+          <!-- prerequisite -->
+          <section id="prerequisite">
+            <div class="page-header">
+              <h2>前提条件</h2>
+            </div>
+            <p>
+              包含头文件&lt;cstl/clist.h&gt;。
+            </p>
+          </section>
+
+          <!-- version -->
+          <section id="version">
+            <div class="page-header">
+              <h2>版本</h2>
+            </div>
+            <p>
+              所有版本
+            </p>
+          </section>
+
+          <!-- code-example -->
+          <section id="code-example">
+            <div class="page-header">
+              <h2>示例代码</h2>
+            </div>
+            <div class="code-example">
+              <a title="download sample code" href="/codes/manual/list_init_copy.c">
+                <i class="icon-download-alt"></i>
+              </a>
+<pre class="prettyprint linenums">
+/*
+ * list_init_copy.c
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;cstl/clist.h&gt;
+
+int main(int argc, char* argv[])
+{
+    list_t*         plist_l1 = NULL;
+    list_t*         plist_l2 = NULL;
+    list_t*         plist_src = NULL;
+    list_iterator_t it;
+
+    /* init src list */
+    plist_src = create_list(int);
+    if (plist_src == NULL) {
+        return -1;
+    }
+    list_init(plist_src);
+
+    /* init list l1 */
+    plist_l1 = create_list(int);
+    if (plist_l1 == NULL) {
+        list_destroy(plist_src);
+        return -1;
+    }
+
+    list_init_copy(plist_l1, plist_src);
+
+    if (list_empty(plist_l1)) {
+        printf("The list l1 is empty.\n");
+    } else {
+        printf("The list l1 is not empty.\n");
+    }
+
+    /* init list l2 */
+    list_push_back(plist_src, 1);
+    list_push_back(plist_src, 2);
+    list_push_back(plist_src, 3);
+
+    plist_l2 = create_list(int);
+    if (plist_l2 == NULL) {
+        list_destroy(plist_src);
+        list_destroy(plist_l1);
+        return -1;
+    }
+
+    list_init_copy(plist_l2, plist_src);
+    if (list_empty(plist_l2)) {
+        printf("The list l2 is empty.\n");
+    } else {
+        printf("The list l2 is not empty.\n");
+        printf("list l2: ");
+        for (it = list_begin(plist_l2);
+             !iterator_equal(it, list_end(plist_l2));
+             it = iterator_next(it)) {
+            printf("%d ", *(int*)iterator_get_pointer(it));
+        }
+        printf("\n");
+    }
+
+    list_destroy(plist_src);
+    list_destroy(plist_l1);
+    list_destroy(plist_l2);
+
+    return 0;
+}
+</pre>
+            </div>
+          </section>
+
+          <!-- output-result -->
+          <section id="output-result">
+            <div class="page-header">
+              <h2>输出结果</h2>
+            </div>
+<pre class="prettyprint">
+The list l1 is empty.
+The list l2 is not empty.
+list l2: 1 2 3 
+</pre>
+          </section>
+        </div>
+      </div>
+
+      <hr>
+      <footer>
+        <p id="copyright">
+          &copy; 2008 - 2015
+          <a href="http://libcstl.org/">libcstl.org</a>
+        </p>
+        <p id="github">
+          Published with
+          <a href="http://pages.github.com">Github Pages</a>
+        </p>
+      </footer>
+    </div>
+
+    <script src="../../javascripts/jquery-1.11.0.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../google-code-prettify/prettify.js"></script>
+  </body>
+</html>
+
