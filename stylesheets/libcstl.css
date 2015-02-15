@@ -158,6 +158,14 @@ section {
   color: #cd6839;
 }
 
+/* devel */
+.devel-title {
+  color: #227700;
+}
+.devel-subtitle {
+  color: #55aa00;
+}
+
 /* contributors */
 .contributors-title {
   color: #388e8e;
