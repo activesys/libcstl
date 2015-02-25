@@ -368,7 +368,7 @@ extern void map_clear(map_t* pmap_map);
  * @param cpmap_second        second map container.
  * @return if first map equal to second map, then return true, else return false.
  * @remarks if cpmap_first == NULL or cpmap_second == NULL, then the behavior is undefined. the two map must be
- *          initialized, otherwise the behavior is undefined. if the two map are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two map are not same type, the behavior is undefined.
  *          if cpmap_first == cpmap_second, then return true.
  */
 extern bool_t map_equal(const map_t* cpmap_first, const map_t* cpmap_second);
@@ -379,7 +379,7 @@ extern bool_t map_equal(const map_t* cpmap_first, const map_t* cpmap_second);
  * @param cpmap_second        second map container.
  * @return if first map not equal to second map, then return true, else return false.
  * @remarks if cpmap_first == NULL or cpmap_second == NULL, then the behavior is undefined. the two map must be
- *          initialized, otherwise the behavior is undefined. if the two map are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two map are not same type, the behavior is undefined.
  *          if cpmap_first == cpmap_second, then return false.
  */
 extern bool_t map_not_equal(const map_t* cpmap_first, const map_t* cpmap_second);

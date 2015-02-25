@@ -280,7 +280,7 @@ extern void hash_set_resize(hash_set_t* phset_set, size_t t_resize);
  * @param cphset_second        second hash_set container.
  * @return if first hash_set equal to second hash_set, then return true, else return false.
  * @remarks if cphset_first == NULL or cphset_second == NULL, then the behavior is undefined. the two hash_set must be
- *          initialized, otherwise the behavior is undefined. if the two hash_set are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hash_set are not same type, the behavior is undefined.
  *          if cphset_first == cphset_second, then return true.
  */
 extern bool_t hash_set_equal(const hash_set_t* cphset_first, const hash_set_t* cphset_second);
@@ -291,7 +291,7 @@ extern bool_t hash_set_equal(const hash_set_t* cphset_first, const hash_set_t* c
  * @param cphset_second        second hash_set container.
  * @return if first hash_set not equal to second hash_set, then return true, else return false.
  * @remarks if cphset_first == NULL or cphset_second == NULL, then the behavior is undefined. the two hash_set must be
- *          initialized, otherwise the behavior is undefined. if the two hash_set are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hash_set are not same type, the behavior is undefined.
  *          if cphset_first == cphset_second, then return false.
  */
 extern bool_t hash_set_not_equal(const hash_set_t* cphset_first, const hash_set_t* cphset_second);

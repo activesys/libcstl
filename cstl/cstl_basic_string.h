@@ -433,7 +433,7 @@ extern void* basic_string_at(const basic_string_t* cpt_basic_string, size_t t_po
  * @param cpt_second  second basic_string container.
  * @return if first basic_string equal to second basic_string, then return true, else return false.
  * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
- *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is undefined.
  *          if cpt_first == cpt_second, then return true.
  */
 extern bool_t basic_string_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second);
@@ -444,7 +444,7 @@ extern bool_t basic_string_equal(const basic_string_t* cpt_first, const basic_st
  * @param cpt_second  second basic_string container.
  * @return if first basic_string unequal to second basic_string, then return true, else return false.
  * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two basic_strings must be
- *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, then return true.
+ *          initialized, otherwise the behavior is undefined. if the two basic_strings are not same type, the behavior is undefined.
  *          if cpt_first == cpt_second, then return false.
  */
 extern bool_t basic_string_not_equal(const basic_string_t* cpt_first, const basic_string_t* cpt_second);

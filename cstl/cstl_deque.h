@@ -277,7 +277,7 @@ extern void deque_assign_array(deque_t* pdeq_deque, const void* cpv_array, size_
  * @param cpdeq_second  second deque container.
  * @return if first deque equal to second deque, then return true, else return false.
  * @remarks if cpdeq_first == NULL or cpdeq_second == NULL, then the behavior is undefined. the two deques must be
- *          initialized, otherwise the behavior is undefined. if the two deques are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two deques are not same type, the behavior is undefined.
  *          if cpdeq_first == cpdeq_second, then return true.
  */
 extern bool_t deque_equal(const deque_t* cpdeq_first, const deque_t* cpdeq_second);
@@ -288,7 +288,7 @@ extern bool_t deque_equal(const deque_t* cpdeq_first, const deque_t* cpdeq_secon
  * @param cpdeq_second  second deque container.
  * @return if first deque unequal to second deque, then return true, else return false.
  * @remarks if cpdeq_first == NULL or cpdeq_second == NULL, then the behavior is undefined. the two deques must be
- *          initialized, otherwise the behavior is undefined. if the two deques are not same type, then return true.
+ *          initialized, otherwise the behavior is undefined. if the two deques are not same type, the behavior is undefined.
  *          if cpdeq_first == cpdeq_second, then return false.
  */
 extern bool_t deque_not_equal(const deque_t* cpdeq_first, const deque_t* cpdeq_second);

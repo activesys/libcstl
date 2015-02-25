@@ -282,7 +282,7 @@ extern range_t _hashtable_equal_range(const _hashtable_t* cpt_hashtable, const v
  * @param cpt_second        second hashtable container.
  * @return if first hashtable equal to second hashtable, then return true, else return false.
  * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two hashtable must be
- *          initialized, otherwise the behavior is undefined. if the two hashtable are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hashtable are not same type, the behavior is undefined.
  *          if cpt_first == cpt_second, then return true.
  */
 extern bool_t _hashtable_equal(const _hashtable_t* cpt_first, const _hashtable_t* cpt_second);
@@ -293,7 +293,7 @@ extern bool_t _hashtable_equal(const _hashtable_t* cpt_first, const _hashtable_t
  * @param cpt_second        second hashtable container.
  * @return if first hashtable not equal to second hashtable, then return true, else return false.
  * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two hashtable must be
- *          initialized, otherwise the behavior is undefined. if the two hashtable are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hashtable are not same type, the behavior is undefined.
  *          if cpt_first == cpt_second, then return false.
  */
 extern bool_t _hashtable_not_equal(const _hashtable_t* cpt_first, const _hashtable_t* cpt_second);

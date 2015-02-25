@@ -301,7 +301,7 @@ extern void multiset_clear(multiset_t* pmset_mset);
  * @param cpmset_second        second multiset container.
  * @return if first multiset equal to second multiset, then return true, else return false.
  * @remarks if cpmset_first == NULL or cpmset_second == NULL, then the behavior is undefined. the two multiset must be
- *          initialized, otherwise the behavior is undefined. if the two multiset are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two multiset are not same type, the behavior is undefined.
  *          if cpmset_first == cpmset_second, then return true.
  */
 extern bool_t multiset_equal(const multiset_t* cpmset_first, const multiset_t* cpmset_second);
@@ -312,7 +312,7 @@ extern bool_t multiset_equal(const multiset_t* cpmset_first, const multiset_t* c
  * @param cpmset_second        second multiset container.
  * @return if first multiset not equal to second multiset, then return true, else return false.
  * @remarks if cpmset_first == NULL or cpmset_second == NULL, then the behavior is undefined. the two multiset must be
- *          initialized, otherwise the behavior is undefined. if the two multiset are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two multiset are not same type, the behavior is undefined.
  *          if cpmset_first == cpmset_second, then return false.
  */
 extern bool_t multiset_not_equal(const multiset_t* cpmset_first, const multiset_t* cpmset_second);

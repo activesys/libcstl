@@ -234,7 +234,7 @@ extern void vector_reserve(vector_t* pvec_vector, size_t t_reservesize);
  * @param cpvec_second  second vector container.
  * @return if first vector equal to second vector, then return true, else return false.
  * @remarks if cpvec_first == NULL or cpvec_second == NULL, then the behavior is undefined. the two vectors must be
- *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, the behavior is undefined.
  *          if cpvec_first == cpvec_second, then return true.
  */
 extern bool_t vector_equal(const vector_t* cpvec_first, const vector_t* cpvec_second);
@@ -245,7 +245,7 @@ extern bool_t vector_equal(const vector_t* cpvec_first, const vector_t* cpvec_se
  * @param cpvec_second  second vector container.
  * @return if first vector unequal to second vector, then return true, else return false.
  * @remarks if cpvec_first == NULL or cpvec_second == NULL, then the behavior is undefined. the two vectors must be
- *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, then return true.
+ *          initialized, otherwise the behavior is undefined. if the two vectors are not same type, the behavior is undefined.
  *          if cpvec_first == cpvec_second, then return false.
  */
 extern bool_t vector_not_equal(const vector_t* cpvec_first, const vector_t* cpvec_second);

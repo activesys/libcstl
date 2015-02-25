@@ -638,7 +638,7 @@ extern void slist_clear(slist_t* pslist_slist);
  * @param cpslist_second  second slist container.
  * @return if first slist equal to second slist, then return true, else return false.
  * @remarks if cpslist_first == NULL or cpslist_second == NULL, then the behavior is undefined. the two slists must be
- *          initialized, otherwise the behavior is undefined. if the two slists are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two slists are not same type, the behavior is undefined.
  *          if cpslist_first == cpslist_second, then return true.
  */
 extern bool_t slist_equal(const slist_t* cpslist_first, const slist_t* cpslist_second);
@@ -649,7 +649,7 @@ extern bool_t slist_equal(const slist_t* cpslist_first, const slist_t* cpslist_s
  * @param cpslist_second  second slist container.
  * @return if first slist unequal to second slist, then return true, else return false.
  * @remarks if cpslist_first == NULL or cpslist_second == NULL, then the behavior is undefined. the two slists must be
- *          initialized, otherwise the behavior is undefined. if the two slists are not same type, then return true.
+ *          initialized, otherwise the behavior is undefined. if the two slists are not same type, the behavior is undefined.
  *          if cpslist_first == cpslist_second, then return false.
  */
 extern bool_t slist_not_equal(const slist_t* cpslist_first, const slist_t* cpslist_second);

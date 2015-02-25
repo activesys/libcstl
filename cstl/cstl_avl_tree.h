@@ -310,7 +310,7 @@ extern range_t _avl_tree_equal_range(const _avl_tree_t* cpt_avl_tree, const void
  * @param cpt_second        second avl tree container.
  * @return if first avl tree equal to second avl tree, then return true, else return false.
  * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
- *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, the behavior is undefined.
  *          if cpt_first == cpt_second, then return true.
  */
 extern bool_t _avl_tree_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);
@@ -321,7 +321,7 @@ extern bool_t _avl_tree_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* c
  * @param cpt_second        second avl tree container.
  * @return if first avl tree not equal to second avl tree, then return true, else return false.
  * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two avl tree must be
- *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two avl tree are not same type, the behavior is undefined.
  *          if cpt_first == cpt_second, then return false.
  */
 extern bool_t _avl_tree_not_equal(const _avl_tree_t* cpt_first, const _avl_tree_t* cpt_second);

@@ -280,7 +280,7 @@ extern void hash_multiset_resize(hash_multiset_t* phmset_set, size_t t_resize);
  * @param cphmset_second        second hash_multiset container.
  * @return if first hash_multiset equal to second hash_multiset, then return true, else return false.
  * @remarks if cphmset_first == NULL or cphmset_second == NULL, then the behavior is undefined. the two hash_multiset must be
- *          initialized, otherwise the behavior is undefined. if the two hash_multiset are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hash_multiset are not same type, the behavior is undefined.
  *          if cphmset_first == cphmset_second, then return true.
  */
 extern bool_t hash_multiset_equal(const hash_multiset_t* cphmset_first, const hash_multiset_t* cphmset_second);
@@ -291,7 +291,7 @@ extern bool_t hash_multiset_equal(const hash_multiset_t* cphmset_first, const ha
  * @param cphmset_second        second hash_multiset container.
  * @return if first hash_multiset not equal to second hash_multiset, then return true, else return false.
  * @remarks if cphmset_first == NULL or cphmset_second == NULL, then the behavior is undefined. the two hash_multiset must be
- *          initialized, otherwise the behavior is undefined. if the two hash_multiset are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hash_multiset are not same type, the behavior is undefined.
  *          if cphmset_first == cphmset_second, then return false.
  */
 extern bool_t hash_multiset_not_equal(const hash_multiset_t* cphmset_first, const hash_multiset_t* cphmset_second);

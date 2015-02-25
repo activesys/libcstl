@@ -135,7 +135,7 @@ extern void stack_pop(stack_t* psk_stack);
  * @param cpsk_second  second stack adaptor.
  * @return if first stack equal to second stack, then return true, else return false.
  * @remarks if cpsk_first == NULL or cpsk_second == NULL, then the behavior is undefined. the two stacks must be
- *          initialized, otherwise the behavior is undefined. if the two stacks are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two stacks are not same type, the behavior is undefined.
  *          if cpsk_first == cpsk_second, then return true.
  */
 extern bool_t stack_equal(const stack_t* cpsk_first, const stack_t* cpsk_second);
@@ -146,7 +146,7 @@ extern bool_t stack_equal(const stack_t* cpsk_first, const stack_t* cpsk_second)
  * @param cpsk_second  second stack adaptor.
  * @return if first stack unequal to second stack, then return true, else return false.
  * @remarks if cpsk_first == NULL or cpsk_second == NULL, then the behavior is undefined. the two stacks must be
- *          initialized, otherwise the behavior is undefined. if the two stacks are not same type, then return true.
+ *          initialized, otherwise the behavior is undefined. if the two stacks are not same type, the behavior is undefined.
  *          if cpsk_first == cpsk_second, then return false.
  */
 extern bool_t stack_not_equal(const stack_t* cpsk_first, const stack_t* cpsk_second);

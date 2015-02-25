@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # libtool - Provide generalized library-building support services.
-# Generated automatically by config.status (libcstl) 2.2.0
+# Generated automatically by config.status (libcstl) 2.3.0
 # Libtool was configured on host activesys:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
@@ -237,7 +237,7 @@ hardcode_into_libs=yes
 sys_lib_search_path_spec="/usr/lib/gcc/x86_64-redhat-linux/4.4.7 /usr/lib64 /lib64"
 
 # Run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib /usr/lib64/atlas /usr/lib64/cmpi /usr/lib64/mysql /usr/lib64/opencryptoki /usr/lib64/opencryptoki/stdll /usr/lib64/oprofile /usr/lib64/qt-3.3/lib /usr/lib64/cmpi /usr/lib64/cmpi /usr/lib64/cmpi /usr/lib64/cmpi /usr/lib64/cmpi /usr/lib64/cmpi /usr/lib64/cmpi /usr/lib64/cmpi /usr/lib64/cmpi /usr/lib64/tcl8.5 /usr/lib64/xulrunner /usr/local/lib "
+sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib /usr/lib64/mysql "
 
 # Whether dlopen is supported.
 dlopen_support=unknown

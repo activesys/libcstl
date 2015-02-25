@@ -295,7 +295,7 @@ extern hash_map_iterator_t hash_map_end(const hash_map_t* cphmap_map);
  * @param cpmap_second        second hash_map container.
  * @return if first hash_map equal to second hash_map, then return true, else return false.
  * @remarks if cpmap_first == NULL or cpmap_second == NULL, then the behavior is undefined. the two hash_map must be
- *          initialized, otherwise the behavior is undefined. if the two hash_map are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hash_map are not same type, the behavior is undefined.
  *          if cpmap_first == cpmap_second, then return true.
  */
 extern bool_t hash_map_equal(const hash_map_t* cphmap_first, const hash_map_t* cphmap_second);
@@ -306,7 +306,7 @@ extern bool_t hash_map_equal(const hash_map_t* cphmap_first, const hash_map_t* c
  * @param cpmap_second        second hash_map container.
  * @return if first hash_map not equal to second hash_map, then return true, else return false.
  * @remarks if cpmap_first == NULL or cpmap_second == NULL, then the behavior is undefined. the two hash_map must be
- *          initialized, otherwise the behavior is undefined. if the two hash_map are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hash_map are not same type, the behavior is undefined.
  *          if cpmap_first == cpmap_second, then return false.
  */
 extern bool_t hash_map_not_equal(const hash_map_t* cphmap_first, const hash_map_t* cphmap_second);

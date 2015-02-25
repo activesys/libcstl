@@ -272,7 +272,7 @@ extern void multimap_clear(multimap_t* pmmap_map);
  * @param cpmap_second        second multimap container.
  * @return if first multimap equal to second multimap, then return true, else return false.
  * @remarks if cpmap_first == NULL or cpmap_second == NULL, then the behavior is undefined. the two multimap must be
- *          initialized, otherwise the behavior is undefined. if the two multimap are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two multimap are not same type, the behavior is undefined.
  *          if cpmap_first == cpmap_second, then return true.
  */
 extern bool_t multimap_equal(const multimap_t* cpmmap_first, const multimap_t* cpmmap_second);
@@ -283,7 +283,7 @@ extern bool_t multimap_equal(const multimap_t* cpmmap_first, const multimap_t* c
  * @param cpmap_second        second multimap container.
  * @return if first multimap not equal to second multimap, then return true, else return false.
  * @remarks if cpmap_first == NULL or cpmap_second == NULL, then the behavior is undefined. the two multimap must be
- *          initialized, otherwise the behavior is undefined. if the two multimap are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two multimap are not same type, the behavior is undefined.
  *          if cpmap_first == cpmap_second, then return false.
  */
 extern bool_t multimap_not_equal(const multimap_t* cpmmap_first, const multimap_t* cpmmap_second);

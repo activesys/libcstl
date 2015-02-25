@@ -327,7 +327,7 @@ extern range_t _rb_tree_equal_range(const _rb_tree_t* cpt_rb_tree, const void* c
  * @param cpt_second        second rb tree container.
  * @return if first rb tree equal to second rb tree, then return true, else return false.
  * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two rb tree must be
- *          initialized, otherwise the behavior is undefined. if the two rb tree are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two rb tree are not same type, the behavior is undefined.
  *          if cpt_first == cpt_second, then return true.
  */
 extern bool_t _rb_tree_equal(const _rb_tree_t* pt_first, const _rb_tree_t* cpt_second);
@@ -338,7 +338,7 @@ extern bool_t _rb_tree_equal(const _rb_tree_t* pt_first, const _rb_tree_t* cpt_s
  * @param cpt_second        second rb tree container.
  * @return if first rb tree not equal to second rb tree, then return true, else return false.
  * @remarks if cpt_first == NULL or cpt_second == NULL, then the behavior is undefined. the two rb tree must be
- *          initialized, otherwise the behavior is undefined. if the two rb tree are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two rb tree are not same type, the behavior is undefined.
  *          if cpt_first == cpt_second, then return false.
  */
 extern bool_t _rb_tree_not_equal(const _rb_tree_t* pt_first, const _rb_tree_t* cpt_second);

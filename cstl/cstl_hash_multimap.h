@@ -285,7 +285,7 @@ extern hash_multimap_iterator_t hash_multimap_end(const hash_multimap_t* cphmmap
  * @param cpmap_second        second hash_multimap container.
  * @return if first hash_multimap equal to second hash_multimap, then return true, else return false.
  * @remarks if cpmap_first == NULL or cpmap_second == NULL, then the behavior is undefined. the two hash_multimap must be
- *          initialized, otherwise the behavior is undefined. if the two hash_multimap are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hash_multimap are not same type, the behavior is undefined.
  *          if cpmap_first == cpmap_second, then return true.
  */
 extern bool_t hash_multimap_equal(const hash_multimap_t* cphmmap_first, const hash_multimap_t* cphmmap_second);
@@ -296,7 +296,7 @@ extern bool_t hash_multimap_equal(const hash_multimap_t* cphmmap_first, const ha
  * @param cpmap_second        second hash_multimap container.
  * @return if first hash_multimap not equal to second hash_multimap, then return true, else return false.
  * @remarks if cpmap_first == NULL or cpmap_second == NULL, then the behavior is undefined. the two hash_multimap must be
- *          initialized, otherwise the behavior is undefined. if the two hash_multimap are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two hash_multimap are not same type, the behavior is undefined.
  *          if cpmap_first == cpmap_second, then return false.
  */
 extern bool_t hash_multimap_not_equal(const hash_multimap_t* cphmmap_first, const hash_multimap_t* cphmmap_second);

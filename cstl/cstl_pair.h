@@ -133,7 +133,7 @@ extern void* pair_second(const pair_t* cppair_pair);
  * @param cppair_second        second pair container.
  * @return if first pair equal to second pair, then return true, else return false.
  * @remarks if cppair_first == NULL or cppair_second == NULL, then the behavior is undefined. the two pair must be
- *          initialized, otherwise the behavior is undefined. if the two pair are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two pair are not same type, the behavior is undefined.
  *          if cppair_first == cppair_second, then return true.
  */
 extern bool_t pair_equal(const pair_t* cppair_first, const pair_t* cppair_second);
@@ -144,7 +144,7 @@ extern bool_t pair_equal(const pair_t* cppair_first, const pair_t* cppair_second
  * @param cppair_second        second pair container.
  * @return if first pair not equal to second pair, then return true, else return false.
  * @remarks if cppair_first == NULL or cppair_second == NULL, then the behavior is undefined. the two pair must be
- *          initialized, otherwise the behavior is undefined. if the two pair are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two pair are not same type, the behavior is undefined.
  *          if cppair_first == cppair_second, then return false.
  */
 extern bool_t pair_not_equal(const pair_t* cppair_first, const pair_t* cppair_second);

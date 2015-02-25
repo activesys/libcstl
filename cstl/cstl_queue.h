@@ -144,7 +144,7 @@ extern void queue_pop(queue_t* pque_queue);
  * @param cpque_second  second queue adaptor.
  * @return if first queue equal to second queue, then return true, else return false.
  * @remarks if cpque_first == NULL or cpque_second == NULL, then the behavior is undefined. the two queues must be
- *          initialized, otherwise the behavior is undefined. if the two queues are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two queues are not same type, the behavior is undefined.
  *          if cpque_first == cpque_second, then return true.
  */
 extern bool_t queue_equal(const queue_t* cpque_first, const queue_t* cpque_second);
@@ -155,7 +155,7 @@ extern bool_t queue_equal(const queue_t* cpque_first, const queue_t* cpque_secon
  * @param cpque_second  second queue adaptor.
  * @return if first queue unequal to second queue, then return true, else return false.
  * @remarks if cpque_first == NULL or cpque_second == NULL, then the behavior is undefined. the two queues must be
- *          initialized, otherwise the behavior is undefined. if the two queues are not same type, then return true.
+ *          initialized, otherwise the behavior is undefined. if the two queues are not same type, the behavior is undefined.
  *          if cpque_first == cpque_second, then return false.
  */
 extern bool_t queue_not_equal(const queue_t* cpque_first, const queue_t* cpque_second);

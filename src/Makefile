@@ -161,12 +161,12 @@ DIST_SOURCES = $(libcstl_la_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/wb/Projects/git/libcstl/missing --run aclocal-1.11
-AMTAR = ${SHELL} /home/wb/Projects/git/libcstl/missing --run tar
+ACLOCAL = ${SHELL} /home/wangbo/projects/libcstl/missing --run aclocal-1.11
+AMTAR = ${SHELL} /home/wangbo/projects/libcstl/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/wb/Projects/git/libcstl/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/wb/Projects/git/libcstl/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/wb/Projects/git/libcstl/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/wangbo/projects/libcstl/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/wangbo/projects/libcstl/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/wangbo/projects/libcstl/missing --run automake-1.11
 AWK = gawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
@@ -198,7 +198,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/wb/Projects/git/libcstl/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/wangbo/projects/libcstl/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
@@ -209,20 +209,20 @@ OTOOL64 =
 PACKAGE = libcstl
 PACKAGE_BUGREPORT = activesys.wb@gmail.com
 PACKAGE_NAME = libcstl
-PACKAGE_STRING = libcstl 2.2.0
+PACKAGE_STRING = libcstl 2.3.0
 PACKAGE_TARNAME = libcstl
-PACKAGE_VERSION = 2.2.0
+PACKAGE_VERSION = 2.3.0
 PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 2.2.0
-abs_builddir = /home/wb/Projects/git/libcstl/src
-abs_srcdir = /home/wb/Projects/git/libcstl/src
-abs_top_builddir = /home/wb/Projects/git/libcstl
-abs_top_srcdir = /home/wb/Projects/git/libcstl
+VERSION = 2.3.0
+abs_builddir = /home/wangbo/projects/libcstl/src
+abs_srcdir = /home/wangbo/projects/libcstl/src
+abs_top_builddir = /home/wangbo/projects/libcstl
+abs_top_srcdir = /home/wangbo/projects/libcstl
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
 am__include = include
@@ -250,7 +250,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/wb/Projects/git/libcstl/install-sh
+install_sh = ${SHELL} /home/wangbo/projects/libcstl/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -308,7 +308,7 @@ libcstl_la_SOURCES = \
              cstl_vector.c cstl_vector_iterator.c cstl_vector_private.c cstl_vector_aux.c cstl_vector_aux.h
 
 libcstl_la_CPPFLAGS = -I$(srcdir)/..
-libcstl_la_LDFLAGS = -version-info 4:0:2
+libcstl_la_LDFLAGS = -version-info 5:0:3
 all: all-am
 
 .SUFFIXES:

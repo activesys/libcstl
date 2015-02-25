@@ -233,7 +233,7 @@ extern size_t list_max_size(const list_t* cplist_list);
  * @param cplist_second  second list container.
  * @return if first list equal to second list, then return true, else return false.
  * @remarks if cplist_first == NULL or cplist_second == NULL, then the behavior is undefined. the two lists must be
- *          initialized, otherwise the behavior is undefined. if the two lists are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two lists are not same type, the behavior is undefined.
  *          if cplist_first == cplist_second, then return true.
  */
 extern bool_t list_equal(const list_t* cplist_first, const list_t* cplist_second);
@@ -244,7 +244,7 @@ extern bool_t list_equal(const list_t* cplist_first, const list_t* cplist_second
  * @param cplist_second  second list container.
  * @return if first list unequal to second list, then return true, else return false.
  * @remarks if cplist_first == NULL or cplist_second == NULL, then the behavior is undefined. the two lists must be
- *          initialized, otherwise the behavior is undefined. if the two lists are not same type, then return true.
+ *          initialized, otherwise the behavior is undefined. if the two lists are not same type, the behavior is undefined.
  *          if cplist_first == cplist_second, then return false.
  */
 extern bool_t list_not_equal(const list_t* cplist_first, const list_t* cplist_second);

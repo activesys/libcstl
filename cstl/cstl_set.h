@@ -302,7 +302,7 @@ extern void set_clear(set_t* pset_set);
  * @param cpset_second        second set container.
  * @return if first set equal to second set, then return true, else return false.
  * @remarks if cpset_first == NULL or cpset_second == NULL, then the behavior is undefined. the two set must be
- *          initialized, otherwise the behavior is undefined. if the two set are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two set are not same type, the behavior is undefined.
  *          if cpset_first == cpset_second, then return true.
  */
 extern bool_t set_equal(const set_t* cpset_first, const set_t* cpset_second);
@@ -313,7 +313,7 @@ extern bool_t set_equal(const set_t* cpset_first, const set_t* cpset_second);
  * @param cpset_second        second set container.
  * @return if first set not equal to second set, then return true, else return false.
  * @remarks if cpset_first == NULL or cpset_second == NULL, then the behavior is undefined. the two set must be
- *          initialized, otherwise the behavior is undefined. if the two set are not same type, then return false.
+ *          initialized, otherwise the behavior is undefined. if the two set are not same type, the behavior is undefined.
  *          if cpset_first == cpset_second, then return false.
  */
 extern bool_t set_not_equal(const set_t* cpset_first, const set_t* cpset_second);
