@@ -389,12 +389,8 @@ void deque_assign_range(deque_t* pdeq_deque, iterator_t it_begin, iterator_t it_
     assert(_deque_is_inited(pdeq_deque));
     assert(_deque_same_iterator_type(pdeq_deque, it_begin));
     assert(_deque_same_iterator_type(pdeq_deque, it_end));
-    /*assert(!_deque_iterator_belong_to_deque(pdeq_deque, it_begin));*/
-    /*assert(!_deque_iterator_belong_to_deque(pdeq_deque, it_end));*/
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));
 
-    /* init the dest deque with the distance between it_begin and it_end, compare and element destroy function. */
-    deque_resize(pdeq_deque, iterator_distance(it_begin, it_end));
     it_dest_begin = deque_begin(pdeq_deque);
     it_dest_end = deque_end(pdeq_deque);
 
@@ -408,7 +404,15 @@ void deque_assign_range(deque_t* pdeq_deque, iterator_t it_begin, iterator_t it_
             _iterator_get_pointer_ignore_cstr(it_src), &b_result);
         assert(b_result);
     }
-    assert(iterator_equal(it_dest, it_dest_end) && iterator_equal(it_src, it_end));
+
+    if (deque_size(pdeq_deque) < iterator_distance(it_begin, it_end)) {
+        assert(iterator_equal(it_dest, it_dest_end) && _iterator_before(it_src, it_end));
+        deque_insert_range(pdeq_deque, it_dest, it_src, it_end);
+    } else {
+        assert((_iterator_before(it_dest, it_dest_end) || iterator_equal(it_dest, it_dest_end)) &&
+               iterator_equal(it_src, it_end));
+        deque_erase_range(pdeq_deque, it_dest, it_dest_end);
+    }
 }
 
 /**
