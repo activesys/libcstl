@@ -704,8 +704,6 @@ void deque_insert_range(deque_t* pdeq_deque, deque_iterator_t it_pos, iterator_t
     assert(pdeq_deque != NULL);
     assert(_deque_is_inited(pdeq_deque));
     assert(_deque_iterator_belong_to_deque(pdeq_deque, it_pos));
-    /*assert(!_deque_iterator_belong_to_deque(pdeq_deque, it_begin));*/
-    /*assert(!_deque_iterator_belong_to_deque(pdeq_deque, it_end));*/
     assert(_deque_same_iterator_type(pdeq_deque, it_begin));
     assert(_deque_same_iterator_type(pdeq_deque, it_end));
     assert(iterator_equal(it_begin, it_end) || _iterator_before(it_begin, it_end));

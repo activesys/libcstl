@@ -344,6 +344,10 @@ void test_deque_insert_range__valid_range_belong_to_deque_insert_not_empty_begin
 void test_deque_insert_range__valid_range_belong_to_deque_insert_not_empty_middle(void** state);
 void test_deque_insert_range__valid_range_belong_to_deque_insert_not_empty_end(void** state);
 void test_deque_insert_range__valid_range_belong_to_deque_insert_full(void** state);
+void test_deque_insert_range__valid_range_belong_to_deque_front_elembefore_greater_equal_n(void** state);
+void test_deque_insert_range__valid_range_belong_to_deque_front_elembefore_less_n(void** state);
+void test_deque_insert_range__valid_range_belong_to_deque_back_elemafter_greater_n(void** state);
+void test_deque_insert_range__valid_range_belong_to_deque_back_elemafter_less_equal_n(void** state);
 void test_deque_insert_range__empty_insert_0(void** state);
 void test_deque_insert_range__empty_insert_10(void** state);
 void test_deque_insert_range__begin_insert_0(void** state);
@@ -652,6 +656,10 @@ void test_deque_resize__successfully_10_resize_1000(void** state);
     UT_CASE(test_deque_insert_range__valid_range_belong_to_deque_insert_not_empty_middle),\
     UT_CASE(test_deque_insert_range__valid_range_belong_to_deque_insert_not_empty_end),\
     UT_CASE(test_deque_insert_range__valid_range_belong_to_deque_insert_full),\
+    UT_CASE(test_deque_insert_range__valid_range_belong_to_deque_front_elembefore_greater_equal_n),\
+    UT_CASE(test_deque_insert_range__valid_range_belong_to_deque_front_elembefore_less_n),\
+    UT_CASE(test_deque_insert_range__valid_range_belong_to_deque_back_elemafter_greater_n),\
+    UT_CASE(test_deque_insert_range__valid_range_belong_to_deque_back_elemafter_less_equal_n),\
     UT_CASE(test_deque_insert_range__empty_insert_0),\
     UT_CASE(test_deque_insert_range__empty_insert_10),\
     UT_CASE(test_deque_insert_range__begin_insert_0),\
